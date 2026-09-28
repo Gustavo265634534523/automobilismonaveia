@@ -1,0 +1,24 @@
+# Só vai para o GitHub o que o site usa no ar (site grátis, sem contas)
+_brutos/
+_privado/
+_ferramentas/
+api/
+router.php
+.htaccess
+SKILL.md
+Hero page.jpg
+categorias.png
+exemplo.mp4
+menu eu quero assim.pdf
+moto cross.webp
+moto gp.webp
+planos.html
+conta.html
+entrar.html
+painel.html
+assets/js/conta.js
+assets/js/planos.js
+*.log
+*.sqlite
+.claude/
+assets/css/conta.css

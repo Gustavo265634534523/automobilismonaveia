@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/idioma.js"></script>
+<title>Raio-x pós-corrida | Automobilismo Na Veia</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141619">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Na Veia">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css">
+<link rel="stylesheet" href="assets/css/raiox.css">
+</head>
+<body>
+<a class="pular" href="#rx">Pular para o conteúdo</a>
+<header id="topo"></header>
+
+<main class="rx-main" id="rx">
+  <div class="moldura">
+    <p class="rx-selo">Grátis, com dados reais</p>
+    <h1 class="rx-titulo" id="rx-titulo">Raio-x pós-corrida</h1>
+    <p class="rx-sub" id="rx-sub"></p>
+
+    <div class="rx-destaques" id="rx-destaques"></div>
+
+    <section class="rx-bloco" aria-labelledby="rx-pos-t">
+      <div class="rx-bloco-cab">
+        <h2 id="rx-pos-t">Posições volta a volta</h2>
+        <p>Escolha até 4 pilotos para destacar. Passe o mouse ou o dedo no gráfico para ver cada volta.</p>
+      </div>
+      <div class="rx-chips" id="rx-chips" role="group" aria-label="Pilotos em destaque"></div>
+      <div class="rx-graf" id="rx-graf"></div>
+    </section>
+
+    <section class="rx-bloco" aria-labelledby="rx-pn-t">
+      <div class="rx-bloco-cab">
+        <h2 id="rx-pn-t">Pneus e paradas</h2>
+        <p>Cada barra é a corrida de um piloto, na ordem de chegada. As divisões são os pit stops, e o número no fim é o tempo total no pit lane.</p>
+      </div>
+      <div class="rx-legenda" id="rx-legenda"></div>
+      <div class="rx-pneus" id="rx-pneus"></div>
+    </section>
+
+    <section class="rx-bloco" aria-labelledby="rx-tab-t">
+      <div class="rx-bloco-cab">
+        <h2 id="rx-tab-t">Resultado completo</h2>
+      </div>
+      <div class="tabela-wrap" id="rx-tabela"></div>
+      <p class="nota" id="rx-fonte"></p>
+    </section>
+  </div>
+  <div class="rx-dica" id="rx-dica" role="status" aria-live="polite" hidden></div>
+</main>
+
+<footer id="rodape"></footer>
+
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/dados/raiox-f1.js"></script>
+<script src="assets/js/raiox.js"></script>
+</body>
+</html>

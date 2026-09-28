@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/idioma.js"></script>
+<title>Notícias | Automobilismo Na Veia</title>
+<meta name="description" content="Tudo o que está acontecendo no automobilismo: Fórmula 1, MotoGP, Stock Car, Endurance, Rally, NASCAR e mais. Resultados, bastidores e mercado de pilotos em português.">
+<meta name="theme-color" content="#141619">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Na Veia">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:title" content="Notícias | Automobilismo Na Veia">
+<meta property="og:description" content="Tudo o que está acontecendo no automobilismo, em português.">
+<meta property="og:image" content="assets/img/cat/f1.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css">
+<link rel="stylesheet" href="assets/css/noticias.css">
+</head>
+<body data-pagina="noticias">
+<a class="pular" href="#feed">Pular para o conteúdo</a>
+<header id="topo"></header>
+
+<main class="nt">
+  <div class="moldura">
+    <div class="nt-cab">
+      <h1>Notícias</h1>
+      <p>Tudo o que está acontecendo no automobilismo, das pistas aos bastidores. <span id="nt-atualizado"></span></p>
+    </div>
+
+    <section class="nt-manchetes" id="manchetes" aria-label="Manchetes"></section>
+
+    <div class="nt-corpo">
+      <section class="nt-feed" id="feed" aria-labelledby="feed-t">
+        <div class="nt-feed-cab">
+          <h2 id="feed-t">Últimas notícias</h2>
+          <div class="nt-filtros" id="filtros" role="group" aria-label="Filtrar por categoria"></div>
+        </div>
+        <div id="lista"></div>
+      </section>
+
+      <aside class="nt-lado" aria-labelledby="olho-t">
+        <div class="nt-caixa">
+          <h2 id="olho-t">Fique de olho</h2>
+          <ul class="nt-olho" id="olho"></ul>
+        </div>
+        <div class="nt-caixa">
+          <h2>Quem lidera</h2>
+          <ul class="nt-lideres" id="lideres"></ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer id="rodape"></footer>
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/noticias-gerais.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/noticias.js"></script>
+</body>
+</html>
