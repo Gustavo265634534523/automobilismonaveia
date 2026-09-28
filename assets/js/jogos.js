@@ -1,8 +1,9 @@
-/* Jogos (grátis para todos): Largada, Adivinhe o circuito, Piloto misterioso e Chefe de Equipe. */
+/* Jogos do plano Master: Largada, Adivinhe o circuito e Piloto misterioso.
+   Só abre para quem está logado com o plano Master. No computador (localhost, sem servidor PHP) abre em modo de teste. */
 (function () {
   var esc = window.esc;
   var caixa = document.getElementById('jg-conteudo');
-  var local = /^(localhost|127\.0\.0\.1|)$/.test(location.hostname);
+  var local = !!window.NAVEIA_TESTE;
 
   function guardar(chave, valor) { try { localStorage.setItem('naveia-jogo-' + chave, JSON.stringify(valor)); } catch (e) {} }
   function ler(chave, padrao) { try { var v = localStorage.getItem('naveia-jogo-' + chave); return v ? JSON.parse(v) : padrao; } catch (e) { return padrao; } }
@@ -21,10 +22,10 @@
       '<li><b>Chefe de Equipe</b>Escolha a cor do seu carro e comande a estratégia: ritmo, pit stop e pneus.</li></ul></div>';
   }
   window.NAVEIA_EU.then(function (r) {
-    if (r.gratis) return liberar(false);
     if (r.semServidor) {
       if (local) return liberar(true);
-      return bloquear('Jogos indisponíveis agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="jogos.html">Tentar de novo</a>');
+      if (!window.NAVEIA_PC) return bloquear('Jogos indisponíveis agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="jogos.html">Tentar de novo</a>');
+      r = { logado: false };
     }
     if (!r.logado) return bloquear('Exclusivo do plano Master', 'Entre na sua conta para jogar. Se ainda não assina, conheça o Master.', '<a class="pl-botao" href="entrar.html?volta=jogos.html">Entrar</a><a class="pl-botao pl-botao-linha" href="planos.html">Ver os planos</a>');
     if (r.usuario.plano !== 'master') return bloquear('Exclusivo do plano Master', 'Seu plano atual não inclui os jogos. Mude para o Master e libere os três.', '<a class="pl-botao" href="planos.html">Conhecer o Master</a>');

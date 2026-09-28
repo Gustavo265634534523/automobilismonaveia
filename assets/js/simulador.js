@@ -218,7 +218,7 @@
   if (so) { comecar(); return; } /* demonstração da página inicial: livre para todos */
 
   /* Simulador completo: só para o plano Master. No computador (localhost, sem servidor PHP) abre em modo de teste. */
-  var local = /^(localhost|127.0.0.1|)$/.test(location.hostname);
+  var local = !!window.NAVEIA_TESTE;
   if (abas) abas.hidden = true;
   caixa.innerHTML = '<p class="nota">Carregando…</p>';
   function trava(titulo, texto, botoes) {
@@ -226,9 +226,9 @@
       '<h2>' + titulo + '</h2><p>' + texto + '</p><div class="sm-trava-acoes">' + botoes + '</div>' +
       '<p class="sm-trava-demo">Quer experimentar antes? A <a href="index.html#simulador-demo">demonstração só da Fórmula 1</a> está liberada na página inicial.</p></div>';
   }
-  (window.NAVEIA_EU || Promise.resolve({ gratis: true })).then(function (r) {
-    if (r.gratis) { /* site grátis: liberado para todos */ }
-    else if (r.semServidor) {
+  (window.NAVEIA_EU || Promise.resolve({ semServidor: true })).then(function (r) {
+    if (r.semServidor && !local && window.NAVEIA_PC) r = { logado: false };
+    if (r.semServidor) {
       if (!local) return trava('Simulador indisponível agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="simulador.html">Tentar de novo</a>');
       caixa.insertAdjacentHTML('beforebegin', '<p class="sm-teste">Modo de teste no seu computador. No site no ar, só assinantes Master veem esta página.</p>');
     } else if (!r.logado) {

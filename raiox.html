@@ -19,14 +19,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/estilo.css">
 <link rel="stylesheet" href="assets/css/raiox.css">
+<link rel="stylesheet" href="assets/css/planos.css">
 </head>
 <body>
 <a class="pular" href="#rx">Pular para o conteúdo</a>
 <header id="topo"></header>
 
-<main class="rx-main" id="rx">
+<main class="rx-main" id="rx" style="visibility:hidden">
   <div class="moldura">
-    <p class="rx-selo">Grátis, com dados reais</p>
+    <p class="rx-selo">Exclusivo do plano Master, com dados reais</p>
     <h1 class="rx-titulo" id="rx-titulo">Raio-x pós-corrida</h1>
     <p class="rx-sub" id="rx-sub"></p>
 
@@ -67,5 +68,23 @@
 <script src="assets/js/site.js"></script>
 <script src="assets/dados/raiox-f1.js"></script>
 <script src="assets/js/raiox.js"></script>
+<script>
+  /* Raio-x: só para o plano Master (no computador, só com ?teste=1) */
+  (function () {
+    var main = document.getElementById('rx');
+    function trava(titulo, texto, botoes) {
+      main.querySelector('.moldura').innerHTML = '<div class="sm-trava"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>' +
+        '<h2>' + titulo + '</h2><p>' + texto + '</p><div class="sm-trava-acoes">' + botoes + '</div></div>';
+      main.style.visibility = '';
+    }
+    window.NAVEIA_EU.then(function (r) {
+      if (r.semServidor && window.NAVEIA_TESTE) { main.style.visibility = ''; return; }
+      if (r.semServidor && !window.NAVEIA_PC) return trava('Raio-x indisponível agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="raiox.html">Tentar de novo</a>');
+      if (!r.logado) return trava('Exclusivo do plano Master', 'Entre na sua conta para ver o Raio-x pós-corrida. Se ainda não assina, conheça o Master.', '<a class="pl-botao" href="entrar.html?volta=raiox.html">Entrar</a><a class="pl-botao pl-botao-linha" href="planos.html">Ver os planos</a>');
+      if (r.usuario.plano !== 'master') return trava('Exclusivo do plano Master', 'Seu plano atual não inclui o Raio-x. Mude para o Master e veja cada corrida por dentro.', '<a class="pl-botao" href="planos.html">Conhecer o Master</a>');
+      main.style.visibility = '';
+    });
+  })();
+</script>
 </body>
 </html>

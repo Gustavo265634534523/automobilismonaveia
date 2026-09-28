@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/idioma.js"></script>
+<title>Minha conta | Automobilismo Na Veia</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#141619">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Na Veia">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css">
+<link rel="stylesheet" href="assets/css/planos.css">
+<link rel="stylesheet" href="assets/css/conta.css">
+</head>
+<body data-pagina="conta">
+<a class="pular" href="#conta">Pular para o conteúdo</a>
+<header id="topo"></header>
+
+<main class="ct-main" id="conta">
+  <div class="moldura">
+    <div class="ct-cab">
+      <div><p class="ct-ola" id="ct-ola">Minha conta</p><h1 id="ct-titulo">Seu cockpit.</h1></div>
+      <div class="ct-cab-acoes"><a class="pl-botao ct-painel-btn" href="painel.html">Abrir área do assinante</a><button type="button" class="ct-sair" id="ct-sair">Sair</button></div>
+    </div>
+
+    <div class="ct-grade">
+      <section class="ct-bloco ct-plano" aria-labelledby="ct-plano-t">
+        <h2 id="ct-plano-t">Seu plano</h2>
+        <div id="ct-plano"></div>
+      </section>
+
+      <section class="ct-bloco ct-avisos" aria-labelledby="ct-avisos-t">
+        <div class="ct-bloco-cab"><h2 id="ct-avisos-t">Avisos</h2><button type="button" class="ct-mini" id="ct-teste">Mandar aviso de teste</button></div>
+        <ol class="ct-lista-avisos" id="ct-avisos"></ol>
+      </section>
+
+      <section class="ct-bloco" aria-labelledby="ct-cats-t">
+        <h2 id="ct-cats-t">Suas categorias</h2>
+        <p class="ct-sub">Os alertas e a sua área do assinante mostram só estas. Sem nenhuma marcada, você recebe todas.</p>
+        <div class="ct-cats" id="ct-cats"></div>
+        <p class="ct-ok" id="ct-cats-ok" role="status" hidden>Categorias salvas.</p>
+      </section>
+
+      <section class="ct-bloco" aria-labelledby="ct-tg-t">
+        <h2 id="ct-tg-t">Avisos no celular pelo Telegram</h2>
+        <div id="ct-tg"></div>
+      </section>
+
+      <section class="ct-bloco" aria-labelledby="ct-ag-t">
+        <h2 id="ct-ag-t">Sessões na agenda do celular</h2>
+        <div id="ct-agenda"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer id="rodape"></footer>
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/conta.js"></script>
+</body>
+</html>

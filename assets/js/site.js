@@ -45,9 +45,10 @@
         '<div class="app-caixa"><button type="button" class="app-btn" id="app-btn" aria-expanded="false" aria-controls="app-menu" aria-label="Obter aplicativo" title="Obter aplicativo">' +
         '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="1" width="8" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 12.5h2" stroke="currentColor" stroke-width="1.5"/></svg>' +
         '<span class="app-txt">Obter aplicativo</span>' + seta.replace('<svg', '<svg class="app-seta"') + '</button><div class="app-menu" id="app-menu" hidden></div></div>' +
+        '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
         '<button type="button" class="idioma-btn" id="idioma-btn" data-sem-traducao aria-label="' + (window.LANG === 'en' ? 'Change the site language' : 'Mudar o idioma do site') + '" title="' + (window.LANG === 'en' ? 'Português' : 'English') + '">' +
           '<span' + (window.LANG !== 'en' ? ' class="ativo"' : '') + '>PT</span><i aria-hidden="true"></i><span' + (window.LANG === 'en' ? ' class="ativo"' : '') + '>EN</span></button>' +
-        '<a class="planos-btn" href="jogos.html"' + (location.pathname.indexOf('jogos') > -1 ? ' aria-current="page"' : '') + '>Jogos</a>' +
+        '<a class="planos-btn" href="planos.html"' + (location.pathname.indexOf('planos') > -1 ? ' aria-current="page"' : '') + '>Planos</a>' +
         '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Todas as categorias</span>' +
         '<span class="grade-ic" aria-hidden="true">' + new Array(10).join('<i></i>') + '</span><span class="sr">Abrir todas as categorias</span></button>' +
       '</div>';
@@ -62,15 +63,23 @@
       }).join('') + '</ul></section>';
     }).join('') +
       '<section class="painel-planos" aria-labelledby="painel-planos-t">' +
-        '<div class="painel-planos-cab"><h2 id="painel-planos-t">Mais do Na Veia</h2><p>Tudo de graça, para todo mundo.</p></div>' +
-        '<div class="painel-planos-acoes"><a class="botao" href="jogos.html">Jogos</a><a class="painel-guia" href="simulador.html">Simulador de campeonato</a><a class="painel-guia" href="raiox.html">Raio-x pós-corrida</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a></div>' +
+        '<div class="painel-planos-cab"><h2 id="painel-planos-t">Mais perto da pista</h2><p>O site continua de graça. Os planos entregam o que vem antes da largada e depois da bandeirada.</p></div>' +
+        '<div class="cp-grade">' +
+          '<article class="cp-plano"><h3>Médio</h3><p class="cp-preco"><b>R$ 14,90</b> por mês</p><ul>' +
+            '<li>Alerta 30 minutos antes da largada</li><li>Vencedor no celular 15 minutos depois</li><li>Sessões direto na agenda do celular</li>' +
+            '<li>Onde assistir cada sessão</li><li>Resumo da segunda-feira</li><li>Página só com as suas categorias</li><li>Prévia da etapa essencial</li><li>Chefe de Equipe: 15 corridas por dia</li></ul></article>' +
+          '<article class="cp-plano cp-master"><h3>Master</h3><p class="cp-preco"><b>R$ 29,90</b> por mês</p><ul>' +
+            '<li>Tudo do plano Médio</li><li>Prévia da etapa completa</li><li>Maratona do fim de semana</li><li>Simulador completo</li>' +
+            '<li>Duelo de pilotos</li><li>Raio-x pós-corrida com gráficos</li><li>Bolão entre membros</li><li>Grupo fechado</li><li>Jogos sem limite</li></ul></article>' +
+        '</div>' +
+        '<div class="painel-planos-acoes"><a class="botao" href="planos.html">Ver os planos</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a></div>' +
       '</section></div>';
     topo.after(painel);
 
     /* Faixa de anúncio dos planos (some na página de planos e fica fechada por 7 dias quando a pessoa fecha) */
     var fechadoEm = 0;
     try { fechadoEm = +localStorage.getItem('avisoPlanosFechado') || 0; } catch (e) {}
-    if (false) { /* site grátis: sem faixa de planos */
+    if (location.pathname.indexOf('planos') < 0 && Date.now() - fechadoEm > 7 * 864e5) {
       var aviso = document.createElement('div');
       aviso.className = 'aviso-planos';
       aviso.innerHTML = '<div class="moldura"><p><span class="aviso-longo">Alertas de largada, prévias das etapas e simulador de campeonato.</span>' +
@@ -122,13 +131,23 @@
     topo.querySelectorAll('.sub a').forEach(function (a) { a.addEventListener('click', function () { fecharSubs(); }); });
   }
 
+  /* Modo de teste: só no computador e só quando pedido (?teste=1 liga, ?teste=0 desliga).
+     Sem ele, o computador mostra o site igual ao visitante vê: tudo que é do plano fica trancado. */
+  window.NAVEIA_PC = /^(localhost|127.0.0.1|)$/.test(location.hostname);
+  try {
+    var mTeste = location.search.match(/[?&]teste=([01])/);
+    if (mTeste && window.NAVEIA_PC) localStorage.setItem('naveia-teste', mTeste[1]);
+    window.NAVEIA_TESTE = window.NAVEIA_PC && localStorage.getItem('naveia-teste') === '1';
+  } catch (e) { window.NAVEIA_TESTE = false; }
+
   /* Conta: descobre se a pessoa está logada (só funciona com o servidor PHP) */
   window.NAVEIA_API = function (acao, dados) {
     var op = dados ? { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Naveia': '1' }, body: JSON.stringify(dados), credentials: 'same-origin' } : { credentials: 'same-origin' };
     return fetch('api/conta.php?acao=' + acao, op).then(function (r) { return r.json(); });
   };
-  /* site grátis, sem contas: nada precisa de login */
-  window.NAVEIA_EU = Promise.resolve({ ok: false, logado: false, semServidor: true, gratis: true });
+  window.NAVEIA_EU = /^https?:/.test(location.protocol)
+    ? window.NAVEIA_API('eu').catch(function () { return { ok: false, logado: false, semServidor: true }; })
+    : Promise.resolve({ ok: false, logado: false, semServidor: true });
   window.NAVEIA_EU.then(function (r) {
     var l = document.getElementById('conta-link');
     if (!l) return;
@@ -208,7 +227,8 @@
         '<button type="button" class="copiar-email" data-email="automobilismonaveiacontato@gmail.com">' +
         '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3.5A1.5 1.5 0 0 1 4.5 2H11" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>Copiar</span></button></p></div>' +
       GRUPOS.map(function (g) { return coluna(g.nome, g.cats.map(function (c) { return li(pagina(c), esc(c.nome)); })); }).join('') +
-      coluna('O site', [li('noticias.html', 'Notícias'), li('jogos.html', 'Jogos'), li('simulador.html', 'Simulador de campeonato'), li('raiox.html', 'Raio-x pós-corrida'), li('guia.html', 'Guia para iniciantes'), li('privacidade.html', 'Política de privacidade')]) +
+      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('privacidade.html', 'Política de privacidade')]
+        .concat(local ? [li('jogos.html', 'Jogos (teste local)'), li('raiox.html', 'Raio-x (amostra local)')] : [])) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span></div></div>';
   }
@@ -221,7 +241,7 @@
       if ((!forcar && aceito()) || document.getElementById('aviso-priv')) return;
       var d = document.createElement('div');
       d.id = 'aviso-priv'; d.className = 'aviso-priv'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-live', 'polite'); d.setAttribute('aria-label', 'Aviso de privacidade');
-      d.innerHTML = '<div class="aviso-priv-caixa"><p><b>Sua privacidade.</b> Usamos só o armazenamento do navegador para lembrar suas escolhas, como idioma e recordes dos jogos. Não temos cadastro, anúncios nem rastreadores. Ao continuar, você concorda com a nossa <a href="privacidade.html">Política de privacidade</a>.</p>' +
+      d.innerHTML = '<div class="aviso-priv-caixa"><p><b>Sua privacidade.</b> Usamos cookies e o armazenamento do navegador só para o site funcionar: manter você conectado e lembrar suas escolhas, como idioma e recordes dos jogos. Não usamos anúncios nem rastreadores. Ao continuar, você concorda com a nossa <a href="privacidade.html">Política de privacidade</a>.</p>' +
         '<div class="aviso-priv-acoes"><a class="aviso-priv-link" href="privacidade.html">Saiba mais</a><button type="button" class="aviso-priv-ok">Aceitar e fechar</button></div></div>';
       document.body.appendChild(d);
       d.offsetWidth; /* aplica a posição inicial antes de animar */

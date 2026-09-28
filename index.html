@@ -110,7 +110,7 @@
       </div>
       <div id="simulador" class="pl-sim revelar" data-so="formula-1" aria-live="polite"></div>
       <div class="sim-demo-mais revelar">
-        <p><b>Simulador completo, grátis:</b> MotoGP, Stock Car, Porsche Cup, Rally, WEC e Fórmula 2, cada um com o seu sistema de pontos.</p>
+        <p><b>Simulador completo, no plano Master:</b> MotoGP, Stock Car, Porsche Cup, Rally, WEC e Fórmula 2, cada um com o seu sistema de pontos.</p>
         <a class="botao botao-linha" href="simulador.html">Abrir o simulador completo</a>
       </div>
     </div>
@@ -120,40 +120,51 @@
     <div class="moldura">
       <div class="secao-cab revelar">
         <h2 id="chefe-demo-t">Chefe de Equipe</h2>
-        <p>Jogo grátis, sem limite: escolha a cor do carro, a pista, o nível e o clima. Faça a classificação, pilote na corrida e comande a estratégia de pneus e boxes. No computador, W acelera, S freia e espaço usa a bateria. No celular, use os botões.</p>
+        <p>Jogo grátis (3 corridas; plano Médio: 15 por dia; Master: sem limite): escolha a cor do carro, a pista, o nível e o clima. Faça a classificação, pilote na corrida e comande a estratégia de pneus e boxes. No computador, W acelera, S freia e espaço usa a bateria. No celular, use os botões.</p>
       </div>
       <div id="jogo-chefe" class="jg-jogo inicio-chefe"></div>
     </div>
   </section>
 
-  <section class="secao chamada-planos" aria-labelledby="mais-titulo" style="padding-top:0">
+  <section class="secao chamada-planos" aria-labelledby="planos-titulo" style="padding-top:0">
     <div class="moldura">
       <div class="secao-cab revelar">
-        <h2 id="mais-titulo">Mais do Na Veia.</h2>
-        <p>Tudo de graça, para todo mundo.</p>
+        <h2 id="planos-titulo">Mais perto da pista.</h2>
+        <p>Tudo que você viu até aqui continua de graça. Os planos entregam o que vem antes da largada e depois da bandeirada, direto para você.</p>
       </div>
       <div class="cp-grade revelar">
         <article class="cp-plano">
-          <h3>Jogos</h3>
-          <p class="cp-desc">Chefe de Equipe em 3D, Largada, Adivinhe o circuito e Piloto misterioso.</p>
-          <a class="botao" href="jogos.html">Jogar</a>
+          <h3>Médio</h3>
+          <p class="cp-preco"><b>R$ 14,90</b> por mês</p>
+          <p class="cp-desc">Para quem não quer perder nenhuma largada.</p>
+          <ul>
+            <li>Alerta 30 minutos antes da largada</li>
+            <li>Vencedor no seu celular 15 minutos depois da bandeirada</li>
+            <li>Sessões direto na agenda do celular</li>
+            <li>Onde assistir cada sessão</li>
+            <li>Resumo da segunda-feira com as 12 categorias</li>
+            <li>Página só com as categorias que você segue</li>
+            <li>Prévia da etapa essencial: horários, o que está em jogo, previsão do tempo e a pista</li>
+            <li>Jogo Chefe de Equipe: até 15 corridas por dia</li>
+          </ul>
         </article>
-        <article class="cp-plano">
-          <h3>Simulador de campeonato</h3>
-          <p class="cp-desc">Todas as categorias, com os pódios que você escolher para as corridas que faltam.</p>
-          <a class="botao botao-linha" href="simulador.html">Simular</a>
-        </article>
-        <article class="cp-plano">
-          <h3>Raio-x pós-corrida</h3>
-          <p class="cp-desc">Posições volta a volta, paradas e pneus da última corrida da Fórmula 1.</p>
-          <a class="botao botao-linha" href="raiox.html">Ver o Raio-x</a>
-        </article>
-        <article class="cp-plano">
-          <h3>Guia para iniciantes</h3>
-          <p class="cp-desc">Como funciona cada categoria, em poucos minutos.</p>
-          <a class="botao botao-linha" href="guia.html">Ler o guia</a>
+        <article class="cp-plano cp-master">
+          <h3>Master</h3>
+          <p class="cp-preco"><b>R$ 29,90</b> por mês</p>
+          <p class="cp-desc">Para quem quer entender a corrida por dentro. Tudo do Médio, mais:</p>
+          <ul>
+            <li>Prévia da etapa completa: raio-x do circuito, números da pista, cenários de título e palpites do bolão</li>
+            <li>Maratona do fim de semana: sua programação com conflitos de horário, direto na agenda</li>
+            <li>Simulador de campeonato completo: todas as categorias, com os pódios que você escolher</li>
+            <li>Duelo de pilotos: dois pilotos lado a lado na temporada</li>
+            <li>Raio-x pós-corrida: posições volta a volta, paradas e pneus em gráficos</li>
+            <li>Bolão entre membros com ranking da temporada</li>
+            <li>Grupo fechado com outros fãs</li>
+            <li>Jogos sem limite: Chefe de Equipe, Largada, Adivinhe o circuito e Piloto misterioso</li>
+          </ul>
         </article>
       </div>
+      <div class="cp-acoes revelar"><a class="botao" href="planos.html">Ver os planos</a><a class="botao botao-linha" href="simulador.html">Simulador completo</a></div>
     </div>
   </section>
 
@@ -170,6 +181,6 @@
 <script src="assets/js/circuitos-altura.js"></script>
 <script src="assets/js/chefe-3d.js"></script>
 <script src="assets/js/jogo-chefe.js"></script>
-<script>if (window.JOGO_CHEFE) window.JOGO_CHEFE(document.getElementById('jogo-chefe'));</script>
+<script>if (window.JOGO_CHEFE) window.JOGO_CHEFE(document.getElementById('jogo-chefe'), { limite: 3 });</script>
 </body>
 </html>

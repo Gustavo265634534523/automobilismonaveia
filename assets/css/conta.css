@@ -1,0 +1,78 @@
+/* Entrar, Minha conta e Área do assinante. Usa os tokens de estilo.css. */
+
+/* Entrar */
+.ct-entrar { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); min-height: 100vh; padding-top: var(--topo); }
+.ct-entrar-img { position: relative; overflow: hidden; background: var(--breu); }
+.ct-entrar-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 55%; opacity: .85; }
+.ct-entrar-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,22,25,0) 55%, var(--asfalto) 100%); }
+.ct-acesso { padding: clamp(40px, 8vh, 90px) var(--gutter) 80px; max-width: 520px; width: 100%; }
+.ct-troca { display: inline-flex; border: 1px solid var(--linha); margin-bottom: 34px; }
+.ct-troca-btn { background: none; border: 0; cursor: pointer; padding: 12px 22px; font: 700 15px var(--texto); text-transform: uppercase; letter-spacing: .03em; color: var(--aco); }
+.ct-troca-btn[aria-selected="true"] { background: var(--sangue); color: #fff; }
+.ct-form h1 { margin: 0 0 10px; font-family: var(--display); font-weight: 400; font-size: clamp(26px, 3vw, 38px); line-height: 1.1; }
+.ct-form label { display: block; margin-top: 18px; font-size: 15px; font-weight: 600; color: #c3c8cd; }
+.ct-form input { display: block; width: 100%; margin-top: 6px; padding: 13px 14px; background: var(--carbono); border: 1px solid var(--linha); border-radius: 0; color: var(--cromo); font: 500 17px var(--texto); }
+.ct-form input:focus { outline: none; border-color: var(--sangue-vivo); box-shadow: inset 3px 0 0 var(--sangue-vivo); }
+.ct-form small { display: block; margin-top: 6px; color: var(--aco); font-size: 14px; font-weight: 500; }
+.ct-form .pl-botao { margin-top: 26px; }
+.ct-erro { margin: 16px 0 0; padding: 10px 14px; background: rgba(176,18,27,.14); box-shadow: inset 3px 0 0 var(--sangue-vivo); color: #f2b8bb; font-size: 16px; }
+.ct-legal { margin: 16px 0 0; font-size: 14px; color: var(--aco); }
+.ct-sub { margin: 0; color: #c3c8cd; font-size: 17px; max-width: 60ch; }
+.ct-semservidor { margin-top: 24px; color: var(--aco); }
+@media (max-width: 860px) {
+  .ct-entrar { grid-template-columns: 1fr; }
+  .ct-entrar-img { height: 26vh; }
+  .ct-entrar-img::after { background: linear-gradient(0deg, var(--asfalto) 0%, rgba(20,22,25,0) 60%); }
+  .ct-acesso { max-width: none; padding-top: 28px; }
+}
+
+/* Minha conta */
+.ct-main { padding: calc(var(--topo) + 48px) 0 110px; }
+.ct-cab { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+.ct-ola { margin: 0 0 6px; font-size: 17px; font-weight: 600; color: var(--sangue-vivo); }
+.ct-cab h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(28px, 4.4vw, 56px); line-height: 1.05; }
+.ct-cab-acoes { display: flex; align-items: center; gap: 22px; }
+.ct-painel-btn { width: auto; display: inline-block; }
+.ct-sair { background: none; border: 0; cursor: pointer; font: 700 16px var(--texto); color: var(--aco); text-decoration: underline; text-underline-offset: 3px; }
+.ct-sair:hover { color: var(--cromo); }
+.ct-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ct-bloco { padding: 26px 28px; background: var(--carbono); }
+.ct-bloco h2 { margin: 0 0 14px; font-size: 21px; font-weight: 700; }
+.ct-bloco .pl-botao { width: auto; display: inline-block; margin-top: 18px; }
+.ct-bloco-cab { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.ct-plano { box-shadow: inset 3px 0 0 var(--sangue); }
+.ct-plano-nome { margin: 0 0 8px; font-family: var(--display); font-size: 30px; }
+.ct-teste { margin-top: 22px; padding-top: 16px; border-top: 1px dashed var(--linha); display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ct-teste p { width: 100%; margin: 0 0 4px; font-size: 14px; color: var(--aco); }
+.ct-mini { background: none; border: 1px solid var(--linha); color: var(--cromo); cursor: pointer; padding: 7px 14px; font: 700 14px var(--texto); transition: background .2s, border-color .2s; }
+.ct-mini:hover { background: var(--carbono-2); }
+.ct-mini[aria-pressed="true"] { background: var(--sangue); border-color: var(--sangue); }
+.ct-avisos { grid-row: span 2; }
+.ct-lista-avisos { list-style: none; margin: 0; padding: 0; max-height: 520px; overflow-y: auto; border-top: 1px solid var(--linha); }
+.ct-aviso { padding: 14px 0 14px 14px; border-bottom: 1px solid #2c3137; position: relative; }
+.ct-aviso::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 14px; width: 3px; background: var(--linha); }
+.ct-aviso.novo::before { background: var(--sangue-vivo); }
+.ct-aviso time { display: block; font-size: 13px; color: var(--aco); font-weight: 600; }
+.ct-aviso b { display: block; margin-top: 4px; font-size: 17px; }
+.ct-aviso span { display: block; margin-top: 2px; color: #c3c8cd; font-size: 16px; }
+.ct-vazio { padding: 16px 0; color: var(--aco); list-style: none; }
+.ct-cats { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.ct-ok { margin: 12px 0 0; color: #6fcf8a; font-weight: 600; font-size: 15px; }
+.ct-ligado { margin: 0 0 12px; color: #6fcf8a; font-weight: 700; }
+.ct-passos { margin: 18px 0 0; padding-left: 20px; color: #c3c8cd; line-height: 1.6; }
+.ct-passos a { color: var(--cromo); }
+.ct-bloqueio { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 22px 24px; background: var(--carbono-2); border: 1px dashed var(--linha); }
+.ct-bloqueio b { font-family: var(--display); font-weight: 400; font-size: 18px; }
+.ct-bloqueio span { color: #c3c8cd; }
+.ct-bloqueio .pl-botao { width: auto; display: inline-block; margin-top: 10px; }
+@media (max-width: 900px) { .ct-grade { grid-template-columns: 1fr; } .ct-avisos { grid-row: auto; } }
+
+/* Área do assinante */
+.pa-secao + .pa-secao { margin-top: 72px; }
+.pa-cab { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; }
+.pa-cab h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(22px, 2.4vw, 30px); }
+.pa-cab p { margin: 0; color: var(--aco); max-width: 52ch; }
+.pa-rx { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 24px 28px; background: var(--carbono); text-decoration: none; box-shadow: inset 3px 0 0 var(--sangue); transition: background .25s; }
+.pa-rx:hover { background: var(--carbono-2); }
+.pa-rx span { font-size: 19px; font-weight: 700; }
+.pa-rx b { color: var(--sangue-vivo); text-transform: uppercase; font-size: 15px; letter-spacing: .03em; }
