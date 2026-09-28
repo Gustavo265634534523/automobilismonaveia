@@ -729,6 +729,8 @@ html.com-aviso { --topo: 100px; }
 .cp-grade > .cp-plano ul { margin-bottom: auto; }
 .cp-acoes { display: flex; flex-wrap: wrap; gap: 12px 14px; margin-top: 34px; }
 .cp-acoes .botao { margin-top: 0; }
+.cp-grade > .cp-acoes-master { grid-column: 2; margin-top: 0; }
+@media (max-width: 860px) { .cp-grade > .cp-acoes-master { grid-column: 1; } }
 .botao-linha { background: transparent; box-shadow: inset 0 0 0 1px var(--aco); }
 .botao-linha:hover { background: var(--carbono-2); }
 
