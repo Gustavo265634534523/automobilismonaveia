@@ -610,6 +610,7 @@
   var LIMITE_MEDIO = 15;
   window.JOGO_CHEFE = function (el, opcoes) {
     var LIMITE = (opcoes && opcoes.limite) || 0, modo = LIMITE ? 'visitante' : 'livre';
+    if (opcoes && opcoes.plano === 'medio') modo = 'medio'; /* plano Médio: LIMITE_MEDIO corridas por dia */
     function hoje() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
     function usadas() {
       if (modo === 'medio') { var r = ler('chefe-medio-dia', null); return r && r.dia === hoje() ? r.n : 0; }

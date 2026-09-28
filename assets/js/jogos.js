@@ -23,13 +23,14 @@
   }
   window.NAVEIA_EU.then(function (r) {
     if (r.semServidor) {
-      if (local) return liberar(true);
+      if (local) return liberar(true, window.NAVEIA_TESTE_PLANO);
       if (!window.NAVEIA_PC) return bloquear('Jogos indisponíveis agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="jogos.html">Tentar de novo</a>');
       r = { logado: false };
     }
-    if (!r.logado) return bloquear('Exclusivo do plano Master', 'Entre na sua conta para jogar. Se ainda não assina, conheça o Master.', '<a class="pl-botao" href="entrar.html?volta=jogos.html">Entrar</a><a class="pl-botao pl-botao-linha" href="planos.html">Ver os planos</a>');
-    if (r.usuario.plano !== 'master') return bloquear('Exclusivo do plano Master', 'Seu plano atual não inclui os jogos. Mude para o Master e libere os três.', '<a class="pl-botao" href="planos.html">Conhecer o Master</a>');
-    liberar(false);
+    if (!r.logado) return bloquear('Exclusivo dos planos Médio e Master', 'Entre na sua conta para jogar. No Médio você joga o Chefe de Equipe 15 vezes por dia; no Master, todos os jogos sem limite.', '<a class="pl-botao" href="entrar.html?volta=jogos.html">Entrar</a><a class="pl-botao pl-botao-linha" href="planos.html">Ver os planos</a>');
+    if (r.usuario.plano === 'medio') return liberar(false, 'medio');
+    if (r.usuario.plano !== 'master') return bloquear('Exclusivo dos planos Médio e Master', 'Seu plano atual não inclui os jogos. No Médio você joga o Chefe de Equipe 15 vezes por dia; no Master, todos os jogos sem limite.', '<a class="pl-botao" href="planos.html">Ver os planos</a>');
+    liberar(false, 'master');
   });
 
   /* ---------- Página dos jogos ---------- */
@@ -39,8 +40,9 @@
     ['piloto', 'Piloto misterioso', 'Dicas'],
     ['chefe', 'Chefe de Equipe', 'Estratégia']
   ];
-  function liberar(teste) {
-    caixa.innerHTML = (teste ? '<p class="jg-teste">Modo de teste no seu computador. No site no ar, só assinantes Master veem esta página.</p>' : '') +
+  function liberar(teste, plano) {
+    var medio = plano === 'medio';
+    caixa.innerHTML = (teste ? '<p class="jg-teste">Modo de teste no seu computador, vendo como assinante do plano ' + (medio ? 'Médio' : 'Master') + '.</p>' : '') +
       '<div class="jg-abas" role="tablist" aria-label="Jogos">' + JOGOS.map(function (j, i) {
         return '<button type="button" role="tab" class="jg-aba" id="aba-' + j[0] + '" aria-controls="jogo-' + j[0] + '" aria-selected="' + (i === 0) + '"><small>' + j[2] + '</small>' + j[1] + '</button>';
       }).join('') + '</div>' +
@@ -51,11 +53,18 @@
       if (history.replaceState) history.replaceState(null, '', '#' + id);
     }
     [].forEach.call(abas, function (a) { a.addEventListener('click', function () { abrir(a.id.slice(4)); }); });
-    largada(document.getElementById('jogo-largada'));
-    circuito(document.getElementById('jogo-circuito'));
-    piloto(document.getElementById('jogo-piloto'));
-    if (window.JOGO_CHEFE) window.JOGO_CHEFE(document.getElementById('jogo-chefe'));
-    var h = location.hash.slice(1);
+    if (medio) {
+      /* plano Médio: só o Chefe de Equipe; os outros três são do Master */
+      ['largada', 'circuito', 'piloto'].forEach(function (id) {
+        document.getElementById('jogo-' + id).innerHTML = '<div class="jg-trava"><h2>Exclusivo do plano Master</h2><p>No plano Médio você joga o Chefe de Equipe. Mude para o Master e libere também este jogo, sem limite.</p><div class="jg-trava-acoes"><a class="pl-botao" href="planos.html">Conhecer o Master</a></div></div>';
+      });
+    } else {
+      largada(document.getElementById('jogo-largada'));
+      circuito(document.getElementById('jogo-circuito'));
+      piloto(document.getElementById('jogo-piloto'));
+    }
+    if (window.JOGO_CHEFE) window.JOGO_CHEFE(document.getElementById('jogo-chefe'), { plano: plano });
+    var h = location.hash.slice(1) || (medio ? 'chefe' : '');
     if (document.getElementById('jogo-' + h)) abrir(h);
   }
 

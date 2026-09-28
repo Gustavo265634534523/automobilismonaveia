@@ -135,9 +135,11 @@
      Sem ele, o computador mostra o site igual ao visitante vê: tudo que é do plano fica trancado. */
   window.NAVEIA_PC = /^(localhost|127.0.0.1|)$/.test(location.hostname);
   try {
-    var mTeste = location.search.match(/[?&]teste=([01])/);
+    var mTeste = location.search.match(/[?&]teste=(0|1|medio)/);
     if (mTeste && window.NAVEIA_PC) localStorage.setItem('naveia-teste', mTeste[1]);
-    window.NAVEIA_TESTE = window.NAVEIA_PC && localStorage.getItem('naveia-teste') === '1';
+    var vTeste = window.NAVEIA_PC ? localStorage.getItem('naveia-teste') : null;
+    window.NAVEIA_TESTE = vTeste === '1' || vTeste === 'medio';
+    window.NAVEIA_TESTE_PLANO = vTeste === 'medio' ? 'medio' : 'master'; /* ?teste=medio: vê o site como assinante do Médio */
   } catch (e) { window.NAVEIA_TESTE = false; }
 
   /* Conta: descobre se a pessoa está logada (só funciona com o servidor PHP) */
@@ -231,8 +233,8 @@
       '</div>' +
       /* Área de teste do dono: só aparece no computador (localhost), nunca no site no ar */
       (local ? '<nav class="rodape-teste" aria-label="Área de teste"><h2>Área de teste <small>só aparece no seu computador</small></h2><ul>' +
-        [['duelo.html', 'Duelo de pilotos'], ['bolao.html', 'Bolão entre membros'], ['jogos.html', 'Jogos'], ['simulador.html', 'Simulador completo'], ['raiox.html', 'Raio-x']]
-          .map(function (x) { return '<li><a href="' + x[0] + '?teste=1">' + x[1] + '</a></li>'; }).join('') +
+        [['duelo.html?teste=1', 'Duelo de pilotos'], ['bolao.html?teste=1', 'Bolão entre membros'], ['jogos.html?teste=1', 'Jogos (Master)'], ['jogos.html?teste=medio#chefe', 'Chefe de Equipe (Médio)'], ['simulador.html?teste=1', 'Simulador completo'], ['raiox.html?teste=1', 'Raio-x']]
+          .map(function (x) { return '<li><a href="' + x[0] + '">' + x[1] + '</a></li>'; }).join('') +
         '<li><a class="rodape-teste-sair" href="index.html?teste=0">' + (window.NAVEIA_TESTE ? 'Voltar a ver como visitante' : 'Vendo como visitante') + '</a></li></ul></nav>' : '') +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span></div></div>';
   }
