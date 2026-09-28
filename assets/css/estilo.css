@@ -571,41 +571,15 @@ html.com-aviso { --topo: 104px; }
 .conta-badge { display: inline-grid; place-items: center; min-width: 20px; height: 20px; padding: 0 5px; background: var(--sangue-vivo); color: #fff; font-size: 12px; border-radius: 10px; }
 @media (max-width: 620px) { .conta-link { font-size: 13px; } .conta-link + .planos-btn { margin-left: 12px; padding: 7px 10px 6px; font-size: 13px; } .todas { margin-left: 12px; } }
 
-/* Botão "Obter aplicativo" */
-.app-caixa { position: relative; margin-left: auto; }
-.app-btn { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 7px; border: 0; cursor: pointer; background: var(--sangue); color: #fff; font: 700 15px var(--texto); letter-spacing: .03em; text-transform: uppercase; white-space: nowrap;
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); transition: background .25s var(--ease); }
-.app-btn:hover, .app-btn[aria-expanded="true"] { background: var(--sangue-vivo); }
-.app-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-.app-btn .app-seta { width: 10px; height: 10px; transition: transform .3s var(--ease); }
-.app-btn[aria-expanded="true"] .app-seta { transform: rotate(180deg); }
-.app-caixa + .conta-link { margin-left: 22px; }
-.app-menu { position: absolute; right: 0; top: calc(100% + 12px); width: 340px; max-width: calc(100vw - 32px); padding: 18px 20px 8px; background: var(--carbono); border: 1px solid var(--linha); box-shadow: 0 16px 40px rgba(0,0,0,.5); z-index: 60; }
-.app-menu[hidden] { display: none; }
-.app-intro { margin: 0 0 12px; font-size: 15px; color: #c3c8cd; line-height: 1.4; }
-.app-op { padding: 14px 0 12px 14px; border-top: 1px solid var(--linha); position: relative; }
-.app-op.atual::before { content: ''; position: absolute; left: 0; top: 14px; bottom: 12px; width: 3px; background: var(--sangue-vivo); }
-.app-op h3 { margin: 0 0 6px; font-size: 17px; font-weight: 700; }
-.app-op.atual h3::after { content: ' (seu aparelho)'; font-weight: 600; font-size: 14px; color: var(--sangue-vivo); }
-.app-op ol { margin: 0; padding-left: 18px; font-size: 15px; line-height: 1.5; color: #c3c8cd; }
-.app-op b { color: var(--cromo); }
-.app-op .pl-botao { width: auto; display: inline-block; padding: 10px 18px; font-size: 15px; }
-.app-ic { width: 14px; height: 14px; vertical-align: -2px; }
-.app-ok { margin: 0 0 10px; color: #6fcf8a; font-weight: 600; }
 .nav-link, .todas, .planos-btn, .conta-link { white-space: nowrap; }
 @media (max-width: 1540px) { .todas .todas-txt { display: none; } .todas { margin-left: 18px; } }
 @media (max-width: 1320px) { .nav-link { padding: 0 10px; } .topo-in { gap: 18px; } }
 @media (max-width: 1200px) { .nav { display: none; } }
-@media (max-width: 620px) { .app-txt { display: none; } .app-btn { padding: 8px 10px 7px; } .app-menu { position: fixed; left: 16px; right: 16px; top: calc(var(--topo) + 8px); width: auto; max-width: none; max-height: calc(100vh - var(--topo) - 24px); overflow-y: auto; } }
 @media (max-width: 620px) {
-  .app-btn .app-seta { display: none; }
-  .app-caixa + .conta-link { margin-left: 12px; }
   .topo-in { gap: 0; }
   .marca-nome small { display: none; }
 }
 
-.app-op .app-instalar { display: inline-block; width: auto; padding: 10px 18px; border: 0; cursor: pointer; background: var(--sangue); color: #fff; font: 700 15px var(--texto); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); }
-.app-op .app-instalar:hover { background: var(--sangue-vivo); }
 
 /* Organização: agenda enxuta, categorias em grupos e rodapé em colunas */
 a.torre-cat, a.torre-evento { text-decoration: none; }
@@ -642,10 +616,6 @@ a.torre-cat:hover, a.torre-evento:hover { color: var(--sangue-vivo); }
   .topo-in .marca { grid-column: 1 / 3; grid-row: 1; }
   .topo-in .marca-nome small { display: none; }
   .topo-in .todas { grid-column: 3; grid-row: 1; justify-self: end; margin: 0 -10px 0 0; padding: 12px 10px; }
-  .topo-in .app-caixa { grid-column: 1; grid-row: 2; margin: 0; }
-  .topo-in .app-btn { width: 100%; height: 42px; justify-content: center; padding: 0 8px; font-size: 14px; gap: 6px; }
-  .topo-in .app-txt { display: inline; }
-  .topo-in .app-btn .app-seta { display: none; }
   .topo-in .conta-link, .topo-in .conta-link + .planos-btn, .topo-in .planos-btn { grid-row: 2; margin: 0; height: 42px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
   .topo-in .conta-link { grid-column: 2; box-shadow: inset 0 0 0 1px var(--linha); }
   .topo-in .planos-btn { grid-column: 3; padding: 0 8px; box-shadow: inset 0 0 0 1px var(--sangue); }
@@ -680,18 +650,10 @@ html.com-aviso { --topo: 100px; }
 .sub { top: calc(100% - 8px); }
 
 /* Aplicativo: vira só um ícone discreto */
-.app-caixa { margin-left: 0; }
-.nav + .app-caixa { margin-left: 0; }
-.app-btn { width: 40px; height: 40px; padding: 0; justify-content: center; background: none; color: #aab1b8; clip-path: none; box-shadow: inset 0 0 0 1px var(--linha); transition: color .2s, box-shadow .2s; }
-.app-btn:hover, .app-btn[aria-expanded="true"] { background: none; color: var(--cromo); box-shadow: inset 0 0 0 1px var(--aco); }
-.app-btn svg { width: 17px; height: 17px; }
-.app-btn .app-txt, .app-btn .app-seta { display: none; }
 
-.conta-link { margin-left: 22px; font-size: 14px; font-weight: 600; letter-spacing: .08em; color: #aab1b8; }
-.app-caixa + .conta-link { margin-left: 22px; }
+.conta-link { margin-left: auto; font-size: 14px; font-weight: 600; letter-spacing: .08em; color: #aab1b8; }
 
 /* Planos: o único botão cheio, a chamada principal */
-.planos-btn, .conta-link + .planos-btn, .app-caixa + .planos-btn { margin-left: 14px; padding: 0 18px; height: 40px; display: inline-flex; align-items: center; font-size: 14px; letter-spacing: .08em; background: var(--sangue); box-shadow: none; }
 .planos-btn:hover, .planos-btn[aria-current] { background: var(--sangue-vivo); }
 
 /* Menu: só a grade, num quadrado */
@@ -707,16 +669,13 @@ html.com-aviso { --topo: 100px; }
 .aviso-fechar { height: 32px; font-size: 18px; color: var(--aco); }
 
 @media (max-width: 1320px) { .nav-link { padding: 0 12px; } .nav-link::after { left: 12px; right: 12px; } }
-@media (max-width: 1200px) { .nav { display: none; } .app-caixa { margin-left: auto; } }
+@media (max-width: 1200px) { .nav { display: none; } }
 
 /* Celular: uma linha só */
 @media (max-width: 620px) {
   html, html.com-aviso { --topo: 60px; }
   .topo-in { display: flex; height: 60px; padding-bottom: 0; }
   .topo-in .marca { margin-right: auto; }
-  .topo-in .app-caixa { margin: 0; }
-  .topo-in .app-btn { width: 38px; height: 38px; padding: 0; }
-  .topo-in .app-txt { display: none; }
   .topo-in .conta-link { display: none; }
   .topo-in .planos-btn, .topo-in .conta-link + .planos-btn { margin-left: 8px; height: 38px; padding: 0 12px; font-size: 13px; box-shadow: none; }
   .topo-in .todas { margin: 0 0 0 8px; width: 38px; height: 38px; padding: 0; }
@@ -819,3 +778,6 @@ html.com-aviso { --topo: 100px; }
 .rodape-teste a { color: var(--cromo); }
 .rodape-teste .rodape-teste-sair { color: var(--aco); }
 
+
+/* Topo: sem o botão "Obter aplicativo", o idioma encosta o grupo da direita quando o "Entrar" some */
+.nav + .idioma-btn { margin-left: auto; }

@@ -42,9 +42,6 @@
         '<a class="marca" href="index.html" aria-label="Automobilismo Na Veia, início"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span>' +
         '<span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
         '<nav class="nav" aria-label="Categorias principais"><div class="nav-item"><a class="nav-link" href="noticias.html"' + (paginaAtual === 'noticias' ? ' aria-current="page"' : '') + ' title="Notícias de todas as categorias">Últimas notícias</a></div>' + nav + '</nav>' +
-        '<div class="app-caixa"><button type="button" class="app-btn" id="app-btn" aria-expanded="false" aria-controls="app-menu" aria-label="Obter aplicativo" title="Obter aplicativo">' +
-        '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="4" y="1" width="8" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 12.5h2" stroke="currentColor" stroke-width="1.5"/></svg>' +
-        '<span class="app-txt">Obter aplicativo</span>' + seta.replace('<svg', '<svg class="app-seta"') + '</button><div class="app-menu" id="app-menu" hidden></div></div>' +
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
         '<button type="button" class="idioma-btn" id="idioma-btn" data-sem-traducao aria-label="' + (window.LANG === 'en' ? 'Change the site language' : 'Mudar o idioma do site') + '" title="' + (window.LANG === 'en' ? 'Português' : 'English') + '">' +
           '<span' + (window.LANG !== 'en' ? ' class="ativo"' : '') + '>PT</span><i aria-hidden="true"></i><span' + (window.LANG === 'en' ? ' class="ativo"' : '') + '>EN</span></button>' +
@@ -161,57 +158,10 @@
     if (/conta|entrar|painel/.test(location.pathname)) l.setAttribute('aria-current', 'page');
   });
 
-  /* Aplicativo: registra o service worker e monta o botão "Obter aplicativo" */
+  /* Service worker: guarda páginas e imagens para abrir mais rápido. O site não é instalável (sem manifest). */
   if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) {
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
   }
-  (function () {
-    var btn = document.getElementById('app-btn'), menu = document.getElementById('app-menu');
-    if (!btn) return;
-    var instalado = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
-    if (instalado) { btn.parentNode.remove(); return; }
-    var ua = navigator.userAgent;
-    var ios = /iPhone|iPad|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-    var android = /Android/.test(ua);
-    var aparelho = ios ? 'ios' : android ? 'android' : 'pc';
-    var pedido = null;
-    window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); pedido = e; desenhar(); });
-    window.addEventListener('appinstalled', function () { menu.innerHTML = '<p class="app-ok">Aplicativo instalado. Procure o ícone Na Veia na sua tela inicial.</p>'; });
-
-    function botaoInstalar(txt) {
-      return pedido ? '<button type="button" class="pl-botao app-instalar">' + txt + '</button>' : '';
-    }
-    function desenhar() {
-      var op = {
-        android: '<div class="app-op' + (aparelho === 'android' ? ' atual' : '') + '"><h3>Android</h3>' +
-          (botaoInstalar('Instalar agora') || '<ol><li>Abra este site no Chrome.</li><li>Toque no menu <b>⋮</b> no canto de cima.</li><li>Toque em <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</li></ol>') + '</div>',
-        ios: '<div class="app-op' + (aparelho === 'ios' ? ' atual' : '') + '"><h3>iPhone e iPad</h3><ol>' +
-          '<li>Abra este site no <b>Safari</b>.</li><li>Toque em <b>Compartilhar</b> <svg class="app-ic" viewBox="0 0 16 16" aria-label="ícone de compartilhar"><path d="M8 1v9M4.5 4.5 8 1l3.5 3.5M3 7v7h10V7" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>, na barra de baixo.</li>' +
-          '<li>Toque em <b>Adicionar à Tela de Início</b> e depois em <b>Adicionar</b>.</li></ol></div>',
-        pc: '<div class="app-op' + (aparelho === 'pc' ? ' atual' : '') + '"><h3>Computador</h3>' +
-          (botaoInstalar('Instalar no computador') || '<ol><li>Abra este site no <b>Chrome</b> ou no <b>Edge</b>.</li><li>Clique no ícone de instalar, no lado direito da barra de endereço.</li></ol>') + '</div>'
-      };
-      var ordem = [aparelho].concat(['android', 'ios', 'pc'].filter(function (a) { return a !== aparelho; }));
-      menu.innerHTML = '<p class="app-intro">Grátis e sem loja. O app ganha ícone próprio, abre em tela cheia e recebe os avisos de largada.</p>' + ordem.map(function (a) { return op[a]; }).join('');
-    }
-    desenhar();
-
-    function fechar() { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); }
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var abrir = menu.hidden;
-      menu.hidden = !abrir; btn.setAttribute('aria-expanded', abrir);
-    });
-    menu.addEventListener('click', function (e) {
-      e.stopPropagation();
-      if (e.target.classList.contains('app-instalar') && pedido) {
-        pedido.prompt();
-        pedido.userChoice.then(function () { pedido = null; desenhar(); });
-      }
-    });
-    document.addEventListener('click', fechar);
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') fechar(); });
-  })();
 
   /* Rodapé */
   var rod = document.getElementById('rodape');
