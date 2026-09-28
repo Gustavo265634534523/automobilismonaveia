@@ -29,7 +29,7 @@
         '<section class="as-op"><h3>Cartão de crédito</h3><p>Cobra sozinho todo mês. Cancele quando quiser em Minha conta.</p>' +
           '<label class="as-email">Seu e-mail no Mercado Pago<input type="email" id="as-email-mp" value="' + esc(eu.usuario.email) + '" autocomplete="email"><small>O Mercado Pago pede o e-mail que você usa lá. Se for o mesmo da sua conta aqui, deixe como está.</small></label>' +
           '<button type="button" class="pl-botao" data-forma="cartao">Assinar no cartão</button></section>' +
-        '<section class="as-op"><h3>Pix</h3><p>O QR Code aparece aqui mesmo. Paga uma vez e usa por 30 dias. Para continuar, é só pagar de novo.</p>' +
+        '<section class="as-op"><h3>Pix</h3><p>Paga uma vez e usa por 30 dias. Para continuar, é só pagar de novo.</p>' +
           '<button type="button" class="pl-botao pl-botao-linha" data-forma="pix">Pagar com Pix</button></section>' +
       '</div>' +
       '<p class="as-erro" role="alert" hidden></p>' +
