@@ -9,7 +9,11 @@
   var CATS = window.CATEGORIAS;
 
   function lerSel() { try { var v = JSON.parse(localStorage.getItem(CHAVE)); return Array.isArray(v) ? v : null; } catch (e) { return null; } }
-  function guardarSel(v) { try { localStorage.setItem(CHAVE, JSON.stringify(v)); } catch (e) {} }
+  var naConta = false; /* logado de verdade: as categorias ficam na conta (servidor) */
+  function guardarSel(v) {
+    try { localStorage.setItem(CHAVE, JSON.stringify(v)); } catch (e) {}
+    if (naConta) window.NAVEIA_API('preferencias', { categorias: v }).catch(function () {});
+  }
   var sel = lerSel() || ['formula-1'];
 
   function linkAgenda(c) {
@@ -100,6 +104,7 @@
     } else if (r.usuario.plano !== 'medio' && r.usuario.plano !== 'master') {
       return trava('Exclusivo dos planos Médio e Master', 'Seu plano atual não inclui esta página. Assine o Médio ou o Master.', '<a class="pl-botao" href="planos.html">Ver os planos</a>');
     }
+    if (r.logado && !r.teste) { naConta = true; if (r.usuario.categorias && r.usuario.categorias.length) sel = r.usuario.categorias.slice(); }
     comecar();
   });
 })();

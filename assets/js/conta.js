@@ -46,35 +46,12 @@
 
   /* As outras páginas exigem conta */
   window.NAVEIA_EU.then(function (r) {
-    if (r.semServidor) { document.querySelector('main').innerHTML = '<div class="moldura ct-main"><p class="ct-sub">Esta página só funciona com o site aberto pelo servidor (localhost:8765 ou o site no ar).</p></div>'; return; }
+    if (r.semServidor) { document.querySelector('main').innerHTML = '<div class="moldura ct-main"><p class="ct-sub">Não foi possível falar com o servidor de contas. Tente de novo em alguns minutos.</p></div>'; return; }
+    if (r.teste) { document.querySelector('main').innerHTML = '<div class="moldura ct-main"><p class="ct-sub">Modo de teste ligado (?teste=1). Para ver sua conta de verdade, abra <a href="index.html?teste=0">o site como visitante</a> e entre.</p></div>'; return; }
     if (!r.logado) { ir('entrar.html?volta=' + pagina + '.html'); return; }
     if (pagina === 'conta') montarConta(r.usuario, r.modo_teste);
     if (pagina === 'painel') montarPainel(r.usuario);
   });
-
-  /* ---------- Agenda do celular (.ics) ---------- */
-  function baixarAgenda(favs) {
-    function ics(ms) { return new Date(ms).toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z'; }
-    var ev = [], agora = Date.now();
-    CATS.forEach(function (c) {
-      if (favs.length && favs.indexOf(c.slug) < 0) return;
-      c.calendario.forEach(function (e) {
-        (e.s || []).forEach(function (x, i) {
-          var ini = new Date(x.d + 'T' + x.h + ':00-03:00').getTime();
-          if (ini < agora) return;
-          ev.push(['BEGIN:VEVENT', 'UID:naveia-' + c.slug + '-' + e.e + '-' + i + '@naveia', 'DTSTAMP:' + ics(agora), 'DTSTART:' + ics(ini), 'DTEND:' + ics(ini + 36e5),
-            'SUMMARY:' + c.nome + ', ' + x.t + ' (' + e.n + ')', 'LOCATION:' + e.l,
-            'BEGIN:VALARM', 'TRIGGER:-PT30M', 'ACTION:DISPLAY', 'DESCRIPTION:Começa em 30 minutos', 'END:VALARM', 'END:VEVENT'].join('\r\n'));
-        });
-      });
-    });
-    var txt = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Automobilismo Na Veia//Agenda//PT'].concat(ev, ['END:VCALENDAR']).join('\r\n');
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(new Blob([txt], { type: 'text/calendar' }));
-    a.download = 'agenda-na-veia.ics';
-    document.body.appendChild(a); a.click(); a.remove();
-    return ev.length;
-  }
 
   function bloqueio(minimo) {
     return '<div class="ct-bloqueio"><b>Disponível no plano ' + NOMES[minimo] + '</b><span>Assine para liberar este recurso.</span><a class="pl-botao" href="planos.html">Ver os planos</a></div>';
@@ -83,40 +60,34 @@
   /* ---------- Minha conta ---------- */
   function montarConta(u, modoTeste) {
     document.getElementById('ct-ola').textContent = 'Olá, ' + u.nome.split(' ')[0];
-    document.getElementById('ct-sair').addEventListener('click', function () { API('sair', {}).then(function () { ir('index.html'); }); });
+    document.getElementById('ct-sair').addEventListener('click', function () { API('sair', {}).then(function () { ir('index.html'); }, function () { ir('index.html'); }); });
 
     function desenharPlano(u) {
-      var niveis = ['medio', 'master'];
+      var ate = u.plano !== 'gratis' && u.plano_ate ? '<p class="ct-sub">Válido até ' + new Date(u.plano_ate).toLocaleDateString('pt-BR') + '.</p>' : '';
       document.getElementById('ct-plano').innerHTML =
         '<p class="ct-plano-nome">' + NOMES[u.plano] + '</p>' +
-        '<p class="ct-sub">' + (u.plano === 'gratis' ? 'Você usa o site de graça. Assine para receber alertas, prévias e os recursos do Master.' :
-          u.plano === 'medio' ? 'Alertas, agenda do celular, prévia essencial e sua página de categorias.' : 'Tudo liberado: prévia completa, Maratona, simulador e Raio-x.') + '</p>' +
+        '<p class="ct-sub">' + (u.plano === 'gratis' ? 'Você usa o site de graça. Assine para receber os alertas e liberar os recursos dos planos.' :
+          u.plano === 'medio' ? 'Alertas no Telegram, agenda do celular, resumo da segunda, sua página de categorias e o Chefe de Equipe.' : 'Tudo liberado: jogos, simulador, duelo, bolão e Raio-x.') + '</p>' + ate +
         (u.plano !== 'master' ? '<a class="pl-botao" href="planos.html">Ver os planos</a>' : '') +
-        (modoTeste ? '<div class="ct-teste"><p>Modo teste: troque de plano na hora, sem pagar.</p>' +
-          ['gratis'].concat(niveis).map(function (p) { return '<button type="button" class="ct-mini" data-plano="' + p + '"' + (p === u.plano ? ' aria-pressed="true"' : '') + '>' + NOMES[p] + '</button>'; }).join('') + '</div>' : '');
+        (modoTeste ? '<div class="ct-teste"><p>Modo teste (só na conta do dono): troque de plano na hora, sem pagar.</p>' +
+          ['gratis', 'medio', 'master'].map(function (p) { return '<button type="button" class="ct-mini" data-plano="' + p + '"' + (p === u.plano ? ' aria-pressed="true"' : '') + '>' + NOMES[p] + '</button>'; }).join('') + '</div>' : '');
     }
-    desenharPlano(u);
+    function desenharAtalhos(u) {
+      var n = NIVEL[u.plano], itens = [
+        ['minhas.html', 'Suas categorias', 1], ['minhas.html#agenda-celular', 'Agenda do celular', 1], ['jogos.html#chefe', 'Chefe de Equipe', 1],
+        ['jogos.html', 'Todos os jogos', 2], ['simulador.html', 'Simulador completo', 2], ['duelo.html', 'Duelo de pilotos', 2], ['bolao.html', 'Bolão entre membros', 2], ['raiox.html', 'Raio-x pós-corrida', 2]];
+      var meus = itens.filter(function (i) { return n >= i[2]; });
+      document.getElementById('ct-atalhos').innerHTML = meus.length
+        ? '<ul class="ct-atalhos">' + meus.map(function (i) { return '<li><a href="' + i[0] + '">' + i[1] + '</a></li>'; }).join('') + '</ul>'
+        : bloqueio('medio');
+    }
+    desenharPlano(u); desenharAtalhos(u);
     document.getElementById('ct-plano').addEventListener('click', function (e) {
       var p = e.target.getAttribute('data-plano'); if (!p) return;
-      API('plano_teste', { plano: p }).then(function (r) { if (r.ok) { u = r.usuario; desenharPlano(u); desenharTelegram(u); desenharAgenda(u); } });
+      API('plano_teste', { plano: p }).then(function (r) { if (r.ok) { u = r.usuario; desenharPlano(u); desenharAtalhos(u); } });
     });
 
-    /* Avisos */
-    function desenharAvisos() {
-      API('avisos').then(function (r) {
-        var lista = r.avisos || [];
-        document.getElementById('ct-avisos').innerHTML = lista.length ? lista.map(function (a) {
-          return '<li class="ct-aviso ct-aviso-' + a.tipo + (a.lido ? '' : ' novo') + '"><time>' + quando(a.criado_em) + (a.telegram ? ', enviado no Telegram' : '') + '</time><b>' + esc(a.titulo) + '</b><span>' + esc(a.texto) + '</span></li>';
-        }).join('') : '<li class="ct-vazio">Nenhum aviso ainda. Com um plano ativo, os alertas de largada e os vencedores aparecem aqui.</li>';
-        if (lista.some(function (a) { return !a.lido; })) setTimeout(function () { API('avisos_lidos', {}); }, 1500);
-      });
-    }
-    desenharAvisos();
-    var teste = document.getElementById('ct-teste');
-    if (!modoTeste) teste.remove();
-    else teste.addEventListener('click', function () { API('teste_aviso', {}).then(desenharAvisos); });
-
-    /* Categorias */
+    /* Categorias (ficam na conta; a página Suas categorias usa estas) */
     var favs = u.categorias.slice();
     var caixa = document.getElementById('ct-cats');
     caixa.innerHTML = CATS.map(function (c) {
@@ -129,43 +100,6 @@
         if (!r.ok) return; u = r.usuario; ok.hidden = false; clearTimeout(t); t = setTimeout(function () { ok.hidden = true; }, 2000);
       });
     });
-
-    /* Telegram */
-    function desenharTelegram(u) {
-      var el = document.getElementById('ct-tg');
-      if (NIVEL[u.plano] < 1) { el.innerHTML = bloqueio('medio'); return; }
-      if (!u.telegram.configurado) {
-        el.innerHTML = '<p class="ct-sub">O bot do Telegram do site ainda não foi configurado. Enquanto isso, os avisos aparecem na caixa de Avisos desta página.</p>';
-        return;
-      }
-      if (u.telegram.ligado) {
-        el.innerHTML = '<p class="ct-ligado">Telegram ligado. Os alertas chegam no seu celular.</p><button type="button" class="ct-mini" id="ct-tg-off">Desligar</button>';
-        document.getElementById('ct-tg-off').addEventListener('click', function () { API('telegram_desligar', {}).then(function (r) { if (r.ok) desenharTelegram(r.usuario); }); });
-        return;
-      }
-      el.innerHTML = '<p class="ct-sub">Receba o alerta de largada e o vencedor direto no Telegram.</p><button type="button" class="pl-botao" id="ct-tg-on">Ligar Telegram</button><div id="ct-tg-passos"></div>';
-      document.getElementById('ct-tg-on').addEventListener('click', function () {
-        API('telegram_codigo', {}).then(function (r) {
-          var p = document.getElementById('ct-tg-passos');
-          if (!r.ok) { p.innerHTML = '<p class="ct-erro">' + esc(r.erro) + '</p>'; return; }
-          p.innerHTML = '<ol class="ct-passos"><li><a href="' + r.link + '" target="_blank" rel="noopener">Abra o bot do Na Veia no Telegram</a> e toque em Começar.</li>' +
-            '<li>Se o Telegram pedir, mande a mensagem <b>/start ' + r.codigo + '</b>.</li><li>Em até 5 minutos chega a confirmação no seu Telegram.</li></ol>';
-        });
-      });
-    }
-    desenharTelegram(u);
-
-    /* Agenda do celular */
-    function desenharAgenda(u) {
-      var el = document.getElementById('ct-agenda');
-      if (NIVEL[u.plano] < 1) { el.innerHTML = bloqueio('medio'); return; }
-      el.innerHTML = '<p class="ct-sub">Baixe um arquivo com todas as sessões das suas categorias. Ele abre no Google Agenda, no iPhone e no Outlook, com aviso 30 minutos antes.</p><button type="button" class="pl-botao" id="ct-ag-baixar">Baixar para a agenda</button><p class="ct-ok" id="ct-ag-ok" role="status" hidden></p>';
-      document.getElementById('ct-ag-baixar').addEventListener('click', function () {
-        var n = baixarAgenda(u.categorias);
-        var m = document.getElementById('ct-ag-ok'); m.textContent = n + ' sessões baixadas.'; m.hidden = false;
-      });
-    }
-    desenharAgenda(u);
   }
 
   /* ---------- Área do assinante ---------- */

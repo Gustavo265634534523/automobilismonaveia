@@ -139,21 +139,37 @@
     window.NAVEIA_TESTE_PLANO = vTeste === 'medio' ? 'medio' : 'master'; /* ?teste=medio: vê o site como assinante do Médio */
   } catch (e) { window.NAVEIA_TESTE = false; }
 
-  /* Conta: descobre se a pessoa está logada (só funciona com o servidor PHP) */
+  /* Conta: servidor de contas no Cloudflare (_ferramentas/contas). No computador e na rede de casa usa o servidor de teste (porta 8787).
+     O login fica num token guardado no navegador e vai no cabeçalho Authorization. */
+  var redeCasa = window.NAVEIA_PC || /^192\.168\./.test(location.hostname);
+  window.NAVEIA_SERVIDOR = redeCasa ? 'http://' + (location.hostname || 'localhost') + ':8787/' : 'https://naveia-contas.SUBDOMINIO.workers.dev/';
+  function lerSessao() { try { return localStorage.getItem('naveia-sessao') || ''; } catch (e) { return ''; } }
   window.NAVEIA_API = function (acao, dados) {
-    var op = dados ? { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Naveia': '1' }, body: JSON.stringify(dados), credentials: 'same-origin' } : { credentials: 'same-origin' };
-    return fetch('api/conta.php?acao=' + acao, op).then(function (r) { return r.json(); });
+    var cab = { 'X-Naveia': '1' }, s = lerSessao();
+    if (s) cab.Authorization = 'Bearer ' + s;
+    var op = { headers: cab };
+    if (dados) { op.method = 'POST'; cab['Content-Type'] = 'application/json'; op.body = JSON.stringify(dados); }
+    return fetch(window.NAVEIA_SERVIDOR + '?acao=' + acao, op).then(function (r) { return r.json(); }).then(function (r) {
+      try {
+        if (r && r.sessao) localStorage.setItem('naveia-sessao', r.sessao);
+        if (acao === 'sair' || (acao === 'eu' && r && r.ok && !r.logado)) localStorage.removeItem('naveia-sessao');
+      } catch (e) {}
+      return r;
+    });
   };
-  window.NAVEIA_EU = /^https?:/.test(location.protocol)
-    ? window.NAVEIA_API('eu').catch(function () { return { ok: false, logado: false, semServidor: true }; })
-    : Promise.resolve({ ok: false, logado: false, semServidor: true });
+  /* ?teste=1 / ?teste=medio no computador: finge um assinante, sem precisar de conta */
+  window.NAVEIA_EU = window.NAVEIA_TESTE
+    ? Promise.resolve({ ok: true, logado: true, teste: true, usuario: { nome: 'Teste', email: '', plano: window.NAVEIA_TESTE_PLANO, categorias: [] } })
+    : /^https?:/.test(location.protocol)
+      ? window.NAVEIA_API('eu').catch(function () { return { ok: false, logado: false, semServidor: true }; })
+      : Promise.resolve({ ok: false, logado: false, semServidor: true });
   window.NAVEIA_EU.then(function (r) {
     var l = document.getElementById('conta-link');
     if (!l) return;
     if (r.semServidor) { l.remove(); var pc = document.querySelector('.painel-conta'); if (pc) pc.remove(); return; }
     if (r.logado) {
       l.href = 'conta.html';
-      l.innerHTML = 'Minha conta' + (r.usuario.avisos_nao_lidos ? ' <b class="conta-badge" aria-label="' + r.usuario.avisos_nao_lidos + ' avisos novos">' + r.usuario.avisos_nao_lidos + '</b>' : '');
+      l.textContent = 'Minha conta';
     }
     if (/conta|entrar|painel/.test(location.pathname)) l.setAttribute('aria-current', 'page');
   });
