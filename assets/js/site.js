@@ -64,7 +64,7 @@
         '<div class="cp-grade">' +
           '<article class="cp-plano"><h3>Médio</h3><p class="cp-preco"><b>R$ 14,90</b> por mês</p><ul>' +
             '<li>Alerta 30 minutos antes da largada</li><li>Vencedor no celular logo depois da corrida</li><li>Sessões direto na agenda do celular</li>' +
-            '<li>Resumo da segunda-feira</li><li>Página só com as suas categorias</li><li>Chefe de Equipe: 15 corridas por dia</li></ul></article>' +
+            '<li>Resumo da segunda-feira</li><li>Página só com as suas categorias</li><li>Chefe de Equipe sem limite de corridas por dia</li></ul></article>' +
           '<article class="cp-plano cp-master"><h3>Master</h3><p class="cp-preco"><b>R$ 29,90</b> por mês</p><ul>' +
             '<li>Tudo do plano Médio</li><li>Prévia da etapa completa</li><li>Maratona do fim de semana</li><li>Simulador completo</li>' +
             '<li>Duelo de pilotos</li><li>Raio-x pós-corrida com gráficos</li><li>Bolão entre membros</li><li>Grupo fechado</li><li>Jogos sem limite</li></ul></article>' +
@@ -183,7 +183,7 @@
       '</div>' +
       /* Área de teste do dono: só aparece no computador (localhost), nunca no site no ar */
       (local ? '<nav class="rodape-teste" aria-label="Área de teste"><h2>Área de teste <small>só aparece no seu computador</small></h2><ul>' +
-        [['minhas.html?teste=medio', 'Suas categorias (Médio)'], ['duelo.html?teste=1', 'Duelo de pilotos'], ['bolao.html?teste=1', 'Bolão entre membros'], ['jogos.html?teste=1', 'Jogos (Master)'], ['jogos.html?teste=medio#chefe', 'Chefe de Equipe (Médio)'], ['simulador.html?teste=1', 'Simulador completo'], ['raiox.html?teste=1', 'Raio-x']]
+        [['minhas.html?teste=medio', 'Suas categorias (Médio)'], ['duelo.html?teste=1', 'Duelo de pilotos'], ['bolao.html?teste=1', 'Bolão entre membros'], ['jogos.html?teste=1', 'Jogos (Master)'], ['jogos.html?teste=medio#chefe', 'Jogos (Médio)'], ['simulador.html?teste=1', 'Simulador completo'], ['raiox.html?teste=1', 'Raio-x']]
           .map(function (x) { return '<li><a href="' + x[0] + '">' + x[1] + '</a></li>'; }).join('') +
         '<li><a class="rodape-teste-sair" href="index.html?teste=0">' + (window.NAVEIA_TESTE ? 'Voltar a ver como visitante' : 'Vendo como visitante') + '</a></li></ul></nav>' : '') +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span></div></div>';
