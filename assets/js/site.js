@@ -43,11 +43,11 @@
         '<span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
         '<nav class="nav" aria-label="Categorias principais"><div class="nav-item"><a class="nav-link" href="noticias.html"' + (paginaAtual === 'noticias' ? ' aria-current="page"' : '') + ' title="Notícias de todas as categorias">Últimas notícias</a></div>' + nav + '</nav>' +
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
-        '<button type="button" class="idioma-btn" id="idioma-btn" data-sem-traducao aria-label="' + (window.LANG === 'en' ? 'Change the site language' : 'Mudar o idioma do site') + '" title="' + (window.LANG === 'en' ? 'Português' : 'English') + '">' +
-          '<span' + (window.LANG !== 'en' ? ' class="ativo"' : '') + '>PT</span><i aria-hidden="true"></i><span' + (window.LANG === 'en' ? ' class="ativo"' : '') + '>EN</span></button>' +
         '<a class="planos-btn" href="planos.html"' + (location.pathname.indexOf('planos') > -1 ? ' aria-current="page"' : '') + '>Planos</a>' +
         '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Todas as categorias</span>' +
         '<span class="grade-ic" aria-hidden="true">' + new Array(10).join('<i></i>') + '</span><span class="sr">Abrir todas as categorias</span></button>' +
+        '<button type="button" class="idioma-btn" id="idioma-btn" data-sem-traducao aria-label="' + (window.LANG === 'en' ? 'Change the site language' : 'Mudar o idioma do site') + '" title="' + (window.LANG === 'en' ? 'Português' : 'English') + '">' +
+          '<span' + (window.LANG !== 'en' ? ' class="ativo"' : '') + '>PT</span><i aria-hidden="true"></i><span' + (window.LANG === 'en' ? ' class="ativo"' : '') + '>EN</span></button>' +
       '</div>';
 
     var painel = document.createElement('div');
