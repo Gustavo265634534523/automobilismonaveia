@@ -89,6 +89,7 @@
         '<p class="ct-sub">' + (u.plano === 'gratis' ? 'Você usa o site de graça. Assine para receber os alertas e liberar os recursos dos planos.' :
           u.plano === 'medio' ? 'Alertas no Telegram, agenda do celular, resumo da segunda, sua página de categorias e o Chefe de Equipe.' : 'Tudo liberado: jogos, simulador, duelo, bolão e Raio-x.') + '</p>' + ate +
         (u.plano !== 'master' ? '<a class="pl-botao" href="planos.html">Ver os planos</a>' : '') +
+        (u.assinatura ? '<p class="ct-sub">Assinatura no cartão ativa: cobra sozinha todo mês.</p><button type="button" class="ct-mini" id="ct-cancelar">Cancelar a cobrança automática</button><p class="ct-erro" id="ct-cancelar-erro" hidden></p>' : '') +
         (modoTeste ? '<div class="ct-teste"><p>Modo teste (só na conta do dono): troque de plano na hora, sem pagar.</p>' +
           ['gratis', 'medio', 'master'].map(function (p) { return '<button type="button" class="ct-mini" data-plano="' + p + '"' + (p === u.plano ? ' aria-pressed="true"' : '') + '>' + NOMES[p] + '</button>'; }).join('') + '</div>' : '');
     }
@@ -102,7 +103,25 @@
         : bloqueio('medio');
     }
     desenharPlano(u); desenharAtalhos(u);
+    /* volta do Mercado Pago */
+    var pg = new URLSearchParams(location.search).get('pagamento');
+    if (pg) {
+      var msg = { aprovado: 'Pagamento aprovado! Seu plano já está liberado. Se ainda aparecer o plano antigo, recarregue a página em 1 minuto.',
+        pendente: 'Pagamento em análise. Assim que o Mercado Pago aprovar, seu plano libera sozinho.',
+        assinatura: 'Assinatura recebida! Assim que o Mercado Pago confirmar o cartão, seu plano libera sozinho (normalmente em poucos minutos).' }[pg];
+      if (msg) document.getElementById('ct-plano').insertAdjacentHTML('beforebegin', '<p class="ct-ok ct-pagamento">' + msg + '</p>');
+      if (history.replaceState) history.replaceState(null, '', location.pathname);
+    }
     document.getElementById('ct-plano').addEventListener('click', function (e) {
+      if (e.target.id === 'ct-cancelar') {
+        if (!confirm('Cancelar a cobrança automática? Seu plano continua até o fim do mês já pago.')) return;
+        e.target.disabled = true;
+        API('cancelar', {}).then(function (r) {
+          if (!r.ok) { var er = document.getElementById('ct-cancelar-erro'); er.textContent = r.erro; er.hidden = false; e.target.disabled = false; return; }
+          u = r.usuario; desenharPlano(u);
+        });
+        return;
+      }
       var p = e.target.getAttribute('data-plano'); if (!p) return;
       API('plano_teste', { plano: p }).then(function (r) { if (r.ok) { u = r.usuario; desenharPlano(u); desenharAtalhos(u); } });
     });
