@@ -80,6 +80,11 @@
   /* ---------- Minha conta ---------- */
   function montarConta(u, modoTeste) {
     document.getElementById('ct-ola').textContent = 'Olá, ' + u.nome.split(' ')[0];
+    /* Perfil: nome e e-mail da conta sempre à vista (é o e-mail para entrar e para pagar no Mercado Pago) */
+    document.getElementById('ct-perfil').innerHTML =
+      '<div><dt>Nome</dt><dd>' + esc(u.nome) + '</dd></div>' +
+      '<div><dt>E-mail da conta</dt><dd>' + esc(u.email) + '</dd></div>' +
+      '<p class="ct-sub">Use este e-mail para entrar no site. Na assinatura no cartão, o Mercado Pago precisa do mesmo e-mail que você usa lá.</p>';
     document.getElementById('ct-sair').addEventListener('click', function () { API('sair', {}).then(function () { ir('index.html'); }, function () { ir('index.html'); }); });
 
     function desenharPlano(u) {

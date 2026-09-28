@@ -85,3 +85,9 @@
 /* Esqueceu a senha: botão com cara de link */
 .ct-link { margin-top: 14px; padding: 0; border: 0; background: none; cursor: pointer; font: 600 15px var(--texto); color: var(--aco); text-decoration: underline; text-underline-offset: 3px; }
 .ct-link:hover { color: var(--cromo); }
+
+/* Minha conta: perfil (nome e e-mail) */
+.ct-perfil { display: grid; gap: 12px; margin: 0; }
+.ct-perfil div { display: grid; gap: 2px; }
+.ct-perfil dt { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--aco); }
+.ct-perfil dd { margin: 0; font-size: 18px; font-weight: 600; color: var(--cromo); word-break: break-all; }
