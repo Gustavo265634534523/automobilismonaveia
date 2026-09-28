@@ -723,6 +723,10 @@ html.com-aviso { --topo: 100px; }
 }
 
 /* Dois botões lado a lado no fim da chamada dos planos */
+.cp-grade > .cp-plano { display: flex; flex-direction: column; }
+.cp-plano .cp-assinar { margin-top: auto; align-self: flex-start; }
+.cp-plano ul + .cp-assinar { margin-top: 24px; }
+.cp-grade > .cp-plano ul { margin-bottom: auto; }
 .cp-acoes { display: flex; flex-wrap: wrap; gap: 12px 14px; margin-top: 34px; }
 .cp-acoes .botao { margin-top: 0; }
 .botao-linha { background: transparent; box-shadow: inset 0 0 0 1px var(--aco); }
