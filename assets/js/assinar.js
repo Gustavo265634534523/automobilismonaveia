@@ -29,8 +29,8 @@
         '<section class="as-op"><h3>Cartão de crédito</h3><p>Cobra sozinho todo mês. Cancele quando quiser em Minha conta.</p>' +
           '<label class="as-email">Seu e-mail no Mercado Pago<input type="email" id="as-email-mp" value="' + esc(eu.usuario.email) + '" autocomplete="email"><small>O Mercado Pago pede o e-mail que você usa lá. Se for o mesmo da sua conta aqui, deixe como está.</small></label>' +
           '<button type="button" class="pl-botao" data-forma="cartao">Assinar no cartão</button></section>' +
-        '<section class="as-op"><h3>Pix ou cartão, 1 mês</h3><p>Paga uma vez e usa por 30 dias. Para continuar, é só pagar de novo.</p>' +
-          '<button type="button" class="pl-botao pl-botao-linha" data-forma="mes">Pagar 1 mês</button></section>' +
+        '<section class="as-op"><h3>Pix</h3><p>Paga uma vez e usa por 30 dias. Para continuar, é só pagar de novo.</p>' +
+          '<button type="button" class="pl-botao pl-botao-linha" data-forma="mes">Pagar com Pix</button></section>' +
       '</div>' +
       '<p class="as-erro" role="alert" hidden></p>' +
       '<p class="as-legal">O pagamento é feito na página segura do Mercado Pago. Você pode desistir em até 7 dias e receber o dinheiro de volta.</p>';
@@ -49,7 +49,7 @@
           erro.textContent = e.message && e.message !== 'Failed to fetch' ? e.message : 'Não foi possível falar com o servidor. Tente de novo.';
           erro.hidden = false;
           cont.querySelectorAll('[data-forma]').forEach(function (x) { x.disabled = false; });
-          b.textContent = b.getAttribute('data-forma') === 'cartao' ? 'Assinar no cartão' : 'Pagar 1 mês';
+          b.textContent = b.getAttribute('data-forma') === 'cartao' ? 'Assinar no cartão' : 'Pagar com Pix';
         });
       });
     });
