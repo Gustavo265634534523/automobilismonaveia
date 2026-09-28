@@ -792,14 +792,19 @@ html.com-aviso { --topo: 100px; }
   .topo-in .todas { margin-left: 6px; flex-shrink: 0; }
 }
 
-/* Topo: idioma no canto (depois do menu) e Entrar em vermelho */
-.conta-link, .topo-in .conta-link { color: var(--sangue-vivo); }
-.conta-link:hover, .conta-link[aria-current] { color: #ff5a61; }
+/* Topo: idioma no canto (depois do menu). Entrar branco, e ao passar o mouse vira botão vermelho, igual ao Planos */
+.conta-link, .topo-in .conta-link { color: var(--cromo); font-size: 15px; font-weight: 700; letter-spacing: .03em; padding: 8px 14px 7px; clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%); transition: background .25s var(--ease), color .2s; }
+.conta-link:hover, .conta-link[aria-current], .topo-in .conta-link:hover, .topo-in .conta-link[aria-current] { color: #fff; background: var(--sangue-vivo); }
+.conta-link + .planos-btn { margin-left: 8px; }
 .todas + .idioma-btn { margin-left: 14px; }
 @media (max-width: 620px) {
-  .topo-in .conta-link { color: var(--sangue-vivo); }
+  .topo-in .conta-link { height: 38px; padding: 0 10px; align-items: center; font-size: 13px; }
+  .topo-in .conta-link + .planos-btn { margin-left: 6px; }
   .topo-in .todas + .idioma-btn { margin-left: 8px; height: 38px; padding: 0 10px; }
 }
 @media (max-width: 360px) {
-  .topo-in .todas + .idioma-btn { margin-left: 6px; padding: 0 8px; }
+  .topo-in .conta-link { padding: 0 6px; margin-left: 4px; font-size: 12px; letter-spacing: 0; }
+  .topo-in .conta-link + .planos-btn { margin-left: 4px; }
+  .topo-in .todas { margin-left: 4px; }
+  .topo-in .todas + .idioma-btn { margin-left: 4px; padding: 0 7px; }
 }
