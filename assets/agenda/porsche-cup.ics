@@ -1,0 +1,46 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Automobilismo Na Veia//Agenda//PT
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Na Veia: Porsche Cup
+X-WR-TIMEZONE:America/Sao_Paulo
+REFRESH-INTERVAL;VALUE=DURATION:PT6H
+X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+DTSTAMP:20260928T161200Z
+UID:porsche-cup-7-dia@naveia
+DTSTART;VALUE=DATE:20261003
+DTEND;VALUE=DATE:20261004
+SUMMARY:Porsche Cup: Endurance
+LOCATION:Goiânia (GO)\, horários ainda não divulgados
+DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260928T161200Z
+UID:porsche-cup-8-dia@naveia
+DTSTART;VALUE=DATE:20261011
+DTEND;VALUE=DATE:20261012
+SUMMARY:Porsche Cup: Etapa 8\, Challenge e Trophy
+LOCATION:Goiânia (GO)\, etapa remarcada de abril
+DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260928T161200Z
+UID:porsche-cup-9-dia@naveia
+DTSTART;VALUE=DATE:20261108
+DTEND;VALUE=DATE:20261109
+SUMMARY:Porsche Cup: Etapa 9
+LOCATION:Interlagos (SP)
+DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+END:VEVENT
+BEGIN:VEVENT
+DTSTAMP:20260928T161200Z
+UID:porsche-cup-10-dia@naveia
+DTSTART;VALUE=DATE:20261128
+DTEND;VALUE=DATE:20261129
+SUMMARY:Porsche Cup: Endurance final
+LOCATION:Interlagos (SP)
+DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+END:VEVENT
+END:VCALENDAR

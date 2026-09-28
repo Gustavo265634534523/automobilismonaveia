@@ -3,6 +3,8 @@
 // Uso: node .github/avisos/telegram.js
 // 1. Aviso antes de cada classificação, sprint e corrida (lê as sessões "s" de assets/js/dados.js).
 // 2. Vencedor quando uma etapa ganha "venc" ou "parcial" novo.
+//    Na F1 não espera o dados.js: pergunta ao OpenF1 logo depois da corrida e manda o vencedor na hora.
+// 3. Resumo da segunda-feira (a partir das 9h): vencedores do fim de semana nas 12 categorias e os líderes.
 // A chave vem das variáveis TELEGRAM_CHAVE e TELEGRAM_CANAL ou do arquivo _privado/telegram.env.
 const fs = require('fs'), path = require('path');
 const RAIZ = path.join(__dirname, '../..');
@@ -55,6 +57,7 @@ async function enviar(cfg, html) {
       }
       for (const [campo, rotulo] of [['venc', '🏆 Vencedor'], ['parcial', '📋 Resultado parcial']]) {
         if (!e[campo]) continue;
+        if (campo === 'venc' && estado.enviados['f1rapido:' + c.slug + ':' + e.e]) continue; /* já mandado na hora pelo OpenF1 */
         const chave = 'resultado:' + c.slug + ':' + e.e + ':' + campo + ':' + e[campo];
         if (estado.enviados[chave]) continue;
         // na primeira vez só registra os resultados que já existiam, sem mandar nada
@@ -63,6 +66,43 @@ async function enviar(cfg, html) {
       }
     }
   }
+  /* 2b. F1: vencedor na hora, pelo OpenF1 (só olha entre 80 minutos e 6 horas depois da largada) */
+  const f1 = window.CATEGORIAS.find(c => c.slug === 'formula-1');
+  for (const e of f1 ? f1.calendario : []) {
+    const x = (e.s || []).find(y => y.t === 'Corrida');
+    if (!x || e.venc || estado.enviados['f1rapido:formula-1:' + e.e]) continue;
+    const depois = (agora - new Date(x.d + 'T' + x.h + ':00-03:00').getTime()) / 60000;
+    if (depois < 80 || depois > 360) continue;
+    try {
+      const get = async q => { const r = await fetch('https://api.openf1.org/v1/' + q, { signal: AbortSignal.timeout(30000) }); const j = await r.json(); return Array.isArray(j) ? j : []; };
+      const ses = (await get('sessions?year=' + x.d.slice(0, 4) + '&session_name=Race')).find(z => Math.abs(Date.parse(z.date_start) - new Date(x.d + 'T' + x.h + ':00-03:00').getTime()) < 3 * 36e5);
+      if (!ses) continue;
+      const res = await get('session_result?session_key=' + ses.session_key);
+      const podio = [1, 2, 3].map(p => res.find(r => r.position === p));
+      if (!podio[0]) continue; /* resultado ainda não saiu: tenta de novo em 5 minutos */
+      const pil = await get('drivers?session_key=' + ses.session_key);
+      const nome = r => { const d = pil.find(p => p.driver_number === r.driver_number); return d ? d.first_name + ' ' + d.last_name.charAt(0) + d.last_name.slice(1).toLowerCase() + ' (' + d.team_name + ')' : '#' + r.driver_number; };
+      await enviar(cfg, '🏆 Vencedor | <b>Fórmula 1, ' + esc(e.n) + '</b>\n' + esc(nome(podio[0])) +
+        (podio[1] && podio[2] ? '\n\n🥈 ' + esc(nome(podio[1])) + '\n🥉 ' + esc(nome(podio[2])) : ''));
+      estado.enviados['f1rapido:formula-1:' + e.e] = new Date().toISOString(); log.push('f1rapido:' + e.e);
+    } catch (err) { console.log('openf1: ' + err.message); }
+  }
+
+  /* 3. Resumo da segunda-feira, a partir das 9h (horário de Brasília) */
+  const br = new Date(agora - 3 * 36e5), semana = br.toISOString().slice(0, 10);
+  if (br.getUTCDay() === 1 && br.getUTCHours() >= 9 && !estado.enviados['resumo:' + semana] && !primeira) {
+    const ini = new Date(br.getTime() - 7 * 864e5).toISOString().slice(0, 10);
+    const linhas = [];
+    for (const c of window.CATEGORIAS) {
+      const vs = c.calendario.filter(e => e.venc && e.d && e.d >= ini && e.d < semana);
+      if (!vs.length) continue;
+      linhas.push('<b>' + esc(c.nome) + '</b>\n' + vs.map(e => '🏆 ' + esc(e.n) + ': ' + esc(e.venc)).join('\n') +
+        (c.lider ? '\nLíder: ' + esc(c.lider.nome) + (c.lider.info ? ' (' + esc(c.lider.info) + ')' : '') : ''));
+    }
+    if (linhas.length) await enviar(cfg, '📰 <b>Resumo do fim de semana</b>\n\n' + linhas.join('\n\n'));
+    estado.enviados['resumo:' + semana] = new Date().toISOString(); log.push('resumo:' + semana + (linhas.length ? '' : ' (sem corridas)'));
+  }
+
   estado.iniciado = true;
   fs.writeFileSync(ESTADO, JSON.stringify(estado, null, 1));
   console.log(new Date().toISOString().slice(0, 16) + ' ' + (log.length ? log.join(' | ') : 'nada novo'));

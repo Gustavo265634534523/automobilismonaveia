@@ -183,7 +183,7 @@
       '</div>' +
       /* Área de teste do dono: só aparece no computador (localhost), nunca no site no ar */
       (local ? '<nav class="rodape-teste" aria-label="Área de teste"><h2>Área de teste <small>só aparece no seu computador</small></h2><ul>' +
-        [['duelo.html?teste=1', 'Duelo de pilotos'], ['bolao.html?teste=1', 'Bolão entre membros'], ['jogos.html?teste=1', 'Jogos (Master)'], ['jogos.html?teste=medio#chefe', 'Chefe de Equipe (Médio)'], ['simulador.html?teste=1', 'Simulador completo'], ['raiox.html?teste=1', 'Raio-x']]
+        [['minhas.html?teste=medio', 'Suas categorias (Médio)'], ['duelo.html?teste=1', 'Duelo de pilotos'], ['bolao.html?teste=1', 'Bolão entre membros'], ['jogos.html?teste=1', 'Jogos (Master)'], ['jogos.html?teste=medio#chefe', 'Chefe de Equipe (Médio)'], ['simulador.html?teste=1', 'Simulador completo'], ['raiox.html?teste=1', 'Raio-x']]
           .map(function (x) { return '<li><a href="' + x[0] + '">' + x[1] + '</a></li>'; }).join('') +
         '<li><a class="rodape-teste-sair" href="index.html?teste=0">' + (window.NAVEIA_TESTE ? 'Voltar a ver como visitante' : 'Vendo como visitante') + '</a></li></ul></nav>' : '') +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span></div></div>';
