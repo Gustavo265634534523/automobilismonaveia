@@ -605,11 +605,12 @@
     });
   }
 
-  /* opcoes.limite: corridas grátis para visitantes (página inicial). Planos Médio e Master: sem limite (desde 28/09/2026 o Médio também joga sem limite).
+  /* opcoes.limite: corridas grátis para visitantes (página inicial). Plano Médio: LIMITE_MEDIO corridas por dia. Plano Master: sem limite.
      O contador fica no navegador (quando o site estiver no ar com PHP, dá para passar para o servidor). */
   var LIMITE_MEDIO = 15;
   window.JOGO_CHEFE = function (el, opcoes) {
     var LIMITE = (opcoes && opcoes.limite) || 0, modo = LIMITE ? 'visitante' : 'livre';
+    if (opcoes && opcoes.plano === 'medio') modo = 'medio'; /* plano Médio: LIMITE_MEDIO corridas por dia */
     function hoje() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
     function usadas() {
       if (modo === 'medio') { var r = ler('chefe-medio-dia', null); return r && r.dia === hoje() ? r.n : 0; }

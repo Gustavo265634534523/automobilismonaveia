@@ -27,9 +27,9 @@
       if (!window.NAVEIA_PC) return bloquear('Jogos indisponíveis agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="jogos.html">Tentar de novo</a>');
       r = { logado: false };
     }
-    if (!r.logado) return bloquear('Exclusivo dos planos Médio e Master', 'Entre na sua conta para jogar. No Médio você joga o Chefe de Equipe sem limite; no Master, todos os jogos.', '<a class="pl-botao" href="entrar.html?volta=jogos.html">Entrar</a><a class="pl-botao pl-botao-linha" href="planos.html">Ver os planos</a>');
+    if (!r.logado) return bloquear('Exclusivo dos planos Médio e Master', 'Entre na sua conta para jogar. No Médio você joga o Chefe de Equipe 15 vezes por dia; no Master, todos os jogos sem limite.', '<a class="pl-botao" href="entrar.html?volta=jogos.html">Entrar</a><a class="pl-botao pl-botao-linha" href="planos.html">Ver os planos</a>');
     if (r.usuario.plano === 'medio') return liberar(false, 'medio');
-    if (r.usuario.plano !== 'master') return bloquear('Exclusivo dos planos Médio e Master', 'Seu plano atual não inclui os jogos. No Médio você joga o Chefe de Equipe sem limite; no Master, todos os jogos.', '<a class="pl-botao" href="planos.html">Ver os planos</a>');
+    if (r.usuario.plano !== 'master') return bloquear('Exclusivo dos planos Médio e Master', 'Seu plano atual não inclui os jogos. No Médio você joga o Chefe de Equipe 15 vezes por dia; no Master, todos os jogos sem limite.', '<a class="pl-botao" href="planos.html">Ver os planos</a>');
     liberar(false, 'master');
   });
 
