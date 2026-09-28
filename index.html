@@ -23,7 +23,6 @@
 <link rel="preload" as="image" href="assets/img/hero-1-lado.webp" imagesrcset="assets/img/hero-1-lado-m.webp 1200w, assets/img/hero-1-lado.webp 2400w" imagesizes="100vw">
 <link rel="stylesheet" href="assets/css/estilo.css">
 <link rel="stylesheet" href="assets/css/planos.css">
-<link rel="stylesheet" href="assets/css/jogos.css">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -120,9 +119,18 @@
     <div class="moldura">
       <div class="secao-cab revelar">
         <h2 id="chefe-demo-t">Chefe de Equipe</h2>
-        <p>Jogo grátis (3 corridas; plano Médio: 15 por dia; Master: sem limite): escolha a cor do carro, a pista, o nível e o clima. Faça a classificação, pilote na corrida e comande a estratégia de pneus e boxes. No computador, W acelera, S freia e espaço usa a bateria. No celular, use os botões.</p>
+        <p>Pilote e comande a estratégia de um carro de Fórmula 1 em 3D, nas pistas de verdade do calendário. Faça a classificação, escolha os pneus, decida a hora do pit stop e use a bateria na hora certa.</p>
       </div>
-      <div id="jogo-chefe" class="jg-jogo inicio-chefe"></div>
+      <div class="cp-previa revelar">
+        <figure class="cp-foto cp-foto-grande"><img src="assets/img/chefe/cockpit.jpg" alt="Visão de dentro do cockpit, com o volante e o painel mostrando a marcha e a velocidade" width="920" height="608" loading="lazy"><figcaption>Cockpit: volante com marcha, velocidade e bateria</figcaption></figure>
+        <figure class="cp-foto"><img src="assets/img/chefe/camera-atras.jpg" alt="Carro preto na reta de Interlagos, visto de trás" width="920" height="608" loading="lazy"><figcaption>Câmera atrás do carro</figcaption></figure>
+        <figure class="cp-foto"><img src="assets/img/chefe/camera-tv.jpg" alt="Carro fazendo curva em Interlagos, visto do alto como na TV" width="920" height="608" loading="lazy"><figcaption>Câmera do alto, como na TV</figcaption></figure>
+      </div>
+      <ul class="cp-previa-lista revelar">
+        <li>17 pistas oficiais da F1</li><li>Pneus macio, médio, duro e de chuva</li><li>Seco, chuva leve ou forte</li>
+        <li>Direção assistida ou modo Elite</li><li>Câmbio automático ou manual</li><li>Gráfico baixo, médio ou alto</li>
+      </ul>
+      <div class="cp-acoes revelar"><a class="botao" href="jogos.html#chefe">Jogar no plano Master</a></div>
     </div>
   </section>
 
@@ -179,10 +187,5 @@
 <script src="assets/js/site.js"></script>
 <script src="assets/js/inicio.js"></script>
 <script src="assets/js/simulador.js"></script>
-<script src="assets/js/circuitos.js"></script>
-<script src="assets/js/circuitos-altura.js"></script>
-<script src="assets/js/chefe-3d.js"></script>
-<script src="assets/js/jogo-chefe.js"></script>
-<script>if (window.JOGO_CHEFE) window.JOGO_CHEFE(document.getElementById('jogo-chefe'), { limite: 3 });</script>
 </body>
 </html>

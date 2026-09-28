@@ -818,3 +818,16 @@ html.com-aviso { --topo: 100px; }
 .rodape-teste ul { display: flex; flex-wrap: wrap; gap: 8px 22px; list-style: none; margin: 0; padding: 0; }
 .rodape-teste a { color: var(--cromo); }
 .rodape-teste .rodape-teste-sair { color: var(--aco); }
+
+/* Página inicial: prévia do Chefe de Equipe (fotos do jogo, sem jogar) */
+.cp-previa { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: auto auto; gap: 14px; }
+.cp-foto { position: relative; margin: 0; overflow: hidden; background: var(--carbono); }
+.cp-foto-grande { grid-row: 1 / span 2; }
+.cp-foto img { display: block; width: 100%; height: 100%; object-fit: cover; aspect-ratio: 920 / 608; }
+.cp-foto figcaption { position: absolute; left: 0; bottom: 0; padding: 6px 14px 5px 12px; font-size: 14px; font-weight: 600; color: var(--cromo); background: rgba(20, 22, 25, .86); clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 100%, 0 100%); }
+.cp-previa-lista { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 18px 0 0; padding: 0; }
+.cp-previa-lista li { padding: 7px 14px 6px; font-size: 15px; font-weight: 600; color: #c3c8cd; box-shadow: inset 0 0 0 1px var(--linha); }
+@media (max-width: 760px) {
+  .cp-previa { grid-template-columns: 1fr; }
+  .cp-foto-grande { grid-row: auto; }
+}
