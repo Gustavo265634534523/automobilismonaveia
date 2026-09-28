@@ -139,10 +139,11 @@
     window.NAVEIA_TESTE_PLANO = vTeste === 'medio' ? 'medio' : 'master'; /* ?teste=medio: vê o site como assinante do Médio */
   } catch (e) { window.NAVEIA_TESTE = false; }
 
-  /* Conta: servidor de contas no Cloudflare (_ferramentas/contas). No computador e na rede de casa usa o servidor de teste (porta 8787).
-     O login fica num token guardado no navegador e vai no cabeçalho Authorization. */
-  var redeCasa = window.NAVEIA_PC || /^192\.168\./.test(location.hostname);
-  window.NAVEIA_SERVIDOR = redeCasa ? 'http://' + (location.hostname || 'localhost') + ':8787/' : 'https://naveia-contas.naveia-contas.workers.dev/';
+  /* Conta: servidor de contas no Cloudflare (_ferramentas/contas).
+     O login fica num token guardado no navegador e vai no cabeçalho Authorization.
+     Servidor de teste local (npx wrangler dev, porta 8787) só se ligado à mão: localStorage naveia-servidor-local = 1. */
+  var servLocal = false; try { servLocal = localStorage.getItem('naveia-servidor-local') === '1'; } catch (e) {}
+  window.NAVEIA_SERVIDOR = servLocal ? 'http://' + (location.hostname || 'localhost') + ':8787/' : 'https://naveia-contas.naveia-contas.workers.dev/';
   function lerSessao() { try { return localStorage.getItem('naveia-sessao') || ''; } catch (e) { return ''; } }
   window.NAVEIA_API = function (acao, dados) {
     var cab = { 'X-Naveia': '1' }, s = lerSessao();
