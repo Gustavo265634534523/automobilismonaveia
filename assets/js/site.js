@@ -142,7 +142,7 @@
   /* Conta: servidor de contas no Cloudflare (_ferramentas/contas). No computador e na rede de casa usa o servidor de teste (porta 8787).
      O login fica num token guardado no navegador e vai no cabeçalho Authorization. */
   var redeCasa = window.NAVEIA_PC || /^192\.168\./.test(location.hostname);
-  window.NAVEIA_SERVIDOR = redeCasa ? 'http://' + (location.hostname || 'localhost') + ':8787/' : 'https://naveia-contas.SUBDOMINIO.workers.dev/';
+  window.NAVEIA_SERVIDOR = redeCasa ? 'http://' + (location.hostname || 'localhost') + ':8787/' : 'https://naveia-contas.naveia-contas.workers.dev/';
   function lerSessao() { try { return localStorage.getItem('naveia-sessao') || ''; } catch (e) { return ''; } }
   window.NAVEIA_API = function (acao, dados) {
     var cab = { 'X-Naveia': '1' }, s = lerSessao();
