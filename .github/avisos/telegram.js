@@ -1,0 +1,69 @@
+// Avisos do canal do Telegram do Na Veia.
+// Roda a cada 5 minutos (Agendador do Windows agora; GitHub Actions quando o site estiver no ar).
+// Uso: node .github/avisos/telegram.js
+// 1. Aviso antes de cada classificação, sprint e corrida (lê as sessões "s" de assets/js/dados.js).
+// 2. Vencedor quando uma etapa ganha "venc" ou "parcial" novo.
+// A chave vem das variáveis TELEGRAM_CHAVE e TELEGRAM_CANAL ou do arquivo _privado/telegram.env.
+const fs = require('fs'), path = require('path');
+const RAIZ = path.join(__dirname, '../..');
+const ESTADO = path.join(__dirname, 'enviados.json');
+const ANTES_MIN = 35;            // manda até 35 minutos antes (o GitHub às vezes atrasa alguns minutos)
+const PULAR = /treino|shakedown|warm.?up/i;   // treinos não geram aviso, para o canal não virar spam
+
+function config() {
+  let chave = process.env.TELEGRAM_CHAVE || '', canal = process.env.TELEGRAM_CANAL || '';
+  const arq = path.join(RAIZ, '_privado/telegram.env');
+  if ((!chave || !canal) && fs.existsSync(arq)) {
+    const s = fs.readFileSync(arq, 'utf8');
+    chave = chave || (s.match(/^TELEGRAM_CHAVE=\s*(\S+)/m) || [])[1] || '';
+    canal = canal || (s.match(/^TELEGRAM_CANAL=\s*(\S+)/m) || [])[1] || '';
+  }
+  return { chave, canal };
+}
+
+function esc(t) { return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+
+async function enviar(cfg, html) {
+  const r = await fetch('https://api.telegram.org/bot' + cfg.chave + '/sendMessage', {
+    method: 'POST', headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ chat_id: cfg.canal, text: html, parse_mode: 'HTML', disable_web_page_preview: true })
+  });
+  const j = await r.json();
+  if (!j.ok) throw new Error(j.description);
+}
+
+(async () => {
+  const cfg = config();
+  if (!cfg.chave || !cfg.canal) { console.log('telegram: sem chave ou canal'); return; }
+  global.window = {};
+  require(path.join(RAIZ, 'assets/js/dados.js'));
+  const estado = fs.existsSync(ESTADO) ? JSON.parse(fs.readFileSync(ESTADO, 'utf8')) : { enviados: {} };
+  const primeira = !estado.iniciado;
+  const agora = Date.now(), log = [];
+
+  for (const c of window.CATEGORIAS) {
+    for (const e of c.calendario) {
+      for (const x of e.s || []) {
+        if (PULAR.test(x.t) || !x.d || !x.h) continue;
+        const falta = (new Date(x.d + 'T' + x.h + ':00-03:00').getTime() - agora) / 60000;
+        if (falta <= 0 || falta > ANTES_MIN) continue;
+        const chave = 'alerta:' + c.slug + ':' + e.e + ':' + x.t + ':' + x.d;
+        if (estado.enviados[chave]) continue;
+        await enviar(cfg, '🚦 <b>' + esc(c.nome) + ': ' + esc(x.t) + ' em ' + Math.max(1, Math.round(falta)) + ' minutos</b>\n' +
+          esc(e.n) + ', ' + esc(e.l) + '. Começa às ' + x.h.replace(':', 'h') + ' (horário de Brasília).');
+        estado.enviados[chave] = new Date().toISOString(); log.push(chave);
+      }
+      for (const [campo, rotulo] of [['venc', '🏆 Vencedor'], ['parcial', '📋 Resultado parcial']]) {
+        if (!e[campo]) continue;
+        const chave = 'resultado:' + c.slug + ':' + e.e + ':' + campo + ':' + e[campo];
+        if (estado.enviados[chave]) continue;
+        // na primeira vez só registra os resultados que já existiam, sem mandar nada
+        if (!primeira) await enviar(cfg, rotulo + ' | <b>' + esc(c.nome) + ', ' + esc(e.n) + '</b>\n' + esc(e[campo]));
+        estado.enviados[chave] = new Date().toISOString(); if (!primeira) log.push(chave);
+      }
+    }
+  }
+  estado.iniciado = true;
+  fs.writeFileSync(ESTADO, JSON.stringify(estado, null, 1));
+  console.log(new Date().toISOString().slice(0, 16) + ' ' + (log.length ? log.join(' | ') : 'nada novo'));
+})().catch(e => { console.error('telegram: erro', e.message); process.exit(1); });
