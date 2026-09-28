@@ -1,0 +1,63 @@
+/* Duelo de pilotos */
+.dl { --dl-a: var(--sangue-vivo); --dl-b: #cfd5db; max-width: 980px; }
+.dl-escolha { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: end; gap: 12px 18px; margin-bottom: 18px; }
+.dl-lado { display: grid; gap: 6px; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--aco); }
+.dl-lado-a span { color: var(--dl-a); }
+.dl-lado-b { text-align: right; }
+.dl-sel { width: 100%; padding: 11px 12px; font: 600 17px var(--texto); color: var(--cromo); background: var(--carbono); border: 1px solid var(--linha); border-radius: 0; }
+.dl-lado-a .dl-sel { box-shadow: inset 4px 0 0 var(--dl-a); }
+.dl-lado-b .dl-sel { box-shadow: inset -4px 0 0 var(--dl-b); }
+.dl-x { font-family: var(--display); font-size: 26px; color: var(--aco); padding-bottom: 8px; }
+
+.dl-cartoes { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.dl-cartao { position: relative; padding: 20px 22px 18px; background: var(--carbono); }
+.dl-cartao-a { box-shadow: inset 4px 0 0 var(--dl-a); }
+.dl-cartao-b { box-shadow: inset -4px 0 0 var(--dl-b); text-align: right; }
+.dl-pos { font-family: var(--display); font-weight: 400; font-size: 30px; color: var(--aco); }
+.dl-cartao h2 { margin: 6px 0 4px; font-family: var(--display); font-weight: 400; font-size: clamp(18px, 2.2vw, 26px); line-height: 1.2; }
+.dl-cartao p { margin: 0; color: #c3c8cd; }
+.dl-resumo { margin: 16px 0 0; font-size: 18px; color: #d4d8dc; }
+
+.dl-tabela { margin-top: 22px; background: var(--carbono); padding: 6px 22px; }
+.dl-linha { display: grid; grid-template-columns: 70px minmax(0, 1fr) 70px; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid #2c3137; }
+.dl-linha:last-child { border-bottom: 0; }
+.dl-v { font-family: var(--display); font-size: 18px; color: #9aa2a9; font-variant-numeric: tabular-nums; }
+.dl-vb { text-align: right; }
+.dl-va.dl-ganha { color: var(--dl-a); }
+.dl-vb.dl-ganha { color: var(--cromo); }
+.dl-meio { display: grid; gap: 6px; text-align: center; }
+.dl-rot { font-size: 15px; font-weight: 600; color: #c3c8cd; }
+.dl-barra { position: relative; height: 6px; background: var(--dl-b); }
+.dl-barra i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--dl-a); transition: width .4s var(--ease); }
+
+.dl-vits { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+.dl-vit { padding: 16px 22px; background: var(--carbono); }
+.dl-vit-b { text-align: right; }
+.dl-vit h3, .dl-sub { margin: 0 0 8px; font-family: var(--display); font-weight: 400; font-size: 16px; }
+.dl-vit ul { list-style: none; margin: 0; padding: 0; color: #c3c8cd; }
+.dl-vit li { padding: 3px 0; }
+.dl-vit p { margin: 0; color: var(--aco); }
+
+.dl-sub { margin: 34px 0 12px; font-size: 20px; }
+.dl-rolar { overflow-x: auto; }
+.dl-corridas { width: 100%; border-collapse: collapse; background: var(--carbono); font-variant-numeric: tabular-nums; }
+.dl-corridas th, .dl-corridas td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #2c3137; white-space: nowrap; }
+.dl-corridas thead th { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--aco); }
+.dl-corridas thead th:nth-child(3) { color: var(--dl-a); }
+.dl-corridas tbody th { font-weight: 600; color: #d4d8dc; }
+.dl-corridas td { color: #9aa2a9; }
+.dl-corridas .dl-q { color: var(--aco); font-size: 15px; }
+.dl-corridas .dl-td-a { color: var(--dl-a); font-weight: 700; }
+.dl-corridas .dl-td-b { color: var(--cromo); font-weight: 700; }
+.dl-nota { margin: 14px 0 0; font-size: 15px; color: var(--aco); }
+
+@media (max-width: 640px) {
+  .dl-escolha { grid-template-columns: 1fr; }
+  .dl-x { display: none; }
+  .dl-lado-b { text-align: left; }
+  .dl-cartoes, .dl-vits { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .dl-cartao, .dl-vit { padding: 14px; }
+  .dl-tabela { padding: 4px 14px; }
+  .dl-linha { grid-template-columns: 48px minmax(0, 1fr) 48px; gap: 8px; }
+  .dl-v { font-size: 15px; }
+}
