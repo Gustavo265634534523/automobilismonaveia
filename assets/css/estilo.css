@@ -676,7 +676,8 @@ html.com-aviso { --topo: 100px; }
   html, html.com-aviso { --topo: 60px; }
   .topo-in { display: flex; height: 60px; padding-bottom: 0; }
   .topo-in .marca { margin-right: auto; }
-  .topo-in .conta-link { display: none; }
+  .topo-in .conta-link { display: inline-flex; margin-left: 0; height: auto; padding: 0; box-shadow: none; font-size: 13px; letter-spacing: .04em; color: var(--cromo); }
+  .topo-in .conta-link + .idioma-btn { margin-left: 10px; }
   .topo-in .planos-btn, .topo-in .conta-link + .planos-btn { margin-left: 8px; height: 38px; padding: 0 12px; font-size: 13px; box-shadow: none; }
   .topo-in .todas { margin: 0 0 0 8px; width: 38px; height: 38px; padding: 0; }
 }
@@ -781,3 +782,14 @@ html.com-aviso { --topo: 100px; }
 
 /* Topo: sem o botão "Obter aplicativo", o idioma encosta o grupo da direita quando o "Entrar" some */
 .nav + .idioma-btn { margin-left: auto; }
+
+/* Celular: "Minha conta" vira só "Conta" para caber no topo */
+@media (max-width: 620px) { .topo-in .conta-longo { display: none; } }
+/* Celular pequeno (até 360 px): aperta um pouco o topo para caber Entrar, idioma, Planos e o menu */
+@media (max-width: 360px) {
+  .topo-in .marca-nome { font-size: 12px; }
+  .topo-in .conta-link { letter-spacing: 0; font-size: 12px; margin-left: 6px; }
+  .topo-in .conta-link + .idioma-btn { margin-left: 6px; }
+  .topo-in .planos-btn, .topo-in .conta-link + .planos-btn { margin-left: 6px; padding: 0 8px; font-size: 12px; }
+  .topo-in .todas { margin-left: 6px; flex-shrink: 0; }
+}
