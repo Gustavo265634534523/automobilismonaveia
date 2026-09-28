@@ -34,7 +34,17 @@
       <label>Senha<input type="password" name="senha" autocomplete="current-password" required></label>
       <p class="ct-erro" role="alert" hidden></p>
       <button class="pl-botao ct-enviar" type="submit">Entrar</button>
-      <p class="ct-legal">Esqueceu a senha? Escreva para <a href="mailto:automobilismonaveiacontato@gmail.com">automobilismonaveiacontato@gmail.com</a> com o e-mail da sua conta.</p>
+      <button type="button" class="ct-link" id="ct-esqueci-btn">Esqueceu a senha?</button>
+    </form>
+
+    <form class="ct-form" id="f-esqueci" novalidate hidden>
+      <h1>Esqueceu a senha?</h1>
+      <p class="ct-sub">Escreva o e-mail da sua conta. Vamos mandar um link para você criar uma senha nova.</p>
+      <label>E-mail<input type="email" name="email" autocomplete="email" required></label>
+      <p class="ct-erro" role="alert" hidden></p>
+      <p class="ct-ok" role="status" hidden></p>
+      <button class="pl-botao ct-enviar" type="submit">Mandar o link</button>
+      <button type="button" class="ct-link" id="ct-voltar-btn">Voltar para Entrar</button>
     </form>
 
     <form class="ct-form" id="f-criar" role="tabpanel" aria-labelledby="t-criar" novalidate hidden>

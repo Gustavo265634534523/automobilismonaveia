@@ -28,6 +28,26 @@
       if (r.logado) ir(volta || 'conta.html');
     });
 
+    /* Esqueceu a senha: troca o formulário de Entrar pelo de pedir o link */
+    var fEntrar = document.getElementById('f-entrar'), fEsq = document.getElementById('f-esqueci');
+    document.getElementById('ct-esqueci-btn').addEventListener('click', function () {
+      fEntrar.hidden = true; fEsq.hidden = false; document.querySelector('.ct-troca').hidden = true;
+      fEsq.email.value = fEntrar.email.value; fEsq.email.focus();
+    });
+    document.getElementById('ct-voltar-btn').addEventListener('click', function () {
+      fEsq.hidden = true; fEntrar.hidden = false; document.querySelector('.ct-troca').hidden = false;
+    });
+    fEsq.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var erro = fEsq.querySelector('.ct-erro'), ok = fEsq.querySelector('.ct-ok'), btn = fEsq.querySelector('.ct-enviar');
+      erro.hidden = true; ok.hidden = true; btn.disabled = true;
+      API('esqueci', { email: fEsq.email.value }).then(function (r) {
+        btn.disabled = false;
+        if (!r.ok) { erro.textContent = r.erro; erro.hidden = false; return; }
+        ok.textContent = 'Pronto. Se existir uma conta com esse e-mail, o link chega em alguns minutos. Olhe também a caixa de spam.'; ok.hidden = false;
+      }).catch(function () { erro.textContent = 'Não foi possível falar com o servidor. Tente de novo.'; erro.hidden = false; btn.disabled = false; });
+    });
+
     [['f-entrar', 'entrar'], ['f-criar', 'cadastro']].forEach(function (par) {
       var f = document.getElementById(par[0]);
       f.addEventListener('submit', function (ev) {

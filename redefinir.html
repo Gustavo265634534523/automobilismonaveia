@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/idioma.js"></script>
+<title>Criar senha nova | Automobilismo Na Veia</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#141619">
+<link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css">
+<link rel="stylesheet" href="assets/css/planos.css">
+<link rel="stylesheet" href="assets/css/conta.css">
+</head>
+<body data-pagina="redefinir">
+<a class="pular" href="#acesso">Pular para o conteúdo</a>
+<header id="topo"></header>
+
+<main class="ct-entrar">
+  <div class="ct-entrar-img" aria-hidden="true"><img src="assets/img/hero-2-motor.webp" alt=""></div>
+  <section class="ct-acesso" id="acesso">
+    <form class="ct-form" id="f-redefinir" novalidate>
+      <h1>Crie uma senha nova.</h1>
+      <p class="ct-sub">Depois de salvar, você entra direto na sua conta. Nos outros aparelhos, vai precisar entrar de novo com a senha nova.</p>
+      <label>Senha nova<input type="password" name="senha" autocomplete="new-password" minlength="8" required><small>Pelo menos 8 caracteres.</small></label>
+      <label>Repita a senha nova<input type="password" name="senha2" autocomplete="new-password" minlength="8" required></label>
+      <p class="ct-erro" role="alert" hidden></p>
+      <button class="pl-botao ct-enviar" type="submit">Salvar senha nova</button>
+      <a class="ct-link" href="entrar.html">Voltar para Entrar</a>
+    </form>
+  </section>
+</main>
+
+<footer id="rodape"></footer>
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+  /* O token vem depois do # no link do e-mail (assim ele não vai para servidor nenhum ao abrir a página) */
+  (function () {
+    var f = document.getElementById('f-redefinir'), erro = f.querySelector('.ct-erro'), btn = f.querySelector('.ct-enviar');
+    var token = (location.hash.match(/t=([A-Za-z0-9_-]+)/) || [])[1];
+    if (history.replaceState) history.replaceState(null, '', location.pathname); /* tira o token da barra de endereço */
+    if (!token) { erro.textContent = 'Link incompleto. Abra de novo o link do e-mail ou peça outro em "Esqueceu a senha?".'; erro.hidden = false; btn.disabled = true; return; }
+    f.addEventListener('submit', function (ev) {
+      ev.preventDefault(); erro.hidden = true;
+      if (f.senha.value.length < 8) { erro.textContent = 'A senha precisa ter pelo menos 8 caracteres.'; erro.hidden = false; return; }
+      if (f.senha.value !== f.senha2.value) { erro.textContent = 'As duas senhas não estão iguais.'; erro.hidden = false; return; }
+      btn.disabled = true;
+      window.NAVEIA_API('redefinir', { token: token, senha: f.senha.value }).then(function (r) {
+        if (!r.ok) { erro.textContent = r.erro; erro.hidden = false; btn.disabled = false; return; }
+        location.href = 'conta.html';
+      }).catch(function () { erro.textContent = 'Não foi possível falar com o servidor. Tente de novo.'; erro.hidden = false; btn.disabled = false; });
+    });
+  })();
+</script>
+</body>
+</html>

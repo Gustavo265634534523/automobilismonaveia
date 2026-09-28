@@ -81,3 +81,7 @@
 .ct-atalhos { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
 .ct-atalhos a { display: inline-block; padding: 8px 14px 7px; color: var(--cromo); text-decoration: none; font-weight: 600; box-shadow: inset 0 0 0 1px var(--linha); transition: box-shadow .2s, color .2s; }
 .ct-atalhos a:hover { color: var(--sangue-vivo); box-shadow: inset 0 0 0 1px var(--sangue-vivo); }
+
+/* Esqueceu a senha: botão com cara de link */
+.ct-link { margin-top: 14px; padding: 0; border: 0; background: none; cursor: pointer; font: 600 15px var(--texto); color: var(--aco); text-decoration: underline; text-underline-offset: 3px; }
+.ct-link:hover { color: var(--cromo); }
