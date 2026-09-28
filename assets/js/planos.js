@@ -47,7 +47,6 @@
       bloco('Horários no fuso de Brasília', horarios) +
       bloco('O que está em jogo', jogo) +
       bloco('Previsão do tempo', amostra('Entra três dias antes da corrida, com chance de chuva para treino, classificação e corrida.')) +
-      bloco('Onde assistir', amostra('Canal e streaming de cada sessão no Brasil.')) +
       bloco('A pista', '<p>' + esc(pista ? pista.txt : 'Descrição da pista entra aqui.') + '</p>');
 
     /* Cenários de título: quem ainda alcança e o que precisa */
