@@ -808,3 +808,11 @@ html.com-aviso { --topo: 100px; }
   .largada-card .contagem-grande { grid-column: 1; grid-row: auto; align-items: flex-start; }
   .largada-f1 { padding: 10px 16px; }
 }
+
+/* Rodapé: área de teste do dono (só no computador) */
+.rodape-teste { margin-top: 32px; padding: 16px 20px; border: 1px dashed var(--sangue-vivo); }
+.rodape-teste h2 { margin: 0 0 10px; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--sangue-vivo); }
+.rodape-teste h2 small { margin-left: 8px; font-size: 12px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--aco); }
+.rodape-teste ul { display: flex; flex-wrap: wrap; gap: 8px 22px; list-style: none; margin: 0; padding: 0; }
+.rodape-teste a { color: var(--cromo); }
+.rodape-teste .rodape-teste-sair { color: var(--aco); }

@@ -227,9 +227,13 @@
         '<button type="button" class="copiar-email" data-email="automobilismonaveiacontato@gmail.com">' +
         '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3.5A1.5 1.5 0 0 1 4.5 2H11" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>Copiar</span></button></p></div>' +
       GRUPOS.map(function (g) { return coluna(g.nome, g.cats.map(function (c) { return li(pagina(c), esc(c.nome)); })); }).join('') +
-      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('privacidade.html', 'Política de privacidade')]
-        .concat(local ? [li('jogos.html', 'Jogos (teste local)'), li('raiox.html', 'Raio-x (amostra local)')] : [])) +
+      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('privacidade.html', 'Política de privacidade')]) +
       '</div>' +
+      /* Área de teste do dono: só aparece no computador (localhost), nunca no site no ar */
+      (local ? '<nav class="rodape-teste" aria-label="Área de teste"><h2>Área de teste <small>só aparece no seu computador</small></h2><ul>' +
+        [['duelo.html', 'Duelo de pilotos'], ['bolao.html', 'Bolão entre membros'], ['jogos.html', 'Jogos'], ['simulador.html', 'Simulador completo'], ['raiox.html', 'Raio-x']]
+          .map(function (x) { return '<li><a href="' + x[0] + '?teste=1">' + x[1] + '</a></li>'; }).join('') +
+        '<li><a class="rodape-teste-sair" href="index.html?teste=0">' + (window.NAVEIA_TESTE ? 'Voltar a ver como visitante' : 'Vendo como visitante') + '</a></li></ul></nav>' : '') +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span></div></div>';
   }
 
