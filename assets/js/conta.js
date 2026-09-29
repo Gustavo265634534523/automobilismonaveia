@@ -100,7 +100,7 @@
     }
     function desenharAtalhos(u) {
       var n = NIVEL[u.plano], itens = [
-        ['minhas.html', 'Suas categorias', 1], ['minhas.html#agenda-celular', 'Agenda do celular', 1], ['jogos.html#chefe', 'Chefe de Equipe', 1],
+        ['conta.html#agenda-celular', 'Agenda do celular', 1], ['jogos.html#chefe', 'Chefe de Equipe', 1],
         ['jogos.html', 'Todos os jogos', 2], ['simulador.html', 'Simulador completo', 2], ['duelo.html', 'Duelo de pilotos', 2], ['bolao.html', 'Bolão entre membros', 2], ['raiox.html', 'Raio-x pós-corrida', 2]];
       var meus = itens.filter(function (i) { return n >= i[2]; });
       document.getElementById('ct-atalhos').innerHTML = meus.length
@@ -128,15 +128,32 @@
         return;
       }
       var p = e.target.getAttribute('data-plano'); if (!p) return;
-      API('plano_teste', { plano: p }).then(function (r) { if (r.ok) { u = r.usuario; desenharPlano(u); desenharAtalhos(u); } });
+      API('plano_teste', { plano: p }).then(function (r) { if (r.ok) { u = r.usuario; desenharPlano(u); desenharAtalhos(u); desenharAgenda(u); } });
     });
 
-    /* Categorias seguidas: só o resumo; a escolha é feita na página Suas categorias */
-    var seguidas = CATS.filter(function (c) { return u.categorias.indexOf(c.slug) > -1; });
-    document.getElementById('ct-cats').innerHTML =
-      '<p class="ct-sub">' + (seguidas.length === CATS.length ? 'Você segue todas as categorias.' :
-        seguidas.length ? 'Você segue: <b>' + seguidas.map(function (c) { return esc(c.nome); }).join(', ') + '</b>.' : 'Você ainda não segue nenhuma categoria.') + '</p>' +
-      (NIVEL[u.plano] >= 1 ? '<a class="pl-botao" href="minhas.html">Escolher categorias</a>' : bloqueio('medio'));
+    /* Agenda do celular (plano Médio): cada categoria tem um arquivo .ics para assinar (assets/agenda/<categoria>.ics) */
+    function desenharAgenda(u) {
+      var el = document.getElementById('ct-agenda');
+      if (NIVEL[u.plano] < 1) { el.innerHTML = bloqueio('medio'); return; }
+      var pasta = location.href.replace(/[?#].*$/, '').replace(/[^/]*$/, '') + 'assets/agenda/';
+      el.innerHTML = '<p class="ct-sub">Assine a agenda das categorias que você quer. Os horários entram sozinhos no calendário do celular, com aviso 30 minutos antes, e mudam sozinhos quando um horário muda.</p>' +
+        '<ul class="ct-agenda">' + CATS.map(function (c) {
+          var https = pasta + c.slug + '.ics';
+          return '<li><b>' + esc(c.nome) + '</b><a class="ct-mini" href="' + esc(https.replace(/^https?:/, 'webcal:')) + '">Assinar no celular</a>' +
+            '<button type="button" class="ct-mini ct-copiar" data-link="' + esc(https) + '">Copiar link</button></li>';
+        }).join('') + '</ul>' +
+        '<details class="ct-ajuda"><summary>Como assinar</summary><ol>' +
+        '<li><b>iPhone:</b> toque em <b>Assinar no celular</b> e depois em <b>Assinar</b>.</li>' +
+        '<li><b>Android (Google Agenda):</b> toque em <b>Copiar link</b>. No computador, abra calendar.google.com, clique no <b>+</b> ao lado de "Outras agendas", escolha <b>Do URL</b>, cole o link e clique em <b>Adicionar agenda</b>.</li>' +
+        '<li><b>Outlook e outros:</b> use <b>Copiar link</b> e adicione como "agenda da internet".</li></ol></details>';
+    }
+    desenharAgenda(u);
+    document.getElementById('ct-agenda').addEventListener('click', function (e) {
+      var cp = e.target.closest('.ct-copiar'); if (!cp) return;
+      var link = cp.getAttribute('data-link'), feito = function () { cp.textContent = 'Link copiado'; setTimeout(function () { cp.textContent = 'Copiar link'; }, 2200); };
+      if (navigator.clipboard) navigator.clipboard.writeText(link).then(feito, function () { window.prompt('Copie o link:', link); });
+      else window.prompt('Copie o link:', link);
+    });
   }
 
   /* ---------- Área do assinante ---------- */
