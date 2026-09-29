@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /conta.html
+Disallow: /entrar.html
+Disallow: /redefinir.html
+Disallow: /painel.html
+
+Sitemap: https://automobilismonaveia.com.br/sitemap.xml
