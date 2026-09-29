@@ -30,7 +30,13 @@
     <div class="ct-grade">
       <section class="ct-bloco" aria-labelledby="ct-perfil-t">
         <h2 id="ct-perfil-t">Seu perfil</h2>
-        <dl class="ct-perfil" id="ct-perfil"></dl>
+        <div class="ct-perfil-linha">
+          <div class="ct-foto-caixa"><div class="ct-foto" id="ct-foto" aria-hidden="true"></div>
+            <label class="ct-mini ct-foto-btn">Colocar foto<input type="file" id="ct-foto-arquivo" accept="image/*" hidden></label>
+            <button type="button" class="ct-link ct-foto-tirar" id="ct-foto-tirar" hidden>Tirar foto</button>
+            <p class="ct-erro" id="ct-foto-erro" hidden></p></div>
+          <dl class="ct-perfil" id="ct-perfil"></dl>
+        </div>
       </section>
 
       <section class="ct-bloco ct-plano" aria-labelledby="ct-plano-t">
@@ -43,10 +49,6 @@
         <div id="ct-agenda"></div>
       </section>
 
-      <section class="ct-bloco" aria-labelledby="ct-atalhos-t">
-        <h2 id="ct-atalhos-t">Seus recursos</h2>
-        <div id="ct-atalhos"></div>
-      </section>
     </div>
   </div>
 </main>

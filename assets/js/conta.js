@@ -85,6 +85,38 @@
       '<div><dt>Nome</dt><dd>' + esc(u.nome) + '</dd></div>' +
       '<div><dt>E-mail da conta</dt><dd>' + esc(u.email) + '</dd></div>' +
       '<p class="ct-sub">Use este e-mail para entrar no site. Na assinatura no cartão, o Mercado Pago precisa do mesmo e-mail que você usa lá.</p>';
+    /* Foto do perfil: a imagem é diminuída no navegador (256x256) antes de ir para a conta */
+    function desenharFoto(u) {
+      var q = document.getElementById('ct-foto');
+      q.innerHTML = u.foto ? '<img src="' + u.foto + '" alt="">' : '<span>' + esc((u.nome || '?').trim().charAt(0).toUpperCase()) + '</span>';
+      document.getElementById('ct-foto-tirar').hidden = !u.foto;
+      document.querySelector('.ct-foto-btn').firstChild.textContent = u.foto ? 'Trocar foto' : 'Colocar foto';
+    }
+    desenharFoto(u);
+    var erroFoto = document.getElementById('ct-foto-erro');
+    function salvarFoto(img) {
+      erroFoto.hidden = true;
+      API('foto', { imagem: img }).then(function (r) {
+        if (!r.ok) { erroFoto.textContent = r.erro; erroFoto.hidden = false; return; }
+        u = r.usuario; desenharFoto(u);
+      }).catch(function () { erroFoto.textContent = 'Não foi possível salvar a foto. Tente de novo.'; erroFoto.hidden = false; });
+    }
+    document.getElementById('ct-foto-arquivo').addEventListener('change', function (e) {
+      var arq = e.target.files && e.target.files[0]; e.target.value = '';
+      if (!arq) return;
+      if (!/^image\//.test(arq.type)) { erroFoto.textContent = 'Escolha um arquivo de imagem.'; erroFoto.hidden = false; return; }
+      var img = new Image(), url = URL.createObjectURL(arq);
+      img.onload = function () {
+        var lado = Math.min(img.width, img.height), c = document.createElement('canvas');
+        c.width = c.height = 256;
+        c.getContext('2d').drawImage(img, (img.width - lado) / 2, (img.height - lado) / 2, lado, lado, 0, 0, 256, 256);
+        URL.revokeObjectURL(url);
+        salvarFoto(c.toDataURL('image/jpeg', 0.82));
+      };
+      img.onerror = function () { erroFoto.textContent = 'Não foi possível abrir essa imagem. Tente outra.'; erroFoto.hidden = false; };
+      img.src = url;
+    });
+    document.getElementById('ct-foto-tirar').addEventListener('click', function () { salvarFoto(''); });
     document.getElementById('ct-sair').addEventListener('click', function () { API('sair', {}).then(function () { ir('index.html'); }, function () { ir('index.html'); }); });
 
     function desenharPlano(u) {
@@ -92,22 +124,13 @@
       document.getElementById('ct-plano').innerHTML =
         '<p class="ct-plano-nome">' + NOMES[u.plano] + '</p>' +
         '<p class="ct-sub">' + (u.plano === 'gratis' ? 'Você usa o site de graça. Assine para receber os alertas e liberar os recursos dos planos.' :
-          u.plano === 'medio' ? 'Alertas no Telegram, agenda do celular, resumo da segunda, sua página de categorias e o Chefe de Equipe.' : 'Tudo liberado: jogos, simulador, duelo, bolão e Raio-x.') + '</p>' + ate +
+          u.plano === 'medio' ? 'Alertas e resumos no Telegram, aviso de mudança de horário, agenda do celular e o Chefe de Equipe.' : 'Tudo liberado: jogos, simulador, duelo, bolão e Raio-x.') + '</p>' + ate +
         (u.plano !== 'master' ? '<a class="pl-botao" href="planos.html">Ver os planos</a>' : '') +
         (u.assinatura ? '<p class="ct-sub">Assinatura no cartão ativa: cobra sozinha todo mês.</p><button type="button" class="ct-mini" id="ct-cancelar">Cancelar a cobrança automática</button><p class="ct-erro" id="ct-cancelar-erro" hidden></p>' : '') +
         (modoTeste ? '<div class="ct-teste"><p>Modo teste (só na conta do dono): troque de plano na hora, sem pagar.</p>' +
           ['gratis', 'medio', 'master'].map(function (p) { return '<button type="button" class="ct-mini" data-plano="' + p + '"' + (p === u.plano ? ' aria-pressed="true"' : '') + '>' + NOMES[p] + '</button>'; }).join('') + '</div>' : '');
     }
-    function desenharAtalhos(u) {
-      var n = NIVEL[u.plano], itens = [
-        ['conta.html#agenda-celular', 'Agenda do celular', 1], ['jogos.html#chefe', 'Chefe de Equipe', 1],
-        ['jogos.html', 'Todos os jogos', 2], ['simulador.html', 'Simulador completo', 2], ['duelo.html', 'Duelo de pilotos', 2], ['bolao.html', 'Bolão entre membros', 2], ['raiox.html', 'Raio-x pós-corrida', 2]];
-      var meus = itens.filter(function (i) { return n >= i[2]; });
-      document.getElementById('ct-atalhos').innerHTML = meus.length
-        ? '<ul class="ct-atalhos">' + meus.map(function (i) { return '<li><a href="' + i[0] + '">' + i[1] + '</a></li>'; }).join('') + '</ul>'
-        : bloqueio('medio');
-    }
-    desenharPlano(u); desenharAtalhos(u);
+    desenharPlano(u);
     /* volta do Mercado Pago */
     var pg = new URLSearchParams(location.search).get('pagamento');
     if (pg) {
@@ -128,7 +151,7 @@
         return;
       }
       var p = e.target.getAttribute('data-plano'); if (!p) return;
-      API('plano_teste', { plano: p }).then(function (r) { if (r.ok) { u = r.usuario; desenharPlano(u); desenharAtalhos(u); desenharAgenda(u); } });
+      API('plano_teste', { plano: p }).then(function (r) { if (r.ok) { u = r.usuario; desenharPlano(u); desenharAgenda(u); } });
     });
 
     /* Agenda do celular (plano Médio): cada categoria tem um arquivo .ics para assinar (assets/agenda/<categoria>.ics) */
