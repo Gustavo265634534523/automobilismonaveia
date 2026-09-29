@@ -128,16 +128,10 @@
     topo.querySelectorAll('.sub a').forEach(function (a) { a.addEventListener('click', function () { fecharSubs(); }); });
   }
 
-  /* Modo de teste: só no computador e só quando pedido (?teste=1 liga, ?teste=0 desliga).
-     Sem ele, o computador mostra o site igual ao visitante vê: tudo que é do plano fica trancado. */
+  /* Sem modo de teste: o site é igual no computador do dono e no ar (o dono testa os planos pela conta dele, em Minha conta). */
   window.NAVEIA_PC = /^(localhost|127.0.0.1|)$/.test(location.hostname);
-  try {
-    var mTeste = location.search.match(/[?&]teste=(0|1|medio)/);
-    if (mTeste && window.NAVEIA_PC) localStorage.setItem('naveia-teste', mTeste[1]);
-    var vTeste = window.NAVEIA_PC ? localStorage.getItem('naveia-teste') : null;
-    window.NAVEIA_TESTE = vTeste === '1' || vTeste === 'medio';
-    window.NAVEIA_TESTE_PLANO = vTeste === 'medio' ? 'medio' : 'master'; /* ?teste=medio: vê o site como assinante do Médio */
-  } catch (e) { window.NAVEIA_TESTE = false; }
+  window.NAVEIA_TESTE = false;
+  try { localStorage.removeItem('naveia-teste'); } catch (e) {}
 
   /* Conta: servidor de contas no Cloudflare (_ferramentas/contas).
      O login fica num token guardado no navegador e vai no cabeçalho Authorization.
@@ -158,12 +152,9 @@
       return r;
     });
   };
-  /* ?teste=1 / ?teste=medio no computador: finge um assinante, sem precisar de conta */
-  window.NAVEIA_EU = window.NAVEIA_TESTE
-    ? Promise.resolve({ ok: true, logado: true, teste: true, usuario: { nome: 'Teste', email: '', plano: window.NAVEIA_TESTE_PLANO, categorias: [] } })
-    : /^https?:/.test(location.protocol)
-      ? window.NAVEIA_API('eu').catch(function () { return { ok: false, logado: false, semServidor: true }; })
-      : Promise.resolve({ ok: false, logado: false, semServidor: true });
+  window.NAVEIA_EU = /^https?:/.test(location.protocol)
+    ? window.NAVEIA_API('eu').catch(function () { return { ok: false, logado: false, semServidor: true }; })
+    : Promise.resolve({ ok: false, logado: false, semServidor: true });
   window.NAVEIA_EU.then(function (r) {
     var l = document.getElementById('conta-link');
     if (!l) return;
@@ -198,11 +189,6 @@
       GRUPOS.map(function (g) { return coluna(g.nome, g.cats.map(function (c) { return li(pagina(c), esc(c.nome)); })); }).join('') +
       coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
-      /* Área de teste do dono: só aparece no computador (localhost), nunca no site no ar */
-      (local ? '<nav class="rodape-teste" aria-label="Área de teste"><h2>Área de teste <small>só aparece no seu computador</small></h2><ul>' +
-        [['duelo.html?teste=1', 'Duelo de pilotos'], ['bolao.html?teste=1', 'Bolão entre membros'], ['jogos.html?teste=1', 'Jogos (Master)'], ['jogos.html?teste=medio#chefe', 'Chefe de Equipe (Médio)'], ['simulador.html?teste=1', 'Simulador completo'], ['raiox.html?teste=1', 'Raio-x']]
-          .map(function (x) { return '<li><a href="' + x[0] + '">' + x[1] + '</a></li>'; }).join('') +
-        '<li><a class="rodape-teste-sair" href="index.html?teste=0">' + (window.NAVEIA_TESTE ? 'Voltar a ver como visitante' : 'Vendo como visitante') + '</a></li></ul></nav>' : '') +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +
         '<span class="rodape-responsavel">Responsável: Gustavo Teixeira · Estrada Doutor Manoel Reis, Rio de Janeiro, Brasil</span></div></div>';
   }

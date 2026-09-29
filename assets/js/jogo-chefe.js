@@ -648,7 +648,7 @@
           '<div class="ch-acoes"><a class="pl-botao" href="planos.html">Conhecer o Master</a></div>'
         : '<b>Você usou as ' + LIMITE + ' corridas grátis</b><p>Gostou? No plano Médio você joga 15 corridas por dia, e no Master, sem limite. Os planos também têm alertas de largada, prévias das etapas e mais.</p>' +
           '<div class="ch-acoes"><a class="pl-botao" href="planos.html">Ver os planos</a><a class="pl-botao pl-botao-linha" href="entrar.html?volta=index.html">Já sou assinante</a></div>') +
-        (local ? '<p class="ch-limite-teste">Teste no seu computador: <button type="button" id="ch-zerar">zerar o contador</button> (este botão só aparece no seu computador).</p>' : '') + '</div>';
+        '' + '</div>';
       var z = tela.querySelector('#ch-zerar'); if (z) z.addEventListener('click', function () { guardar('chefe-demo-corridas', 0); guardar('chefe-medio-dia', null); telaEscolha(); });
     }
     /* só pistas do calendário oficial da F1 2026 (Ímola saiu; Sepang recebe o GP do Bahrein) */
