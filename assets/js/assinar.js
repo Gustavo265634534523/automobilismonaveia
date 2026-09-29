@@ -31,7 +31,7 @@
           '<label class="as-auto"><input type="checkbox" id="as-auto"> Ativar a cobrança automática todo mês</label>' +
           '<div class="as-auto-extra" hidden>' +
             '<label class="as-email">Seu e-mail no Mercado Pago<input type="email" id="as-email-mp" value="' + esc(eu.usuario.email) + '" autocomplete="email"></label>' +
-            '<p class="as-alerta"><b>Atenção:</b> use o mesmo e-mail da sua conta no Mercado Pago. Se for outro e-mail, o pagamento é recusado.</p>' +
+            '<p class="as-alerta"><b>Atenção:</b> use o mesmo e-mail da sua conta no Mercado Pago. Se for outro e-mail, o pagamento é recusado. Pague com a sua conta do Mercado Pago aberta e com um cartão no seu nome.</p>' +
             '<small class="as-mes-nota">Você pode cancelar a cobrança automática quando quiser, em Minha conta.</small>' +
           '</div>' +
           '<button type="button" class="pl-botao" data-forma="mes">Pagar no cartão</button></section>' +
