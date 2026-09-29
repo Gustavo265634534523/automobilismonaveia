@@ -146,5 +146,23 @@
   "resultado:formula-1:15:venc:George Russell (Mercedes)": "2026-09-28T15:05:59.027Z",
   "resumo:2026-09-28": "2026-09-28T16:14:36.469Z"
  },
- "iniciado": true
+ "iniciado": true,
+ "horarios": {
+  "formula-1:15:Classificação": "2026-09-25 09:00",
+  "formula-1:15:Corrida": "2026-09-26 08:00",
+  "formula-1:16:Corrida": "2026-10-04 04:00",
+  "stock-car:9:Classificação": "2026-09-26 14:15",
+  "stock-car:9:Corrida de 2 horas": "2026-09-27 12:15",
+  "rally:13:Especial de abertura": "2026-10-01 11:05",
+  "rally:13:Dia 2, primeira especial": "2026-10-02 03:01",
+  "rally:13:Dia 3, primeira especial": "2026-10-03 03:01",
+  "rally:13:Dia 4, primeira especial": "2026-10-04 03:31",
+  "rally:13:Power Stage": "2026-10-04 09:15",
+  "nascar:30:Classificação": "2026-09-26 12:10",
+  "nascar:30:Corrida": "2026-09-27 16:00",
+  "motogp:16:Classificação Q1": "2026-10-02 22:50",
+  "motogp:16:Classificação Q2": "2026-10-02 23:15",
+  "motogp:16:Sprint": "2026-10-03 03:00",
+  "motogp:16:Corrida": "2026-10-04 02:00"
+ }
 }

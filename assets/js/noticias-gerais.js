@@ -4,7 +4,7 @@
    "manchete: true" coloca a notícia no destaque do topo. As notícias de cada categoria em dados.js também entram sozinhas na página. */
 
 /* Data e hora da última atualização (horário de Brasília). */
-window.NOTICIAS_ATUALIZADO = '2026-09-28T16:05:00-03:00';
+window.NOTICIAS_ATUALIZADO = '2026-09-28T21:37:00-03:00';
 
 window.NOTICIAS_GERAIS = [
   { d: '2026-09-26', cat: 'formula-1', manchete: true, t: 'Russell segura Verstappen e vence em Baku', x: 'George Russell largou na pole e segurou Max Verstappen até a bandeirada no GP do Azerbaijão, numa corrida com dois safety cars e seis abandonos. Na última volta, bandeiras amarelas tiraram potência do Mercedes e Verstappen chegou colado. Kimi Antonelli, que largou em 16º, terminou em quinto. A diferença no campeonato caiu de 81 para 66 pontos, com oito corridas pela frente.', t_en: 'Russell holds off Verstappen to win in Baku', x_en: 'George Russell started on pole and held off Max Verstappen to the flag at the Azerbaijan GP, in a race with two safety cars and six retirements. On the last lap, yellow flags cost the Mercedes power and Verstappen finished right behind. Kimi Antonelli, who started 16th, finished fifth. The championship gap dropped from 81 to 66 points, with eight races to go.' },

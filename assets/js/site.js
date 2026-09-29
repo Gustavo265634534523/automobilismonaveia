@@ -63,7 +63,7 @@
         '<div class="painel-planos-cab"><h2 id="painel-planos-t">Mais perto da pista</h2><p>O site continua de graça. Os planos entregam o que vem antes da largada e depois da bandeirada.</p></div>' +
         '<div class="cp-grade">' +
           '<article class="cp-plano"><h3>Médio</h3><p class="cp-preco"><b>R$ 14,90</b> por mês</p><ul>' +
-            '<li>Alerta 30 minutos antes da largada</li><li>Vencedor no celular logo depois da corrida</li><li>Sessões direto na agenda do celular</li>' +
+            '<li>Alerta 30 minutos antes da largada</li><li>Vencedor no celular logo depois da corrida</li><li>Resumo pós-corrida no Telegram</li><li>Aviso de mudança de horário</li><li>Sessões direto na agenda do celular</li>' +
             '<li>Resumo da segunda-feira</li><li>Chefe de Equipe: 15 corridas por dia</li></ul></article>' +
           '<article class="cp-plano cp-master"><h3>Master</h3><p class="cp-preco"><b>R$ 29,90</b> por mês</p><ul>' +
             '<li>Tudo do plano Médio</li><li>Prévia da etapa completa</li><li>Maratona do fim de semana</li><li>Simulador completo</li>' +
