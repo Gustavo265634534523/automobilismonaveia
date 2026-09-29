@@ -113,3 +113,29 @@
 @media (max-width: 480px) { .ct-perfil-linha { flex-direction: column; align-items: stretch; } .ct-foto-caixa { align-self: flex-start; } }
 
 .ct-bloco[hidden] { display: none; }
+
+/* Minha conta: editar perfil, números, pagamentos, senha e excluir */
+.ct-perfil-dados { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+.ct-perfil-dados .ct-perfil { width: 100%; }
+.ct-vazio-txt { color: var(--aco); font-weight: 500; font-size: 16px; }
+.ct-form-mini { display: grid; gap: 12px; width: 100%; max-width: 440px; }
+.ct-form-mini label { display: grid; gap: 4px; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--aco); }
+.ct-form-mini input { padding: 10px 12px; font: 16px var(--texto); color: var(--cromo); background: var(--asfalto); border: 1px solid var(--linha); border-radius: 0; text-transform: none; letter-spacing: 0; }
+.ct-form-mini small { text-transform: none; letter-spacing: 0; font-weight: 500; }
+.ct-form-mini .pl-botao { justify-self: start; margin: 0; }
+.ct-form-acoes { display: flex; align-items: center; gap: 16px; }
+.ct-form-acoes .ct-link { margin: 0; }
+.ct-numeros { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+.ct-numeros li { display: grid; gap: 2px; padding: 12px 14px; background: var(--asfalto); box-shadow: inset 3px 0 0 var(--sangue-vivo); }
+.ct-numeros span { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--aco); }
+.ct-numeros b { font-family: var(--display); font-weight: 400; font-size: 20px; color: var(--cromo); }
+.ct-numeros b small { font-family: var(--texto); font-size: 13px; color: var(--aco); }
+.ct-numeros li > small { color: #c3c8cd; font-size: 14px; }
+.ct-nota { margin-top: 10px; font-size: 14px; }
+.ct-tabela { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.ct-tabela th, .ct-tabela td { padding: 9px 10px; text-align: left; border-bottom: 1px solid #2c3137; }
+.ct-tabela th { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--aco); }
+.ct-perigo { box-shadow: inset 0 0 0 1px #5a2226; }
+.ct-perigo h2 { color: #ff7a80; }
+.ct-perigo-btn { color: #ffb3b7; box-shadow: inset 0 0 0 1px #8a2a30; }
+.ct-perigo-btn.pl-botao { background: #8a1a20; color: #fff; }

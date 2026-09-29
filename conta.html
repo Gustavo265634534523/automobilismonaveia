@@ -35,7 +35,16 @@
             <label class="ct-mini ct-foto-btn">Colocar foto<input type="file" id="ct-foto-arquivo" accept="image/*" hidden></label>
             <button type="button" class="ct-link ct-foto-tirar" id="ct-foto-tirar" hidden>Tirar foto</button>
             <p class="ct-erro" id="ct-foto-erro" hidden></p></div>
-          <dl class="ct-perfil" id="ct-perfil"></dl>
+          <div class="ct-perfil-dados"><dl class="ct-perfil" id="ct-perfil"></dl>
+            <button type="button" class="ct-mini" id="ct-editar">Editar perfil</button>
+            <form class="ct-form-mini" id="f-perfil" hidden novalidate>
+              <label>Nome<input type="text" name="nome" maxlength="60" autocomplete="name" required></label>
+              <label>Piloto favorito<input type="text" name="piloto" maxlength="60" list="ct-lista-pilotos" placeholder="Ex.: Gabriel Bortoleto"></label>
+              <label>Equipe favorita<input type="text" name="equipe" maxlength="60" list="ct-lista-equipes" placeholder="Ex.: Ferrari"></label>
+              <datalist id="ct-lista-pilotos"></datalist><datalist id="ct-lista-equipes"></datalist>
+              <p class="ct-erro" role="alert" hidden></p>
+              <div class="ct-form-acoes"><button class="pl-botao" type="submit">Salvar</button><button type="button" class="ct-link" id="ct-editar-cancelar">Cancelar</button></div>
+            </form></div>
         </div>
       </section>
 
@@ -47,6 +56,38 @@
       <section class="ct-bloco" id="agenda-celular" aria-labelledby="ct-agenda-t">
         <h2 id="ct-agenda-t">Agenda do celular</h2>
         <div id="ct-agenda"></div>
+      </section>
+
+      <section class="ct-bloco" aria-labelledby="ct-numeros-t">
+        <h2 id="ct-numeros-t">Seus números</h2>
+        <div id="ct-numeros"></div>
+      </section>
+
+      <section class="ct-bloco" aria-labelledby="ct-pag-t">
+        <h2 id="ct-pag-t">Histórico de pagamentos</h2>
+        <div id="ct-pagamentos"><p class="ct-sub">Carregando…</p></div>
+      </section>
+
+      <section class="ct-bloco" aria-labelledby="ct-senha-t">
+        <h2 id="ct-senha-t">Trocar senha</h2>
+        <form class="ct-form-mini" id="f-senha" novalidate>
+          <label>Senha atual<input type="password" name="atual" autocomplete="current-password" required></label>
+          <label>Senha nova<input type="password" name="nova" autocomplete="new-password" minlength="8" required><small>Pelo menos 8 caracteres.</small></label>
+          <label>Repita a senha nova<input type="password" name="nova2" autocomplete="new-password" minlength="8" required></label>
+          <p class="ct-erro" role="alert" hidden></p><p class="ct-ok" role="status" hidden></p>
+          <button class="pl-botao" type="submit">Trocar senha</button>
+        </form>
+      </section>
+
+      <section class="ct-bloco ct-perigo" aria-labelledby="ct-excluir-t">
+        <h2 id="ct-excluir-t">Excluir minha conta</h2>
+        <p class="ct-sub">Apaga a sua conta e todos os seus dados. Se você tem assinatura no cartão, ela é cancelada. Não dá para desfazer.</p>
+        <button type="button" class="ct-mini ct-perigo-btn" id="ct-excluir-abrir">Excluir minha conta</button>
+        <form class="ct-form-mini" id="f-excluir" hidden novalidate>
+          <label>Digite sua senha para confirmar<input type="password" name="senha" autocomplete="current-password" required></label>
+          <p class="ct-erro" role="alert" hidden></p>
+          <div class="ct-form-acoes"><button class="pl-botao ct-perigo-btn" type="submit">Excluir para sempre</button><button type="button" class="ct-link" id="ct-excluir-cancelar">Cancelar</button></div>
+        </form>
       </section>
 
     </div>

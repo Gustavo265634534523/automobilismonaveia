@@ -79,12 +79,98 @@
 
   /* ---------- Minha conta ---------- */
   function montarConta(u, modoTeste) {
-    document.getElementById('ct-ola').textContent = 'Olá, ' + u.nome.split(' ')[0];
-    /* Perfil: nome e e-mail da conta sempre à vista (é o e-mail para entrar e para pagar no Mercado Pago) */
-    document.getElementById('ct-perfil').innerHTML =
-      '<div><dt>Nome</dt><dd>' + esc(u.nome) + '</dd></div>' +
-      '<div><dt>E-mail da conta</dt><dd>' + esc(u.email) + '</dd></div>' +
-      '<p class="ct-sub">Use este e-mail para entrar no site. Na assinatura no cartão, o Mercado Pago precisa do mesmo e-mail que você usa lá.</p>';
+    /* Perfil: nome, e-mail, membro desde, piloto e equipe favoritos */
+    var MESES_L = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+    function desenharPerfil(u) {
+      var desde = u.desde ? new Date(u.desde.replace(' ', 'T') + 'Z') : null;
+      document.getElementById('ct-ola').textContent = 'Olá, ' + u.nome.split(' ')[0];
+      document.getElementById('ct-perfil').innerHTML =
+        '<div><dt>Nome</dt><dd>' + esc(u.nome) + '</dd></div>' +
+        '<div><dt>E-mail da conta</dt><dd>' + esc(u.email) + '</dd></div>' +
+        (desde ? '<div><dt>Membro desde</dt><dd>' + MESES_L[desde.getMonth()] + ' de ' + desde.getFullYear() + '</dd></div>' : '') +
+        '<div><dt>Piloto favorito</dt><dd>' + (u.piloto ? esc(u.piloto) : '<span class="ct-vazio-txt">Não escolhido</span>') + '</dd></div>' +
+        '<div><dt>Equipe favorita</dt><dd>' + (u.equipe ? esc(u.equipe) : '<span class="ct-vazio-txt">Não escolhida</span>') + '</dd></div>';
+    }
+    desenharPerfil(u);
+    /* listas de sugestão: todos os pilotos e equipes das categorias do site */
+    var pilotos = {}, equipes = {};
+    CATS.forEach(function (c) { (c.equipes || []).forEach(function (e) { equipes[e.n] = 1; (e.p || []).forEach(function (p) { pilotos[p] = 1; }); }); });
+    document.getElementById('ct-lista-pilotos').innerHTML = Object.keys(pilotos).sort().map(function (p) { return '<option value="' + esc(p) + '">'; }).join('');
+    document.getElementById('ct-lista-equipes').innerHTML = Object.keys(equipes).sort().map(function (p) { return '<option value="' + esc(p) + '">'; }).join('');
+    var fPerfil = document.getElementById('f-perfil'), btEditar = document.getElementById('ct-editar');
+    btEditar.addEventListener('click', function () {
+      fPerfil.nome.value = u.nome; fPerfil.piloto.value = u.piloto || ''; fPerfil.equipe.value = u.equipe || '';
+      fPerfil.hidden = false; btEditar.hidden = true; fPerfil.nome.focus();
+    });
+    document.getElementById('ct-editar-cancelar').addEventListener('click', function () { fPerfil.hidden = true; btEditar.hidden = false; });
+    fPerfil.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var erro = fPerfil.querySelector('.ct-erro'); erro.hidden = true;
+      API('perfil', { nome: fPerfil.nome.value, piloto: fPerfil.piloto.value, equipe: fPerfil.equipe.value }).then(function (r) {
+        if (!r.ok) { erro.textContent = r.erro; erro.hidden = false; return; }
+        u = r.usuario; desenharPerfil(u); desenharFoto(u); fPerfil.hidden = true; btEditar.hidden = false;
+      }).catch(function () { erro.textContent = 'Não foi possível salvar. Tente de novo.'; erro.hidden = false; });
+    });
+
+    /* Seus números: recordes dos jogos, guardados neste navegador */
+    (function () {
+      function ler(k) { try { var v = localStorage.getItem('naveia-jogo-' + k); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
+      function volta(t) { var m = Math.floor(t / 60), s = (t - m * 60).toFixed(3); return (m ? m + ':' + (s < 10 ? '0' : '') : '') + s + (m ? '' : ' s'); }
+      var itens = [], lg = ler('largada-recorde');
+      if (lg) itens.push(['Largada', 'Tempo de reação', (lg / 1000).toFixed(3).replace('.', ',') + ' s']);
+      var q = ler('chefe-quali'), melhor = null;
+      if (q) Object.keys(q).forEach(function (p) { if (melhor === null || q[p] < melhor[1]) melhor = [p, q[p]]; });
+      if (melhor) itens.push(['Chefe de Equipe', 'Melhor volta', volta(melhor[1]).replace('.', ',') + ' <small>' + esc(melhor[0]) + '</small>']);
+      var tot = { v: 0, c: 0, m: null };
+      ['chefe-rec', 'chefe-rec-facil', 'chefe-rec-dificil'].forEach(function (k) { var r = ler(k); if (r) { tot.v += r.vitorias || 0; tot.c += r.corridas || 0; if (r.melhor && (!tot.m || r.melhor < tot.m)) tot.m = r.melhor; } });
+      if (tot.c) itens.push(['Chefe de Equipe', 'Corridas e vitórias', tot.c + ' corridas · ' + tot.v + ' vitórias' + (tot.m ? ' · melhor: ' + tot.m + 'º' : '')]);
+      ['facil', 'dificil'].forEach(function (m) { var r = ler('circuito-rec-' + m); if (r !== null) itens.push(['Adivinhe o circuito', 'Recorde (' + (m === 'facil' ? 'normal' : 'difícil') + ')', r + ' acertos']); });
+      var pm = ler('piloto-rec'); if (pm) itens.push(['Piloto misterioso', 'Maior sequência', pm + ' acertos seguidos']);
+      document.getElementById('ct-numeros').innerHTML = itens.length
+        ? '<ul class="ct-numeros">' + itens.map(function (i) { return '<li><span>' + esc(i[0]) + '</span><b>' + i[2] + '</b><small>' + esc(i[1]) + '</small></li>'; }).join('') + '</ul>' +
+          '<p class="ct-sub ct-nota">Os recordes ficam guardados neste aparelho.</p>'
+        : '<p class="ct-sub">Você ainda não tem recordes. Jogue na página <a href="jogos.html">Jogos</a> e eles aparecem aqui.</p>';
+    })();
+
+    /* Histórico de pagamentos */
+    API('pagamentos').then(function (r) {
+      var el = document.getElementById('ct-pagamentos'), l = (r && r.pagamentos) || [];
+      el.innerHTML = l.length
+        ? '<table class="ct-tabela"><thead><tr><th>Data</th><th>Plano</th><th>Forma</th><th>Valor</th></tr></thead><tbody>' + l.map(function (p) {
+            var d = new Date(p.criado_em.replace(' ', 'T') + 'Z');
+            return '<tr><td>' + d.toLocaleDateString('pt-BR') + '</td><td>' + NOMES[p.plano] + '</td><td>' + (p.tipo === 'ass' ? 'Cartão' : 'Pix') + '</td><td>' +
+              (p.valor != null ? 'R$ ' + Number(p.valor).toFixed(2).replace('.', ',') : '—') + '</td></tr>';
+          }).join('') + '</tbody></table>'
+        : '<p class="ct-sub">Nenhum pagamento ainda.</p>';
+    }).catch(function () {});
+
+    /* Trocar senha */
+    var fSenha = document.getElementById('f-senha');
+    fSenha.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var erro = fSenha.querySelector('.ct-erro'), ok = fSenha.querySelector('.ct-ok'); erro.hidden = true; ok.hidden = true;
+      if (fSenha.nova.value.length < 8) { erro.textContent = 'A senha nova precisa ter pelo menos 8 caracteres.'; erro.hidden = false; return; }
+      if (fSenha.nova.value !== fSenha.nova2.value) { erro.textContent = 'As duas senhas novas não estão iguais.'; erro.hidden = false; return; }
+      API('senha', { atual: fSenha.atual.value, nova: fSenha.nova.value }).then(function (r) {
+        if (!r.ok) { erro.textContent = r.erro; erro.hidden = false; return; }
+        fSenha.reset(); ok.textContent = 'Senha trocada. Nos outros aparelhos, entre de novo com a senha nova.'; ok.hidden = false;
+      }).catch(function () { erro.textContent = 'Não foi possível trocar a senha. Tente de novo.'; erro.hidden = false; });
+    });
+
+    /* Excluir conta */
+    var fExc = document.getElementById('f-excluir'), btExc = document.getElementById('ct-excluir-abrir');
+    btExc.addEventListener('click', function () { fExc.hidden = false; btExc.hidden = true; fExc.senha.focus(); });
+    document.getElementById('ct-excluir-cancelar').addEventListener('click', function () { fExc.hidden = true; btExc.hidden = false; });
+    fExc.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var erro = fExc.querySelector('.ct-erro'); erro.hidden = true;
+      if (!confirm('Tem certeza? A sua conta e os seus dados serão apagados para sempre.')) return;
+      API('excluir', { senha: fExc.senha.value }).then(function (r) {
+        if (!r.ok) { erro.textContent = r.erro; erro.hidden = false; return; }
+        try { localStorage.removeItem('naveia-sessao'); } catch (e) {}
+        alert('Sua conta foi excluída.'); ir('index.html');
+      }).catch(function () { erro.textContent = 'Não foi possível excluir agora. Tente de novo.'; erro.hidden = false; });
+    });
     /* Foto do perfil: a imagem é diminuída no navegador (256x256) antes de ir para a conta */
     function desenharFoto(u) {
       var q = document.getElementById('ct-foto');
