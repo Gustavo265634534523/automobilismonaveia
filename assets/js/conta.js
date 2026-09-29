@@ -157,7 +157,10 @@
     /* Agenda do celular (plano Médio): cada categoria tem um arquivo .ics para assinar (assets/agenda/<categoria>.ics) */
     function desenharAgenda(u) {
       var el = document.getElementById('ct-agenda');
-      if (NIVEL[u.plano] < 1) { el.innerHTML = bloqueio('medio'); return; }
+      var bloco = document.getElementById('agenda-celular');
+      /* quem não tem plano não vê o bloco (o dono pediu para tirar o aviso de trancado) */
+      bloco.hidden = NIVEL[u.plano] < 1;
+      if (bloco.hidden) { el.innerHTML = ''; return; }
       var pasta = location.href.replace(/[?#].*$/, '').replace(/[^/]*$/, '') + 'assets/agenda/';
       el.innerHTML = '<p class="ct-sub">Assine a agenda das categorias que você quer. Os horários entram sozinhos no calendário do celular, com aviso 30 minutos antes, e mudam sozinhos quando um horário muda.</p>' +
         '<ul class="ct-agenda">' + CATS.map(function (c) {

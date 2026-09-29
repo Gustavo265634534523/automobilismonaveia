@@ -111,3 +111,5 @@
 .ct-foto-caixa .ct-erro { margin: 0; font-size: 13px; text-align: center; }
 .ct-perfil-linha .ct-perfil { flex: 1; min-width: 0; }
 @media (max-width: 480px) { .ct-perfil-linha { flex-direction: column; align-items: stretch; } .ct-foto-caixa { align-self: flex-start; } }
+
+.ct-bloco[hidden] { display: none; }
