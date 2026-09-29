@@ -33,7 +33,7 @@
           '<button type="button" class="pl-botao pl-botao-linha" data-forma="pix">Pagar com Pix</button></section>' +
       '</div>' +
       '<p class="as-erro" role="alert" hidden></p>' +
-      '<p class="as-legal">O pagamento é feito na página segura do Mercado Pago. Você pode desistir em até 7 dias e receber o dinheiro de volta.</p>';
+      '<p class="as-legal">O pagamento é feito na página segura do Mercado Pago. Você pode desistir em até 7 dias e receber o dinheiro de volta. Veja os <a href="termos.html">Termos de uso</a>.</p>';
     caixa.hidden = false; document.documentElement.style.overflow = 'hidden';
     cont.querySelectorAll('[data-forma]').forEach(function (b) {
       b.addEventListener('click', function () {
