@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/idioma.js"></script>
+<title>Área Master | Automobilismo Na Veia</title>
+<meta name="description" content="Tudo o que o plano Master libera: simulador completo, duelo de pilotos, jogos, Raio-x e bolão.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#141619">
+<link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
+<meta property="og:title" content="Área Master | Automobilismo Na Veia">
+<meta property="og:description" content="A área de quem assina o plano Master.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css">
+<link rel="stylesheet" href="assets/css/planos.css">
+<link rel="stylesheet" href="assets/css/master.css">
+</head>
+<body data-pagina="master">
+<a class="pular" href="#master">Pular para o conteúdo</a>
+<header id="topo"></header>
+
+<main class="sm">
+  <div class="moldura">
+    <div class="sm-cab">
+      <p class="sm-trilha"><span class="sm-selo">Exclusivo do plano Master</span></p>
+      <h1>Área Master.</h1>
+      <p class="sm-lead">Tudo o que o seu plano libera, num lugar só.</p>
+    </div>
+    <div id="master" class="am" aria-live="polite"></div>
+  </div>
+</main>
+
+<footer id="rodape"></footer>
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/site.js"></script>
+<script>
+  /* Área Master: atalhos para os recursos do plano. Só para o Master. */
+  (function () {
+    var caixa = document.getElementById('master');
+    var itens = [
+      ['simulador.html', 'Simulador completo', 'Escolha os pódios das corridas que faltam e veja quem leva o título, em todas as categorias.'],
+      ['duelo.html', 'Duelo de pilotos', 'Dois pilotos lado a lado na temporada: pontos, vitórias, pódios e corrida a corrida.'],
+      ['jogos.html', 'Jogos', 'Chefe de Equipe, Largada, Adivinhe o circuito e Piloto misterioso, sem limite.'],
+      ['raiox.html', 'Raio-x pós-corrida', 'Posições volta a volta, paradas e pneus da última corrida da Fórmula 1.'],
+      ['bolao.html', 'Bolão entre membros', 'Chute o pódio de cada corrida e dispute o ranking da temporada.']
+    ];
+    function trava(titulo, texto, botoes) {
+      caixa.innerHTML = '<div class="sm-trava"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>' +
+        '<h2>' + titulo + '</h2><p>' + texto + '</p><div class="sm-trava-acoes">' + botoes + '</div></div>';
+    }
+    caixa.innerHTML = '<p class="nota">Carregando…</p>';
+    window.NAVEIA_EU.then(function (r) {
+      if (r.semServidor) return trava('Área Master indisponível agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="area-master.html">Tentar de novo</a>');
+      if (!r.logado) return trava('Exclusivo do plano Master', 'Entre na sua conta para abrir a Área Master. Se ainda não assina, conheça o Master.', '<a class="pl-botao" href="entrar.html?volta=area-master.html">Entrar</a><a class="pl-botao pl-botao-linha" href="planos.html">Ver os planos</a>');
+      if (r.usuario.plano !== 'master') return trava('Exclusivo do plano Master', 'Seu plano atual não inclui a Área Master. Mude para o Master e libere tudo.', '<a class="pl-botao" href="planos.html">Conhecer o Master</a>');
+      caixa.innerHTML = '<ul class="am-lista">' + itens.map(function (i) {
+        return '<li><a class="am-item" href="' + i[0] + '"><h2>' + i[1] + '</h2><p>' + i[2] + '</p><span class="botao botao-linha">Abrir</span></a></li>';
+      }).join('') + '</ul>';
+    });
+  })();
+</script>
+</body>
+</html>

@@ -211,7 +211,7 @@
         '<p class="ct-plano-nome">' + NOMES[u.plano] + '</p>' +
         '<p class="ct-sub">' + (u.plano === 'gratis' ? 'Você usa o site de graça. Assine para receber os alertas e liberar os recursos dos planos.' :
           u.plano === 'medio' ? 'Alertas e resumos no Telegram, aviso de mudança de horário, agenda do celular e o Chefe de Equipe.' : 'Tudo liberado: jogos, simulador, duelo, bolão e Raio-x.') + '</p>' + ate +
-        (u.plano !== 'master' ? '<a class="pl-botao" href="planos.html">Ver os planos</a>' : '') +
+        (u.plano !== 'master' ? '<a class="pl-botao" href="planos.html">Ver os planos</a>' : '<a class="pl-botao" href="area-master.html">Abrir a Área Master</a>') +
         /* Telegram: canal de avisos (Médio e Master) e grupo fechado (Master) */
         (NIVEL[u.plano] >= 1 ? '<div class="ct-telegram"><p class="ct-rot-tg">Telegram</p>' +
           '<button type="button" class="pl-botao" data-tg="canal">' + (u.telegram && u.telegram.canal ? 'Abrir o canal de avisos' : 'Entrar no canal de avisos') + '</button>' +
