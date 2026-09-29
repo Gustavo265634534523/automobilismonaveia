@@ -1,0 +1,32 @@
+# Quando os dados do site mudam (resultados e horários), refaz a agenda (agenda.json e as agendas .ics do celular).
+name: Agenda do celular
+on:
+  push:
+    paths:
+      - 'assets/js/dados.js'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: salvar-no-site
+  cancel-in-progress: false
+jobs:
+  agenda:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Refazer a agenda
+        run: node _ferramentas/exportar-agenda.js
+      - name: Salvar no site
+        run: |
+          git config user.name "Robô Na Veia"
+          git config user.email "automobilismonaveiacontato@gmail.com"
+          git add assets/dados/agenda.json assets/agenda
+          git diff --cached --quiet && exit 0
+          git commit -m "Robô: agenda atualizada"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1

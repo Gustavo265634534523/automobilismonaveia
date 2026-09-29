@@ -1,7 +1,13 @@
 # Só vai para o GitHub o que o site usa no ar
 _brutos/
 _privado/
-_ferramentas/
+# ferramentas: só entram os programas que as tarefas automáticas do GitHub usam (sem nenhuma senha)
+_ferramentas/*
+!_ferramentas/raiox-automatico.js
+!_ferramentas/gerar-raiox.js
+!_ferramentas/gerar-duelo-f1.js
+!_ferramentas/exportar-agenda.js
+!_ferramentas/exportar-ics.js
 api/
 router.php
 .htaccess

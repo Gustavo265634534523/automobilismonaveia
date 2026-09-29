@@ -1,0 +1,32 @@
+# Depois de cada corrida da F1: gera o Raio-x e atualiza o Duelo de pilotos (dados do OpenF1).
+# Roda a cada 30 minutos; só faz algo quando sai resultado novo.
+name: F1 pos-corrida
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: salvar-no-site
+  cancel-in-progress: false
+jobs:
+  raiox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Raio-x e Duelo
+        run: node _ferramentas/raiox-automatico.js
+      - name: Salvar no site
+        run: |
+          git config user.name "Robô Na Veia"
+          git config user.email "automobilismonaveiacontato@gmail.com"
+          git add assets/dados
+          git diff --cached --quiet && exit 0
+          git commit -m "Robô: Raio-x e Duelo da última corrida"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1
