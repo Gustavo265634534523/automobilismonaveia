@@ -224,7 +224,7 @@
   function trava(titulo, texto, botoes) {
     caixa.innerHTML = '<div class="sm-trava"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>' +
       '<h2>' + titulo + '</h2><p>' + texto + '</p><div class="sm-trava-acoes">' + botoes + '</div>' +
-      '<p class="sm-trava-demo">Quer experimentar antes? A <a href="index.html#simulador-demo">demonstração só da Fórmula 1</a> está liberada na página inicial.</p></div>';
+      '<p class="sm-trava-demo">Quer experimentar antes? A <a href="./#simulador-demo">demonstração só da Fórmula 1</a> está liberada na página inicial.</p></div>';
   }
   (window.NAVEIA_EU || Promise.resolve({ semServidor: true })).then(function (r) {
     if (r.semServidor && !local && window.NAVEIA_PC) r = { logado: false };

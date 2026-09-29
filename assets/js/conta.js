@@ -7,6 +7,7 @@
   var NIVEL = { gratis: 0, medio: 1, master: 2 };
   var volta = new URLSearchParams(location.search).get('volta');
   if (volta && !/^[a-z0-9-]+\.html(#[a-z0-9-]*)?$/i.test(volta)) volta = null;
+  if (volta === 'index.html') volta = './'; /* página inicial sem o index.html no endereço */
 
   function ir(url) { location.href = url; }
   function quando(txt) {
@@ -67,7 +68,7 @@
   /* As outras páginas exigem conta */
   window.NAVEIA_EU.then(function (r) {
     if (r.semServidor) { document.querySelector('main').innerHTML = '<div class="moldura ct-main"><p class="ct-sub">Não foi possível falar com o servidor de contas. Tente de novo em alguns minutos.</p></div>'; return; }
-    if (r.teste) { document.querySelector('main').innerHTML = '<div class="moldura ct-main"><p class="ct-sub">Modo de teste ligado (?teste=1). Para ver sua conta de verdade, abra <a href="index.html?teste=0">o site como visitante</a> e entre.</p></div>'; return; }
+    if (r.teste) { document.querySelector('main').innerHTML = '<div class="moldura ct-main"><p class="ct-sub">Modo de teste ligado (?teste=1). Para ver sua conta de verdade, abra <a href="./?teste=0">o site como visitante</a> e entre.</p></div>'; return; }
     if (!r.logado) { ir('entrar.html?volta=' + pagina + '.html'); return; }
     if (pagina === 'conta') montarConta(r.usuario, r.modo_teste);
     if (pagina === 'painel') montarPainel(r.usuario);
@@ -168,7 +169,7 @@
       API('excluir', { senha: fExc.senha.value }).then(function (r) {
         if (!r.ok) { erro.textContent = r.erro; erro.hidden = false; return; }
         try { localStorage.removeItem('naveia-sessao'); } catch (e) {}
-        alert('Sua conta foi excluída.'); ir('index.html');
+        alert('Sua conta foi excluída.'); ir('./');
       }).catch(function () { erro.textContent = 'Não foi possível excluir agora. Tente de novo.'; erro.hidden = false; });
     });
     /* Foto do perfil: a imagem é diminuída no navegador (256x256) antes de ir para a conta */
@@ -203,7 +204,7 @@
       img.src = url;
     });
     document.getElementById('ct-foto-tirar').addEventListener('click', function () { salvarFoto(''); });
-    document.getElementById('ct-sair').addEventListener('click', function () { API('sair', {}).then(function () { ir('index.html'); }, function () { ir('index.html'); }); });
+    document.getElementById('ct-sair').addEventListener('click', function () { API('sair', {}).then(function () { ir('./'); }, function () { ir('./'); }); });
 
     function desenharPlano(u) {
       var ate = u.plano !== 'gratis' && u.plano_ate ? '<p class="ct-sub">Válido até ' + new Date(u.plano_ate).toLocaleDateString('pt-BR') + '.</p>' : '';

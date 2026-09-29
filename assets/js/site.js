@@ -39,7 +39,7 @@
     topo.className = 'topo';
     topo.innerHTML =
       '<div class="moldura topo-in">' +
-        '<a class="marca" href="index.html" aria-label="Automobilismo Na Veia, início"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span>' +
+        '<a class="marca" href="./" aria-label="Automobilismo Na Veia, início"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span>' +
         '<span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
         '<nav class="nav" aria-label="Categorias principais"><div class="nav-item"><a class="nav-link" href="noticias.html"' + (paginaAtual === 'noticias' ? ' aria-current="page"' : '') + ' title="Notícias de todas as categorias">Últimas notícias</a></div>' + nav + '</nav>' +
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
@@ -181,7 +181,7 @@
     function li(href, txt, fora) { return '<li><a href="' + href + '"' + (fora ? ' target="_blank" rel="noopener"' : '') + '>' + txt + '</a></li>'; }
     var local = /^(localhost|127.0.0.1|)$/.test(location.hostname);
     rod.innerHTML = '<div class="moldura"><div class="rodape-grade"><div class="rodape-marca">' +
-      '<a class="marca" href="index.html"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span><span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
+      '<a class="marca" href="./"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span><span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
       '<p>Doze categorias acompanhadas de perto. Dados atualizados em ' + esc(window.ATUALIZADO) + '.</p>' +
       '<p class="rodape-contato"><span>Contato:</span> <a href="mailto:automobilismonaveiacontato@gmail.com">automobilismonaveiacontato@gmail.com</a>' +
         '<button type="button" class="copiar-email" data-email="automobilismonaveiacontato@gmail.com">' +
