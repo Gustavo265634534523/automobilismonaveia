@@ -27,6 +27,7 @@
       (atual === plano ? '<p class="as-nota">Você já tem este plano' + (eu.usuario.plano_ate ? ' até ' + new Date(eu.usuario.plano_ate).toLocaleDateString('pt-BR') : '') + '. Pagar de novo soma mais um mês.</p>' : '') +
       '<div class="as-opcoes">' +
         '<section class="as-op"><h3>Cartão de crédito</h3><p>Paga um mês e usa por 30 dias.</p>' +
+          '<p class="as-alerta"><b>Aviso:</b> no momento, só o Pix está funcionando. O pagamento no cartão volta em breve.</p>' +
           '<label class="as-auto"><input type="checkbox" id="as-auto"> Ativar a cobrança automática todo mês</label>' +
           '<div class="as-auto-extra" hidden>' +
             '<label class="as-email">Seu e-mail no Mercado Pago<input type="email" id="as-email-mp" value="' + esc(eu.usuario.email) + '" autocomplete="email"></label>' +
