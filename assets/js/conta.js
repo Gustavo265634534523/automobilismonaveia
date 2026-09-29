@@ -136,9 +136,9 @@
     API('pagamentos').then(function (r) {
       var el = document.getElementById('ct-pagamentos'), l = (r && r.pagamentos) || [];
       el.innerHTML = l.length
-        ? '<table class="ct-tabela"><thead><tr><th>Data</th><th>Plano</th><th>Forma</th><th>Valor</th></tr></thead><tbody>' + l.map(function (p) {
+        ? '<table class="ct-tabela"><thead><tr><th>Data</th><th>Plano</th><th>Tipo</th><th>Valor</th></tr></thead><tbody>' + l.map(function (p) {
             var d = new Date(p.criado_em.replace(' ', 'T') + 'Z');
-            return '<tr><td>' + d.toLocaleDateString('pt-BR') + '</td><td>' + NOMES[p.plano] + '</td><td>' + (p.tipo === 'ass' ? 'Cartão' : 'Pix') + '</td><td>' +
+            return '<tr><td>' + d.toLocaleDateString('pt-BR') + '</td><td>' + NOMES[p.plano] + '</td><td>' + (p.tipo === 'ass' ? 'Cartão automático' : '1 mês') + '</td><td>' +
               (p.valor != null ? 'R$ ' + Number(p.valor).toFixed(2).replace('.', ',') : '—') + '</td></tr>';
           }).join('') + '</tbody></table>'
         : '<p class="ct-sub">Nenhum pagamento ainda.</p>';

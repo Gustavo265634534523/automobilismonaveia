@@ -230,6 +230,8 @@
 .as-op h3 { margin: 0; font-size: 19px; }
 .as-op p { margin: 0; color: #c3c8cd; font-size: 15px; }
 .as-op .pl-botao { margin-top: auto; }
+.as-op .as-mes { margin-top: 0; }
+.as-mes-nota { margin-top: -4px; font-size: 13px; color: var(--aco); }
 .as-email { display: grid; gap: 4px; font-size: 13px; font-weight: 600; color: var(--aco); }
 .as-email input { padding: 9px 10px; font: 16px var(--texto); color: var(--cromo); background: var(--carbono); border: 1px solid var(--linha); }
 .as-email small { font-weight: 500; }
