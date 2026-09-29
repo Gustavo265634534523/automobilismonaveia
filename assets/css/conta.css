@@ -149,3 +149,10 @@
   .ct-agenda .ct-mini { min-width: 76px; padding-left: 10px; padding-right: 10px; }
 }
 .ct-agenda a.ct-mini { text-decoration: none; }
+
+/* Minha conta: botões do Telegram */
+.ct-telegram { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--linha); }
+.ct-telegram .pl-botao { margin: 0; }
+.ct-rot-tg { width: 100%; margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--aco); }
+.ct-tg-ajuda { width: 100%; margin: 0; font-size: 14px; }
+.ct-telegram .ct-erro { width: 100%; margin: 0; }
