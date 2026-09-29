@@ -26,17 +26,27 @@
     cont.innerHTML = '<p class="as-rot">Assinar</p><h2 id="as-titulo">Plano ' + NOME[plano] + ' <span>R$ ' + PRECO[plano] + ' por mês</span></h2>' +
       (atual === plano ? '<p class="as-nota">Você já tem este plano' + (eu.usuario.plano_ate ? ' até ' + new Date(eu.usuario.plano_ate).toLocaleDateString('pt-BR') : '') + '. Pagar de novo soma mais um mês.</p>' : '') +
       '<div class="as-opcoes">' +
-        '<section class="as-op"><h3>Cartão de crédito</h3><p>Cobra sozinho todo mês.</p>' +
-          '<label class="as-email">Seu e-mail no Mercado Pago<input type="email" id="as-email-mp" value="' + esc(eu.usuario.email) + '" autocomplete="email"></label>' +
-          '<p class="as-alerta"><b>Atenção:</b> use o mesmo e-mail da sua conta no Mercado Pago. Se for outro e-mail, o pagamento é recusado.</p>' +
-          '<button type="button" class="pl-botao" data-forma="cartao">Assinar no cartão</button>' +
-          '<small class="as-mes-nota">Você pode cancelar a assinatura automática quando quiser, em Minha conta.</small></section>' +
+        '<section class="as-op"><h3>Cartão de crédito</h3><p>Paga um mês e usa por 30 dias.</p>' +
+          '<label class="as-auto"><input type="checkbox" id="as-auto"> Ativar a cobrança automática todo mês</label>' +
+          '<div class="as-auto-extra" hidden>' +
+            '<label class="as-email">Seu e-mail no Mercado Pago<input type="email" id="as-email-mp" value="' + esc(eu.usuario.email) + '" autocomplete="email"></label>' +
+            '<p class="as-alerta"><b>Atenção:</b> use o mesmo e-mail da sua conta no Mercado Pago. Se for outro e-mail, o pagamento é recusado.</p>' +
+            '<small class="as-mes-nota">Você pode cancelar a cobrança automática quando quiser, em Minha conta.</small>' +
+          '</div>' +
+          '<button type="button" class="pl-botao" data-forma="mes">Pagar no cartão</button></section>' +
         '<section class="as-op"><h3>Pix</h3><p>Paga uma vez e usa por 30 dias. Para continuar, é só pagar de novo.</p>' +
           '<button type="button" class="pl-botao pl-botao-linha" data-forma="pix">Pagar com Pix</button></section>' +
       '</div>' +
       '<p class="as-erro" role="alert" hidden></p>' +
       '<p class="as-legal">O pagamento é feito na página segura do Mercado Pago. Você pode desistir em até 7 dias e receber o dinheiro de volta. Veja os <a href="termos.html">Termos de uso</a>.</p>';
     caixa.hidden = false; document.documentElement.style.overflow = 'hidden';
+    /* caixinha da cobrança automática: marcada = assinatura (cobra todo mês); desmarcada = paga só 1 mês */
+    var auto = cont.querySelector('#as-auto'), botaoCartao = cont.querySelector('.as-op [data-forma="mes"]');
+    auto.addEventListener('change', function () {
+      cont.querySelector('.as-auto-extra').hidden = !auto.checked;
+      botaoCartao.setAttribute('data-forma', auto.checked ? 'cartao' : 'mes');
+      botaoCartao.textContent = auto.checked ? 'Assinar no cartão' : 'Pagar no cartão';
+    });
     cont.querySelectorAll('[data-forma]').forEach(function (b) {
       b.addEventListener('click', function () {
         var erro = cont.querySelector('.as-erro'); erro.hidden = true;

@@ -231,6 +231,9 @@
 .as-op p { margin: 0; color: #c3c8cd; font-size: 15px; }
 .as-op .pl-botao { margin-top: auto; }
 .as-mes-nota { margin-top: -4px; font-size: 13px; color: var(--aco); }
+.as-auto { display: flex; align-items: center; gap: 9px; padding: 10px 11px; font-size: 15px; font-weight: 600; color: var(--cromo); background: var(--carbono); border: 1px solid var(--linha); cursor: pointer; }
+.as-auto input { width: 18px; height: 18px; margin: 0; accent-color: var(--sangue-vivo); flex-shrink: 0; }
+.as-auto-extra:not([hidden]) { display: grid; gap: 10px; }
 .as-email { display: grid; gap: 4px; font-size: 13px; font-weight: 600; color: var(--aco); }
 .as-email input { padding: 9px 10px; font: 16px var(--texto); color: var(--cromo); background: var(--carbono); border: 1px solid var(--linha); }
 .as-email small { font-weight: 500; }
