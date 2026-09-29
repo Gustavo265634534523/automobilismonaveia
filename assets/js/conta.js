@@ -251,8 +251,8 @@
       el.innerHTML = '<p class="ct-sub">Assine a agenda das categorias que você quer. Os horários entram sozinhos no calendário do celular, com aviso 30 minutos antes, e mudam sozinhos quando um horário muda.</p>' +
         '<ul class="ct-agenda">' + CATS.map(function (c) {
           var https = pasta + c.slug + '.ics';
-          return '<li><b>' + esc(c.nome) + '</b><a class="ct-mini" href="' + esc(https.replace(/^https?:/, 'webcal:')) + '">Assinar no celular</a>' +
-            '<button type="button" class="ct-mini ct-copiar" data-link="' + esc(https) + '">Copiar link</button></li>';
+          return '<li><b>' + esc(c.nome) + '</b><a class="ct-mini" href="' + esc(https.replace(/^https?:/, 'webcal:')) + '">Assinar<span class="ct-longo"> no celular</span></a>' +
+            '<button type="button" class="ct-mini ct-copiar" data-link="' + esc(https) + '">Copiar<span class="ct-longo"> link</span></button></li>';
         }).join('') + '</ul>' +
         '<details class="ct-ajuda"><summary>Como assinar</summary><ol>' +
         '<li><b>iPhone:</b> toque em <b>Assinar no celular</b> e depois em <b>Assinar</b>.</li>' +
@@ -262,7 +262,7 @@
     desenharAgenda(u);
     document.getElementById('ct-agenda').addEventListener('click', function (e) {
       var cp = e.target.closest('.ct-copiar'); if (!cp) return;
-      var link = cp.getAttribute('data-link'), feito = function () { cp.textContent = 'Link copiado'; setTimeout(function () { cp.textContent = 'Copiar link'; }, 2200); };
+      var link = cp.getAttribute('data-link'), feito = function () { var antes = cp.innerHTML; cp.textContent = 'Copiado ✓'; setTimeout(function () { cp.innerHTML = antes; }, 2200); };
       if (navigator.clipboard) navigator.clipboard.writeText(link).then(feito, function () { window.prompt('Copie o link:', link); });
       else window.prompt('Copie o link:', link);
     });

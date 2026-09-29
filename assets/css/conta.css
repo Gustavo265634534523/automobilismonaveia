@@ -139,3 +139,13 @@
 .ct-perigo h2 { color: #ff7a80; }
 .ct-perigo-btn { color: #ffb3b7; box-shadow: inset 0 0 0 1px #8a2a30; }
 .ct-perigo-btn.pl-botao { background: #8a1a20; color: #fff; }
+
+/* Agenda do celular: cada categoria numa linha reta (nome | Assinar | Copiar) */
+.ct-agenda li { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; align-items: center; gap: 8px; flex-wrap: nowrap; }
+.ct-agenda li b { flex: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ct-agenda .ct-mini { margin: 0; white-space: nowrap; text-align: center; min-width: 96px; }
+@media (max-width: 520px) {
+  .ct-longo { display: none; }
+  .ct-agenda .ct-mini { min-width: 76px; padding-left: 10px; padding-right: 10px; }
+}
+.ct-agenda a.ct-mini { text-decoration: none; }
