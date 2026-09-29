@@ -249,3 +249,5 @@
 .as-pix-status i { flex-shrink: 0; width: 12px; height: 12px; border-radius: 50%; background: #e8c35a; animation: as-pisca 1.2s ease-in-out infinite; }
 @keyframes as-pisca { 50% { opacity: .25; } }
 @media (max-width: 640px) { .as-pix { grid-template-columns: 1fr; justify-items: center; } .as-pix-lado { width: 100%; } }
+
+.pl-previa-abrir { margin-top: 20px; }

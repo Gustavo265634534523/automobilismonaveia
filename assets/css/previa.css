@@ -1,0 +1,21 @@
+/* Prévia da etapa (página do Master) */
+.pl-previa-cab .contagem { margin-top: 10px; }
+.pv-mapa { display: block; width: 100%; max-height: 260px; }
+.pv-legenda { display: flex; align-items: center; gap: 8px; margin: 8px 0 0; font-size: 14px; color: var(--aco); }
+.pv-legenda i { width: 10px; height: 10px; border-radius: 50%; background: var(--sangue-vivo); }
+.pl-numeros { list-style: none; margin: 0 0 14px; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pl-numeros li { display: grid; gap: 2px; padding: 10px; background: var(--asfalto); }
+.pl-numeros b { font-family: var(--display); font-weight: 400; font-size: 18px; color: var(--cromo); }
+.pl-numeros span { font-size: 13px; color: var(--aco); }
+.pl-sub-tab { margin: 0 0 8px; color: #c3c8cd; }
+.pv-tempo { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.pv-tempo li { display: grid; gap: 2px; padding: 10px 12px; background: var(--asfalto); }
+.pv-dia { font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--aco); }
+.pv-tempo b { font-size: 20px; color: var(--cromo); }
+.pv-chuva { font-size: 14px; color: #c3c8cd; }
+.pv-fonte { margin: 8px 0 0; font-size: 13px; color: var(--aco); }
+.pv-podio { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 6px; }
+.pv-podio li { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 8px 10px; background: var(--asfalto); }
+.pv-podio span { font-family: var(--display); color: var(--aco); }
+.pv-podio li:first-child span { color: #e8c35a; }
+.pv-podio em { font-style: normal; font-weight: 700; color: var(--cromo); }

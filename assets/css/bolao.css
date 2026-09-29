@@ -37,3 +37,7 @@
   .bl-form { grid-template-columns: 1fr; }
   .bl-bloco { padding: 18px 16px; }
 }
+/* ranking com foto ou inicial de cada membro */
+.bl-quem { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.bl-quem img, .bl-quem i { flex-shrink: 0; width: 30px; height: 30px; object-fit: cover; display: grid; place-items: center; font-style: normal; font-family: var(--display); font-size: 13px; color: var(--aco); background: var(--asfalto); box-shadow: inset 0 0 0 1px var(--linha); }
+.bl-total { margin: -6px 0 10px; font-size: 14px; }
