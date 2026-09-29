@@ -233,6 +233,8 @@
 .as-email { display: grid; gap: 4px; font-size: 13px; font-weight: 600; color: var(--aco); }
 .as-email input { padding: 9px 10px; font: 16px var(--texto); color: var(--cromo); background: var(--carbono); border: 1px solid var(--linha); }
 .as-email small { font-weight: 500; }
+.as-alerta { margin: 2px 0 0; padding: 9px 11px; font-size: 14px; line-height: 1.4; color: #f1d58a; background: rgba(232, 195, 90, .1); border-left: 3px solid #e8c35a; }
+.as-alerta b { color: #f5e2a8; }
 .as-erro { margin: 14px 0 0; color: #ff7a80; font-weight: 600; }
 .as-legal { margin: 16px 0 0; font-size: 14px; color: var(--aco); }
 @media (max-width: 640px) { .as-opcoes { grid-template-columns: 1fr; } }
