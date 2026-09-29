@@ -8,25 +8,33 @@ X-WR-TIMEZONE:America/Sao_Paulo
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
-DTSTAMP:20260928T161200Z
-UID:porsche-cup-7-dia@naveia
-DTSTART;VALUE=DATE:20261003
-DTEND;VALUE=DATE:20261004
-SUMMARY:Porsche Cup: Endurance
-LOCATION:Goiânia (GO)\, horários ainda não divulgados
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DTSTAMP:20260929T134200Z
+UID:porsche-cup-7-2026-10-03-Corrida@naveia
+DTSTART:20261003T160000Z
+DTEND:20261003T180000Z
+SUMMARY:Porsche Cup: Corrida (Endurance)
+LOCATION:Brasília (DF)\, transferido de Goiânia para o Autódromo Nelson
+  Piquet\, por causa das obras no circuito goiano\; 300 km em duplas
+DESCRIPTION:Horário de Brasília: 13h00. Automobilismo Na Veia.
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Porsche Cup: Corrida em 30 minutos
+TRIGGER:-PT30M
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260928T161200Z
+DTSTAMP:20260929T134200Z
 UID:porsche-cup-8-dia@naveia
 DTSTART;VALUE=DATE:20261011
 DTEND;VALUE=DATE:20261012
 SUMMARY:Porsche Cup: Etapa 8\, Challenge e Trophy
-LOCATION:Goiânia (GO)\, etapa remarcada de abril
+LOCATION:Goiânia (GO)\, não acontece mais em Goiânia (obras no autódro
+ mo)\; a etapa foi levada para Interlagos no fim de novembro\, data exata 
+ a confirmar
 DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260928T161200Z
+DTSTAMP:20260929T134200Z
 UID:porsche-cup-9-dia@naveia
 DTSTART;VALUE=DATE:20261108
 DTEND;VALUE=DATE:20261109
@@ -35,7 +43,7 @@ LOCATION:Interlagos (SP)
 DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20260928T161200Z
+DTSTAMP:20260929T134200Z
 UID:porsche-cup-10-dia@naveia
 DTSTART;VALUE=DATE:20261128
 DTEND;VALUE=DATE:20261129

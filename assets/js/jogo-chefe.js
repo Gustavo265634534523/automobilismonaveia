@@ -606,19 +606,19 @@
   }
 
   /* opcoes.limite: corridas grátis para visitantes (página inicial). Plano Médio: LIMITE_MEDIO corridas por dia. Plano Master: sem limite.
-     O contador fica no navegador (quando o site estiver no ar com PHP, dá para passar para o servidor). */
+     No plano Médio quem conta é o servidor de contas (ações chefe e chefe_corrida): limpar o navegador não zera o limite. */
   var LIMITE_MEDIO = 15;
   window.JOGO_CHEFE = function (el, opcoes) {
     var LIMITE = (opcoes && opcoes.limite) || 0, modo = LIMITE ? 'visitante' : 'livre';
     if (opcoes && opcoes.plano === 'medio') modo = 'medio'; /* plano Médio: LIMITE_MEDIO corridas por dia */
     function hoje() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+    var usadasServidor = 0; /* plano Médio: quantas corridas o servidor já contou hoje */
     function usadas() {
-      if (modo === 'medio') { var r = ler('chefe-medio-dia', null); return r && r.dia === hoje() ? r.n : 0; }
+      if (modo === 'medio') return usadasServidor;
       return ler('chefe-demo-corridas', 0);
     }
     function contar() {
-      if (modo === 'medio') guardar('chefe-medio-dia', { dia: hoje(), n: usadas() + 1 });
-      else if (modo === 'visitante') guardar('chefe-demo-corridas', usadas() + 1);
+      if (modo === 'visitante') guardar('chefe-demo-corridas', usadas() + 1);
     }
     function limiteAtual() { return modo === 'medio' ? LIMITE_MEDIO : LIMITE; }
     function semLimite() { return modo === 'livre' || modo === 'master'; }
@@ -639,6 +639,20 @@
         else if (restantes() <= 0 && tela.querySelector('#ch-quali')) telaLimite();
       }
     });
+    /* plano Médio: pega do servidor quantas corridas já foram hoje */
+    if (modo === 'medio' && window.NAVEIA_API) window.NAVEIA_API('chefe').then(function (r) {
+      if (r && r.ok && typeof r.usadas === 'number') { usadasServidor = r.usadas; atualizarAviso(); if (restantes() <= 0 && !tela.querySelector('.ch-fim')) telaLimite(); }
+    }).catch(function () {});
+    /* plano Médio: antes de largar, o servidor conta a corrida (ou diz que acabou o limite) */
+    function pedirCorrida(seguir) {
+      if (modo !== 'medio') { seguir(); return; }
+      window.NAVEIA_API('chefe_corrida', {}).then(function (r) {
+        if (r && typeof r.usadas === 'number') usadasServidor = r.usadas;
+        if (r && r.ok) { atualizarAviso(); seguir(); return; }
+        if (r && r.limite_atingido) { telaLimite(); return; }
+        alert((r && r.erro) || 'Não foi possível confirmar sua corrida. Tente de novo.');
+      }).catch(function () { alert('Sem conexão com o servidor. Confira a internet e tente de novo.'); });
+    }
     /* tela quando acabam as corridas grátis */
     function telaLimite() {
       motorDesligar(); clearTimeout(raf); if (window.CHEFE3D) CHEFE3D.liberar();
@@ -649,7 +663,6 @@
         : '<b>Você usou as ' + LIMITE + ' corridas grátis</b><p>Gostou? No plano Médio você joga 15 corridas por dia, e no Master, sem limite. Os planos também têm alertas de largada, prévias das etapas e mais.</p>' +
           '<div class="ch-acoes"><a class="pl-botao" href="planos.html">Ver os planos</a><a class="pl-botao pl-botao-linha" href="entrar.html?volta=index.html">Já sou assinante</a></div>') +
         '' + '</div>';
-      var z = tela.querySelector('#ch-zerar'); if (z) z.addEventListener('click', function () { guardar('chefe-demo-corridas', 0); guardar('chefe-medio-dia', null); telaEscolha(); });
     }
     /* só pistas do calendário oficial da F1 2026 (Ímola saiu; Sepang recebe o GP do Bahrein) */
     var FORA_F1 = { 'Ímola': 1 }; /* Sepang voltou em 2026: recebe o GP do Bahrein */
@@ -769,6 +782,7 @@
     /* ---------- Corrida ---------- */
     function comecar(opc) {
       if (restantes() <= 0) { telaLimite(); return; }
+      if (modo === 'medio' && !(opc && opc.contada)) { pedirCorrida(function () { comecar(Object.assign({}, opc, { contada: true })); }); return; }
       contar();
       opc = opc && opc.circ ? opc : {};
       prepararAudio(); motorDesligar();
