@@ -131,19 +131,12 @@
       API('plano_teste', { plano: p }).then(function (r) { if (r.ok) { u = r.usuario; desenharPlano(u); desenharAtalhos(u); } });
     });
 
-    /* Categorias (ficam na conta; a página Suas categorias usa estas) */
-    var favs = u.categorias.slice();
-    var caixa = document.getElementById('ct-cats');
-    caixa.innerHTML = CATS.map(function (c) {
-      return '<label class="pl-chip"><input type="checkbox" value="' + c.slug + '"' + (favs.indexOf(c.slug) > -1 ? ' checked' : '') + '><span>' + esc(c.nome) + '</span></label>';
-    }).join('');
-    var ok = document.getElementById('ct-cats-ok'), t;
-    caixa.addEventListener('change', function () {
-      favs = [].slice.call(caixa.querySelectorAll('input:checked')).map(function (i) { return i.value; });
-      API('preferencias', { categorias: favs }).then(function (r) {
-        if (!r.ok) return; u = r.usuario; ok.hidden = false; clearTimeout(t); t = setTimeout(function () { ok.hidden = true; }, 2000);
-      });
-    });
+    /* Categorias seguidas: só o resumo; a escolha é feita na página Suas categorias */
+    var seguidas = CATS.filter(function (c) { return u.categorias.indexOf(c.slug) > -1; });
+    document.getElementById('ct-cats').innerHTML =
+      '<p class="ct-sub">' + (seguidas.length === CATS.length ? 'Você segue todas as categorias.' :
+        seguidas.length ? 'Você segue: <b>' + seguidas.map(function (c) { return esc(c.nome); }).join(', ') + '</b>.' : 'Você ainda não segue nenhuma categoria.') + '</p>' +
+      (NIVEL[u.plano] >= 1 ? '<a class="pl-botao" href="minhas.html">Escolher categorias</a>' : bloqueio('medio'));
   }
 
   /* ---------- Área do assinante ---------- */

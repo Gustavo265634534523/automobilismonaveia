@@ -14,7 +14,7 @@
     try { localStorage.setItem(CHAVE, JSON.stringify(v)); } catch (e) {}
     if (naConta) window.NAVEIA_API('preferencias', { categorias: v }).catch(function () {});
   }
-  var sel = lerSel() || ['formula-1'];
+  var sel = lerSel() || [];
 
   function linkAgenda(c) {
     var base = location.href.replace(/[?#].*$/, '').replace(/[^/]*$/, '') + 'assets/agenda/' + c.slug + '.ics';
@@ -23,11 +23,19 @@
 
   function desenhar() {
     var escolhidas = CATS.filter(function (c) { return sel.indexOf(c.slug) > -1; });
-    var h = '<div class="mc-escolha"><p class="mc-rot">Categorias que você segue</p><div class="sm-cats" role="group" aria-label="Categorias que você segue">' +
-      CATS.map(function (c) { return '<button type="button" class="sm-cat" data-cat="' + c.slug + '" aria-pressed="' + (sel.indexOf(c.slug) > -1) + '">' + esc(c.nome) + '</button>'; }).join('') +
-      '</div></div>';
+    /* Seguir: um cartão com foto para cada categoria, e "Seguir todas" */
+    var todas = escolhidas.length === CATS.length;
+    var h = '<section class="mc-seguir" aria-labelledby="mc-seguir-t"><div class="mc-seguir-cab"><div><h2 id="mc-seguir-t">Categorias que você segue</h2>' +
+      '<p class="mc-info">' + (todas ? 'Você segue todas as categorias: a página mostra tudo.' : escolhidas.length ? 'Você segue ' + escolhidas.length + ' de ' + CATS.length + '. A página mostra só estas.' : 'Siga pelo menos uma categoria para montar a sua página.') + '</p></div>' +
+      '<button type="button" class="pl-botao' + (todas ? ' pl-botao-linha' : '') + '" data-todas="' + (todas ? '0' : '1') + '">' + (todas ? 'Deixar de seguir todas' : 'Seguir todas as categorias') + '</button></div>' +
+      '<div class="mc-cats">' + CATS.map(function (c) {
+        var sim = sel.indexOf(c.slug) > -1;
+        return '<button type="button" class="mc-cat' + (sim ? ' seguindo' : '') + '" data-cat="' + c.slug + '" aria-pressed="' + sim + '">' +
+          '<img src="' + esc(c.foto) + '" alt="" loading="lazy"><span class="mc-cat-nome">' + esc(c.nome) + '</span>' +
+          '<span class="mc-cat-acao">' + (sim ? 'Seguindo ✓' : 'Seguir') + '</span></button>';
+      }).join('') + '</div></section>';
 
-    if (!escolhidas.length) { caixa.innerHTML = h + '<p class="mc-vazio">Marque pelo menos uma categoria acima.</p>'; return; }
+    if (!escolhidas.length) { caixa.innerHTML = h; return; }
 
     /* 1. próximas etapas (até 2 por categoria), por data */
     var hoje = window.hojeISO(), prox = [];
@@ -74,7 +82,9 @@
   function comecar() {
     desenhar();
     caixa.addEventListener('click', function (e) {
-      var b = e.target.closest('.sm-cat');
+      var tb = e.target.closest('[data-todas]');
+      if (tb) { sel = tb.getAttribute('data-todas') === '1' ? CATS.map(function (c) { return c.slug; }) : []; guardarSel(sel); desenhar(); return; }
+      var b = e.target.closest('.mc-cat');
       if (b) {
         var s = b.getAttribute('data-cat'), i = sel.indexOf(s);
         if (i > -1) sel.splice(i, 1); else sel.push(s);
@@ -104,7 +114,7 @@
     } else if (r.usuario.plano !== 'medio' && r.usuario.plano !== 'master') {
       return trava('Exclusivo dos planos Médio e Master', 'Seu plano atual não inclui esta página. Assine o Médio ou o Master.', '<a class="pl-botao" href="planos.html">Ver os planos</a>');
     }
-    if (r.logado && !r.teste) { naConta = true; if (r.usuario.categorias && r.usuario.categorias.length) sel = r.usuario.categorias.slice(); }
+    if (r.logado && !r.teste) { naConta = true; sel = (r.usuario.categorias || []).slice(); /* com conta, vale o que está salvo na conta */ }
     comecar();
   });
 })();

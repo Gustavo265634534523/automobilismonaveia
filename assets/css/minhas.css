@@ -28,3 +28,19 @@
 .mc-ajuda { margin-top: 16px; color: #c3c8cd; }
 .mc-ajuda summary { cursor: pointer; font-weight: 700; color: var(--cromo); }
 .mc-ajuda ol { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 8px; max-width: 80ch; }
+
+/* Seguir categorias: cartões com foto */
+.mc-seguir-cab { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 14px 24px; margin-bottom: 16px; }
+.mc-seguir-cab h2 { margin: 0 0 6px; font-family: var(--display); font-weight: 400; font-size: clamp(20px, 2.4vw, 28px); }
+.mc-seguir-cab .pl-botao { margin: 0; }
+.mc-cats { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 10px; }
+.mc-cat { position: relative; display: flex; flex-direction: column; justify-content: flex-end; min-height: 120px; padding: 12px; border: 0; cursor: pointer; text-align: left; overflow: hidden; background: var(--carbono); color: var(--cromo); box-shadow: inset 0 0 0 1px var(--linha); transition: box-shadow .2s; }
+.mc-cat img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .35; transition: opacity .25s, transform .4s var(--ease); }
+.mc-cat::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(20,22,25,0) 20%, rgba(20,22,25,.92)); }
+.mc-cat:hover img { opacity: .55; transform: scale(1.04); }
+.mc-cat-nome, .mc-cat-acao { position: relative; z-index: 1; }
+.mc-cat-nome { font-weight: 700; font-size: 17px; }
+.mc-cat-acao { margin-top: 6px; align-self: flex-start; padding: 4px 10px 3px; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; box-shadow: inset 0 0 0 1px var(--aco); }
+.mc-cat.seguindo { box-shadow: inset 0 0 0 2px var(--sangue-vivo); }
+.mc-cat.seguindo img { opacity: .6; }
+.mc-cat.seguindo .mc-cat-acao { background: var(--sangue); box-shadow: none; }
