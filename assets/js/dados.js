@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '29 de setembro de 2026';
+window.ATUALIZADO = '30 de setembro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -295,7 +295,7 @@ window.CATEGORIAS = [
     { e: 10, n: 'Rally da Finlândia', l: 'Jyväskylä', d: '2026-08-02', venc: 'Sami Pajari' },
     { e: 11, n: 'Rally do Paraguai', l: 'Encarnación', d: '2026-08-30', venc: 'Sami Pajari' },
     { e: 12, n: 'Rally do Chile', l: 'Concepción', d: '2026-09-13', venc: 'Oliver Solberg' },
-    { e: 13, n: 'Rally Itália Sardenha', l: 'Olbia', d: '2026-10-04', s: [{ t: 'Shakedown', d: '2026-10-01', h: '04:01' }, { t: 'Especial de abertura', d: '2026-10-01', h: '11:05' }, { t: 'Dia 2, primeira especial', d: '2026-10-02', h: '03:01' }, { t: 'Dia 3, primeira especial', d: '2026-10-03', h: '03:01' }, { t: 'Dia 4, primeira especial', d: '2026-10-04', h: '03:31' }, { t: 'Power Stage', d: '2026-10-04', h: '09:15' }] }
+    { e: 13, n: 'Rally Itália Sardenha', l: 'Alghero', d: '2026-10-04', s: [{ t: 'Shakedown', d: '2026-10-01', h: '04:01' }, { t: 'Especial de abertura', d: '2026-10-01', h: '11:05' }, { t: 'Dia 2, primeira especial', d: '2026-10-02', h: '03:01' }, { t: 'Dia 3, primeira especial', d: '2026-10-03', h: '03:01' }, { t: 'Dia 4, primeira especial', d: '2026-10-04', h: '03:31' }, { t: 'Power Stage', d: '2026-10-04', h: '09:15' }] }
   ],
   classificacao: {
     titulo: 'Pilotos',
