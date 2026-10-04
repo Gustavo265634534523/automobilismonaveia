@@ -1,9 +1,11 @@
-# Quando os dados do site mudam (resultados e horários), refaz a agenda (agenda.json e as agendas .ics do celular).
+# Quando os dados do site mudam (resultados, horários ou notícias), refaz a agenda (agenda.json e as agendas .ics do celular)
+# e atualiza as datas do sitemap.xml para o Google.
 name: Agenda do celular
 on:
   push:
     paths:
       - 'assets/js/dados.js'
+      - 'assets/js/noticias-gerais.js'
   workflow_dispatch:
 permissions:
   contents: write
@@ -21,12 +23,14 @@ jobs:
           node-version: 22
       - name: Refazer a agenda
         run: node _ferramentas/exportar-agenda.js
+      - name: Atualizar o sitemap
+        run: node .github/sitemap.js
       - name: Salvar no site
         run: |
           git config user.name "Robô Na Veia"
           git config user.email "automobilismonaveiacontato@gmail.com"
-          git add assets/dados/agenda.json assets/agenda
+          git add assets/dados/agenda.json assets/agenda sitemap.xml
           git diff --cached --quiet && exit 0
-          git commit -m "Robô: agenda atualizada"
+          git commit -m "Robô: agenda e sitemap atualizados"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
           exit 1
