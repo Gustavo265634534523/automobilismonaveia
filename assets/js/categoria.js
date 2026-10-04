@@ -42,7 +42,18 @@
   c.classificacao.linhas.forEach(function (l) { pontos[l[1]] = { pos: l[0], pts: l[l.length - 1] }; });
 
   var P = {};
-  P.noticias = '<h2>Notícias</h2><div class="noticias">' + c.noticias.map(function (n, i) {
+  /* notícias da categoria: as da página de Notícias (noticias-gerais.js, atualizadas todo dia) + as fixas de dados.js,
+     sem repetir título, da mais nova para a mais antiga */
+  var en = window.LANG === 'en', vistas = {}, lista = [];
+  (window.NOTICIAS_GERAIS || []).filter(function (n) { return n.cat === c.slug; }).concat(c.noticias || []).forEach(function (n, i) {
+    var chave = n.t.toLowerCase();
+    if (vistas[chave]) return;
+    vistas[chave] = 1;
+    lista.push({ d: n.d, t: (en && n.t_en) || n.t, x: (en && n.x_en) || n.x, ordem: i });
+  });
+  lista.sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : a.ordem - b.ordem; });
+  lista = lista.slice(0, 8);
+  P.noticias = '<h2>Notícias</h2><div class="noticias">' + lista.map(function (n, i) {
     return '<article class="noticia">' +
       '<time datetime="' + n.d + '">' + window.dataCurta(n.d) + '</time><h3>' + esc(n.t) + '</h3><p>' + esc(n.x) + '</p></article>';
   }).join('') + '</div>';
