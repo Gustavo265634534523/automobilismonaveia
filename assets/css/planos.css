@@ -258,3 +258,6 @@
 
 .pl-previa-abrir { margin-top: 20px; }
 .as-opcoes.as-so-pix { grid-template-columns: 1fr; }
+.as-promo { margin: 0 0 14px; padding: 10px 12px; font-size: 15px; color: #c3c8cd; background: rgba(227, 52, 60, .1); border-left: 3px solid var(--sangue-vivo); }
+.as-promo b { color: #fff; }
+.pl-promo, .cp-promo { margin: -4px 0 10px; font-size: 14px; font-weight: 600; color: #ff8a8f; }

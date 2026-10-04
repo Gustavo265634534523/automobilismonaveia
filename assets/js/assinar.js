@@ -5,7 +5,9 @@
   var botoes = document.querySelectorAll('[data-assinar]');
   if (!botoes.length) return;
   var esc = window.esc;
-  var PRECO = { medio: '14,90', master: '29,90' }, NOME = { medio: 'Médio', master: 'Master' };
+  var PRECO = { medio: '14,90', master: '29,90' }, PROMO = { medio: '10,90', master: '24,90' }, NOME = { medio: 'Médio', master: 'Master' };
+  /* preço mostrado: na primeira compra da conta, o valor com desconto (o servidor confere e cobra o mesmo) */
+  function preco(plano) { return eu && eu.primeira_compra ? PROMO[plano] : PRECO[plano]; }
   var eu = null;
   window.NAVEIA_EU.then(function (r) { eu = r; });
 
@@ -23,7 +25,8 @@
     var pagina = location.pathname.split('/').pop() || 'index.html';
     if (!eu || !eu.logado || eu.teste) { location.href = 'entrar.html?volta=' + encodeURIComponent(pagina) + '#criar'; return; }
     var atual = eu.usuario.plano;
-    cont.innerHTML = '<p class="as-rot">Assinar</p><h2 id="as-titulo">Plano ' + NOME[plano] + ' <span>R$ ' + PRECO[plano] + ' por mês</span></h2>' +
+    cont.innerHTML = '<p class="as-rot">Assinar</p><h2 id="as-titulo">Plano ' + NOME[plano] + ' <span>R$ ' + preco(plano) + (eu.primeira_compra ? ' no primeiro mês' : ' por mês') + '</span></h2>' +
+      (eu.primeira_compra ? '<p class="as-promo"><b>Desconto de primeira compra.</b> De <s>R$ ' + PRECO[plano] + '</s> por <b>R$ ' + PROMO[plano] + '</b>. Nos meses seguintes, R$ ' + PRECO[plano] + '.</p>' : '') +
       (atual === plano ? '<p class="as-nota">Você já tem este plano' + (eu.usuario.plano_ate ? ' até ' + new Date(eu.usuario.plano_ate).toLocaleDateString('pt-BR') : '') + '. Pagar de novo soma mais um mês.</p>' : '') +
       '<div class="as-opcoes as-so-pix">' +
         '<section class="as-op"><h3>Pix</h3><p>Paga uma vez e usa por 30 dias. Para continuar, é só pagar de novo.</p>' +
@@ -56,7 +59,7 @@
   /* Pix na própria janela: QR Code, botão de copiar e conferência automática a cada 4 segundos */
   var espera = null;
   function mostrarPix(plano, pix) {
-    cont.innerHTML = '<p class="as-rot">Pagar com Pix</p><h2 id="as-titulo">Plano ' + NOME[plano] + ' <span>R$ ' + PRECO[plano] + ' · 30 dias</span></h2>' +
+    cont.innerHTML = '<p class="as-rot">Pagar com Pix</p><h2 id="as-titulo">Plano ' + NOME[plano] + ' <span>R$ ' + (pix.valor ? Number(pix.valor).toFixed(2).replace('.', ',') : preco(plano)) + ' · 30 dias</span></h2>' +
       '<div class="as-pix">' +
         (pix.imagem ? '<img class="as-pix-qr" src="data:image/png;base64,' + pix.imagem + '" alt="QR Code do Pix" width="220" height="220">' : '') +
         '<div class="as-pix-lado"><ol class="as-pix-passos"><li>Abra o app do seu banco e escolha <b>Pix</b>.</li><li>Leia o QR Code ou use o <b>Pix Copia e Cola</b>.</li><li>Confira o valor e pague.</li></ol>' +
