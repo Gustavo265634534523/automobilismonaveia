@@ -25,37 +25,20 @@
     var atual = eu.usuario.plano;
     cont.innerHTML = '<p class="as-rot">Assinar</p><h2 id="as-titulo">Plano ' + NOME[plano] + ' <span>R$ ' + PRECO[plano] + ' por mês</span></h2>' +
       (atual === plano ? '<p class="as-nota">Você já tem este plano' + (eu.usuario.plano_ate ? ' até ' + new Date(eu.usuario.plano_ate).toLocaleDateString('pt-BR') : '') + '. Pagar de novo soma mais um mês.</p>' : '') +
-      '<div class="as-opcoes">' +
-        '<section class="as-op"><h3>Cartão de crédito</h3><p>Paga um mês e usa por 30 dias.</p>' +
-          '<p class="as-alerta"><b>Aviso:</b> no momento, só o Pix está funcionando. O pagamento no cartão volta em breve.</p>' +
-          '<label class="as-auto"><input type="checkbox" id="as-auto"> Ativar a cobrança automática todo mês</label>' +
-          '<div class="as-auto-extra" hidden>' +
-            '<label class="as-email">Seu e-mail no Mercado Pago<input type="email" id="as-email-mp" value="' + esc(eu.usuario.email) + '" autocomplete="email"></label>' +
-            '<p class="as-alerta"><b>Atenção:</b> use o mesmo e-mail da sua conta no Mercado Pago. Se for outro e-mail, o pagamento é recusado. Pague com a sua conta do Mercado Pago aberta e com um cartão no seu nome.</p>' +
-            '<small class="as-mes-nota">Você pode cancelar a cobrança automática quando quiser, em Minha conta.</small>' +
-          '</div>' +
-          '<button type="button" class="pl-botao" data-forma="mes">Pagar no cartão</button></section>' +
+      '<div class="as-opcoes as-so-pix">' +
         '<section class="as-op"><h3>Pix</h3><p>Paga uma vez e usa por 30 dias. Para continuar, é só pagar de novo.</p>' +
-          '<button type="button" class="pl-botao pl-botao-linha" data-forma="pix">Pagar com Pix</button></section>' +
+          '<button type="button" class="pl-botao" data-forma="pix">Pagar com Pix</button></section>' +
       '</div>' +
       '<p class="as-erro" role="alert" hidden></p>' +
-      '<p class="as-legal">O pagamento é feito na página segura do Mercado Pago. Você pode desistir em até 7 dias e receber o dinheiro de volta. Veja os <a href="termos.html">Termos de uso</a>.</p>';
+      '<p class="as-legal">O pagamento por Pix é processado pelo Mercado Pago, de forma segura. Você pode desistir em até 7 dias e receber o dinheiro de volta. Veja os <a href="termos.html">Termos de uso</a>.</p>';
     caixa.hidden = false; document.documentElement.style.overflow = 'hidden';
-    /* caixinha da cobrança automática: marcada = assinatura (cobra todo mês); desmarcada = paga só 1 mês */
-    var auto = cont.querySelector('#as-auto'), botaoCartao = cont.querySelector('.as-op [data-forma="mes"]');
-    auto.addEventListener('change', function () {
-      cont.querySelector('.as-auto-extra').hidden = !auto.checked;
-      botaoCartao.setAttribute('data-forma', auto.checked ? 'cartao' : 'mes');
-      botaoCartao.textContent = auto.checked ? 'Assinar no cartão' : 'Pagar no cartão';
-    });
     cont.querySelectorAll('[data-forma]').forEach(function (b) {
       b.addEventListener('click', function () {
         var erro = cont.querySelector('.as-erro'); erro.hidden = true;
         cont.querySelectorAll('[data-forma]').forEach(function (x) { x.disabled = true; });
         var dados = { plano: plano, forma: b.getAttribute('data-forma') };
         b.textContent = dados.forma === 'pix' ? 'Gerando o Pix…' : 'Abrindo o Mercado Pago…';
-        if (dados.forma === 'cartao') dados.email_mp = cont.querySelector('#as-email-mp').value;
-        window.NAVEIA_API('assinar', dados).then(function (r) {
+                window.NAVEIA_API('assinar', dados).then(function (r) {
           if (r.ok && r.pix) { mostrarPix(plano, r.pix); return; }
           if (r.ok && r.link) { location.href = r.link; return; }
           throw new Error(r.erro || 'Não foi possível abrir o pagamento.');

@@ -257,3 +257,4 @@
 @media (max-width: 640px) { .as-pix { grid-template-columns: 1fr; justify-items: center; } .as-pix-lado { width: 100%; } }
 
 .pl-previa-abrir { margin-top: 20px; }
+.as-opcoes.as-so-pix { grid-template-columns: 1fr; }
