@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '30 de setembro de 2026';
+window.ATUALIZADO = '3 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -47,7 +47,7 @@ window.CATEGORIAS = [
     { e: 14, n: 'GP da Espanha', l: 'Madri', d: '2026-09-13', venc: 'Kimi Antonelli (Mercedes)' },
     { e: 15, n: 'GP do Azerbaijão', l: 'Baku', d: '2026-09-26', s: [{ t: 'Treino livre 1', d: '2026-09-24', h: '05:30' }, { t: 'Treino livre 2', d: '2026-09-24', h: '09:00' }, { t: 'Treino livre 3', d: '2026-09-25', h: '05:30' }, { t: 'Classificação', d: '2026-09-25', h: '09:00' }, { t: 'Corrida', d: '2026-09-26', h: '08:00' }], venc: 'George Russell (Mercedes)' },
     { e: 16, n: 'GP do Bahrein', l: 'Sepang (Malásia)', d: '2026-10-04', nota: 'transferido do Bahrein para a Malásia', s: [{ t: 'Treino livre 1', d: '2026-10-02', h: '01:30' }, { t: 'Treino livre 2', d: '2026-10-02', h: '05:00' }, { t: 'Treino livre 3', d: '2026-10-03', h: '01:30' }, { t: 'Classificação', d: '2026-10-03', h: '05:00' }, { t: 'Corrida', d: '2026-10-04', h: '04:00' }] },
-    { e: 17, n: 'GP de Singapura', l: 'Marina Bay', d: '2026-10-11' },
+    { e: 17, n: 'GP de Singapura', l: 'Marina Bay', d: '2026-10-11', nota: 'primeiro fim de semana de sprint em Singapura', s: [{ t: 'Treino livre 1', d: '2026-10-09', h: '05:30' }, { t: 'Classificação sprint', d: '2026-10-09', h: '09:30' }, { t: 'Sprint', d: '2026-10-10', h: '06:00' }, { t: 'Classificação', d: '2026-10-10', h: '10:00' }, { t: 'Corrida', d: '2026-10-11', h: '09:00' }] },
     { e: 18, n: 'GP dos Estados Unidos', l: 'Austin', d: '2026-10-25' },
     { e: 19, n: 'GP da Cidade do México', l: 'Hermanos Rodríguez', d: '2026-11-01' },
     { e: 20, n: 'GP de São Paulo', l: 'Interlagos', d: '2026-11-08' },
@@ -426,8 +426,8 @@ window.CATEGORIAS = [
     { e: 4, n: 'Etapa 4', l: 'Portimão (Portugal)', d: '2026-07-05', venc: 'Marçal Müller e Lucas Salles' },
     { e: 5, n: 'Endurance', l: 'Portimão (Portugal)', d: '2026-07-12', venc: 'Marçal Müller e Gaetano di Mauro' },
     { e: 6, n: 'Etapa 6', l: 'Interlagos (SP)', d: '2026-09-06', venc: 'Marçal Müller', nota: 'Carrera Cup, na chuva, de ponta a ponta' },
-    { e: 7, n: 'Endurance', l: 'Brasília (DF)', d: '2026-10-03', nota: 'transferido de Goiânia para o Autódromo Nelson Piquet, por causa das obras no circuito goiano; 300 km em duplas', s: [{ t: 'Corrida', d: '2026-10-03', h: '13:00' }] },
-    { e: 8, n: 'Etapa 8, Challenge e Trophy', l: 'Goiânia (GO)', d: '2026-10-11', nota: 'não acontece mais em Goiânia (obras no autódromo); a etapa foi levada para Interlagos no fim de novembro, data exata a confirmar' },
+    { e: 7, n: 'Endurance', l: 'Brasília (DF)', d: '2026-10-03', nota: 'transferido de Goiânia para o Autódromo Nelson Piquet, por causa das obras no circuito goiano; 300 km em duplas, na chuva', s: [{ t: 'Corrida', d: '2026-10-03', h: '13:00' }], venc: 'Matheus Comparatto e Felipe Baptista' },
+    { e: 8, n: 'Etapa 8, Challenge e Trophy', l: 'Interlagos (SP)', d: '2026-11-22', nota: 'não acontece mais em Goiânia, porque o reparo do asfalto do autódromo não ficou pronto a tempo; remarcada para Interlagos, nos dias 21 e 22 de novembro' },
     { e: 9, n: 'Etapa 9', l: 'Interlagos (SP)', d: '2026-11-08' },
     { e: 10, n: 'Endurance final', l: 'Interlagos (SP)', d: '2026-11-28' }
   ],
@@ -435,7 +435,7 @@ window.CATEGORIAS = [
     titulo: 'Carrera Cup, pilotos',
     colunas: ['Pos', 'Piloto', 'Pts'],
     linhas: [['1', 'Marçal Müller', '159'], ['2', 'Lucas Salles', '135'], ['3', 'Antonella Bassani', '133'], ['4', 'Jeff Giassi', '130'], ['5', 'Miguel Paludo', '124'], ['6', 'Marcos Regadas', '108'], ['7', 'Matheus Comparatto', '103'], ['8', 'Thiago Vivacqua', '100'], ['9', 'Sebá Malucelli', '87'], ['10', 'Pietro Fantin', '83']],
-    nota: 'Classificação antes da etapa 6 em Interlagos.'
+    nota: 'Classificação após a etapa 6, em Interlagos (pontuação da Carrera Cup; a etapa de Brasília foi disputada pelo campeonato de Endurance).'
   },
   equipes: [
     { n: 'Carrera Cup', i: 'Porsche 911 GT3 Cup (992)', p: ['Marçal Müller', 'Lucas Salles', 'Antonella Bassani', 'Jeff Giassi', 'Miguel Paludo', 'Marcos Regadas', 'Matheus Comparatto', 'Thiago Vivacqua', 'Sebá Malucelli', 'Pietro Fantin'] },
@@ -560,7 +560,7 @@ window.CATEGORIAS = [
     { e: 14, n: 'GP de San Marino', l: 'Misano', d: '2026-09-13', venc: 'Marc Márquez (Ducati)' },
     { e: 15, n: 'GP da Áustria', l: 'Spielberg', d: '2026-09-20', venc: 'Pedro Acosta (KTM)' },
     { e: 16, n: 'GP do Japão', l: 'Motegi', d: '2026-10-04', s: [{ t: 'Treino livre 1', d: '2026-10-01', h: '22:45' }, { t: 'Treino', d: '2026-10-02', h: '03:00' }, { t: 'Treino livre 2', d: '2026-10-02', h: '22:10' }, { t: 'Classificação Q1', d: '2026-10-02', h: '22:50' }, { t: 'Classificação Q2', d: '2026-10-02', h: '23:15' }, { t: 'Sprint', d: '2026-10-03', h: '03:00' }, { t: 'Corrida', d: '2026-10-04', h: '02:00' }] },
-    { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11' },
+    { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-08', h: '23:45' }, { t: 'Treino', d: '2026-10-09', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-09', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-09', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-10', h: '00:15' }, { t: 'Sprint', d: '2026-10-10', h: '04:00' }, { t: 'Corrida', d: '2026-10-11', h: '04:00' }] },
     { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25' },
     { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01' },
     { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08' },
