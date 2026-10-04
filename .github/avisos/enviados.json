@@ -152,7 +152,9 @@
   "alerta:motogp:16:Sprint:2026-10-03": "2026-10-03T05:25:20.118Z",
   "alerta:rally:13:Dia 3, primeira especial:2026-10-03": "2026-10-03T05:49:11.101Z",
   "alerta:formula-1:16:Classificação:2026-10-03": "2026-10-03T07:32:47.379Z",
-  "resultado:porsche-cup:7:venc:Matheus Comparatto e Felipe Baptista": "2026-10-04T02:19:36.044Z"
+  "resultado:porsche-cup:7:venc:Matheus Comparatto e Felipe Baptista": "2026-10-04T02:19:36.044Z",
+  "resultado:formula-1:16:venc:Max Verstappen (Red Bull)": "2026-10-04T15:57:41.526Z",
+  "resultado:motogp:16:venc:Marc Márquez (Ducati)": "2026-10-04T15:57:42.160Z"
  },
  "iniciado": true,
  "horarios": {
@@ -183,6 +185,8 @@
   "motogp:17:Classificação Q1": "2026-10-09 23:50",
   "motogp:17:Classificação Q2": "2026-10-10 00:15",
   "motogp:17:Sprint": "2026-10-10 04:00",
-  "motogp:17:Corrida": "2026-10-11 04:00"
+  "motogp:17:Corrida": "2026-10-11 04:00",
+  "nascar:32:Classificação": "2026-10-10 15:05",
+  "nascar:32:Corrida": "2026-10-11 16:00"
  }
 }
