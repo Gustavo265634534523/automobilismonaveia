@@ -161,7 +161,7 @@
     if (r.semServidor) { l.remove(); var pc = document.querySelector('.painel-conta'); if (pc) pc.remove(); return; }
     if (r.logado) {
       l.href = 'conta.html';
-      l.innerHTML = '<span class="conta-longo">Minha </span>conta';
+      l.innerHTML = '<span class="conta-longo">Meu </span>perfil';
     }
     if (/conta|entrar|painel/.test(location.pathname)) l.setAttribute('aria-current', 'page');
   });
