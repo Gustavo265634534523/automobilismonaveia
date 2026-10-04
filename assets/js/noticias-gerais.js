@@ -4,7 +4,7 @@
    "manchete: true" coloca a notícia no destaque do topo. As notícias de cada categoria em dados.js também entram sozinhas na página. */
 
 /* Data e hora da última atualização (horário de Brasília). */
-window.NOTICIAS_ATUALIZADO = '2026-10-04T12:00:00-03:00';
+window.NOTICIAS_ATUALIZADO = '2026-10-03T22:02:00-03:00';
 
 window.NOTICIAS_GERAIS = [
   { d: '2026-10-03', cat: 'motogp', manchete: true, t: 'Diogo Moreira faz história e sobe ao pódio na sprint do Japão', x: 'Diogo Moreira terminou em segundo na sprint do GP do Japão, em Motegi, depois de punição de uma posição a Jorge Martín e Enea Bastianini por excederem os limites da pista. O brasileiro foi o primeiro do país a subir ao pódio na categoria principal do Mundial de Motovelocidade em 19 anos. Marc Márquez venceu a prova e reduziu a vantagem de Martín no campeonato para sete pontos, 313 a 306.', t_en: 'Diogo Moreira makes history with Japan sprint podium', x_en: 'Diogo Moreira finished second in the Japanese GP sprint at Motegi after Jorge Martín and Enea Bastianini received one-place penalties for exceeding track limits. The Brazilian became the first from his country to reach the premier class podium in 19 years. Marc Márquez won the race and cut Martín’s championship lead to seven points, 313 to 306.' },
