@@ -1,0 +1,49 @@
+/* Bate-papo da torcida (botão flutuante) */
+.chat-bt { position: fixed; right: 18px; bottom: 18px; z-index: 60; display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; background: var(--sangue-vivo); color: #fff; border: 0; font: 700 16px var(--texto); letter-spacing: .02em; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, .45); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%); }
+.chat-bt svg { width: 20px; height: 20px; }
+.chat-bt:hover { filter: brightness(1.1); }
+.chat-bt:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.chat-novo { position: absolute; top: 6px; right: 6px; width: 10px; height: 10px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 2px var(--sangue-vivo); }
+.chat-novo[hidden] { display: none; }
+.chat-aberto .chat-bt { display: none; }
+
+.chat-caixa { position: fixed; right: 18px; bottom: 18px; z-index: 61; width: 370px; height: min(560px, calc(100vh - 110px)); display: flex; flex-direction: column; background: var(--asfalto); border: 1px solid var(--linha); box-shadow: 0 18px 50px rgba(0, 0, 0, .6); }
+.chat-caixa[hidden] { display: none; }
+.chat-cab { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; padding: 14px 14px 12px 16px; border-bottom: 1px solid var(--linha); box-shadow: inset 0 3px 0 var(--sangue-vivo); }
+.chat-cab b { display: block; font-family: var(--display); font-weight: 400; font-size: 14px; letter-spacing: .04em; }
+.chat-cab small { display: block; margin-top: 4px; font-size: 13px; color: var(--aco); }
+.chat-fechar { flex-shrink: 0; width: 34px; height: 34px; background: none; border: 1px solid var(--linha); color: var(--cromo); font-size: 22px; line-height: 1; cursor: pointer; }
+.chat-fechar:hover { border-color: var(--cromo); }
+
+.chat-lista { flex: 1; overflow-y: auto; margin: 0; padding: 8px 12px; list-style: none; overscroll-behavior: contain; }
+.chat-vazio { padding: 26px 8px; text-align: center; color: var(--aco); font-size: 15px; }
+.chat-msg { display: grid; grid-template-columns: 30px 1fr; gap: 9px; padding: 9px 0; border-bottom: 1px solid #23272c; }
+.chat-msg:last-child { border-bottom: 0; }
+.chat-av { width: 30px; height: 30px; object-fit: cover; display: grid; place-items: center; font-style: normal; font-family: var(--display); font-size: 12px; color: var(--aco); background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha); }
+.chat-quem { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px; margin: 0 0 2px; font-size: 14px; }
+.chat-quem b { color: var(--cromo); }
+.chat-minha .chat-quem b { color: #ff8a8f; }
+.chat-quem time { font-size: 12px; color: var(--aco); }
+.chat-selo { padding: 1px 5px; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--aco); border: 1px solid var(--linha); }
+.chat-selo.chat-master { color: #e8c35a; border-color: rgba(232, 195, 90, .45); }
+.chat-acao { margin-left: auto; padding: 0; background: none; border: 0; color: var(--aco); font: 600 12px var(--texto); text-decoration: underline; cursor: pointer; }
+.chat-acao + .chat-acao { margin-left: 8px; }
+.chat-acao:hover { color: #ff8a8f; }
+.chat-texto { margin: 0; font-size: 16px; line-height: 1.35; color: #d4d8dc; overflow-wrap: anywhere; }
+
+.chat-pe { padding: 10px 12px 12px; border-top: 1px solid var(--linha); }
+.chat-form { display: flex; gap: 8px; }
+.chat-form input { flex: 1; min-width: 0; padding: 11px 12px; background: var(--carbono); border: 1px solid var(--linha); color: var(--cromo); font: 500 16px var(--texto); border-radius: 0; }
+.chat-form input:focus { outline: none; border-color: var(--sangue-vivo); }
+.chat-enviar { padding: 0 16px; background: var(--sangue-vivo); color: #fff; border: 0; font: 700 15px var(--texto); cursor: pointer; }
+.chat-enviar:disabled { opacity: .6; }
+.chat-aviso { margin: 0; font-size: 15px; color: #c3c8cd; line-height: 1.4; }
+.chat-aviso a { color: #fff; font-weight: 700; }
+.chat-erro { margin: 8px 0 0; font-size: 14px; color: #ff7a80; font-weight: 600; }
+
+@media (max-width: 560px) {
+  .chat-bt { right: 12px; bottom: 12px; padding: 11px 13px; }
+  .chat-caixa { left: 0; right: 0; bottom: 0; width: auto; height: 78vh; border-left: 0; border-right: 0; }
+}
+/* enquanto o aviso de privacidade está na tela, o botão fica escondido para não cobrir o "Aceitar" */
+body:has(.aviso-priv.ativo) .chat-bt { display: none; }

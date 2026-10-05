@@ -181,6 +181,12 @@
     }
   });
 
+  /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
+  if (/^https?:/.test(location.protocol)) {
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js'; chatJs.defer = true; document.body.appendChild(chatJs);
+  }
+
   /* Contador de visitas (Cloudflare Web Analytics): sem cookies e sem identificar ninguém. Só no site no ar. */
   if (/automobilismonaveia.com.br$/.test(location.hostname)) {
     var cf = document.createElement('script');
