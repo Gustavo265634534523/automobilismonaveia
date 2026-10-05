@@ -185,6 +185,7 @@
   if (/^https?:/.test(location.protocol)) {
     var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css'; document.head.appendChild(chatCss);
     var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js'; appJs.defer = true; document.body.appendChild(appJs);
   }
 
   /* Contador de visitas (Cloudflare Web Analytics): sem cookies e sem identificar ninguém. Só no site no ar. */
@@ -225,7 +226,7 @@
     e.target.querySelectorAll && e.target.querySelectorAll('.senha-olho').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); b.setAttribute('aria-label', 'Mostrar a senha'); b.innerHTML = OLHO + RISCO + '</svg>'; });
   }, true);
 
-  /* Service worker: guarda páginas e imagens para abrir mais rápido. O site não é instalável (sem manifest). */
+  /* Service worker: guarda páginas e imagens para abrir mais rápido. Com o manifest.webmanifest, o site pode ser instalado como app (app-instalar.js). */
   if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) {
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
   }
@@ -246,7 +247,7 @@
         '<button type="button" class="copiar-email" data-email="automobilismonaveiacontato@gmail.com">' +
         '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3.5A1.5 1.5 0 0 1 4.5 2H11" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>Copiar</span></button></p></div>' +
       GRUPOS.map(function (g) { return coluna(g.nome, g.cats.map(function (c) { return li(pagina(c), esc(c.nome)); })); }).join('') +
-      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
+      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +
         '<span class="rodape-responsavel">Responsável: Gustavo Teixeira · Estrada Doutor Manoel Reis, Rio de Janeiro, Brasil</span></div></div>';
