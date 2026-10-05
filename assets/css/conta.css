@@ -156,3 +156,5 @@
 .ct-rot-tg { width: 100%; margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--aco); }
 .ct-tg-ajuda { width: 100%; margin: 0; font-size: 14px; }
 .ct-telegram .ct-erro { width: 100%; margin: 0; }
+.ct-teste-gratis { margin: 10px 0 14px; padding: 10px 12px; font-size: 15px; color: #c3c8cd; background: rgba(227, 52, 60, .1); border-left: 3px solid var(--sangue-vivo); }
+.ct-teste-gratis b { color: #fff; }

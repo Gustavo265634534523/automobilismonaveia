@@ -208,15 +208,19 @@
 
     function desenharPlano(u) {
       var ate = u.plano !== 'gratis' && u.plano_ate ? '<p class="ct-sub">Válido até ' + new Date(u.plano_ate).toLocaleDateString('pt-BR') + '.</p>' : '';
+      /* teste grátis de 7 dias do Master (conta nova): o Telegram segue o plano pago */
+      var nivelTg = NIVEL[u.plano_pago || u.plano] || 0;
+      if (u.teste) ate = '<p class="ct-teste-gratis"><b>Teste grátis do Master</b> até ' + new Date(u.teste_ate).toLocaleDateString('pt-BR') + '. Gostou? Continue no Master por R$ 24,90 no primeiro mês.</p>';
       document.getElementById('ct-plano').innerHTML =
         '<p class="ct-plano-nome">' + NOMES[u.plano] + '</p>' +
         '<p class="ct-sub">' + (u.plano === 'gratis' ? 'Você usa o site de graça. Assine para receber os alertas e liberar os recursos dos planos.' :
           u.plano === 'medio' ? 'Alertas e resumos no Telegram, aviso de mudança de horário, agenda do celular e o Chefe de Equipe.' : 'Tudo liberado: jogos, simulador, duelo, bolão e Raio-x.') + '</p>' + ate +
         (u.plano !== 'master' ? '<a class="pl-botao" href="planos.html">Ver os planos</a>' : '<a class="pl-botao" href="area-master.html">Abrir a Área Master</a>') +
+        (u.teste ? '<a class="pl-botao pl-botao-linha" href="planos.html">Assinar o Master</a>' : '') +
         /* Telegram: canal de avisos (Médio e Master) e grupo fechado (Master) */
-        (NIVEL[u.plano] >= 1 ? '<div class="ct-telegram"><p class="ct-rot-tg">Telegram</p>' +
+        (nivelTg >= 1 ? '<div class="ct-telegram"><p class="ct-rot-tg">Telegram</p>' +
           '<button type="button" class="pl-botao" data-tg="canal">' + (u.telegram && u.telegram.canal ? 'Abrir o canal de avisos' : 'Entrar no canal de avisos') + '</button>' +
-          (NIVEL[u.plano] >= 2 ? '<button type="button" class="pl-botao pl-botao-linha" data-tg="grupo">' + (u.telegram && u.telegram.grupo ? 'Abrir o grupo Master' : 'Entrar no grupo Master') + '</button>' : '') +
+          (nivelTg >= 2 ? '<button type="button" class="pl-botao pl-botao-linha" data-tg="grupo">' + (u.telegram && u.telegram.grupo ? 'Abrir o grupo Master' : 'Entrar no grupo Master') + '</button>' : '') +
           '<p class="ct-sub ct-tg-ajuda">O convite é só seu e vale por 1 dia. No Telegram, toque em "Pedir para entrar": o robô aprova na hora.</p><p class="ct-erro" id="ct-tg-erro" hidden></p></div>' : '') +
         (u.assinatura ? '<p class="ct-sub">Assinatura no cartão ativa: cobra sozinha todo mês.</p><button type="button" class="ct-mini" id="ct-cancelar">Cancelar a cobrança automática</button><p class="ct-erro" id="ct-cancelar-erro" hidden></p>' : '') +
         (modoTeste ? '<div class="ct-teste"><p>Modo teste (só na conta do dono): troque de plano na hora, sem pagar.</p>' +

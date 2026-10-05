@@ -164,7 +164,30 @@
       l.innerHTML = '<span class="conta-longo">Meu </span>perfil';
     }
     if (/conta|entrar|painel/.test(location.pathname)) l.setAttribute('aria-current', 'page');
+    /* faixa de cima conforme a conta: sem conta = convite para o teste grátis; no teste = dias que faltam; assinante = some */
+    var faixa = document.querySelector('.aviso-planos p');
+    if (!faixa) return;
+    var u = r.logado && r.usuario;
+    if (u && u.teste) {
+      var dias = Math.max(1, Math.ceil((new Date(u.teste_ate) - Date.now()) / 864e5));
+      faixa.innerHTML = '<span class="aviso-longo">Teste grátis do Master: ' + (dias === 1 ? 'último dia' : 'faltam ' + dias + ' dias') + '. Continue por R$ 24,90 no primeiro mês.</span><span class="aviso-curto">Teste grátis: ' + (dias === 1 ? 'último dia' : dias + ' dias') + '</span>';
+      faixa.nextElementSibling.textContent = 'Assinar';
+    } else if (u && u.plano !== 'gratis') {
+      var av = document.querySelector('.aviso-planos'); av.remove(); document.documentElement.classList.remove('com-aviso');
+    } else if (!u) {
+      faixa.innerHTML = '<span class="aviso-longo">Crie sua conta e ganhe 7 dias do plano Master grátis.</span><span class="aviso-curto">7 dias de Master grátis.</span>';
+      faixa.nextElementSibling.textContent = 'Criar conta';
+      faixa.nextElementSibling.href = 'entrar.html#criar';
+    }
   });
+
+  /* Contador de visitas (Cloudflare Web Analytics): sem cookies e sem identificar ninguém. Só no site no ar. */
+  if (/automobilismonaveia.com.br$/.test(location.hostname)) {
+    var cf = document.createElement('script');
+    cf.defer = true; cf.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    cf.setAttribute('data-cf-beacon', '{"token": "f6b86becc1dc4cea8156ca8e152b3b9e"}');
+    document.body.appendChild(cf);
+  }
 
   /* Service worker: guarda páginas e imagens para abrir mais rápido. O site não é instalável (sem manifest). */
   if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) {
