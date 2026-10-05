@@ -158,3 +158,11 @@
 .ct-telegram .ct-erro { width: 100%; margin: 0; }
 .ct-teste-gratis { margin: 10px 0 14px; padding: 10px 12px; font-size: 15px; color: #c3c8cd; background: rgba(227, 52, 60, .1); border-left: 3px solid var(--sangue-vivo); }
 .ct-teste-gratis b { color: #fff; }
+/* olhinho para ver a senha */
+.senha-caixa { position: relative; display: block; margin-top: 6px; }
+.ct-form .senha-caixa input { margin-top: 0; }
+.senha-caixa input { padding-right: 52px; }
+.senha-olho { position: absolute; right: 4px; bottom: 4px; width: 44px; height: calc(100% - 8px); display: grid; place-items: center; padding: 0; background: none; border: 0; color: var(--aco); cursor: pointer; }
+.senha-olho:hover, .senha-olho:focus-visible { color: var(--cromo); }
+.senha-olho:focus-visible { outline: 2px solid var(--sangue-vivo); outline-offset: -2px; }
+.senha-olho svg { width: 22px; height: 22px; }

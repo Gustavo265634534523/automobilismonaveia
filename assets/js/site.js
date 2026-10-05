@@ -189,6 +189,36 @@
     document.body.appendChild(cf);
   }
 
+  /* Olhinho nos campos de senha: aperta para ver a senha, aperta de novo para esconder */
+  var OLHO = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+    RISCO = '<path d="M4 20L20 4" stroke="currentColor" stroke-width="1.8"/>';
+  document.querySelectorAll('input[type="password"]').forEach(function (campo) {
+    var caixa = document.createElement('span');
+    caixa.className = 'senha-caixa';
+    campo.parentNode.insertBefore(caixa, campo);
+    caixa.appendChild(campo);
+    var bt = document.createElement('button');
+    bt.type = 'button'; bt.className = 'senha-olho';
+    function desenhar() {
+      var vendo = campo.type === 'text';
+      bt.innerHTML = OLHO + (vendo ? '' : RISCO) + '</svg>';
+      bt.setAttribute('aria-label', vendo ? 'Esconder a senha' : 'Mostrar a senha');
+      bt.setAttribute('aria-pressed', vendo ? 'true' : 'false');
+    }
+    bt.addEventListener('click', function (e) {
+      e.preventDefault();
+      campo.type = campo.type === 'password' ? 'text' : 'password';
+      desenhar();
+    });
+    desenhar();
+    caixa.appendChild(bt);
+  });
+  /* ao enviar o formulário, a senha volta a ficar escondida (o navegador não guarda o texto aberto) */
+  document.addEventListener('submit', function (e) {
+    e.target.querySelectorAll && e.target.querySelectorAll('.senha-caixa input').forEach(function (c) { c.type = 'password'; });
+    e.target.querySelectorAll && e.target.querySelectorAll('.senha-olho').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); b.setAttribute('aria-label', 'Mostrar a senha'); b.innerHTML = OLHO + RISCO + '</svg>'; });
+  }, true);
+
   /* Service worker: guarda páginas e imagens para abrir mais rápido. O site não é instalável (sem manifest). */
   if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) {
     window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
