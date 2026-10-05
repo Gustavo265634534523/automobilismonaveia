@@ -67,7 +67,7 @@ body:has(.aviso-priv.ativo) .chat-bt { display: none; }
 
 /* botão fixo "Instalar app" (canto de baixo, à esquerda; o bate-papo fica à direita) */
 .app-bt { position: fixed; left: 18px; bottom: 18px; z-index: 58; display: flex; align-items: stretch; box-shadow: 0 8px 24px rgba(0, 0, 0, .45); }
-.app-bt .app-sim { display: inline-flex; align-items: center; gap: 7px; padding: 11px 13px; background: var(--carbono); color: var(--cromo); border: 1px solid var(--linha); border-right: 0; font: 700 15px var(--texto); }
+.app-bt .app-sim { display: inline-flex; align-items: center; gap: 7px; padding: 11px 14px; background: var(--carbono); color: var(--cromo); border: 1px solid var(--linha); font: 700 15px var(--texto); cursor: pointer; }
 .app-bt .app-sim svg { width: 19px; height: 19px; color: var(--sangue-vivo); }
 .app-bt .app-nao { width: 32px; height: auto; background: var(--carbono); border: 1px solid var(--linha); color: var(--aco); font-size: 18px; }
 .chat-aberto .app-bt, body:has(.aviso-priv.ativo) .app-bt { display: none; }
