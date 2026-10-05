@@ -825,25 +825,3 @@ html.com-aviso { --topo: 100px; }
 @media (max-width: 1500px) { .topo .nav-link { padding: 0 9px; font-size: 14px; } .nav { margin-left: 10px; } }
 @media (max-width: 1380px) { .app-pilula span { display: none; } .app-pilula { padding: 8px 10px; } .topo .nav-guia { display: none; } }
 @media (max-width: 1200px) { .app-pilula { display: none; } .conta-link { margin-left: auto; } }
-
-/* Botões do topo com cantos arredondados (Meu perfil, Planos, PT/EN e a grade), no mesmo estilo da pílula "Instalar app" */
-.topo .conta-link, .topo .planos-btn, .topo .idioma-btn, .topo .todas {
-  clip-path: none; border-radius: 999px; height: 38px; display: inline-flex; align-items: center; justify-content: center;
-}
-.topo .conta-link { padding: 0 16px; box-shadow: inset 0 0 0 1px var(--linha); }
-.topo .conta-link:hover, .topo .conta-link[aria-current] { box-shadow: none; }
-.topo .planos-btn { padding: 0 18px; }
-.topo .idioma-btn { padding: 0 14px; }
-.topo .todas { width: 38px; }
-.app-pilula { height: 38px; padding: 0 16px; }
-.app-pilula + .conta-link { margin-left: 16px; }
-@media (max-width: 620px) {
-  .topo .conta-link { padding: 0 11px; }
-  .topo .planos-btn { padding: 0 12px; }
-  .topo .idioma-btn { padding: 0 10px; }
-  .topo .conta-link, .topo .planos-btn, .topo .idioma-btn, .topo .todas { height: 34px; }
-  .topo .todas { width: 34px; }
-}
-@media (min-width: 1201px) { .topo .todas { display: none; } }
-.topo .topo-in .planos-btn { box-shadow: inset 0 0 0 1px var(--sangue); }
-.topo .topo-in .planos-btn:hover, .topo .topo-in .planos-btn[aria-current] { box-shadow: none; }
