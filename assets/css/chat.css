@@ -72,3 +72,12 @@ body:has(.aviso-priv.ativo) .chat-bt { display: none; }
 .app-bt .app-nao { width: 32px; height: auto; background: var(--carbono); border: 1px solid var(--linha); color: var(--aco); font-size: 18px; }
 .chat-aberto .app-bt, body:has(.aviso-priv.ativo) .app-bt { display: none; }
 @media (max-width: 560px) { .app-bt { left: 12px; bottom: 12px; } }
+
+/* barra de rolagem que dá para arrastar (só no celular) */
+.rolador { position: fixed; top: 0; right: 0; bottom: 0; z-index: 57; width: 26px; pointer-events: none; }
+.rolador[hidden] { display: none; }
+.rolador-polegar { position: absolute; top: 0; right: 3px; width: 6px; border-radius: 3px; background: rgba(228, 231, 234, .45); pointer-events: auto; transition: width .15s, background .15s, opacity .3s; opacity: .55; touch-action: none; }
+.rolador-polegar::before { content: ''; position: absolute; top: 0; bottom: 0; right: -3px; width: 30px; }
+.rolador.ativo .rolador-polegar { opacity: 1; }
+.rolador.segurando .rolador-polegar { width: 10px; background: var(--sangue-vivo); }
+.chat-aberto .rolador, .app-janela ~ .rolador { display: none; }

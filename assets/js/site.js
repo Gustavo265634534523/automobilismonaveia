@@ -186,6 +186,7 @@
     var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css'; document.head.appendChild(chatCss);
     var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js'; chatJs.defer = true; document.body.appendChild(chatJs);
     var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js'; appJs.defer = true; document.body.appendChild(appJs);
+    var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
   /* Contador de visitas (Cloudflare Web Analytics): sem cookies e sem identificar ninguém. Só no site no ar. */
