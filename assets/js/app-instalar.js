@@ -1,6 +1,6 @@
 /* "App" do Na Veia: o site pode ser instalado no celular (ícone na tela, abre como app).
-   Aviso discreto só no celular, a partir da 2ª visita, se o site ainda não estiver instalado; fechou, volta em 30 dias.
-   Também abre pelo link "Instalar o app" do rodapé (#instalar-app). No Android usa o botão do navegador;
+   Botão fixo "Instalar app" no canto de baixo, à esquerda (celular sempre, até instalar; computador só se o navegador souber instalar).
+   Também abre pelo menu do topo e pelo rodapé (#instalar-app). No Android usa o botão do navegador;
    no iPhone mostra os 2 passos (Compartilhar → Adicionar à Tela de Início). */
 (function () {
   var instalado = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
@@ -37,23 +37,24 @@
       pedido.userChoice.then(function () { pedido = null; fecharAviso(); });
     } else instrucoes();
   }
+  /* botão fixo "Instalar app" no canto de baixo, à esquerda: no celular sempre (enquanto não instalar);
+     no computador só quando o navegador sabe instalar. O × esconde por 30 dias. */
   function mostrarAviso() {
-    if (instalado || !celular || document.getElementById('app-aviso')) return;
-    if ((+ler('naveia-app-visitas') || 0) < 2) return;
+    if (instalado || document.getElementById('app-aviso')) return;
+    if (!celular && !pedido) return;
     if (Date.now() - (+ler('naveia-app-fechado') || 0) < 30 * 864e5) return;
-    if (!pedido && !ios) return; /* navegador que não sabe instalar: não insiste */
     var a = document.createElement('div');
-    a.id = 'app-aviso'; a.className = 'app-aviso';
-    a.innerHTML = '<img src="assets/app/icone-192.png" alt="" width="36" height="36"><p><b>Instale o Na Veia</b><span>Abra com um toque, direto da tela do celular.</span></p>' +
-      '<button type="button" class="app-sim">Instalar</button><button type="button" class="app-nao" aria-label="Agora não">×</button>';
+    a.id = 'app-aviso'; a.className = 'app-bt';
+    a.innerHTML = '<button type="button" class="app-sim"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v7m-3-3 3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Instalar app</button>' +
+      '<button type="button" class="app-nao" aria-label="Esconder">×</button>';
     document.body.appendChild(a);
     a.querySelector('.app-sim').addEventListener('click', instalar);
     a.querySelector('.app-nao').addEventListener('click', fecharAviso);
   }
 
-  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); pedido = e; setTimeout(mostrarAviso, 6000); });
+  window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); pedido = e; mostrarAviso(); });
   window.addEventListener('appinstalled', function () { instalado = true; fecharAviso(); });
-  if (ios) setTimeout(mostrarAviso, 6000);
+  if (celular) setTimeout(mostrarAviso, 1500);
 
   /* link "Instalar o app" do rodapé */
   document.addEventListener('click', function (e) {
