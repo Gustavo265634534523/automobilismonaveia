@@ -56,7 +56,6 @@
         '<a class="marca" href="./" aria-label="Automobilismo Na Veia, início"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span>' +
         '<span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
         '<nav class="nav" aria-label="Menu principal">' + menu + '</nav>' +
-        '<a class="app-pilula" href="#instalar-app"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/></svg><span>Instalar app</span></a>' +
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
         '<a class="planos-btn" href="planos.html"' + (location.pathname.indexOf('planos') > -1 ? ' aria-current="page"' : '') + '>Planos</a>' +
         '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Todas as categorias</span>' +
