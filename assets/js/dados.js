@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '4 de outubro de 2026';
+window.ATUALIZADO = '5 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -276,7 +276,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/rally.jpg',
   frase: 'O carro voa. O copiloto continua lendo.',
   intro: 'Cascalho, neve, lama e asfalto. No rali, o piloto ataca uma estrada que conhece só pela voz do copiloto. Uma palavra trocada e o carro sai da estrada. Elfyn Evans lidera por 17 pontos antes da Sardenha.',
-  lider: { nome: 'Elfyn Evans', info: 'Toyota, 230 pontos' },
+  lider: { nome: 'Elfyn Evans', info: 'Campeão mundial 2026, Toyota, 243 pontos' },
   noticias: [
     { d: '2026-09-13', t: 'Solberg vence no Chile', x: 'Oliver Solberg ganhou o Rally Chile e ficou a 21 pontos de Elfyn Evans. Três pilotos da Toyota chegam à Sardenha separados por 21 pontos.' },
     { d: '2026-08-30', t: 'Pajari fecha trinca no Paraguai', x: 'Sami Pajari venceu Estônia, Finlândia e Paraguai em sequência e subiu para segundo no campeonato.' },
@@ -295,18 +295,18 @@ window.CATEGORIAS = [
     { e: 10, n: 'Rally da Finlândia', l: 'Jyväskylä', d: '2026-08-02', venc: 'Sami Pajari' },
     { e: 11, n: 'Rally do Paraguai', l: 'Encarnación', d: '2026-08-30', venc: 'Sami Pajari' },
     { e: 12, n: 'Rally do Chile', l: 'Concepción', d: '2026-09-13', venc: 'Oliver Solberg' },
-    { e: 13, n: 'Rally Itália Sardenha', l: 'Alghero', d: '2026-10-04', s: [{ t: 'Shakedown', d: '2026-10-01', h: '04:01' }, { t: 'Especial de abertura', d: '2026-10-01', h: '11:05' }, { t: 'Dia 2, primeira especial', d: '2026-10-02', h: '03:01' }, { t: 'Dia 3, primeira especial', d: '2026-10-03', h: '03:01' }, { t: 'Dia 4, primeira especial', d: '2026-10-04', h: '03:31' }, { t: 'Power Stage', d: '2026-10-04', h: '09:15' }] }
+    { e: 13, n: 'Rally Itália Sardenha', l: 'Alghero', d: '2026-10-04', s: [{ t: 'Shakedown', d: '2026-10-01', h: '04:01' }, { t: 'Especial de abertura', d: '2026-10-01', h: '11:05' }, { t: 'Dia 2, primeira especial', d: '2026-10-02', h: '03:01' }, { t: 'Dia 3, primeira especial', d: '2026-10-03', h: '03:01' }, { t: 'Dia 4, primeira especial', d: '2026-10-04', h: '03:31' }, { t: 'Power Stage', d: '2026-10-04', h: '09:15' }], venc: 'Oliver Solberg' }
   ],
   classificacao: {
-    titulo: 'Pilotos',
+    titulo: 'Pilotos (final)',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
     linhas: [
-      ['1', 'Elfyn Evans', 'Toyota', '230'], ['2', 'Sami Pajari', 'Toyota', '213'], ['3', 'Oliver Solberg', 'Toyota', '209'],
-      ['4', 'Sébastien Ogier', 'Toyota', '171'], ['5', 'Adrien Fourmaux', 'Hyundai', '167'], ['6', 'Takamoto Katsuta', 'Toyota', '163'],
-      ['7', 'Thierry Neuville', 'Hyundai', '129'], ['8', 'Hayden Paddon', 'Hyundai', '38'], ['9', 'Josh McErlean', 'M-Sport Ford', '35'],
+      ['1', 'Elfyn Evans', 'Toyota', '243'], ['2', 'Oliver Solberg', 'Toyota', '238'], ['3', 'Sami Pajari', 'Toyota', '237'],
+      ['4', 'Sébastien Ogier', 'Toyota', '189'], ['5', 'Adrien Fourmaux', 'Hyundai', '183'], ['6', 'Takamoto Katsuta', 'Toyota', '175'],
+      ['7', 'Thierry Neuville', 'Hyundai', '134'], ['8', 'Hayden Paddon', 'Hyundai', '38'], ['9', 'Josh McErlean', 'M-Sport Ford', '35'],
       ['10', 'Esapekka Lappi', 'Hyundai', '33']
     ],
-    nota: 'Construtores: Toyota Gazoo Racing campeã antecipada, 6º título seguido. O Rally da Arábia Saudita foi cancelado.'
+    nota: 'Classificação final da temporada. Elfyn Evans é campeão mundial de pilotos, o primeiro título da carreira, depois de Oliver Solberg sair da pista a duas curvas do fim da Power Stage em Sardenha. Construtores: Toyota Gazoo Racing campeã antecipada, 6º título seguido. O Rally da Arábia Saudita foi cancelado.'
   },
   equipes: [
     { n: 'Toyota Gazoo Racing', i: 'GR Yaris Rally1', p: ['Elfyn Evans', 'Sami Pajari', 'Oliver Solberg', 'Takamoto Katsuta', 'Sébastien Ogier'] },
@@ -461,7 +461,7 @@ window.CATEGORIAS = [
     { e: 28, n: 'Enjoy Illinois 300', l: 'St. Louis', d: '2026-09-13', venc: 'Kyle Larson' },
     { e: 29, n: 'Bristol Night Race', l: 'Bristol', d: '2026-09-19', venc: 'Joey Logano' },
     { e: 30, n: 'Hollywood Casino 400', l: 'Kansas', d: '2026-09-27', s: [{ t: 'Treino', d: '2026-09-26', h: '11:00' }, { t: 'Classificação', d: '2026-09-26', h: '12:10' }, { t: 'Corrida', d: '2026-09-27', h: '16:00' }], venc: 'Kyle Larson' },
-    { e: 31, n: 'South Point 400', l: 'Las Vegas', d: '2026-10-04', s: [{ t: 'Treino', d: '2026-10-03', h: '17:30' }, { t: 'Classificação', d: '2026-10-03', h: '18:35' }, { t: 'Corrida', d: '2026-10-04', h: '18:30' }] },
+    { e: 31, n: 'South Point 400', l: 'Las Vegas', d: '2026-10-04', s: [{ t: 'Treino', d: '2026-10-03', h: '17:30' }, { t: 'Classificação', d: '2026-10-03', h: '18:35' }, { t: 'Corrida', d: '2026-10-04', h: '18:30' }], venc: 'Chase Briscoe' },
     { e: 32, n: 'Bank of America 400', l: 'Charlotte', d: '2026-10-11', s: [{ t: 'Treino', d: '2026-10-10', h: '14:00' }, { t: 'Classificação', d: '2026-10-10', h: '15:05' }, { t: 'Corrida', d: '2026-10-11', h: '16:00' }] },
     { e: 33, n: 'Phoenix 500', l: 'Phoenix', d: '2026-10-18' },
     { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25' },
