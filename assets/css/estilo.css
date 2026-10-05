@@ -162,7 +162,7 @@ html.com-aviso { --topo: 104px; }
 }
 
 /* ---------- Abertura (página inicial) ---------- */
-.abertura { position: relative; height: 360vh; background: var(--breu); }
+.abertura { position: relative; height: 260vh; background: var(--breu); }
 .palco { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
 .palco::after {
   content: ''; position: absolute; inset: 0; pointer-events: none;
@@ -233,7 +233,7 @@ html.com-aviso { --topo: 104px; }
 .rolar { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 4; width: 1px; height: 44px; background: linear-gradient(var(--aco), transparent); opacity: .7; }
 
 @media (max-width: 760px) {
-  .abertura { height: 300vh; }
+  .abertura { height: 180vh; }
   .titulo-vazado { top: calc(var(--topo) + 7vh); width: 90vw; }
   .carro { object-fit: contain; object-position: 50% 45%; transform: scale(1.35); }
   .carro-3 { object-fit: cover; object-position: 72% 50%; transform: none; }
