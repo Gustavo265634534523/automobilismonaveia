@@ -26,14 +26,28 @@
   /* Topo */
   var topo = document.getElementById('topo');
   if (topo) {
-    var principais = CATS.filter(function (c) { return c.principal; });
-    var ordem = ['formula-1', 'motogp', 'stock-car', 'porsche-cup'];
-    principais.sort(function (a, b) { return ordem.indexOf(a.slug) - ordem.indexOf(b.slug); });
-
-    var nav = principais.map(function (c, i) {
-      var subs = SECOES.filter(function (s) { return s[0] !== 'noticias'; }).map(function (s) { return '<li><a href="' + pagina(c) + '#' + s[0] + '">' + s[1] + '</a></li>'; }).join('');
-      return '<div class="nav-item"><button class="nav-link" aria-expanded="false" aria-controls="sub-' + i + '"' + (c.slug === atual ? ' aria-current="page"' : '') + '>' + esc(c.menu) + seta + '</button>' +
-        '<ul class="sub" id="sub-' + i + '"><li><a href="' + pagina(c) + '">Página da ' + esc(c.menu) + '</a></li>' + subs + '</ul></div>';
+    /* Menu principal com ícones: Início, Notícias, Agenda, Categorias, Jogos, Bate-papo e Guia */
+    var IC = {
+      inicio: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h5v-6h3v6h5V10"/>',
+      noticias: '<rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M7 9h10M7 12.5h10M7 16h6"/>',
+      agenda: '<rect x="3.5" y="5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>',
+      categorias: '<rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/>',
+      jogos: '<path d="M7 8h10a4 4 0 0 1 4 4v1.5a3.5 3.5 0 0 1-6.3 2.1L13.5 14h-3l-1.2 1.6A3.5 3.5 0 0 1 3 13.5V12a4 4 0 0 1 4-4z"/><path d="M8 10.5v3M6.5 12h3M16 11.5h.01M17.5 13h.01"/>',
+      chat: '<path d="M4 5h16v11H9l-5 4z"/>',
+      guia: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5"/>'
+    };
+    function ic(n) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + IC[n] + '</svg>'; }
+    var inicio = /(^|\/)(index\.html)?$/.test(location.pathname);
+    var menu = [
+      ['inicio', './', 'Início', inicio],
+      ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
+      ['agenda', './#conteudo', 'Agenda', false],
+      ['categorias', '#categorias-menu', 'Categorias', !!atual],
+      ['jogos', 'jogos.html', 'Jogos', /jogos/.test(location.pathname)],
+      ['chat', '#bate-papo', 'Bate-papo', false],
+      ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)]
+    ].map(function (m) {
+      return '<a class="nav-link nav-' + m[0] + '" href="' + m[1] + '"' + (m[3] ? ' aria-current="page"' : '') + '>' + ic(m[0]) + '<span>' + m[2] + '</span></a>';
     }).join('');
 
     topo.className = 'topo';
@@ -41,7 +55,8 @@
       '<div class="moldura topo-in">' +
         '<a class="marca" href="./" aria-label="Automobilismo Na Veia, início"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span>' +
         '<span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
-        '<nav class="nav" aria-label="Categorias principais"><div class="nav-item"><a class="nav-link" href="noticias.html"' + (paginaAtual === 'noticias' ? ' aria-current="page"' : '') + ' title="Notícias de todas as categorias">Últimas notícias</a></div>' + nav + '</nav>' +
+        '<nav class="nav" aria-label="Menu principal">' + menu + '</nav>' +
+        '<a class="app-pilula" href="#instalar-app"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18h2"/></svg><span>Instalar app</span></a>' +
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
         '<a class="planos-btn" href="planos.html"' + (location.pathname.indexOf('planos') > -1 ? ' aria-current="page"' : '') + '>Planos</a>' +
         '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Todas as categorias</span>' +
@@ -91,6 +106,12 @@
       });
     }
 
+    topo.addEventListener('click', function (e) {
+      var l = e.target.closest('a[href="#categorias-menu"], a[href="#bate-papo"]'); if (!l) return;
+      e.preventDefault();
+      if (l.getAttribute('href') === '#categorias-menu') { var t = topo.querySelector('.todas'); if (t) t.click(); }
+      else { var c = document.querySelector('.chat-bt'); if (c) c.click(); }
+    });
     document.getElementById('idioma-btn').addEventListener('click', function () { window.trocarIdioma(window.LANG === 'en' ? 'pt' : 'en'); });
 
     var itens = topo.querySelectorAll('.nav-item');

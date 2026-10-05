@@ -808,3 +808,20 @@ html.com-aviso { --topo: 100px; }
   .topo-in .todas { margin-left: 4px; }
   .topo-in .todas + .idioma-btn { margin-left: 4px; padding: 0 7px; }
 }
+
+/* Menu principal com ícones (Início, Notícias, Agenda, Categorias, Jogos, Bate-papo, Guia) */
+.nav { margin-left: 18px; gap: 2px; }
+.topo .nav-link { position: relative; gap: 7px; padding: 0 12px; font-size: 15px; font-weight: 600; letter-spacing: .01em; text-transform: none; color: #c3c8cd; }
+.topo .nav-link svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transition: none; display: block; flex-shrink: 0; }
+.topo .nav-link:hover { color: var(--cromo); }
+.topo .nav-link[aria-current] { color: var(--cromo); }
+.topo .nav-link[aria-current]::after { content: ''; position: absolute; left: 10px; right: 10px; bottom: 0; height: 2px; background: var(--sangue-vivo); }
+.app-pilula { margin-left: auto; display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px; background: var(--sangue-vivo); color: #fff; text-decoration: none; font-weight: 700; font-size: 14px; white-space: nowrap; }
+.app-pilula svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.9; stroke-linecap: round; }
+.app-pilula:hover { filter: brightness(1.1); }
+.app-pilula + .conta-link { margin-left: 22px; }
+/* com o menu de ícones, o botão de quadradinhos só aparece quando o menu some (telas menores) */
+@media (min-width: 1201px) { .topo .todas { display: none; } }
+@media (max-width: 1500px) { .topo .nav-link { padding: 0 9px; font-size: 14px; } .nav { margin-left: 10px; } }
+@media (max-width: 1380px) { .app-pilula span { display: none; } .app-pilula { padding: 8px 10px; } .topo .nav-guia { display: none; } }
+@media (max-width: 1200px) { .app-pilula { display: none; } .conta-link { margin-left: auto; } }
