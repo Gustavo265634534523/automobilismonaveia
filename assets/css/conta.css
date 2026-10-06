@@ -166,3 +166,4 @@
 .senha-olho:hover, .senha-olho:focus-visible { color: var(--cromo); }
 .senha-olho:focus-visible { outline: 2px solid var(--sangue-vivo); outline-offset: -2px; }
 .senha-olho svg { width: 22px; height: 22px; }
+.ct-form-mini select { padding: 10px 12px; font: 16px var(--texto); color: var(--cromo); background: var(--asfalto); border: 1px solid var(--linha); border-radius: 0; text-transform: none; letter-spacing: 0; }

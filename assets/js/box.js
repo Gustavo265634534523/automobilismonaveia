@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=192'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=193'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -312,13 +312,29 @@
     try { localStorage.setItem('box-som', som ? '1' : '0'); } catch (e) {}
     if (!som && window.speechSynthesis) { speechSynthesis.cancel(); estado('parado'); }
   });
+  /* Voz do Box: masculina e natural quando o aparelho tiver. As vozes "Natural/Online" da Microsoft (Edge) são as melhores;
+     depois as vozes masculinas comuns do Windows, Android e iPhone. Sem voz masculina, usa a voz em português que existir. */
+  var MASC = ['Antonio', 'Donato', 'Fabio', 'Humberto', 'Julio', 'Nicolau', 'Valerio', 'Daniel', 'Felipe', 'Ricardo', 'Reed', 'Rocko'];
+  var vozCache = null;
+  function vozBox() {
+    if (vozCache) return vozCache;
+    var v = (window.speechSynthesis ? speechSynthesis.getVoices() : []).filter(function (x) { return /^pt(-|_)BR/i.test(x.lang) || /Brazil|Brasil/i.test(x.name); });
+    if (!v.length) return null;
+    function nota(x) {
+      var masc = MASC.some(function (n) { return x.name.indexOf(n) > -1; }) || /male|masculin/i.test(x.name) && !/female|feminin/i.test(x.name);
+      var natural = /Natural|Online|Neural|Premium|Enhanced|aprimorad/i.test(x.name);
+      return (masc ? 10 : 0) + (natural ? 5 : 0) + (/Antonio/.test(x.name) ? 2 : 0);
+    }
+    vozCache = v.slice().sort(function (a, b) { return nota(b) - nota(a); })[0];
+    return vozCache;
+  }
+  if (window.speechSynthesis) speechSynthesis.addEventListener('voiceschanged', function () { vozCache = null; });
   function falar(t, depois) {
     if (!som || !window.speechSynthesis) { estado('parado'); if (depois) depois(); return; }
     speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(t.replace(/\bF1\b/g, 'Fórmula 1').replace(/(\d+)h(\d\d)/g, '$1 e $2').replace(/(\d+)h\b/g, '$1 horas'));
-    u.lang = 'pt-BR';
-    var v = speechSynthesis.getVoices().filter(function (x) { return /^pt(-|_)BR/i.test(x.lang); });
-    if (v.length) u.voice = v.filter(function (x) { return /Google|Francisca|Antonio|Luciana|Natural/i.test(x.name); })[0] || v[0];
+    u.lang = 'pt-BR'; u.rate = 1.15;
+    var vz = vozBox(); if (vz) u.voice = vz;
     u.onstart = function () { estado('falando'); };
     u.onend = u.onerror = function () { if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
     speechSynthesis.speak(u);
@@ -398,7 +414,8 @@
       if (!saudou) {
         saudou = true;
         var nome = String(u.nome || '').trim().split(/\s+/)[0];
-        var oi = saudacao() + (nome ? ', ' + nome : '') + '! Sou o Box. Em que posso ajudar?';
+        var trat = u.tratamento === 'senhor' ? 'senhor ' : u.tratamento === 'senhora' ? 'senhora ' : '';
+        var oi = saudacao() + (nome ? ', ' + trat + nome : '') + '! Sou o Box. Em que posso ajudar?';
         perguntaEl.textContent = ''; respEl.innerHTML = '<p>' + esc(oi) + '</p>'; sug.hidden = false;
         estado('parado', '');
         falar(oi, function () { if (jaOuvir && rec && !tela.hidden) ouvir(); else estado('parado', Rec ? 'Toque no microfone e pergunte' : 'Digite sua pergunta'); });
