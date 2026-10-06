@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=203'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=204'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -307,7 +307,7 @@
     '<div class="box-palco"><canvas class="box-esfera" aria-hidden="true"></canvas>' +
     '<p class="box-estado" aria-live="polite"></p><p class="box-pergunta"></p><div class="box-resposta" aria-live="polite"></div>' +
     '<div class="box-sug"></div></div>' +
-    '<div class="box-base">' + (Rec ? '<button type="button" class="box-mic" aria-label="Falar">' + MIC + '</button>' : '') +
+    '<div class="box-base">' + (Rec || (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent) && navigator.mediaDevices && window.MediaRecorder) ? '<button type="button" class="box-mic" aria-label="Falar">' + MIC + '</button>' : '') +
     '<form class="box-form"><input type="text" class="box-campo" placeholder="' + (Rec ? 'Ou digite sua pergunta' : 'Digite sua pergunta') + '" maxlength="200" autocomplete="off"><button type="submit" class="box-enviar" aria-label="Enviar">➤</button></form>' +
     (Rec ? '<label class="box-maos"><input type="checkbox" class="box-maos-ck"> Abrir quando eu falar "Box, box" (com o site aberto)</label>' : '') + '</div>';
   document.body.appendChild(tela);
@@ -478,7 +478,65 @@
   var rec = null, ouvindo = false;
   /* No celular o microfone precisa de um respiro: depois da voz do Box ou do "Box, box", o aparelho demora a liberar o áudio. */
   var tentou = 0;
+  /* ---------- celular: grava a pergunta e o servidor transcreve (Whisper). Pede o microfone uma vez só por visita. ---------- */
+  var GRAVA = CEL && !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder);
+  var gravando = false, paraGravacao = null;
+  function ouvirGravando() {
+    if (gravando) { if (paraGravacao) paraGravacao(); return; }
+    pararFala();
+    var sessao = null; try { sessao = localStorage.getItem('naveia-sessao'); } catch (e) {}
+    if (!sessao) { estado('parado', 'Entre na sua conta para falar com o Box.'); return; }
+    gravando = true; mic.classList.add('ouvindo'); perguntaEl.textContent = ''; respEl.innerHTML = '';
+    estado('ouvindo', 'Preparando o microfone…');
+    navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true } }).then(function (stream) {
+      var tipo = ['audio/mp4', 'audio/webm;codecs=opus', 'audio/webm', 'audio/ogg'].filter(function (t) { return MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(t); })[0];
+      var gr = tipo ? new MediaRecorder(stream, { mimeType: tipo }) : new MediaRecorder(stream), pedacos = [];
+      var AC = window.AudioContext || window.webkitAudioContext, ctx = AC ? new AC() : null, an = null, dados = null;
+      if (ctx) { an = ctx.createAnalyser(); an.fftSize = 1024; ctx.createMediaStreamSource(stream).connect(an); dados = new Uint8Array(an.fftSize); }
+      var falou = false, ultimoSom = Date.now(), comeco = Date.now(), timer = null, acabou = false;
+      function encerrar() {
+        if (acabou) return; acabou = true; clearInterval(timer);
+        try { if (gr.state !== 'inactive') gr.stop(); } catch (e) {}
+      }
+      paraGravacao = encerrar;
+      gr.ondataavailable = function (e) { if (e.data && e.data.size) pedacos.push(e.data); };
+      gr.onstop = function () {
+        stream.getTracks().forEach(function (t) { t.stop(); });
+        try { if (ctx) ctx.close(); } catch (e) {}
+        gravando = false; paraGravacao = null; mic.classList.remove('ouvindo');
+        if (!falou && ctx) { estado('parado', 'Não ouvi nada. Toque no microfone e fale.'); return; }
+        var audio = new Blob(pedacos, { type: gr.mimeType || tipo || 'audio/mp4' });
+        estado('pensando', 'Entendendo…');
+        fetch(window.NAVEIA_SERVIDOR + '?acao=box_ouvir', { method: 'POST', headers: { 'Content-Type': audio.type || 'application/octet-stream', 'X-Naveia': '1', Authorization: 'Bearer ' + sessao }, body: audio })
+          .then(function (r) { return r.json(); })
+          .then(function (r) {
+            var t = r && r.ok ? String(r.texto || '').trim() : '';
+            if (t) perguntar(t, true); else estado('parado', (r && r.erro) || 'Não entendi. Toque no microfone e fale de novo.');
+          })
+          .catch(function () { estado('parado', 'Sem conexão com o servidor. Tente de novo.'); });
+      };
+      gr.start(250);
+      estado('ouvindo', 'Ouvindo… pode falar');
+      /* para sozinho: 1,3 s de silêncio depois de falar, 6 s sem falar nada, ou 12 s no máximo */
+      timer = setInterval(function () {
+        var agora = Date.now();
+        if (an) {
+          an.getByteTimeDomainData(dados);
+          var pico = 0; for (var i = 0; i < dados.length; i++) { var v = Math.abs(dados[i] - 128); if (v > pico) pico = v; }
+          if (pico > 14) { falou = true; ultimoSom = agora; }
+          if (falou && agora - ultimoSom > 1300) encerrar();
+          if (!falou && agora - comeco > 6000) encerrar();
+        } else if (agora - comeco > 6000) { falou = true; encerrar(); }
+        if (agora - comeco > 12000) encerrar();
+      }, 100);
+    }).catch(function (e) {
+      gravando = false; mic.classList.remove('ouvindo');
+      estado('parado', e && e.name === 'NotAllowedError' ? 'Para falar com o Box, toque em "Permitir" quando o celular pedir o microfone. Ou digite a pergunta.' : 'Não consegui abrir o microfone. Ou digite a pergunta.');
+    });
+  }
+
   function ouvir(repetindo) {
+    if (GRAVA) return ouvirGravando();
     if (!rec || ouvindo) return;
     if (!repetindo) tentou = 0;
     pararEspera();
@@ -512,7 +570,9 @@
       catch (e) { mic.classList.remove('ouvindo'); estado('parado', 'Toque no microfone e fale.'); }
     }, CEL ? 500 : 60);
   }
-  if (Rec && mic) {
+  if (GRAVA && mic) {
+    mic.addEventListener('click', function () { ouvir(); });
+  } else if (Rec && mic) {
     rec = new Rec(); rec.lang = 'pt-BR'; rec.interimResults = true; rec.maxAlternatives = 1;
     mic.addEventListener('click', function () { if (ouvindo) rec.stop(); else if (!mic.classList.contains('ouvindo')) ouvir(); });
   }
@@ -549,11 +609,11 @@
         var oi = saudacao() + (nome ? ', ' + trat + nome : '') + '! Sou o Box. Em que posso ajudar?';
         perguntaEl.textContent = ''; respEl.innerHTML = '<p>' + esc(oi) + '</p>'; sug.hidden = false;
         estado('parado', '');
-        falar(oi, function () { if (jaOuvir && rec && !tela.hidden) ouvir(); else estado('parado', Rec ? 'Toque no microfone e pergunte' : 'Digite sua pergunta'); });
+        falar(oi, function () { if (jaOuvir && (rec || GRAVA) && !tela.hidden) ouvir(); else estado('parado', Rec ? 'Toque no microfone e pergunte' : 'Digite sua pergunta'); });
         return;
       }
       if (!respEl.innerHTML) { estado('parado', Rec ? 'Toque no microfone e pergunte' : 'Digite sua pergunta'); sug.hidden = false; }
-      if (jaOuvir && rec) setTimeout(ouvir, 250);
+      if (jaOuvir && (rec || GRAVA)) setTimeout(ouvir, 250);
     });
   }
   function fechar() {
