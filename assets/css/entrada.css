@@ -150,3 +150,9 @@
   .rv-item { grid-template-columns: 88px minmax(0, 1fr); }
   .rv-item img { width: 88px; height: 58px; }
 }
+/* telas largas: a entrada usa a largura toda */
+@media (min-width: 1500px) {
+  .rv-capa { min-height: 580px; }
+  .rv-cat { height: 110px; }
+  .rv-cat b { font-size: 18px; }
+}

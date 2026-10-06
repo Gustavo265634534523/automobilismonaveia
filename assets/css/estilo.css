@@ -15,7 +15,7 @@
   --texto: 'Inter', Arial, sans-serif;
   --topo: 64px;
   --gutter: clamp(16px, 4vw, 56px);
-  --max: 1320px;
+  --max: 1760px;
   --corte: 14px;
   --ease: cubic-bezier(.22, .61, .21, 1);
 }
