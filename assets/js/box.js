@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=202'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=203'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -388,9 +388,30 @@
   if (window.speechSynthesis) speechSynthesis.addEventListener('voiceschanged', function () { vozCache = null; });
   /* Voz natural (Azure, voz masculina Antonio), gerada no servidor (ação box_voz). Só para quem tem conta.
      Se o servidor não responder ou a cota do mês acabar, usa a voz do próprio aparelho. */
+  var CEL = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   var tocador = new Audio(), vozNaturalOff = false, falaN = 0;
   var SILENCIO = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU2LjM2LjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAEAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU2LjQxAAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV';
-  function soltarAudio() { try { tocador.pause(); tocador.removeAttribute('src'); tocador.load(); } catch (e) {} }
+  var ctxAtual = null, fonteAtual = null;
+  function soltarAudio() {
+    try { tocador.pause(); tocador.removeAttribute('src'); tocador.load(); } catch (e) {}
+    try { if (fonteAtual) fonteAtual.stop(); } catch (e) {}
+    try { if (ctxAtual) ctxAtual.close(); } catch (e) {}
+    fonteAtual = null; ctxAtual = null;
+  }
+  function tocarNoCelular(blob, minha, fim, falhou) {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC || !blob.arrayBuffer) return falhou();
+    blob.arrayBuffer().then(function (buf) {
+      if (minha !== falaN) return;
+      var ctx = new AC(); ctxAtual = ctx;
+      return ctx.decodeAudioData(buf).then(function (audio) {
+        if (minha !== falaN) { ctx.close(); return; }
+        var f = ctx.createBufferSource(); f.buffer = audio; f.connect(ctx.destination); fonteAtual = f;
+        f.onended = function () { if (ctxAtual === ctx) { ctxAtual = null; fonteAtual = null; } try { ctx.close(); } catch (e) {} if (minha === falaN) fim(); };
+        (ctx.state === 'suspended' ? ctx.resume() : Promise.resolve()).then(function () { estado('falando'); f.start(0); });
+      });
+    }).catch(function () { falhou(); });
+  }
   function pararFala() { falaN++; soltarAudio(); if (window.speechSynthesis) speechSynthesis.cancel(); }
   function falar(t, depois) {
     if (!som) { estado('parado'); if (depois) depois(); return; }
@@ -402,6 +423,9 @@
       .then(function (r) { if (!r.ok) { if (r.status === 503 || r.status === 429) vozNaturalOff = true; throw 0; } return r.blob(); })
       .then(function (b) {
         if (minha !== falaN) return;
+        var fimFala = function () { if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
+        if (CEL) { tocarNoCelular(b, minha, fimFala, function () { if (minha === falaN) falarAparelho(t, depois); }); return; }
+        if (tocador.src && /^blob:/.test(tocador.src)) { try { URL.revokeObjectURL(tocador.src); } catch (e) {} }
         tocador.src = URL.createObjectURL(b);
         tocador.onplaying = function () { estado('falando'); };
         tocador.onended = tocador.onerror = function () { if (minha !== falaN) return; soltarAudio(); if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
@@ -453,7 +477,7 @@
   /* microfone: uma pergunta por vez */
   var rec = null, ouvindo = false;
   /* No celular o microfone precisa de um respiro: depois da voz do Box ou do "Box, box", o aparelho demora a liberar o áudio. */
-  var CEL = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent), tentou = 0;
+  var tentou = 0;
   function ouvir(repetindo) {
     if (!rec || ouvindo) return;
     if (!repetindo) tentou = 0;
@@ -472,7 +496,7 @@
       var t = (final || parcial).trim();
       if (t) { perguntar(t, true); retomarEspera(); return; }
       /* fechou sozinho em menos de 1 segundo, sem erro: o aparelho ainda estava com o áudio preso. Tenta de novo uma vez. */
-      if ((!erroMic && Date.now() - inicio < 1000 || /outro app/.test(erroMic)) && tentou < 1) { tentou++; soltarAudio(); setTimeout(function () { ouvir(true); }, 900); return; }
+      if ((!erroMic && Date.now() - inicio < 1000 || /outro app/.test(erroMic)) && tentou < 3) { tentou++; soltarAudio(); setTimeout(function () { ouvir(true); }, 700 * tentou); return; }
       estado('parado', erroMic || 'Não ouvi nada. Toque no microfone e fale.');
       retomarEspera();
     };
