@@ -23,8 +23,14 @@ async function get(fim) {
 }
 
 (async () => {
-  const sessoes = await get(`sessions?year=${ANO}&country_name=${encodeURIComponent(PAIS)}`);
-  const corrida = sessoes.find(s => s.session_name === 'Race');
+  /* PAIS pode ser o número da sessão (session_key): mais seguro quando o GP muda de país (ex.: GP do Bahrein em Sepang) */
+  let sessoes;
+  const porNumero = /^\d+$/.test(PAIS);
+  if (porNumero) {
+    const s = (await get('sessions?session_key=' + PAIS))[0];
+    sessoes = s ? await get('sessions?meeting_key=' + s.meeting_key) : [];
+  } else sessoes = await get(`sessions?year=${ANO}&country_name=${encodeURIComponent(PAIS)}`);
+  const corrida = sessoes.find(s => s.session_name === 'Race' && (!porNumero ||String(s.session_key) === PAIS)) || sessoes.find(s => s.session_name === 'Race');
   const quali = sessoes.find(s => s.session_name === 'Qualifying');
   if (!corrida) throw new Error('Corrida não encontrada para ' + PAIS);
   const k = corrida.session_key;
