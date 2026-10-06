@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=197'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=198'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -329,7 +329,7 @@
   somBt.addEventListener('click', function () {
     som = !som; mostrarSom();
     try { localStorage.setItem('box-som', som ? '1' : '0'); } catch (e) {}
-    if (!som && window.speechSynthesis) { speechSynthesis.cancel(); estado('parado'); }
+    if (!som) { pararFala(); estado('parado'); }
   });
   /* Voz do Box: masculina e natural quando o aparelho tiver. As vozes "Natural/Online" da Microsoft (Edge) são as melhores;
      depois as vozes masculinas comuns do Windows, Android e iPhone. Sem voz masculina, usa a voz em português que existir. */
@@ -348,13 +348,37 @@
     return vozCache;
   }
   if (window.speechSynthesis) speechSynthesis.addEventListener('voiceschanged', function () { vozCache = null; });
+  /* Voz natural (Azure, voz masculina Antonio), gerada no servidor (ação box_voz). Só para quem tem conta.
+     Se o servidor não responder ou a cota do mês acabar, usa a voz do próprio aparelho. */
+  var tocador = new Audio(), vozNaturalOff = false, falaN = 0;
+  var SILENCIO = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU2LjM2LjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAEAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU2LjQxAAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV';
+  function pararFala() { falaN++; try { tocador.pause(); } catch (e) {} if (window.speechSynthesis) speechSynthesis.cancel(); }
+  function falar(t, depois) {
+    if (!som) { estado('parado'); if (depois) depois(); return; }
+    var sessao = null; try { sessao = localStorage.getItem('naveia-sessao'); } catch (e) {}
+    if (vozNaturalOff || !sessao || !window.NAVEIA_SERVIDOR || !window.fetch) return falarAparelho(t, depois);
+    var minha = ++falaN;
+    if (window.speechSynthesis) speechSynthesis.cancel();
+    fetch(window.NAVEIA_SERVIDOR + '?acao=box_voz', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Naveia': '1', Authorization: 'Bearer ' + sessao }, body: JSON.stringify({ texto: t.replace(/\bF1\b/g, 'Fórmula 1') }) })
+      .then(function (r) { if (!r.ok) { if (r.status === 503 || r.status === 429) vozNaturalOff = true; throw 0; } return r.blob(); })
+      .then(function (b) {
+        if (minha !== falaN) return;
+        tocador.src = URL.createObjectURL(b);
+        tocador.onplaying = function () { estado('falando'); };
+        tocador.onended = tocador.onerror = function () { if (minha !== falaN) return; if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
+        var p = tocador.play(); if (p) p.catch(function () { if (minha === falaN) falarAparelho(t, depois); });
+      })
+      .catch(function () { if (minha === falaN) falarAparelho(t, depois); });
+  }
+
   var vozLiberada = false;
   function liberarVoz() {
     if (vozLiberada || !window.speechSynthesis) return;
     try { var z = new SpeechSynthesisUtterance(' '); z.volume = 0; z.lang = 'pt-BR'; speechSynthesis.speak(z); vozLiberada = true; } catch (e) {}
+    try { tocador.src = SILENCIO; var p = tocador.play(); if (p) p.catch(function () {}); } catch (e) {}
   }
   document.addEventListener('pointerdown', function (ev) { if (ev.target.closest && ev.target.closest('#box-bt, .box-tela, a[href="#box"]')) liberarVoz(); }, true);
-  function falar(t, depois) {
+  function falarAparelho(t, depois) {
     if (!som || !window.speechSynthesis) { estado('parado'); if (depois) depois(); return; }
     speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(t.replace(/\bF1\b/g, 'Fórmula 1').replace(/(\d+)h(\d\d)/g, '$1 e $2').replace(/(\d+)h\b/g, '$1 horas'));
@@ -392,7 +416,7 @@
   function ouvir() {
     if (!rec || ouvindo) return;
     pararEspera();
-    if (window.speechSynthesis) speechSynthesis.cancel();
+    pararFala();
     var final = '', parcial = '';
     rec.onresult = function (ev) {
       final = ''; parcial = '';
@@ -461,7 +485,7 @@
   window.addEventListener('popstate', function () { if (!tela.hidden) fecharDeVez(); });
   function fecharDeVez() {
     tela.hidden = true; document.documentElement.classList.remove('box-aberto');
-    if (window.speechSynthesis) speechSynthesis.cancel();
+    pararFala();
     if (ouvindo) rec.abort();
     retomarEspera();
   }
