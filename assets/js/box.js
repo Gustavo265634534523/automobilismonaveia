@@ -396,6 +396,8 @@
   document.addEventListener('visibilitychange', function () { if (document.hidden) pararEspera(); else retomarEspera(); });
   if (maosLigado) setTimeout(retomarEspera, 1500);
 
+  /* qualquer link para #box (menu do topo, chamada da página inicial) abre o Box */
+  document.addEventListener('click', function (ev) { var l = ev.target.closest && ev.target.closest('a[href="#box"]'); if (l) { ev.preventDefault(); abrir(true); } });
   window.BOX_PERGUNTAR = perguntar; /* usado nos testes */
   window.BOX_ABRIR = abrir;
 })();

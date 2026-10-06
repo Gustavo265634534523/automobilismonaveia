@@ -1,8 +1,10 @@
 /* Box, assistente de voz: botão e tela cheia com a esfera vermelha */
-.box-bt { position: fixed; right: 18px; bottom: 78px; z-index: 60; display: inline-flex; align-items: center; gap: 7px; padding: 10px 14px; background: var(--carbono); color: var(--cromo); border: 1px solid var(--sangue-vivo); font: 700 15px var(--texto); cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, .45); }
+.box-bt { position: fixed; right: 18px; bottom: 76px; z-index: 60; display: inline-flex; align-items: center; gap: 10px; padding: 6px 16px 6px 6px; background: #120809; color: #fff; border: 1px solid rgba(227, 52, 60, .7); border-radius: 40px; font: 700 15px var(--texto); cursor: pointer; box-shadow: 0 0 26px rgba(227, 52, 60, .45), 0 8px 24px rgba(0, 0, 0, .5); }
 .box-bt[hidden] { display: none; }
-.box-bt svg { width: 19px; height: 19px; color: var(--sangue-vivo); }
-.box-bt:hover { background: var(--carbono-2); }
+.box-bt svg { position: relative; z-index: 1; width: 22px; height: 22px; padding: 10px; box-sizing: content-box; border-radius: 50%; background: var(--sangue); color: #fff; }
+.box-bt::before { content: ''; position: absolute; left: 2px; top: 2px; width: 50px; height: 50px; border-radius: 50%; border: 2px solid rgba(255, 110, 115, .6); border-right-color: transparent; border-bottom-color: transparent; animation: box-gira 2.4s linear infinite; }
+@keyframes box-gira { to { transform: rotate(360deg); } }
+.box-bt:hover { background: #1d0b0d; }
 .box-escuta { display: none; width: 8px; height: 8px; border-radius: 50%; background: var(--sangue-vivo); animation: box-pisca 1.6s ease-in-out infinite; }
 .box-bt.esperando .box-escuta { display: inline-block; }
 @keyframes box-pisca { 50% { opacity: .25; } }
@@ -43,10 +45,12 @@ html.box-aberto { overflow: hidden; }
 .box-maos { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #b9a2a4; cursor: pointer; }
 .box-maos input { width: 16px; height: 16px; accent-color: var(--sangue-vivo); }
 @media (max-width: 620px) {
-  .box-bt { right: 12px; bottom: 70px; padding: 9px 12px; font-size: 14px; }
+  .box-bt { right: 12px; bottom: 66px; padding: 5px 14px 5px 5px; font-size: 14px; }
   .box-esfera { height: 38vh; }
   .box-resposta p { font-size: 17px; }
   .box-pergunta { font-size: 16px; }
   .box-mic { width: 64px; height: 64px; }
 }
-@media (prefers-reduced-motion: reduce) { .box-mic.ouvindo, .box-escuta { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .box-mic.ouvindo, .box-escuta, .box-bt::before { animation: none; } }
+.topo .nav-box { color: var(--sangue-vivo); }
+.topo .nav-box:hover { color: #ff6b72; }

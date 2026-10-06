@@ -90,3 +90,16 @@
   .sem-ev { margin: 0; font-size: 14px; }
   .sem-dia.hoje { background: none; }
 }
+
+/* Chamada do Box na entrada */
+.ent-box { display: flex; align-items: center; gap: 16px; margin-top: 22px; padding: 14px 18px 14px 14px; max-width: 620px; background: linear-gradient(90deg, rgba(227, 52, 60, .22), rgba(28, 32, 37, .9) 70%); border: 1px solid rgba(227, 52, 60, .55); color: var(--cromo); text-decoration: none; transition: border-color .2s, transform .2s; }
+.ent-box:hover { border-color: var(--sangue-vivo); transform: translateY(-1px); }
+.ent-box-orbe { position: relative; flex: 0 0 52px; height: 52px; display: grid; place-items: center; border-radius: 50%; background: var(--sangue); color: #fff; box-shadow: 0 0 22px rgba(227, 52, 60, .6); }
+.ent-box-orbe::before { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid rgba(255, 110, 115, .55); border-right-color: transparent; border-bottom-color: transparent; animation: ent-box-gira 2.4s linear infinite; }
+.ent-box-orbe svg { width: 24px; height: 24px; }
+@keyframes ent-box-gira { to { transform: rotate(360deg); } }
+.ent-box-txt { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+.ent-box-txt b { font-family: var(--display); font-weight: 400; font-size: 20px; }
+.ent-box-txt small { font-size: 14px; color: #c3c8cd; line-height: 1.35; }
+.ent-box-seta { font-size: 22px; color: var(--sangue-vivo); }
+@media (prefers-reduced-motion: reduce) { .ent-box-orbe::before { animation: none; } }
