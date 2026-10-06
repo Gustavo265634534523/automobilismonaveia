@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="assets/css/estilo.css">
 <link rel="stylesheet" href="assets/css/planos.css">
 <link rel="stylesheet" href="assets/css/entrada.css">
+<link rel="stylesheet" href="assets/css/telemetria.css">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -64,6 +65,19 @@
       </div>
       <div class="largada revelar" id="largada"></div>
       <div class="torre revelar" id="torre"></div>
+    </div>
+  </section>
+
+  <section class="secao tl-home" id="telemetria" style="padding-top:0">
+    <div class="moldura">
+      <div class="secao-cab revelar">
+        <h2>Telemetria: onde a pole foi decidida.</h2>
+        <p>Velocidade e diferença de tempo, metro a metro. Passe o dedo ou o mouse pelo gráfico.</p>
+      </div>
+      <p class="tl-sessao" id="tl-sessao"></p>
+      <div class="tl-video" id="tl-video" hidden></div>
+      <div id="tl-home"></div>
+      <div class="tl-chamada"><p><b>No plano Master</b>, você escolhe qualquer sessão, quaisquer dois pilotos e qualquer volta, com acelerador, freio e marcha.</p><a class="pl-botao" href="telemetria.html">Abrir a telemetria completa</a></div>
     </div>
   </section>
 
@@ -144,6 +158,10 @@
 <script src="assets/js/assinar.js"></script>
 <script src="assets/js/inicio.js"></script>
 <script src="assets/js/entrada.js"></script>
+<script src="assets/js/telemetria-graf.js"></script>
+<script src="assets/dados/telemetria-amostra.js"></script>
+<script src="assets/dados/telemetria-videos.js"></script>
+<script src="assets/js/telemetria-home.js"></script>
 <script src="assets/js/simulador.js"></script>
 </body>
 </html>

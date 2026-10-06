@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/idioma.js"></script>
+<title>Telemetria F1 | Automobilismo Na Veia</title>
+<meta name="description" content="Telemetria da Fórmula 1: compare a volta de dois pilotos com velocidade, acelerador, freio, marcha e mapa da pista.">
+<meta name="theme-color" content="#141619">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
+<meta property="og:title" content="Telemetria F1 | Automobilismo Na Veia">
+<meta property="og:description" content="Compare a volta de dois pilotos na F1, metro a metro. Plano Master.">
+<link rel="canonical" href="https://automobilismonaveia.com.br/telemetria.html">
+<meta property="og:image" content="https://automobilismonaveia.com.br/assets/img/compartilhar.jpg">
+<meta property="og:url" content="https://automobilismonaveia.com.br/telemetria.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Automobilismo Na Veia">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css">
+<link rel="stylesheet" href="assets/css/planos.css">
+<link rel="stylesheet" href="assets/css/telemetria.css">
+</head>
+<body data-pagina="telemetria">
+<a class="pular" href="#tl">Pular para o conteúdo</a>
+<header id="topo"></header>
+
+<main class="sm">
+  <div class="moldura">
+    <div class="sm-cab">
+      <p class="sm-trilha"><span class="sm-selo">Exclusivo do plano Master</span></p>
+      <h1>Telemetria F1.</h1>
+      <p class="sm-lead">Escolha a sessão, dois pilotos e uma volta de cada. Veja velocidade, acelerador, freio e marcha metro a metro, quanto tempo um tira do outro e, no mapa, quem foi mais rápido em cada trecho da pista.</p>
+    </div>
+
+    <form class="tl-escolha" id="tl-escolha">
+      <label>Sessão<select name="sessao"></select></label>
+      <label class="tl-a-rot">Piloto 1<select name="a"></select></label>
+      <label class="tl-a-rot">Volta<select name="va"></select></label>
+      <label class="tl-b-rot">Piloto 2<select name="b"></select></label>
+      <label class="tl-b-rot">Volta<select name="vb"></select></label>
+      <button class="pl-botao" type="submit">Comparar</button>
+    </form>
+    <p class="tl-status" id="tl-status" aria-live="polite"></p>
+    <div class="tl-video" id="tl-video" hidden></div>
+    <div id="tl"></div>
+    <p class="nota" style="margin-top:24px">Dados do OpenF1, gratuitos e não oficiais. A telemetria chega a cerca de 4 leituras por segundo, então os gráficos mostram a tendência, não cada detalhe.</p>
+
+  </div>
+</main>
+
+<footer id="rodape"></footer>
+<script src="assets/js/dados.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/dados/telemetria-videos.js"></script>
+<script src="assets/js/telemetria-graf.js"></script>
+<script src="assets/js/telemetria.js"></script>
+</body>
+</html>

@@ -46,7 +46,7 @@
     [new RegExp('^Atualizado (\\d{1,2}) ' + M + ' às (\\d{2})h(\\d{2})\\.$'), function (m) { return 'Updated ' + m[1] + ' ' + MES[m[2]] + ' at ' + m[3] + ':' + m[4] + '.'; }],
     [/^Atualizado em (.+)\.$/, function (m) { return 'Updated on ' + tr(m[1]) + '.'; }],
     [/^Dados atualizados em (.+?)\. Fontes: (.+)$/, function (m) { return 'Data updated on ' + tr(m[1]) + '. Sources: official series websites, specialist media and Wikipedia.'; }],
-    [/^Doze categorias acompanhadas de perto\. Dados atualizados em (.+)\.$/, function (m) { return 'Twelve categories followed closely. Data updated on ' + tr(m[1]) + '.'; }],
+    [/^(\d+) categorias acompanhadas de perto\. Dados atualizados em (.+)\.$/, function (m) { return m[1] + ' categories followed closely. Data updated on ' + tr(m[2]) + '.'; }],
     [/^Vencedor: (.+)$/, function (m) { return 'Winner: ' + vencedores(m[1]); }],
     [/^(Sprint|Principal|Principal 1|Principal 2): (.+)$/, function (m) { return vencedores(m[0]); }],
     [/^página da (.+)$/i, function (m) { return tr(m[1]) + ' page'; }],

@@ -280,7 +280,7 @@
     var local = /^(localhost|127.0.0.1|)$/.test(location.hostname);
     rod.innerHTML = '<div class="moldura"><div class="rodape-grade"><div class="rodape-marca">' +
       '<a class="marca" href="./"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span><span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
-      '<p>Doze categorias acompanhadas de perto. Dados atualizados em ' + esc(window.ATUALIZADO) + '.</p>' +
+      '<p>' + CATS.length + ' categorias acompanhadas de perto. Dados atualizados em ' + esc(window.ATUALIZADO) + '.</p>' +
       '<p class="rodape-contato"><span>Contato:</span> <a href="mailto:automobilismonaveiacontato@gmail.com">automobilismonaveiacontato@gmail.com</a>' +
         '<button type="button" class="copiar-email" data-email="automobilismonaveiacontato@gmail.com">' +
         '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3.5A1.5 1.5 0 0 1 4.5 2H11" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>Copiar</span></button></p></div>' +
