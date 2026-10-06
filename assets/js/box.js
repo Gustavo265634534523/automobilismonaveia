@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=201'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=202'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -390,7 +390,8 @@
      Se o servidor não responder ou a cota do mês acabar, usa a voz do próprio aparelho. */
   var tocador = new Audio(), vozNaturalOff = false, falaN = 0;
   var SILENCIO = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU2LjM2LjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAEAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU2LjQxAAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV';
-  function pararFala() { falaN++; try { tocador.pause(); } catch (e) {} if (window.speechSynthesis) speechSynthesis.cancel(); }
+  function soltarAudio() { try { tocador.pause(); tocador.removeAttribute('src'); tocador.load(); } catch (e) {} }
+  function pararFala() { falaN++; soltarAudio(); if (window.speechSynthesis) speechSynthesis.cancel(); }
   function falar(t, depois) {
     if (!som) { estado('parado'); if (depois) depois(); return; }
     var sessao = null; try { sessao = localStorage.getItem('naveia-sessao'); } catch (e) {}
@@ -403,7 +404,7 @@
         if (minha !== falaN) return;
         tocador.src = URL.createObjectURL(b);
         tocador.onplaying = function () { estado('falando'); };
-        tocador.onended = tocador.onerror = function () { if (minha !== falaN) return; if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
+        tocador.onended = tocador.onerror = function () { if (minha !== falaN) return; soltarAudio(); if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
         var p = tocador.play(); if (p) p.catch(function () { if (minha === falaN) falarAparelho(t, depois); });
       })
       .catch(function () { if (minha === falaN) falarAparelho(t, depois); });
@@ -459,6 +460,8 @@
     pararEspera();
     pararFala();
     var final = '', parcial = '', erroMic = '', inicio = 0;
+    try { if (rec) rec.abort(); } catch (e) {}
+    rec = new Rec(); rec.lang = 'pt-BR'; rec.interimResults = true; rec.maxAlternatives = 1;
     rec.onresult = function (ev) {
       final = ''; parcial = '';
       for (var i = 0; i < ev.results.length; i++) { if (ev.results[i].isFinal) final += ev.results[i][0].transcript; else parcial += ev.results[i][0].transcript; }
@@ -469,7 +472,7 @@
       var t = (final || parcial).trim();
       if (t) { perguntar(t, true); retomarEspera(); return; }
       /* fechou sozinho em menos de 1 segundo, sem erro: o aparelho ainda estava com o áudio preso. Tenta de novo uma vez. */
-      if (!erroMic && Date.now() - inicio < 1000 && tentou < 1) { tentou++; setTimeout(function () { ouvir(true); }, 600); return; }
+      if ((!erroMic && Date.now() - inicio < 1000 || /outro app/.test(erroMic)) && tentou < 1) { tentou++; soltarAudio(); setTimeout(function () { ouvir(true); }, 900); return; }
       estado('parado', erroMic || 'Não ouvi nada. Toque no microfone e fale.');
       retomarEspera();
     };
