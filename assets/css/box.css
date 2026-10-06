@@ -106,3 +106,17 @@ html.box-aberto { overflow: hidden; }
 /* sem o botão do chat, o Box desce para o canto */
 .box-bt { bottom: 18px; }
 @media (max-width: 620px) { .box-bt { bottom: 12px; } }
+
+/* Chamada do Box na página inicial: só a esfera e a frase, sem retângulo em volta */
+.box-chamada { flex-direction: column; justify-content: center; gap: 12px; width: max-content; margin: 0 auto; padding: 6px 20px; background: none; border: 0; }
+.box-chamada:hover { border: 0; }
+.box-chamada-orbe { flex: 0 0 auto; width: 150px; height: 150px; }
+.box-chamada-orbe .orbe-ic { width: 150px; height: 150px; transition: transform .3s; }
+.box-chamada:hover .orbe-ic { transform: scale(1.06); }
+.box-chamada-frase { font-size: 16px; color: #c3c8cd; }
+.box-chamada:hover .box-chamada-frase { color: #fff; }
+@media (max-width: 700px) {
+  .box-chamada { flex-wrap: nowrap; padding: 4px 12px; }
+  .box-chamada-orbe, .box-chamada-orbe .orbe-ic { width: 120px; height: 120px; flex-basis: auto; }
+  .box-chamada-frase { font-size: 15px; }
+}
