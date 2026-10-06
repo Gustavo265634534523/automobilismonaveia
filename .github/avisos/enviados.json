@@ -231,6 +231,14 @@
   "motogp:17:Sprint": "2026-10-10 04:00",
   "motogp:17:Corrida": "2026-10-11 04:00",
   "nascar:32:Classificação": "2026-10-10 15:05",
-  "nascar:32:Corrida": "2026-10-11 16:00"
+  "nascar:32:Corrida": "2026-10-11 16:00",
+  "dtm:8:Classificação 1": "2026-10-10 04:30",
+  "dtm:8:Corrida 1": "2026-10-10 08:30",
+  "dtm:8:Classificação 2": "2026-10-11 04:30",
+  "dtm:8:Corrida 2": "2026-10-11 11:30",
+  "superbike:11:Superpole": "2026-10-10 07:15",
+  "superbike:11:Corrida 1": "2026-10-10 11:30",
+  "superbike:11:Superpole Race": "2026-10-11 07:10",
+  "superbike:11:Corrida 2": "2026-10-11 11:30"
  }
 }
