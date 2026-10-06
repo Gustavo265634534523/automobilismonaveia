@@ -18,8 +18,10 @@
   var PORSLUG = {}; CATS.forEach(function (c) { PORSLUG[c.slug] = c; });
   var GRUPOS = [
     { nome: 'Monopostos', desc: 'Carros de fórmula, com rodas descobertas', slugs: ['formula-1', 'formula-2', 'formula-3', 'formula-e', 'indycar'] },
-    { nome: 'Turismo e Endurance', desc: 'Carros de carroceria fechada e corridas longas', slugs: ['stock-car', 'porsche-cup', 'nascar', 'endurance'] },
-    { nome: 'Motos e Terra', desc: 'Duas rodas e estradas de terra', slugs: ['motogp', 'motocross', 'rally'] }
+    { nome: 'Turismo', desc: 'Carros de carroceria fechada', slugs: ['stock-car', 'porsche-cup', 'nascar'] },
+    { nome: 'Endurance', desc: 'Corridas longas, de 6 a 24 horas', slugs: ['endurance'] },
+    { nome: 'Rally', desc: 'Estradas de terra, asfalto e neve', slugs: ['rally'] },
+    { nome: 'Motos', desc: 'Duas rodas', slugs: ['motogp', 'motocross'] }
   ].map(function (g) { g.cats = g.slugs.map(function (s) { return PORSLUG[s]; }).filter(Boolean); return g; });
   window.GRUPOS = GRUPOS;
 
@@ -281,7 +283,11 @@
       '<p class="rodape-contato"><span>Contato:</span> <a href="mailto:automobilismonaveiacontato@gmail.com">automobilismonaveiacontato@gmail.com</a>' +
         '<button type="button" class="copiar-email" data-email="automobilismonaveiacontato@gmail.com">' +
         '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3.5A1.5 1.5 0 0 1 4.5 2H11" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>Copiar</span></button></p></div>' +
-      GRUPOS.map(function (g) { return coluna(g.nome, g.cats.map(function (c) { return li(pagina(c), esc(c.nome)); })); }).join('') +
+      /* no rodapé, os 5 grupos viram 3 colunas para não ficar espalhado */
+      [['Monopostos', ['Monopostos']], ['Turismo e Endurance', ['Turismo', 'Endurance']], ['Rally e Motos', ['Rally', 'Motos']]].map(function (col) {
+        var cats = [].concat.apply([], GRUPOS.filter(function (g) { return col[1].indexOf(g.nome) > -1; }).map(function (g) { return g.cats; }));
+        return coluna(col[0], cats.map(function (c) { return li(pagina(c), esc(c.nome)); }));
+      }).join('') +
       coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +

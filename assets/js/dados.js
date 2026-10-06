@@ -272,7 +272,7 @@ window.CATEGORIAS = [
   videos: ['Stock Car 2026 melhores momentos', 'Stock Car Curvelo 2026', 'Felipe Fraga Stock Car 2026']
 },
 {
-  slug: 'rally', nome: 'Rally', menu: 'Rally',
+  slug: 'rally', nome: 'Rally', menu: 'WRC',
   foto: 'assets/img/cat/rally.jpg',
   frase: 'O carro voa. O copiloto continua lendo.',
   intro: 'Cascalho, neve, lama e asfalto. No rali, o piloto ataca uma estrada que conhece só pela voz do copiloto. Uma palavra trocada e o carro sai da estrada. Elfyn Evans lidera por 17 pontos antes da Sardenha.',
@@ -316,7 +316,7 @@ window.CATEGORIAS = [
   videos: ['WRC 2026 Rally Chile melhores momentos', 'WRC 2026 Rally Finlândia saltos', 'WRC 2026 onboard']
 },
 {
-  slug: 'endurance', nome: 'Endurance', menu: 'Endurance',
+  slug: 'endurance', nome: 'Endurance', menu: 'WEC',
   foto: 'assets/img/cat/endurance.jpg',
   frase: 'Seis horas, vinte e quatro horas. O relógio também corre.',
   intro: 'Três pilotos dividem o mesmo carro e trocam de lugar no escuro. Farol cortando a neblina de Le Mans, disco de freio em brasa às quatro da manhã. No Mundial de Endurance, terminar já é metade da vitória.',
