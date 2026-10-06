@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=193'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=194'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -333,7 +333,7 @@
     if (!som || !window.speechSynthesis) { estado('parado'); if (depois) depois(); return; }
     speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(t.replace(/\bF1\b/g, 'Fórmula 1').replace(/(\d+)h(\d\d)/g, '$1 e $2').replace(/(\d+)h\b/g, '$1 horas'));
-    u.lang = 'pt-BR'; u.rate = 1.15;
+    u.lang = 'pt-BR'; u.rate = 1.4;
     var vz = vozBox(); if (vz) u.voice = vz;
     u.onstart = function () { estado('falando'); };
     u.onend = u.onerror = function () { if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
