@@ -152,9 +152,10 @@
   }
   function rAgenda(c, e, q, unica) {
     return plano().then(function (p) {
-      if (p !== 'medio' && p !== 'master') {
-        var r = unica && e ? rHorario(c, e, q) : { t: 'Colocar as corridas na agenda do celular faz parte dos planos Médio e Master.' };
-        r.t += ' Para eu colocar na sua agenda, entre na sua conta com o plano Médio ou Master.';
+      var pago = p === 'medio' || p === 'master';
+      if (unica && e && sessao(e, q)) pago = true; /* uma corrida só: grátis para todos */
+      if (!pago) {
+        var r = { t: 'Assinar a agenda inteira ' + de(c) + ', com todas as etapas e os horários se atualizando sozinhos, faz parte dos planos Médio e Master. De graça, eu coloco uma corrida por vez: diga, por exemplo, "coloca a próxima corrida ' + de(c) + ' na agenda".' };
         r.link = ['planos.html', 'Conhecer os planos'];
         return r;
       }
@@ -181,7 +182,8 @@
     if (/^(oi|ola|e ai|bom dia|boa tarde|boa noite|box)( box)?$/.test(q)) return Promise.resolve({ t: 'Box, box! Sou o Box, o assistente do Na Veia. ' + AJUDA });
     if (/(agenda|calendario|lembrete|me avisa|me lembra)/.test(q)) {
       if (!c) return Promise.resolve({ t: 'Qual categoria você quer na agenda? Diga, por exemplo: "coloca a Stock Car na minha agenda".' });
-      return rAgenda(c, e, q, etapaDita);
+      var unica = etapaDita || (/(proxima|corrida|etapa|gp)/.test(q) && !/(todas|inteira|temporada|campeonato)/.test(q));
+      return rAgenda(c, e, q, unica);
     }
     if (/(temperatura|clima|chuva|chover|chove|calor|frio|previsao|tempo vai|vai fazer|graus)/.test(q)) {
       if (!c) return Promise.resolve({ t: 'De qual corrida você quer a previsão? Diga, por exemplo: "vai chover no GP de Singapura?".' });
@@ -342,13 +344,20 @@
   }
 
   function abrir(jaOuvir) {
-    tela.hidden = false; bt.hidden = true; document.documentElement.classList.add('box-aberto');
+    tela.hidden = false; document.documentElement.classList.add('box-aberto');
+    /* o botão "voltar" do celular fecha o Box em vez de sair da página */
+    if (!(history.state && history.state.box)) { try { history.pushState({ box: 1 }, ''); } catch (e) {} }
     if (!anim) { t0 = performance.now(); anim = requestAnimationFrame(desenharEsfera); }
     if (!respEl.innerHTML) { estado('parado', Rec ? 'Toque no microfone e pergunte' : 'Digite sua pergunta'); sug.hidden = false; }
     if (jaOuvir && rec) setTimeout(ouvir, 250);
   }
   function fechar() {
-    tela.hidden = true; bt.hidden = false; document.documentElement.classList.remove('box-aberto');
+    if (history.state && history.state.box) { history.back(); return; } /* o popstate fecha */
+    fecharDeVez();
+  }
+  window.addEventListener('popstate', function () { if (!tela.hidden) fecharDeVez(); });
+  function fecharDeVez() {
+    tela.hidden = true; document.documentElement.classList.remove('box-aberto');
     if (window.speechSynthesis) speechSynthesis.cancel();
     if (ouvindo) rec.abort();
     retomarEspera();
