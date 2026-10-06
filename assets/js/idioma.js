@@ -3,6 +3,17 @@
    Em inglês, carrega o dicionário (idioma-en.js) e troca cada texto da página pela tradução,
    inclusive os textos que os scripts criam depois (datas, contagens, placares).
    Para trocar: botão PT | EN no topo (site.js), que grava a escolha e recarrega a página. */
+/* Reserva o espaço do topo antes de a página aparecer (faixa de categorias e aviso dos planos, que o site.js coloca depois),
+   para o conteúdo não dar um pulo ao carregar (CLS). As regras são as mesmas do site.js. */
+(function () {
+  var h = document.documentElement, p = location.pathname;
+  if (!/(^|\/)(index\.html)?$/.test(p)) h.classList.add('com-cats');
+  try {
+    var fechado = +localStorage.getItem('avisoPlanosFechado') || 0;
+    if (p.indexOf('planos') < 0 && Date.now() - fechado > 7 * 864e5 && localStorage.getItem('naveia-sem-aviso') !== '1') h.classList.add('com-aviso');
+  } catch (e) {}
+})();
+
 (function () {
   var escolha = null;
   try { escolha = localStorage.getItem('naveia-idioma'); } catch (e) {}

@@ -210,12 +210,14 @@
     var faixa = document.querySelector('.aviso-planos p');
     if (!faixa) return;
     var u = r.logado && r.usuario;
+    if (!(u && u.plano !== 'gratis' && !u.teste)) { try { localStorage.removeItem('naveia-sem-aviso'); } catch (e) {} }
     if (u && u.teste) {
       var dias = Math.max(1, Math.ceil((new Date(u.teste_ate) - Date.now()) / 864e5));
       faixa.innerHTML = '<span class="aviso-longo">Teste grátis do Master: ' + (dias === 1 ? 'último dia' : 'faltam ' + dias + ' dias') + '. Continue por R$ 24,90 no primeiro mês.</span><span class="aviso-curto">Teste grátis: ' + (dias === 1 ? 'último dia' : dias + ' dias') + '</span>';
       faixa.nextElementSibling.textContent = 'Assinar';
     } else if (u && u.plano !== 'gratis') {
       var av = document.querySelector('.aviso-planos'); av.remove(); document.documentElement.classList.remove('com-aviso');
+      try { localStorage.setItem('naveia-sem-aviso', '1'); } catch (e) {} /* plano pago: na próxima visita o topo já nasce sem o aviso */
     } else if (!u) {
       faixa.innerHTML = '<span class="aviso-longo">Crie sua conta e ganhe 7 dias do plano Master grátis.</span><span class="aviso-curto">7 dias de Master grátis.</span>';
       faixa.nextElementSibling.textContent = 'Criar conta';
@@ -225,12 +227,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol)) {
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=212'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=212'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=212'; appJs.defer = true; document.body.appendChild(appJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=214'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=214'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=214'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=212'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=212'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=214'; document.head.appendChild(boxCss);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=214'; boxJs.defer = true; document.body.appendChild(boxJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

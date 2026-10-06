@@ -864,3 +864,15 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .noticia[hidden] { display: none; }
 .noticias-mais { margin-top: 24px; padding: 12px 20px; background: none; border: 1px solid var(--linha); color: var(--cromo); font: 700 15px var(--texto); cursor: pointer; }
 .noticias-mais:hover { border-color: var(--sangue-vivo); }
+
+/* Espaço reservado para o conteúdo montado pelos scripts (evita a página "pular" ao carregar: CLS) */
+.paineis { min-height: 100vh; }
+.nt-corpo { min-height: 100vh; }
+.oa-vaga { min-height: 237px; }
+@media (max-width: 1000px) { .oa-vaga { min-height: 309px; } }
+@media (max-width: 620px) { .oa-vaga { min-height: 495px; } }
+#manchetes:empty { min-height: 900px; }
+@media (max-width: 1000px) { #manchetes:empty { min-height: 808px; } }
+@media (max-width: 620px) { #manchetes:empty { min-height: 1527px; } }
+#nt-atualizado:empty { min-height: 27px; }
+#oa-lista:empty, .rx-main { min-height: 100vh; }

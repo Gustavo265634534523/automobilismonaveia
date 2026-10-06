@@ -156,3 +156,9 @@
   .rv-cat { height: 110px; }
   .rv-cat b { font-size: 18px; }
 }
+/* espaço reservado antes de as notícias, categorias e brigas chegarem (CLS) */
+#rv-lista:empty { min-height: 430px; }
+.rv-cats:empty { min-height: 184px; }
+#entrada-brigas:empty { min-height: 230px; }
+@media (max-width: 1000px) { #rv-lista:empty { min-height: 470px; } }
+@media (max-width: 620px) { .rv-cats:empty { min-height: 470px; } #entrada-brigas:empty { min-height: 380px; } }

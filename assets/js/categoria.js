@@ -19,11 +19,17 @@
 
   /* Onde assistir no Brasil (assets/js/onde-assistir-dados.js, carregado aqui) */
   (function () {
-    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=212';
+    /* a vaga do quadro já entra agora, com a altura reservada, para a página não pular quando os canais chegarem (CLS) */
+    document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura oa-vaga" id="oa-vaga"></div>');
+    var vaga = document.getElementById('oa-vaga');
+    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=214';
     s.onload = function () {
-      var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug); if (!q) return;
-      document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura"><section class="oa-bloco" id="onde-assistir"><p class="oa-rot">Como assistir</p><h2>Onde assistir no Brasil</h2>' + q + '</section></div>');
+      var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug);
+      if (!q) { vaga.remove(); return; }
+      vaga.innerHTML = '<section class="oa-bloco" id="onde-assistir"><p class="oa-rot">Como assistir</p><h2>Onde assistir no Brasil</h2>' + q + '</section>';
+      vaga.classList.remove('oa-vaga');
     };
+    s.onerror = function () { vaga.remove(); };
     document.body.appendChild(s);
   })();
 
