@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '5 de outubro de 2026';
+window.ATUALIZADO = '6 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -705,7 +705,7 @@ window.CATEGORIAS = [
     { e: 5, n: 'Oschersleben', l: 'Alemanha', d: '2026-07-26', venc: 'Corrida 1: Thomas Preining · Corrida 2: Maro Engel' },
     { e: 6, n: 'Nürburgring', l: 'Alemanha', d: '2026-08-16', venc: 'Corrida 1: Matteo Cairoli · Corrida 2: Marco Wittmann' },
     { e: 7, n: 'Sachsenring', l: 'Alemanha', d: '2026-09-13', venc: 'Corrida 1: Marco Wittmann · Corrida 2: Ben Dörr' },
-    { e: 8, n: 'Hockenheim (final)', l: 'Alemanha', d: '2026-10-11' }
+    { e: 8, n: 'Hockenheim (final)', l: 'Alemanha', d: '2026-10-11', s: [{ t: 'Classificação 1', d: '2026-10-10', h: '04:30' }, { t: 'Corrida 1', d: '2026-10-10', h: '08:30' }, { t: 'Classificação 2', d: '2026-10-11', h: '04:30' }, { t: 'Corrida 2', d: '2026-10-11', h: '11:30' }] }
   ],
   classificacao: {
     titulo: 'Pilotos',
@@ -751,7 +751,7 @@ window.CATEGORIAS = [
     { e: 8, n: 'Inglaterra', l: 'Donington Park', d: '2026-07-12', venc: 'Corrida 1: Iker Lecuona · Superpole e Corrida 2: Nicolò Bulega' },
     { e: 9, n: 'França', l: 'Magny-Cours', d: '2026-09-06', venc: 'Nicolò Bulega (3 corridas)' },
     { e: 10, n: 'Itália', l: 'Cremona', d: '2026-09-27', venc: 'Iker Lecuona (3 corridas)' },
-    { e: 11, n: 'Estoril', l: 'Portugal', d: '2026-10-11' },
+    { e: 11, n: 'Estoril', l: 'Portugal', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-09', h: '06:20' }, { t: 'Treino livre 2', d: '2026-10-09', h: '11:00' }, { t: 'Treino livre 3', d: '2026-10-10', h: '05:40' }, { t: 'Superpole', d: '2026-10-10', h: '07:15' }, { t: 'Corrida 1', d: '2026-10-10', h: '11:30' }, { t: 'Warm-up', d: '2026-10-11', h: '05:15' }, { t: 'Superpole Race', d: '2026-10-11', h: '07:10' }, { t: 'Corrida 2', d: '2026-10-11', h: '11:30' }] },
     { e: 12, n: 'Espanha', l: 'Jerez', d: '2026-10-18' }
   ],
   classificacao: {
