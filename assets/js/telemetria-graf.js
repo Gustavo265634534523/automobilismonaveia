@@ -157,22 +157,17 @@
     graf.addEventListener('touchstart', mover, { passive: true });
   }
 
-  /* Vídeo oficial da F1 da sessão (assets/dados/telemetria-videos.js). Mostra só a capa; o player do YouTube
-     (versão sem cookies) carrega quando a pessoa clica, para não pesar a página. */
+  /* Vídeo oficial da F1 da sessão (assets/dados/telemetria-videos.js). A F1 bloqueia o player dela fora do YouTube,
+     então mostramos a capa e o clique abre o vídeo no próprio YouTube, em outra aba. */
   function video(caixa, sessao) {
     var v = (typeof window !== 'undefined' && window.TELEMETRIA_VIDEOS || {})[sessao];
     if (!caixa) return;
     if (!v) { caixa.innerHTML = ''; caixa.hidden = true; return; }
     caixa.hidden = false;
-    caixa.innerHTML = '<button type="button" class="tl-video-capa" aria-label="Assistir: ' + v.titulo + '">' +
+    caixa.innerHTML = '<a class="tl-video-capa" href="https://www.youtube.com/watch?v=' + v.id + '" target="_blank" rel="noopener" aria-label="Assistir no YouTube: ' + v.titulo + '">' +
       '<img src="https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg" alt="" loading="lazy">' +
       '<span class="tl-video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>' +
-      '<span class="tl-video-tit">' + v.titulo + '<small>Vídeo oficial da Fórmula 1 no YouTube</small></span></button>';
-    caixa.querySelector('button').addEventListener('click', function () {
-      caixa.innerHTML = '<div class="tl-video-quadro"><iframe src="https://www.youtube-nocookie.com/embed/' + v.id + '?autoplay=1&rel=0" title="' + v.titulo +
-        '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>' +
-        '<p class="tl-video-fonte">Vídeo do canal oficial da Fórmula 1 no YouTube.</p>';
-    });
+      '<span class="tl-video-tit">' + v.titulo + '<small>Assistir no YouTube, canal oficial da Fórmula 1 ↗</small></span></a>';
   }
 
   var api = { volta: volta, comparar: comparar, desenhar: desenhar, fmtTempo: fmtTempo, interp: interp, video: video };

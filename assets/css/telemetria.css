@@ -53,7 +53,7 @@
 
 /* Vídeo oficial da F1 acima da telemetria */
 .tl-video { margin-bottom: 22px; }
-.tl-video-capa { position: relative; display: block; width: 100%; max-width: 860px; aspect-ratio: 16 / 9; padding: 0; border: 0; background: #000; cursor: pointer; overflow: hidden; }
+.tl-video-capa { position: relative; display: block; width: 100%; max-width: 560px; text-decoration: none; aspect-ratio: 16 / 9; padding: 0; border: 0; background: #000; cursor: pointer; overflow: hidden; }
 .tl-video-capa img { width: 100%; height: 100%; object-fit: cover; opacity: .75; transition: opacity .2s; }
 .tl-video-capa:hover img { opacity: .9; }
 .tl-video-play { position: absolute; left: 50%; top: 50%; width: 76px; height: 76px; margin: -38px 0 0 -38px; display: grid; place-items: center; border-radius: 50%; background: var(--sangue); color: #fff; box-shadow: 0 6px 24px rgba(0, 0, 0, .5); }
