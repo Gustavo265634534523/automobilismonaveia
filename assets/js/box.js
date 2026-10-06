@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=200'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=201'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -451,11 +451,14 @@
 
   /* microfone: uma pergunta por vez */
   var rec = null, ouvindo = false;
-  function ouvir() {
+  /* No celular o microfone precisa de um respiro: depois da voz do Box ou do "Box, box", o aparelho demora a liberar o áudio. */
+  var CEL = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent), tentou = 0;
+  function ouvir(repetindo) {
     if (!rec || ouvindo) return;
+    if (!repetindo) tentou = 0;
     pararEspera();
     pararFala();
-    var final = '', parcial = '';
+    var final = '', parcial = '', erroMic = '', inicio = 0;
     rec.onresult = function (ev) {
       final = ''; parcial = '';
       for (var i = 0; i < ev.results.length; i++) { if (ev.results[i].isFinal) final += ev.results[i][0].transcript; else parcial += ev.results[i][0].transcript; }
@@ -464,17 +467,27 @@
     rec.onend = function () {
       ouvindo = false; mic.classList.remove('ouvindo');
       var t = (final || parcial).trim();
-      if (t) perguntar(t, true); else estado('parado', 'Não ouvi nada. Toque no microfone e fale.');
+      if (t) { perguntar(t, true); retomarEspera(); return; }
+      /* fechou sozinho em menos de 1 segundo, sem erro: o aparelho ainda estava com o áudio preso. Tenta de novo uma vez. */
+      if (!erroMic && Date.now() - inicio < 1000 && tentou < 1) { tentou++; setTimeout(function () { ouvir(true); }, 600); return; }
+      estado('parado', erroMic || 'Não ouvi nada. Toque no microfone e fale.');
       retomarEspera();
     };
     rec.onerror = function (ev) {
-      if (ev.error === 'not-allowed' || ev.error === 'service-not-allowed') estado('parado', 'Libere o microfone para este site no navegador, ou digite a pergunta.');
+      var m = { 'not-allowed': 'Libere o microfone para este site nas configurações do navegador, ou digite a pergunta.', 'service-not-allowed': 'Este navegador não deixa usar o microfone aqui. Digite a pergunta.',
+        'audio-capture': 'Não achei o microfone, ou outro app está usando. Feche outros apps e tente de novo.', 'network': 'Sem internet para entender a voz agora. Digite a pergunta.', 'no-speech': 'Não ouvi nada. Toque no microfone e fale mais perto do celular.' };
+      if (m[ev.error]) erroMic = m[ev.error];
     };
-    try { rec.start(); ouvindo = true; mic.classList.add('ouvindo'); estado('ouvindo', 'Ouvindo… pode falar'); perguntaEl.textContent = ''; respEl.innerHTML = ''; } catch (e) {}
+    estado('ouvindo', 'Preparando o microfone…'); perguntaEl.textContent = ''; respEl.innerHTML = ''; mic.classList.add('ouvindo');
+    setTimeout(function () {
+      if (tela.hidden) { mic.classList.remove('ouvindo'); return; }
+      try { rec.start(); ouvindo = true; inicio = Date.now(); estado('ouvindo', 'Ouvindo… pode falar'); }
+      catch (e) { mic.classList.remove('ouvindo'); estado('parado', 'Toque no microfone e fale.'); }
+    }, CEL ? 500 : 60);
   }
   if (Rec && mic) {
     rec = new Rec(); rec.lang = 'pt-BR'; rec.interimResults = true; rec.maxAlternatives = 1;
-    mic.addEventListener('click', function () { if (ouvindo) rec.stop(); else ouvir(); });
+    mic.addEventListener('click', function () { if (ouvindo) rec.stop(); else if (!mic.classList.contains('ouvindo')) ouvir(); });
   }
 
   /* O Box é para quem tem conta (grátis). Quem tem conta ganha uma saudação com o nome, conforme a hora do dia. */
@@ -537,6 +550,7 @@
   var espera = null, esperando = false, maosLigado = false;
   var ck = tela.querySelector('.box-maos-ck');
   try { maosLigado = localStorage.getItem('box-maos') === '1'; } catch (e) {}
+  if (/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) { maosLigado = false; var lbM = tela.querySelector('.box-maos'); if (lbM) lbM.remove(); }
   if (ck) ck.checked = maosLigado;
   function pararEspera() { if (espera && esperando) { esperando = false; try { espera.abort(); } catch (e) {} } bt.classList.remove('esperando'); }
   function retomarEspera() {
