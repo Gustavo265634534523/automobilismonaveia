@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=198'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=199'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -200,11 +200,16 @@
      para a resposta usar líderes e próximas corridas certos. Guarda as últimas trocas para entender "e ele?". */
   var historico = [];
   function contextoSite() {
-    return CATS.map(function (c) {
-      var e = proxima(c), s2 = e && sessao(e, '');
+    var linhas = CATS.map(function (c) {
+      var e = proxima(c), s2 = e && sessao(e, ''), l = (c.classificacao && c.classificacao.linhas) || [];
+      var top = l.slice(0, 3).map(function (x) { return x[0] + 'º ' + x[1] + ' ' + x[x.length - 1]; }).join(', ');
+      var venc = c.calendario.filter(function (x) { return x.venc; }).slice(-2).map(function (x) { return x.n + ': ' + x.venc; }).join('; ');
       return (c.menu && c.menu !== c.nome ? c.nome + ' (' + c.menu + ')' : c.nome) + ': líder ' + c.lider.nome + ' (' + c.lider.info + ')' +
+        (top ? '; classificação: ' + top : '') + (venc ? '; últimas: ' + venc : '') +
         (e ? '; próxima: ' + e.n + ' em ' + (e.l || '') + ', ' + e.d + (s2 ? ' às ' + s2.h + ' de Brasília' : '') : '; sem próxima etapa marcada');
-    }).join('\n');
+    });
+    var nots = (window.NOTICIAS_GERAIS || []).slice(0, 8).map(function (n) { return '- ' + n.t; });
+    return linhas.join('\n') + (nots.length ? '\nManchetes recentes:\n' + nots.join('\n') : '');
   }
   function perguntarIA(texto) {
     if (!window.NAVEIA_API) return Promise.resolve({ t: 'Ainda não sei responder isso. ' + AJUDA });
