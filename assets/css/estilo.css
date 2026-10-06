@@ -823,5 +823,5 @@ html.com-aviso { --topo: 100px; }
 /* com o menu de ícones, o botão de quadradinhos só aparece quando o menu some (telas menores) */
 @media (min-width: 1201px) { .topo .todas { display: none; } }
 @media (max-width: 1500px) { .topo .nav-link { padding: 0 9px; font-size: 14px; } .nav { margin-left: 10px; } }
-@media (max-width: 1380px) { .app-pilula span { display: none; } .app-pilula { padding: 8px 10px; } .topo .nav-guia { display: none; } }
+@media (max-width: 1380px) { .app-pilula span { display: none; } .app-pilula { padding: 8px 10px; } }
 @media (max-width: 1200px) { .app-pilula { display: none; } .conta-link { margin-left: auto; } }
