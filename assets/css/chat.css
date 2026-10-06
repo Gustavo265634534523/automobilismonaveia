@@ -86,3 +86,14 @@ body:has(.aviso-priv.ativo) .chat-bt { display: none; }
 .chat-bt { display: none !important; }
 .nav-chat { position: relative; }
 .nav-chat.tem-novo span::after { content: ''; display: inline-block; width: 7px; height: 7px; margin-left: 5px; vertical-align: top; border-radius: 50%; background: var(--sangue-vivo); }
+
+/* Chat em tela grande: janela no meio da tela com o fundo escurecido (no celular, tela cheia) */
+html.chat-aberto { overflow: hidden; }
+html.chat-aberto body::after { content: ''; position: fixed; inset: 0; z-index: 60; background: rgba(6, 7, 7, .78); }
+.chat-caixa { left: 50%; right: auto; top: 50%; bottom: auto; transform: translate(-50%, -50%); width: min(880px, calc(100vw - 40px)); height: min(720px, calc(100vh - 60px)); }
+.chat-cab b { font-size: 20px; }
+.chat-lista { font-size: 16px; }
+@media (max-width: 620px) {
+  .chat-caixa { left: 0; top: 0; transform: none; width: 100%; height: 100%; border: 0; }
+}
+html.chat-aberto .box-bt { display: none; }

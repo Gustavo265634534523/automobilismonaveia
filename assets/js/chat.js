@@ -102,6 +102,9 @@
     ciclo();
   }
   bt.addEventListener('click', function () { abrir(!aberto); });
+  /* clique no fundo escuro (fora da janela) ou Esc fecham o chat */
+  document.addEventListener('click', function (ev) { if (aberto && ev.target === document.body) abrir(false); });
+  document.addEventListener('keydown', function (ev) { if (aberto && ev.key === 'Escape') abrir(false); });
   caixa.querySelector('.chat-fechar').addEventListener('click', function () { abrir(false); bt.focus(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && aberto) abrir(false); });
   lista.addEventListener('click', function (e) {
