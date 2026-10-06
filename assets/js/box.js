@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=194'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=195'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -329,15 +329,22 @@
     return vozCache;
   }
   if (window.speechSynthesis) speechSynthesis.addEventListener('voiceschanged', function () { vozCache = null; });
+  var vozLiberada = false;
+  function liberarVoz() {
+    if (vozLiberada || !window.speechSynthesis) return;
+    try { var z = new SpeechSynthesisUtterance(' '); z.volume = 0; z.lang = 'pt-BR'; speechSynthesis.speak(z); vozLiberada = true; } catch (e) {}
+  }
+  document.addEventListener('pointerdown', function (ev) { if (ev.target.closest && ev.target.closest('#box-bt, .box-tela, a[href="#box"]')) liberarVoz(); }, true);
   function falar(t, depois) {
     if (!som || !window.speechSynthesis) { estado('parado'); if (depois) depois(); return; }
     speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(t.replace(/\bF1\b/g, 'Fórmula 1').replace(/(\d+)h(\d\d)/g, '$1 e $2').replace(/(\d+)h\b/g, '$1 horas'));
-    u.lang = 'pt-BR'; u.rate = 1.4;
+    u.lang = 'pt-BR'; u.rate = 1.6;
     var vz = vozBox(); if (vz) u.voice = vz;
     u.onstart = function () { estado('falando'); };
+    try { speechSynthesis.resume(); } catch (e) {}
     u.onend = u.onerror = function () { if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
-    speechSynthesis.speak(u);
+    setTimeout(function () { speechSynthesis.speak(u); }, 90);
   }
 
   function perguntar(texto, porVoz) {
@@ -440,7 +447,7 @@
   tela.querySelector('.box-fechar').addEventListener('click', fechar);
   document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && !tela.hidden) fechar(); });
   sug.addEventListener('click', function (ev) { var b = ev.target.closest('button'); if (b) perguntar(b.textContent, true); });
-  tela.querySelector('.box-form').addEventListener('submit', function (ev) { ev.preventDefault(); var t = campo.value; campo.value = ''; perguntar(t, false); });
+  tela.querySelector('.box-form').addEventListener('submit', function (ev) { ev.preventDefault(); var t = campo.value; campo.value = ''; perguntar(t, true); });
 
   /* "Box, box": escuta contínua, só se a pessoa ligar. Fica ouvindo só com o site aberto e na tela. */
   var espera = null, esperando = false, maosLigado = false;
