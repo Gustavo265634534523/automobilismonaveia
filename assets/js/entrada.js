@@ -1,27 +1,49 @@
-/* Entrada da página inicial: uma tela só, sem prender a rolagem.
-   À esquerda, as categorias em botões (por grupo), com um ponto em quem corre nos próximos 7 dias.
-   À direita, as brigas pelo título mais apertadas (1º x 2º). Embaixo, quem corre nesta semana.
-   Tudo sai de dados.js, então se atualiza sozinho junto com os resultados. */
+/* Entrada da página inicial, estilo revista:
+   1. a manchete principal com foto grande (noticias-gerais.js, a mais recente com "manchete: true");
+   2. ao lado, as últimas notícias com foto;
+   3. faixa com as categorias em foto, por grupo, com um ponto em quem corre nos próximos 7 dias;
+   4. brigas pelo título (campeonatos em aberto, ordenados pela diferença entre 1º e 2º).
+   Tudo sai de dados.js e noticias-gerais.js, então se atualiza sozinho. */
 (function () {
   var sec = document.getElementById('entrada');
   if (!sec || !window.CATEGORIAS) return;
-  var esc = window.esc, CATS = window.CATEGORIAS, GRUPOS = window.GRUPOS || [];
+  var esc = window.esc, CATS = window.CATEGORIAS, GRUPOS = window.GRUPOS || [], PORSLUG = {};
+  CATS.forEach(function (c) { PORSLUG[c.slug] = c; });
   var hoje = window.hojeISO ? window.hojeISO() : new Date().toISOString().slice(0, 10);
   var daqui7 = new Date(Date.parse(hoje + 'T12:00:00') + 7 * 864e5).toISOString().slice(0, 10);
-  function pagina(c) { return c.slug + '.html'; }
   function dataEtapa(e) { var s = (e.s || []).map(function (x) { return x.d; }).sort(); return { ini: s[0] || e.d, fim: e.d || s[s.length - 1] }; }
   function proxima(c) { return c.calendario.filter(function (e) { return !e.venc && e.d && e.d >= hoje; })[0] || null; }
-  function correSemana(c) { var e = proxima(c); if (!e) return null; var d = dataEtapa(e); return d.ini <= daqui7 ? e : null; }
+  function correSemana(c) { var e = proxima(c); if (!e) return null; return dataEtapa(e).ini <= daqui7 ? e : null; }
 
-  /* 1. categorias por grupo */
-  document.getElementById('entrada-cats').innerHTML = GRUPOS.map(function (g) {
-    return '<div class="ent-grupo"><span class="ent-grupo-nome">' + esc(g.nome) + '</span><div class="ent-chips">' +
-      g.cats.map(function (c) {
-        return '<a class="ent-chip" href="' + pagina(c) + '">' + esc(c.menu || c.nome) + (correSemana(c) ? '<i class="ent-ponto" title="Corre nos próximos dias"></i>' : '') + '</a>';
-      }).join('') + '</div></div>';
+  /* 1 e 2. manchete e últimas notícias */
+  var F1_FOTOS = ['assets/img/hero-1-lado-m.webp', 'assets/img/hero-3-frente-m.webp', 'assets/img/cat/f1.jpg', 'assets/img/hero-2-motor-m.webp'], nF1 = 0;
+  function foto(slug) { return slug === 'formula-1' ? F1_FOTOS[nF1++ % F1_FOTOS.length] : (PORSLUG[slug] ? PORSLUG[slug].foto : 'assets/img/cat/f1.jpg'); }
+  function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === -1 ? 'Ontem' : window.dataCurta(d); }
+  var en = window.LANG === 'en';
+  var todas = (window.NOTICIAS_GERAIS || []).filter(function (n) { return PORSLUG[n.cat]; }).slice()
+    .sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
+  var capa = todas.filter(function (n) { return n.manchete; })[0] || todas[0];
+  if (capa) {
+    var c = PORSLUG[capa.cat], t = (en && capa.t_en) || capa.t, x = (en && capa.x_en) || capa.x;
+    var el = document.getElementById('rv-capa');
+    el.href = 'noticias.html';
+    el.innerHTML = '<img src="' + foto(capa.cat) + '" alt="" fetchpriority="high">' +
+      '<span class="rv-capa-txt"><small>' + esc(c.menu || c.nome) + ' · ' + esc(quando(capa.d)) + '</small><b>' + esc(t) + '</b><span>' + esc(x.split(/(?<=\.)\s/)[0]) + '</span></span>';
+  }
+  document.getElementById('rv-lista').innerHTML = todas.filter(function (n) { return n !== capa; }).slice(0, 5).map(function (n) {
+    var c = PORSLUG[n.cat];
+    return '<a class="rv-item" href="' + c.slug + '.html"><img src="' + foto(n.cat) + '" alt="" loading="lazy"><span><small>' + esc(c.menu || c.nome) + ' · ' + esc(quando(n.d)) + '</small><b>' + esc((en && n.t_en) || n.t) + '</b></span></a>';
   }).join('');
 
-  /* 2. brigas pelo título: campeonatos em aberto, ordenados pela diferença entre 1º e 2º */
+  /* 3. categorias em foto, na ordem dos grupos */
+  var ordem = []; GRUPOS.forEach(function (g) { g.cats.forEach(function (c) { ordem.push(c); }); });
+  if (!ordem.length) ordem = CATS;
+  document.getElementById('entrada-cats').innerHTML = ordem.map(function (c) {
+    return '<a class="rv-cat" href="' + c.slug + '.html"><img src="' + c.foto + '" alt="" loading="lazy"><b>' + esc(c.menu || c.nome) + '</b>' +
+      (correSemana(c) ? '<i class="ent-ponto" title="Corre nos próximos dias"></i>' : '') + '</a>';
+  }).join('');
+
+  /* 4. brigas pelo título: campeonatos em aberto, ordenados pela diferença entre 1º e 2º */
   function num(v) { var n = parseFloat(String(v).replace(/\./g, '').replace(',', '.')); return isNaN(n) ? null : n; }
   var brigas = CATS.map(function (c) {
     var l = c.classificacao && c.classificacao.linhas, restam = c.calendario.filter(function (e) { return !e.venc; }).length;
@@ -34,25 +56,9 @@
   function fmt(n) { return n.toLocaleString('pt-BR'); }
   document.getElementById('entrada-brigas').innerHTML = '<p class="ent-rot">Brigas pelo título <span>Ainda em aberto</span></p><div class="ent-brigas">' +
     brigas.map(function (x) {
-      return '<a class="ent-briga" href="' + pagina(x.c) + '#classificacao"><b class="ent-briga-cat">' + esc(x.c.menu || x.c.nome) + '</b>' +
+      return '<a class="ent-briga" href="' + x.c.slug + '.html#classificacao"><b class="ent-briga-cat">' + esc(x.c.menu || x.c.nome) + '</b>' +
         '<span class="ent-linha"><i>1</i><em>' + esc(curto(x.a)) + '</em><strong>' + fmt(x.p1) + '</strong></span>' +
         '<span class="ent-linha"><i>2</i><em>' + esc(curto(x.b)) + '</em><strong>' + fmt(x.p2) + '</strong></span>' +
         '<small><b>' + fmt(x.dif) + ' ' + (x.dif === 1 ? 'ponto' : 'pontos') + ' de diferença</b> · faltam ' + x.restam + ' ' + (x.restam === 1 ? 'etapa' : 'etapas') + '</small></a>';
     }).join('') + '</div>';
-
-  /* 3. correm esta semana */
-  var semana = CATS.map(function (c) { var e = correSemana(c); return e ? { c: c, e: e, d: dataEtapa(e) } : null; })
-    .filter(Boolean).sort(function (x, y) { return x.d.fim < y.d.fim ? -1 : 1; });
-  var MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
-  function dia(iso) { var p = iso.split('-'); return +p[2] + ' ' + MES[+p[1] - 1]; }
-  document.getElementById('entrada-semana').innerHTML = '<div class="ent-semana-cab"><b>Correm esta semana</b><a href="#conteudo">Ver horários →</a></div>' +
-    (semana.length ? '<div class="ent-semana-lista">' + semana.map(function (x) {
-      return '<a class="ent-evento" href="' + pagina(x.c) + '#calendario"><span>' + esc(x.c.menu || x.c.nome) + '</span><b>' + esc(x.e.n) + '</b><small>' + dia(x.d.fim) + ' · ' + esc(x.e.l) + '</small></a>';
-    }).join('') + '</div>' : '<p class="ent-vazio">Nenhuma corrida nos próximos 7 dias.</p>');
-
-  /* fundo: os 3 carros trocam sozinhos, devagar (sem depender da rolagem) */
-  var fotos = [].slice.call(sec.querySelectorAll('.ent-foto')), i = 0;
-  if (fotos.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    setInterval(function () { fotos[i].classList.remove('ativa'); i = (i + 1) % fotos.length; fotos[i].classList.add('ativa'); }, 5000);
-  }
 })();

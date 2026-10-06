@@ -103,3 +103,45 @@
 .ent-box-txt small { font-size: 14px; color: #c3c8cd; line-height: 1.35; }
 .ent-box-seta { font-size: 22px; color: var(--sangue-vivo); }
 @media (prefers-reduced-motion: reduce) { .ent-box-orbe::before { animation: none; } }
+
+/* ===== Entrada estilo revista (2026-10-07) ===== */
+.revista { padding: calc(var(--topo) + 26px) 0 10px; background: var(--breu, #060707); }
+.rv-h1 { margin: 0 0 16px; font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1.2; }
+.rv-h1 span { margin-left: 10px; font-family: var(--texto); font-size: 15px; font-weight: 500; color: var(--aco); }
+.rv-topo { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 24px; }
+.rv-capa { position: relative; display: block; min-height: 460px; overflow: hidden; background: #000; color: #fff; text-decoration: none; }
+.rv-capa img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .78; transition: transform .6s ease, opacity .3s; }
+.rv-capa:hover img { transform: scale(1.03); opacity: .9; }
+.rv-capa-txt { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 8px; padding: 110px 28px 26px; background: linear-gradient(180deg, rgba(6, 7, 7, 0), rgba(6, 7, 7, .92) 55%); }
+.rv-capa-txt small { font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--sangue-vivo); }
+.rv-capa-txt b { font-family: var(--display); font-weight: 400; font-size: clamp(26px, 3.1vw, 42px); line-height: 1.07; }
+.rv-capa-txt > span { font-size: 17px; line-height: 1.45; color: #c3c8cd; }
+.rv-lat h2 { margin: 0 0 6px; font-family: var(--texto); font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--aco); }
+.rv-item { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--linha); color: var(--cromo); text-decoration: none; }
+.rv-item img { width: 104px; height: 66px; object-fit: cover; }
+.rv-item small { display: block; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--sangue-vivo); }
+.rv-item b { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-top: 2px; font-size: 15px; line-height: 1.32; }
+.rv-item:hover b { color: var(--sangue-vivo); }
+.rv-todas { display: inline-block; margin-top: 12px; color: var(--sangue-vivo); font-weight: 700; text-decoration: none; }
+.rv-cats { display: flex; gap: 8px; margin: 22px 0 0; overflow-x: auto; padding-bottom: 6px; scrollbar-width: thin; }
+.rv-cat { position: relative; flex: 0 0 150px; height: 96px; overflow: hidden; background: #000; color: #fff; text-decoration: none; }
+.rv-cat img { width: 100%; height: 100%; object-fit: cover; opacity: .5; transition: opacity .2s; }
+.rv-cat:hover img { opacity: .75; }
+.rv-cat b { position: absolute; left: 10px; bottom: 8px; font-family: var(--display); font-weight: 400; font-size: 16px; text-shadow: 0 2px 8px rgba(0, 0, 0, .8); }
+.rv-cat .ent-ponto { top: 8px; right: 8px; }
+.rv-baixo { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 24px; align-items: start; margin-top: 22px; }
+.rv-baixo .ent-box { margin-top: 0; max-width: none; align-self: start; }
+@media (max-width: 1000px) {
+  .rv-topo, .rv-baixo { grid-template-columns: 1fr; }
+  .rv-capa { min-height: 360px; }
+}
+@media (max-width: 620px) {
+  .revista { padding-top: calc(var(--topo) + 16px); }
+  .rv-h1 span { display: block; margin: 4px 0 0; font-size: 13px; }
+  .rv-capa { min-height: 300px; }
+  .rv-capa-txt { padding: 80px 16px 16px; }
+  .rv-capa-txt > span { font-size: 15px; }
+  .rv-cat { flex-basis: 120px; height: 80px; }
+  .rv-item { grid-template-columns: 88px minmax(0, 1fr); }
+  .rv-item img { width: 88px; height: 58px; }
+}
