@@ -28,7 +28,7 @@
   /* Topo */
   var topo = document.getElementById('topo');
   if (topo) {
-    /* Menu principal com ícones: Início, Notícias e Guia. As categorias ficam na faixa logo abaixo (e na entrada da página inicial). */
+    /* Menu principal com ícones: Início, Notícias, Guia e Categorias (abre o painel com todas). As categorias ficam na faixa logo abaixo (e na entrada da página inicial). */
     var IC = {
       inicio: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h5v-6h3v6h5V10"/>',
       noticias: '<rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M7 9h10M7 12.5h10M7 16h6"/>',
@@ -43,7 +43,8 @@
     var menu = [
       ['inicio', './', 'Início', inicio],
       ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
-      ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)]
+      ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)],
+      ['categorias', '#categorias-menu', 'Categorias', false]
     ].map(function (m) {
       return '<a class="nav-link nav-' + m[0] + '" href="' + m[1] + '"' + (m[3] ? ' aria-current="page"' : '') + '>' + ic(m[0]) + '<span>' + m[2] + '</span></a>';
     }).join('');
