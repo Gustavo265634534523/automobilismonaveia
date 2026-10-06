@@ -67,7 +67,7 @@
     document.getElementById('oa-lista').innerHTML = (window.GRUPOS || []).map(function (g) {
       return '<h2 class="oa-grupo-tit">' + esc(g.nome) + '</h2><div class="oa-grade">' + g.cats.map(function (c) {
         if (!O.cats[c.slug]) return '';
-        return '<article class="oa-card"><a class="oa-foto" href="' + c.slug + '.html"><img src="' + c.foto + '" alt="" loading="lazy"><b>' + esc(c.nome) + '</b></a>' +
+        return '<article class="oa-card"><a class="oa-foto" href="' + c.slug + '.html"><img src="' + c.foto + '" alt="" loading="lazy"><b>' + esc(c.menu || c.nome) + '</b></a>' +
           O.quadro(c.slug, true) + (O.cats[c.slug].nota ? '<p class="oa-nota">' + esc(O.cats[c.slug].nota) + '</p>' : '') + '</article>';
       }).join('') + '</div>';
     }).join('');

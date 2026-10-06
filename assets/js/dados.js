@@ -587,7 +587,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'le-mans', nome: 'Le Mans', menu: 'Le Mans', guia: false,
-  foto: 'assets/img/cat/le-mans.jpg',
+  foto: 'assets/img/cat/le-mans.jpg?v=2',
   frase: 'Um dia inteiro de corrida. Sem parar.',
   intro: 'A corrida mais famosa do mundo dura 24 horas: três pilotos revezam o mesmo carro, de dia, de noite e na neblina da madrugada. Em 2026, a Toyota #7 venceu por apenas 10 segundos depois de 381 voltas.',
   lider: { nome: 'Conway, Kobayashi e De Vries', info: 'Vencedores de 2026, Toyota #7' },
