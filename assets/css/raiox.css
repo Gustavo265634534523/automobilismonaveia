@@ -75,3 +75,5 @@
 .rx-aba[aria-selected="true"] { color: var(--cromo); border-bottom-color: var(--sangue-vivo); }
 .rx-gp { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(24px, 3.2vw, 38px); line-height: 1.1; }
 #rx-p-telemetria > .rx-sub { margin: 0 0 22px; max-width: 900px; }
+.rx-legenda-mgp { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 4px 0; font-size: 14px; color: var(--cromo); }
+.rx-legenda-mgp i { display: inline-block; width: 14px; height: 3px; margin-right: 6px; vertical-align: middle; }

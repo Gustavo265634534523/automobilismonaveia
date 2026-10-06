@@ -1,4 +1,4 @@
-# Depois de cada corrida da F1: gera o Raio-x, atualiza o Duelo de pilotos e a amostra de telemetria da página inicial (dados do OpenF1).
+# Depois de cada corrida: Raio-x e Duelo da F1, amostra de telemetria da página inicial (OpenF1) e Raio-x da MotoGP (resultados oficiais da MotoGP).
 # Roda a cada 30 minutos; só faz algo quando sai resultado novo.
 name: F1 pos-corrida
 on:
@@ -23,6 +23,10 @@ jobs:
         run: node _ferramentas/raiox-automatico.js
       - name: Telemetria da página inicial
         run: node .github/telemetria-amostra.js || true
+      - name: Raio-x da MotoGP
+        run: |
+          command -v pdftotext >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils)
+          node .github/raiox-motogp.js || true
       - name: Salvar no site
         run: |
           git config user.name "Robô Na Veia"

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=206"></script>
-<title>Raio-x F1 | Automobilismo Na Veia</title>
-<meta name="description" content="Raio-x da Fórmula 1: posições volta a volta, pit stops, pneus e telemetria para comparar a volta de dois pilotos.">
+<script src="assets/js/idioma.js?v=208"></script>
+<title>Raio-x F1 e MotoGP | Automobilismo Na Veia</title>
+<meta name="description" content="Raio-x da Fórmula 1 e da MotoGP: posições volta a volta, pneus, tempos de volta e telemetria da F1 para comparar dois pilotos.">
 <link rel="canonical" href="https://automobilismonaveia.com.br/raiox.html">
-<meta property="og:title" content="Raio-x F1 | Automobilismo Na Veia">
+<meta property="og:title" content="Raio-x F1 e MotoGP | Automobilismo Na Veia">
 <meta property="og:description" content="Raio-x da Fórmula 1: posições volta a volta, pit stops, pneus e telemetria para comparar a volta de dois pilotos.">
 <meta property="og:image" content="https://automobilismonaveia.com.br/assets/img/compartilhar.jpg">
 <meta property="og:url" content="https://automobilismonaveia.com.br/raiox.html">
@@ -23,10 +23,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=206">
-<link rel="stylesheet" href="assets/css/raiox.css?v=206">
-<link rel="stylesheet" href="assets/css/telemetria.css?v=206">
-<link rel="stylesheet" href="assets/css/planos.css?v=206">
+<link rel="stylesheet" href="assets/css/estilo.css?v=208">
+<link rel="stylesheet" href="assets/css/raiox.css?v=208">
+<link rel="stylesheet" href="assets/css/telemetria.css?v=208">
+<link rel="stylesheet" href="assets/css/planos.css?v=208">
 </head>
 <body>
 <a class="pular" href="#rx">Pular para o conteúdo</a>
@@ -35,10 +35,11 @@
 <main class="rx-main" id="rx" style="visibility:hidden">
   <div class="moldura">
     <p class="rx-selo">Exclusivo do plano Master, com dados reais</p>
-    <h1 class="rx-titulo">Raio-x F1</h1>
+    <h1 class="rx-titulo">Raio-x</h1>
     <div class="rx-abas" role="tablist" aria-label="Seções do Raio-x">
-      <button type="button" role="tab" class="rx-aba" id="rx-aba-corrida" aria-controls="rx-p-corrida" aria-selected="true">Corrida</button>
-      <button type="button" role="tab" class="rx-aba" id="rx-aba-telemetria" aria-controls="rx-p-telemetria" aria-selected="false">Telemetria</button>
+      <button type="button" role="tab" class="rx-aba" id="rx-aba-corrida" aria-controls="rx-p-corrida" aria-selected="true">F1: Corrida</button>
+      <button type="button" role="tab" class="rx-aba" id="rx-aba-telemetria" aria-controls="rx-p-telemetria" aria-selected="false">F1: Telemetria</button>
+      <button type="button" role="tab" class="rx-aba" id="rx-aba-motogp" aria-controls="rx-p-motogp" aria-selected="false">MotoGP</button>
     </div>
 
     <div id="rx-p-corrida" role="tabpanel" aria-labelledby="rx-aba-corrida">
@@ -89,19 +90,24 @@
     <div id="tl"></div>
     <p class="nota" style="margin-top:24px">Dados do OpenF1, gratuitos e não oficiais. A telemetria chega a cerca de 4 leituras por segundo, então os gráficos mostram a tendência, não cada detalhe.</p>
     </div>
+
+    <div id="rx-p-motogp" role="tabpanel" aria-labelledby="rx-aba-motogp" hidden><div id="rxm"></div>
+    </div>
   </div>
   <div class="rx-dica" id="rx-dica" role="status" aria-live="polite" hidden></div>
 </main>
 
 <footer id="rodape"></footer>
 
-<script src="assets/js/dados.js?v=206"></script>
-<script src="assets/js/site.js?v=206"></script>
-<script src="assets/dados/raiox-f1.js"></script>
-<script src="assets/js/raiox.js?v=206"></script>
-<script src="assets/dados/telemetria-videos.js"></script>
-<script src="assets/js/telemetria-graf.js?v=206"></script>
-<script src="assets/js/telemetria.js?v=206"></script>
+<script src="assets/js/dados.js?v=208"></script>
+<script src="assets/js/site.js?v=208"></script>
+<script src="assets/dados/raiox-f1.js?v=208"></script>
+<script src="assets/js/raiox.js?v=208"></script>
+<script src="assets/dados/telemetria-videos.js?v=208"></script>
+<script src="assets/js/telemetria-graf.js?v=208"></script>
+<script src="assets/dados/raiox-motogp.js?v=208"></script>
+<script src="assets/js/raiox-motogp.js?v=208"></script>
+<script src="assets/js/telemetria.js?v=208"></script>
 <script>
   /* Abas Corrida e Telemetria (raiox.html#telemetria abre direto na telemetria) */
   (function () {
@@ -112,11 +118,11 @@
         b.setAttribute('aria-selected', sim);
         document.getElementById(b.getAttribute('aria-controls')).hidden = !sim;
       });
-      if (guardar) history.replaceState(null, '', id === 'telemetria' ? '#telemetria' : location.pathname);
+      if (guardar) history.replaceState(null, '', id === 'corrida' ? location.pathname : '#' + id);
       if (id === 'telemetria' && window.TL_ABRIR) window.TL_ABRIR();
     }
     abas.forEach(function (b) { b.addEventListener('click', function () { abrir(b.id.slice(7), true); }); });
-    window.RX_ABA_INICIAL = function () { if (location.hash === '#telemetria') abrir('telemetria'); };
+    window.RX_ABA_INICIAL = function () { if (location.hash === '#telemetria') abrir('telemetria'); if (location.hash === '#motogp') abrir('motogp'); };
   })();
 </script>
 <script>
