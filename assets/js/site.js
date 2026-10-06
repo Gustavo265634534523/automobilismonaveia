@@ -197,6 +197,20 @@
   window.NAVEIA_EU = /^https?:/.test(location.protocol)
     ? window.NAVEIA_API('eu').catch(function () { return { ok: false, logado: false, semServidor: true }; })
     : Promise.resolve({ ok: false, logado: false, semServidor: true });
+  /* Convite para criar conta (só para quem não está logado): no fim das notícias e das páginas das categorias e na página inicial */
+  window.NAVEIA_EU.then(function (r) {
+    if (!r || r.logado || r.semServidor || /entrar|conta|redefinir|planos/.test(location.pathname)) return;
+    var volta = encodeURIComponent((location.pathname.split('/').pop() || 'index.html'));
+    var html = '<aside class="convite-conta" aria-label="Crie sua conta grátis"><div class="convite-txt"><b>Crie sua conta grátis</b>' +
+      '<span>Ganhe <em>7 dias do plano Master</em>: telemetria da F1, Raio-x, prévias das etapas, Box e alertas de largada. Sem cartão.</span></div>' +
+      '<a class="convite-bt" href="entrar.html?volta=' + volta + '#criar">Criar conta grátis</a></aside>';
+    function colocar(alvo, onde) { if (alvo) alvo.insertAdjacentHTML(onde, '<div class="moldura convite-vaga">' + html + '</div>'); }
+    if (document.body.getAttribute('data-cat')) colocar(document.getElementById('paineis'), 'afterend');
+    else if (document.getElementById('feed')) { var f = document.getElementById('feed'); f.insertAdjacentHTML('beforeend', html); }
+    else if (document.querySelector('.box-faixa')) colocar(document.querySelector('.box-faixa'), 'afterend');
+    else if (document.getElementById('oa')) colocar(document.querySelector('#oa .moldura'), 'beforeend');
+  });
+
   window.NAVEIA_EU.then(function (r) {
     var l = document.getElementById('conta-link');
     if (!l) return;
@@ -227,12 +241,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol)) {
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=214'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=214'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=214'; appJs.defer = true; document.body.appendChild(appJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=215'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=215'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=215'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=214'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=214'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=215'; document.head.appendChild(boxCss);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=215'; boxJs.defer = true; document.body.appendChild(boxJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

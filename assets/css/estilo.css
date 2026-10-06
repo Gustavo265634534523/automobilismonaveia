@@ -876,3 +876,14 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 @media (max-width: 620px) { #manchetes:empty { min-height: 1527px; } }
 #nt-atualizado:empty { min-height: 27px; }
 #oa-lista:empty, .rx-main { min-height: 100vh; }
+
+/* Convite para criar conta (visitante sem conta) */
+.convite-vaga { margin-top: 10px; margin-bottom: 40px; }
+.convite-conta { display: flex; align-items: center; justify-content: space-between; gap: 18px 28px; flex-wrap: wrap; margin-top: 30px; padding: 22px 24px; background: radial-gradient(ellipse at 0% 50%, rgba(227, 52, 60, .22), var(--carbono) 60%); border: 1px solid rgba(227, 52, 60, .5); box-shadow: inset 4px 0 0 var(--sangue-vivo); }
+.convite-txt { flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px; }
+.convite-txt b { font-family: var(--display); font-weight: 400; font-size: clamp(22px, 2.4vw, 28px); }
+.convite-txt span { font-size: 16px; line-height: 1.45; color: #c3c8cd; }
+.convite-txt em { font-style: normal; color: #fff; font-weight: 700; }
+.convite-bt { flex: 0 0 auto; padding: 14px 22px; background: var(--sangue); color: #fff; font-weight: 800; font-size: 16px; text-decoration: none; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--corte)), calc(100% - var(--corte)) 100%, 0 100%); }
+.convite-bt:hover { background: var(--sangue-vivo); }
+@media (max-width: 620px) { .convite-bt { width: 100%; text-align: center; } }
