@@ -10,7 +10,8 @@
     if (e) gp = e.n;
   }
   var p = A.pilotos;
-  document.getElementById('tl-sessao').innerHTML = 'Classificação do <b>' + window.esc(gp) + '</b>: a volta da pole, de <b>' + window.esc(p[0].nome) + '</b>, contra a de <b>' + window.esc(p[1].nome) + '</b>.';
+  var dif = Math.abs(A.r.tempoB - A.r.tempoA).toFixed(3).replace('.', ',');
+  document.getElementById('tl-sessao').innerHTML = 'Classificação do <b>' + window.esc(gp) + '</b>: <b>' + window.esc(p[0].nome) + '</b>, pole position, contra <b>' + window.esc(p[1].nome) + '</b>, 2º colocado, ' + dif + 's atrás.';
   window.TELEMETRIA.video(document.getElementById('tl-video'), A.sessao);
   window.TELEMETRIA.desenhar(caixa, A.r, { nomes: [p[0].sigla, p[1].sigla], paineis: ['v', 'delta'] });
 })();
