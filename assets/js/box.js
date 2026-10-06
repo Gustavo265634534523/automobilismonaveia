@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=209'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=211'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -612,8 +612,7 @@
       if (!saudou) {
         saudou = true;
         var nome = String(u.nome || '').trim().split(/\s+/)[0];
-        var trat = u.tratamento === 'senhor' ? 'senhor ' : u.tratamento === 'senhora' ? 'senhora ' : '';
-        var oi = saudacao() + (nome ? ', ' + trat + nome : '') + '! Sou o Box. Em que posso ajudar?';
+        var oi = saudacao() + (nome ? ', ' + nome : '') + '! Sou o Box. Em que posso ajudar?';
         perguntaEl.textContent = ''; respEl.innerHTML = '<p>' + esc(oi) + '</p>'; sug.hidden = false;
         estado('parado', '');
         falar(oi, function () { if (jaOuvir && (rec || GRAVA) && !tela.hidden) ouvir(); else estado('parado', Rec ? 'Toque no microfone e pergunte' : 'Digite sua pergunta'); });

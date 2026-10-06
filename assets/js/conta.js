@@ -80,7 +80,7 @@
 
   /* ---------- Minha conta ---------- */
   function montarConta(u, modoTeste) {
-    /* Perfil: nome, e-mail, membro desde, piloto e equipe favoritos */
+    /* Perfil: nome, e-mail, membro desde e piloto favorito */
     var MESES_L = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
     function desenharPerfil(u) {
       var desde = u.desde ? new Date(u.desde.replace(' ', 'T') + 'Z') : null;
@@ -89,26 +89,23 @@
         '<div><dt>Nome</dt><dd>' + esc(u.nome) + '</dd></div>' +
         '<div><dt>E-mail da conta</dt><dd>' + esc(u.email) + '</dd></div>' +
         (desde ? '<div><dt>Membro desde</dt><dd>' + MESES_L[desde.getMonth()] + ' de ' + desde.getFullYear() + '</dd></div>' : '') +
-        '<div><dt>Como o Box chama você</dt><dd>' + (u.tratamento === 'senhor' ? 'Senhor ' : u.tratamento === 'senhora' ? 'Senhora ' : '') + esc(u.nome.split(' ')[0]) + '</dd></div>' +
-        '<div><dt>Piloto favorito</dt><dd>' + (u.piloto ? esc(u.piloto) : '<span class="ct-vazio-txt">Não escolhido</span>') + '</dd></div>' +
-        '<div><dt>Equipe favorita</dt><dd>' + (u.equipe ? esc(u.equipe) : '<span class="ct-vazio-txt">Não escolhida</span>') + '</dd></div>';
+        '<div><dt>Piloto favorito</dt><dd>' + (u.piloto ? esc(u.piloto) : '<span class="ct-vazio-txt">Não escolhido</span>') + '</dd></div>';
     }
     desenharPerfil(u);
     /* listas de sugestão: todos os pilotos e equipes das categorias do site */
     var pilotos = {}, equipes = {};
     CATS.forEach(function (c) { (c.equipes || []).forEach(function (e) { equipes[e.n] = 1; (e.p || []).forEach(function (p) { pilotos[p] = 1; }); }); });
     document.getElementById('ct-lista-pilotos').innerHTML = Object.keys(pilotos).sort().map(function (p) { return '<option value="' + esc(p) + '">'; }).join('');
-    document.getElementById('ct-lista-equipes').innerHTML = Object.keys(equipes).sort().map(function (p) { return '<option value="' + esc(p) + '">'; }).join('');
     var fPerfil = document.getElementById('f-perfil'), btEditar = document.getElementById('ct-editar');
     btEditar.addEventListener('click', function () {
-      fPerfil.nome.value = u.nome; fPerfil.tratamento.value = u.tratamento || ''; fPerfil.piloto.value = u.piloto || ''; fPerfil.equipe.value = u.equipe || '';
+      fPerfil.nome.value = u.nome; fPerfil.piloto.value = u.piloto || '';
       fPerfil.hidden = false; btEditar.hidden = true; fPerfil.nome.focus();
     });
     document.getElementById('ct-editar-cancelar').addEventListener('click', function () { fPerfil.hidden = true; btEditar.hidden = false; });
     fPerfil.addEventListener('submit', function (ev) {
       ev.preventDefault();
       var erro = fPerfil.querySelector('.ct-erro'); erro.hidden = true;
-      API('perfil', { nome: fPerfil.nome.value, tratamento: fPerfil.tratamento.value, piloto: fPerfil.piloto.value, equipe: fPerfil.equipe.value }).then(function (r) {
+      API('perfil', { nome: fPerfil.nome.value, piloto: fPerfil.piloto.value }).then(function (r) {
         if (!r.ok) { erro.textContent = r.erro; erro.hidden = false; return; }
         u = r.usuario; desenharPerfil(u); desenharFoto(u); fPerfil.hidden = true; btEditar.hidden = false;
       }).catch(function () { erro.textContent = 'Não foi possível salvar. Tente de novo.'; erro.hidden = false; });
