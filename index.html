@@ -23,10 +23,11 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=Michroma&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/hero-1-lado.webp" imagesrcset="assets/img/hero-1-lado-m.webp 1200w, assets/img/hero-1-lado.webp 2400w" imagesizes="100vw">
 <link rel="stylesheet" href="assets/css/estilo.css">
 <link rel="stylesheet" href="assets/css/planos.css">
+<link rel="stylesheet" href="assets/css/entrada.css">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -37,51 +38,22 @@
 </svg>
 
 <main>
-  <section class="abertura" id="abertura" aria-label="Abertura">
-    <div class="palco">
-      <div class="titulo-vazado" aria-hidden="true">
-        <svg viewBox="0 0 1200 190"><text x="600" y="162" text-anchor="middle" textLength="1170" lengthAdjust="spacingAndGlyphs">NA VEIA</text></svg>
-      </div>
-
-      <div class="carros">
-        <img class="carro carro-1" src="assets/img/hero-1-lado.webp" srcset="assets/img/hero-1-lado-m.webp 1200w, assets/img/hero-1-lado.webp 2400w" sizes="100vw" alt="Carro de fórmula grafite com filetes vermelhos, de lado, num estúdio escuro com piso espelhado" fetchpriority="high">
-        <img class="carro carro-2" src="assets/img/hero-2-motor.webp" srcset="assets/img/hero-2-motor-m.webp 1200w, assets/img/hero-2-motor.webp 2400w" sizes="100vw" alt="O mesmo carro sem a carenagem, com motor, turbo e escapamentos à mostra" loading="lazy">
-        <img class="carro carro-3" src="assets/img/hero-3-frente.webp" srcset="assets/img/hero-3-frente-m.webp 1200w, assets/img/hero-3-frente.webp 2400w" sizes="100vw" alt="Vista baixa da frente do carro, com o pneu dianteiro e a asa em primeiro plano" loading="lazy">
-      </div>
-
-      <div class="chamada"><div class="chamada-in">
-        <h1>Automobilismo Na Veia.</h1>
-        <p>Mais que velocidade, uma experiência movida pela paixão.</p>
-      </div></div>
-
-      <div class="legendas" aria-hidden="true">
-        <div class="legenda legenda-dir" data-de=".2" data-ate=".46">
-          <h2>Por baixo da carenagem, o motor espera o sinal verde.</h2>
-          <p>Titânio aquecido, óleo a 130 graus e mil cavalos presos atrás do cockpit.</p>
-        </div>
-        <div class="legenda legenda-topo" data-de=".6" data-ate="2">
-          <h2>O piloto encontra o limite.</h2>
-          <p>Doze categorias, do asfalto de Mônaco à terra vermelha de Darwin.</p>
-        </div>
-      </div>
-
-      <div class="mostradores" aria-hidden="true">
-        <div class="mostrador" id="m-vel">
-          <svg viewBox="0 0 116 116"><circle class="aro" cx="58" cy="58" r="56"/><circle class="trilho" cx="58" cy="58" r="50"/><circle class="ponteiro" cx="58" cy="58" r="50"/></svg>
-          <div class="mostrador-num"><b>0</b><span>km/h</span></div>
-        </div>
-        <div class="setores">
-          <div class="setor"><div class="setor-barra"><i></i></div><span>Setor 1</span></div>
-          <div class="setor"><div class="setor-barra"><i></i></div><span>Setor 2</span></div>
-          <div class="setor"><div class="setor-barra"><i></i></div><span>Setor 3</span></div>
-        </div>
-        <div class="mostrador" id="m-rpm">
-          <svg viewBox="0 0 116 116"><circle class="aro" cx="58" cy="58" r="56"/><circle class="trilho" cx="58" cy="58" r="50"/><circle class="ponteiro" cx="58" cy="58" r="50"/></svg>
-          <div class="mostrador-num"><b>4,0</b><span>mil rpm</span></div>
-        </div>
-      </div>
-      <div class="rolar" aria-hidden="true"></div>
+  <section class="entrada" id="entrada" aria-labelledby="entrada-titulo">
+    <div class="ent-fundo" aria-hidden="true">
+      <img class="ent-foto ativa" src="assets/img/hero-1-lado.webp" srcset="assets/img/hero-1-lado-m.webp 1200w, assets/img/hero-1-lado.webp 2400w" sizes="100vw" alt="" fetchpriority="high">
+      <img class="ent-foto" src="assets/img/hero-2-motor-m.webp" alt="" loading="lazy">
+      <img class="ent-foto" src="assets/img/hero-3-frente-m.webp" alt="" loading="lazy">
     </div>
+    <div class="moldura entrada-in">
+      <div class="entrada-esq">
+        <h1 id="entrada-titulo">Automobilismo Na Veia.</h1>
+        <p class="ent-sub">Escolha uma categoria para ver notícias, resultados, classificação e calendário.</p>
+        <div id="entrada-cats"></div>
+        <p class="ent-legenda"><i aria-hidden="true"></i>Corre nos próximos dias</p>
+      </div>
+      <aside class="entrada-dir" id="entrada-brigas" aria-label="Brigas pelo título"></aside>
+    </div>
+    <div class="moldura entrada-semana" id="entrada-semana"></div>
   </section>
 
   <section class="secao agenda" id="conteudo">
@@ -171,6 +143,7 @@
 <script src="assets/js/site.js"></script>
 <script src="assets/js/assinar.js"></script>
 <script src="assets/js/inicio.js"></script>
+<script src="assets/js/entrada.js"></script>
 <script src="assets/js/simulador.js"></script>
 </body>
 </html>

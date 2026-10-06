@@ -26,7 +26,7 @@
   /* Topo */
   var topo = document.getElementById('topo');
   if (topo) {
-    /* Menu principal com ícones: Início, Notícias, Guia e Categorias */
+    /* Menu principal com ícones: Início, Notícias e Guia. As 12 categorias ficam na faixa logo abaixo (e na entrada da página inicial). */
     var IC = {
       inicio: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h5v-6h3v6h5V10"/>',
       noticias: '<rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M7 9h10M7 12.5h10M7 16h6"/>',
@@ -41,8 +41,7 @@
     var menu = [
       ['inicio', './', 'Início', inicio],
       ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
-      ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)],
-      ['categorias', '#categorias-menu', 'Categorias', !!atual]
+      ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)]
     ].map(function (m) {
       return '<a class="nav-link nav-' + m[0] + '" href="' + m[1] + '"' + (m[3] ? ' aria-current="page"' : '') + '>' + ic(m[0]) + '<span>' + m[2] + '</span></a>';
     }).join('');
@@ -83,6 +82,24 @@
         '<div class="painel-planos-acoes"><a class="botao" href="planos.html">Ver os planos</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
       '</section></div>';
     topo.after(painel);
+
+    /* Faixa fina com as 12 categorias, logo abaixo do menu (menos na página inicial, que já mostra as categorias na entrada).
+       No celular ela desliza para o lado. Ponto vermelho = corre nos próximos 7 dias. */
+    if (!inicio) {
+      var h7 = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10), hj = new Date().toISOString().slice(0, 10);
+      var ordemCats = ['formula-1', 'motogp', 'stock-car', 'formula-2', 'formula-3', 'formula-e', 'indycar', 'nascar', 'porsche-cup', 'endurance', 'rally', 'motocross'];
+      var faixa = document.createElement('nav');
+      faixa.className = 'faixa-cats'; faixa.setAttribute('aria-label', 'Categorias');
+      faixa.innerHTML = '<div class="moldura faixa-cats-in">' + ordemCats.map(function (slug) {
+        var c = PORSLUG[slug]; if (!c) return '';
+        var prox = c.calendario.filter(function (e) { return !e.venc && e.d && e.d >= hj; })[0];
+        var corre = prox && ((prox.s && prox.s[0] && prox.s[0].d) || prox.d) <= h7;
+        return '<a class="faixa-cat" href="' + pagina(c) + '"' + (c.slug === atual ? ' aria-current="page"' : '') + '>' + esc(c.menu || c.nome) + (corre ? '<i aria-hidden="true"></i>' : '') + '</a>';
+      }).join('') + '</div>';
+      topo.querySelector('.topo-in').after(faixa);
+      document.documentElement.classList.add('com-cats');
+      var ativo = faixa.querySelector('[aria-current]'); if (ativo) faixa.querySelector('.faixa-cats-in').scrollLeft = ativo.offsetLeft - 16;
+    }
 
     /* Faixa de anúncio dos planos (some na página de planos e fica fechada por 7 dias quando a pessoa fecha) */
     var fechadoEm = 0;

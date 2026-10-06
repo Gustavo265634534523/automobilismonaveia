@@ -1,0 +1,59 @@
+/* Entrada da página inicial (uma tela, sem prender a rolagem) */
+.entrada { position: relative; overflow: hidden; padding: calc(var(--topo) + 44px) 0 0; background: var(--breu, #060707); }
+.ent-fundo { position: absolute; inset: 0; z-index: 0; }
+.ent-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 60% 50%; opacity: 0; transition: opacity 1.6s ease; }
+.ent-foto.ativa { opacity: .5; }
+.ent-fundo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6, 7, 7, .97) 0%, rgba(6, 7, 7, .82) 45%, rgba(6, 7, 7, .55) 100%), linear-gradient(180deg, rgba(6, 7, 7, 0) 60%, #060707 100%); }
+
+.entrada-in { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: 48px; align-items: start; }
+.entrada h1 { margin: 0 0 10px; font-family: var(--display); font-weight: 400; font-size: clamp(34px, 4.4vw, 62px); line-height: 1.05; }
+.ent-sub { margin: 0 0 28px; font-size: 18px; color: #c3c8cd; }
+
+.ent-grupo { display: grid; grid-template-columns: 170px minmax(0, 1fr); align-items: center; gap: 14px; padding: 10px 0; }
+.ent-grupo + .ent-grupo { border-top: 1px solid rgba(255, 255, 255, .06); }
+.ent-grupo-nome { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--aco); }
+.ent-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.ent-chip { position: relative; display: inline-flex; align-items: center; height: 40px; padding: 0 16px; background: rgba(28, 32, 37, .85); border: 1px solid var(--linha); color: var(--cromo); text-decoration: none; font-weight: 700; font-size: 15px; letter-spacing: .02em; transition: border-color .2s, background .2s; }
+.ent-chip:hover { border-color: var(--sangue-vivo); background: rgba(227, 52, 60, .14); }
+.ent-ponto { position: absolute; top: -4px; right: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--sangue-vivo); box-shadow: 0 0 0 2px #060707; }
+.ent-legenda { display: flex; align-items: center; gap: 8px; margin: 14px 0 0; font-size: 14px; color: var(--aco); }
+.ent-legenda i { width: 9px; height: 9px; border-radius: 50%; background: var(--sangue-vivo); }
+
+.entrada-dir { padding: 18px; background: rgba(20, 22, 25, .88); border: 1px solid var(--linha); box-shadow: inset 0 3px 0 var(--sangue-vivo); }
+.ent-rot { display: flex; justify-content: space-between; align-items: baseline; margin: 0 0 14px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--sangue-vivo); }
+.ent-rot span { font-size: 13px; letter-spacing: .02em; text-transform: none; color: var(--aco); font-weight: 600; }
+.ent-brigas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ent-briga { display: flex; flex-direction: column; gap: 6px; padding: 12px 12px 10px; background: var(--carbono); border: 1px solid transparent; text-decoration: none; color: var(--cromo); transition: border-color .2s; }
+.ent-briga:hover { border-color: var(--linha); }
+.ent-briga-cat { font-size: 13px; letter-spacing: .1em; text-transform: uppercase; }
+.ent-linha { display: grid; grid-template-columns: 16px minmax(0, 1fr) auto; gap: 8px; align-items: baseline; font-size: 16px; }
+.ent-linha i { font-style: normal; color: var(--aco); font-size: 14px; }
+.ent-linha em { font-style: normal; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ent-linha strong { font-family: var(--display); font-weight: 400; font-size: 15px; }
+.ent-briga small { margin-top: 4px; font-size: 13px; color: var(--aco); }
+.ent-briga small b { color: var(--cromo); }
+
+.entrada-semana { position: relative; z-index: 1; margin-top: 36px; padding-top: 18px; padding-bottom: 34px; border-top: 1px solid rgba(255, 255, 255, .08); }
+.ent-semana-cab { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+.ent-semana-cab b { font-family: var(--display); font-weight: 400; font-size: 18px; }
+.ent-semana-cab a { color: var(--sangue-vivo); font-weight: 700; text-decoration: none; }
+.ent-semana-lista { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; scrollbar-width: thin; }
+.ent-evento { flex: 0 0 auto; min-width: 210px; display: flex; flex-direction: column; gap: 2px; padding: 12px 14px; background: rgba(28, 32, 37, .85); border-left: 3px solid var(--sangue-vivo); text-decoration: none; color: var(--cromo); }
+.ent-evento span { font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--sangue-vivo); }
+.ent-evento b { font-size: 16px; }
+.ent-evento small { font-size: 13px; color: var(--aco); }
+.ent-vazio { margin: 0; color: var(--aco); }
+
+@media (max-width: 1000px) {
+  .entrada-in { grid-template-columns: 1fr; gap: 26px; }
+}
+@media (max-width: 620px) {
+  .entrada { padding-top: calc(var(--topo) + 26px); }
+  .ent-sub { font-size: 16px; margin-bottom: 18px; }
+  .ent-grupo { grid-template-columns: 1fr; gap: 8px; }
+  .ent-chip { height: 36px; padding: 0 12px; font-size: 14px; }
+  .ent-brigas { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .ent-briga { padding: 10px 9px 8px; }
+  .ent-linha { font-size: 14px; }
+  .ent-briga small { font-size: 12px; }
+}

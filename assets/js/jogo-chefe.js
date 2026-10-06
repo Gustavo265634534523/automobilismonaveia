@@ -1499,7 +1499,7 @@
       ctx.restore();
       var box = [q[0] + n[0] * (lp + 10), q[1] + n[1] * (lp + 10)];
       ctx.fillStyle = 'rgba(227,52,60,.15)'; ctx.fillRect(box[0] - 14, box[1] - 7, 28, 14);
-      ctx.fillStyle = '#e3343c'; ctx.font = '700 9px Barlow Semi Condensed, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('BOX', box[0], box[1] + 3);
+      ctx.fillStyle = '#e3343c'; ctx.font = '700 9px Inter, sans-serif'; ctx.textAlign = 'center'; ctx.fillText('BOX', box[0], box[1] + 3);
       /* carros (de trás para frente, o seu por último) */
       var ord = ordem(), lista = ord.slice().reverse();
       lista.sort(function (a, b) { return a.jog - b.jog; });
