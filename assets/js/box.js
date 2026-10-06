@@ -2,7 +2,7 @@
    A pessoa fala (ou digita) e o Box responde em texto e em voz, com os dados do próprio site:
    horário das sessões, previsão do tempo na pista (Open-Meteo), líder e classificação, último vencedor
    e colocar uma categoria ou uma corrida na agenda do celular (planos Médio e Master).
-   Voz: reconhecimento e leitura do próprio navegador (grátis). Sem IA por enquanto: entende por palavras-chave. */
+   Voz: natural (Azure, ação box_voz) para quem tem conta; senão, a do próprio navegador. Perguntas livres vão para a IA (ação box_ia). */
 (function () {
   var CATS = window.CATEGORIAS || [];
   if (!CATS.length || document.getElementById('box-bt')) return;
@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=199'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=200'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -211,7 +211,40 @@
     var nots = (window.NOTICIAS_GERAIS || []).slice(0, 8).map(function (n) { return '- ' + n.t; });
     return linhas.join('\n') + (nots.length ? '\nManchetes recentes:\n' + nots.join('\n') : '');
   }
+  /* Corrige nomes de pilotos escritos errado (o reconhecimento de voz erra muito sobrenome): compara cada palavra
+     com os sobrenomes dos pilotos do site e troca pela grafia certa quando a diferença é de 1 ou 2 letras. */
+  var SOBRENOMES = null;
+  function sobrenomes() {
+    if (SOBRENOMES) return SOBRENOMES;
+    var vistos = {};
+    CATS.forEach(function (c) {
+      var nomes = [];
+      (c.equipes || []).forEach(function (e) { nomes = nomes.concat(e.p || []); });
+      ((c.classificacao && c.classificacao.linhas) || []).forEach(function (l) { nomes.push(l[1]); });
+      nomes.forEach(function (n) { String(n).split(/[\s,]+/).forEach(function (w) { if (w.length >= 5 && /^[A-ZÀ-Ý]/.test(w)) vistos[w] = 1; }); });
+    });
+    SOBRENOMES = Object.keys(vistos);
+    return SOBRENOMES;
+  }
+  function distancia(a, b) {
+    var m = a.length, n = b.length, d = [], i, j;
+    for (i = 0; i <= m; i++) { d[i] = [i]; }
+    for (j = 1; j <= n; j++) d[0][j] = j;
+    for (i = 1; i <= m; i++) for (j = 1; j <= n; j++) d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+    return d[m][n];
+  }
+  var COMUNS = {}; 'quantos quantas quando corrida corridas campeao campeoes piloto pilotos equipe equipes temporada primeiro segundo terceiro ganhou venceu titulos titulo classificacao proxima proximo musica carro carros horas sobre agora ainda depois antes hoje amanha ontem melhor maior menor mundial brasil brasileiro largada vitoria vitorias pontos lider lidera tempo chuva chover onde assistir canal agenda coloca falar fale conhece conheceu nasceu morreu historia curiosidade quanto quais quantos porque gosta torcida cantam cantar canta noticias noticia'.split(' ').forEach(function (w) { COMUNS[w] = 1; });
+  function corrigirNomes(texto) {
+    var lista = sobrenomes();
+    return texto.replace(/[A-Za-zÀ-ÿ]{5,}/g, function (w) {
+      var nw = norm(w), melhor = null, md = 3;
+      if (COMUNS[nw]) return w;
+      lista.forEach(function (s) { var d = distancia(nw, norm(s)); if (d < md && d <= (nw.length >= 8 ? 2 : 1)) { md = d; melhor = s; } });
+      return melhor && md > 0 ? melhor : w;
+    });
+  }
   function perguntarIA(texto) {
+    texto = corrigirNomes(texto);
     if (!window.NAVEIA_API) return Promise.resolve({ t: 'Ainda não sei responder isso. ' + AJUDA });
     return window.NAVEIA_API('box_ia', { pergunta: texto, contexto: contextoSite(), historico: historico.slice(-4) }).then(function (r) {
       if (!r || !r.ok || !r.texto) return { t: (r && r.erro) || 'Não consegui responder agora. ' + AJUDA };
