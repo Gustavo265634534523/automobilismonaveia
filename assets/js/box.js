@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=196'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=197'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -194,6 +194,25 @@
       if (d.nota) txt += ' ' + d.nota;
       return { t: txt, link: [c.slug + '.html#onde-assistir', 'Ver os canais'] };
     });
+  }
+
+  /* Perguntas livres: vão para a IA do servidor (ação box_ia), junto com os dados atuais do site,
+     para a resposta usar líderes e próximas corridas certos. Guarda as últimas trocas para entender "e ele?". */
+  var historico = [];
+  function contextoSite() {
+    return CATS.map(function (c) {
+      var e = proxima(c), s2 = e && sessao(e, '');
+      return (c.menu && c.menu !== c.nome ? c.nome + ' (' + c.menu + ')' : c.nome) + ': líder ' + c.lider.nome + ' (' + c.lider.info + ')' +
+        (e ? '; próxima: ' + e.n + ' em ' + (e.l || '') + ', ' + e.d + (s2 ? ' às ' + s2.h + ' de Brasília' : '') : '; sem próxima etapa marcada');
+    }).join('\n');
+  }
+  function perguntarIA(texto) {
+    if (!window.NAVEIA_API) return Promise.resolve({ t: 'Ainda não sei responder isso. ' + AJUDA });
+    return window.NAVEIA_API('box_ia', { pergunta: texto, contexto: contextoSite(), historico: historico.slice(-4) }).then(function (r) {
+      if (!r || !r.ok || !r.texto) return { t: (r && r.erro) || 'Não consegui responder agora. ' + AJUDA };
+      historico.push({ r: 'user', t: texto }, { r: 'assistant', t: r.texto });
+      return { t: r.texto };
+    }).catch(function () { return { t: 'Não consegui falar com o servidor agora. Tente de novo daqui a pouco.' }; });
   }
 
   var AJUDA = 'Pergunte, por exemplo: "que horas é a corrida da Fórmula 1?", "onde passa a MotoGP?", "vai chover em Singapura?", "quem lidera a MotoGP?" ou "coloca a Porsche Cup na minha agenda".';
@@ -231,7 +250,7 @@
       var r1 = rHorario(c, e, q), r2 = rLider(c);
       return Promise.resolve({ t: r1.t + ' ' + r2.t, link: r1.link });
     }
-    return Promise.resolve({ t: 'Ainda não sei responder isso. ' + AJUDA });
+    return perguntarIA(texto);
   }
 
   /* ---------- tela cheia com a esfera vermelha ---------- */
@@ -343,7 +362,7 @@
     var vz = vozBox(); if (vz) u.voice = vz;
     /* velocidade por tipo de voz: as vozes naturais do Edge aceleram pouco; as do celular e do Chrome aceleram muito */
     var celular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    u.rate = vz && /Natural|Online|Neural/i.test(vz.name) ? 1.6 : celular ? 1.05 : 1.2;
+    u.rate = celular ? 1 : vz && /Natural|Online|Neural/i.test(vz.name) ? 1.6 : 1.2;
     u.onstart = function () { estado('falando'); };
     try { speechSynthesis.resume(); } catch (e) {}
     u.onend = u.onerror = function () { if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
