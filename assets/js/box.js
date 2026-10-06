@@ -174,7 +174,29 @@
     return [['Assinar no celular', webcal], ['Google Agenda', 'https://calendar.google.com/calendar/r?cid=' + encodeURIComponent(webcal)]];
   }
 
-  var AJUDA = 'Pergunte, por exemplo: "que horas é a corrida da Fórmula 1?", "vai chover em Singapura?", "quem lidera a MotoGP?" ou "coloca a Porsche Cup na minha agenda".';
+  /* onde assistir (assets/js/onde-assistir-dados.js, carregado quando precisa) */
+  var oaPromessa = null;
+  function dadosOA() {
+    if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    return oaPromessa;
+  }
+  function rOndeAssistir(c, e, q) {
+    return dadosOA().then(function (O) {
+      var d = O && O.cats[c.slug];
+      if (!d) return { t: 'Ainda não tenho os canais ' + de(c) + '.', link: ['onde-assistir.html', 'Ver onde assistir'] };
+      var TP = { aberta: '(TV aberta)', paga: '(TV por assinatura)', stream: '(streaming)', gratis: '(grátis na internet)' }, grupos = {};
+      d.canais.forEach(function (x) { (grupos[x[1]] = grupos[x[1]] || []).push(x[0]); });
+      var partes = ['aberta', 'paga', 'stream', 'gratis'].filter(function (k) { return grupos[k]; }).map(function (k) { return grupos[k].join(' e ') + ' ' + TP[k]; });
+      var txt = 'Onde assistir ' + (c.menu && c.menu !== c.nome ? c.menu : c.nome) + ': ' + partes.join('; ') + '.';
+      var s = e && sessao(e, q);
+      if (s) txt += ' A próxima ' + (/Corrida|Principal|Race/.test(s.t) ? 'corrida' : s.t.toLowerCase()) + ' é ' + quandoTxt(s.d) + ', ' + horaTxt(s.h) + '.';
+      if (d.nota) txt += ' ' + d.nota;
+      return { t: txt, link: [c.slug + '.html#onde-assistir', 'Ver os canais'] };
+    });
+  }
+
+  var AJUDA = 'Pergunte, por exemplo: "que horas é a corrida da Fórmula 1?", "onde passa a MotoGP?", "vai chover em Singapura?", "quem lidera a MotoGP?" ou "coloca a Porsche Cup na minha agenda".';
   function responder(texto) {
     var q = norm(texto), c = acharCat(q), ev = acharEtapa(q, c);
     if (!c && ev) c = ev.c;
@@ -184,6 +206,10 @@
       if (!c) return Promise.resolve({ t: 'Qual categoria você quer na agenda? Diga, por exemplo: "coloca a Stock Car na minha agenda".' });
       var unica = etapaDita || (/(proxima|corrida|etapa|gp)/.test(q) && !/(todas|inteira|temporada|campeonato)/.test(q));
       return rAgenda(c, e, q, unica);
+    }
+    if (/(onde (assistir|assisto|passa|vai passar|ver|vejo|transmite)|qual canal|que canal|em que canal|passa na|passa no|transmissao|transmite|qual emissora)/.test(q)) {
+      if (!c) return Promise.resolve({ t: 'De qual categoria? Diga, por exemplo: "onde passa a Stock Car?". Ou veja todas na página Onde assistir.', link: ['onde-assistir.html', 'Ver onde assistir'] });
+      return rOndeAssistir(c, e, q);
     }
     if (/(temperatura|clima|chuva|chover|chove|calor|frio|previsao|tempo vai|vai fazer|graus)/.test(q)) {
       if (!c) return Promise.resolve({ t: 'De qual corrida você quer a previsão? Diga, por exemplo: "vai chover no GP de Singapura?".' });

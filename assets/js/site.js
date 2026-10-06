@@ -36,6 +36,7 @@
       categorias: '<rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/>',
       jogos: '<path d="M7 8h10a4 4 0 0 1 4 4v1.5a3.5 3.5 0 0 1-6.3 2.1L13.5 14h-3l-1.2 1.6A3.5 3.5 0 0 1 3 13.5V12a4 4 0 0 1 4-4z"/><path d="M8 10.5v3M6.5 12h3M16 11.5h.01M17.5 13h.01"/>',
       chat: '<path d="M4 5h16v11H9l-5 4z"/>',
+      tv: '<rect x="3" y="5" width="18" height="12" rx="1.5"/><path d="M8 21h8M12 17v4"/>',
       box: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/>',
       guia: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5"/>'
     };
@@ -45,6 +46,7 @@
       ['inicio', './', 'Início', inicio],
       ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
       ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)],
+      ['tv', 'onde-assistir.html', 'Onde assistir', /onde-assistir/.test(location.pathname)],
       ['categorias', '#categorias-menu', 'Categorias', false],
       ['box', '#box', 'Box', false]
     ].map(function (m) {
@@ -228,7 +230,7 @@
     var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
     var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=5'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=4'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=7'; boxJs.defer = true; document.body.appendChild(boxJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -295,7 +297,7 @@
         var cats = [].concat.apply([], GRUPOS.filter(function (g) { return col[1].indexOf(g.nome) > -1; }).map(function (g) { return g.cats; }));
         return coluna(col[0], cats.map(function (c) { return li(pagina(c), esc(c.nome)); }));
       }).join('') +
-      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
+      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +
         '<span class="rodape-responsavel">Responsável: Gustavo Teixeira · Estrada Doutor Manoel Reis, Rio de Janeiro, Brasil</span></div></div>';

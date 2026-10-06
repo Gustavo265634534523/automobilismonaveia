@@ -17,6 +17,16 @@
   function mostrar() { img.classList.add('pronta'); }
   if (img.complete) mostrar(); else img.addEventListener('load', mostrar);
 
+  /* Onde assistir no Brasil (assets/js/onde-assistir-dados.js, carregado aqui) */
+  (function () {
+    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js';
+    s.onload = function () {
+      var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug); if (!q) return;
+      document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura"><section class="oa-bloco" id="onde-assistir"><p class="oa-rot">Como assistir</p><h2>Onde assistir no Brasil</h2>' + q + '</section></div>');
+    };
+    document.body.appendChild(s);
+  })();
+
   /* Próxima etapa */
   var proximaIdx = -1;
   c.calendario.forEach(function (e, i) { if (proximaIdx < 0 && !e.venc && (!e.d || e.d >= hoje)) proximaIdx = i; });
