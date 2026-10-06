@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=191'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=192'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -312,20 +312,20 @@
     try { localStorage.setItem('box-som', som ? '1' : '0'); } catch (e) {}
     if (!som && window.speechSynthesis) { speechSynthesis.cancel(); estado('parado'); }
   });
-  function falar(t) {
-    if (!som || !window.speechSynthesis) { estado('parado'); return; }
+  function falar(t, depois) {
+    if (!som || !window.speechSynthesis) { estado('parado'); if (depois) depois(); return; }
     speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(t.replace(/\bF1\b/g, 'Fórmula 1').replace(/(\d+)h(\d\d)/g, '$1 e $2').replace(/(\d+)h\b/g, '$1 horas'));
     u.lang = 'pt-BR';
     var v = speechSynthesis.getVoices().filter(function (x) { return /^pt(-|_)BR/i.test(x.lang); });
     if (v.length) u.voice = v.filter(function (x) { return /Google|Francisca|Antonio|Luciana|Natural/i.test(x.name); })[0] || v[0];
     u.onstart = function () { estado('falando'); };
-    u.onend = u.onerror = function () { if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); };
+    u.onend = u.onerror = function () { if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
     speechSynthesis.speak(u);
   }
 
   function perguntar(texto, porVoz) {
-    texto = String(texto || '').trim(); if (!texto) return;
+    texto = String(texto || '').trim(); if (!texto || bloqueado) return;
     sug.hidden = true;
     perguntaEl.textContent = '“' + texto + '”';
     respEl.innerHTML = '';
@@ -370,13 +370,43 @@
     mic.addEventListener('click', function () { if (ouvindo) rec.stop(); else ouvir(); });
   }
 
+  /* O Box é para quem tem conta (grátis). Quem tem conta ganha uma saudação com o nome, conforme a hora do dia. */
+  var bloqueado = false, saudou = false;
+  function conta() {
+    return (window.NAVEIA_EU || Promise.resolve({})).then(function (r) {
+      if (r && r.logado && r.usuario) return r.usuario;
+      if (r && r.semServidor && window.NAVEIA_PC) return { nome: 'Visitante' }; /* teste no computador, sem o servidor */
+      return null;
+    }).catch(function () { return null; });
+  }
+  function saudacao() { var h = new Date().getHours(); return h < 5 ? 'Boa noite' : h < 12 ? 'Bom dia' : h < 18 ? 'Boa tarde' : 'Boa noite'; }
+  function travar() {
+    bloqueado = true; tela.setAttribute('data-bloqueado', '1'); sug.hidden = true; perguntaEl.textContent = '';
+    var volta = encodeURIComponent((location.pathname.split('/').pop() || 'index.html') + location.search);
+    estado('parado', 'Exclusivo para quem tem conta');
+    respEl.innerHTML = '<p>O Box é para quem tem conta no Na Veia. É grátis e leva menos de um minuto.</p>' +
+      '<div class="box-acoes"><a class="box-acao" href="entrar.html?volta=' + volta + '#criar">Criar conta grátis</a><a class="box-acao box-acao-2" href="entrar.html?volta=' + volta + '">Já tenho conta</a></div>';
+  }
   function abrir(jaOuvir) {
     tela.hidden = false; document.documentElement.classList.add('box-aberto');
     /* o botão "voltar" do celular fecha o Box em vez de sair da página */
     if (!(history.state && history.state.box)) { try { history.pushState({ box: 1 }, ''); } catch (e) {} }
     if (!anim) { t0 = performance.now(); anim = requestAnimationFrame(desenharEsfera); }
-    if (!respEl.innerHTML) { estado('parado', Rec ? 'Toque no microfone e pergunte' : 'Digite sua pergunta'); sug.hidden = false; }
-    if (jaOuvir && rec) setTimeout(ouvir, 250);
+    conta().then(function (u) {
+      if (!u) { travar(); return; }
+      bloqueado = false; tela.removeAttribute('data-bloqueado');
+      if (!saudou) {
+        saudou = true;
+        var nome = String(u.nome || '').trim().split(/\s+/)[0];
+        var oi = saudacao() + (nome ? ', ' + nome : '') + '! Sou o Box. Em que posso ajudar?';
+        perguntaEl.textContent = ''; respEl.innerHTML = '<p>' + esc(oi) + '</p>'; sug.hidden = false;
+        estado('parado', '');
+        falar(oi, function () { if (jaOuvir && rec && !tela.hidden) ouvir(); else estado('parado', Rec ? 'Toque no microfone e pergunte' : 'Digite sua pergunta'); });
+        return;
+      }
+      if (!respEl.innerHTML) { estado('parado', Rec ? 'Toque no microfone e pergunte' : 'Digite sua pergunta'); sug.hidden = false; }
+      if (jaOuvir && rec) setTimeout(ouvir, 250);
+    });
   }
   function fechar() {
     if (history.state && history.state.box) { history.back(); return; } /* o popstate fecha */
