@@ -861,3 +861,6 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .oa-curto { grid-template-columns: 1fr; gap: 6px; }
 .oa-curto .oa-canal { padding: 7px 9px; }
 .oa-curto .oa-selo { flex-basis: 30px; height: 30px; font-size: 11px; }
+.noticia[hidden] { display: none; }
+.noticias-mais { margin-top: 24px; padding: 12px 20px; background: none; border: 1px solid var(--linha); color: var(--cromo); font: 700 15px var(--texto); cursor: pointer; }
+.noticias-mais:hover { border-color: var(--sangue-vivo); }

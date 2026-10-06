@@ -23,13 +23,15 @@ jobs:
           node-version: 22
       - name: Refazer a agenda
         run: node _ferramentas/exportar-agenda.js
+      - name: Guardar as notícias no arquivo das categorias
+        run: node .github/arquivar-noticias.js
       - name: Atualizar o sitemap
         run: node .github/sitemap.js
       - name: Salvar no site
         run: |
           git config user.name "Robô Na Veia"
           git config user.email "automobilismonaveiacontato@gmail.com"
-          git add assets/dados/agenda.json assets/agenda sitemap.xml
+          git add assets/dados/agenda.json assets/dados/noticias-arquivo.js assets/agenda sitemap.xml
           git diff --cached --quiet && exit 0
           git commit -m "Robô: agenda e sitemap atualizados"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done

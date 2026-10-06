@@ -19,7 +19,7 @@
 
   /* Onde assistir no Brasil (assets/js/onde-assistir-dados.js, carregado aqui) */
   (function () {
-    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=211';
+    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=212';
     s.onload = function () {
       var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug); if (!q) return;
       document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura"><section class="oa-bloco" id="onde-assistir"><p class="oa-rot">Como assistir</p><h2>Onde assistir no Brasil</h2>' + q + '</section></div>');
@@ -55,18 +55,27 @@
   /* notícias da categoria: as da página de Notícias (noticias-gerais.js, atualizadas todo dia) + as fixas de dados.js,
      sem repetir título, da mais nova para a mais antiga */
   var en = window.LANG === 'en', vistas = {}, lista = [];
-  (window.NOTICIAS_GERAIS || []).filter(function (n) { return n.cat === c.slug; }).concat(c.noticias || []).forEach(function (n, i) {
+  (window.NOTICIAS_GERAIS || []).filter(function (n) { return n.cat === c.slug; })
+    .concat((window.NOTICIAS_ARQUIVO || {})[c.slug] || [], c.noticias || []).forEach(function (n, i) {
     var chave = n.t.toLowerCase();
     if (vistas[chave]) return;
     vistas[chave] = 1;
     lista.push({ d: n.d, t: (en && n.t_en) || n.t, x: (en && n.x_en) || n.x, ordem: i });
   });
+  /* cada etapa com vencedor também vira uma notícia curta de resultado (se não houver notícia daquele dia) */
+  var diasComNoticia = {}; lista.forEach(function (n) { diasComNoticia[n.d] = 1; });
+  var total = c.calendario.length;
+  c.calendario.forEach(function (e, i) {
+    if (!e.venc || !e.d || e.d > hoje || diasComNoticia[e.d]) return;
+    lista.push({ d: e.d, t: 'Resultado: ' + e.n, x: 'Vencedor: ' + e.venc + '. ' + (e.l ? e.l + ', ' : '') + 'etapa ' + e.e + ' de ' + total + ' da temporada.', ordem: 1000 + i, res: 1 });
+  });
   lista.sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : a.ordem - b.ordem; });
-  lista = lista.slice(0, 8);
+  var mostrar = 9, extras = lista.length - mostrar;
   P.noticias = '<h2>Notícias</h2><div class="noticias">' + lista.map(function (n, i) {
-    return '<article class="noticia">' +
-      '<time datetime="' + n.d + '">' + window.dataCurta(n.d) + '</time><h3>' + esc(n.t) + '</h3><p>' + esc(n.x) + '</p></article>';
-  }).join('') + '</div>';
+    return '<article class="noticia' + (n.res ? ' noticia-res' : '') + '"' + (i >= mostrar ? ' hidden' : '') + '>' +
+      '<time datetime="' + n.d + '">' + window.dataCurta(n.d) + (n.res ? ' · Resultado' : '') + '</time><h3>' + esc(n.t) + '</h3><p>' + esc(n.x) + '</p></article>';
+  }).join('') + '</div>' +
+    (extras > 0 ? '<button type="button" class="ct-mini noticias-mais" onclick="[].forEach.call(this.previousElementSibling.querySelectorAll(\'.noticia[hidden]\'),function(a){a.hidden=false});this.remove()">Ver mais ' + extras + ' notícias</button>' : '');
 
   var feitas = c.calendario.filter(function (e) { return e.venc || e.parcial; }).slice().reverse();
   P.resultados = (c.destaque ? '<h2>' + esc(c.destaque.titulo) + '</h2>' + tabela(c.destaque) + '<h3>Vencedores da temporada</h3>' : '<h2>Vencedores da temporada</h2>') +
