@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=195'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=196'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -339,8 +339,11 @@
     if (!som || !window.speechSynthesis) { estado('parado'); if (depois) depois(); return; }
     speechSynthesis.cancel();
     var u = new SpeechSynthesisUtterance(t.replace(/\bF1\b/g, 'Fórmula 1').replace(/(\d+)h(\d\d)/g, '$1 e $2').replace(/(\d+)h\b/g, '$1 horas'));
-    u.lang = 'pt-BR'; u.rate = 1.6;
+    u.lang = 'pt-BR';
     var vz = vozBox(); if (vz) u.voice = vz;
+    /* velocidade por tipo de voz: as vozes naturais do Edge aceleram pouco; as do celular e do Chrome aceleram muito */
+    var celular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    u.rate = vz && /Natural|Online|Neural/i.test(vz.name) ? 1.6 : celular ? 1.05 : 1.2;
     u.onstart = function () { estado('falando'); };
     try { speechSynthesis.resume(); } catch (e) {}
     u.onend = u.onerror = function () { if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
