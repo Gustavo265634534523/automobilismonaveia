@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=205'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=206'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -254,6 +254,12 @@
   }
 
   var AJUDA = 'Pergunte, por exemplo: "que horas é a corrida da Fórmula 1?", "onde passa a MotoGP?", "vai chover em Singapura?", "quem lidera a MotoGP?" ou "coloca a Porsche Cup na minha agenda".';
+  var VAZIAS_Q = { e: 1, a: 1, o: 1, da: 1, do: 1, de: 1, na: 1, no: 1, sobre: 1, me: 1, fala: 1, fale: 1, e_a: 1, como: 1, esta: 1, ta: 1, que: 1, tem: 1, hoje: 1, agora: 1, entao: 1, ai: 1, box: 1 };
+  function sobra(q, c) {
+    var t = ' ' + q + ' ';
+    (APELIDOS[c.slug] || []).concat([norm(c.nome), norm(c.menu || '')]).forEach(function (a) { if (a) t = t.split(' ' + a + ' ').join(' '); });
+    return t.split(' ').filter(function (w) { return w && !VAZIAS_Q[w]; }).length;
+  }
   function responder(texto) {
     var q = norm(texto), c = acharCat(q), ev = acharEtapa(q, c);
     if (!c && ev) c = ev.c;
@@ -284,7 +290,8 @@
       if (!c) return Promise.resolve({ t: 'De qual categoria? Diga, por exemplo: "quem lidera a Stock Car?".' });
       return Promise.resolve(rLider(c));
     }
-    if (c) {
+    /* resumo da categoria só quando a pessoa diz praticamente só o nome dela ("e a Fórmula 1?"); com mais assunto, vai para a IA */
+    if (c && sobra(q, c) <= 1) {
       var r1 = rHorario(c, e, q), r2 = rLider(c);
       return Promise.resolve({ t: r1.t + ' ' + r2.t, link: r1.link });
     }
