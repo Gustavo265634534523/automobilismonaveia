@@ -45,9 +45,10 @@
     var menu = [
       ['inicio', './', 'Início', inicio],
       ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
-      ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)],
       ['tv', 'onde-assistir.html', 'Onde assistir', /onde-assistir/.test(location.pathname)],
-      ['categorias', '#categorias-menu', 'Categorias', false]
+      ['categorias', '#categorias-menu', 'Categorias', false],
+      ['chat', '#bate-papo', 'Chat', false],
+      ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)]
     ].map(function (m) {
       return '<a class="nav-link nav-' + m[0] + '" href="' + m[1] + '"' + (m[3] ? ' aria-current="page"' : '') + '>' + ic(m[0]) + '<span>' + m[2] + '</span></a>';
     }).join('');
@@ -85,7 +86,7 @@
             '<li>Tudo do plano Médio</li><li>Prévia da etapa completa</li><li>Maratona do fim de semana</li><li>Simulador completo</li>' +
             '<li>Duelo de pilotos</li><li>Raio-x F1: corrida volta a volta e telemetria</li><li>Bolão entre membros</li><li>Grupo fechado</li><li>Jogos sem limite</li></ul></article>' +
         '</div>' +
-        '<div class="painel-planos-acoes"><a class="botao" href="planos.html">Ver os planos</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
+        '<div class="painel-planos-acoes"><a class="botao" href="planos.html">Ver os planos</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
       '</section></div>';
     topo.after(painel);
 
@@ -224,12 +225,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol)) {
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=186'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=186'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=186'; appJs.defer = true; document.body.appendChild(appJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=188'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=188'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=188'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=187'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=187'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=188'; document.head.appendChild(boxCss);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=188'; boxJs.defer = true; document.body.appendChild(boxJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

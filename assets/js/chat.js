@@ -14,12 +14,19 @@
   bt.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg><span>Bate-papo</span><i class="chat-novo" hidden></i>';
 
   var caixa = document.createElement('section');
-  caixa.id = 'chat-caixa'; caixa.className = 'chat-caixa'; caixa.hidden = true; caixa.setAttribute('aria-label', 'Bate-papo da torcida');
-  caixa.innerHTML = '<header class="chat-cab"><div><b>Bate-papo da torcida</b><small>Respeito sempre. Sem links. As mensagens somem em 7 dias.</small></div>' +
+  caixa.id = 'chat-caixa'; caixa.className = 'chat-caixa'; caixa.hidden = true; caixa.setAttribute('aria-label', 'Chat da torcida');
+  caixa.innerHTML = '<header class="chat-cab"><div><b>Chat da torcida</b><small>Respeito sempre. Sem links. As mensagens somem em 7 dias.</small></div>' +
     '<button type="button" class="chat-fechar" aria-label="Fechar o bate-papo">×</button></header>' +
     '<ol class="chat-lista" aria-live="polite"><li class="chat-vazio">Carregando…</li></ol>' +
     '<div class="chat-pe"></div>';
   document.body.appendChild(bt); document.body.appendChild(caixa);
+  /* o botão flutuante fica escondido: o chat abre pelo item "Chat" do menu e do painel do celular */
+  document.addEventListener('click', function (ev) {
+    var l = ev.target.closest && ev.target.closest('a[href="#bate-papo"]'); if (!l) return;
+    ev.preventDefault(); ev.stopPropagation();
+    var t = document.querySelector('.todas'); if (t && t.getAttribute('aria-expanded') === 'true') t.click();
+    if (!aberto) bt.click();
+  }, true);
   var lista = caixa.querySelector('.chat-lista'), pe = caixa.querySelector('.chat-pe');
 
   function hora(iso) {
@@ -77,11 +84,11 @@
       if (!carregou || perto) lista.scrollTop = lista.scrollHeight;
       carregou = true;
       if (mudouInfo) desenharPe();
-      if (aberto) marcarVisto(); else if (ultimo > vistoAte) bt.querySelector('.chat-novo').hidden = false;
+      if (aberto) marcarVisto(); else if (ultimo > vistoAte) { bt.querySelector('.chat-novo').hidden = false; [].forEach.call(document.querySelectorAll('.nav-chat'), function (x) { x.classList.add('tem-novo'); }); }
     }).catch(function () { if (!carregou) lista.innerHTML = '<li class="chat-vazio">Não foi possível abrir o bate-papo agora.</li>'; });
   }
   function marcarVisto() {
-    vistoAte = ultimo; bt.querySelector('.chat-novo').hidden = true;
+    vistoAte = ultimo; bt.querySelector('.chat-novo').hidden = true; [].forEach.call(document.querySelectorAll('.nav-chat'), function (x) { x.classList.remove('tem-novo'); });
     try { localStorage.setItem('naveia-chat-visto', String(ultimo)); } catch (e) {}
   }
   function ciclo() {

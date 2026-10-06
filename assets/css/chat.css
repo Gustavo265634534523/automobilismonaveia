@@ -81,3 +81,8 @@ body:has(.aviso-priv.ativo) .chat-bt { display: none; }
 .rolador.ativo .rolador-polegar { opacity: 1; }
 .rolador.segurando .rolador-polegar { width: 10px; background: var(--sangue-vivo); }
 .chat-aberto .rolador, .app-janela ~ .rolador { display: none; }
+
+/* O chat abre pelo item "Chat" do menu (e do painel no celular): sem botão flutuante */
+.chat-bt { display: none !important; }
+.nav-chat { position: relative; }
+.nav-chat.tem-novo span::after { content: ''; display: inline-block; width: 7px; height: 7px; margin-left: 5px; vertical-align: top; border-radius: 50%; background: var(--sangue-vivo); }
