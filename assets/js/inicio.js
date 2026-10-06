@@ -2,49 +2,51 @@
 (function () {
   var CATS = window.CATEGORIAS;
 
-  /* Agenda: próximas etapas em até 14 dias */
+  /* Agenda em formato de calendário de parede: 7 colunas (hoje + 6 dias), com botão para a semana seguinte.
+     Em cada dia, uma linha por categoria: a última sessão do dia (no dia da corrida, o nome da etapa) e o horário de Brasília. */
   var hoje = window.hojeISO();
-  var prox = [];
-  CATS.forEach(function (c) {
-    var e = c.calendario.filter(function (x) { return x.d && x.d >= hoje && !x.venc; })[0];
-    if (e) prox.push({ c: c, e: e });
-  });
-  prox.sort(function (a, b) { return a.e.d < b.e.d ? -1 : 1; });
-  var janela = prox.filter(function (p) { return window.diasAte(p.e.d) <= 14; });
-  if (janela.length < 4) janela = prox.slice(0, 6);
-  document.getElementById('torre').innerHTML = janela.map(function (p) { return window.linhaAgenda(p.c, p.e); }).join('');
-
-  /* Próxima largada: a corrida mais próxima de todas as categorias, com contagem regressiva (e a da F1, se for outra) */
-  function proximaCorrida(filtro) {
-    var melhor = null, agora = Date.now();
+  var SEM = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+  var MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  function somaDias(iso, n) { return new Date(Date.parse(iso + 'T12:00:00Z') + n * 864e5).toISOString().slice(0, 10); }
+  function doDia(d) {
+    var lista = [];
     CATS.forEach(function (c) {
-      if (filtro && !filtro(c)) return;
       c.calendario.forEach(function (e) {
-        (e.s || []).forEach(function (x) {
-          if (!/Corrida|Principal|Race/.test(x.t)) return;
-          var ini = new Date(x.d + 'T' + x.h + ':00-03:00').getTime();
-          if (ini + 2 * 36e5 < agora) return;
-          if (!melhor || ini < melhor.ini) melhor = { c: c, e: e, x: x, ini: ini };
-        });
+        if (e.venc && e.d < hoje) return;
+        var s = (e.s || []).filter(function (x) { return x.d === d; });
+        if (s.length) {
+          s.sort(function (a, b) { return a.h < b.h ? -1 : 1; });
+          var x = s[s.length - 1], corrida = /Corrida|Principal|Race/.test(x.t) && d === e.d;
+          lista.push({ c: c, t: corrida ? e.n : x.t, h: x.h, forte: corrida });
+        } else if (!(e.s && e.s.length) && e.d === d) {
+          lista.push({ c: c, t: e.n, h: '', forte: true });
+        }
       });
     });
-    return melhor;
+    return lista.sort(function (a, b) { return (a.h || '99') < (b.h || '99') ? -1 : 1; });
   }
-  var DIAS_L = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
-  function relogio(p, grande) {
-    return '<span class="contagem contagem-corrida' + (grande ? ' contagem-grande' : '') + '" data-ini="' + p.ini + '" data-fim="' + (p.ini + 2 * 36e5) + '">' +
-      '<span class="contagem-rot"><span class="contagem-nome">' + esc(p.x.t) + '</span> <span class="contagem-em">em</span></span><b class="contagem-tempo">--:--:--</b></span>';
+  function semana(ini) {
+    var html = '';
+    for (var i = 0; i < 7; i++) {
+      var d = somaDias(ini, i), itens = doDia(d), dt = new Date(d + 'T12:00:00');
+      html += '<div class="sem-dia' + (d === hoje ? ' hoje' : '') + (itens.length ? '' : ' vazio') + '"><div class="sem-cab"><span>' + (d === hoje ? 'Hoje' : SEM[dt.getDay()]) + '</span><b>' + (+d.slice(8)) + '</b><small>' + MES[+d.slice(5, 7) - 1] + '</small></div>' +
+        '<div class="sem-evs">' + (itens.length ? itens.map(function (it) {
+          return '<a class="sem-ev' + (it.forte ? ' forte' : '') + '" href="' + it.c.slug + '.html#calendario"><i>' + esc(it.c.menu || it.c.nome) + '</i><span>' + esc(it.t) + '</span>' + (it.h ? '<b>' + it.h.replace(':', 'h') + '</b>' : '') + '</a>';
+        }).join('') : '<p class="sem-nada">Sem corridas</p>') + '</div></div>';
+    }
+    return html;
   }
-  var pl = proximaCorrida(), caixaL = document.getElementById('largada');
-  if (pl && caixaL) {
-    var dia = new Date(pl.x.d + 'T12:00:00');
-    var f1 = pl.c.slug === 'formula-1' ? null : proximaCorrida(function (c) { return c.slug === 'formula-1'; });
-    caixaL.innerHTML = '<div class="largada-card"><span class="largada-rot">Próxima largada</span>' +
-      '<a class="largada-evento" href="' + pl.c.slug + '.html#calendario"><b>' + esc(pl.c.nome) + '</b> ' + esc(pl.e.n) + '</a>' +
-      '<span class="largada-local">' + esc(pl.e.l) + ' · ' + DIAS_L[dia.getDay()] + ', ' + pl.x.d.slice(8) + '/' + pl.x.d.slice(5, 7) + ', ' + pl.x.h.replace(':', 'h') + ' (horário de Brasília)</span>' +
-      relogio(pl, true) + '</div>' +
-      (f1 ? '<div class="largada-f1"><a href="formula-1.html#calendario"><b>Fórmula 1</b> ' + esc(f1.e.n) + ', ' + esc(f1.e.l) + '</a>' + relogio(f1, false) + '</div>' : '');
+  var torre = document.getElementById('torre'), deslocado = 0;
+  function desenharSemana() {
+    torre.innerHTML = '<div class="sem-barra"><button type="button" class="sem-bt" data-s="0" aria-pressed="' + !deslocado + '">Esta semana</button><button type="button" class="sem-bt" data-s="7" aria-pressed="' + !!deslocado + '">Próxima semana</button></div>' +
+      '<div class="sem-grade">' + semana(somaDias(hoje, deslocado)) + '</div>';
   }
+  desenharSemana();
+  torre.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.sem-bt'); if (!b) return;
+    deslocado = +b.getAttribute('data-s'); desenharSemana();
+  });
+  var caixaL = document.getElementById('largada'); if (caixaL) caixaL.remove();
 
   /* Índice, em 3 grupos */
   document.getElementById('indice').innerHTML = window.GRUPOS.map(function (g) {

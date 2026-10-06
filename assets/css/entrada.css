@@ -57,3 +57,36 @@
   .ent-linha { font-size: 14px; }
   .ent-briga small { font-size: 12px; }
 }
+
+/* Agenda da página inicial: calendário de parede (7 colunas) */
+.agenda .torre { border-top: 0; }
+.sem-barra { display: flex; gap: 8px; margin-bottom: 14px; }
+.sem-bt { padding: 8px 14px; background: none; border: 1px solid var(--linha); color: var(--aco); font: 600 14px var(--texto); cursor: pointer; }
+.sem-bt:hover { color: var(--cromo); }
+.sem-bt[aria-pressed="true"] { background: var(--carbono); color: var(--cromo); border-color: var(--sangue-vivo); }
+.sem-grade { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); border-top: 1px solid var(--linha); border-left: 1px solid var(--linha); }
+.sem-dia { min-height: 170px; padding: 10px; border-right: 1px solid var(--linha); border-bottom: 1px solid var(--linha); }
+.sem-cab { display: flex; align-items: baseline; gap: 6px; margin-bottom: 10px; }
+.sem-cab span { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--aco); }
+.sem-cab b { font-family: var(--display); font-weight: 400; font-size: 22px; color: var(--cromo); }
+.sem-cab small { font-size: 13px; color: var(--aco); }
+.sem-dia.hoje { background: rgba(227, 52, 60, .05); }
+.sem-dia.hoje .sem-cab span, .sem-dia.hoje .sem-cab b { color: var(--sangue-vivo); }
+.sem-ev { display: block; margin-bottom: 6px; padding: 6px 8px; background: var(--carbono); border-left: 3px solid var(--linha); color: var(--cromo); text-decoration: none; font-size: 13px; line-height: 1.3; }
+.sem-ev.forte { border-left-color: var(--sangue-vivo); }
+.sem-ev:hover { background: var(--carbono-2); }
+.sem-ev i { display: block; font-style: normal; font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--aco); }
+.sem-ev span { font-weight: 600; }
+.sem-ev b { display: block; margin-top: 2px; font-weight: 700; font-variant-numeric: tabular-nums; color: var(--aco); }
+.sem-ev.forte b { color: var(--cromo); }
+.sem-nada { margin: 0; font-size: 13px; color: var(--aco); opacity: .6; }
+@media (max-width: 900px) {
+  .sem-grade { grid-template-columns: 1fr; border-left: 0; }
+  .sem-dia { min-height: 0; display: flex; gap: 12px; padding: 12px 0; border-right: 0; }
+  .sem-evs { flex: 1; min-width: 0; display: grid; gap: 6px; }
+  .sem-dia.vazio { display: none; }
+  .sem-cab { flex: 0 0 52px; flex-direction: column; gap: 0; margin: 0; }
+  .sem-cab b { font-size: 24px; }
+  .sem-ev { margin: 0; font-size: 14px; }
+  .sem-dia.hoje { background: none; }
+}
