@@ -103,6 +103,14 @@
     form.addEventListener('submit', function (ev) { ev.preventDefault(); comparar(); });
   }
 
+  /* Dentro do Raio-x F1 (raiox.html, aba Telemetria): a trava do Master é a da página inteira,
+     e a telemetria só começa a buscar dados quando a aba é aberta pela primeira vez. */
+  if (document.getElementById('rx')) {
+    var comecou = false;
+    window.TL_ABRIR = function () { if (!comecou) { comecou = true; comecar(); } };
+    return;
+  }
+
   /* Só para o plano Master */
   function trava(titulo, texto, botoes) {
     caixa.innerHTML = '<div class="sm-trava"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>' +

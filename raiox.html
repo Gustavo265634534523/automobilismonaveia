@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="assets/js/idioma.js"></script>
-<title>Raio-x pós-corrida | Automobilismo Na Veia</title>
-<meta name="description" content="Raio-x pós-corrida da Fórmula 1: ritmo volta a volta, pit stops e gráficos de cada piloto.">
+<title>Raio-x F1 | Automobilismo Na Veia</title>
+<meta name="description" content="Raio-x da Fórmula 1: posições volta a volta, pit stops, pneus e telemetria para comparar a volta de dois pilotos.">
 <link rel="canonical" href="https://automobilismonaveia.com.br/raiox.html">
-<meta property="og:title" content="Raio-x pós-corrida | Automobilismo Na Veia">
-<meta property="og:description" content="Raio-x pós-corrida da Fórmula 1: ritmo volta a volta, pit stops e gráficos de cada piloto.">
+<meta property="og:title" content="Raio-x F1 | Automobilismo Na Veia">
+<meta property="og:description" content="Raio-x da Fórmula 1: posições volta a volta, pit stops, pneus e telemetria para comparar a volta de dois pilotos.">
 <meta property="og:image" content="https://automobilismonaveia.com.br/assets/img/compartilhar.jpg">
 <meta property="og:url" content="https://automobilismonaveia.com.br/raiox.html">
 <meta property="og:type" content="website">
@@ -25,6 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/estilo.css">
 <link rel="stylesheet" href="assets/css/raiox.css">
+<link rel="stylesheet" href="assets/css/telemetria.css">
 <link rel="stylesheet" href="assets/css/planos.css">
 </head>
 <body>
@@ -34,7 +35,14 @@
 <main class="rx-main" id="rx" style="visibility:hidden">
   <div class="moldura">
     <p class="rx-selo">Exclusivo do plano Master, com dados reais</p>
-    <h1 class="rx-titulo" id="rx-titulo">Raio-x pós-corrida</h1>
+    <h1 class="rx-titulo">Raio-x F1</h1>
+    <div class="rx-abas" role="tablist" aria-label="Seções do Raio-x">
+      <button type="button" role="tab" class="rx-aba" id="rx-aba-corrida" aria-controls="rx-p-corrida" aria-selected="true">Corrida</button>
+      <button type="button" role="tab" class="rx-aba" id="rx-aba-telemetria" aria-controls="rx-p-telemetria" aria-selected="false">Telemetria</button>
+    </div>
+
+    <div id="rx-p-corrida" role="tabpanel" aria-labelledby="rx-aba-corrida">
+    <h2 class="rx-gp" id="rx-titulo">Raio-x pós-corrida</h2>
     <p class="rx-sub" id="rx-sub"></p>
 
     <div class="rx-destaques" id="rx-destaques"></div>
@@ -64,6 +72,23 @@
       <div class="tabela-wrap" id="rx-tabela"></div>
       <p class="nota" id="rx-fonte"></p>
     </section>
+    </div>
+
+    <div id="rx-p-telemetria" role="tabpanel" aria-labelledby="rx-aba-telemetria" hidden>
+    <p class="rx-sub">Escolha a sessão, dois pilotos e uma volta de cada. Veja velocidade, acelerador, freio e marcha metro a metro, quanto tempo um tira do outro e, no mapa, quem foi mais rápido em cada trecho da pista.</p>
+    <form class="tl-escolha" id="tl-escolha">
+      <label>Sessão<select name="sessao"></select></label>
+      <label class="tl-a-rot">Piloto 1<select name="a"></select></label>
+      <label class="tl-a-rot">Volta<select name="va"></select></label>
+      <label class="tl-b-rot">Piloto 2<select name="b"></select></label>
+      <label class="tl-b-rot">Volta<select name="vb"></select></label>
+      <button class="pl-botao" type="submit">Comparar</button>
+    </form>
+    <p class="tl-status" id="tl-status" aria-live="polite"></p>
+    <div class="tl-video" id="tl-video" hidden></div>
+    <div id="tl"></div>
+    <p class="nota" style="margin-top:24px">Dados do OpenF1, gratuitos e não oficiais. A telemetria chega a cerca de 4 leituras por segundo, então os gráficos mostram a tendência, não cada detalhe.</p>
+    </div>
   </div>
   <div class="rx-dica" id="rx-dica" role="status" aria-live="polite" hidden></div>
 </main>
@@ -74,6 +99,26 @@
 <script src="assets/js/site.js"></script>
 <script src="assets/dados/raiox-f1.js"></script>
 <script src="assets/js/raiox.js"></script>
+<script src="assets/dados/telemetria-videos.js"></script>
+<script src="assets/js/telemetria-graf.js"></script>
+<script src="assets/js/telemetria.js"></script>
+<script>
+  /* Abas Corrida e Telemetria (raiox.html#telemetria abre direto na telemetria) */
+  (function () {
+    var abas = [].slice.call(document.querySelectorAll('.rx-aba'));
+    function abrir(id, guardar) {
+      abas.forEach(function (b) {
+        var sim = b.id === 'rx-aba-' + id;
+        b.setAttribute('aria-selected', sim);
+        document.getElementById(b.getAttribute('aria-controls')).hidden = !sim;
+      });
+      if (guardar) history.replaceState(null, '', id === 'telemetria' ? '#telemetria' : location.pathname);
+      if (id === 'telemetria' && window.TL_ABRIR) window.TL_ABRIR();
+    }
+    abas.forEach(function (b) { b.addEventListener('click', function () { abrir(b.id.slice(7), true); }); });
+    window.RX_ABA_INICIAL = function () { if (location.hash === '#telemetria') abrir('telemetria'); };
+  })();
+</script>
 <script>
   /* Raio-x: só para o plano Master */
   (function () {
@@ -84,11 +129,12 @@
       main.style.visibility = '';
     }
     window.NAVEIA_EU.then(function (r) {
-      if (r.semServidor && window.NAVEIA_TESTE) { main.style.visibility = ''; return; }
+      if (r.semServidor && window.NAVEIA_TESTE) { main.style.visibility = ''; if (window.RX_ABA_INICIAL) window.RX_ABA_INICIAL(); return; }
       if (r.semServidor && !window.NAVEIA_PC) return trava('Raio-x indisponível agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="raiox.html">Tentar de novo</a>');
       if (!r.logado) return trava('Exclusivo do plano Master', 'Entre na sua conta para ver o Raio-x pós-corrida. Se ainda não assina, conheça o Master.', '<a class="pl-botao" href="entrar.html?volta=raiox.html">Entrar</a><a class="pl-botao pl-botao-linha" href="planos.html">Ver os planos</a>');
       if (r.usuario.plano !== 'master') return trava('Exclusivo do plano Master', 'Seu plano atual não inclui o Raio-x. Mude para o Master e veja cada corrida por dentro.', '<a class="pl-botao" href="planos.html">Conhecer o Master</a>');
       main.style.visibility = '';
+      if (window.RX_ABA_INICIAL) window.RX_ABA_INICIAL();
     });
   })();
 </script>

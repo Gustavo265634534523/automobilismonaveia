@@ -11,7 +11,7 @@
   function seg(n) { return n.toFixed(1).replace('.', ','); }
   function tempoPit(p) { return p.paradas.reduce(function (s, x) { return s + (x.tempo || 0); }, 0); }
 
-  document.getElementById('rx-titulo').textContent = 'Raio-x do ' + R.titulo;
+  document.getElementById('rx-titulo').textContent = R.titulo;
   document.getElementById('rx-sub').textContent = R.local + ', ' + window.dataCurta(R.data) + '. ' + NV + ' voltas.';
   document.getElementById('rx-fonte').textContent = 'Fonte dos dados: ' + R.fonte + '. O tempo de parada é o tempo total no pit lane, da entrada à saída.' + (R.grid && R.grid.indexOf('classificação') > -1 ? ' A posição de largada segue o resultado da classificação, sem punições de grid.' : '');
 

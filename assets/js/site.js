@@ -80,7 +80,7 @@
             '<li>Resumo da segunda-feira</li><li>Chefe de Equipe: 15 corridas por dia</li></ul></article>' +
           '<article class="cp-plano cp-master"><h3>Master</h3><p class="cp-preco"><b>R$ 29,90</b> por mês</p><ul>' +
             '<li>Tudo do plano Médio</li><li>Prévia da etapa completa</li><li>Maratona do fim de semana</li><li>Simulador completo</li>' +
-            '<li>Duelo de pilotos</li><li>Raio-x pós-corrida com gráficos</li><li>Bolão entre membros</li><li>Grupo fechado</li><li>Jogos sem limite</li></ul></article>' +
+            '<li>Duelo de pilotos</li><li>Raio-x F1: corrida volta a volta e telemetria</li><li>Bolão entre membros</li><li>Grupo fechado</li><li>Jogos sem limite</li></ul></article>' +
         '</div>' +
         '<div class="painel-planos-acoes"><a class="botao" href="planos.html">Ver os planos</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
       '</section></div>';
