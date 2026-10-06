@@ -586,7 +586,7 @@ window.CATEGORIAS = [
   videos: ['MotoGP 2026 Áustria melhores momentos', 'MotoGP 2026 Misano Marc Márquez', 'MotoGP 2026 onboard']
 },
 {
-  slug: 'le-mans', nome: '24 Horas de Le Mans', menu: 'Le Mans', guia: false,
+  slug: 'le-mans', nome: 'Le Mans', menu: 'Le Mans', guia: false,
   foto: 'assets/img/cat/endurance.jpg',
   frase: 'Um dia inteiro de corrida. Sem parar.',
   intro: 'A corrida mais famosa do mundo dura 24 horas: três pilotos revezam o mesmo carro, de dia, de noite e na neblina da madrugada. Em 2026, a Toyota #7 venceu por apenas 10 segundos depois de 381 voltas.',
