@@ -587,7 +587,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'le-mans', nome: 'Le Mans', menu: 'Le Mans', guia: false,
-  foto: 'assets/img/cat/endurance.jpg',
+  foto: 'assets/img/cat/le-mans.jpg',
   frase: 'Um dia inteiro de corrida. Sem parar.',
   intro: 'A corrida mais famosa do mundo dura 24 horas: três pilotos revezam o mesmo carro, de dia, de noite e na neblina da madrugada. Em 2026, a Toyota #7 venceu por apenas 10 segundos depois de 381 voltas.',
   lider: { nome: 'Conway, Kobayashi e De Vries', info: 'Vencedores de 2026, Toyota #7' },
@@ -646,7 +646,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'imsa', nome: 'IMSA', menu: 'IMSA', guia: false,
-  foto: 'assets/img/cat/endurance.jpg',
+  foto: 'assets/img/cat/imsa.jpg',
   frase: 'O endurance dos Estados Unidos, de Daytona a Road Atlanta.',
   intro: 'O IMSA é o campeonato de endurance dos Estados Unidos: protótipos e carros GT dividem a pista em provas de 2h40 a 24 horas, como Daytona e Sebring. O brasileiro Felipe Nasr venceu as duas maiores do ano com a Porsche.',
   lider: { nome: 'Jack Aitken', info: 'Campeão 2026 da GTP, Cadillac, 3.020 pontos' },
@@ -688,7 +688,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'dtm', nome: 'DTM', menu: 'DTM', guia: false,
-  foto: 'assets/img/cat/porsche.jpg',
+  foto: 'assets/img/cat/dtm.jpg',
   frase: 'Carros GT, porta com porta, nas pistas da Alemanha.',
   intro: 'O DTM é o campeonato alemão de turismo: Porsche, BMW, Mercedes, Ferrari, Aston Martin, McLaren e Ford na mesma pista, com duas corridas por fim de semana. Thomas Preining lidera por 23 pontos antes da final em Hockenheim.',
   lider: { nome: 'Thomas Preining', info: 'Manthey, Porsche, 197 pontos' },
@@ -731,7 +731,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'superbike', nome: 'Superbike', menu: 'Superbike', guia: false,
-  foto: 'assets/img/cat/motogp.jpg',
+  foto: 'assets/img/cat/superbike.jpg',
   frase: 'Motos de rua preparadas para a pista. Três corridas por fim de semana.',
   intro: 'No Mundial de Superbike, as motos são versões de corrida de modelos vendidos em loja. Cada etapa tem três corridas: a 1, a Superpole Race, curtinha, e a 2. Nicolò Bulega, da Ducati, já é campeão de 2026.',
   lider: { nome: 'Nicolò Bulega', info: 'Campeão mundial 2026, Ducati, 602 pontos' },
@@ -775,7 +775,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'dakar', nome: 'Rally Dakar', menu: 'Dakar', guia: false,
-  foto: 'assets/img/cat/rally.jpg',
+  foto: 'assets/img/cat/dakar.jpg',
   frase: 'Duas semanas, quase 8 mil quilômetros de deserto.',
   intro: 'O Dakar é o rali mais duro do mundo: carros, motos e caminhões cruzam o deserto da Arábia Saudita em 13 etapas, sem estrada e guiados por navegação. Em 2026, Nasser Al-Attiyah ganhou pela sexta vez nos carros.',
   lider: { nome: 'Nasser Al-Attiyah', info: 'Campeão 2026 nos carros, Dacia' },
