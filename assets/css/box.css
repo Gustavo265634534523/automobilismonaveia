@@ -54,3 +54,9 @@ html.box-aberto { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .box-mic.ouvindo, .box-escuta, .box-bt::before { animation: none; } }
 .topo .nav-box { color: var(--sangue-vivo); }
 .topo .nav-box:hover { color: #ff6b72; }
+/* no celular, o botão flutuante fica só com o ícone (a chamada grande está na página inicial) */
+@media (max-width: 620px) {
+  .box-bt { padding: 4px; gap: 0; }
+  .box-bt > span { display: none; }
+  .box-bt::before { left: 0; top: 0; }
+}

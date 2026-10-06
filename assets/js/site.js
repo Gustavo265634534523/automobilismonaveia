@@ -227,7 +227,7 @@
     var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js'; chatJs.defer = true; document.body.appendChild(chatJs);
     var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=4'; document.head.appendChild(boxCss);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=5'; document.head.appendChild(boxCss);
     var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=4'; boxJs.defer = true; document.body.appendChild(boxJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
