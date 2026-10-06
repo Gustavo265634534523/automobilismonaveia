@@ -19,7 +19,7 @@
 
   /* Onde assistir no Brasil (assets/js/onde-assistir-dados.js, carregado aqui) */
   (function () {
-    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=204';
+    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=205';
     s.onload = function () {
       var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug); if (!q) return;
       document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura"><section class="oa-bloco" id="onde-assistir"><p class="oa-rot">Como assistir</p><h2>Onde assistir no Brasil</h2>' + q + '</section></div>');

@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=204'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=205'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -393,7 +393,7 @@
   var SILENCIO = 'data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU2LjM2LjEwMAAAAAAAAAAAAAAA//OEAAAAAAAAAAAAAAAAAAAAAAAASW5mbwAAAA8AAAAEAAABIADAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDV1dXV1dXV1dXV1dXV1dXV1dXV1dXV1dXV6urq6urq6urq6urq6urq6urq6urq6urq6v////////////////////////////////8AAAAATGF2YzU2LjQxAAAAAAAAAAAAAAAAJAAAAAAAAAAAASDs90hvAAAAAAAAAAAAAAAAAAAA//MUZAAAAAGkAAAAAAAAA0gAAAAATEFN//MUZAMAAAGkAAAAAAAAA0gAAAAARTMu//MUZAYAAAGkAAAAAAAAA0gAAAAAOTku//MUZAkAAAGkAAAAAAAAA0gAAAAANVVV';
   var ctxAtual = null, fonteAtual = null;
   function soltarAudio() {
-    try { tocador.pause(); tocador.removeAttribute('src'); tocador.load(); } catch (e) {}
+    try { tocador.pause(); } catch (e) {} /* não esvazia o tocador: no iPhone ele perderia a liberação do primeiro toque */
     try { if (fonteAtual) fonteAtual.stop(); } catch (e) {}
     try { if (ctxAtual) ctxAtual.close(); } catch (e) {}
     fonteAtual = null; ctxAtual = null;
@@ -424,7 +424,7 @@
       .then(function (b) {
         if (minha !== falaN) return;
         var fimFala = function () { if (tela.getAttribute('data-estado') === 'falando') estado('parado', 'Toque no microfone para perguntar de novo'); if (depois) depois(); };
-        if (CEL) { tocarNoCelular(b, minha, fimFala, function () { if (minha === falaN) falarAparelho(t, depois); }); return; }
+        /* tocador de áudio comum (liberado no primeiro toque): é o único que o iPhone deixa tocar depois de esperar a resposta */
         if (tocador.src && /^blob:/.test(tocador.src)) { try { URL.revokeObjectURL(tocador.src); } catch (e) {} }
         tocador.src = URL.createObjectURL(b);
         tocador.onplaying = function () { estado('falando'); };
