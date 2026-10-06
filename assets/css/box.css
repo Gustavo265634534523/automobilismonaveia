@@ -60,3 +60,46 @@ html.box-aberto { overflow: hidden; }
   .box-bt > span { display: none; }
   .box-bt::before { left: 0; top: 0; }
 }
+
+/* Ícone do Box: esfera de anéis de luz vermelha girando */
+.orbe-ic { overflow: visible; }
+.orbe-ic ellipse { fill: none; stroke: #ff5a61; stroke-width: 2.2; filter: drop-shadow(0 0 3px rgba(227, 52, 60, .95)); opacity: .85; }
+.orbe-ic g { transform-origin: 50px 50px; animation: orbe-gira 6s linear infinite; }
+.orbe-ic g:nth-child(2) { animation-duration: 8s; animation-direction: reverse; }
+.orbe-ic g:nth-child(3) { animation-duration: 5s; }
+.orbe-ic g:nth-child(4) { animation-duration: 9s; animation-direction: reverse; }
+.orbe-ic g:nth-child(5) { animation-duration: 7s; }
+.orbe-ic g:nth-child(2) ellipse { stroke: #e3343c; }
+.orbe-ic g:nth-child(4) ellipse { stroke: #ff8a8f; stroke-width: 1.6; }
+@keyframes orbe-gira { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .orbe-ic g { animation: none; } }
+/* botão flutuante com a esfera */
+.box-bt > .orbe-ic { width: 40px; height: 40px; padding: 2px; background: radial-gradient(circle, rgba(227, 52, 60, .35), rgba(18, 8, 9, 0) 70%); border-radius: 50%; color: inherit; box-sizing: content-box; }
+.box-bt::before { display: none; }
+
+/* Faixa "Pergunte ao Box" entre a entrada e a agenda */
+.box-faixa { padding: 34px 0; background: linear-gradient(180deg, var(--breu, #060707), #141619); }
+.box-chamada { display: flex; align-items: center; gap: 24px; padding: 22px 28px; background: radial-gradient(ellipse at 12% 50%, rgba(227, 52, 60, .28), rgba(20, 22, 25, .95) 55%); border: 1px solid rgba(227, 52, 60, .45); color: var(--cromo); text-decoration: none; transition: border-color .2s; }
+.box-chamada:hover { border-color: var(--sangue-vivo); }
+.box-chamada-orbe { flex: 0 0 96px; height: 96px; display: grid; place-items: center; }
+.box-chamada-orbe .orbe-ic { width: 96px; height: 96px; }
+.box-chamada-txt { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+.box-chamada-txt b { font-family: var(--display); font-weight: 400; font-size: 28px; }
+.box-chamada-txt small { font-size: 16px; color: #c3c8cd; line-height: 1.4; }
+.box-chamada-bt { flex: 0 0 auto; padding: 13px 20px; background: var(--sangue); color: #fff; font-weight: 700; }
+.box-chamada:hover .box-chamada-bt { background: var(--sangue-vivo); }
+@media (max-width: 700px) {
+  .box-chamada { flex-wrap: wrap; gap: 14px; padding: 18px; }
+  .box-chamada-orbe { flex-basis: 70px; height: 70px; }
+  .box-chamada-orbe .orbe-ic { width: 70px; height: 70px; }
+  .box-chamada-txt { flex-basis: calc(100% - 90px); }
+  .box-chamada-txt b { font-size: 22px; }
+  .box-chamada-txt small { font-size: 14px; }
+  .box-chamada-bt { flex-basis: 100%; text-align: center; }
+}
+.orbe-ic g:nth-child(6) { animation: none; }
+.orbe-ic .orbe-nucleo { fill: rgba(255, 90, 97, .35); stroke: none; filter: blur(3px); animation: orbe-pulsa 2.2s ease-in-out infinite; transform-origin: 50px 50px; }
+@keyframes orbe-pulsa { 50% { transform: scale(1.5); opacity: .6; } }
+.box-chamada-orbe { flex-basis: 120px; height: 120px; }
+.box-chamada-orbe .orbe-ic { width: 120px; height: 120px; }
+@media (max-width: 700px) { .box-chamada-orbe { flex-basis: 80px; height: 80px; } .box-chamada-orbe .orbe-ic { width: 80px; height: 80px; } }

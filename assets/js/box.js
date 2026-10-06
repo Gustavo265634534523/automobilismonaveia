@@ -178,7 +178,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=184'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=186'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
@@ -239,7 +239,8 @@
   var Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
   var bt = document.createElement('button');
   bt.type = 'button'; bt.id = 'box-bt'; bt.className = 'box-bt'; bt.setAttribute('aria-label', 'Abrir o Box, assistente de voz');
-  bt.innerHTML = MIC + '<span>Box</span><i class="box-escuta" aria-hidden="true"></i>';
+  var ORBE = '<svg class="orbe-ic" viewBox="0 0 100 100" aria-hidden="true"><g><ellipse cx="50" cy="50" rx="40" ry="17"/></g><g><ellipse cx="50" cy="50" rx="17" ry="40"/></g><g><ellipse cx="50" cy="50" rx="38" ry="24" transform="rotate(45 50 50)"/></g><g><ellipse cx="50" cy="50" rx="38" ry="22" transform="rotate(-40 50 50)"/></g><g><ellipse cx="50" cy="50" rx="34" ry="31"/></g><g><circle cx="50" cy="50" r="9" class="orbe-nucleo"/></g></svg>';
+  bt.innerHTML = ORBE + '<span>Box</span><i class="box-escuta" aria-hidden="true"></i>';
   document.body.appendChild(bt);
 
   var tela = document.createElement('div');

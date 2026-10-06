@@ -130,7 +130,9 @@
 .rv-cat:hover img { opacity: .75; }
 .rv-cat b { position: absolute; left: 10px; bottom: 8px; font-family: var(--display); font-weight: 400; font-size: 16px; text-shadow: 0 2px 8px rgba(0, 0, 0, .8); }
 .rv-cat .ent-ponto { top: 8px; right: 8px; }
-.rv-baixo { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 24px; align-items: start; margin-top: 22px; }
+.rv-baixo { margin-top: 22px; }
+.rv-baixo .ent-brigas { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1000px) { .rv-baixo .ent-brigas { grid-template-columns: 1fr 1fr; } }
 .rv-baixo .ent-box { margin-top: 0; max-width: none; align-self: start; }
 @media (max-width: 1000px) {
   .rv-topo, .rv-baixo { grid-template-columns: 1fr; }
