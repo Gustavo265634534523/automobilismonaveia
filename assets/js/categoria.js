@@ -11,7 +11,7 @@
     '<p class="credito">Imagem gerada, sem equipe, marca ou patrocinador real.</p>' +
     '<div class="moldura"><h1 class="cat-nome">' + esc(c.nome) + '</h1>' +
     '<p class="cat-frase">' + esc(c.frase) + '</p>' +
-    '<div class="cat-rodape"><div><p class="cat-intro">' + esc(c.intro) + '</p><a class="cat-guia" href="guia-' + c.slug + '.html">Novo por aqui? Veja como funciona ' + (/^(Fórmula|Stock|Porsche|NASCAR|IndyCar|MotoGP)/.test(c.nome) ? 'a ' : 'o ') + esc(c.nome) + '</a></div>' +
+    '<div class="cat-rodape"><div><p class="cat-intro">' + esc(c.intro) + '</p>' + (c.guia === false ? '' : '<a class="cat-guia" href="guia-' + c.slug + '.html">Novo por aqui? Veja como funciona ' + (/^(Fórmula|Stock|Porsche|NASCAR|IndyCar|MotoGP)/.test(c.nome) ? 'a ' : 'o ') + esc(c.nome) + '</a>') + '</div>' +
     '<div class="cat-lider"><span>Na ponta</span><b>' + esc(c.lider.nome) + '</b><small>' + esc(c.lider.info) + '</small></div></div></div>';
   var img = document.querySelector('.cat-foto img');
   function mostrar() { img.classList.add('pronta'); }

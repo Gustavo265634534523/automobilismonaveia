@@ -1,5 +1,5 @@
 /* Entrada da página inicial: uma tela só, sem prender a rolagem.
-   À esquerda, as 12 categorias em botões (por grupo), com um ponto em quem corre nos próximos 7 dias.
+   À esquerda, as categorias em botões (por grupo), com um ponto em quem corre nos próximos 7 dias.
    À direita, as brigas pelo título mais apertadas (1º x 2º). Embaixo, quem corre nesta semana.
    Tudo sai de dados.js, então se atualiza sozinho junto com os resultados. */
 (function () {
@@ -25,7 +25,7 @@
   function num(v) { var n = parseFloat(String(v).replace(/\./g, '').replace(',', '.')); return isNaN(n) ? null : n; }
   var brigas = CATS.map(function (c) {
     var l = c.classificacao && c.classificacao.linhas, restam = c.calendario.filter(function (e) { return !e.venc; }).length;
-    if (!l || l.length < 2 || !restam || /campe[aã]o/i.test((c.lider && c.lider.info) || '')) return null;
+    if (!l || l.length < 2 || c.classificacao.colunas.indexOf('Pts') < 0 || !restam || /campe[aã]o/i.test((c.lider && c.lider.info) || '')) return null;
     var p1 = num(l[0][l[0].length - 1]), p2 = num(l[1][l[1].length - 1]);
     if (p1 == null || p2 == null || !p1) return null;
     return { c: c, a: l[0][1], b: l[1][1], p1: p1, p2: p2, dif: p1 - p2, restam: restam, peso: (p1 - p2) / p1 };

@@ -584,5 +584,247 @@ window.CATEGORIAS = [
     { n: 'Monster Energy Yamaha', i: 'Yamaha', p: ['Fabio Quartararo', 'Álex Rins'] }
   ],
   videos: ['MotoGP 2026 Áustria melhores momentos', 'MotoGP 2026 Misano Marc Márquez', 'MotoGP 2026 onboard']
+},
+{
+  slug: 'le-mans', nome: '24 Horas de Le Mans', menu: 'Le Mans', guia: false,
+  foto: 'assets/img/cat/endurance.jpg',
+  frase: 'Um dia inteiro de corrida. Sem parar.',
+  intro: 'A corrida mais famosa do mundo dura 24 horas: três pilotos revezam o mesmo carro, de dia, de noite e na neblina da madrugada. Em 2026, a Toyota #7 venceu por apenas 10 segundos depois de 381 voltas.',
+  lider: { nome: 'Conway, Kobayashi e De Vries', info: 'Vencedores de 2026, Toyota #7' },
+  noticias: [
+    { d: '2026-06-14', t: 'Toyota #7 vence Le Mans por 10 segundos', x: 'Mike Conway, Kamui Kobayashi e Nyck de Vries venceram a 94ª edição depois de 381 voltas. O BMW #20 ficou em segundo, a 10,9 segundos, e a Toyota #8 fechou o pódio. Foi a primeira vitória da Toyota desde 2022.' },
+    { d: '2026-06-14', t: 'Cadillac liderou a madrugada e perdeu no fim', x: 'O Cadillac #12 da Jota passou a noite na frente, com quase um minuto de vantagem, mas uma punição na 16ª hora tirou o carro da briga. Terminou em quarto.' },
+    { d: '2026-06-14', t: 'Corvette vence na GT3, Inter Europol na LMP2', x: 'Na classe LMGT3, o Corvette #33 da TF Sport ganhou com Catsburg, Edgar e Keating. Eduardo Barrichello levou o Aston Martin #23 ao terceiro lugar da classe.' }
+  ],
+  calendario: [
+    { e: 1, n: '24 Horas de Le Mans 2026', l: 'Circuito de La Sarthe, França', d: '2026-06-14', venc: 'Toyota #7 (Conway, Kobayashi e De Vries)' },
+    { e: 2, n: '24 Horas de Le Mans 2027', l: 'Circuito de La Sarthe, França', nota: 'Data ainda não divulgada, normalmente em junho' }
+  ],
+  destaque: {
+    titulo: 'Últimos vencedores',
+    colunas: ['Ano', 'Pilotos', 'Carro'],
+    linhas: [
+      ['2026', 'Mike Conway, Kamui Kobayashi e Nyck de Vries', 'Toyota #7'],
+      ['2025', 'Robert Kubica, Yifei Ye e Phil Hanson', 'Ferrari #83'],
+      ['2024', 'Antonio Fuoco, Miguel Molina e Nicklas Nielsen', 'Ferrari #50'],
+      ['2023', 'Alessandro Pier Guidi, James Calado e Antonio Giovinazzi', 'Ferrari #51'],
+      ['2022', 'Sébastien Buemi, Brendon Hartley e Ryō Hirakawa', 'Toyota #8'],
+      ['2021', 'Mike Conway, Kamui Kobayashi e José María López', 'Toyota #7']
+    ]
+  },
+  classificacao: {
+    titulo: 'Resultado geral 2026',
+    colunas: ['Pos', 'Pilotos', 'Carro', 'Voltas'],
+    linhas: [
+      ['1', 'Conway, Kobayashi e De Vries', 'Toyota #7', '381'], ['2', 'Frijns, Rast e S. van der Linde', 'BMW #20', '381'],
+      ['3', 'Buemi, Hartley e Hirakawa', 'Toyota #8', '381'], ['4', 'Delétraz, Nato e Stevens', 'Cadillac #12', '381'],
+      ['5', 'Calado, Giovinazzi e Pier Guidi', 'Ferrari #51', '381'], ['6', 'Félix da Costa, Habsburg e Milesi', 'Alpine #35', '381'],
+      ['7', 'Hanson, Kubica e Ye', 'Ferrari #83', '381'], ['8', 'Gamble, Gunn e Tincknell', 'Aston Martin #007', '379'],
+      ['9', 'Albuquerque, J. Taylor e R. Taylor', 'Cadillac #101', '379']
+    ],
+    extra: {
+      titulo: 'Vencedores por classe',
+      colunas: ['Classe', 'Pilotos', 'Carro'],
+      linhas: [
+        ['Hypercar', 'Conway, Kobayashi e De Vries', 'Toyota #7'],
+        ['LMP2', 'Dillmann, Śmiechowski e Yelloly', 'Inter Europol #43'],
+        ['LMP2 Pro-Am', 'Heinrich, Kurtz e Quinn', 'CrowdStrike by APR #4'],
+        ['LMGT3', 'Catsburg, Edgar e Keating', 'Corvette TF Sport #33']
+      ]
+    },
+    nota: '94ª edição, 13 e 14 de junho de 2026, terceira etapa do Mundial de Endurance (WEC). 62 carros largaram em três classes. A Toyota venceu Le Mans pela sexta vez.'
+  },
+  equipes: [
+    { n: 'Toyota Racing', i: 'Toyota TR010 Hybrid', p: ['Mike Conway', 'Kamui Kobayashi', 'Nyck de Vries', 'Sébastien Buemi', 'Brendon Hartley', 'Ryō Hirakawa'] },
+    { n: 'BMW M Team WRT', i: 'BMW M Hybrid V8', p: ['Robin Frijns', 'René Rast', 'Sheldon van der Linde'] },
+    { n: 'Cadillac Hertz Team Jota', i: 'Cadillac V-Series.R', p: ['Louis Delétraz', 'Norman Nato', 'Will Stevens'] },
+    { n: 'Ferrari AF Corse', i: 'Ferrari 499P', p: ['James Calado', 'Antonio Giovinazzi', 'Alessandro Pier Guidi'] },
+    { n: 'Alpine Endurance Team', i: 'Alpine A424', p: ['António Félix da Costa', 'Ferdinand Habsburg', 'Charles Milesi'] },
+    { n: 'AF Corse', i: 'Ferrari 499P', p: ['Phil Hanson', 'Robert Kubica', 'Yifei Ye'] }
+  ],
+  videos: ['24 Horas de Le Mans 2026 melhores momentos', '24 Horas de Le Mans 2026 final Toyota', 'Le Mans 2026 onboard noite']
+},
+{
+  slug: 'imsa', nome: 'IMSA', menu: 'IMSA', guia: false,
+  foto: 'assets/img/cat/endurance.jpg',
+  frase: 'O endurance dos Estados Unidos, de Daytona a Road Atlanta.',
+  intro: 'O IMSA é o campeonato de endurance dos Estados Unidos: protótipos e carros GT dividem a pista em provas de 2h40 a 24 horas, como Daytona e Sebring. O brasileiro Felipe Nasr venceu as duas maiores do ano com a Porsche.',
+  lider: { nome: 'Jack Aitken', info: 'Campeão 2026 da GTP, Cadillac, 3.020 pontos' },
+  noticias: [
+    { d: '2026-10-03', t: 'Porsche vence o Petit Le Mans; Aitken é campeão', x: 'O Porsche #6 de Campbell, Estre e Laurens Vanthoor venceu a última etapa, em Road Atlanta. Jack Aitken, da Cadillac Whelen, ficou com o título da classe GTP.' },
+    { d: '2026-09-20', t: 'BMW vence em Indianápolis', x: 'Sheldon van der Linde e Dries Vanthoor deram ao BMW #24 a primeira vitória do ano, no misto de Indianápolis.' },
+    { d: '2026-03-21', t: 'Felipe Nasr vence Daytona e Sebring', x: 'O brasileiro venceu as 24 Horas de Daytona e as 12 Horas de Sebring com o Porsche #7, ao lado de Julien Andlauer e Laurin Heinrich.' }
+  ],
+  calendario: [
+    { e: 1, n: '24 Horas de Daytona', l: 'Daytona', d: '2026-01-25', venc: 'Porsche #7 (Andlauer, Heinrich e Felipe Nasr)' },
+    { e: 2, n: '12 Horas de Sebring', l: 'Sebring', d: '2026-03-21', venc: 'Porsche #7 (Andlauer, Heinrich e Felipe Nasr)' },
+    { e: 3, n: 'GP de Long Beach', l: 'Long Beach', d: '2026-04-18', venc: 'Acura #93 (Yelloly e van der Zande)' },
+    { e: 4, n: 'Laguna Seca', l: 'Monterey', d: '2026-05-03', venc: 'Porsche #5 (Heinrich e van der Helm)' },
+    { e: 5, n: 'Detroit', l: 'Detroit', d: '2026-05-30', venc: 'Cadillac #31 (Aitken e Bamber)' },
+    { e: 6, n: '6 Horas de Watkins Glen', l: 'Watkins Glen', d: '2026-06-28', venc: 'Cadillac #31 (Aitken, Bamber e Vesti)' },
+    { e: 7, n: 'Road America', l: 'Elkhart Lake', d: '2026-08-02', venc: 'Cadillac #10 (Albuquerque e Ricky Taylor)' },
+    { e: 8, n: 'Indianápolis', l: 'Indianápolis', d: '2026-09-20', venc: 'BMW #24 (S. van der Linde e D. Vanthoor)' },
+    { e: 9, n: 'Petit Le Mans', l: 'Road Atlanta', d: '2026-10-03', venc: 'Porsche #6 (Campbell, Estre e L. Vanthoor)' }
+  ],
+  classificacao: {
+    titulo: 'GTP, pilotos (final)',
+    colunas: ['Pos', 'Piloto', 'Carro', 'Pts'],
+    linhas: [
+      ['1', 'Jack Aitken', 'Cadillac #31', '3020'], ['2', 'Laurin Heinrich', 'Porsche #7', '2859'],
+      ['3', 'Nick Yelloly e Renger van der Zande', 'Acura #93', '2723'], ['4', 'Kévin Estre', 'Porsche #6', '2709'],
+      ['5', 'Earl Bamber', 'Cadillac #31', '2672'], ['6', 'S. van der Linde e D. Vanthoor', 'BMW #24', '2650']
+    ],
+    nota: 'Classificação final da classe GTP, a principal. As etapas de Mosport e Virginia foram só para as classes GT, por isso o calendário acima tem 9 provas.'
+  },
+  equipes: [
+    { n: 'Cadillac Whelen', i: 'Cadillac V-Series.R', p: ['Jack Aitken', 'Earl Bamber', 'Frederik Vesti'] },
+    { n: 'Porsche Penske Motorsport', i: 'Porsche 963', p: ['Felipe Nasr', 'Julien Andlauer', 'Laurin Heinrich', 'Kévin Estre', 'Matt Campbell', 'Laurens Vanthoor'] },
+    { n: 'Acura Meyer Shank Racing', i: 'Acura ARX-06', p: ['Nick Yelloly', 'Renger van der Zande'] },
+    { n: 'BMW M Team WRT', i: 'BMW M Hybrid V8', p: ['Sheldon van der Linde', 'Dries Vanthoor'] },
+    { n: 'Cadillac Wayne Taylor Racing', i: 'Cadillac V-Series.R', p: ['Filipe Albuquerque', 'Ricky Taylor', 'Jordan Taylor'] },
+    { n: 'JDC-Miller MotorSports', i: 'Porsche 963', p: ['Tijmen van der Helm'] }
+  ],
+  videos: ['IMSA 2026 Petit Le Mans melhores momentos', '24 Horas de Daytona 2026 Felipe Nasr', 'IMSA 2026 onboard GTP']
+},
+{
+  slug: 'dtm', nome: 'DTM', menu: 'DTM', guia: false,
+  foto: 'assets/img/cat/porsche.jpg',
+  frase: 'Carros GT, porta com porta, nas pistas da Alemanha.',
+  intro: 'O DTM é o campeonato alemão de turismo: Porsche, BMW, Mercedes, Ferrari, Aston Martin, McLaren e Ford na mesma pista, com duas corridas por fim de semana. Thomas Preining lidera por 23 pontos antes da final em Hockenheim.',
+  lider: { nome: 'Thomas Preining', info: 'Manthey, Porsche, 197 pontos' },
+  noticias: [
+    { d: '2026-09-13', t: 'Wittmann e Dörr vencem em Sachsenring', x: 'Marco Wittmann ganhou a corrida de sábado e Ben Dörr a de domingo. Preining segue líder e leva 23 pontos de vantagem para Hockenheim.' },
+    { d: '2026-08-16', t: 'Cairoli chega à terceira vitória no Nürburgring', x: 'Matteo Cairoli, da Ferrari Emil Frey, venceu a primeira corrida. Wittmann ganhou a segunda e entrou na briga pelo título.' },
+    { d: '2026-07-05', t: 'Thiim vence as duas no Norisring', x: 'Nicki Thiim, da Aston Martin, ganhou sábado e domingo no circuito de rua de Nuremberg.' }
+  ],
+  calendario: [
+    { e: 1, n: 'Red Bull Ring', l: 'Spielberg, Áustria', d: '2026-04-26', venc: 'Corrida 1: Thomas Preining · Corrida 2: Maro Engel' },
+    { e: 2, n: 'Zandvoort', l: 'Holanda', d: '2026-05-24', venc: 'Corrida 1: Matteo Cairoli · Corrida 2: Kelvin van der Linde' },
+    { e: 3, n: 'Lausitzring', l: 'Alemanha', d: '2026-06-21', venc: 'Corrida 1: Ben Dörr · Corrida 2: Matteo Cairoli' },
+    { e: 4, n: 'Norisring', l: 'Nuremberg', d: '2026-07-05', venc: 'Corrida 1: Nicki Thiim · Corrida 2: Nicki Thiim' },
+    { e: 5, n: 'Oschersleben', l: 'Alemanha', d: '2026-07-26', venc: 'Corrida 1: Thomas Preining · Corrida 2: Maro Engel' },
+    { e: 6, n: 'Nürburgring', l: 'Alemanha', d: '2026-08-16', venc: 'Corrida 1: Matteo Cairoli · Corrida 2: Marco Wittmann' },
+    { e: 7, n: 'Sachsenring', l: 'Alemanha', d: '2026-09-13', venc: 'Corrida 1: Marco Wittmann · Corrida 2: Ben Dörr' },
+    { e: 8, n: 'Hockenheim (final)', l: 'Alemanha', d: '2026-10-11' }
+  ],
+  classificacao: {
+    titulo: 'Pilotos',
+    colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
+    linhas: [
+      ['1', 'Thomas Preining', 'Manthey (Porsche)', '197'], ['2', 'Maro Engel', 'Winward (Mercedes)', '174'],
+      ['3', 'Marco Wittmann', 'Schubert (BMW)', '173'], ['4', 'Lucas Auer', 'Landgraf (Mercedes)', '152'],
+      ['5', 'Matteo Cairoli', 'Emil Frey (Ferrari)', '150'], ['6', 'Nicki Thiim', 'Comtoyou (Aston Martin)', '147'],
+      ['7', 'Ben Dörr', 'Dörr (McLaren)', '123'], ['8', 'Arjun Maini', 'HRT (Ford)', '117']
+    ],
+    nota: 'Após Sachsenring (etapa 7 de 8). A final em Hockenheim, nos dias 10 e 11 de outubro, tem duas corridas e decide o título.'
+  },
+  equipes: [
+    { n: 'Manthey Racing', i: 'Porsche 911 GT3 R', p: ['Thomas Preining'] },
+    { n: 'Winward Racing', i: 'Mercedes-AMG GT3', p: ['Maro Engel'] },
+    { n: 'Schubert Motorsport', i: 'BMW M4 GT3', p: ['Marco Wittmann', 'Kelvin van der Linde'] },
+    { n: 'Emil Frey Racing', i: 'Ferrari 296 GT3', p: ['Matteo Cairoli'] },
+    { n: 'Comtoyou Racing', i: 'Aston Martin Vantage GT3', p: ['Nicki Thiim'] },
+    { n: 'Dörr Motorsport', i: 'McLaren 720S GT3', p: ['Ben Dörr'] },
+    { n: 'HRT Ford Racing', i: 'Ford Mustang GT3', p: ['Arjun Maini'] }
+  ],
+  videos: ['DTM 2026 Sachsenring melhores momentos', 'DTM 2026 Norisring', 'DTM 2026 onboard']
+},
+{
+  slug: 'superbike', nome: 'Superbike', menu: 'Superbike', guia: false,
+  foto: 'assets/img/cat/motogp.jpg',
+  frase: 'Motos de rua preparadas para a pista. Três corridas por fim de semana.',
+  intro: 'No Mundial de Superbike, as motos são versões de corrida de modelos vendidos em loja. Cada etapa tem três corridas: a 1, a Superpole Race, curtinha, e a 2. Nicolò Bulega, da Ducati, já é campeão de 2026.',
+  lider: { nome: 'Nicolò Bulega', info: 'Campeão mundial 2026, Ducati, 602 pontos' },
+  noticias: [
+    { d: '2026-09-27', t: 'Bulega é campeão mundial de Superbike', x: 'O italiano da Ducati garantiu o título com o segundo lugar na corrida 2 em Cremona, depois de dois vice-campeonatos seguidos. Iker Lecuona venceu as três corridas do fim de semana.' },
+    { d: '2026-09-06', t: 'Bulega vence as três em Magny-Cours', x: 'Mais um fim de semana perfeito na França, o oitavo do ano em que ele venceu as três corridas.' },
+    { d: '2026-07-12', t: 'Lecuona tira a primeira vitória de Bulega', x: 'Em Donington, o espanhol venceu a corrida 1 e quebrou a sequência do companheiro de equipe, que ganhou as outras duas.' }
+  ],
+  calendario: [
+    { e: 1, n: 'Austrália', l: 'Phillip Island', d: '2026-02-22', venc: 'Nicolò Bulega (3 corridas)' },
+    { e: 2, n: 'Portugal', l: 'Portimão', d: '2026-03-29', venc: 'Nicolò Bulega (3 corridas)' },
+    { e: 3, n: 'Holanda', l: 'Assen', d: '2026-04-19', venc: 'Nicolò Bulega (3 corridas)' },
+    { e: 4, n: 'Hungria', l: 'Balaton Park', d: '2026-05-03', venc: 'Nicolò Bulega (3 corridas)' },
+    { e: 5, n: 'República Tcheca', l: 'Most', d: '2026-05-17', venc: 'Nicolò Bulega (3 corridas)' },
+    { e: 6, n: 'Aragão', l: 'Alcañiz', d: '2026-05-31', venc: 'Nicolò Bulega (3 corridas)' },
+    { e: 7, n: 'Emília-Romanha', l: 'Misano', d: '2026-06-14', venc: 'Nicolò Bulega (3 corridas)' },
+    { e: 8, n: 'Inglaterra', l: 'Donington Park', d: '2026-07-12', venc: 'Corrida 1: Iker Lecuona · Superpole e Corrida 2: Nicolò Bulega' },
+    { e: 9, n: 'França', l: 'Magny-Cours', d: '2026-09-06', venc: 'Nicolò Bulega (3 corridas)' },
+    { e: 10, n: 'Itália', l: 'Cremona', d: '2026-09-27', venc: 'Iker Lecuona (3 corridas)' },
+    { e: 11, n: 'Estoril', l: 'Portugal', d: '2026-10-11' },
+    { e: 12, n: 'Espanha', l: 'Jerez', d: '2026-10-18' }
+  ],
+  classificacao: {
+    titulo: 'Pilotos',
+    colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
+    linhas: [
+      ['1', 'Nicolò Bulega', 'Aruba.it Ducati', '602'], ['2', 'Iker Lecuona', 'Aruba.it Ducati', '469'],
+      ['3', 'Yari Montella', 'Barni Ducati', '269'], ['4', 'Alex Lowes', 'Bimota', '226'],
+      ['5', 'Sam Lowes', 'Marc VDS Ducati', '219'], ['6', 'Lorenzo Baldassarri', 'Ducati', '193'],
+      ['7', 'Axel Bassani', 'Bimota', '184'], ['8', 'Garrett Gerloff', 'Kawasaki', '145']
+    ],
+    nota: 'Após Cremona (etapa 10 de 12). Bulega garantiu o título em Cremona. Cada etapa vale até 62 pontos (25 + 12 + 25).'
+  },
+  equipes: [
+    { n: 'Aruba.it Racing Ducati', i: 'Ducati Panigale V4 R', p: ['Nicolò Bulega', 'Iker Lecuona'] },
+    { n: 'Bimota by Kawasaki', i: 'Bimota KB998', p: ['Alex Lowes', 'Axel Bassani'] },
+    { n: 'Barni Spark Racing', i: 'Ducati Panigale V4 R', p: ['Yari Montella'] },
+    { n: 'Marc VDS Racing', i: 'Ducati Panigale V4 R', p: ['Sam Lowes'] }
+  ],
+  videos: ['WorldSBK 2026 Cremona melhores momentos', 'Superbike 2026 Bulega campeão', 'WorldSBK 2026 onboard']
+},
+{
+  slug: 'dakar', nome: 'Rally Dakar', menu: 'Dakar', guia: false,
+  foto: 'assets/img/cat/rally.jpg',
+  frase: 'Duas semanas, quase 8 mil quilômetros de deserto.',
+  intro: 'O Dakar é o rali mais duro do mundo: carros, motos e caminhões cruzam o deserto da Arábia Saudita em 13 etapas, sem estrada e guiados por navegação. Em 2026, Nasser Al-Attiyah ganhou pela sexta vez nos carros.',
+  lider: { nome: 'Nasser Al-Attiyah', info: 'Campeão 2026 nos carros, Dacia' },
+  noticias: [
+    { d: '2026-01-17', t: 'Al-Attiyah conquista o sexto Dakar', x: 'O catariano venceu nos carros com a Dacia, 9min42s à frente de Nani Roma. O brasileiro Lucas Moraes terminou em sétimo, também de Dacia.' },
+    { d: '2026-01-17', t: 'Benavides vence nas motos por 2 segundos', x: 'O argentino Luciano Benavides, da KTM, ganhou a categoria por apenas 2 segundos sobre Ricky Brabec, da Honda, depois de quase 49 horas de prova.' },
+    { d: '2026-01-17', t: 'Caminhões: vitória de Žala com Iveco', x: 'Vaidotas Žala venceu entre os caminhões, à frente de Aleš Loprais. Nos carros de série (Stock), Rokas Baciuška ganhou.' }
+  ],
+  calendario: [
+    { e: 1, n: 'Etapa 1', l: 'Yanbu', d: '2026-01-04', venc: 'Carros: Guillaume De Mévius · Motos: Edgar Canet' },
+    { e: 2, n: 'Etapa 2', l: 'Yanbu a Al-Ula', d: '2026-01-05', venc: 'Carros: Seth Quintero · Motos: Daniel Sanders' },
+    { e: 3, n: 'Etapa 3', l: 'Al-Ula', d: '2026-01-06', venc: 'Carros: Mitch Guthrie · Motos: Tosha Schareina' },
+    { e: 4, n: 'Etapa 4 (maratona)', l: 'Al-Ula', d: '2026-01-07', venc: 'Carros: Henk Lategan · Motos: Tosha Schareina' },
+    { e: 5, n: 'Etapa 5 (maratona)', l: 'Ha\'il', d: '2026-01-08', venc: 'Carros: Nani Roma · Motos: Luciano Benavides' },
+    { e: 6, n: 'Etapa 6', l: 'Ha\'il a Riad', d: '2026-01-09', venc: 'Carros: Nasser Al-Attiyah · Motos: Ricky Brabec' },
+    { e: 7, n: 'Etapa 7', l: 'Riad a Wadi ad-Dawasir', d: '2026-01-11', venc: 'Carros: Mattias Ekström · Motos: Luciano Benavides' },
+    { e: 8, n: 'Etapa 8', l: 'Wadi ad-Dawasir', d: '2026-01-12', venc: 'Carros: Saood Variawa · Motos: Luciano Benavides' },
+    { e: 9, n: 'Etapa 9', l: 'Wadi ad-Dawasir', d: '2026-01-13', venc: 'Carros: Eryk Goczał · Motos: Tosha Schareina' },
+    { e: 10, n: 'Etapa 10', l: 'Bisha', d: '2026-01-14', venc: 'Carros: Mathieu Serradori · Motos: Adrien Van Beveren' },
+    { e: 11, n: 'Etapa 11', l: 'Bisha a Al Henakiyah', d: '2026-01-15', venc: 'Carros: Mattias Ekström · Motos: Skyler Howes' },
+    { e: 12, n: 'Etapa 12', l: 'Al Henakiyah a Yanbu', d: '2026-01-16', venc: 'Carros: Nasser Al-Attiyah · Motos: Ricky Brabec' },
+    { e: 13, n: 'Etapa 13', l: 'Yanbu', d: '2026-01-17', venc: 'Carros: Mattias Ekström · Motos: Edgar Canet' }
+  ],
+  classificacao: {
+    titulo: 'Carros (final)',
+    colunas: ['Pos', 'Piloto', 'Carro', 'Tempo'],
+    linhas: [
+      ['1', 'Nasser Al-Attiyah', 'Dacia', '48:56:53'], ['2', 'Nani Roma', 'Ford', '+9min42s'],
+      ['3', 'Mattias Ekström', 'Ford', '+14min33s'], ['4', 'Sébastien Loeb', 'Dacia', '+15min10s'],
+      ['5', 'Carlos Sainz', 'Ford', '+28min30s'], ['6', 'Mathieu Serradori', 'Century', '+45min02s'],
+      ['7', 'Lucas Moraes', 'Dacia', '+47min50s']
+    ],
+    extra: {
+      titulo: 'Motos (final)',
+      colunas: ['Pos', 'Piloto', 'Moto', 'Tempo'],
+      linhas: [
+        ['1', 'Luciano Benavides', 'KTM', '49:00:41'], ['2', 'Ricky Brabec', 'Honda', '+2s'],
+        ['3', 'Tosha Schareina', 'Honda', '+25min12s'], ['4', 'Skyler Howes', 'Honda', '+56min41s'],
+        ['5', 'Daniel Sanders', 'KTM', '+1h03min'], ['6', 'Adrien Van Beveren', 'Honda', '+1h04min']
+      ]
+    },
+    nota: '48ª edição, de 3 a 17 de janeiro de 2026, na Arábia Saudita. Outras categorias: caminhões, Vaidotas Žala (Iveco); carros de série, Rokas Baciuška; T3, Pau Navarro; SSV, Brock Heger. A próxima edição está prevista para janeiro de 2027.'
+  },
+  equipes: [
+    { n: 'Dacia Sandriders', i: 'Dacia Sandrider', p: ['Nasser Al-Attiyah', 'Sébastien Loeb', 'Lucas Moraes'] },
+    { n: 'Ford Racing', i: 'Ford Raptor', p: ['Nani Roma', 'Mattias Ekström', 'Carlos Sainz', 'Mitch Guthrie'] },
+    { n: 'Red Bull KTM', i: 'KTM 450 Rally', p: ['Luciano Benavides', 'Daniel Sanders', 'Edgar Canet'] },
+    { n: 'Monster Energy Honda', i: 'Honda CRF 450 Rally', p: ['Ricky Brabec', 'Tosha Schareina', 'Skyler Howes', 'Adrien Van Beveren'] }
+  ],
+  videos: ['Dakar 2026 melhores momentos', 'Dakar 2026 Al-Attiyah', 'Dakar 2026 motos Benavides Brabec']
 }
 ];

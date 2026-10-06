@@ -14,21 +14,21 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]; }); }
   window.esc = esc;
 
-  /* As 12 categorias organizadas em 3 grupos (usado no painel, na página inicial e no rodapé) */
+  /* As 17 categorias organizadas em 5 grupos (usado no painel, na página inicial e no rodapé) */
   var PORSLUG = {}; CATS.forEach(function (c) { PORSLUG[c.slug] = c; });
   var GRUPOS = [
     { nome: 'Monopostos', desc: 'Carros de fórmula, com rodas descobertas', slugs: ['formula-1', 'formula-2', 'formula-3', 'formula-e', 'indycar'] },
-    { nome: 'Turismo', desc: 'Carros de carroceria fechada', slugs: ['stock-car', 'porsche-cup', 'nascar'] },
-    { nome: 'Endurance', desc: 'Corridas longas, de 6 a 24 horas', slugs: ['endurance'] },
-    { nome: 'Rally', desc: 'Estradas de terra, asfalto e neve', slugs: ['rally'] },
-    { nome: 'Motos', desc: 'Duas rodas', slugs: ['motogp', 'motocross'] }
+    { nome: 'Turismo', desc: 'Carros de carroceria fechada', slugs: ['stock-car', 'porsche-cup', 'nascar', 'dtm'] },
+    { nome: 'Endurance', desc: 'Corridas longas, de 6 a 24 horas', slugs: ['endurance', 'le-mans', 'imsa'] },
+    { nome: 'Rally', desc: 'Estradas de terra, asfalto e neve', slugs: ['rally', 'dakar'] },
+    { nome: 'Motos', desc: 'Duas rodas', slugs: ['motogp', 'superbike', 'motocross'] }
   ].map(function (g) { g.cats = g.slugs.map(function (s) { return PORSLUG[s]; }).filter(Boolean); return g; });
   window.GRUPOS = GRUPOS;
 
   /* Topo */
   var topo = document.getElementById('topo');
   if (topo) {
-    /* Menu principal com ícones: Início, Notícias e Guia. As 12 categorias ficam na faixa logo abaixo (e na entrada da página inicial). */
+    /* Menu principal com ícones: Início, Notícias e Guia. As categorias ficam na faixa logo abaixo (e na entrada da página inicial). */
     var IC = {
       inicio: '<path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h5v-6h3v6h5V10"/>',
       noticias: '<rect x="3.5" y="4.5" width="17" height="15" rx="1.5"/><path d="M7 9h10M7 12.5h10M7 16h6"/>',
@@ -85,11 +85,11 @@
       '</section></div>';
     topo.after(painel);
 
-    /* Faixa fina com as 12 categorias, logo abaixo do menu (menos na página inicial, que já mostra as categorias na entrada).
+    /* Faixa fina com as categorias, logo abaixo do menu (menos na página inicial, que já mostra as categorias na entrada).
        No celular ela desliza para o lado. Ponto vermelho = corre nos próximos 7 dias. */
     if (!inicio) {
       var h7 = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10), hj = new Date().toISOString().slice(0, 10);
-      var ordemCats = ['formula-1', 'motogp', 'stock-car', 'formula-2', 'formula-3', 'formula-e', 'indycar', 'nascar', 'porsche-cup', 'endurance', 'rally', 'motocross'];
+      var ordemCats = ['formula-1', 'motogp', 'stock-car', 'formula-2', 'formula-3', 'formula-e', 'indycar', 'nascar', 'porsche-cup', 'dtm', 'endurance', 'le-mans', 'imsa', 'rally', 'dakar', 'superbike', 'motocross'];
       var faixa = document.createElement('nav');
       faixa.className = 'faixa-cats'; faixa.setAttribute('aria-label', 'Categorias');
       faixa.innerHTML = '<div class="moldura faixa-cats-in">' + ordemCats.map(function (slug) {
