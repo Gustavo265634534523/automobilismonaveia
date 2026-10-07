@@ -7,7 +7,7 @@
         '<h2>' + titulo + '</h2><p>' + texto + '</p><div class="sm-trava-acoes">' + botoes + '</div></div>';
     }
     caixa.innerHTML = '<p class="nota">Carregando…</p>';
-    window.NAVEIA_EU.then(function (r) {
+    window.NAVEIA_LIVRE.then(function (r) {
       if (r.semServidor) return trava(recurso + ' indisponível agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="' + pagina + '">Tentar de novo</a>');
       if (!r.logado) return trava('Exclusivo do plano Master', 'Entre na sua conta para abrir: ' + recurso + '. Se ainda não assina, conheça o Master.', '<a class="pl-botao" href="entrar.html?volta=' + pagina + '">Entrar</a><a class="pl-botao pl-botao-linha" href="planos.html">Ver os planos</a>');
       if (r.usuario.plano !== 'master') return trava('Exclusivo do plano Master', 'Seu plano atual não inclui: ' + recurso + '. Mude para o Master e libere tudo.', '<a class="pl-botao" href="planos.html">Conhecer o Master</a>');

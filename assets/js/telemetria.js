@@ -118,7 +118,7 @@
   }
   form.hidden = true;
   caixa.innerHTML = '<p class="nota">Carregando…</p>';
-  window.NAVEIA_EU.then(function (r) {
+  window.NAVEIA_LIVRE.then(function (r) {
     if (r.semServidor && !local && window.NAVEIA_PC) r = { logado: false };
     if (r.semServidor) {
       if (!local) return trava('Telemetria indisponível agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="telemetria.html">Tentar de novo</a>');

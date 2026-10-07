@@ -60,7 +60,6 @@
         '<span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
         '<nav class="nav" aria-label="Menu principal">' + menu + '</nav>' +
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
-        '<a class="planos-btn" href="planos.html"' + (location.pathname.indexOf('planos') > -1 ? ' aria-current="page"' : '') + '>Planos</a>' +
         '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Todas as categorias</span>' +
         '<span class="grade-ic" aria-hidden="true">' + new Array(10).join('<i></i>') + '</span><span class="sr">Abrir todas as categorias</span></button>' +
         '<button type="button" class="idioma-btn" id="idioma-btn" data-sem-traducao aria-label="' + (window.LANG === 'en' ? 'Change the site language' : 'Mudar o idioma do site') + '" title="' + (window.LANG === 'en' ? 'Português' : 'English') + '">' +
@@ -76,17 +75,8 @@
           '<ul class="painel-secoes">' + SECOES.slice(1, 5).map(function (s) { return '<li><a href="' + pagina(c) + '#' + s[0] + '">' + s[1] + '</a></li>'; }).join('') + '</ul></li>';
       }).join('') + '</ul></section>';
     }).join('') +
-      '<section class="painel-planos" aria-labelledby="painel-planos-t">' +
-        '<div class="painel-planos-cab"><h2 id="painel-planos-t">Mais perto da pista</h2><p>O site continua de graça. Os planos entregam o que vem antes da largada e depois da bandeirada.</p></div>' +
-        '<div class="cp-grade">' +
-          '<article class="cp-plano"><h3>Médio</h3><p class="cp-preco"><b>R$ 14,90</b> por mês</p><ul>' +
-            '<li>Alerta 30 minutos antes da largada</li><li>Vencedor no celular logo depois da corrida</li><li>Resumo pós-corrida no Telegram</li><li>Aviso de mudança de horário</li><li>Sessões direto na agenda do celular</li>' +
-            '<li>Resumo da segunda-feira</li><li>Chefe de Equipe: 15 corridas por dia</li></ul></article>' +
-          '<article class="cp-plano cp-master"><h3>Master</h3><p class="cp-preco"><b>R$ 29,90</b> por mês</p><ul>' +
-            '<li>Tudo do plano Médio</li><li>Prévia da etapa completa</li><li>Maratona do fim de semana</li><li>Simulador completo</li>' +
-            '<li>Duelo de pilotos</li><li>Raio-x F1 e MotoGP: corrida volta a volta e telemetria</li><li>Bolão entre membros</li><li>Grupo fechado</li><li>Jogos sem limite</li></ul></article>' +
-        '</div>' +
-        '<div class="painel-planos-acoes"><a class="botao" href="planos.html">Ver os planos</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
+      '<section class="painel-planos" aria-label="Atalhos">' +
+        '<div class="painel-planos-acoes"><a class="botao" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
       '</section></div>';
     topo.after(painel);
 
@@ -106,24 +96,6 @@
       topo.querySelector('.topo-in').after(faixa);
       document.documentElement.classList.add('com-cats');
       var ativo = faixa.querySelector('[aria-current]'); if (ativo) faixa.querySelector('.faixa-cats-in').scrollLeft = ativo.offsetLeft - 16;
-    }
-
-    /* Faixa de anúncio dos planos (some na página de planos e fica fechada por 7 dias quando a pessoa fecha) */
-    var fechadoEm = 0;
-    try { fechadoEm = +localStorage.getItem('avisoPlanosFechado') || 0; } catch (e) {}
-    if (location.pathname.indexOf('planos') < 0 && Date.now() - fechadoEm > 7 * 864e5) {
-      var aviso = document.createElement('div');
-      aviso.className = 'aviso-planos';
-      aviso.innerHTML = '<div class="moldura"><p><span class="aviso-longo">Alertas de largada, prévias das etapas e simulador de campeonato.</span>' +
-        '<span class="aviso-curto">Mais acesso com os planos.</span></p><a href="planos.html">Conhecer os planos</a></div>' +
-        '<button class="aviso-fechar" type="button" aria-label="Fechar aviso">×</button>';
-      topo.appendChild(aviso);
-      document.documentElement.classList.add('com-aviso');
-      aviso.querySelector('.aviso-fechar').addEventListener('click', function () {
-        aviso.remove();
-        document.documentElement.classList.remove('com-aviso');
-        try { localStorage.setItem('avisoPlanosFechado', String(Date.now())); } catch (e) {}
-      });
     }
 
     topo.addEventListener('click', function (e) {
@@ -197,12 +169,19 @@
   window.NAVEIA_EU = /^https?:/.test(location.protocol)
     ? window.NAVEIA_API('eu').catch(function () { return { ok: false, logado: false, semServidor: true }; })
     : Promise.resolve({ ok: false, logado: false, semServidor: true });
+  /* Tudo grátis (desde 07/10/2026): as páginas que eram do plano Master abrem para todo mundo, com ou sem conta.
+     Bolão, chat e Box continuam usando NAVEIA_EU (precisam de uma conta grátis). */
+  window.NAVEIA_LIVRE = window.NAVEIA_EU.then(function (r) {
+    var u = r && r.logado && r.usuario ? r.usuario : {};
+    u.plano = 'master';
+    return { ok: true, logado: true, livre: true, contaDeVerdade: !!(r && r.logado), usuario: u };
+  });
   /* Convite para criar conta (só para quem não está logado): no fim das notícias e das páginas das categorias e na página inicial */
   window.NAVEIA_EU.then(function (r) {
     if (!r || r.logado || r.semServidor || /entrar|conta|redefinir|planos/.test(location.pathname)) return;
     var volta = encodeURIComponent((location.pathname.split('/').pop() || 'index.html'));
     var html = '<aside class="convite-conta" aria-label="Crie sua conta grátis"><div class="convite-txt"><b>Crie sua conta grátis</b>' +
-      '<span>Ganhe <em>7 dias do plano Master</em>: telemetria da F1, Raio-x, prévias das etapas, Box e alertas de largada. Sem cartão.</span></div>' +
+      '<span>Tudo no site é grátis. Com a conta você também <em>joga o bolão</em>, conversa no chat da torcida, fala com o Box e recebe os alertas de largada.</span></div>' +
       '<a class="convite-bt" href="entrar.html?volta=' + volta + '#criar">Criar conta grátis</a></aside>';
     function colocar(alvo, onde) { if (alvo) alvo.insertAdjacentHTML(onde, '<div class="moldura convite-vaga">' + html + '</div>'); }
     if (document.body.getAttribute('data-cat')) colocar(document.getElementById('paineis'), 'afterend');
@@ -241,12 +220,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol)) {
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=216'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=216'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=216'; appJs.defer = true; document.body.appendChild(appJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=217'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=217'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=217'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=216'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=216'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=217'; document.head.appendChild(boxCss);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=217'; boxJs.defer = true; document.body.appendChild(boxJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -313,7 +292,7 @@
         var cats = [].concat.apply([], GRUPOS.filter(function (g) { return col[1].indexOf(g.nome) > -1; }).map(function (g) { return g.cats; }));
         return coluna(col[0], cats.map(function (c) { return li(pagina(c), esc(c.nome)); }));
       }).join('') +
-      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
+      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +
         '<span class="rodape-responsavel">Responsável: Gustavo Teixeira · Estrada Doutor Manoel Reis, Rio de Janeiro, Brasil</span></div></div>';

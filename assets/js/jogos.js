@@ -21,7 +21,7 @@
       '<li><b>Piloto misterioso</b>Dica por dica, descubra quem é. Menos dicas, mais pontos.</li>' +
       '<li><b>Chefe de Equipe</b>Escolha a cor do seu carro e comande a estratégia: ritmo, pit stop e pneus.</li></ul></div>';
   }
-  window.NAVEIA_EU.then(function (r) {
+  window.NAVEIA_LIVRE.then(function (r) {
     if (r.semServidor) {
       if (local) return liberar(true, window.NAVEIA_TESTE_PLANO);
       if (!window.NAVEIA_PC) return bloquear('Jogos indisponíveis agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="jogos.html">Tentar de novo</a>');

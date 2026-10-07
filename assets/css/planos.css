@@ -156,7 +156,7 @@
 }
 
 /* ---------- Página só do simulador (simulador.html) ---------- */
-.sm { padding: calc(var(--topo) + 48px) 0 110px; }
+.sm { padding: calc(var(--topo) + 48px) 0 110px; min-height: 100vh; } /* reserva a altura: o rodapé não pula quando o conteúdo chega (CLS) */
 .sm-cab { margin-bottom: 40px; }
 .sm-trilha { margin: 0 0 14px; font-size: 15px; font-weight: 600; color: var(--aco); }
 .sm-trilha a { color: var(--cromo); }

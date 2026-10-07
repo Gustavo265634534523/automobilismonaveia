@@ -609,7 +609,7 @@
      No plano Médio quem conta é o servidor de contas (ações chefe e chefe_corrida): limpar o navegador não zera o limite. */
   var LIMITE_MEDIO = 15;
   window.JOGO_CHEFE = function (el, opcoes) {
-    var LIMITE = (opcoes && opcoes.limite) || 0, modo = LIMITE ? 'visitante' : 'livre';
+    var LIMITE = 0, modo = 'livre'; /* tudo grátis: sem limite de corridas para ninguém */
     if (opcoes && opcoes.plano === 'medio') modo = 'medio'; /* plano Médio: LIMITE_MEDIO corridas por dia */
     function hoje() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
     var usadasServidor = 0; /* plano Médio: quantas corridas o servidor já contou hoje */

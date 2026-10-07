@@ -226,7 +226,7 @@
       '<h2>' + titulo + '</h2><p>' + texto + '</p><div class="sm-trava-acoes">' + botoes + '</div>' +
       '<p class="sm-trava-demo">Quer experimentar antes? A <a href="./#simulador-demo">demonstração só da Fórmula 1</a> está liberada na página inicial.</p></div>';
   }
-  (window.NAVEIA_EU || Promise.resolve({ semServidor: true })).then(function (r) {
+  (window.NAVEIA_LIVRE || Promise.resolve({ semServidor: true })).then(function (r) {
     if (r.semServidor && !local && window.NAVEIA_PC) r = { logado: false };
     if (r.semServidor) {
       if (!local) return trava('Simulador indisponível agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="simulador.html">Tentar de novo</a>');

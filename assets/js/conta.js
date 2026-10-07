@@ -208,13 +208,11 @@
       var ate = u.plano !== 'gratis' && u.plano_ate ? '<p class="ct-sub">Válido até ' + new Date(u.plano_ate).toLocaleDateString('pt-BR') + '.</p>' : '';
       /* teste grátis de 7 dias do Master (conta nova): o Telegram segue o plano pago */
       var nivelTg = NIVEL[u.plano_pago || u.plano] || 0;
-      if (u.teste) ate = '<p class="ct-teste-gratis"><b>Teste grátis do Master</b> até ' + new Date(u.teste_ate).toLocaleDateString('pt-BR') + '. Gostou? Continue no Master por R$ 24,90 no primeiro mês.</p>';
+      ate = ''; /* tudo grátis: sem data de validade */
       document.getElementById('ct-plano').innerHTML =
-        '<p class="ct-plano-nome">' + NOMES[u.plano] + '</p>' +
-        '<p class="ct-sub">' + (u.plano === 'gratis' ? 'Você usa o site de graça. Assine para receber os alertas e liberar os recursos dos planos.' :
-          u.plano === 'medio' ? 'Alertas e resumos no Telegram, aviso de mudança de horário, agenda do celular e o Chefe de Equipe.' : 'Tudo liberado: jogos, simulador, duelo, bolão e Raio-x F1 com telemetria.') + '</p>' + ate +
-        (u.plano !== 'master' ? '<a class="pl-botao" href="planos.html">Ver os planos</a>' : '<a class="pl-botao" href="area-master.html">Abrir a Área Master</a>') +
-        (u.teste ? '<a class="pl-botao pl-botao-linha" href="planos.html">Assinar o Master</a>' : '') +
+        '<p class="ct-plano-nome">Tudo liberado</p>' +
+        '<p class="ct-sub">O site é todo grátis: Raio-x e telemetria, prévias, simulador, duelo, jogos, bolão, Box e os alertas no Telegram.</p>' + ate +
+        '<a class="pl-botao" href="area-master.html">Ver as ferramentas</a>' +
         /* Telegram: canal de avisos (Médio e Master) e grupo fechado (Master) */
         (nivelTg >= 1 ? '<div class="ct-telegram"><p class="ct-rot-tg">Telegram</p>' +
           '<button type="button" class="pl-botao" data-tg="canal">' + (u.telegram && u.telegram.canal ? 'Abrir o canal de avisos' : 'Entrar no canal de avisos') + '</button>' +

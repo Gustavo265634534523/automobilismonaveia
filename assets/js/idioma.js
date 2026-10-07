@@ -10,7 +10,7 @@
   if (!/(^|\/)(index\.html)?$/.test(p)) h.classList.add('com-cats');
   try {
     var fechado = +localStorage.getItem('avisoPlanosFechado') || 0;
-    if (p.indexOf('planos') < 0 && Date.now() - fechado > 7 * 864e5 && localStorage.getItem('naveia-sem-aviso') !== '1') h.classList.add('com-aviso');
+    /* (a faixa de aviso dos planos saiu: tudo grátis desde 07/10/2026) */
   } catch (e) {}
 })();
 

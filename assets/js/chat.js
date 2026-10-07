@@ -58,7 +58,7 @@
     });
   }
   function linha(m) {
-    var selo = m.plano === 'master' ? '<span class="chat-selo chat-master">Master</span>' : m.plano === 'medio' ? '<span class="chat-selo">Médio</span>' : '';
+    var selo = ''; /* tudo grátis: sem selo de plano */
     var acoes = '';
     if (m.minha || info.dono) acoes += '<button type="button" class="chat-acao" data-apagar="' + m.id + '">apagar</button>';
     if (info.dono && !m.minha) acoes += '<button type="button" class="chat-acao" data-bloquear="' + m.id + '">bloquear</button>';

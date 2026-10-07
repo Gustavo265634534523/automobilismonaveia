@@ -139,7 +139,7 @@
   /* agenda do celular (planos Médio e Master) */
   var pasta = location.href.replace(/[?#].*$/, '').replace(/[^/]*$/, '') + 'assets/agenda/';
   function plano() {
-    return (window.NAVEIA_EU || Promise.resolve({})).then(function (r) { return r && r.logado && r.usuario ? r.usuario.plano : (r && r.semServidor && window.NAVEIA_PC ? 'master' : null); });
+    return Promise.resolve('master'); /* tudo grátis: agenda inteira liberada para todos */
   }
   function ics(c, e, s) {
     var ini = new Date(s.d + 'T' + s.h + ':00-03:00'), fim = new Date(ini.getTime() + 2 * 36e5);
@@ -156,7 +156,6 @@
       if (unica && e && sessao(e, q)) pago = true; /* uma corrida só: grátis para todos */
       if (!pago) {
         var r = { t: 'Assinar a agenda inteira ' + de(c) + ', com todas as etapas e os horários se atualizando sozinhos, faz parte dos planos Médio e Master. De graça, eu coloco uma corrida por vez: diga, por exemplo, "coloca a próxima corrida ' + de(c) + ' na agenda".' };
-        r.link = ['planos.html', 'Conhecer os planos'];
         return r;
       }
       if (unica && e) {
@@ -178,7 +177,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=216'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=217'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {

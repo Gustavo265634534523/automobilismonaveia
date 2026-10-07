@@ -154,7 +154,7 @@
   }
   abas.hidden = true;
   caixa.innerHTML = '<p class="nota">Carregando…</p>';
-  window.NAVEIA_EU.then(function (r) {
+  window.NAVEIA_LIVRE.then(function (r) {
     if (r.semServidor && !local && window.NAVEIA_PC) r = { logado: false };
     if (r.semServidor) {
       if (!local) return trava('Duelo indisponível agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="duelo.html">Tentar de novo</a>');

@@ -116,7 +116,7 @@
   caixa.innerHTML = '<p class="nota">Carregando…</p>';
   window.NAVEIA_EU.then(function (r) {
     if (r.semServidor) return trava('Bolão indisponível agora', 'Não foi possível confirmar sua conta. Tente de novo em alguns minutos.', '<a class="pl-botao" href="bolao.html">Tentar de novo</a>');
-    if (!r.logado) return trava('Exclusivo do plano Master', 'Entre na sua conta para participar do bolão. Se ainda não assina, conheça o Master.', '<a class="pl-botao" href="entrar.html?volta=bolao.html">Entrar</a><a class="pl-botao pl-botao-linha" href="planos.html">Ver os planos</a>');
+    if (!r.logado) return trava('Entre para jogar o bolão', 'O bolão é grátis. Só precisa de uma conta, para guardar os seus palpites e os seus pontos no ranking.', '<a class="pl-botao" href="entrar.html?volta=bolao.html#criar">Criar conta grátis</a><a class="pl-botao pl-botao-linha" href="entrar.html?volta=bolao.html">Já tenho conta</a>');
     if (r.usuario.plano !== 'master') return trava('Exclusivo do plano Master', 'Seu plano atual não inclui o bolão. Mude para o Master e dispute o ranking com os outros membros.', '<a class="pl-botao" href="planos.html">Conhecer o Master</a>');
     carregar();
   });
