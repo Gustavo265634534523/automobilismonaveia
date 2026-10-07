@@ -94,6 +94,7 @@
   if (!caixa) return;
   /* Modo básico (demonstração da página inicial): data-so="formula-1" mostra só essa categoria, sem as abas */
   var so = caixa.getAttribute('data-so');
+  var naHome = caixa.hasAttribute('data-home'); /* simulador completo na página inicial */
   var catAtual, escolhas, base, opcoesHtml;
 
   if (abas) abas.innerHTML = ORDEM.filter(function (sl) { return PORSLUG[sl]; }).map(function (sl) {
@@ -106,7 +107,7 @@
   function abrir(slug) {
     catAtual = slug;
     if (abas) [].forEach.call(abas.children, function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-cat') === slug); });
-    if (!so && history.replaceState) history.replaceState(null, '', '#' + slug);
+    if (!so && !naHome && history.replaceState) history.replaceState(null, '', '#' + slug);
     var c = PORSLUG[slug], r = REGRAS[slug];
 
     if (!r) { /* temporada encerrada */
@@ -212,7 +213,7 @@
   });
 
   function comecar() {
-    var inicial = so || location.hash.slice(1);
+    var inicial = so || (naHome ? '' : location.hash.slice(1));
     abrir(PORSLUG[inicial] ? inicial : 'formula-1');
   }
   if (so) { comecar(); return; } /* demonstração da página inicial: livre para todos */

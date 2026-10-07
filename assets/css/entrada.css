@@ -167,3 +167,4 @@
 .rx-quadro { display: block; width: 100%; height: 1500px; border: 0; background: transparent; }
 #previa-home:empty { min-height: 760px; }
 @media (max-width: 760px) { #previa-home:empty { min-height: 1500px; } }
+#simulador-demo .pl-sim { min-height: 700px; }

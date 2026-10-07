@@ -49,7 +49,8 @@
   var caixaL = document.getElementById('largada'); if (caixaL) caixaL.remove();
 
   /* Índice, em 3 grupos */
-  document.getElementById('indice').innerHTML = window.GRUPOS.map(function (g) {
+  var indice = document.getElementById('indice');
+  if (indice) indice.innerHTML = window.GRUPOS.map(function (g) {
     return '<section class="indice-grupo"><div class="indice-grupo-cab"><h3>' + esc(g.nome) + '</h3><p>' + esc(g.desc) + '</p></div><ul class="indice">' +
       g.cats.map(function (c) {
         return '<li class="indice-item"><a class="indice-link" href="' + c.slug + '.html">' +
