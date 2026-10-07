@@ -898,3 +898,29 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .alerta-bt:disabled { opacity: .6; cursor: wait; }
 .alerta-msg { display: block; margin-top: 8px; font-size: 14px; color: #c3c8cd; max-width: 520px; }
 .cat-alerta { margin: 16px 0 0; }
+
+/* Prévia da próxima etapa na página da categoria (categoria.js) */
+.pv-cat { margin-top: 30px; }
+.pv-cat-in { padding: 20px 20px 22px; background: var(--carbono); border: 1px solid var(--linha); box-shadow: inset 0 3px 0 var(--sangue-vivo); }
+.pv-cat h2 { margin: 0 0 4px; font-size: clamp(24px, 3vw, 34px); font-family: var(--display); font-weight: 400; }
+.pv-onde { margin: 0 0 10px; color: #c3c8cd; }
+.pv-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin-top: 16px; }
+.pv-bloco { padding: 16px; background: rgba(0,0,0,.18); border: 1px solid var(--linha); }
+.pv-bloco h3 { margin: 0 0 10px; font-size: 18px; }
+.pv-tempo-bloco { min-height: 560px; } /* reserva a altura da previsão, que chega depois (a página não pula) */
+.pv-vazio { margin: 0; color: var(--aco); }
+.pv-tempo { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.pv-tempo li { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; background: rgba(0,0,0,.25); }
+.pv-dia { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--aco); }
+.pv-tempo b { font-size: 20px; }
+.pv-det { font-size: 14px; color: #c3c8cd; }
+.pv-sub { margin: 14px 0 6px; font-weight: 700; font-size: 15px; }
+.pv-lista { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: #d3d8dc; }
+.pv-fonte { margin: 10px 0 0; font-size: 12px; color: var(--aco); }
+.pv-num { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.pv-num li { padding: 10px; background: rgba(0,0,0,.25); }
+.pv-num b { display: block; font-size: 18px; }
+.pv-num span { font-size: 13px; color: var(--aco); }
+.pv-venc { list-style: none; margin: 0; padding: 0; }
+.pv-venc li { display: flex; gap: 14px; padding: 7px 0; border-bottom: 1px solid var(--linha); font-weight: 600; }
+.pv-venc span { color: var(--aco); min-width: 40px; }
