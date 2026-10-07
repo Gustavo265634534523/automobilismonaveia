@@ -42,6 +42,10 @@ async function get(fim) {
   const stints = await get('stints?session_key=' + k); await espera();
   const resultado = await get('session_result?session_key=' + k); await espera();
   const grid = await get('starting_grid?session_key=' + k); await espera();
+  /* extras (se a OpenF1 não tiver, o bloco só não aparece) */
+  const controle = await get('race_control?session_key=' + k).catch(() => []); await espera();
+  const tempo = await get('weather?session_key=' + k).catch(() => []); await espera();
+  const ultrap = await get('overtakes?session_key=' + k).catch(() => []); await espera();
   if (!pilotos.length || !voltas.length || !resultado.length) throw new Error('dados incompletos (pilotos ' + pilotos.length + ', voltas ' + voltas.length + ', resultado ' + resultado.length + ')');
   /* sem grid oficial, usa a classificação de sábado */
   let largada = grid.map(g => ({ n: g.driver_number, pos: g.position }));
@@ -104,7 +108,88 @@ async function get(fim) {
   saida.forEach(p => { const c = p.voltas.filter(x => x === 1).length; if (c) lid[p.nome] = c; });
   const lideranca = Object.entries(lid).sort((a, b) => b[1] - a[1]);
 
-  const dados = { titulo: TITULO, local: LOCAL, data: corrida.date_start.slice(0, 10), voltas: total, fonte: 'OpenF1 (api.openf1.org)', grid: gridFonte, pilotos: saida, lideranca };
+  /* ---------- extras ---------- */
+  const sigla = n => (pilotos.find(p => p.driver_number === n) || {}).name_acronym || '#' + n;
+  /* diferença para o líder no fim de cada volta (segundos) */
+  saida.forEach(p => {
+    p.dif = [];
+    for (let v = 1; v <= total; v++) {
+      const lider = Object.keys(fimDaVolta).filter(n => fimDaVolta[n][v]).sort((a, b) => fimDaVolta[a][v] - fimDaVolta[b][v])[0];
+      const t = fimDaVolta[p.n] && fimDaVolta[p.n][v];
+      p.dif.push(t && lider ? Math.round((t - fimDaVolta[lider][v]) / 100) / 10 : null);
+    }
+  });
+  /* velocidade máxima no radar, melhor volta e volta ideal (soma dos três melhores setores) */
+  saida.forEach(p => {
+    const vs = (porPiloto[p.n] || []).filter(v => !v.is_pit_out_lap && v.lap_number > 1);
+    const min = c => { const l = vs.map(v => v[c]).filter(x => x > 0); return l.length ? Math.min(...l) : null; };
+    const s1 = min('duration_sector_1'), s2 = min('duration_sector_2'), s3 = min('duration_sector_3');
+    p.vel = Math.max(0, ...(porPiloto[p.n] || []).map(v => v.st_speed || 0)) || null;
+    p.melhor = min('lap_duration');
+    p.ideal = s1 && s2 && s3 ? Math.round((s1 + s2 + s3) * 1000) / 1000 : null;
+  });
+  /* ultrapassagens feitas e sofridas */
+  saida.forEach(p => {
+    p.ultFeitas = ultrap.filter(u => u.overtaking_driver_number === p.n).length;
+    p.ultSofridas = ultrap.filter(u => u.overtaken_driver_number === p.n).length;
+  });
+  /* voltas apagadas por limite de pista */
+  saida.forEach(p => { p.limites = controle.filter(c => /DELETED - TRACK LIMITS/.test(c.message || '') && c.driver_number === p.n).length; });
+  /* clima ao longo da corrida: [minuto, ar, asfalto, umidade, chuva, vento km/h] */
+  const ini = Date.parse(corrida.date_start), fimC = Date.parse(corrida.date_end || corrida.date_start) + 30 * 60000;
+  const clima = tempo.filter(w => { const t = Date.parse(w.date); return t >= ini && t <= fimC && w.air_temperature > 1 && w.track_temperature > 1; })
+    .map(w => [Math.round((Date.parse(w.date) - ini) / 60000), w.air_temperature, w.track_temperature, Math.round(w.humidity), w.rainfall ? 1 : 0, Math.round((w.wind_speed || 0) * 3.6)]);
+  /* direção de prova: só o que importa, em português */
+  const MOTIVO = [
+    [/CAUSING A COLLISION/, 'causar colisão'], [/LEAVING THE TRACK AND GAINING AN? (LASTING )?ADVANTAGE/, 'sair da pista e ganhar vantagem'],
+    [/FORCING ANOTHER DRIVER OFF THE TRACK/, 'jogar outro piloto para fora da pista'], [/SPEEDING IN THE PIT LANE/, 'excesso de velocidade no pit lane'],
+    [/UNSAFE RELEASE/, 'liberação insegura no pit'], [/TRACK LIMITS/, 'limites de pista'], [/FALSE START/, 'largada queimada'],
+    [/IMPEDING/, 'atrapalhar outro piloto'], [/ERRATIC DRIVING|DRIVING ERRATICALLY/, 'pilotagem irregular'], [/MOVING BEFORE (THE )?(START )?SIGNAL|JUMP START|JUMPED START/, 'mexer o carro antes do sinal de largada'],
+    [/UNSPORTSMANLIKE/, 'atitude antidesportiva'], [/IGNORING (BLUE|THE BLUE) FLAGS?/, 'ignorar bandeira azul'], [/CUTTING THE (TRACK|CHICANE)/, 'cortar a pista'], [/OVERTAKING UNDER (SAFETY CAR|SC)/, 'ultrapassar sob safety car'],
+    [/OVERTAKING UNDER (VSC|VIRTUAL)/, 'ultrapassar sob safety car virtual'], [/(YELLOW|DOUBLE YELLOW) FLAG/, 'não respeitar bandeira amarela'],
+    [/MORE THAN ONE CHANGE OF DIRECTION/, 'mudar de direção mais de uma vez'], [/SAFETY CAR INFRINGEMENT|SC INFRINGEMENT/, 'infração durante o safety car'],
+    [/PIT ENTRY|PIT EXIT/, 'infração na entrada ou saída do pit'], [/STARTING PROCEDURE|WRONG GRID POSITION|GRID POSITION/, 'infração na largada'],
+    [/MOVING UNDER BRAKING/, 'mudar de direção na freada'], [/CROSSING THE (WHITE )?LINE/, 'cruzar a linha da saída do pit']
+  ];
+  const motivo = t => { const m = MOTIVO.find(x => x[0].test(t)); return m ? m[1] : t.toLowerCase(); };
+  const siglas = t => (t.match(/\((\w{3})\)/g) || []).map(x => x.slice(1, 4));
+  const quem = t => { const l = siglas(t); return l.length > 1 ? l.slice(0, -1).join(', ') + ' e ' + l[l.length - 1] : l[0] || ''; };
+  function traduz(c) {
+    const t = (c.message || '').toUpperCase().replace(/\s+\(\d\d:\d\d(:\d\d)?\)\s*$/, '').trim();
+    let m;
+    if (c.flag === 'RED' || /^RED FLAG/.test(t)) return ['vermelha', 'Bandeira vermelha: corrida interrompida'];
+    if (c.flag === 'CHEQUERED') return ['fim', 'Bandeirada final'];
+    if (c.flag === 'BLACK AND WHITE') return ['punicao', 'Bandeira preta e branca (advertência) para ' + (quem(t) || sigla(c.driver_number)) + ((m = t.match(/ - (.+)$/)) ? ': ' + motivo(m[1]) : '')];
+    if (/^VIRTUAL SAFETY CAR DEPLOYED/.test(t)) return ['sc', 'Safety car virtual'];
+    if (/^VIRTUAL SAFETY CAR ENDING/.test(t)) return ['sc', 'Fim do safety car virtual'];
+    if (/^SAFETY CAR DEPLOYED/.test(t)) return ['sc', 'Safety car na pista'];
+    if (/^SAFETY CAR IN THIS LAP/.test(t)) return ['sc', 'Safety car sai no fim desta volta'];
+    if (/^DELAYED START/.test(t)) return ['info', 'Largada adiada'];
+    if (/STARTING PROCEDURE SUSPENDED/.test(t)) return ['info', 'Procedimento de largada suspenso'];
+    if (/FORMATION LAP\(S\) BEHIND SAFETY CAR/.test(t)) return ['sc', 'Volta de apresentação atrás do safety car'];
+    if ((m = t.match(/^RISK OF RAIN FOR THE F1 RACE IS (\d+)%/))) return ['info', 'Risco de chuva de ' + m[1] + '% para a corrida'];
+    if (/^STANDING START/.test(t)) return ['info', 'Largada parada'];
+    if (/^ROLLING START/.test(t)) return ['info', 'Largada lançada, atrás do safety car'];
+    if (/DISQUALIFIED/.test(t)) return ['punicao', quem(t) + ' desclassificado' + ((m = t.match(/ - (.+)$/)) ? ': ' + motivo(m[1]) : '')];
+    if ((m = t.match(/(\d+) SECOND TIME PENALTY FOR CAR \d+ \((\w+)\)(?: - (.+))?/))) return ['punicao', 'Punição de ' + m[1] + ' s para ' + m[2] + (m[3] ? ': ' + motivo(m[3]) : '')];
+    if ((m = t.match(/DRIVE THROUGH PENALTY FOR CAR \d+ \((\w+)\)(?: - (.+))?/))) return ['punicao', 'Drive-through para ' + m[1] + (m[2] ? ': ' + motivo(m[2]) : '')];
+    if ((m = t.match(/(\d+) SECOND STOP\/GO PENALTY FOR CAR \d+ \((\w+)\)(?: - (.+))?/))) return ['punicao', 'Stop and go de ' + m[1] + ' s para ' + m[2] + (m[3] ? ': ' + motivo(m[3]) : '')];
+    if ((m = t.match(/REPRIMAND FOR CAR \d+ \((\w+)\)(?: - (.+))?/))) return ['punicao', 'Advertência para ' + m[1] + (m[2] ? ': ' + motivo(m[2]) : '')];
+    if (/NO FURTHER (ACTION|INVESTIGATION)/.test(t) && siglas(t).length) return ['ok', 'Sem punição para ' + quem(t) + ((m = t.match(/ - ([^-]+)$/)) ? ' (' + motivo(m[1]) + ')' : '')];
+    if (/WILL BE INVESTIGATED AFTER THE RACE/.test(t)) return ['investiga', quem(t) + ' será investigado depois da corrida' + ((m = t.match(/ - ([^-]+)$/)) ? ': ' + motivo(m[1]) : '')];
+    if (/UNDER INVESTIGATION/.test(t)) return ['investiga', quem(t) + ' sob investigação' + ((m = t.match(/ - ([^-]+)$/)) ? ': ' + motivo(m[1]) : '')];
+    if (/ NOTED /.test(t) && siglas(t).length) return ['investiga', 'Incidente com ' + quem(t) + ' anotado pelos comissários' + ((m = t.match(/ - ([^-]+)$/)) ? ': ' + motivo(m[1]) : '')];
+    return null;
+  }
+  const direcao = [];
+  controle.forEach(c => {
+    const r = traduz(c); if (!r) return;
+    const ult = direcao[direcao.length - 1];
+    if (ult && ult.t === r[1]) return; /* repetida */
+    direcao.push({ v: c.lap_number || 1, tipo: r[0], t: r[1] });
+  });
+
+  const dados = { titulo: TITULO, local: LOCAL, data: corrida.date_start.slice(0, 10), voltas: total, fonte: 'OpenF1 (api.openf1.org)', grid: gridFonte, pilotos: saida, lideranca, direcao, clima, temUltrapassagens: ultrap.length > 0 };
   const arq = path.join(__dirname, '..', 'assets', 'dados', 'raiox-f1.js');
   fs.writeFileSync(arq, '/* Raio-x gerado a partir do OpenF1 por _ferramentas/gerar-raiox.js. */\nwindow.RAIOX = ' + JSON.stringify(dados) + ';\n');
   console.log('Gerado:', TITULO, '|', total, 'voltas |', saida.length, 'pilotos | grid:', gridFonte);
