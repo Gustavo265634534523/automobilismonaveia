@@ -2,7 +2,10 @@
    previsão do tempo (Open-Meteo), mapa e números da pista, cenários de título e o pódio mais votado do bolão. */
 (function () {
   var esc = window.esc;
-  var caixa = document.getElementById('previa');
+  /* na página inicial (#previa-home) a prévia aparece aberta e mais curta: horários, previsão, números da pista e cenários de título */
+  var home = document.getElementById('previa-home');
+  var caixa = home || document.getElementById('previa');
+  if (!caixa) return;
   var f1 = window.CATEGORIAS.filter(function (c) { return c.slug === 'formula-1'; })[0];
   var hoje = window.hojeISO();
   var restantes = f1.calendario.filter(function (e) { return !e.venc; });
@@ -19,7 +22,7 @@
     var L = linhas[0], S = linhas[1], n = restantes.length, gap = L.pts - S.pts;
 
     var cab = '<header class="pl-previa-cab"><span>Fórmula 1, etapa ' + etapa.e + ' de ' + f1.calendario.length + '</span>' +
-      '<h3>' + esc(etapa.n) + '</h3><p>' + esc(etapa.l) + ', ' + window.dataCurta(etapa.d) + (etapa.nota ? '. ' + esc(etapa.nota) : '') + '</p>' + window.contagem(etapa) + '</header>';
+      '<h3>' + esc(etapa.n) + '</h3><p>' + esc(etapa.l) + ', ' + window.dataCurta(etapa.d) + (etapa.nota ? '. ' + esc(etapa.nota.charAt(0).toUpperCase() + etapa.nota.slice(1)) + '.' : '') + '</p>' + window.contagem(etapa) + '</header>';
 
     var horarios = etapa.s ? window.sessoes(etapa) : aviso('Os horários entram assim que a categoria divulgar.');
 
@@ -44,6 +47,16 @@
         pista.venc.map(function (v) { return '<tr><td>' + v[0] + '</td><td>' + esc(v[1]) + '</td></tr>'; }).join('') + '</tbody></table>' : '')
       : aviso('Os números desta pista entram em breve.');
 
+    if (home) {
+      caixa.innerHTML = cab + '<div class="pl-previa-grade">' +
+        bloco('Horários no fuso de Brasília', horarios) +
+        bloco('Previsão do tempo', '<div id="pv-tempo">' + (pista ? aviso('Buscando a previsão…') : aviso('Previsão indisponível para esta pista.')) + '</div>') +
+        bloco('Números da pista', numeros) +
+        bloco('Cenários de título', cenarios) +
+        '</div>';
+      if (pista) previsao(pista);
+      return;
+    }
     caixa.innerHTML = cab + '<div class="pl-previa-grade">' +
       bloco('Horários no fuso de Brasília', horarios) +
       bloco('O que está em jogo', jogo) +
@@ -108,5 +121,6 @@
     }).catch(function () { el.innerHTML = aviso('Não foi possível carregar os palpites agora.'); });
   }
 
-  window.TRAVA_MASTER(document.getElementById('pv-trava'), 'a Prévia da etapa', 'previa.html', montar);
+  if (home) montar();
+  else window.TRAVA_MASTER(document.getElementById('pv-trava'), 'a Prévia da etapa', 'previa.html', montar);
 })();
