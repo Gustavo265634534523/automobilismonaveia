@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=217"></script>
+<script src="assets/js/idioma.js?v=218"></script>
 <title>Automobilismo Na Veia</title>
 <meta name="description" content="Fórmula 1, MotoGP, Stock Car, Porsche Cup e mais oito categorias. Classificação, resultados, calendário, pilotos e equipes da temporada 2026.">
 <meta name="theme-color" content="#060707">
@@ -25,12 +25,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/hero-1-lado.webp" imagesrcset="assets/img/hero-1-lado-m.webp 1200w, assets/img/hero-1-lado.webp 2400w" imagesizes="100vw">
-<link rel="stylesheet" href="assets/css/estilo.css?v=217">
-<link rel="stylesheet" href="assets/css/planos.css?v=217">
-<link rel="stylesheet" href="assets/css/entrada.css?v=217">
-<link rel="stylesheet" href="assets/css/box.css?v=217">
-<link rel="stylesheet" href="assets/css/telemetria.css?v=217">
-<link rel="stylesheet" href="assets/css/master.css?v=217">
+<link rel="stylesheet" href="assets/css/estilo.css?v=218">
+<link rel="stylesheet" href="assets/css/planos.css?v=218">
+<link rel="stylesheet" href="assets/css/entrada.css?v=218">
+<link rel="stylesheet" href="assets/css/box.css?v=218">
+<link rel="stylesheet" href="assets/css/telemetria.css?v=218">
+<link rel="stylesheet" href="assets/css/master.css?v=218">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -73,8 +73,6 @@
         <li><a class="am-item" href="maratona.html"><h3>Maratona do fim de semana</h3><p>Monte a sua programação com todas as sessões dos próximos dias, com os conflitos de horário, e mande para a agenda.</p><span class="botao botao-linha">Abrir</span></a></li>
         <li><a class="am-item" href="simulador.html"><h3>Simulador completo</h3><p>Escolha os pódios das corridas que faltam e veja quem leva o título, em todas as categorias.</p><span class="botao botao-linha">Abrir</span></a></li>
         <li><a class="am-item" href="duelo.html"><h3>Duelo de pilotos</h3><p>Dois pilotos lado a lado na temporada: pontos, vitórias, pódios e corrida a corrida.</p><span class="botao botao-linha">Abrir</span></a></li>
-        <li><a class="am-item" href="jogos.html"><h3>Jogos</h3><p>Chefe de Equipe, Largada, Adivinhe o circuito e Piloto misterioso, sem limite.</p><span class="botao botao-linha">Abrir</span></a></li>
-        <li><a class="am-item" href="raiox.html"><h3>Raio-x F1 e MotoGP</h3><p>A última corrida da F1 e da MotoGP volta a volta, com pneus e tempos, e a telemetria da F1 para comparar a volta de dois pilotos.</p><span class="botao botao-linha">Abrir</span></a></li>
         <li><a class="am-item" href="bolao.html"><h3>Bolão entre membros</h3><p>Chute o pódio de cada corrida e dispute o ranking da temporada.</p><span class="botao botao-linha">Abrir</span></a></li>
       </ul>
     </div>
@@ -91,16 +89,10 @@
     </div>
   </section>
 
-  <section class="secao tl-home" id="telemetria" style="padding-top:0">
+  <section class="secao rx-home" id="telemetria" aria-label="Raio-x da F1 e da MotoGP" style="padding-top:0">
     <div class="moldura">
-      <div class="secao-cab revelar">
-        <h2>Telemetria: onde a pole foi decidida.</h2>
-        <p>Velocidade e diferença de tempo, metro a metro. Passe o dedo ou o mouse pelo gráfico.</p>
-      </div>
-      <p class="tl-sessao" id="tl-sessao"></p>
-      <div class="tl-video" id="tl-video" hidden></div>
-      <div id="tl-home"></div>
-      <div class="tl-chamada"><p><b>Na telemetria completa</b>, você escolhe qualquer sessão, quaisquer dois pilotos e qualquer volta, com acelerador, freio e marcha. Grátis.</p><a class="pl-botao" href="raiox.html#telemetria">Abrir a telemetria completa</a></div>
+      <!-- a página raiox.html inteira, sem topo e sem rodapé (modo embutido); a altura se ajusta sozinha -->
+      <iframe class="rx-quadro" id="rx-quadro" src="raiox.html?embutido=1" title="Raio-x da F1 e da MotoGP" loading="eager"></iframe>
     </div>
   </section>
 
@@ -132,15 +124,18 @@
 
 <footer id="rodape"></footer>
 
-<script src="assets/js/dados.js?v=217"></script>
-<script src="assets/js/site.js?v=217"></script>
-<script src="assets/js/inicio.js?v=217"></script>
-<script src="assets/js/noticias-gerais.js?v=217"></script>
-<script src="assets/js/entrada.js?v=217"></script>
-<script src="assets/js/telemetria-graf.js?v=217"></script>
-<script src="assets/dados/telemetria-amostra.js?v=217"></script>
-<script src="assets/dados/telemetria-videos.js?v=217"></script>
-<script src="assets/js/telemetria-home.js?v=217"></script>
-<script src="assets/js/simulador.js?v=217"></script>
+<script src="assets/js/dados.js?v=218"></script>
+<script src="assets/js/site.js?v=218"></script>
+<script src="assets/js/inicio.js?v=218"></script>
+<script src="assets/js/noticias-gerais.js?v=218"></script>
+<script src="assets/js/entrada.js?v=218"></script>
+<script>
+  /* Raio-x na página inicial: o quadro avisa a altura do conteúdo e cresce junto */
+  window.addEventListener('message', function (e) {
+    if (e.origin !== location.origin || !e.data || !e.data.rxAltura) return;
+    document.getElementById('rx-quadro').style.height = Math.ceil(e.data.rxAltura) + 'px';
+  });
+</script>
+<script src="assets/js/simulador.js?v=218"></script>
 </body>
 </html>
