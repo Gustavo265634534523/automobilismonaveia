@@ -77,3 +77,7 @@
 #rx-p-telemetria > .rx-sub { margin: 0 0 22px; max-width: 900px; }
 .rx-legenda-mgp { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 4px 0; font-size: 14px; color: var(--cromo); }
 .rx-legenda-mgp i { display: inline-block; width: 14px; height: 3px; margin-right: 6px; vertical-align: middle; }
+.rx-abas { overflow-x: auto; scrollbar-width: none; }
+.rx-abas::-webkit-scrollbar { display: none; }
+.rx-aba { white-space: nowrap; flex: none; }
+@media (max-width: 700px) { .rx-aba { padding: 12px 14px; font-size: 14px; } }
