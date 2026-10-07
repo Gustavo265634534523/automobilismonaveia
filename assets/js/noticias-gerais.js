@@ -4,7 +4,7 @@
    "manchete: true" coloca a notícia no destaque do topo. As notícias de cada categoria em dados.js também entram sozinhas na página. */
 
 /* Data e hora da última atualização (horário de Brasília). */
-window.NOTICIAS_ATUALIZADO = '2026-10-06T08:13:00-03:00';
+window.NOTICIAS_ATUALIZADO = '2026-10-07T08:13:00-03:00';
 
 window.NOTICIAS_GERAIS = [
   { d: '2026-10-06', cat: 'dakar', t: 'Imprensa espanhola aponta Alonso de volta ao Dakar em 2027, com carinha de Aston Martin', x: 'Segundo o site espanhol SoyMotor, Fernando Alonso vai disputar o Rally Dakar de 2027 num carro da Prodrive com visual de Aston Martin, uma versão do Dacia Sandrider que Nasser Al-Attiyah usou para vencer em 2026. Marc Coma, seu copiloto na experiência anterior no Dakar, seguiria ao lado dele. Os primeiros testes do espanhol estão previstos para a semana que vem, no Reino Unido. Nem Alonso nem a Aston Martin confirmaram o projeto. Ainda é boato, sem confirmação oficial.', t_en: 'Spanish press reports Alonso set for 2027 Dakar return with Aston Martin livery', x_en: 'According to Spanish outlet SoyMotor, Fernando Alonso will enter the 2027 Dakar Rally in a Prodrive car carrying Aston Martin livery, a version of the Dacia Sandrider that Nasser Al-Attiyah used to win in 2026. Marc Coma, his co-driver during his earlier Dakar stint, would partner him again. Alonso’s first test sessions are reportedly planned for next week in the United Kingdom. Neither Alonso nor Aston Martin has confirmed the project. It remains a rumour, with no official confirmation.' },
