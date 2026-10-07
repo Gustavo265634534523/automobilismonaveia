@@ -5,3 +5,4 @@
 .am-item h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 20px; }
 .am-item p { margin: 0; color: #c3c8cd; }
 .am-item .botao { margin-top: auto; align-self: flex-start; }
+.am-item h3 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 20px; } /* cartões na página inicial */

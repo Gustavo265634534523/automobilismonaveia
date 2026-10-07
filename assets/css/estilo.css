@@ -889,3 +889,12 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .convite-bt { flex: 0 0 auto; padding: 14px 22px; background: var(--sangue); color: #fff; font-weight: 800; font-size: 16px; text-decoration: none; clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--corte)), calc(100% - var(--corte)) 100%, 0 100%); }
 .convite-bt:hover { background: var(--sangue-vivo); }
 @media (max-width: 620px) { .convite-bt { width: 100%; text-align: center; } }
+
+/* Alerta de largada pelo site (assets/js/alerta.js) */
+.alerta-bt { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 16px; background: transparent; border: 1px solid var(--sangue-vivo); color: var(--cromo); font: 700 15px var(--texto); cursor: pointer; }
+.alerta-bt svg { width: 20px; height: 20px; flex: none; }
+.alerta-bt:hover { background: rgba(227,52,60,.12); }
+.alerta-bt.alerta-on { background: var(--sangue-vivo); color: #fff; }
+.alerta-bt:disabled { opacity: .6; cursor: wait; }
+.alerta-msg { display: block; margin-top: 8px; font-size: 14px; color: #c3c8cd; max-width: 520px; }
+.cat-alerta { margin: 16px 0 0; }

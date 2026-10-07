@@ -76,7 +76,7 @@
       }).join('') + '</ul></section>';
     }).join('') +
       '<section class="painel-planos" aria-label="Atalhos">' +
-        '<div class="painel-planos-acoes"><a class="botao" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
+        '<div class="painel-planos-acoes"><a class="botao" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="horarios.html">Horários e alerta de largada</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
       '</section></div>';
     topo.after(painel);
 
@@ -226,6 +226,7 @@
     /* Box: assistente de voz (box.js) */
     var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=217'; document.head.appendChild(boxCss);
     var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=217'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=217'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

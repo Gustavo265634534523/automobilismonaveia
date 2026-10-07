@@ -213,10 +213,9 @@
         '<p class="ct-plano-nome">Tudo liberado</p>' +
         '<p class="ct-sub">O site é todo grátis: Raio-x e telemetria, prévias, simulador, duelo, jogos, bolão, Box e os alertas no Telegram.</p>' + ate +
         '<a class="pl-botao" href="area-master.html">Ver as ferramentas</a>' +
-        /* Telegram: canal de avisos (Médio e Master) e grupo fechado (Master) */
+        /* Telegram: canal de avisos (o grupo fechado foi encerrado em 07/10/2026; a conversa fica no chat do site) */
         (nivelTg >= 1 ? '<div class="ct-telegram"><p class="ct-rot-tg">Telegram</p>' +
           '<button type="button" class="pl-botao" data-tg="canal">' + (u.telegram && u.telegram.canal ? 'Abrir o canal de avisos' : 'Entrar no canal de avisos') + '</button>' +
-          (nivelTg >= 2 ? '<button type="button" class="pl-botao pl-botao-linha" data-tg="grupo">' + (u.telegram && u.telegram.grupo ? 'Abrir o grupo Master' : 'Entrar no grupo Master') + '</button>' : '') +
           '<p class="ct-sub ct-tg-ajuda">O convite é só seu e vale por 1 dia. No Telegram, toque em "Pedir para entrar": o robô aprova na hora.</p><p class="ct-erro" id="ct-tg-erro" hidden></p></div>' : '') +
         (u.assinatura ? '<p class="ct-sub">Assinatura no cartão ativa: cobra sozinha todo mês.</p><button type="button" class="ct-mini" id="ct-cancelar">Cancelar a cobrança automática</button><p class="ct-erro" id="ct-cancelar-erro" hidden></p>' : '') +
         (modoTeste ? '<div class="ct-teste"><p>Modo teste (só na conta do dono): troque de plano na hora, sem pagar.</p>' +

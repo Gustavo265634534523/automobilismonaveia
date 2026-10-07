@@ -10,6 +10,27 @@ self.addEventListener('activate', function (e) {
   }).then(function () { return self.clients.claim(); }));
 });
 
+/* Alerta de largada: o servidor manda um toque sem conteúdo; aqui pergunta o que mostrar e mostra a notificação */
+var SERVIDOR = 'https://naveia-contas.naveia-contas.workers.dev/';
+self.addEventListener('push', function (e) {
+  e.waitUntil(self.registration.pushManager.getSubscription().then(function (s) {
+    return fetch(SERVIDOR + '?acao=push_alerta', { method: 'POST', headers: { 'Content-Type': 'application/json', 'X-Naveia': '1' }, body: JSON.stringify({ endpoint: s ? s.endpoint : '' }) });
+  }).then(function (r) { return r.json(); }).catch(function () { return {}; }).then(function (a) {
+    return self.registration.showNotification(a.titulo || 'Largada em breve', {
+      body: a.texto || 'Uma corrida que você segue começa daqui a pouco.', icon: 'assets/app/icone-192.png', badge: 'assets/app/icone-192.png',
+      tag: a.tag || 'largada', data: { url: a.url || 'horarios.html' }
+    });
+  }));
+});
+self.addEventListener('notificationclick', function (e) {
+  e.notification.close();
+  var url = new URL((e.notification.data && e.notification.data.url) || './', self.registration.scope).href;
+  e.waitUntil(self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(function (lista) {
+    for (var i = 0; i < lista.length; i++) if (lista[i].url === url && 'focus' in lista[i]) return lista[i].focus();
+    return self.clients.openWindow(url);
+  }));
+});
+
 self.addEventListener('fetch', function (e) {
   var req = e.request;
   if (req.method !== 'GET') return;
