@@ -48,7 +48,6 @@
       ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
       ['tv', 'onde-assistir.html', 'Onde assistir', /onde-assistir/.test(location.pathname)],
       ['categorias', '#categorias-menu', 'Categorias', false],
-      ['raiox', 'raiox.html', 'Raio-x', /raiox|duelo/.test(location.pathname)],
       ['jogos', 'jogos.html', 'Jogos', /jogos/.test(location.pathname)],
       ['chat', '#bate-papo', 'Chat', false],
       ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)]
@@ -79,7 +78,7 @@
       }).join('') + '</ul></section>';
     }).join('') +
       '<section class="painel-planos" aria-label="Atalhos">' +
-        '<div class="painel-planos-acoes"><a class="botao" href="raiox.html">Raio-x</a><a class="painel-guia" href="jogos.html">Jogos</a><a class="painel-guia" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="horarios.html">Horários e alerta de largada</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
+        '<div class="painel-planos-acoes"><a class="botao" href="jogos.html">Jogos</a><a class="painel-guia" href="./#analise">Raio-x e telemetria</a><a class="painel-guia" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="horarios.html">Horários e alerta de largada</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
       '</section></div>';
     topo.after(painel);
 
@@ -223,13 +222,13 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=226'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=226'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=226'; appJs.defer = true; document.body.appendChild(appJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=227'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=227'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=227'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=226'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=226'; boxJs.defer = true; document.body.appendChild(boxJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=226'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=227'; document.head.appendChild(boxCss);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=227'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=227'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

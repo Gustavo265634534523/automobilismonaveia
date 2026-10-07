@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=226"></script>
+<script src="assets/js/idioma.js?v=227"></script>
 <title>Raio-x: corrida, telemetria e duelo de pilotos | Automobilismo Na Veia</title>
 <meta name="description" content="Raio-x da Fórmula 1 e da MotoGP: posições volta a volta, pneus, tempos de volta e telemetria da F1 para comparar dois pilotos.">
 <link rel="canonical" href="https://automobilismonaveia.com.br/raiox.html">
@@ -23,15 +23,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=226">
-<link rel="stylesheet" href="assets/css/raiox.css?v=226">
-<link rel="stylesheet" href="assets/css/telemetria.css?v=226">
-<link rel="stylesheet" href="assets/css/planos.css?v=226">
-<link rel="stylesheet" href="assets/css/duelo.css?v=226">
+<link rel="stylesheet" href="assets/css/estilo.css?v=227">
+<link rel="stylesheet" href="assets/css/raiox.css?v=227">
+<link rel="stylesheet" href="assets/css/telemetria.css?v=227">
+<link rel="stylesheet" href="assets/css/planos.css?v=227">
+<link rel="stylesheet" href="assets/css/duelo.css?v=227">
 <script>
   /* modo embutido (página inicial): raiox.html?embutido=1 */
   if (/[?&]embutido=1/.test(location.search)) {
     document.documentElement.classList.add('rx-embutido');
+    var modo = (location.search.match(/[?&]modo=(raiox|telemetria|duelo)/) || [])[1] || 'raiox';
+    document.documentElement.setAttribute('data-modo', modo);
     document.write('<base target="_top">');
   }
 </script>
@@ -42,6 +44,9 @@ html.rx-embutido .app-bt, html.rx-embutido .box-bt, html.rx-embutido .chat-bt, h
 html.rx-embutido .aviso-priv, html.rx-embutido #aviso-priv, html.rx-embutido .chat-caixa, html.rx-embutido .box-tela { display: none !important; }
 html.rx-embutido .rx-main { padding-top: 0 !important; padding-bottom: 10px !important; min-height: 0 !important; }
 html.rx-embutido .moldura { padding-left: 0; padding-right: 0; }
+html.rx-embutido .rx-selo, html.rx-embutido .rx-titulo { display: none; }
+html.rx-embutido[data-modo="telemetria"] .rx-abas, html.rx-embutido[data-modo="duelo"] .rx-abas,
+html.rx-embutido[data-modo="raiox"] #rx-aba-telemetria, html.rx-embutido[data-modo="raiox"] #rx-aba-duelo { display: none; }
 </style>
 </head>
 <body>
@@ -121,18 +126,18 @@ html.rx-embutido .moldura { padding-left: 0; padding-right: 0; }
 
 <footer id="rodape"></footer>
 
-<script src="assets/js/dados.js?v=226"></script>
-<script src="assets/js/site.js?v=226"></script>
-<script src="assets/dados/raiox-f1.js?v=226"></script>
-<script src="assets/js/raiox.js?v=226"></script>
-<script src="assets/dados/telemetria-videos.js?v=226"></script>
-<script src="assets/js/telemetria-graf.js?v=226"></script>
-<script src="assets/dados/raiox-motogp.js?v=226"></script>
-<script src="assets/js/raiox-motogp.js?v=226"></script>
-<script src="assets/js/raiox-motogp-comparar.js?v=226"></script>
-<script src="assets/js/telemetria.js?v=226"></script>
-<script src="assets/dados/duelo-f1.js?v=226"></script>
-<script src="assets/js/duelo.js?v=226"></script>
+<script src="assets/js/dados.js?v=227"></script>
+<script src="assets/js/site.js?v=227"></script>
+<script src="assets/dados/raiox-f1.js?v=227"></script>
+<script src="assets/js/raiox.js?v=227"></script>
+<script src="assets/dados/telemetria-videos.js?v=227"></script>
+<script src="assets/js/telemetria-graf.js?v=227"></script>
+<script src="assets/dados/raiox-motogp.js?v=227"></script>
+<script src="assets/js/raiox-motogp.js?v=227"></script>
+<script src="assets/js/raiox-motogp-comparar.js?v=227"></script>
+<script src="assets/js/telemetria.js?v=227"></script>
+<script src="assets/dados/duelo-f1.js?v=227"></script>
+<script src="assets/js/duelo.js?v=227"></script>
 <script>
   /* Abas Corrida e Telemetria (raiox.html#telemetria abre direto na telemetria) */
   (function () {
@@ -154,7 +159,18 @@ html.rx-embutido .moldura { padding-left: 0; padding-right: 0; }
       window.addEventListener('load', avisar);
       window.addEventListener('message', function (e) { if (e.origin === location.origin && e.data && e.data.rxPedeAltura) avisar(); });
     }
-    window.RX_ABA_INICIAL = function () { if (location.hash === '#telemetria') abrir('telemetria'); if (location.hash === '#motogp') abrir('motogp'); if (location.hash === '#duelo') abrir('duelo'); };
+    window.RX_ABA_INICIAL = function () {
+      var m = document.documentElement.getAttribute('data-modo');
+      if (m === 'telemetria' || m === 'duelo') return abrir(m);
+      if (location.hash === '#telemetria') abrir('telemetria'); if (location.hash === '#motogp') abrir('motogp'); if (location.hash === '#duelo') abrir('duelo');
+    };
+    /* a página inicial troca o modo sem recarregar o quadro */
+    window.addEventListener('message', function (e) {
+      if (e.origin !== location.origin || !e.data || !e.data.rxModo) return;
+      document.documentElement.setAttribute('data-modo', e.data.rxModo);
+      abrir(e.data.rxModo === 'raiox' ? 'corrida' : e.data.rxModo);
+      if (typeof avisar === 'function') { setTimeout(avisar, 60); setTimeout(avisar, 900); } /* altura nova para a página inicial */
+    });
   })();
 </script>
 <script>
