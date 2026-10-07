@@ -241,12 +241,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol)) {
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=215'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=215'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=215'; appJs.defer = true; document.body.appendChild(appJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=216'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=216'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=216'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=215'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=215'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=216'; document.head.appendChild(boxCss);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=216'; boxJs.defer = true; document.body.appendChild(boxJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -313,7 +313,7 @@
         var cats = [].concat.apply([], GRUPOS.filter(function (g) { return col[1].indexOf(g.nome) > -1; }).map(function (g) { return g.cats; }));
         return coluna(col[0], cats.map(function (c) { return li(pagina(c), esc(c.nome)); }));
       }).join('') +
-      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
+      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('planos.html', 'Planos'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +
         '<span class="rodape-responsavel">Responsável: Gustavo Teixeira · Estrada Doutor Manoel Reis, Rio de Janeiro, Brasil</span></div></div>';

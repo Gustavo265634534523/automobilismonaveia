@@ -22,7 +22,7 @@
     /* a vaga do quadro já entra agora, com a altura reservada, para a página não pular quando os canais chegarem (CLS) */
     document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura oa-vaga" id="oa-vaga"></div>');
     var vaga = document.getElementById('oa-vaga');
-    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=215';
+    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=216';
     s.onload = function () {
       var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug);
       if (!q) { vaga.remove(); return; }
@@ -42,13 +42,18 @@
       t.linhas.map(function (l) { return '<tr class="p' + esc(l[0]) + '">' + l.map(function (v) { return '<td>' + esc(v) + '</td>'; }).join('') + '</tr>'; }).join('') +
       '</tbody></table></div>';
   }
+  /* página "horário e onde assistir" da etapa (feita por .github/paginas-horarios.js, mesmo nome de arquivo) */
+  function paginaHorario(e) {
+    if (!e.d || e.d < '2026-09-01') return '';
+    return 'horario-' + c.slug + '-' + e.n.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') + '-' + e.d.slice(0, 4) + '.html';
+  }
   function etapa(e, i) {
     var feita = !!e.venc;
     var cls = feita ? ' feita' : (i === proximaIdx ? ' proxima' : '');
     var status = feita ? 'Encerrada' : (e.d ? (i === proximaIdx ? (window.diasAte(e.d) >= 0 ? window.quando(e.d) : 'Próxima') : (e.d < hoje ? 'Aguardando resultado' : 'Programada')) : 'A confirmar');
     var venc = feita ? 'Vencedor: ' + e.venc : (e.parcial || e.nota || '');
     return '<li class="etapa' + cls + '"><span class="etapa-n">' + ('0' + e.e).slice(-2) + '</span>' +
-      '<span class="etapa-nome">' + esc(e.n) + '<small>' + esc(e.l) + '</small></span>' +
+      '<span class="etapa-nome">' + esc(e.n) + '<small>' + esc(e.l) + '</small>' + (paginaHorario(e) ? '<a class="etapa-hr" href="' + paginaHorario(e) + '">' + (feita ? 'Horários e onde passou' : 'Horário e onde assistir') + ' →</a>' : '') + '</span>' +
       '<span class="etapa-venc">' + esc(venc) + (i === proximaIdx ? window.sessoes(e) : '') + '</span>' +
       '<span class="etapa-data">' + (e.d ? window.dataCurta(e.d) : '') + '<small>' + status + '</small>' + (i === proximaIdx ? window.contagem(e) : '') + '</span></li>';
   }

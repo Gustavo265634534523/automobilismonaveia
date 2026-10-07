@@ -450,6 +450,8 @@ html.com-aviso { --topo: 104px; }
 .etapa-n { font-family: var(--display); font-size: 15px; color: var(--aco); }
 .etapa-nome { font-weight: 700; font-size: 18px; }
 .etapa-nome small { display: block; font-weight: 500; font-size: 15px; color: var(--aco); }
+.etapa-hr { display: inline-block; margin-top: 4px; font-size: 13px; font-weight: 700; color: var(--sangue-vivo); text-decoration: none; }
+.etapa-hr:hover { text-decoration: underline; }
 .etapa-venc { color: #c3c8cd; font-size: 16px; }
 .etapa-data { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; padding-right: 8px; }
 .etapa-data small { display: block; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--aco); }

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/idioma.js?v=216"></script>
+<title>Horário das corridas hoje: F1, MotoGP, Stock Car e mais | Na Veia</title>
+<meta name="description" content="Que horas é a corrida hoje? Horários de Brasília de F1, MotoGP, Stock Car, NASCAR, IndyCar, WEC e mais, com onde assistir no Brasil. Atualizado todo dia.">
+<meta name="theme-color" content="#141619">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
+<meta property="og:title" content="Horário das corridas hoje: F1, MotoGP, Stock Car e mais | Na Veia">
+<meta property="og:description" content="Que horas é a corrida hoje? Horários de Brasília de F1, MotoGP, Stock Car, NASCAR, IndyCar, WEC e mais, com onde assistir no Brasil. Atualizado todo dia.">
+<meta property="og:image" content="https://automobilismonaveia.com.br/assets/img/compartilhar.jpg">
+<link rel="canonical" href="https://automobilismonaveia.com.br/horarios.html">
+<meta property="og:url" content="https://automobilismonaveia.com.br/horarios.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Automobilismo Na Veia">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css?v=216">
+<style>
+.hr-pag { padding: calc(var(--topo) + 34px) 0 70px; }
+.hr-pag .moldura { max-width: 980px; }
+.hr-trilha { font-size: 14px; color: var(--aco); margin: 0 0 12px; }
+.hr-trilha a { color: var(--aco); }
+.hr-rot { margin: 0 0 6px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--sangue-vivo); }
+.hr-pag h1 { margin: 0 0 12px; font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4.6vw, 52px); line-height: 1.06; }
+.hr-lead { margin: 0 0 22px; font-size: 18px; color: #c3c8cd; max-width: 820px; }
+.hr-pag h2 { margin: 30px 0 12px; font-size: 22px; }
+.hr-status { display: inline-block; margin: 0 0 22px; padding: 8px 14px; background: var(--carbono); border: 1px solid var(--linha); border-left: 4px solid var(--sangue-vivo); font-weight: 700; }
+.hr-tab { width: 100%; border-collapse: collapse; background: var(--carbono); border: 1px solid var(--linha); }
+.hr-tab th, .hr-tab td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--linha); font-size: 16px; }
+.hr-tab th { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--aco); }
+.hr-tab td:last-child { font-weight: 800; white-space: nowrap; }
+.hr-tab tr.hr-corrida td { background: rgba(227,52,60,.12); color: #fff; }
+.hr-nota { font-size: 14px; color: var(--aco); margin: 10px 0 0; }
+.hr-camp { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.hr-camp li { display: flex; gap: 12px; padding: 10px 14px; background: var(--carbono); border: 1px solid var(--linha); }
+.hr-camp b { min-width: 28px; color: var(--sangue-vivo); }
+.hr-camp span:last-child { margin-left: auto; color: var(--aco); }
+.hr-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.hr-links a { padding: 10px 14px; border: 1px solid var(--linha); color: var(--cromo); text-decoration: none; font-weight: 600; }
+.hr-links a:hover { border-color: var(--sangue-vivo); }
+.hr-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+.hr-card { display: block; padding: 16px; background: var(--carbono); border: 1px solid var(--linha); border-bottom: 3px solid var(--sangue-vivo); color: var(--cromo); text-decoration: none; }
+.hr-card:hover { border-color: var(--sangue-vivo); }
+.hr-card small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--sangue-vivo); }
+.hr-card b { display: block; margin: 4px 0 8px; font-size: 20px; }
+.hr-card p { margin: 3px 0; font-size: 15px; color: #c3c8cd; }
+.hr-card em { font-style: normal; font-weight: 800; color: #fff; }
+.hr-dia { margin: 30px 0 12px; font-size: 15px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--aco); }
+</style>
+
+</head>
+<body data-pagina="horarios">
+<a class="pular" href="#hr">Pular para o conteúdo</a>
+<header id="topo"></header>
+<main class="hr-pag" id="hr">
+  <div class="moldura">
+    <p class="hr-rot">Agenda · horário de Brasília</p>
+    <h1>Horário das corridas de hoje e do fim de semana</h1>
+    <p class="hr-lead">Que horas é a corrida? Aqui estão os horários de Brasília de F1, MotoGP, Stock Car, NASCAR, IndyCar, WEC, DTM e mais categorias, com o canal que transmite no Brasil. Toque na corrida para ver todas as sessões.</p>
+    <h2 class="hr-dia">domingo, 11 de outubro</h2><div class="hr-cards"><a class="hr-card" href="horario-formula-1-gp-de-singapura-2026.html"><small>Fórmula 1</small><b>GP de Singapura</b><p>Classificação sprint: <em>sex, 09/10, 09h30</em></p><p>Sprint: <em>sáb, 10/10, 06h</em></p><p>Classificação: <em>sáb, 10/10, 10h</em></p><p>Corrida: <em>dom, 11/10, 09h</em></p><p>📺 TV Globo, SporTV, Globoplay</p></a><a class="hr-card" href="horario-nascar-bank-of-america-400-2026.html"><small>NASCAR</small><b>Bank of America 400</b><p>Classificação: <em>sáb, 10/10, 15h05</em></p><p>Corrida: <em>dom, 11/10, 16h</em></p><p>📺 XSports, ESPN, Disney+</p></a><a class="hr-card" href="horario-motogp-gp-da-indonesia-2026.html"><small>MotoGP</small><b>GP da Indonésia</b><p>Classificação Q1: <em>sex, 09/10, 23h50</em></p><p>Classificação Q2: <em>sáb, 10/10, 00h15</em></p><p>Sprint: <em>sáb, 10/10, 04h</em></p><p>Corrida: <em>dom, 11/10, 04h</em></p><p>📺 ESPN, Disney+, MotoGP VideoPass</p></a><a class="hr-card" href="horario-dtm-hockenheim-final-2026.html"><small>DTM</small><b>Hockenheim (final)</b><p>Classificação 1: <em>sáb, 10/10, 04h30</em></p><p>Corrida 1: <em>sáb, 10/10, 08h30</em></p><p>Classificação 2: <em>dom, 11/10, 04h30</em></p><p>Corrida 2: <em>dom, 11/10, 11h30</em></p><p>📺 ESPN, Disney+, YouTube DTM</p></a><a class="hr-card" href="horario-superbike-estoril-2026.html"><small>Superbike</small><b>Estoril</b><p>Corrida 1: <em>sáb, 10/10, 11h30</em></p><p>Corrida 2: <em>dom, 11/10, 11h30</em></p><p>📺 BandSports, WorldSBK VideoPass</p></a></div><h2 class="hr-dia">domingo, 18 de outubro</h2><div class="hr-cards"><a class="hr-card" href="horario-stock-car-etapa-10-2026.html"><small>Stock Car</small><b>Etapa 10</b><p>domingo, 18 de outubro · horários a confirmar</p><p>📺 Band, BandSports, BandPlay</p></a><a class="hr-card" href="horario-endurance-6-horas-de-barcelona-2026.html"><small>Endurance</small><b>6 Horas de Barcelona</b><p>domingo, 18 de outubro · horários a confirmar</p><p>📺 BandSports, YouTube Esporte na Band, Jovem Pan (YouTube)</p></a><a class="hr-card" href="horario-nascar-phoenix-500-2026.html"><small>NASCAR</small><b>Phoenix 500</b><p>domingo, 18 de outubro · horários a confirmar</p><p>📺 XSports, ESPN, Disney+</p></a><a class="hr-card" href="horario-superbike-espanha-2026.html"><small>Superbike</small><b>Espanha</b><p>domingo, 18 de outubro · horários a confirmar</p><p>📺 BandSports, WorldSBK VideoPass</p></a></div>
+    <h2 class="hr-dia">Próximas etapas</h2><div class="hr-cards"><a class="hr-card" href="horario-formula-1-gp-dos-estados-unidos-2026.html"><small>Fórmula 1</small><b>GP dos Estados Unidos</b><p>domingo, 25 de outubro · horários a confirmar</p><p>📺 TV Globo, SporTV, Globoplay</p></a><a class="hr-card" href="horario-nascar-yellawood-500-2026.html"><small>NASCAR</small><b>YellaWood 500</b><p>domingo, 25 de outubro · horários a confirmar</p><p>📺 XSports, ESPN, Disney+</p></a><a class="hr-card" href="horario-motogp-gp-da-australia-2026.html"><small>MotoGP</small><b>GP da Austrália</b><p>domingo, 25 de outubro · horários a confirmar</p><p>📺 ESPN, Disney+, MotoGP VideoPass</p></a><a class="hr-card" href="horario-formula-1-gp-da-cidade-do-mexico-2026.html"><small>Fórmula 1</small><b>GP da Cidade do México</b><p>domingo, 1 de novembro · horários a confirmar</p><p>📺 TV Globo, SporTV, Globoplay</p></a><a class="hr-card" href="horario-nascar-xfinity-500-2026.html"><small>NASCAR</small><b>Xfinity 500</b><p>domingo, 1 de novembro · horários a confirmar</p><p>📺 XSports, ESPN, Disney+</p></a><a class="hr-card" href="horario-motogp-gp-da-malasia-2026.html"><small>MotoGP</small><b>GP da Malásia</b><p>domingo, 1 de novembro · horários a confirmar</p><p>📺 ESPN, Disney+, MotoGP VideoPass</p></a><a class="hr-card" href="horario-formula-1-gp-de-sao-paulo-2026.html"><small>Fórmula 1</small><b>GP de São Paulo</b><p>domingo, 8 de novembro · horários a confirmar</p><p>📺 TV Globo, SporTV, Globoplay</p></a><a class="hr-card" href="horario-endurance-6-horas-de-monza-2026.html"><small>Endurance</small><b>6 Horas de Monza</b><p>domingo, 8 de novembro · horários a confirmar</p><p>📺 BandSports, YouTube Esporte na Band, Jovem Pan (YouTube)</p></a><a class="hr-card" href="horario-porsche-cup-etapa-9-2026.html"><small>Porsche Cup</small><b>Etapa 9</b><p>domingo, 8 de novembro · horários a confirmar</p><p>📺 Band, BandSports, BandPlay</p></a><a class="hr-card" href="horario-nascar-final-2026.html"><small>NASCAR</small><b>Final</b><p>domingo, 8 de novembro · horários a confirmar</p><p>📺 XSports, ESPN, Disney+</p></a><a class="hr-card" href="horario-motogp-gp-do-catar-2026.html"><small>MotoGP</small><b>GP do Catar</b><p>domingo, 8 de novembro · horários a confirmar</p><p>📺 ESPN, Disney+, MotoGP VideoPass</p></a><a class="hr-card" href="horario-stock-car-etapa-11-2026.html"><small>Stock Car</small><b>Etapa 11</b><p>domingo, 15 de novembro · horários a confirmar</p><p>📺 Band, BandSports, BandPlay</p></a><a class="hr-card" href="horario-formula-1-gp-de-las-vegas-2026.html"><small>Fórmula 1</small><b>GP de Las Vegas</b><p>sábado, 21 de novembro · horários a confirmar</p><p>📺 TV Globo, SporTV, Globoplay</p></a><a class="hr-card" href="horario-porsche-cup-etapa-8-challenge-e-trophy-2026.html"><small>Porsche Cup</small><b>Etapa 8, Challenge e Trophy</b><p>domingo, 22 de novembro · horários a confirmar</p><p>📺 Band, BandSports, BandPlay</p></a><a class="hr-card" href="horario-motogp-gp-de-portugal-2026.html"><small>MotoGP</small><b>GP de Portugal</b><p>domingo, 22 de novembro · horários a confirmar</p><p>📺 ESPN, Disney+, MotoGP VideoPass</p></a><a class="hr-card" href="horario-porsche-cup-endurance-final-2026.html"><small>Porsche Cup</small><b>Endurance final</b><p>sábado, 28 de novembro · horários a confirmar</p><p>📺 Band, BandSports, BandPlay</p></a><a class="hr-card" href="horario-formula-1-gp-do-catar-2026.html"><small>Fórmula 1</small><b>GP do Catar</b><p>domingo, 29 de novembro · horários a confirmar</p><p>📺 TV Globo, SporTV, Globoplay</p></a><a class="hr-card" href="horario-formula-2-catar-2026.html"><small>Fórmula 2</small><b>Catar</b><p>domingo, 29 de novembro · horários a confirmar</p><p>📺 SporTV 3, Globoplay, F1 TV Premium</p></a><a class="hr-card" href="horario-motogp-gp-de-valencia-2026.html"><small>MotoGP</small><b>GP de Valência</b><p>domingo, 29 de novembro · horários a confirmar</p><p>📺 ESPN, Disney+, MotoGP VideoPass</p></a><a class="hr-card" href="horario-formula-1-gp-de-abu-dhabi-2026.html"><small>Fórmula 1</small><b>GP de Abu Dhabi</b><p>domingo, 6 de dezembro · horários a confirmar</p><p>📺 TV Globo, SporTV, Globoplay</p></a><a class="hr-card" href="horario-formula-2-abu-dhabi-2026.html"><small>Fórmula 2</small><b>Abu Dhabi</b><p>domingo, 6 de dezembro · horários a confirmar</p><p>📺 SporTV 3, Globoplay, F1 TV Premium</p></a><a class="hr-card" href="horario-stock-car-final-2026.html"><small>Stock Car</small><b>Final</b><p>domingo, 13 de dezembro · horários a confirmar</p><p>📺 Band, BandSports, BandPlay</p></a></div>
+    <p class="hr-nota" style="margin-top:24px">Atualizado em quarta, 7 de outubro de 2026. Os horários podem mudar por decisão da organização.</p>
+    <div class="hr-links"><a href="onde-assistir.html">Onde assistir cada categoria</a><a href="noticias.html">Notícias</a><a href="guia.html">Guia para iniciantes</a></div>
+  </div>
+</main>
+<footer id="rodape"></footer>
+<script src="assets/js/dados.js?v=216"></script>
+<script src="assets/js/site.js?v=216"></script>
+</body>
+</html>
