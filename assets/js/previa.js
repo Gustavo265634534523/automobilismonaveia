@@ -65,11 +65,9 @@
       bloco('Raio-x do circuito', mapa(pista)) +
       bloco('Números da pista', numeros) +
       bloco('Cenários de título', cenarios) +
-      bloco('Palpites do bolão', '<div id="pv-bolao">' + aviso('Carregando os palpites dos membros…') + '</div>') +
       '</div>';
 
     if (pista) previsao(pista);
-    palpites();
   }
 
   /* mapa da pista desenhado a partir do traçado de circuitos.js */
@@ -105,20 +103,6 @@
           '<span class="pv-chuva">Chance de chuva: ' + (chuva == null ? '—' : chuva + '%') + '</span></li>';
       }).join('') + '</ul><p class="pv-fonte">Previsão no horário local da pista. Fonte: Open-Meteo.</p>';
     }).catch(function () { el.innerHTML = aviso('Não foi possível buscar a previsão agora.'); });
-  }
-
-  /* pódio mais votado pelos membros no bolão desta etapa */
-  function palpites() {
-    var el = document.getElementById('pv-bolao');
-    window.NAVEIA_API('bolao_resumo&etapa=' + encodeURIComponent('formula-1:' + etapa.e)).then(function (r) {
-      if (!r || !r.ok) throw 0;
-      if (!r.total) { el.innerHTML = aviso('Ninguém palpitou ainda. Seja o primeiro no <a href="bolao.html">Bolão</a>.'); return; }
-      el.innerHTML = '<p class="pl-sub-tab">' + r.total + ' ' + (r.total === 1 ? 'membro palpitou' : 'membros palpitaram') + '. Os mais votados:</p><ol class="pv-podio">' +
-        r.posicoes.map(function (lista, i) {
-          var top = lista[0];
-          return '<li><span>' + (i + 1) + 'º</span><b>' + (top ? esc(top.nome) : '—') + '</b><em>' + (top ? Math.round(top.votos / r.total * 100) + '%' : '') + '</em></li>';
-        }).join('') + '</ol><a class="botao botao-linha" href="bolao.html">Fazer o meu palpite</a>';
-    }).catch(function () { el.innerHTML = aviso('Não foi possível carregar os palpites agora.'); });
   }
 
   if (home) montar();

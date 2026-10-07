@@ -184,7 +184,7 @@
     if (!r || r.logado || r.semServidor || /entrar|conta|redefinir|planos/.test(location.pathname)) return;
     var volta = encodeURIComponent((location.pathname.split('/').pop() || 'index.html'));
     var html = '<aside class="convite-conta" aria-label="Crie sua conta grátis"><div class="convite-txt"><b>Crie sua conta grátis</b>' +
-      '<span>Tudo no site é grátis. Com a conta você também <em>joga o bolão</em>, conversa no chat da torcida, fala com o Box e recebe os alertas de largada.</span></div>' +
+      '<span>Tudo no site é grátis. Com a conta você também <em>conversa no chat da torcida</em>, fala com o Box e recebe os alertas de largada.</span></div>' +
       '<a class="convite-bt" href="entrar.html?volta=' + volta + '#criar">Criar conta grátis</a></aside>';
     function colocar(alvo, onde) { if (alvo) alvo.insertAdjacentHTML(onde, '<div class="moldura convite-vaga">' + html + '</div>'); }
     if (document.body.getAttribute('data-cat')) colocar(document.getElementById('paineis'), 'afterend');
@@ -223,13 +223,13 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=225'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=225'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=225'; appJs.defer = true; document.body.appendChild(appJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=226'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=226'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=226'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=225'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=225'; boxJs.defer = true; document.body.appendChild(boxJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=225'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=226'; document.head.appendChild(boxCss);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=226'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=226'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

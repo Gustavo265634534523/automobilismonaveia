@@ -211,7 +211,7 @@
       ate = ''; /* tudo grátis: sem data de validade */
       document.getElementById('ct-plano').innerHTML =
         '<p class="ct-plano-nome">Tudo liberado</p>' +
-        '<p class="ct-sub">O site é todo grátis: Raio-x e telemetria, prévias, simulador, duelo, jogos, bolão, Box e os alertas no Telegram.</p>' + ate +
+        '<p class="ct-sub">O site é todo grátis: Raio-x e telemetria, prévias, simulador, duelo, jogos, Box e os alertas no Telegram.</p>' + ate +
         '<a class="pl-botao" href="area-master.html">Ver as ferramentas</a>' +
         /* Telegram: canal de avisos (o grupo fechado foi encerrado em 07/10/2026; a conversa fica no chat do site) */
         (nivelTg >= 1 ? '<div class="ct-telegram"><p class="ct-rot-tg">Telegram</p>' +

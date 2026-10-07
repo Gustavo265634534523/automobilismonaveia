@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=225"></script>
+<script src="assets/js/idioma.js?v=226"></script>
 <title>Área Master | Automobilismo Na Veia</title>
-<meta name="description" content="Todas as ferramentas grátis do site: simulador completo, duelo de pilotos, jogos, Raio-x F1 com telemetria e bolão.">
+<meta name="description" content="Todas as ferramentas grátis do site: simulador completo, duelo de pilotos, jogos, Raio-x F1 com telemetria.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#141619">
 <link rel="manifest" href="manifest.webmanifest">
@@ -23,9 +23,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=225">
-<link rel="stylesheet" href="assets/css/planos.css?v=225">
-<link rel="stylesheet" href="assets/css/master.css?v=225">
+<link rel="stylesheet" href="assets/css/estilo.css?v=226">
+<link rel="stylesheet" href="assets/css/planos.css?v=226">
+<link rel="stylesheet" href="assets/css/master.css?v=226">
 </head>
 <body data-pagina="master">
 <a class="pular" href="#master">Pular para o conteúdo</a>
@@ -43,19 +43,18 @@
 </main>
 
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=225"></script>
-<script src="assets/js/site.js?v=225"></script>
+<script src="assets/js/dados.js?v=226"></script>
+<script src="assets/js/site.js?v=226"></script>
 <script>
   /* Área Master: atalhos para os recursos do plano. Só para o Master. */
   (function () {
     var caixa = document.getElementById('master');
     var itens = [
-      ['previa.html', 'Prévia da etapa', 'Tudo sobre a próxima corrida: horários, previsão do tempo, mapa da pista, cenários de título e o pódio mais votado do bolão.'],
+      ['previa.html', 'Prévia da etapa', 'Tudo sobre a próxima corrida: horários, previsão do tempo, mapa da pista, e cenários de título.'],
       ['simulador.html', 'Simulador completo', 'Escolha os pódios das corridas que faltam e veja quem leva o título, em todas as categorias.'],
       ['raiox.html?m=1#duelo', 'Duelo de pilotos', 'Dois pilotos lado a lado na temporada: pontos, vitórias, pódios e corrida a corrida.'],
       ['jogos.html', 'Jogos', 'Chefe de Equipe, Largada, Adivinhe o circuito e Piloto misterioso, sem limite.'],
-      ['raiox.html', 'Raio-x F1 e MotoGP', 'A última corrida da F1 e da MotoGP volta a volta, com pneus e tempos, e a telemetria da F1 para comparar a volta de dois pilotos.'],
-      ['bolao.html', 'Bolão entre membros', 'Chute o pódio de cada corrida e dispute o ranking da temporada.']
+      ['raiox.html', 'Raio-x F1 e MotoGP', 'A última corrida da F1 e da MotoGP volta a volta, com pneus e tempos, e a telemetria da F1 para comparar a volta de dois pilotos.']
     ];
     function trava(titulo, texto, botoes) {
       caixa.innerHTML = '<div class="sm-trava"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 10V7a4 4 0 0 1 8 0v3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>' +
