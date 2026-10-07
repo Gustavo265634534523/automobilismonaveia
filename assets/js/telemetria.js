@@ -7,15 +7,27 @@
   var NOMES = { 'Race': 'Corrida', 'Qualifying': 'Classificação', 'Sprint': 'Sprint', 'Sprint Qualifying': 'Classificação sprint', 'Sprint Shootout': 'Classificação sprint', 'Practice 1': 'Treino livre 1', 'Practice 2': 'Treino livre 2', 'Practice 3': 'Treino livre 3' };
   var espera = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
 
-  function get(q, tent) {
-    tent = tent || 0;
-    return fetch('https://api.openf1.org/v1/' + q).then(function (r) {
-      if ((r.status === 429 || r.status >= 500) && tent < 5) return espera(1200 * (tent + 1)).then(function () { return get(q, tent + 1); });
+  /* Os dados vêm pelo servidor do site (?acao=f1), que guarda as respostas da OpenF1: chega rápido e sem o erro 429
+     (a OpenF1 grátis aceita poucos pedidos por segundo). Um pedido por vez; se o servidor falhar, pede direto à OpenF1. */
+  var fila = Promise.resolve();
+  function get(q) {
+    var p = fila.then(function () { return buscar(q, 0); });
+    fila = p.catch(function () {});
+    return p;
+  }
+  function buscar(q, tent) {
+    var direto = tent >= 2 || !window.NAVEIA_SERVIDOR;
+    var url = direto ? 'https://api.openf1.org/v1/' + q : window.NAVEIA_SERVIDOR + '?acao=f1&q=' + encodeURIComponent(q);
+    return fetch(url).then(function (r) {
+      if ((r.status === 429 || r.status >= 500) && tent < 4) return espera(1000 * (tent + 1)).then(function () { return buscar(q, tent + 1); });
       return r.json();
     }).then(function (j) {
       if (Array.isArray(j)) return j;
-      if (tent < 5) return espera(1200 * (tent + 1)).then(function () { return get(q, tent + 1); });
+      if (tent < 4) return espera(1000 * (tent + 1)).then(function () { return buscar(q, tent + 1); });
       throw new Error('sem dados');
+    }, function (er) {
+      if (tent < 4) return espera(1000 * (tent + 1)).then(function () { return buscar(q, tent + 1); });
+      throw er;
     });
   }
 

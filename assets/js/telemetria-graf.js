@@ -140,8 +140,15 @@
 
     /* cursor: passa o dedo ou o mouse pelos gráficos */
     var graf = caixa.querySelector('.tl-graficos'), leitura = caixa.querySelector('.tl-leitura'), ponto = caixa.querySelector('.tl-ponto');
+    /* o dedo ou o mouse geram muitos eventos; o cursor redesenha só uma vez por quadro da tela (sem travar no celular) */
+    var pendente = null;
     function mover(ev) {
-      var b = graf.getBoundingClientRect(), x = (ev.touches ? ev.touches[0].clientX : ev.clientX) - b.left;
+      var cx = ev.touches ? ev.touches[0].clientX : ev.clientX;
+      if (pendente === null) requestAnimationFrame(function () { var x = pendente; pendente = null; cursor(x); });
+      pendente = cx;
+    }
+    function cursor(clientX) {
+      var b = graf.getBoundingClientRect(), x = clientX - b.left;
       var f = Math.max(0, Math.min(1, x / b.width)), i = Math.round(f * (n - 1));
       [].forEach.call(caixa.querySelectorAll('.tl-cursor'), function (l) { l.setAttribute('x1', f * W); l.setAttribute('x2', f * W); });
       if (ponto && caixa._P) { var q = caixa._P(i); ponto.setAttribute('cx', q[0]); ponto.setAttribute('cy', q[1]); }
