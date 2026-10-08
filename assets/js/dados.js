@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '7 de outubro de 2026';
+window.ATUALIZADO = '8 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -20,14 +20,14 @@ window.CATEGORIAS = [
     { d: '2026-09-25', t: 'Russell crava a pole em Baku', x: 'George Russell marcou 1:42.526 e largou na frente no Azerbaijão, 0s837 à frente de Charles Leclerc. Antonelli bateu no Q1 e largou em 16º.' }
   ],
   destaque: {
-    titulo: 'Resultado do GP do Azerbaijão',
+    titulo: 'Resultado do GP do Bahrein em Sepang',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Tempo/Diferença'],
     linhas: [
-      ['1', 'George Russell', 'Mercedes', '51 voltas'], ['2', 'Max Verstappen', 'Red Bull', '+0.196'],
-      ['3', 'Isack Hadjar', 'Red Bull', '+10.704'], ['4', 'Charles Leclerc', 'Ferrari', '+14.136'],
-      ['5', 'Kimi Antonelli', 'Mercedes', '+15.512'], ['6', 'Lewis Hamilton', 'Ferrari', '+22.382'],
-      ['7', 'Arvid Lindblad', 'Racing Bulls', '+31.159'], ['8', 'Esteban Ocon', 'Haas', '+31.189'],
-      ['9', 'Oliver Bearman', 'Haas', '+31.929'], ['10', 'Carlos Sainz', 'Williams', '+32.416']
+      ['1', 'Max Verstappen', 'Red Bull', '1:47:14.808'], ['2', 'Kimi Antonelli', 'Mercedes', '+2.307'],
+      ['3', 'Lewis Hamilton', 'Ferrari', '+4.919'], ['4', 'Charles Leclerc', 'Ferrari', '+7.258'],
+      ['5', 'Isack Hadjar', 'Red Bull', '+8.571'], ['6', 'Oscar Piastri', 'McLaren', '+9.454'],
+      ['7', 'Liam Lawson', 'Racing Bulls', '+12.753'], ['8', 'Fernando Alonso', 'Aston Martin', '+13.372'],
+      ['9', 'Lando Norris', 'McLaren', '—'], ['10', 'Arvid Lindblad', 'Racing Bulls', '—']
     ]
   },
   calendario: [
@@ -75,7 +75,7 @@ window.CATEGORIAS = [
     extra: {
       titulo: 'Construtores',
       colunas: ['Pos', 'Equipe', 'Pts'],
-      linhas: [['1', 'Mercedes', '521'], ['2', 'Ferrari', '385'], ['3', 'McLaren', '316'], ['4', 'Red Bull', '257'], ['5', 'Racing Bulls', '92'], ['6', 'Alpine', '68'], ['7', 'Haas', '21'], ['8', 'Audi', '17'], ['9', 'Williams', '11'], ['10', 'Aston Martin', '7'], ['11', 'Cadillac', '0']]
+      linhas: [['1', 'Mercedes', '556'], ['2', 'Ferrari', '405'], ['3', 'McLaren', '316'], ['4', 'Red Bull', '257'], ['5', 'Racing Bulls', '92'], ['6', 'Alpine', '68'], ['7', 'Haas', '27'], ['8', 'Audi', '17'], ['9', 'Williams', '12'], ['10', 'Aston Martin', '7'], ['11', 'Cadillac', '0']]
     }
   },
   equipes: [
@@ -167,8 +167,15 @@ window.CATEGORIAS = [
   classificacao: {
     titulo: 'Pilotos (final)',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
-    linhas: [['1', 'Ugo Ugochukwu', 'Campos Racing', '159'], ['2', 'Freddie Slater', 'Trident', '145'], ['3', 'Théophile Naël', 'Campos Racing', '—'], ['4', 'Ernesto Rivera', 'Campos Racing', '—'], ['5', 'Brando Badoer', '—', '—']],
-    nota: 'Pontuação do 3º em diante ainda não publicada nas fontes consultadas.'
+    linhas: [
+      ['1', 'Ugo Ugochukwu', 'Campos Racing', '159'], ['2', 'Freddie Slater', 'Trident', '145'],
+      ['3', 'Tuukka Taponen', 'MP Motorsport', '109'], ['4', 'Taito Kato', 'ART Grand Prix', '105'],
+      ['5', 'Théophile Naël', 'Campos Racing', '88'], ['6', 'Pedro Clerot', 'Rodin Motorsport', '88'],
+      ['7', 'Ernesto Rivera', 'Campos Racing', '87'], ['8', 'Brando Badoer', 'Rodin Motorsport', '71'],
+      ['9', 'Hiyu Yamakoshi', 'Van Amersfoort Racing', '71'], ['10', 'Noah Strømsted', 'Trident', '65']
+    ],
+    extra: { titulo: 'Equipes', colunas: ['Pos', 'Equipe', 'Pts'], linhas: [['1', 'Campos Racing', '334'], ['2', 'Trident', '217']] },
+    nota: 'Naël fica na 5ª posição na frente de Clerot por critério de desempate, com os mesmos 88 pontos.'
   },
   equipes: [
     { n: 'Campos Racing', i: 'Campeã de equipes 2026', p: ['Ugo Ugochukwu', 'Théophile Naël', 'Ernesto Rivera'] },
@@ -211,8 +218,15 @@ window.CATEGORIAS = [
   classificacao: {
     titulo: 'Pilotos (final da temporada 12)',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
-    linhas: [['1', 'Pascal Wehrlein', 'Porsche', '—'], ['2', 'Jake Dennis', 'Andretti', '—'], ['3', 'Mitch Evans', 'Jaguar', '—']],
-    nota: 'Campeão de marcas: Porsche. Campeã de equipes: Jaguar TCS Racing. Pontuação final ainda não confirmada nas fontes consultadas.'
+    linhas: [
+      ['1', 'Pascal Wehrlein', 'Porsche', '169'], ['2', 'Jake Dennis', 'Andretti', '164'],
+      ['3', 'Mitch Evans', 'Jaguar TCS Racing', '160'], ['4', 'Oliver Rowland', 'Nissan', '137'],
+      ['5', 'Edoardo Mortara', 'Mahindra', '137'], ['6', 'António Félix da Costa', 'Jaguar TCS Racing', '128'],
+      ['7', 'Nyck de Vries', 'Mahindra', '115'], ['8', 'Nick Cassidy', 'Citroën Racing', '114'],
+      ['9', 'Nico Müller', 'Porsche', '102'], ['10', 'Sébastien Buemi', 'Envision Racing', '97']
+    ],
+    extra: { titulo: 'Equipes', colunas: ['Pos', 'Equipe', 'Pts'], linhas: [['1', 'Jaguar TCS Racing', '288']] },
+    nota: 'Campeã de equipes: Jaguar TCS Racing, com 288 pontos. Campeã de marcas (fabricantes): Porsche, título garantido antes da última corrida. Rowland e Mortara terminaram empatados em pontos; Rowland fica na 4ª posição por critério de desempate.'
   },
   equipes: [
     { n: 'Porsche', i: 'Campeã de marcas', p: ['Pascal Wehrlein', 'Nico Müller'] },
@@ -387,14 +401,15 @@ window.CATEGORIAS = [
     titulo: 'Pilotos (final)',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
     linhas: [
-      ['1', 'Álex Palou', 'Chip Ganassi', 'Campeão'], ['2', 'Kyle Kirkwood', 'Andretti Global', '−86'],
-      ['3', 'David Malukas', 'Team Penske', '—'], ['4', 'Felix Rosenqvist', 'Meyer Shank', '—'],
-      ['5', 'Josef Newgarden', 'Team Penske', '—'], ['6', 'Christian Lundgaard', 'Arrow McLaren', '—'],
-      ['7', 'Pato O\'Ward', 'Arrow McLaren', '—'], ['8', 'Scott McLaughlin', 'Team Penske', '—'],
-      ['9', 'Marcus Ericsson', 'Andretti Global', '—'], ['10', 'Will Power', 'Andretti Global', '—'],
-      ['11', 'Christian Rasmussen', 'Ed Carpenter', '—'], ['12', 'Scott Dixon', 'Chip Ganassi', '—']
+      ['1', 'Álex Palou', 'Chip Ganassi', '631'], ['2', 'Kyle Kirkwood', 'Andretti Global', '545'],
+      ['3', 'Christian Lundgaard', 'Arrow McLaren', '535'], ['4', 'Pato O\'Ward', 'Arrow McLaren', '522'],
+      ['5', 'David Malukas', 'Team Penske', '514'], ['6', 'Scott McLaughlin', 'Team Penske', '482'],
+      ['7', 'Marcus Ericsson', 'Andretti Global', '429'], ['8', 'Josef Newgarden', 'Team Penske', '423'],
+      ['9', 'Felix Rosenqvist', 'Meyer Shank', '412'], ['10', 'Rinus VeeKay', '—', '378'],
+      ['11', 'Will Power', 'Andretti Global', '368'], ['12', 'Scott Dixon', 'Chip Ganassi', '331'],
+      ['13', 'Kyffin Simpson', 'Chip Ganassi', '327']
     ],
-    nota: 'Estreante do ano: Dennis Hauger (Dale Coyne).'
+    nota: 'Estreante do ano: Dennis Hauger (Dale Coyne). Honda venceu a Taça de Fabricantes. David Malukas foi o campeão de ovais. Rosenqvist venceu a Indy 500.'
   },
   equipes: [
     { n: 'Chip Ganassi Racing', i: 'Motor Honda', p: ['Álex Palou', 'Scott Dixon', 'Kyffin Simpson'] },
