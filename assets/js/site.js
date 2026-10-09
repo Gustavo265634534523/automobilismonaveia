@@ -64,6 +64,7 @@
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
         '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Todas as categorias</span>' +
         '<span class="grade-ic" aria-hidden="true">' + new Array(10).join('<i></i>') + '</span><span class="sr">Abrir todas as categorias</span></button>' +
+        '<button type="button" class="compartilhar-bt" id="compartilhar-bt" aria-label="' + (window.LANG === 'en' ? 'Share this page' : 'Compartilhar esta página') + '" title="' + (window.LANG === 'en' ? 'Share' : 'Compartilhar') + '"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.4M8.3 13.2l7.4 4.4"/></svg></button>' +
         '<button type="button" class="idioma-btn" id="idioma-btn" data-sem-traducao aria-label="' + (window.LANG === 'en' ? 'Change the site language' : 'Mudar o idioma do site') + '" title="' + (window.LANG === 'en' ? 'Português' : 'English') + '">' +
           '<span' + (window.LANG !== 'en' ? ' class="ativo"' : '') + '>PT</span><i aria-hidden="true"></i><span' + (window.LANG === 'en' ? ' class="ativo"' : '') + '>EN</span></button>' +
       '</div>';
@@ -106,6 +107,18 @@
       e.preventDefault();
       if (l.getAttribute('href') === '#categorias-menu') { var t = topo.querySelector('.todas'); if (t) t.click(); }
       else { var c = document.querySelector('.chat-bt'); if (c) c.click(); }
+    });
+    /* compartilhar: manda o link da página aberta (no celular, abre WhatsApp, Instagram...; no computador, copia o link) */
+    document.getElementById('compartilhar-bt').addEventListener('click', function () {
+      var url = location.href.split('#')[0] + (location.hash === '#telemetria' ? '#telemetria' : ''), bt = this;
+      function aviso(t) { var a = document.createElement('div'); a.className = 'compartilhar-aviso'; a.setAttribute('role', 'status'); a.textContent = t; document.body.appendChild(a); setTimeout(function () { a.remove(); }, 2600); }
+      function copiar() {
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function () { aviso('Link copiado! Cole no WhatsApp, no Instagram ou onde quiser.'); }, function () { aviso(url); });
+        else aviso(url);
+      }
+      if (navigator.share) navigator.share({ title: document.title, text: 'Olha isso no Automobilismo Na Veia', url: url }).catch(function (e) { if (!e || e.name !== 'AbortError') copiar(); });
+      else copiar();
+      bt.blur();
     });
     document.getElementById('idioma-btn').addEventListener('click', function () { window.trocarIdioma(window.LANG === 'en' ? 'pt' : 'en'); });
 
@@ -222,13 +235,13 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=247'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=247'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=247'; appJs.defer = true; document.body.appendChild(appJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=248'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=248'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=248'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=247'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=247'; boxJs.defer = true; document.body.appendChild(boxJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=247'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=248'; document.head.appendChild(boxCss);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=248'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=248'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
