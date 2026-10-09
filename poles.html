@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/idioma.js?v=245"></script>
+<title>Pole positions de 2026: F1, MotoGP, Stock Car e todas as categorias | Na Veia</title>
+<meta name="description" content="Quem largou na pole em cada corrida de 2026: Fórmula 1, MotoGP, Stock Car, F2, F3, Fórmula E, IndyCar, NASCAR, DTM, Superbike, WEC e IMSA. O rei das poles de cada categoria e os brasileiros na pole.">
+<meta name="theme-color" content="#141619">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
+<meta property="og:title" content="Pole positions de 2026 | Automobilismo Na Veia">
+<meta property="og:description" content="Todas as poles da temporada, categoria por categoria.">
+<link rel="canonical" href="https://automobilismonaveia.com.br/poles.html">
+<meta property="og:image" content="https://automobilismonaveia.com.br/assets/img/compartilhar.jpg">
+<meta property="og:url" content="https://automobilismonaveia.com.br/poles.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Automobilismo Na Veia">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css?v=245">
+<style>
+.pl-pagina { padding: calc(var(--topo) + 40px) 0 70px; }
+.pl-pagina h1 { margin: 0 0 10px; font-family: var(--display); font-weight: 400; font-size: clamp(34px, 5vw, 60px); line-height: 1.05; }
+.pl-lead { max-width: 820px; margin: 0 0 26px; font-size: 18px; color: #c3c8cd; }
+.pl-reis { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 0 0 30px; }
+.pl-rei { padding: 14px 16px; background: var(--carbono); border: 1px solid var(--linha); border-left: 3px solid var(--sangue-vivo); text-decoration: none; color: inherit; }
+.pl-rei small { display: block; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #8e979f; }
+.pl-rei b { display: block; margin-top: 4px; font-size: 18px; }
+.pl-rei span { font-size: 14px; color: #c3c8cd; }
+.pl-br { margin: 0 0 30px; padding: 16px 18px; background: linear-gradient(90deg, rgba(0,156,59,.16), rgba(255,223,0,.06)); border: 1px solid #2f5e3a; }
+.pl-br h2 { margin: 0 0 8px; font-size: 20px; }
+.pl-br ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px 22px; font-size: 15px; }
+.pl-br li b { color: #fff; }
+.pl-filtro { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 24px; }
+.pl-filtro button { min-height: 40px; padding: 0 14px; background: none; border: 0; box-shadow: inset 0 0 0 1px var(--linha); color: #c3c8cd; font: 700 15px var(--texto); cursor: pointer; }
+.pl-filtro button[aria-pressed="true"] { background: var(--sangue); color: #fff; box-shadow: none; }
+.pl-cat { margin: 0 0 34px; }
+.pl-cat-cab { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin: 0 0 10px; }
+.pl-cat-cab h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: 28px; }
+.pl-cat-cab a { color: inherit; text-decoration: none; }
+.pl-cat-cab span { color: #8e979f; font-size: 15px; }
+.pl-tab { width: 100%; border-collapse: collapse; font-size: 15px; }
+.pl-tab th { text-align: left; padding: 8px 10px; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #8e979f; border-bottom: 1px solid var(--linha); }
+.pl-tab td { padding: 9px 10px; border-bottom: 1px solid rgba(255,255,255,.06); vertical-align: top; }
+.pl-tab td:first-child { color: #8e979f; width: 44px; }
+.pl-tab td.pl-data { color: #8e979f; white-space: nowrap; width: 90px; }
+.pl-tab td small { color: #8e979f; }
+.pl-tab td.pl-pole b { color: #fff; }
+.pl-bandeira { display: inline-block; margin-left: 8px; padding: 1px 6px; font-size: 11px; font-weight: 800; letter-spacing: .06em; color: #8e979f; border: 1px solid var(--linha); vertical-align: 1px; }
+.pl-bandeira.br { color: #ffdf00; border-color: #2f8a4a; background: rgba(0,156,59,.25); }
+.pl-contagem { margin: 8px 0 0; font-size: 14px; color: #aab0b6; }
+.pl-fonte { margin-top: 30px; font-size: 13px; color: #8e979f; max-width: 820px; }
+@media (max-width: 600px) { .pl-tab { font-size: 14px; } .pl-tab td.pl-data { width: auto; } .pl-tab td:first-child { width: 26px; } .pl-tab td small { display: block; } }
+</style>
+</head>
+<body data-pagina="poles">
+<a class="pular" href="#pl">Pular para o conteúdo</a>
+<header id="topo"></header>
+<main class="pl-pagina" id="pl">
+  <div class="moldura">
+    <p class="oa-rot">Temporada 2026</p>
+    <h1>Pole positions</h1>
+    <p class="pl-lead">Quem largou em primeiro em cada corrida deste ano, em todas as categorias do site. Atualiza sozinho depois de cada etapa.</p>
+    <div class="pl-reis" id="pl-reis"></div>
+    <section class="pl-br" id="pl-br" hidden></section>
+    <div class="pl-filtro" id="pl-filtro" role="group" aria-label="Categoria"></div>
+    <div id="pl-lista"></div>
+    <p class="pl-fonte" id="pl-fonte"></p>
+  </div>
+</main>
+<footer id="rodape"></footer>
+<script src="assets/js/dados.js?v=245"></script>
+<script src="assets/js/site.js?v=245"></script>
+<script src="assets/dados/poles.js?v=245"></script>
+<script src="assets/js/poles.js?v=245"></script>
+</body>
+</html>
