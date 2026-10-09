@@ -42,7 +42,7 @@ const of1 = q => json('https://api.openf1.org/v1/' + q);
     sessao = antes || null;
   }
   const anterior = fs.existsSync(ARQ) ? JSON.parse(fs.readFileSync(ARQ, 'utf8')) : null;
-  if (anterior && anterior.versao === 3 && anterior.etapa === e.n && anterior.ano === ano && anterior.sessao === (sessao && sessao.session_key)) { console.log('pista-proxima: sem novidade'); return; }
+  if (anterior && anterior.versao === 4 && anterior.etapa === e.n && anterior.ano === ano && anterior.sessao === (sessao && sessao.session_key)) { console.log('pista-proxima: sem novidade'); return; }
 
   /* traçado e curvas */
   let mv = await json('https://api.multiviewer.app/api/v1/circuits/' + m.circuit_key + '/' + ano);
@@ -91,6 +91,26 @@ const of1 = q => json('https://api.openf1.org/v1/' + q);
     }
   }
 
+  /* resultado da última sessão deste fim de semana: os 5 primeiros */
+  let ultimaSessao = null;
+  if (sessao && sessao.meeting_key === m.meeting_key) {
+    await espera(600);
+    const res = ((await of1('session_result?session_key=' + sessao.session_key)) || []).filter(r => r.position).sort((a, b) => a.position - b.position).slice(0, 5);
+    await espera(600);
+    const pilotosS = (await of1('drivers?session_key=' + sessao.session_key)) || [];
+    const NOME_S = { 'Practice 1': 'Treino livre 1', 'Practice 2': 'Treino livre 2', 'Practice 3': 'Treino livre 3', 'Sprint Qualifying': 'Classificação sprint', 'Sprint Shootout': 'Classificação sprint', 'Sprint': 'Sprint', 'Qualifying': 'Classificação', 'Race': 'Corrida' };
+    const fmt = s => { if (s == null || isNaN(s)) return ''; const mm = Math.floor(s / 60), r = s - mm * 60; return (mm ? mm + ':' + (r < 10 ? '0' : '') : '') + r.toFixed(3); };
+    if (res.length) ultimaSessao = {
+      nome: NOME_S[sessao.session_name] || sessao.session_name,
+      top: res.map(r => {
+        const pl = pilotosS.find(x => x.driver_number === r.driver_number) || {};
+        const dur = Array.isArray(r.duration) ? r.duration.filter(x => x).slice(-1)[0] : r.duration;
+        const gap = Array.isArray(r.gap_to_leader) ? r.gap_to_leader.filter(x => x != null).slice(-1)[0] : r.gap_to_leader;
+        return { pos: r.position, sigla: pl.name_acronym || '#' + r.driver_number, cor: pl.team_colour ? '#' + pl.team_colour : '#8e979f', equipe: pl.team_name || '',
+          tempo: r.position === 1 ? fmt(dur) : (typeof gap === 'number' ? '+' + gap.toFixed(3) : (gap || '')) };
+      })
+    };
+  }
   /* clima na pista: a última leitura da sessão */
   if (sessao) {
     await espera(600);
@@ -117,11 +137,11 @@ const of1 = q => json('https://api.openf1.org/v1/' + q);
     pts: voltaBruta.pts.map(q => { const xy = P(q.p); return [xy[0], xy[1], q.ms, q.v, q.g, q.a, q.f]; }) } : null;
   const pit = mv.pitLoss ? { normal: +mv.pitLoss.normal || null, sc: +mv.pitLoss.sc || null, vsc: +mv.pitLoss.vsc || null } : null;
   const saida = {
-    versao: 3, etapa: e.n, ano, circuito: mv.circuitName || m.circuit_short_name, sessao: sessao ? sessao.session_key : null,
+    versao: 4, etapa: e.n, ano, circuito: mv.circuitName || m.circuit_short_name, sessao: sessao ? sessao.session_key : null,
     fonteSetores: sessao ? (sessao.session_name + ' ' + sessao.year) : null,
     d: linha(pts) + 'Z', setores, largada,
     curvas: curvas.map(c => ({ n: c.n, p: P(c.p), t: P(c.t) })),
-    volta, clima, pit
+    volta, clima, pit, ultimaSessao
   };
   fs.writeFileSync(ARQ, JSON.stringify(saida));
   console.log('pista-proxima:', e.n, '|', saida.circuito, '|', saida.curvas.length, 'curvas |', setores ? 'setores de ' + saida.fonteSetores : 'sem setores');

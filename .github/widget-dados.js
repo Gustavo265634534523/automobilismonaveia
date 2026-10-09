@@ -72,6 +72,7 @@ const f1 = categoria('formula-1', {
 try {
   const mapa = JSON.parse(fs.readFileSync(path.join(RAIZ, 'assets/dados/pista-proxima.json'), 'utf8'));
   if (f1.proxima && mapa.etapa === f1.proxima.n) f1.proxima.mapa = { circuito: mapa.circuito, d: mapa.d, setores: mapa.setores, largada: mapa.largada, curvas: mapa.curvas, fonteSetores: mapa.fonteSetores, volta: mapa.volta, clima: mapa.clima, pit: mapa.pit };
+  if (f1.proxima && mapa.etapa === f1.proxima.n && mapa.ultimaSessao) f1.proxima.ultimaSessao = mapa.ultimaSessao;
 } catch (e) {}
 
 /* MotoGP: pódio e último resultado do Raio-x da MotoGP */
@@ -91,9 +92,18 @@ const stock = categoria('stock-car', {});
 const NOMES = {}; window.CATEGORIAS.forEach(c => { NOMES[c.slug] = c.menu || c.nome; });
 const noticias = (window.NOTICIAS_GERAIS || []).slice().sort((a, b) => a.d < b.d ? 1 : -1).slice(0, 12).map(n => ({ cat: NOMES[n.cat] || '', t: n.t, d: n.d }));
 
+/* agenda da semana: todas as sessões de hoje até daqui a 7 dias, de todas as categorias (horário de Brasília) */
+const ate = new Date(Date.parse(hoje + 'T12:00:00Z') + 7 * 864e5).toISOString().slice(0, 10);
+const agenda = [];
+window.CATEGORIAS.forEach(c => c.calendario.forEach(e => {
+  if (e.venc) return;
+  (e.s || []).forEach(s => { if (s.d && s.h && s.d >= hoje && s.d <= ate) agenda.push({ cat: c.menu || c.nome, slug: c.slug, etapa: e.n, t: CURTO[s.t] || s.t, d: s.d, h: s.h, iso: s.d + 'T' + s.h + ':00-03:00' }); });
+  if (!(e.s || []).length && e.d && e.d >= hoje && e.d <= ate) agenda.push({ cat: c.menu || c.nome, slug: c.slug, etapa: e.n, t: 'Etapa', d: e.d, h: null, iso: e.d + 'T12:00:00-03:00' });
+}));
+agenda.sort((a, b) => a.iso < b.iso ? -1 : a.iso > b.iso ? 1 : 0);
 const saida = Object.assign({ atualizado: new Date().toISOString(), site: 'https://automobilismonaveia.com.br/' }, f1, {
   categorias: { 'motogp': motogp, 'stock-car': stock },
-  noticias
+  noticias, agenda
 });
 fs.writeFileSync(path.join(RAIZ, 'assets/dados/widget.json'), JSON.stringify(saida));
 console.log('widget.json:', f1.proxima ? f1.proxima.n : 'sem próxima', '| MotoGP:', motogp && motogp.proxima ? motogp.proxima.n : '-', '| Stock:', stock && stock.proxima ? stock.proxima.n : '-', '|', noticias.length, 'notícias');
