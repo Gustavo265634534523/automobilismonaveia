@@ -42,7 +42,7 @@ const of1 = q => json('https://api.openf1.org/v1/' + q);
     sessao = antes || null;
   }
   const anterior = fs.existsSync(ARQ) ? JSON.parse(fs.readFileSync(ARQ, 'utf8')) : null;
-  if (anterior && anterior.versao === 2 && anterior.etapa === e.n && anterior.ano === ano && anterior.sessao === (sessao && sessao.session_key)) { console.log('pista-proxima: sem novidade'); return; }
+  if (anterior && anterior.versao === 3 && anterior.etapa === e.n && anterior.ano === ano && anterior.sessao === (sessao && sessao.session_key)) { console.log('pista-proxima: sem novidade'); return; }
 
   /* traçado e curvas */
   let mv = await json('https://api.multiviewer.app/api/v1/circuits/' + m.circuit_key + '/' + ano);
@@ -86,7 +86,7 @@ const of1 = q => json('https://api.openf1.org/v1/' + q);
       if (loc.length > 50 && car.length > 50) voltaBruta = {
         sigla: pil.name_acronym || ('#' + v.driver_number), nome: pil.full_name || '', cor: pil.team_colour ? '#' + pil.team_colour : '#ffffff',
         tempo: v.lap_duration, s: [v.duration_sector_1, v.duration_sector_2, v.duration_sector_3],
-        pts: loc.filter(p => { const t = Date.parse(p.date); return t >= ini && t <= fim; }).map(p => { const t = Date.parse(p.date), c = perto(t); return { p: gira(p.x, p.y), ms: t - ini, v: c.speed || 0, g: c.n_gear || 0 }; })
+        pts: loc.filter(p => { const t = Date.parse(p.date); return t >= ini && t <= fim; }).map(p => { const t = Date.parse(p.date), c = perto(t); return { p: gira(p.x, p.y), ms: t - ini, v: c.speed || 0, g: c.n_gear || 0, a: c.throttle || 0, f: c.brake || 0 }; })
       };
     }
   }
@@ -114,10 +114,10 @@ const of1 = q => json('https://api.openf1.org/v1/' + q);
     largada = { p: pts[i0], prox: pts[(i0 + 3) % pts.length] };
   }
   const volta = voltaBruta ? { sigla: voltaBruta.sigla, nome: voltaBruta.nome, cor: voltaBruta.cor, tempo: voltaBruta.tempo, s: voltaBruta.s,
-    pts: voltaBruta.pts.map(q => { const xy = P(q.p); return [xy[0], xy[1], q.ms, q.v, q.g]; }) } : null;
+    pts: voltaBruta.pts.map(q => { const xy = P(q.p); return [xy[0], xy[1], q.ms, q.v, q.g, q.a, q.f]; }) } : null;
   const pit = mv.pitLoss ? { normal: +mv.pitLoss.normal || null, sc: +mv.pitLoss.sc || null, vsc: +mv.pitLoss.vsc || null } : null;
   const saida = {
-    versao: 2, etapa: e.n, ano, circuito: mv.circuitName || m.circuit_short_name, sessao: sessao ? sessao.session_key : null,
+    versao: 3, etapa: e.n, ano, circuito: mv.circuitName || m.circuit_short_name, sessao: sessao ? sessao.session_key : null,
     fonteSetores: sessao ? (sessao.session_name + ' ' + sessao.year) : null,
     d: linha(pts) + 'Z', setores, largada,
     curvas: curvas.map(c => ({ n: c.n, p: P(c.p), t: P(c.t) })),

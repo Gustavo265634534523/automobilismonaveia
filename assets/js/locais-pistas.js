@@ -4,6 +4,7 @@
    Ao entrar uma pista nova no calendário, acrescente aqui. */
 window.LOCAIS_PISTAS = {
   'Cascavel (PR)': { lat: -24.9726, lon: -53.4065 },
+  'Goiânia (GO)': { lat: -16.7196, lon: -49.1913 },
   'Velopark (RS)': { lat: -29.7955, lon: -51.2829 },
   'Interlagos (SP)': { lat: -23.7036, lon: -46.6997 },
   'Interlagos': { lat: -23.7036, lon: -46.6997 },
