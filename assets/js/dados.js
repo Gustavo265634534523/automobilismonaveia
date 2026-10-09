@@ -720,7 +720,7 @@ window.CATEGORIAS = [
     { e: 5, n: 'Oschersleben', l: 'Alemanha', d: '2026-07-26', venc: 'Corrida 1: Thomas Preining · Corrida 2: Maro Engel' },
     { e: 6, n: 'Nürburgring', l: 'Alemanha', d: '2026-08-16', venc: 'Corrida 1: Matteo Cairoli · Corrida 2: Marco Wittmann' },
     { e: 7, n: 'Sachsenring', l: 'Alemanha', d: '2026-09-13', venc: 'Corrida 1: Marco Wittmann · Corrida 2: Ben Dörr' },
-    { e: 8, n: 'Hockenheim (final)', l: 'Alemanha', d: '2026-10-11', s: [{ t: 'Classificação 1', d: '2026-10-10', h: '04:30' }, { t: 'Corrida 1', d: '2026-10-10', h: '08:30' }, { t: 'Classificação 2', d: '2026-10-11', h: '04:30' }, { t: 'Corrida 2', d: '2026-10-11', h: '11:30' }] }
+    { e: 8, n: 'Hockenheim (final)', l: 'Alemanha', d: '2026-10-11', s: [{ t: 'Classificação 1', d: '2026-10-10', h: '04:30' }, { t: 'Corrida 1', d: '2026-10-10', h: '08:30' }, { t: 'Classificação 2', d: '2026-10-11', h: '04:30' }, { t: 'Corrida 2', d: '2026-10-11', h: '08:30' }] }
   ],
   classificacao: {
     titulo: 'Pilotos',

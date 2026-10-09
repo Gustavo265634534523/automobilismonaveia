@@ -1,7 +1,7 @@
 /* Service worker do app Na Veia.
    Páginas e dados: busca sempre a versão nova na internet e guarda uma cópia para abrir sem conexão.
    Imagens e fontes: usa a cópia guardada e atualiza por trás. */
-var VERSAO = 'naveia-v241';
+var VERSAO = 'naveia-v242';
 
 self.addEventListener('install', function () { self.skipWaiting(); });
 self.addEventListener('activate', function (e) {

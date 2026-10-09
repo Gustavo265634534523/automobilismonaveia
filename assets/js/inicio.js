@@ -3,7 +3,7 @@
   var CATS = window.CATEGORIAS;
 
   /* Agenda em formato de calendário de parede: 7 colunas (hoje + 6 dias), com botão para a semana seguinte.
-     Em cada dia, uma linha por categoria: a última sessão do dia (no dia da corrida, o nome da etapa) e o horário de Brasília. */
+     Em cada dia, por categoria: as corridas do dia (Sprint, Corrida) e a última sessão (no dia da corrida, o nome da etapa), com o horário de Brasília. */
   var hoje = window.hojeISO();
   var SEM = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
   var MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
@@ -16,8 +16,12 @@
         var s = (e.s || []).filter(function (x) { return x.d === d; });
         if (s.length) {
           s.sort(function (a, b) { return a.h < b.h ? -1 : 1; });
-          var x = s[s.length - 1], corrida = /Corrida|Principal|Race/.test(x.t) && d === e.d;
-          lista.push({ c: c, t: corrida ? e.n : x.t, h: x.h, forte: corrida });
+          /* as corridas do dia (Sprint, Corrida, Superpole Race) sempre aparecem; das outras sessões, só a última */
+          var ult = s[s.length - 1];
+          s.filter(function (x) { return x === ult || /^Sprint$|Corrida|Principal|Race/.test(x.t); }).forEach(function (x) {
+            var corrida = /Corrida|Principal|Race/.test(x.t) && d === e.d && x === ult;
+            lista.push({ c: c, t: corrida ? e.n : x.t, h: x.h, forte: corrida });
+          });
         } else if (!(e.s && e.s.length) && e.d === d) {
           lista.push({ c: c, t: e.n, h: '', forte: true });
         }
