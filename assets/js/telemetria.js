@@ -32,6 +32,8 @@
   }
 
   var sessoes = [], pilotos = [], voltas = {};
+  /* link compartilhado: raiox.html?tl=sessão-pilotoA-voltaA-pilotoB-voltaB#telemetria abre essa mesma comparação */
+  var pedido = (function () { var m = location.search.match(/[?&]tl=(\d+)-(\d+)-(\d+)-(\d+)-(\d+)/); return m ? { s: +m[1], a: +m[2], va: +m[3], b: +m[4], vb: +m[5] } : null; })();
   var selS = form.querySelector('[name=sessao]'), selA = form.querySelector('[name=a]'), selB = form.querySelector('[name=b]'),
     selVA = form.querySelector('[name=va]'), selVB = form.querySelector('[name=vb]'), botao = form.querySelector('button');
 
@@ -63,6 +65,14 @@
       selA.innerHTML = op; selB.innerHTML = op;
       if (pilotos[1]) selB.value = pilotos[1].driver_number;
       opcoesVoltas(selVA, +selA.value); opcoesVoltas(selVB, +selB.value);
+      if (pedido && pedido.s === s.session_key && voltas[pedido.a] && voltas[pedido.b]) {
+        selA.value = pedido.a; selB.value = pedido.b;
+        opcoesVoltas(selVA, pedido.a); opcoesVoltas(selVB, pedido.b);
+        /* volta que não existe no link: fica a mais rápida */
+        if (selVA.querySelector('option[value="' + pedido.va + '"]')) selVA.value = pedido.va;
+        if (selVB.querySelector('option[value="' + pedido.vb + '"]')) selVB.value = pedido.vb;
+      }
+      pedido = null;
       status.textContent = pilotos.length ? '' : 'Esta sessão ainda não tem dados de voltas.';
       botao.disabled = pilotos.length < 2;
       if (pilotos.length >= 2) comparar();
@@ -89,7 +99,8 @@
         var na = sigla(a), nb = sigla(b);
         if (a === b) { na += ' v' + selVA.value; nb += ' v' + selVB.value; }
         T.desenhar(caixa, r, { nomes: [na, nb] });
-        if (window.FANTASMA) window.FANTASMA.montar(document.getElementById('tl-fantasma'), { A: VA, B: VB, r: r, nomes: [na, nb], titulo: nomeGP(s), sub: NOMES[s.session_name] + ' · ' + T.fmtTempo(VA.dur) + ' x ' + T.fmtTempo(VB.dur) });
+        var link = location.origin + '/raiox.html?tl=' + [s.session_key, a, selVA.value, b, selVB.value].join('-') + '#telemetria';
+        if (window.FANTASMA) window.FANTASMA.montar(document.getElementById('tl-fantasma'), { A: VA, B: VB, r: r, nomes: [na, nb], titulo: nomeGP(s), sub: NOMES[s.session_name] + ' · ' + T.fmtTempo(VA.dur) + ' x ' + T.fmtTempo(VB.dur), link: link });
         status.textContent = '';
       });
     }).catch(function () {
@@ -106,8 +117,9 @@
       selS.innerHTML = sessoes.map(function (s, i) {
         return '<option value="' + i + '">' + esc(nomeGP(s)) + ' · ' + NOMES[s.session_name] + '</option>';
       }).join('');
-      /* começa pela última classificação (a normal ou a da sprint, a que for mais recente) */
+      /* começa pela última classificação (a normal ou a da sprint, a que for mais recente); com link compartilhado, pela sessão do link */
       var q = 0; sessoes.some(function (s, i) { if (/^(Qualifying|Sprint Qualifying|Sprint Shootout)$/.test(s.session_name)) { q = i; return true; } });
+      if (pedido) sessoes.some(function (s, i) { if (s.session_key === pedido.s) { q = i; return true; } });
       selS.value = q;
       carregarSessao();
     }).catch(function () { status.textContent = 'O OpenF1 não respondeu agora. Recarregue a página em alguns segundos.'; });

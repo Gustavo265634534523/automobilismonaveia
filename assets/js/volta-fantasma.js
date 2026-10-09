@@ -214,7 +214,7 @@
       '<div class="vf-ctl"><button type="button" class="vf-bt vf-play">Assistir</button>' +
       '<input type="range" class="vf-barra" min="0" max="1000" value="0" aria-label="Ponto da volta">' +
       '<div class="vf-vel" role="group" aria-label="Velocidade"><button type="button" data-v="1" aria-pressed="true">1x</button><button type="button" data-v="2" aria-pressed="false">2x</button><button type="button" data-v="4" aria-pressed="false">4x</button></div></div>' +
-      '<div class="vf-video"><button type="button" class="vf-bt vf-gerar"></button><span class="vf-msg" role="status"></span></div>' +
+      '<div class="vf-video"><button type="button" class="vf-bt vf-gerar"></button>' + (o.link ? '<button type="button" class="vf-bt vf-linha vf-link">Compartilhar</button>' : '') + '<span class="vf-msg" role="status"></span></div>' +
       '<div class="vf-pronto" hidden></div>';
     var palco = alvo.querySelector('.vf-palco'), tela = alvo.querySelector('.vf-tela'), ctx = tela.getContext('2d');
     var play = alvo.querySelector('.vf-play'), barra = alvo.querySelector('.vf-barra'), gerar = alvo.querySelector('.vf-gerar');
@@ -264,6 +264,17 @@
       });
     });
     gerar.addEventListener('click', function () { gravar(); });
+    /* compartilhar: o link do site que abre esta mesma comparação */
+    var bLink = alvo.querySelector('.vf-link');
+    if (bLink) bLink.addEventListener('click', function () {
+      var dados = { title: 'Volta fantasma ' + P.nomes[0] + ' x ' + P.nomes[1], text: P.titulo + ': ' + P.nomes[0] + ' x ' + P.nomes[1] + ', volta a volta, no Automobilismo Na Veia', url: o.link };
+      function copiar() {
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(o.link).then(function () { msg.textContent = 'Link copiado! Cole no WhatsApp, no Instagram ou onde quiser.'; }, function () { msg.textContent = o.link; });
+        else msg.textContent = o.link;
+      }
+      if (navigator.share) navigator.share(dados).catch(function (e) { if (!e || e.name !== 'AbortError') copiar(); });
+      else copiar();
+    });
     rotuloGerar();
 
     var ro = window.ResizeObserver ? new ResizeObserver(medir) : null;
