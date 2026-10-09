@@ -50,7 +50,9 @@ function categoria(slug, extra) {
   let ultima = extra.ultima ? extra.ultima() : null;
   const ultimaEtapa = c.calendario.filter(x => x.venc).slice(-1)[0];
   if (!ultima && ultimaEtapa) ultima = { n: ultimaEtapa.n, local: ultimaEtapa.l, d: ultimaEtapa.d, vencedor: ultimaEtapa.venc, podio: [] };
-  return { proxima, ultima, pilotos, equipes };
+  /* últimos vencedores da categoria (mais recentes primeiro) */
+  const vencedores = c.calendario.filter(x => x.venc && x.d).slice(-6).reverse().map(x => ({ n: x.n, d: x.d, venc: x.venc }));
+  return { proxima, ultima, pilotos, equipes, vencedores };
 }
 
 /* F1: cores e siglas da OpenF1 (Raio-x), pódio do Raio-x, último resultado de cada piloto */
@@ -101,9 +103,13 @@ window.CATEGORIAS.forEach(c => c.calendario.forEach(e => {
   if (!(e.s || []).length && e.d && e.d >= hoje && e.d <= ate) agenda.push({ cat: c.menu || c.nome, slug: c.slug, etapa: e.n, t: 'Etapa', d: e.d, h: null, iso: e.d + 'T12:00:00-03:00' });
 }));
 agenda.sort((a, b) => a.iso < b.iso ? -1 : a.iso > b.iso ? 1 : 0);
+/* vencedores mais recentes de todas as categorias */
+const vencedoresTodas = [];
+window.CATEGORIAS.forEach(c => c.calendario.forEach(e => { if (e.venc && e.d) vencedoresTodas.push({ cat: c.menu || c.nome, n: e.n, d: e.d, venc: e.venc }); }));
+vencedoresTodas.sort((a, b) => a.d < b.d ? 1 : a.d > b.d ? -1 : 0);
 const saida = Object.assign({ atualizado: new Date().toISOString(), site: 'https://automobilismonaveia.com.br/' }, f1, {
   categorias: { 'motogp': motogp, 'stock-car': stock },
-  noticias, agenda
+  noticias, agenda, vencedoresTodas: vencedoresTodas.slice(0, 10)
 });
 fs.writeFileSync(path.join(RAIZ, 'assets/dados/widget.json'), JSON.stringify(saida));
 console.log('widget.json:', f1.proxima ? f1.proxima.n : 'sem próxima', '| MotoGP:', motogp && motogp.proxima ? motogp.proxima.n : '-', '| Stock:', stock && stock.proxima ? stock.proxima.n : '-', '|', noticias.length, 'notícias');

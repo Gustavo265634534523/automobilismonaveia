@@ -36,6 +36,7 @@
       categorias: '<rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/>',
       jogos: '<path d="M7 8h10a4 4 0 0 1 4 4v1.5a3.5 3.5 0 0 1-6.3 2.1L13.5 14h-3l-1.2 1.6A3.5 3.5 0 0 1 3 13.5V12a4 4 0 0 1 4-4z"/><path d="M8 10.5v3M6.5 12h3M16 11.5h.01M17.5 13h.01"/>',
       chat: '<path d="M4 5h16v11H9l-5 4z"/>',
+      widget: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="16" height="7" rx="1.5"/>',
       raiox: '<path d="M3 13h4l2.5-6 4 11 2.5-5H21"/>',
       tv: '<rect x="3" y="5" width="18" height="12" rx="1.5"/><path d="M8 21h8M12 17v4"/>',
       box: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/>',
@@ -49,6 +50,7 @@
       ['tv', 'onde-assistir.html', 'Onde assistir', /onde-assistir/.test(location.pathname)],
       ['categorias', '#categorias-menu', 'Categorias', false],
       ['jogos', 'jogos.html', 'Jogos', /jogos/.test(location.pathname)],
+      ['widget', 'widget.html', 'Widget', /widget/.test(location.pathname)],
       ['chat', '#bate-papo', 'Chat', false],
       ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)]
     ].map(function (m) {
@@ -222,13 +224,13 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=233'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=233'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=233'; appJs.defer = true; document.body.appendChild(appJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=234'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=234'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=234'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=233'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=233'; boxJs.defer = true; document.body.appendChild(boxJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=233'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=234'; document.head.appendChild(boxCss);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=234'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=234'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

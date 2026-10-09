@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=233"></script>
-<title>Widget de F1 para iPhone: horários e mapa da pista | Na Veia</title>
-<meta name="description" content="Coloque na tela do seu iPhone um widget grátis com a próxima corrida da F1, MotoGP ou Stock Car, os horários de Brasília, o mapa da pista, o pódio e a classificação.">
+<script src="assets/js/idioma.js?v=234"></script>
+<title>Widgets de F1, MotoGP e Stock Car para iPhone | Na Veia</title>
+<meta name="description" content="Escolha o seu widget grátis para o iPhone: próximas sessões, últimos vencedores, classificação, contagem regressiva, mapa da pista ou o seu piloto favorito. F1, MotoGP e Stock Car.">
 <meta name="theme-color" content="#141619">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
-<meta property="og:title" content="Widget de F1 para iPhone | Automobilismo Na Veia">
-<meta property="og:description" content="Próxima corrida, horários de Brasília, mapa da pista e classificação na tela inicial do iPhone. Grátis.">
+<meta property="og:title" content="Widgets de automobilismo para iPhone | Automobilismo Na Veia">
+<meta property="og:description" content="Próximas sessões, vencedores, classificação e mapa da pista na tela inicial do iPhone. Grátis.">
 <meta property="og:image" content="https://automobilismonaveia.com.br/assets/img/compartilhar.jpg">
 <link rel="canonical" href="https://automobilismonaveia.com.br/widget.html">
 <meta property="og:url" content="https://automobilismonaveia.com.br/widget.html">
@@ -22,26 +22,49 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=233">
+<link rel="stylesheet" href="assets/css/estilo.css?v=234">
 <style>
-.wg { padding: calc(var(--topo) + 34px) 0 80px; }
-.wg .moldura { max-width: 860px; }
+.wg { padding: calc(var(--topo) + 34px) 0 80px; min-height: 100vh; }
 .wg-rot { margin: 0 0 6px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--sangue-vivo); }
 .wg h1 { margin: 0 0 12px; font-family: var(--display); font-weight: 400; font-size: clamp(30px, 5vw, 52px); line-height: 1.06; }
-.wg-lead { margin: 0 0 26px; font-size: 18px; color: #c3c8cd; }
-.wg-passos { list-style: none; margin: 0 0 30px; padding: 0; counter-reset: p; display: grid; gap: 12px; }
-.wg-passos li { counter-increment: p; position: relative; padding: 16px 16px 16px 60px; background: var(--carbono); border: 1px solid var(--linha); font-size: 17px; line-height: 1.5; }
-.wg-passos li::before { content: counter(p); position: absolute; left: 16px; top: 14px; width: 30px; height: 30px; display: grid; place-items: center; background: var(--sangue-vivo); color: #fff; font: 800 16px 'Exo 2'; }
-.wg-passos b { color: #fff; }
-.wg-botao { display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 12px 22px; background: var(--sangue-vivo); border: 0; color: #fff; font: 800 17px var(--texto); cursor: pointer; text-decoration: none; }
+.wg-lead { margin: 0 0 22px; font-size: 18px; color: #c3c8cd; max-width: 820px; }
+.wg-botao { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; padding: 11px 20px; background: var(--sangue-vivo); border: 0; color: #fff; font: 800 16px var(--texto); cursor: pointer; text-decoration: none; }
 .wg-botao.linha { background: transparent; border: 1px solid var(--linha); }
-.wg-ok { display: block; margin-top: 8px; font-size: 15px; color: #7ee2a8; min-height: 22px; }
-.wg-opcoes { margin: 26px 0; padding: 16px 18px; background: var(--carbono); border: 1px solid var(--linha); }
-.wg-opcoes h2 { margin: 0 0 10px; font-size: 19px; }
-.wg-opcoes code { background: #0b0c0e; padding: 2px 7px; color: #ff6b72; font-size: 15px; }
-.wg-opcoes li { margin-bottom: 6px; }
-details.wg-codigo summary { cursor: pointer; color: var(--aco); margin: 16px 0 8px; }
-details.wg-codigo pre { max-height: 300px; overflow: auto; padding: 12px; background: #0b0c0e; border: 1px solid var(--linha); font-size: 12px; color: #c3c8cd; white-space: pre-wrap; word-break: break-word; }
+/* primeira vez */
+.wg-inst { margin: 0 0 34px; padding: 16px 18px; background: var(--carbono); border: 1px solid var(--linha); border-left: 4px solid var(--sangue-vivo); }
+.wg-inst summary { cursor: pointer; font: 800 18px var(--texto); }
+.wg-inst ol { margin: 14px 0 4px; padding-left: 22px; display: grid; gap: 10px; font-size: 16px; line-height: 1.5; }
+.wg-inst b { color: #fff; }
+.wg-ok { display: block; margin-top: 6px; font-size: 15px; color: #7ee2a8; min-height: 20px; }
+/* galeria */
+.wg-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 18px; }
+.wg-card { display: flex; flex-direction: column; gap: 12px; padding: 16px; background: var(--carbono); border: 1px solid var(--linha); }
+.wg-card h2 { margin: 0; font-size: 20px; }
+.wg-card > p { margin: 0; color: #aab0b6; font-size: 15px; }
+.wg-ctl { display: flex; flex-wrap: wrap; gap: 8px; }
+.wg-ctl select, .wg-ctl input { min-height: 40px; padding: 6px 10px; background: #0b0c0e; border: 1px solid var(--linha); color: #fff; font: 600 15px var(--texto); }
+.wg-tam { display: inline-flex; border: 1px solid var(--linha); }
+.wg-tam button { min-height: 40px; padding: 0 12px; background: none; border: 0; color: #aab0b6; font: 700 14px var(--texto); cursor: pointer; }
+.wg-tam button[aria-pressed="true"] { background: #2b3037; color: #fff; }
+.wg-palco { display: grid; place-items: center; min-height: 330px; padding: 14px; background: radial-gradient(circle at 30% 20%, #2a2f37, #121417); }
+.wg-msg { font-size: 14px; color: #7ee2a8; min-height: 20px; margin: 0; }
+/* prévia do widget (imita o iPhone) */
+.ww { position: relative; overflow: hidden; border-radius: 22px; padding: 12px 14px; background: linear-gradient(180deg, #1a0d10, #0b0c0e); color: #f1f3f5; font-family: -apple-system, 'SF Pro Text', Inter, sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,.45); display: flex; flex-direction: column; }
+.ww.p { width: 158px; height: 158px; } .ww.m { width: 338px; height: 158px; } .ww.g { width: 338px; height: 354px; }
+.ww .mk { font-size: 8.5px; font-weight: 900; letter-spacing: .02em; white-space: nowrap; display: flex; } .ww .mk b { color: #e3343c; margin-left: 3px; } .ww .mk i { margin-left: auto; font-style: normal; color: #8e979f; font-weight: 700; }
+.ww .rt { font-size: 8px; font-weight: 800; color: #e3343c; letter-spacing: .02em; margin-top: 6px; text-transform: uppercase; }
+.ww .ti { font-size: 18px; font-weight: 900; line-height: 1.1; } .ww.g .ti { font-size: 21px; }
+.ww .sb { font-size: 9px; color: #8e979f; font-weight: 600; }
+.ww .ln { display: flex; gap: 6px; font-size: 10.5px; font-weight: 700; line-height: 1.5; white-space: nowrap; overflow: hidden; }
+.ww .ln span:last-child { margin-left: auto; color: #8e979f; }
+.ww .ln.apag { color: #5c6268; } .ww .ln.dest { color: #e3343c; }
+.ww .br { width: 3px; height: 11px; margin-top: 3px; flex: none; }
+.ww .lin2 { display: flex; gap: 10px; } .ww .lin2 > div { flex: 1; min-width: 0; }
+.ww svg { display: block; }
+.ww .vc { margin-top: 3px; } .ww .vc small { display: block; font-size: 8.5px; color: #8e979f; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .ww .vc b { font-size: 11.5px; font-weight: 900; }
+.ww .num { font-size: 18px; font-weight: 900; } .ww .num small { display: block; font-size: 8.5px; color: #8e979f; font-weight: 600; }
+.ww .rod { margin-top: auto; font-size: 8px; color: #5c6268; display: flex; justify-content: space-between; }
+@media (max-width: 480px) { .wg-palco { padding: 8px; } .ww.m, .ww.g { zoom: .84; } .wg-grade { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body data-pagina="widget">
@@ -50,51 +73,27 @@ details.wg-codigo pre { max-height: 300px; overflow: auto; padding: 12px; backgr
 <main class="wg" id="wg">
   <div class="moldura">
     <p class="wg-rot">Grátis · iPhone</p>
-    <h1>Widget do Na Veia no seu iPhone</h1>
-    <p class="wg-lead">A próxima corrida da Fórmula 1, MotoGP ou Stock Car na tela inicial: horários de Brasília, contagem regressiva, mapa da pista com os setores, pódio e classificação. Atualiza sozinho.</p>
+    <h1>Widgets do Na Veia</h1>
+    <p class="wg-lead">Escolha o widget, a categoria e o tamanho. Toque em <b>Usar este widget</b> e cole no seu iPhone: toque e segure o widget, <b>Editar widget</b>, campo <b>Parameter</b>, <b>Colar</b>. Para trocar depois, é só escolher outro aqui.</p>
 
-    <ol class="wg-passos">
-      <li>Instale o app <b>Scriptable</b>, grátis na App Store.<br><a class="wg-botao linha" style="margin-top:10px" href="https://apps.apple.com/br/app/scriptable/id1405459188" target="_blank" rel="noopener">Abrir na App Store</a></li>
-      <li>Toque em <b>Copiar o código</b>.<br><button type="button" class="wg-botao" id="wg-copiar" style="margin-top:10px">Copiar o código</button><span class="wg-ok" id="wg-ok" role="status"></span></li>
-      <li>Abra o <b>Scriptable</b> e toque no <b>+</b> (canto de cima, à direita). Toque e segure na tela em branco e escolha <b>Colar</b>. Toque no nome "Untitled Script", troque para <b>Na Veia</b> e toque em <b>Done</b>.</li>
-      <li>Na tela inicial do iPhone, toque e segure num espaço vazio até os ícones tremerem. Toque no <b>+</b> (canto de cima, à esquerda), procure <b>Scriptable</b>, escolha o tamanho (pequeno, médio ou grande) e toque em <b>Adicionar widget</b>.</li>
-      <li>Toque e segure o widget, escolha <b>Editar widget</b> e, em <b>Script</b>, escolha <b>Na Veia</b>. Pronto.</li>
-    </ol>
+    <details class="wg-inst" id="wg-inst">
+      <summary>Primeira vez? Instale em 2 minutos</summary>
+      <ol>
+        <li>Instale o app <b>Scriptable</b> (grátis): <a href="https://apps.apple.com/br/app/scriptable/id1405459188" target="_blank" rel="noopener">abrir na App Store</a>.</li>
+        <li><button type="button" class="wg-botao" id="wg-copiar">Copiar o código do widget</button><span class="wg-ok" id="wg-ok" role="status"></span></li>
+        <li>Abra o Scriptable, toque no <b>+</b>, toque e segure na tela e escolha <b>Colar</b>. Toque em "Untitled Script", troque o nome para <b>Na Veia</b> e toque em <b>Done</b>.</li>
+        <li>Na tela inicial, toque e segure num espaço vazio, toque no <b>+</b>, procure <b>Scriptable</b>, escolha o tamanho e <b>Adicionar widget</b>.</li>
+        <li>Toque e segure o widget, <b>Editar widget</b>, e em <b>Script</b> escolha <b>Na Veia</b>. Depois escolha o modelo abaixo.</li>
+      </ol>
+    </details>
 
-    <section class="wg-opcoes" aria-labelledby="wg-op-t">
-      <h2 id="wg-op-t">Quer personalizar?</h2>
-      <p>Em <b>Editar widget</b>, escreva no campo <b>Parameter</b>:</p>
-      <ul>
-        <li><code>motogp</code> para a MotoGP, ou <code>stock</code> para a Stock Car.</li>
-        <li><code>fav=Bortoleto</code> para ver o seu piloto favorito (no widget grande). Troque pelo nome que quiser.</li>
-        <li>Dá para juntar: <code>motogp;fav=Marquez</code></li>
-      </ul>
-    </section>
-
-    <p class="nota">Tem Android ou quer no computador? Em breve, widget para Android e papel de parede animado para o PC.</p>
-
-    <details class="wg-codigo"><summary>Ver o código (se o botão de copiar não funcionar)</summary><pre id="wg-pre">Carregando…</pre></details>
+    <div class="wg-grade" id="wg-grade"></div>
+    <p class="nota" style="margin-top:24px">Os widgets leem os dados do Automobilismo Na Veia e se atualizam sozinhos (o iPhone decide a hora, normalmente a cada 15 a 30 minutos). Horários de Brasília.</p>
   </div>
 </main>
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=233"></script>
-<script src="assets/js/site.js?v=233"></script>
-<script>
-  (function () {
-    var codigo = '', pre = document.getElementById('wg-pre'), ok = document.getElementById('wg-ok');
-    fetch('assets/widget/na-veia-iphone.js?v=233').then(function (r) { return r.text(); }).then(function (t) { codigo = t; pre.textContent = t; }).catch(function () { pre.textContent = 'Não foi possível carregar agora. Recarregue a página.'; });
-    document.getElementById('wg-copiar').addEventListener('click', function () {
-      function feito() { ok.textContent = 'Código copiado! Agora abra o Scriptable (passo 3).'; }
-      if (!codigo) { ok.textContent = 'Espere um segundo e toque de novo.'; return; }
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(codigo).then(feito, copiarAntigo); else copiarAntigo();
-      function copiarAntigo() {
-        var t = document.createElement('textarea'); t.value = codigo; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
-        document.body.appendChild(t); t.select(); t.setSelectionRange(0, codigo.length);
-        try { document.execCommand('copy'); feito(); } catch (e) { ok.textContent = 'Não deu para copiar: abra "Ver o código" abaixo e copie à mão.'; }
-        t.remove();
-      }
-    });
-  })();
-</script>
+<script src="assets/js/dados.js?v=234"></script>
+<script src="assets/js/site.js?v=234"></script>
+<script src="assets/js/widget-galeria.js?v=234"></script>
 </body>
 </html>
