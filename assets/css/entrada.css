@@ -179,3 +179,9 @@
 .an-cartao[aria-selected="true"] { border: 2px solid var(--sangue-vivo); background: #22262c; padding: 15px; }
 .an-cartao[aria-selected="true"] svg { color: var(--sangue-vivo); }
 @media (max-width: 760px) { .an-cartoes { grid-template-columns: repeat(2, minmax(0, 1fr)); } .an-cartao small { display: none; } }
+
+/* Informações da próxima corrida (página inicial) */
+.pc-caixa h2 { margin: 0 0 4px; font-size: clamp(24px, 3vw, 34px); font-family: var(--display); font-weight: 400; }
+.pc-caixa { min-height: 520px; }
+.pc-mais { margin: 16px 0 0; font-weight: 700; }
+.pc-mais a { color: var(--sangue-vivo); text-decoration: none; }

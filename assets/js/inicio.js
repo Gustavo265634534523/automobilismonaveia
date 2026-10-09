@@ -66,6 +66,27 @@
       }).join('') + '</ul></section>';
   }).join('');
 
+  /* Informações da próxima corrida: uma categoria por vez (previa-etapa.js), escolhida nos botões */
+  (function () {
+    var botoes = document.getElementById('pc-cats'), caixa = document.getElementById('pc-caixa');
+    if (!botoes || !caixa || !window.PREVIA_ETAPA) return;
+    var ORDEM = ['formula-1', 'motogp', 'stock-car', 'formula-2', 'porsche-cup', 'endurance', 'nascar', 'dtm', 'superbike', 'indycar', 'formula-e', 'formula-3', 'rally', 'motocross', 'le-mans', 'imsa', 'dakar'];
+    var lista = ORDEM.map(function (sl) { return CATS.filter(function (c) { return c.slug === sl; })[0]; })
+      .filter(function (c) { return c && window.PREVIA_PROXIMA(c); });
+    if (!lista.length) { document.getElementById('proxima-corrida').hidden = true; return; }
+    botoes.innerHTML = lista.map(function (c) {
+      var e = window.PREVIA_PROXIMA(c);
+      return '<button type="button" class="sm-cat" data-cat="' + c.slug + '" aria-pressed="false">' + esc(c.nome) + '<small>' + esc(window.dataCurta(e.d)) + '</small></button>';
+    }).join('');
+    function abrir(sl) {
+      var c = lista.filter(function (x) { return x.slug === sl; })[0] || lista[0];
+      [].forEach.call(botoes.querySelectorAll('.sm-cat'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-cat') === c.slug); });
+      window.PREVIA_ETAPA(c, caixa, { rodape: '<p class="pc-mais"><a href="' + c.slug + '.html">Tudo sobre a ' + esc(c.nome) + ' →</a></p>' });
+    }
+    botoes.addEventListener('click', function (ev) { var b = ev.target.closest('.sm-cat'); if (b) abrir(b.getAttribute('data-cat')); });
+    abrir(lista[0].slug);
+  })();
+
   /* Abertura */
   var sec = document.getElementById('abertura');
   if (!sec || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -140,4 +161,5 @@
   window.addEventListener('scroll', desenhar, { passive: true });
   window.addEventListener('resize', desenhar);
   desenhar();
+
 })();

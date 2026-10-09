@@ -23,6 +23,8 @@ jobs:
         run: node _ferramentas/raiox-automatico.js
       - name: Mapa da próxima pista (curvas e setores)
         run: node .github/pista-proxima.js || true
+      - name: Mapa da próxima pista das outras categorias
+        run: node .github/pistas-categorias.js || true
       - name: Telemetria da página inicial
         run: node .github/telemetria-amostra.js || true
       - name: Raio-x da MotoGP
