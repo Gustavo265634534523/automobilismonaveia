@@ -23,7 +23,7 @@
     /* a vaga do quadro já entra agora, com a altura reservada, para a página não pular quando os canais chegarem (CLS) */
     document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura oa-vaga" id="oa-vaga"></div>');
     var vaga = document.getElementById('oa-vaga');
-    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=234';
+    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=235';
     s.onload = function () {
       var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug);
       if (!q) { vaga.remove(); return; }
