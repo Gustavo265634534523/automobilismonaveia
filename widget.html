@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=236"></script>
+<script src="assets/js/idioma.js?v=237"></script>
 <title>Widgets de F1, MotoGP e Stock Car para iPhone | Na Veia</title>
 <meta name="description" content="Escolha o seu widget grátis para o iPhone: próximas sessões, últimos vencedores, classificação, contagem regressiva, mapa da pista ou o seu piloto favorito. F1, MotoGP e Stock Car.">
 <meta name="theme-color" content="#141619">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=236">
+<link rel="stylesheet" href="assets/css/estilo.css?v=237">
 <style>
 .wg { padding: calc(var(--topo) + 34px) 0 80px; min-height: 100vh; }
 .wg-rot { margin: 0 0 6px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--sangue-vivo); }
@@ -38,6 +38,12 @@
 .wg-facil ol { margin: 0; padding-left: 22px; display: grid; gap: 8px; font-size: 16px; line-height: 1.5; }
 .wg-facil b { color: #fff; }
 .wg-mais { margin: -6px 0 16px; } .wg-mais summary { cursor: pointer; font-weight: 700; color: #c3c8cd; margin-bottom: 10px; } .wg-mais .wg-botao { min-height: 40px; font-size: 14px; padding: 8px 14px; }
+.wg-aviso { display: none; margin: 0 0 14px; padding: 12px 14px; background: #3a2a0c; border: 1px solid #a8781c; font-size: 15px; line-height: 1.5; }
+.wg-aviso.on { display: block; }
+.wg-b { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--linha); }
+.wg-b summary { cursor: pointer; font-weight: 700; color: #c3c8cd; }
+.wg-b ol { margin-top: 12px; }
+.wg-b select { min-height: 40px; padding: 6px 10px; background: #0b0c0e; border: 1px solid var(--linha); color: #fff; font: 600 15px var(--texto); }
 .wg-sub { margin: 0 0 14px; font-size: 22px; }
 /* primeira vez */
 .wg-inst { margin: 0 0 34px; padding: 16px 18px; background: var(--carbono); border: 1px solid var(--linha); border-left: 4px solid var(--sangue-vivo); }
@@ -87,6 +93,7 @@
     <section class="wg-facil" aria-labelledby="wg-facil-t">
       <h2 id="wg-facil-t">Jeito fácil: sem instalar nada</h2>
       <p>As corridas entram no <b>Calendário</b> do iPhone, com aviso 30 minutos antes. Os horários se atualizam sozinhos.</p>
+      <p class="wg-aviso" id="wg-aviso">Você abriu pelo atalho da tela inicial, e por ele o iPhone não deixa assinar. <b>Abra esta página no Safari</b> (automobilismonaveia.com.br/widget.html) ou use o <b>plano B</b> logo abaixo.</p>
       <div class="wg-cals">
         <a class="wg-botao" href="webcal://automobilismonaveia.com.br/assets/agenda/formula-1.ics">Fórmula 1</a>
         <a class="wg-botao" href="webcal://automobilismonaveia.com.br/assets/agenda/motogp.ics">MotoGP</a>
@@ -98,6 +105,15 @@
         <li>Na tela inicial, toque e segure num espaço vazio, toque no <b>+</b> e procure <b>Calendário</b>.</li>
         <li>Escolha o modelo <b>Próximos</b> e toque em <b>Adicionar widget</b>. Pronto: a próxima sessão aparece na tela inicial.</li>
       </ol>
+      <details class="wg-b" id="wg-b">
+        <summary>Não apareceu "Assinar"? Plano B (sempre funciona)</summary>
+        <ol>
+          <li>Escolha a categoria e copie o link:<br><span class="wg-ctl" style="margin-top:8px"><select id="wg-cal-cat" aria-label="Categoria"></select><button type="button" class="wg-botao" id="wg-cal-copiar">Copiar link</button></span><span class="wg-ok" id="wg-cal-ok" role="status"></span></li>
+          <li>Abra os <b>Ajustes</b> do iPhone, toque em <b>Apps</b> e depois em <b>Calendário</b> (em iPhones mais antigos, <b>Calendário</b> fica direto nos Ajustes).</li>
+          <li>Toque em <b>Contas</b>, <b>Adicionar Conta</b>, <b>Outra</b> e <b>Adicionar Calendário Assinado</b>.</li>
+          <li>Cole o link em <b>Servidor</b>, toque em <b>Seguinte</b> e depois em <b>Salvar</b>.</li>
+        </ol>
+      </details>
     </section>
 
     <h2 class="wg-sub">Widget completo (com o app Scriptable)</h2>
@@ -119,8 +135,25 @@
   </div>
 </main>
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=236"></script>
-<script src="assets/js/site.js?v=236"></script>
-<script src="assets/js/widget-galeria.js?v=236"></script>
+<script src="assets/js/dados.js?v=237"></script>
+<script src="assets/js/site.js?v=237"></script>
+<script>
+(function () {
+  if (window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) {
+    document.getElementById('wg-aviso').classList.add('on'); document.getElementById('wg-b').open = true;
+  }
+  var sel = document.getElementById('wg-cal-cat'), base = 'https://automobilismonaveia.com.br/assets/agenda/';
+  document.querySelectorAll('.wg-facil a[href^="webcal:"]').forEach(function (a) {
+    var o = document.createElement('option'); o.value = a.getAttribute('href').split('/').pop(); o.textContent = a.textContent; sel.appendChild(o);
+  });
+  document.getElementById('wg-cal-copiar').addEventListener('click', function () {
+    var link = base + sel.value, ok = document.getElementById('wg-cal-ok');
+    function feito() { ok.textContent = 'Link copiado! Agora vá nos Ajustes (passo 2).'; }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(link).then(feito, function () { ok.textContent = link; });
+    else { ok.textContent = link; }
+  });
+})();
+</script>
+<script src="assets/js/widget-galeria.js?v=237"></script>
 </body>
 </html>
