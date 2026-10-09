@@ -89,10 +89,12 @@
         var na = sigla(a), nb = sigla(b);
         if (a === b) { na += ' v' + selVA.value; nb += ' v' + selVB.value; }
         T.desenhar(caixa, r, { nomes: [na, nb] });
+        if (window.FANTASMA) window.FANTASMA.montar(document.getElementById('tl-fantasma'), { A: VA, B: VB, r: r, nomes: [na, nb], titulo: nomeGP(s), sub: NOMES[s.session_name] + ' · ' + T.fmtTempo(VA.dur) + ' x ' + T.fmtTempo(VB.dur) });
         status.textContent = '';
       });
     }).catch(function () {
       caixa.innerHTML = '';
+      if (window.FANTASMA) window.FANTASMA.montar(document.getElementById('tl-fantasma'), null);
       status.textContent = 'Não deu para montar essa comparação: faltam dados de telemetria dessa volta no OpenF1. Escolha outra volta.';
     }).then(function () { botao.disabled = false; });
   }
