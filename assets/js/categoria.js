@@ -23,7 +23,7 @@
     /* a vaga do quadro já entra agora, com a altura reservada, para a página não pular quando os canais chegarem (CLS) */
     document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura oa-vaga" id="oa-vaga"></div>');
     var vaga = document.getElementById('oa-vaga');
-    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=242';
+    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=243';
     s.onload = function () {
       var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug);
       if (!q) { vaga.remove(); return; }
@@ -36,6 +36,7 @@
 
   /* Prévia da próxima etapa: horários de Brasília, previsão do tempo com o que ela muda na corrida (chuva, calor, vento)
      e como está o campeonato. Localização das pistas: locais-pistas.js e previa-pistas.js (F1 e F2, com os números da pista). */
+  window.TEMPO_VOLTA = window.TEMPO_VOLTA || function (s) { var m = Math.floor(s / 60), r = s - m * 60; return m + ':' + (r < 10 ? '0' : '') + r.toFixed(3); };
   (function () {
     var e = c.calendario.filter(function (x) { return !x.venc && x.d && x.d >= hoje; })[0];
     var vaga = document.getElementById('oa-vaga');
@@ -64,7 +65,23 @@
         '<div class="pv-bloco pv-tempo-bloco"><h3>Previsão do tempo</h3><div id="pv-tempo">' + (loc ? '<p class="pv-vazio">Buscando a previsão…</p>' : '<p class="pv-vazio">Previsão indisponível para esta pista.</p>') + '</div></div>' +
         (camp ? '<div class="pv-bloco"><h3>Campeonato</h3>' + camp + '</div>' : '') +
         (numeros ? '<div class="pv-bloco"><h3>Números da pista</h3>' + numeros + '</div>' : '') +
+        (c.slug === 'formula-1' ? '<div class="pv-bloco pv-mapa-bloco" id="pv-mapa" hidden></div>' : '') +
       '</div></div></section>');
+    /* F1: desenho da pista com os 3 setores, as curvas numeradas e a largada (assets/dados/pista-proxima.json, feito pelo robô .github/pista-proxima.js) */
+    if (c.slug === 'formula-1') fetch('assets/dados/pista-proxima.json?t=' + Math.floor(Date.now() / 6e5)).then(function (r) { return r.json(); }).then(function (M) {
+      var caixa = document.getElementById('pv-mapa');
+      if (!caixa || !M || M.etapa !== e.n || !M.d) return;
+      var COR = ['#e3343c', '#3fa9f5', '#f5c518'], V = M.volta;
+      var setores = (M.setores && M.setores.length ? M.setores : [M.d]).map(function (d, i) { return '<path d="' + d + '" stroke="' + (M.setores ? COR[i] : '#fff') + '"/>'; }).join('');
+      var curvas = (M.curvas || []).map(function (k) { return '<g><circle cx="' + k.t[0] + '" cy="' + k.t[1] + '" r="10"/><text x="' + k.t[0] + '" y="' + (k.t[1] + 4) + '">' + esc(k.n) + '</text></g>'; }).join('');
+      var larg = M.largada && M.largada.p ? '<circle class="pv-mapa-larg" cx="' + M.largada.p[0] + '" cy="' + M.largada.p[1] + '" r="7"/>' : '';
+      var leg = M.setores ? '<ul class="pv-mapa-leg">' + [0, 1, 2].map(function (i) { return '<li><i style="background:' + COR[i] + '"></i>Setor ' + (i + 1) + (V && V.s && V.s[i] ? ' <b>' + V.s[i].toFixed(3).replace('.', ',') + 's</b>' : '') + '</li>'; }).join('') + '<li><i class="pv-mapa-li-larg"></i>Largada</li></ul>' : '';
+      var ref = V ? '<p class="pv-fonte">Setores medidos na volta mais rápida da ' + esc(String(M.fonteSetores || '').replace(/^Sprint Qualifying/, 'classificação sprint').replace(/^Qualifying/, 'classificação').replace(/^Race/, 'corrida')) + ': ' + esc(String(V.nome || V.sigla).toLowerCase().replace(/(^|[\s-])\S/g, function (x) { return x.toUpperCase(); })) + ', ' + window.TEMPO_VOLTA(V.tempo) + '.' + (M.pit && M.pit.normal ? ' Parada nos boxes custa cerca de ' + String(M.pit.normal).replace('.', ',') + 's.' : '') + ' Dados: OpenF1 e MultiViewer.</p>' : '';
+      caixa.innerHTML = '<h3>Mapa da pista</h3><svg class="pv-mapa" viewBox="0 0 400 400" role="img" aria-label="Desenho da pista de ' + esc(e.l) + ' com setores e curvas"><g class="pv-mapa-base"><path d="' + M.d + '"/></g><g class="pv-mapa-set">' + setores + '</g>' + larg + '<g class="pv-mapa-curvas">' + curvas + '</g></svg>' + leg + ref;
+      caixa.hidden = false;
+      /* corta o espaço vazio em volta do desenho */
+      try { var svg = caixa.querySelector('svg'), b = svg.getBBox(); if (b.width) svg.setAttribute('viewBox', [b.x - 14, b.y - 14, b.width + 28, b.height + 28].join(' ')); } catch (er) {}
+    }).catch(function () {});
     if (!loc) return;
     var el = document.getElementById('pv-tempo');
     var dias = {}; (e.s || []).forEach(function (x) { if (x.d) dias[x.d] = (dias[x.d] || []).concat(x.t); });

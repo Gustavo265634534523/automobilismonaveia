@@ -924,3 +924,16 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .pv-venc { list-style: none; margin: 0; padding: 0; }
 .pv-venc li { display: flex; gap: 14px; padding: 7px 0; border-bottom: 1px solid var(--linha); font-weight: 600; }
 .pv-venc span { color: var(--aco); min-width: 40px; }
+
+/* Prévia da F1: mapa da pista com setores e curvas */
+.pv-mapa-bloco { grid-column: 1 / -1; }
+.pv-mapa { display: block; width: 100%; max-width: 560px; margin: 4px auto 10px; }
+.pv-mapa-base path { fill: none; stroke: #2b3038; stroke-width: 16; stroke-linejoin: round; stroke-linecap: round; }
+.pv-mapa-set path { fill: none; stroke-width: 7; stroke-linejoin: round; stroke-linecap: round; }
+.pv-mapa-larg { fill: #fff; stroke: #0b0c0e; stroke-width: 3; }
+.pv-mapa-curvas circle { fill: #15171a; stroke: #4a515b; stroke-width: 1.5; }
+.pv-mapa-curvas text { fill: #fff; font: 700 11px var(--texto); text-anchor: middle; }
+.pv-mapa-leg { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; margin: 0 0 8px; padding: 0; list-style: none; font-size: 14px; color: #c3c8cd; }
+.pv-mapa-leg i { display: inline-block; width: 14px; height: 6px; margin-right: 7px; vertical-align: middle; border-radius: 3px; }
+.pv-mapa-leg .pv-mapa-li-larg { width: 10px; height: 10px; border-radius: 50%; background: #fff; }
+.pv-mapa-leg b { color: #fff; }
