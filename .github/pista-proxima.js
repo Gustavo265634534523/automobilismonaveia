@@ -42,7 +42,7 @@ const of1 = q => json('https://api.openf1.org/v1/' + q);
     sessao = antes || null;
   }
   const anterior = fs.existsSync(ARQ) ? JSON.parse(fs.readFileSync(ARQ, 'utf8')) : null;
-  if (anterior && anterior.etapa === e.n && anterior.ano === ano && anterior.sessao === (sessao && sessao.session_key)) { console.log('pista-proxima: sem novidade'); return; }
+  if (anterior && anterior.versao === 2 && anterior.etapa === e.n && anterior.ano === ano && anterior.sessao === (sessao && sessao.session_key)) { console.log('pista-proxima: sem novidade'); return; }
 
   /* traçado e curvas */
   let mv = await json('https://api.multiviewer.app/api/v1/circuits/' + m.circuit_key + '/' + ano);
@@ -58,7 +58,7 @@ const of1 = q => json('https://api.openf1.org/v1/' + q);
   });
 
   /* setores e largada pela volta mais rápida da sessão */
-  let marcas = null;
+  let marcas = null, voltaBruta = null, clima = null;
   if (sessao) {
     await espera(600);
     const voltas = ((await of1('laps?session_key=' + sessao.session_key)) || [])
@@ -76,9 +76,27 @@ const of1 = q => json('https://api.openf1.org/v1/' + q);
         return gira(a.x + (b.x - a.x) * f, a.y + (b.y - a.y) * f);
       };
       if (loc.length > 50) marcas = { largada: ponto(0), s1: ponto(v.duration_sector_1 * 1000), s2: ponto((v.duration_sector_1 + v.duration_sector_2) * 1000) };
+      /* volta animada: posição a cada leitura, com a velocidade e a marcha mais próximas no tempo */
+      await espera(600);
+      const car = ((await of1('car_data?session_key=' + sessao.session_key + '&driver_number=' + v.driver_number + '&date>=' + new Date(ini).toISOString() + '&date<' + new Date(fim).toISOString())) || []);
+      await espera(600);
+      const pil = (((await of1('drivers?session_key=' + sessao.session_key + '&driver_number=' + v.driver_number)) || [])[0]) || {};
+      const tc = car.map(c => Date.parse(c.date));
+      const perto = t => { let lo = 0, hi = tc.length - 1; while (lo < hi) { const mid = (lo + hi) >> 1; if (tc[mid] < t) lo = mid + 1; else hi = mid; } return car[lo] || {}; };
+      if (loc.length > 50 && car.length > 50) voltaBruta = {
+        sigla: pil.name_acronym || ('#' + v.driver_number), nome: pil.full_name || '', cor: pil.team_colour ? '#' + pil.team_colour : '#ffffff',
+        tempo: v.lap_duration, s: [v.duration_sector_1, v.duration_sector_2, v.duration_sector_3],
+        pts: loc.filter(p => { const t = Date.parse(p.date); return t >= ini && t <= fim; }).map(p => { const t = Date.parse(p.date), c = perto(t); return { p: gira(p.x, p.y), ms: t - ini, v: c.speed || 0, g: c.n_gear || 0 }; })
+      };
     }
   }
 
+  /* clima na pista: a última leitura da sessão */
+  if (sessao) {
+    await espera(600);
+    const w = ((await of1('weather?session_key=' + sessao.session_key)) || []).filter(x => x.air_temperature > 1 && x.track_temperature > 1).pop();
+    if (w) clima = { ar: w.air_temperature, pista: w.track_temperature, umidade: Math.round(w.humidity), vento: Math.round((w.wind_speed || 0) * 3.6), chuva: !!w.rainfall, sessao: sessao.session_name, data: w.date };
+  }
   /* tudo dentro de um quadro de 400 x 400 (y para cima, como nos mapas) */
   const todos = trilha.concat(curvas.map(c => c.t));
   const xs = todos.map(p => p[0]), ys = todos.map(p => p[1]);
@@ -95,11 +113,15 @@ const of1 = q => json('https://api.openf1.org/v1/' + q);
     setores = [linha(trecho(i0, i1)), linha(trecho(i1, i2)), linha(trecho(i2, i0))];
     largada = { p: pts[i0], prox: pts[(i0 + 3) % pts.length] };
   }
+  const volta = voltaBruta ? { sigla: voltaBruta.sigla, nome: voltaBruta.nome, cor: voltaBruta.cor, tempo: voltaBruta.tempo, s: voltaBruta.s,
+    pts: voltaBruta.pts.map(q => { const xy = P(q.p); return [xy[0], xy[1], q.ms, q.v, q.g]; }) } : null;
+  const pit = mv.pitLoss ? { normal: +mv.pitLoss.normal || null, sc: +mv.pitLoss.sc || null, vsc: +mv.pitLoss.vsc || null } : null;
   const saida = {
-    etapa: e.n, ano, circuito: mv.circuitName || m.circuit_short_name, sessao: sessao ? sessao.session_key : null,
+    versao: 2, etapa: e.n, ano, circuito: mv.circuitName || m.circuit_short_name, sessao: sessao ? sessao.session_key : null,
     fonteSetores: sessao ? (sessao.session_name + ' ' + sessao.year) : null,
     d: linha(pts) + 'Z', setores, largada,
-    curvas: curvas.map(c => ({ n: c.n, p: P(c.p), t: P(c.t) }))
+    curvas: curvas.map(c => ({ n: c.n, p: P(c.p), t: P(c.t) })),
+    volta, clima, pit
   };
   fs.writeFileSync(ARQ, JSON.stringify(saida));
   console.log('pista-proxima:', e.n, '|', saida.circuito, '|', saida.curvas.length, 'curvas |', setores ? 'setores de ' + saida.fonteSetores : 'sem setores');
