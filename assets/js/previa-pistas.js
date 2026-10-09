@@ -5,7 +5,7 @@ window.PREVIA_PISTAS = {
   'Sepang (Malásia)': { circuito: 'Sepang', lat: 2.7606, lon: 101.7381, km: 5.543, voltas: 56,
     txt: 'Duas retas longas ligadas por um grampo fechado, onde se ultrapassa na freada. Calor tropical e chuva forte no meio da tarde mudam a corrida em minutos. A F1 volta a Sepang pela primeira vez desde 2017.',
     venc: [['2014', 'Lewis Hamilton'], ['2015', 'Sebastian Vettel'], ['2016', 'Daniel Ricciardo'], ['2017', 'Max Verstappen']], vencTitulo: 'Últimas vitórias da F1 em Sepang' },
-  'Marina Bay': { circuito: null, lat: 1.2914, lon: 103.8640, km: 4.940, voltas: 62,
+  'Marina Bay': { circuito: 'Marina Bay', lat: 1.2914, lon: 103.8640, km: 4.940, voltas: 62,
     txt: 'Corrida noturna entre muros, com calor e umidade que desidratam o piloto. O safety car aparece com frequência, e ultrapassar exige paciência.',
     venc: [['2022', 'Sergio Pérez'], ['2023', 'Carlos Sainz'], ['2024', 'Lando Norris'], ['2025', 'George Russell']] },
   'Austin': { circuito: 'Circuito das Américas', lat: 30.1328, lon: -97.6411, km: 5.513, voltas: 56,
