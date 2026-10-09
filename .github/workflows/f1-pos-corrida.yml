@@ -21,10 +21,6 @@ jobs:
           node-version: 22
       - name: Raio-x e Duelo
         run: node _ferramentas/raiox-automatico.js
-      - name: Mapa da próxima pista (curvas e setores)
-        run: node .github/pista-proxima.js || true
-      - name: Dados do widget e do papel de parede
-        run: node .github/widget-dados.js || true
       - name: Telemetria da página inicial
         run: node .github/telemetria-amostra.js || true
       - name: Raio-x da MotoGP
