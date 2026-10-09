@@ -177,7 +177,7 @@
   var oaPromessa = null;
   function dadosOA() {
     if (window.ONDE_ASSISTIR) return Promise.resolve(window.ONDE_ASSISTIR);
-    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=235'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
+    if (!oaPromessa) oaPromessa = new Promise(function (ok) { var sc = document.createElement('script'); sc.src = 'assets/js/onde-assistir-dados.js?v=236'; sc.onload = sc.onerror = function () { ok(window.ONDE_ASSISTIR || null); }; document.head.appendChild(sc); });
     return oaPromessa;
   }
   function rOndeAssistir(c, e, q) {
