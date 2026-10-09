@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '8 de outubro de 2026';
+window.ATUALIZADO = '9 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -263,7 +263,7 @@ window.CATEGORIAS = [
     { e: 7, n: 'Etapa 7', l: 'Santa Cruz do Sul (RS)', d: '2026-08-09', venc: 'Felipe Baptista e Felipe Fraga' },
     { e: 8, n: 'Etapa 8', l: 'Curvelo (MG)', d: '2026-09-06', venc: 'Léo Reis e César Ramos' },
     { e: 9, n: 'Etapa 9, endurance', l: 'Brasília (DF)', d: '2026-09-27', s: [{ t: 'Classificação', d: '2026-09-26', h: '14:15' }, { t: 'Warm-up', d: '2026-09-27', h: '09:15' }, { t: 'Corrida de 2 horas', d: '2026-09-27', h: '12:15' }], venc: 'Sérgio Sette Câmara e Lucas di Grassi' },
-    { e: 10, n: 'Etapa 10', l: 'Cascavel (PR)', d: '2026-10-18' },
+    { e: 10, n: 'Etapa 10, endurance', l: 'Goiânia (GO)', d: '2026-10-18', nota: 'primeira prova de endurance da história da Stock Car, 3 horas em duplas, no Autódromo Internacional de Goiânia' },
     { e: 11, n: 'Etapa 11', l: 'Velopark (RS)', d: '2026-11-15' },
     { e: 12, n: 'Final', l: 'Interlagos (SP)', d: '2026-12-13' }
   ],
@@ -478,7 +478,7 @@ window.CATEGORIAS = [
     { e: 30, n: 'Hollywood Casino 400', l: 'Kansas', d: '2026-09-27', s: [{ t: 'Treino', d: '2026-09-26', h: '11:00' }, { t: 'Classificação', d: '2026-09-26', h: '12:10' }, { t: 'Corrida', d: '2026-09-27', h: '16:00' }], venc: 'Kyle Larson' },
     { e: 31, n: 'South Point 400', l: 'Las Vegas', d: '2026-10-04', s: [{ t: 'Treino', d: '2026-10-03', h: '17:30' }, { t: 'Classificação', d: '2026-10-03', h: '18:35' }, { t: 'Corrida', d: '2026-10-04', h: '18:30' }], venc: 'Chase Briscoe' },
     { e: 32, n: 'Bank of America 400', l: 'Charlotte', d: '2026-10-11', s: [{ t: 'Treino', d: '2026-10-10', h: '14:00' }, { t: 'Classificação', d: '2026-10-10', h: '15:05' }, { t: 'Corrida', d: '2026-10-11', h: '16:00' }] },
-    { e: 33, n: 'Phoenix 500', l: 'Phoenix', d: '2026-10-18' },
+    { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18' },
     { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25' },
     { e: 35, n: 'Xfinity 500', l: 'Martinsville', d: '2026-11-01' },
     { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08' }
