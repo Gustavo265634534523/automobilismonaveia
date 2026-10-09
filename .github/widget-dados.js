@@ -43,6 +43,11 @@ if (R) {
 const cl = f1.classificacao;
 const pilotos = cl.linhas.slice(0, 5).map(l => ({ pos: +l[0], nome: l[1], sigla: siglaDe[l[1]] || l[1].split(' ').pop().slice(0, 3).toUpperCase(), equipe: l[2], cor: cor(l[2]), pts: +l[l.length - 1] }));
 const equipes = (cl.extra ? cl.extra.linhas : []).slice(0, 5).map(l => ({ pos: +l[0], nome: l[1], cor: cor(l[1]), pts: +l[l.length - 1] }));
+/* mapa com curvas e setores (.github/pista-proxima.js), se for da mesma etapa */
+try {
+  const mapa = JSON.parse(fs.readFileSync(path.join(RAIZ, 'assets/dados/pista-proxima.json'), 'utf8'));
+  if (proxima && mapa.etapa === proxima.n) proxima.mapa = { circuito: mapa.circuito, d: mapa.d, setores: mapa.setores, largada: mapa.largada, curvas: mapa.curvas, fonteSetores: mapa.fonteSetores };
+} catch (e) {}
 const saida = { atualizado: new Date().toISOString(), site: 'https://automobilismonaveia.com.br/', proxima, ultima, pilotos, equipes };
 fs.writeFileSync(path.join(RAIZ, 'assets/dados/widget.json'), JSON.stringify(saida));
 console.log('widget.json:', proxima ? proxima.n : 'sem próxima', '|', ultima ? ultima.n : 'sem última', '|', pilotos.length, 'pilotos');
