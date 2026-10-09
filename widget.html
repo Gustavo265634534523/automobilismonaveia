@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=237"></script>
-<title>Widgets de F1, MotoGP e Stock Car para iPhone | Na Veia</title>
-<meta name="description" content="Escolha o seu widget grátis para o iPhone: próximas sessões, últimos vencedores, classificação, contagem regressiva, mapa da pista ou o seu piloto favorito. F1, MotoGP e Stock Car.">
+<script src="assets/js/idioma.js?v=238"></script>
+<title>Widgets de F1, MotoGP e Stock Car para iPhone e Android | Na Veia</title>
+<meta name="description" content="Escolha o seu widget grátis para o iPhone ou Android: próximas sessões, últimos vencedores, classificação, contagem regressiva, mapa da pista ou o seu piloto favorito. F1, MotoGP e Stock Car.">
 <meta name="theme-color" content="#141619">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=237">
+<link rel="stylesheet" href="assets/css/estilo.css?v=238">
 <style>
 .wg { padding: calc(var(--topo) + 34px) 0 80px; min-height: 100vh; }
 .wg-rot { margin: 0 0 6px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--sangue-vivo); }
@@ -44,6 +44,12 @@
 .wg-b summary { cursor: pointer; font-weight: 700; color: #c3c8cd; }
 .wg-b ol { margin-top: 12px; }
 .wg-b select { min-height: 40px; padding: 6px 10px; background: #0b0c0e; border: 1px solid var(--linha); color: #fff; font: 600 15px var(--texto); }
+.wg-android { margin: 0 0 34px; padding: 20px; background: var(--carbono); border: 1px solid var(--linha); border-left: 4px solid #3ddc84; }
+.wg-android h2 { margin: 0 0 6px; font-size: 22px; }
+.wg-android > p { margin: 0 0 14px; color: #c3c8cd; font-size: 16px; }
+.wg-android ol { margin: 16px 0 0; padding-left: 22px; display: grid; gap: 8px; font-size: 16px; line-height: 1.5; }
+.wg-android b { color: #fff; }
+.wg-android small { display: block; margin-top: 12px; color: #8e979f; font-size: 13px; }
 .wg-sub { margin: 0 0 14px; font-size: 22px; }
 /* primeira vez */
 .wg-inst { margin: 0 0 34px; padding: 16px 18px; background: var(--carbono); border: 1px solid var(--linha); border-left: 4px solid var(--sangue-vivo); }
@@ -87,11 +93,24 @@
 <header id="topo"></header>
 <main class="wg" id="wg">
   <div class="moldura">
-    <p class="wg-rot">Grátis · iPhone</p>
+    <p class="wg-rot">Grátis · iPhone e Android</p>
     <h1>Widgets do Na Veia</h1>
 
+    <section class="wg-android" id="android" aria-labelledby="wg-android-t">
+      <h2 id="wg-android-t">Android: app do Na Veia com widget</h2>
+      <p>Widget de verdade na tela inicial, com 7 modelos: próximas sessões, vencedores, campeonato, contagem, seu piloto e mapa da pista. Só baixa por aqui.</p>
+      <a class="wg-botao" href="assets/app/na-veia.apk" download="na-veia.apk">Baixar o app (Android)</a>
+      <ol>
+        <li>Toque em <b>Baixar o app</b> e abra o arquivo <b>na-veia.apk</b>.</li>
+        <li>Se o celular avisar sobre "fontes desconhecidas", toque em <b>Configurações</b>, ligue <b>Permitir desta fonte</b> e volte. Depois toque em <b>Instalar</b>.</li>
+        <li>Na tela inicial, toque e segure num espaço vazio, toque em <b>Widgets</b>, procure <b>Na Veia</b> e arraste para a tela.</li>
+        <li>Escolha o modelo, a categoria e toque em <b>Pronto</b>. Para trocar depois: toque e segure o widget e depois em <b>Configurar</b>.</li>
+      </ol>
+      <small>Grátis, sem anúncios no app. Feito pelo Automobilismo Na Veia (o aviso de fonte desconhecida aparece para todo app que não vem da Play Store).</small>
+    </section>
+
     <section class="wg-facil" aria-labelledby="wg-facil-t">
-      <h2 id="wg-facil-t">Jeito fácil: sem instalar nada</h2>
+      <h2 id="wg-facil-t">iPhone, jeito fácil: sem instalar nada</h2>
       <p>As corridas entram no <b>Calendário</b> do iPhone, com aviso 30 minutos antes. Os horários se atualizam sozinhos.</p>
       <p class="wg-aviso" id="wg-aviso">Você abriu pelo atalho da tela inicial, e por ele o iPhone não deixa assinar. <b>Abra esta página no Safari</b> (automobilismonaveia.com.br/widget.html) ou use o <b>plano B</b> logo abaixo.</p>
       <div class="wg-cals">
@@ -116,7 +135,7 @@
       </details>
     </section>
 
-    <h2 class="wg-sub">Widget completo (com o app Scriptable)</h2>
+    <h2 class="wg-sub">iPhone, widget completo (com o app Scriptable)</h2>
     <p class="wg-lead">Mostra vencedores, classificação, contagem regressiva e mapa da pista. Precisa do app grátis <b>Scriptable</b>. Escolha o widget, a categoria e o tamanho, toque em <b>Usar este widget</b> e cole no iPhone: toque e segure o widget, <b>Editar widget</b>, campo <b>Parameter</b>, <b>Colar</b>.</p>
 
     <details class="wg-inst" id="wg-inst">
@@ -135,10 +154,11 @@
   </div>
 </main>
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=237"></script>
-<script src="assets/js/site.js?v=237"></script>
+<script src="assets/js/dados.js?v=238"></script>
+<script src="assets/js/site.js?v=238"></script>
 <script>
 (function () {
+  if (/iPhone|iPad|iPod/.test(navigator.userAgent)) { var an = document.getElementById('android'), gr = document.getElementById('wg-grade'); gr.parentNode.insertBefore(an, gr.nextSibling); }
   if (window.navigator.standalone || (window.matchMedia && matchMedia('(display-mode: standalone)').matches)) {
     document.getElementById('wg-aviso').classList.add('on'); document.getElementById('wg-b').open = true;
   }
@@ -154,6 +174,6 @@
   });
 })();
 </script>
-<script src="assets/js/widget-galeria.js?v=237"></script>
+<script src="assets/js/widget-galeria.js?v=238"></script>
 </body>
 </html>

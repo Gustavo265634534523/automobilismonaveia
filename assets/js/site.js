@@ -80,7 +80,7 @@
       }).join('') + '</ul></section>';
     }).join('') +
       '<section class="painel-planos" aria-label="Atalhos">' +
-        '<div class="painel-planos-acoes"><a class="botao" href="jogos.html">Jogos</a><a class="painel-guia" href="widget.html">Widget para iPhone</a><a class="painel-guia" href="./#analise">Raio-x e telemetria</a><a class="painel-guia" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="horarios.html">Horários e alerta de largada</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
+        '<div class="painel-planos-acoes"><a class="botao" href="jogos.html">Jogos</a><a class="painel-guia" href="widget.html">Widget para iPhone e Android</a><a class="painel-guia" href="./#analise">Raio-x e telemetria</a><a class="painel-guia" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="horarios.html">Horários e alerta de largada</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
       '</section></div>';
     topo.after(painel);
 
@@ -224,13 +224,13 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=237'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=237'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=237'; appJs.defer = true; document.body.appendChild(appJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=238'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=238'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=238'; appJs.defer = true; document.body.appendChild(appJs);
     /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=237'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=237'; boxJs.defer = true; document.body.appendChild(boxJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=237'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=238'; document.head.appendChild(boxCss);
+    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=238'; boxJs.defer = true; document.body.appendChild(boxJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=238'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -297,7 +297,7 @@
         var cats = [].concat.apply([], GRUPOS.filter(function (g) { return col[1].indexOf(g.nome) > -1; }).map(function (g) { return g.cats; }));
         return coluna(col[0], cats.map(function (c) { return li(pagina(c), esc(c.nome)); }));
       }).join('') +
-      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('widget.html', 'Widget para iPhone'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
+      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('widget.html', 'Widget (iPhone e Android)'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +
         '<span class="rodape-responsavel">Responsável: Gustavo Teixeira · Estrada Doutor Manoel Reis, Rio de Janeiro, Brasil</span></div></div>';
