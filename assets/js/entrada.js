@@ -23,6 +23,20 @@
   var todas = (window.NOTICIAS_GERAIS || []).filter(function (n) { return PORSLUG[n.cat]; }).slice()
     .sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
   var capa = todas.filter(function (n) { return n.manchete; })[0] || todas[0];
+  /* depois de uma classificação ou corrida da F1, a capa mostra o vídeo oficial (assets/dados/video-capa.js, por 3 dias);
+     a manchete vai para a lista ao lado. A F1 não deixa tocar o vídeo fora do YouTube: o clique abre no canal oficial. */
+  var V = window.VIDEO_CAPA;
+  if (V && V.id && Date.now() - Date.parse(V.publicado) < 3 * 864e5) {
+    var ev = document.getElementById('rv-capa');
+    ev.href = 'https://www.youtube.com/watch?v=' + V.id;
+    ev.target = '_blank'; ev.rel = 'noopener';
+    ev.classList.add('rv-capa-video');
+    ev.setAttribute('aria-label', 'Assistir no YouTube: ' + V.titulo);
+    ev.innerHTML = '<img src="https://i.ytimg.com/vi/' + V.id + '/maxresdefault.jpg" alt="" fetchpriority="high" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + V.id + '/hqdefault.jpg\'">' +
+      '<span class="rv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>' +
+      '<span class="rv-capa-txt"><small>Fórmula 1 · vídeo oficial · ' + esc(quando(V.publicado.slice(0, 10))) + '</small><b>' + esc(V.titulo) + '</b><span>' + esc(V.texto) + ' Toque para assistir no YouTube.</span></span>';
+    capa = null;
+  }
   if (capa) {
     var c = PORSLUG[capa.cat], t = (en && capa.t_en) || capa.t, x = (en && capa.x_en) || capa.x;
     var el = document.getElementById('rv-capa');

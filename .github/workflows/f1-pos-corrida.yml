@@ -25,6 +25,8 @@ jobs:
         run: node .github/pista-proxima.js || true
       - name: Mapa da próxima pista das outras categorias
         run: node .github/pistas-categorias.js || true
+      - name: Vídeo oficial da F1 na capa da página inicial
+        run: node .github/video-capa.js || true
       - name: Telemetria da página inicial
         run: node .github/telemetria-amostra.js || true
       - name: Raio-x da MotoGP

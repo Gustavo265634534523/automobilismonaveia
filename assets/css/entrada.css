@@ -185,3 +185,11 @@
 .pc-caixa { min-height: 520px; }
 .pc-mais { margin: 16px 0 0; font-weight: 700; }
 .pc-mais a { color: var(--sangue-vivo); text-decoration: none; }
+
+/* Capa com o vídeo oficial da F1 (entrada.js + assets/dados/video-capa.js) */
+.rv-capa-video { position: relative; }
+.rv-capa-video img { object-position: center 30%; }
+.rv-play { position: absolute; left: 50%; top: 42%; width: 78px; height: 78px; margin: -39px 0 0 -39px; display: grid; place-items: center; border-radius: 50%; background: rgba(176, 18, 27, .92); color: #fff; box-shadow: 0 8px 30px rgba(0,0,0,.5); transition: transform .2s; z-index: 2; }
+.rv-play svg { width: 38px; height: 38px; margin-left: 4px; }
+.rv-capa-video:hover .rv-play { transform: scale(1.08); }
+@media (max-width: 760px) { .rv-play { width: 58px; height: 58px; margin: -29px 0 0 -29px; } .rv-play svg { width: 28px; height: 28px; } }
