@@ -104,8 +104,8 @@
       selS.innerHTML = sessoes.map(function (s, i) {
         return '<option value="' + i + '">' + esc(nomeGP(s)) + ' · ' + NOMES[s.session_name] + '</option>';
       }).join('');
-      /* começa pela última classificação */
-      var q = 0; sessoes.some(function (s, i) { if (s.session_name === 'Qualifying') { q = i; return true; } });
+      /* começa pela última classificação (a normal ou a da sprint, a que for mais recente) */
+      var q = 0; sessoes.some(function (s, i) { if (/^(Qualifying|Sprint Qualifying|Sprint Shootout)$/.test(s.session_name)) { q = i; return true; } });
       selS.value = q;
       carregarSessao();
     }).catch(function () { status.textContent = 'O OpenF1 não respondeu agora. Recarregue a página em alguns segundos.'; });

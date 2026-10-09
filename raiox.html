@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=239"></script>
-<title>Raio-x: corrida, telemetria e duelo de pilotos | Automobilismo Na Veia</title>
+<script src="assets/js/idioma.js?v=240"></script>
+<title>Raio-x: corrida e telemetria | Automobilismo Na Veia</title>
 <meta name="description" content="Raio-x da Fórmula 1 e da MotoGP: posições volta a volta, pneus, tempos de volta e telemetria da F1 para comparar dois pilotos.">
 <link rel="canonical" href="https://automobilismonaveia.com.br/raiox.html">
 <meta property="og:title" content="Raio-x F1 e MotoGP | Automobilismo Na Veia">
@@ -23,16 +23,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=239">
-<link rel="stylesheet" href="assets/css/raiox.css?v=239">
-<link rel="stylesheet" href="assets/css/telemetria.css?v=239">
-<link rel="stylesheet" href="assets/css/planos.css?v=239">
-<link rel="stylesheet" href="assets/css/duelo.css?v=239">
+<link rel="stylesheet" href="assets/css/estilo.css?v=240">
+<link rel="stylesheet" href="assets/css/raiox.css?v=240">
+<link rel="stylesheet" href="assets/css/telemetria.css?v=240">
+<link rel="stylesheet" href="assets/css/planos.css?v=240">
 <script>
   /* modo embutido (página inicial): raiox.html?embutido=1 */
   if (/[?&]embutido=1/.test(location.search)) {
     document.documentElement.classList.add('rx-embutido');
-    var modo = (location.search.match(/[?&]modo=(raiox|telemetria|duelo)/) || [])[1] || 'raiox';
+    var modo = (location.search.match(/[?&]modo=(raiox|telemetria)/) || [])[1] || 'raiox';
     document.documentElement.setAttribute('data-modo', modo);
     document.write('<base target="_top">');
   }
@@ -45,8 +44,8 @@ html.rx-embutido .aviso-priv, html.rx-embutido #aviso-priv, html.rx-embutido .ch
 html.rx-embutido .rx-main { padding-top: 0 !important; padding-bottom: 10px !important; min-height: 0 !important; }
 html.rx-embutido .moldura { padding-left: 0; padding-right: 0; }
 html.rx-embutido .rx-selo, html.rx-embutido .rx-titulo { display: none; }
-html.rx-embutido[data-modo="telemetria"] .rx-abas, html.rx-embutido[data-modo="duelo"] .rx-abas,
-html.rx-embutido[data-modo="raiox"] #rx-aba-telemetria, html.rx-embutido[data-modo="raiox"] #rx-aba-duelo { display: none; }
+html.rx-embutido[data-modo="telemetria"] .rx-abas,
+html.rx-embutido[data-modo="raiox"] #rx-aba-telemetria { display: none; }
 </style>
 </head>
 <body>
@@ -61,7 +60,6 @@ html.rx-embutido[data-modo="raiox"] #rx-aba-telemetria, html.rx-embutido[data-mo
       <button type="button" role="tab" class="rx-aba" id="rx-aba-corrida" aria-controls="rx-p-corrida" aria-selected="true">F1: Corrida</button>
       <button type="button" role="tab" class="rx-aba" id="rx-aba-telemetria" aria-controls="rx-p-telemetria" aria-selected="false">F1: Telemetria</button>
       <button type="button" role="tab" class="rx-aba" id="rx-aba-motogp" aria-controls="rx-p-motogp" aria-selected="false">MotoGP</button>
-      <button type="button" role="tab" class="rx-aba" id="rx-aba-duelo" aria-controls="rx-p-duelo" aria-selected="false">Duelo de pilotos</button>
     </div>
 
     <div id="rx-p-corrida" role="tabpanel" aria-labelledby="rx-aba-corrida">
@@ -116,30 +114,23 @@ html.rx-embutido[data-modo="raiox"] #rx-aba-telemetria, html.rx-embutido[data-mo
 
     <div id="rx-p-motogp" role="tabpanel" aria-labelledby="rx-aba-motogp" hidden><div id="rxm-comparar"></div><div id="rxm"></div>
     </div>
-    <div id="rx-p-duelo" role="tabpanel" aria-labelledby="rx-aba-duelo" hidden>
-      <p class="rx-sub">Escolha dois pilotos e veja quem está levando a melhor na temporada. Na Fórmula 1, o duelo mostra também pódios, poles e quem chegou na frente em cada corrida.</p>
-      <div class="sm-cats" id="dl-cats" role="group" aria-label="Categoria"></div>
-      <div id="duelo" class="dl" aria-live="polite"></div>
-    </div>
   </div>
   <div class="rx-dica" id="rx-dica" role="status" aria-live="polite" hidden></div>
 </main>
 
 <footer id="rodape"></footer>
 
-<script src="assets/js/dados.js?v=239"></script>
-<script src="assets/js/site.js?v=239"></script>
-<script src="assets/dados/raiox-f1.js?v=239"></script>
-<script src="assets/js/raiox.js?v=239"></script>
-<script src="assets/js/raiox-extra.js?v=239"></script>
-<script src="assets/dados/telemetria-videos.js?v=239"></script>
-<script src="assets/js/telemetria-graf.js?v=239"></script>
-<script src="assets/dados/raiox-motogp.js?v=239"></script>
-<script src="assets/js/raiox-motogp.js?v=239"></script>
-<script src="assets/js/raiox-motogp-comparar.js?v=239"></script>
-<script src="assets/js/telemetria.js?v=239"></script>
-<script src="assets/dados/duelo-f1.js?v=239"></script>
-<script src="assets/js/duelo.js?v=239"></script>
+<script src="assets/js/dados.js?v=240"></script>
+<script src="assets/js/site.js?v=240"></script>
+<script src="assets/dados/raiox-f1.js?v=240"></script>
+<script src="assets/js/raiox.js?v=240"></script>
+<script src="assets/js/raiox-extra.js?v=240"></script>
+<script src="assets/dados/telemetria-videos.js?v=240"></script>
+<script src="assets/js/telemetria-graf.js?v=240"></script>
+<script src="assets/dados/raiox-motogp.js?v=240"></script>
+<script src="assets/js/raiox-motogp.js?v=240"></script>
+<script src="assets/js/raiox-motogp-comparar.js?v=240"></script>
+<script src="assets/js/telemetria.js?v=240"></script>
 <script>
   /* Abas Corrida e Telemetria (raiox.html#telemetria abre direto na telemetria) */
   (function () {
@@ -166,8 +157,8 @@ html.rx-embutido[data-modo="raiox"] #rx-aba-telemetria, html.rx-embutido[data-mo
     }
     window.RX_ABA_INICIAL = function () {
       var m = document.documentElement.getAttribute('data-modo');
-      if (m === 'telemetria' || m === 'duelo') return abrir(m);
-      if (location.hash === '#telemetria') abrir('telemetria'); if (location.hash === '#motogp') abrir('motogp'); if (location.hash === '#duelo') abrir('duelo');
+      if (m === 'telemetria') return abrir(m);
+      if (location.hash === '#telemetria') abrir('telemetria'); if (location.hash === '#motogp') abrir('motogp');
     };
     /* a página inicial troca o modo sem recarregar o quadro */
     window.addEventListener('message', function (e) {

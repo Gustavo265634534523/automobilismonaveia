@@ -51,9 +51,6 @@ function dataBrasilia(iso) { return new Date(Date.parse(iso) - 3 * 36e5).toISOSt
   try {
     const saida = execFileSync(process.execPath, [path.join(__dirname, 'gerar-raiox.js'), String(ultima.session_key), titulo, local], { cwd: PASTA, encoding: 'utf8', timeout: 600000 });
     log('Raio-x gerado: ' + saida.trim().split('\n')[0]);
-    /* duelo de pilotos: posições de cada corrida da F1 */
-    try { log(execFileSync(process.execPath, [path.join(__dirname, 'gerar-duelo-f1.js')], { cwd: PASTA, encoding: 'utf8', timeout: 600000 }).trim()); }
-    catch (e2) { log('duelo: erro ' + String(e2.message).slice(0, 120)); }
   } catch (e) {
     log('ainda sem dados completos de ' + titulo + ' (' + String(e.stdout || e.message).trim().slice(0, 120) + ')');
   }

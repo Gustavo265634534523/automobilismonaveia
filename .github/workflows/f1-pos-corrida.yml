@@ -1,4 +1,4 @@
-# Depois de cada corrida: Raio-x e Duelo da F1, amostra de telemetria da página inicial (OpenF1) e Raio-x da MotoGP (resultados oficiais da MotoGP).
+# Depois de cada corrida: Raio-x da F1, amostra de telemetria da página inicial (OpenF1) e Raio-x da MotoGP (resultados oficiais da MotoGP).
 # Roda a cada 30 minutos; só faz algo quando sai resultado novo.
 name: F1 pos-corrida
 on:
@@ -19,7 +19,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Raio-x e Duelo
+      - name: Raio-x
         run: node _ferramentas/raiox-automatico.js
       - name: Telemetria da página inicial
         run: node .github/telemetria-amostra.js || true
@@ -33,6 +33,6 @@ jobs:
           git config user.email "automobilismonaveiacontato@gmail.com"
           git add assets/dados
           git diff --cached --quiet && exit 0
-          git commit -m "Robô: Raio-x e Duelo da última corrida"
+          git commit -m "Robô: Raio-x da última corrida"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
           exit 1

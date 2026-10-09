@@ -170,7 +170,7 @@
 #simulador-demo .pl-sim { min-height: 700px; }
 
 /* Análise da temporada: cartões que trocam o conteúdo (página inicial) */
-.an-cartoes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 26px; }
+.an-cartoes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-bottom: 26px; }
 .an-cartao { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 16px; background: var(--carbono); border: 1px solid var(--linha); color: var(--cromo); text-align: left; cursor: pointer; font: inherit; transition: border-color .2s, background .2s; }
 .an-cartao svg { width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; color: var(--aco); }
 .an-cartao b { font-size: 17px; }

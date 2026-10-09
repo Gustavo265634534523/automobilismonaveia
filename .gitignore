@@ -5,7 +5,6 @@ _privado/
 _ferramentas/*
 !_ferramentas/raiox-automatico.js
 !_ferramentas/gerar-raiox.js
-!_ferramentas/gerar-duelo-f1.js
 !_ferramentas/exportar-agenda.js
 !_ferramentas/exportar-ics.js
 api/
