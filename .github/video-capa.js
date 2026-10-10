@@ -39,18 +39,19 @@ function traduz(t) {
     id: (e.match(/<yt:videoId>([^<]+)/) || [])[1],
     original: html((e.match(/<title>([^<]+)/) || [])[1] || ''),
     publicado: (e.match(/<published>([^<]+)/) || [])[1]
-  })).filter(v => v.id && v.publicado && Date.now() - Date.parse(v.publicado) < 3 * 864e5);
-  const v = videos.map(x => Object.assign(x, traduz(x.original) || {})).filter(x => x.titulo)
-    .sort((a, b) => Date.parse(b.publicado) - Date.parse(a.publicado))[0];
+  })).filter(v => v.id && v.publicado).map(x => Object.assign(x, traduz(x.original) || {})).filter(x => x.titulo);
+  /* lista dos últimos vídeos de classificação e corrida (Central da F1 na página inicial): junta com os que já estavam salvos */
+  let antigos = [];
+  try { const w = {}; new Function('window', fs.readFileSync(ARQ, 'utf8'))(w); antigos = w.VIDEOS_F1 || []; } catch (e) {}
+  const vistos = new Set(), lista = videos.map(x => ({ id: x.id, titulo: x.titulo + (gp(x.publicado) ? ' · ' + gp(x.publicado) : ''), publicado: x.publicado })).concat(antigos)
+    .filter(x => !vistos.has(x.id) && vistos.add(x.id)).sort((a, b) => Date.parse(b.publicado) - Date.parse(a.publicado)).slice(0, 6);
+  /* capa: o mais recente dos últimos 3 dias */
+  const v = videos.filter(x => Date.now() - Date.parse(x.publicado) < 3 * 864e5).sort((a, b) => Date.parse(b.publicado) - Date.parse(a.publicado))[0];
   const antes = fs.existsSync(ARQ) ? fs.readFileSync(ARQ, 'utf8') : '';
-  if (!v) {
-    if (antes.indexOf('"id"') > -1 || !antes) { fs.writeFileSync(ARQ, '/* Gerado por .github/video-capa.js. Não editar à mão. */\nwindow.VIDEO_CAPA = null;\n'); console.log('video-capa: nenhum vídeo de classificação ou corrida nos últimos 3 dias'); }
-    return;
-  }
-  const nome = gp(v.publicado);
-  const dados = { id: v.id, titulo: v.titulo + (nome ? ' · ' + nome : ''), texto: v.texto, original: v.original, publicado: v.publicado };
-  const novo = '/* Gerado por .github/video-capa.js. Não editar à mão. */\nwindow.VIDEO_CAPA = ' + JSON.stringify(dados) + ';\n';
+  const nome = v ? gp(v.publicado) : '';
+  const capa = v ? { id: v.id, titulo: v.titulo + (nome ? ' · ' + nome : ''), texto: v.texto, original: v.original, publicado: v.publicado } : null;
+  const novo = '/* Gerado por .github/video-capa.js. Não editar à mão. */\nwindow.VIDEO_CAPA = ' + JSON.stringify(capa) + ';\nwindow.VIDEOS_F1 = ' + JSON.stringify(lista) + ';\n';
   if (novo === antes) { console.log('video-capa: sem novidade'); return; }
   fs.writeFileSync(ARQ, novo);
-  console.log('video-capa:', dados.titulo, '(' + v.original + ')');
+  console.log('video-capa:', capa ? capa.titulo : '(sem vídeo na capa)', '| lista:', lista.length, 'vídeos');
 })().catch(e => { console.error('ERRO:', e.message); process.exit(1); });
