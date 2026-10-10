@@ -141,3 +141,31 @@ window.ANATOMIA_F2 = {
   ],
   ficha: [['620 cv', 'de potência'], ['V6 3.4', 'turbo'], ['795 kg', 'com piloto e gasolina'], ['≈ 335 km/h', 'velocidade máxima'], ['6 marchas', 'câmbio sequencial']]
 };
+
+/* Fórmula 3: carros genéricos da categoria (assets/img/cat/f3.jpg, imagem gerada, sem equipe nem marca). Carro usado desde 2025 */
+window.ANATOMIA_F3 = {
+  foto: 'assets/img/cat/f3.jpg', w: 1344, h: 752,
+  pecas: [
+    { id: 'pneu', x: 11, y: 57, nome: 'Pneus', numero: 'aro 16',
+      texto: 'São da Pirelli, com aro de 16 polegadas, menores que os da F1 e da F2. Os pilotos aprendem aqui a cuidar do desgaste dos pneus durante a corrida.' },
+    { id: 'asad', x: 13, y: 71, nome: 'Asa dianteira', numero: 'pressão no bico',
+      texto: 'Gera pressão para baixo na frente do carro e ajuda o carro a virar nas curvas. Num grid tão cheio, é a peça que mais sofre com os toques.' },
+    { id: 'bico', x: 28, y: 62, nome: 'Bico', numero: 'carbono e kevlar',
+      texto: 'O chassi é de fibra de carbono e kevlar, feito pela Dallara e igual para todas as equipes. Assim, quem faz a diferença é o piloto.' },
+    { id: 'halo', x: 27.5, y: 40, nome: 'Halo', numero: 'de aço',
+      texto: 'O arco em cima do cockpit protege a cabeça do piloto em batidas e contra peças soltas. Na F3 ele é de aço.' },
+    { id: 'piloto', x: 33.5, y: 45, nome: 'Piloto', numero: 'os jovens talentos',
+      texto: 'A F3 reúne os jovens mais promissores do mundo, muitos ainda adolescentes. É o degrau antes da F2, e corre nos mesmos fins de semana da F1.' },
+    { id: 'motor', x: 34, y: 31, nome: 'Motor', numero: 'V6 3.4 aspirado',
+      texto: 'É um V6 de 3,4 litros sem turbo, com cerca de 380 cavalos. A entrada de ar fica acima da cabeça do piloto. O motor é igual para todos.' },
+    { id: 'suspensao', x: 39, y: 57, nome: 'Suspensão', numero: 'braços finos',
+      texto: 'Os braços finos ligam as rodas ao carro. São fininhos para atrapalhar o mínimo possível o ar que passa por ali.' },
+    { id: 'asa', x: 46, y: 36, nome: 'Asa traseira', numero: 'tem DRS',
+      texto: 'Segura a traseira no chão nas curvas. Nas retas, o piloto que está perto do carro da frente pode abrir a asa (DRS) para ganhar velocidade e tentar a ultrapassagem.' },
+    { id: 'freio', x: 49, y: 64, nome: 'Freios', numero: 'até –1,9 G',
+      texto: 'Na freada mais forte, o piloto sente quase 2 vezes o peso do corpo sendo jogado para a frente. O carro sai de alta velocidade e entra na curva em poucos metros.' },
+    { id: 'grid', x: 60, y: 44, nome: 'Grid cheio', numero: '30 carros',
+      texto: 'São 30 carros na pista, todos iguais. As corridas são muito disputadas, com várias ultrapassagens e brigas em grupo do começo ao fim.' }
+  ],
+  ficha: [['380 cv', 'de potência'], ['V6 3.4', 'aspirado'], ['673 kg', 'com o piloto'], ['300 km/h', 'velocidade máx. (aprox.)'], ['6 marchas', 'câmbio sequencial']]
+};
