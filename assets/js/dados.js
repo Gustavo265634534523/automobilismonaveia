@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '9 de outubro de 2026';
+window.ATUALIZADO = '10 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -478,7 +478,7 @@ window.CATEGORIAS = [
     { e: 30, n: 'Hollywood Casino 400', l: 'Kansas', d: '2026-09-27', s: [{ t: 'Treino', d: '2026-09-26', h: '11:00' }, { t: 'Classificação', d: '2026-09-26', h: '12:10' }, { t: 'Corrida', d: '2026-09-27', h: '16:00' }], venc: 'Kyle Larson' },
     { e: 31, n: 'South Point 400', l: 'Las Vegas', d: '2026-10-04', s: [{ t: 'Treino', d: '2026-10-03', h: '17:30' }, { t: 'Classificação', d: '2026-10-03', h: '18:35' }, { t: 'Corrida', d: '2026-10-04', h: '18:30' }], venc: 'Chase Briscoe' },
     { e: 32, n: 'Bank of America 400', l: 'Charlotte', d: '2026-10-11', s: [{ t: 'Treino', d: '2026-10-10', h: '14:00' }, { t: 'Classificação', d: '2026-10-10', h: '15:05' }, { t: 'Corrida', d: '2026-10-11', h: '16:00' }] },
-    { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18' },
+    { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18', s: [{ t: 'Treino e classificação', d: '2026-10-17', h: '17:30' }, { t: 'Corrida', d: '2026-10-18', h: '16:00' }] },
     { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25' },
     { e: 35, n: 'Xfinity 500', l: 'Martinsville', d: '2026-11-01' },
     { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08' }
@@ -613,7 +613,7 @@ window.CATEGORIAS = [
   ],
   calendario: [
     { e: 1, n: '24 Horas de Le Mans 2026', l: 'Circuito de La Sarthe, França', d: '2026-06-14', venc: 'Toyota #7 (Conway, Kobayashi e De Vries)' },
-    { e: 2, n: '24 Horas de Le Mans 2027', l: 'Circuito de La Sarthe, França', nota: 'Data ainda não divulgada, normalmente em junho' }
+    { e: 2, n: '24 Horas de Le Mans 2027', l: 'Circuito de La Sarthe, França', d: '2027-06-13', nota: '95ª edição, de 9 a 13 de junho de 2027, data oficial confirmada pelo ACO' }
   ],
   destaque: {
     titulo: 'Últimos vencedores',
@@ -832,7 +832,7 @@ window.CATEGORIAS = [
         ['5', 'Daniel Sanders', 'KTM', '+1h03min'], ['6', 'Adrien Van Beveren', 'Honda', '+1h04min']
       ]
     },
-    nota: '48ª edição, de 3 a 17 de janeiro de 2026, na Arábia Saudita. Outras categorias: caminhões, Vaidotas Žala (Iveco); carros de série, Rokas Baciuška; T3, Pau Navarro; SSV, Brock Heger. A próxima edição está prevista para janeiro de 2027.'
+    nota: '48ª edição, de 3 a 17 de janeiro de 2026, na Arábia Saudita. Outras categorias: caminhões, Vaidotas Žala (Iveco); carros de série, Rokas Baciuška; T3, Pau Navarro; SSV, Brock Heger. A 49ª edição está confirmada para 1 a 15 de janeiro de 2027, com largada e chegada em King Abdullah Economic City, na Arábia Saudita; a Dacia, campeã de 2026, anunciou que não vai disputar o rali no ano seguinte.'
   },
   equipes: [
     { n: 'Dacia Sandriders', i: 'Dacia Sandrider', p: ['Nasser Al-Attiyah', 'Sébastien Loeb', 'Lucas Moraes'] },
