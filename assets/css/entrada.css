@@ -200,3 +200,14 @@
 @media (max-width: 1000px) { .rv-baixo { grid-template-columns: 1fr; } }
 .rv-baixo:has(.enq-home[hidden]) { grid-template-columns: 1fr; }
 
+
+/* Carro de F1 de fundo no topo da página inicial (imagem gerada, sem equipe nem marca); escurecido para não atrapalhar as notícias */
+.revista { position: relative; isolation: isolate; overflow: hidden; }
+.revista::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 980px; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(6,7,7,.15) 0%, rgba(6,7,7,.45) 55%, #060707 100%),
+    linear-gradient(90deg, rgba(6,7,7,.55) 0%, rgba(6,7,7,.15) 55%, rgba(6,7,7,.35) 100%),
+    url('../img/hero-3-frente.webp') right top / min(1700px, 115%) auto no-repeat; opacity: .9; }
+@media (max-width: 760px) { .revista::before { height: 640px; background:
+    linear-gradient(180deg, rgba(6,7,7,.2) 0%, rgba(6,7,7,.55) 50%, #060707 100%),
+    url('../img/hero-3-frente-m.webp') 70% top / 190% auto no-repeat; } }
