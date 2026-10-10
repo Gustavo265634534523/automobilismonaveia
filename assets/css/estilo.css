@@ -904,7 +904,7 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .pv-cat-in { padding: 20px 20px 22px; background: var(--carbono); border: 1px solid var(--linha); box-shadow: inset 0 3px 0 var(--sangue-vivo); }
 .pv-cat h2 { margin: 0 0 4px; font-size: clamp(24px, 3vw, 34px); font-family: var(--display); font-weight: 400; }
 .pv-onde { margin: 0 0 10px; color: #c3c8cd; }
-.pv-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; margin-top: 16px; }
+.pv-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(max(300px, calc((100% - 42px) / 4)), 1fr)); gap: 14px; margin-top: 16px; }
 .pv-bloco { padding: 16px; background: rgba(0,0,0,.18); border: 1px solid var(--linha); }
 .pv-bloco h3 { margin: 0 0 10px; font-size: 18px; }
 .pv-tempo-bloco { min-height: 560px; } /* reserva a altura da previsão, que chega depois (a página não pula) */
@@ -917,22 +917,44 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .pv-sub { margin: 14px 0 6px; font-weight: 700; font-size: 15px; }
 .pv-lista { margin: 0; padding-left: 18px; display: grid; gap: 6px; color: #d3d8dc; }
 .pv-fonte { margin: 10px 0 0; font-size: 12px; color: var(--aco); }
-/* Resultados do fim de semana (F1), ao lado de "Números da pista" */
-.pv-res-foto { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: radial-gradient(ellipse at 50% 60%, color-mix(in srgb, var(--cor, #e3343c) 45%, transparent), transparent 70%), #0b0c0e; border-top: 4px solid var(--cor, #e3343c); }
-.pv-res-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 62%; }
-.pv-res-gen img { object-fit: contain; object-position: center 60%; }
-.pv-res-foto small { position: absolute; right: 6px; top: 6px; padding: 2px 6px; background: rgba(6, 7, 7, .72); color: #c3c8cd; font-size: 10px; }
-.pv-res-p1 { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: flex-end; gap: 12px; padding: 34px 14px 12px; background: linear-gradient(0deg, rgba(6, 7, 7, .95), rgba(6, 7, 7, 0)); }
-.pv-res-p1 > b { font: 900 46px/.85 var(--display); color: var(--sangue-vivo); }
-.pv-res-p1 > span { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #c3c8cd; }
-.pv-res-p1 strong { display: block; margin: 2px 0; font: 900 20px/1 var(--display); letter-spacing: 0; color: #fff; }
-.pv-res { list-style: none; margin: 12px 0 0; padding: 0; }
-.pv-res li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; padding: 8px 0; border-bottom: 1px solid var(--linha); }
-.pv-res li > span { grid-column: 1 / -1; font-size: 12px; color: var(--aco); }
-.pv-res li b { display: flex; align-items: center; gap: 8px; font-weight: 800; }
-.pv-res li b i { width: 4px; height: 16px; }
-.pv-res li small { align-self: center; font-size: 12px; color: var(--aco); }
-.pv-res-falta b { color: var(--aco); font-weight: 600; }
+/* Resultados do fim de semana (F1): ocupa a largura toda da caixa da próxima etapa */
+.pv-res-bloco { grid-column: 1 / -1; }
+.pv-res-bloco .rs { --cor: #e3343c; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr); gap: 14px; }
+.pv-res-bloco .rs-card { position: relative; overflow: hidden; background: var(--carbono); border: 1px solid var(--linha); }
+.pv-res-bloco .rs-p1 { display: flex; flex-direction: column; padding: 20px; }
+.pv-res-bloco .rs-rot { display: flex; align-items: center; gap: 8px; font: 800 11px var(--texto); letter-spacing: .16em; text-transform: uppercase; color: var(--sangue-vivo); }
+.pv-res-bloco .rs-rot::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--sangue-vivo); }
+.pv-res-bloco .rs-pos { margin: 10px 0 6px; font: 900 clamp(80px, 8vw, 130px)/.85 var(--display); color: var(--sangue-vivo); }
+.pv-res-bloco .rs-nome { font: 900 clamp(24px, 2.2vw, 36px)/1 var(--display); text-transform: uppercase; }
+.pv-res-bloco .rs-equipe { margin-top: 6px; font: 700 13px var(--texto); letter-spacing: .1em; text-transform: uppercase; color: var(--aco); }
+.pv-res-bloco .rs-num { margin-top: 8px; font: 900 28px var(--display); color: var(--cor); }
+.pv-res-bloco .rs-info { display: grid; gap: 8px; margin: auto 0 0; padding: 14px 0 0; border-top: 1px solid var(--linha); }
+.pv-res-bloco .rs-info div { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
+.pv-res-bloco .rs-info dt { color: var(--aco); }
+.pv-res-bloco .rs-info dd { margin: 0; font-weight: 800; text-align: right; }
+.pv-res-bloco .rs-foto { min-height: 420px; background: radial-gradient(ellipse at 50% 60%, color-mix(in srgb, var(--cor) 45%, transparent), transparent 70%), #0b0c0e; }
+.pv-res-bloco .rs-faixa { position: absolute; left: 0; right: 0; top: 0; z-index: 2; height: 5px; background: var(--cor); }
+.pv-res-bloco .rs-n { position: absolute; right: -10px; top: -40px; font: 900 320px/1 var(--display); color: transparent; -webkit-text-stroke: 2px color-mix(in srgb, var(--cor) 70%, transparent); opacity: .55; }
+.pv-res-bloco .rs-foto img { position: absolute; left: 0; right: 0; bottom: 14%; width: 100%; filter: drop-shadow(0 20px 30px rgba(0, 0, 0, .7)); }
+.pv-res-bloco .rs-real img { inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 35% 55%; filter: none; }
+.pv-res-bloco .rs-cred { position: absolute; right: 10px; top: 14px; z-index: 2; padding: 3px 8px; background: rgba(6, 7, 7, .72); color: #c3c8cd; font-size: 11px; }
+.pv-res-bloco .rs-legenda { position: absolute; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 14px; padding: 40px 18px 14px; background: linear-gradient(0deg, rgba(6, 7, 7, .95), rgba(6, 7, 7, 0)); }
+.pv-res-bloco .rs-legenda b { font: 900 26px var(--display); color: var(--sangue-vivo); }
+.pv-res-bloco .rs-legenda span { font-size: 14px; color: var(--cromo); }
+.pv-res-bloco .rs-dir { display: grid; grid-template-rows: auto 1fr; gap: 14px; }
+.pv-res-bloco .rs-bloco { padding: 16px 18px; }
+.pv-res-bloco .rs-bloco h4 { margin: 0 0 12px; font: 800 12px var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--aco); }
+.pv-res-bloco .rs-podio { display: grid; gap: 8px; }
+.pv-res-bloco .rs-podio div { display: grid; grid-template-columns: 34px 4px 1fr auto; align-items: center; gap: 10px; font-size: 15px; }
+.pv-res-bloco .rs-podio i { font: 900 18px var(--display); font-style: normal; }
+.pv-res-bloco .rs-podio em { width: 4px; height: 26px; }
+.pv-res-bloco .rs-podio small { font-size: 12px; color: var(--aco); }
+.pv-res-bloco .rs-camp div { display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 10px; margin-bottom: 9px; font-size: 14px; }
+.pv-res-bloco .rs-camp .bar { grid-column: 2 / 4; height: 5px; margin-top: -5px; background: var(--carbono-2); }
+.pv-res-bloco .rs-camp .bar i { display: block; height: 100%; }
+.pv-res-bloco .rs-camp b { font-weight: 800; }
+.pv-res-bloco .rs-mais { display: block; margin-top: 10px; font-size: 14px; font-weight: 700; color: var(--sangue-vivo); text-decoration: none; }
+@media (max-width: 1000px) { .pv-res-bloco .rs { grid-template-columns: 1fr; } .pv-res-bloco .rs-foto { min-height: 260px; } .pv-res-bloco .rs-n { font-size: 200px; } }
 .pv-num { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .pv-num li { padding: 10px; background: rgba(0,0,0,.25); }
 .pv-num b { display: block; font-size: 18px; }

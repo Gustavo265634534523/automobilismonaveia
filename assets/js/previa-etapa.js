@@ -76,26 +76,35 @@
   var FOTOS = {
     'Red Bull Racing': { src: 'assets/img/real/verstappen-rb22.jpg', cred: 'Foto: Liauzh / Wikimedia Commons (CC BY 4.0)' }
   };
-  function resultados(caixa, R, e) {
-    var S = R.sessoes, ult = S[S.length - 1], v = ult.top[0], foto = FOTOS[v.equipe];
-    var feitas = {}; S.forEach(function (s) { feitas[s.titulo] = s; });
-    /* sessões que ainda vão acontecer neste GP (a corrida de domingo, por exemplo) */
+  var CORES_EQ = { 'Mercedes': '#00D7B6', 'Ferrari': '#ED1131', 'McLaren': '#F47600', 'Red Bull': '#4781D7', 'Red Bull Racing': '#4781D7', 'Aston Martin': '#229971', 'Alpine': '#00A1E8', 'Williams': '#1868DB', 'Racing Bulls': '#6C98FF', 'Haas': '#9C9FA2', 'Audi': '#F50537', 'Cadillac': '#AAAAAD' };
+  function resultados(caixa, R, e, c) {
+    var S = R.sessoes, feitas = {}; S.forEach(function (s) { feitas[s.titulo] = s; });
+    /* o P1 grande: o vencedor da última corrida (sprint ou corrida); antes disso, a pole */
+    var corridas = S.filter(function (s) { return /^Vencedor/.test(s.titulo); });
+    var ref = corridas.length ? corridas[corridas.length - 1] : S[S.length - 1], v = ref.top[0], foto = FOTOS[v.equipe];
     var faltam = (e.s || []).filter(function (x) { return /^(Corrida|Sprint|Classifica)/.test(x.t); }).map(function (x) {
       var t = /^Corrida/.test(x.t) ? 'Vencedor da corrida' : /^Sprint/.test(x.t) ? 'Vencedor da sprint' : /sprint/i.test(x.t) ? 'Pole da sprint' : 'Pole para a corrida';
-      return feitas[t] ? null : { titulo: t, quando: window.dataCurta(x.d) + ', ' + x.h };
+      return feitas[t] ? null : [t, window.dataCurta(x.d) + ', ' + x.h];
     }).filter(Boolean);
+    var info = [['Etapa', e.n], ['Pista', e.l]].concat(S.map(function (s) { return [s.titulo, s.top[0].nome + (s.top[0].tempo ? ' · ' + s.top[0].tempo : '')]; }), faltam);
+    var frase = S.map(function (s) { return s.top[0].nome === v.nome ? s.titulo.toLowerCase() : null; }).filter(Boolean);
+    frase = v.nome + ' · ' + (frase.length > 1 ? frase.slice(0, -1).join(', ') + ' e ' + frase[frase.length - 1] : frase[0]) + ' em ' + e.l.split(' (')[0];
+    var lin = (c.classificacao && c.classificacao.linhas || []).slice(0, 5), max = lin.length ? parseInt(lin[0][lin[0].length - 1], 10) || 1 : 1;
     caixa.style.setProperty('--cor', v.cor);
-    caixa.innerHTML = '<h3>Resultados do fim de semana</h3>' +
-      '<div class="pv-res-foto' + (foto ? '' : ' pv-res-gen') + '"><img src="' + (foto ? foto.src : 'assets/img/hero-1-lado-m.webp') + '" alt="" loading="lazy">' +
-        (foto ? '<small>' + esc(foto.cred) + '</small>' : '') +
-        '<span class="pv-res-p1"><b>P1</b><span>' + esc(ult.titulo) + '<strong>' + esc(v.nome) + '</strong>' + esc(v.equipe) + '</span></span></div>' +
-      '<ul class="pv-res">' + S.map(function (s) {
-        var p = s.top[0];
-        return '<li><span>' + esc(s.titulo) + '</span><b><i style="background:' + p.cor + '"></i>' + esc(p.nome) + '</b><small>' + esc(p.tempo) + '</small></li>';
-      }).join('') + faltam.map(function (f) {
-        return '<li class="pv-res-falta"><span>' + esc(f.titulo) + '</span><b>' + esc(f.quando) + '</b></li>';
-      }).join('') + '</ul>' +
-      '<p class="pv-fonte">Cronometragem oficial (OpenF1). Atualiza sozinho depois de cada sessão.</p>';
+    caixa.innerHTML = '<h3>Resultados do fim de semana</h3><div class="rs">' +
+      '<div class="rs-card rs-p1"><span class="rs-rot">' + esc(ref.titulo) + '</span><div class="rs-pos">P1</div>' +
+        '<div class="rs-nome">' + esc(v.nome).replace(' ', '<br>') + '</div><div class="rs-equipe">' + esc(v.equipe) + '</div><div class="rs-num">#' + v.n + '</div>' +
+        '<dl class="rs-info">' + info.map(function (i) { return '<div><dt>' + esc(i[0]) + '</dt><dd>' + esc(i[1]) + '</dd></div>'; }).join('') + '</dl></div>' +
+      '<div class="rs-card rs-foto' + (foto ? ' rs-real' : '') + '"><i class="rs-faixa"></i>' + (foto ? '' : '<span class="rs-n">' + v.n + '</span>') +
+        '<img src="' + (foto ? foto.src : 'assets/img/hero-1-lado-m.webp') + '" alt="" loading="lazy">' + (foto ? '<small class="rs-cred">' + esc(foto.cred) + '</small>' : '') +
+        '<div class="rs-legenda"><b>P1</b><span>' + esc(frase) + '</span></div></div>' +
+      '<div class="rs-dir"><div class="rs-card rs-bloco"><h4>Pódio · ' + esc(ref.titulo.replace(/^Vencedor d[ao] /, '').replace(/^Pole para a /, 'grid da ').replace(/^Pole d[ao] /, 'grid da ')) + '</h4><div class="rs-podio">' + ref.top.map(function (p) {
+          return '<div><i>P' + p.pos + '</i><em style="background:' + p.cor + '"></em><span>' + esc(p.nome) + '<br><small>' + esc(p.equipe) + '</small></span><small>' + esc(p.tempo) + '</small></div>'; }).join('') + '</div></div>' +
+        (lin.length ? '<div class="rs-card rs-bloco rs-camp"><h4>Campeonato de pilotos</h4>' + lin.map(function (l) {
+          var pt = parseInt(l[l.length - 1], 10) || 0;
+          return '<div><span>' + esc(l[0]) + '</span><span>' + esc(l[1]) + '</span><b>' + pt + '</b><span class="bar"><i style="width:' + (100 * pt / max) + '%;background:' + (CORES_EQ[l[2]] || '#8e979f') + '"></i></span></div>'; }).join('') +
+          '<a class="rs-mais" href="formula-1.html#classificacao">Ver a classificação completa →</a></div>' : '') +
+      '</div></div><p class="pv-fonte">Cronometragem oficial (OpenF1). Atualiza sozinho depois de cada sessão.</p>';
     caixa.hidden = false;
   }
 
@@ -139,7 +148,7 @@
     if (caixaRes) buscar('resultados-f1.json').then(function (R) {
       if (!R || !R.sessoes || !R.sessoes.length || !alvo.contains(caixaRes)) return;
       if (Math.abs(new Date(R.data + 'T12:00:00') - new Date(e.d + 'T12:00:00')) / 864e5 > 4) return;
-      resultados(caixaRes, R, e);
+      resultados(caixaRes, R, e, c);
     });
     return true;
   };
