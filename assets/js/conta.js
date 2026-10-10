@@ -81,18 +81,7 @@
   /* ---------- Minha conta ---------- */
   function montarConta(u, modoTeste) {
     /* Pilotos favoritos possíveis (F1 e MotoGP 2026): número e equipe, para o ícone do perfil na cor da equipe */
-    var PILOTOS_FAV = {
-      'Fórmula 1': [['Lando Norris', 1, 'McLaren'], ['Max Verstappen', 3, 'Red Bull'], ['Gabriel Bortoleto', 5, 'Audi'], ['Isack Hadjar', 6, 'Red Bull'], ['Pierre Gasly', 10, 'Alpine'],
-        ['Sergio Pérez', 11, 'Cadillac'], ['Kimi Antonelli', 12, 'Mercedes'], ['Fernando Alonso', 14, 'Aston Martin'], ['Charles Leclerc', 16, 'Ferrari'], ['Lance Stroll', 18, 'Aston Martin'],
-        ['Alexander Albon', 23, 'Williams'], ['Nico Hülkenberg', 27, 'Audi'], ['Liam Lawson', 30, 'Racing Bulls'], ['Esteban Ocon', 31, 'Haas'], ['Arvid Lindblad', 41, 'Racing Bulls'],
-        ['Franco Colapinto', 43, 'Alpine'], ['Lewis Hamilton', 44, 'Ferrari'], ['Carlos Sainz', 55, 'Williams'], ['George Russell', 63, 'Mercedes'], ['Valtteri Bottas', 77, 'Cadillac'],
-        ['Oscar Piastri', 81, 'McLaren'], ['Oliver Bearman', 87, 'Haas']],
-      'MotoGP': [['Johann Zarco', 5, 'Honda'], ['Toprak Razgatlioglu', 7, 'Yamaha'], ['Luca Marini', 10, 'Honda'], ['Diogo Moreira', 11, 'Honda'], ['Maverick Viñales', 12, 'KTM'],
-        ['Somkiat Chantra', 15, 'Honda'], ['Fabio Quartararo', 20, 'Yamaha'], ['Franco Morbidelli', 21, 'Ducati'], ['Enea Bastianini', 23, 'KTM'], ['Raúl Fernández', 25, 'Aprilia'],
-        ['Brad Binder', 33, 'KTM'], ['Pedro Acosta', 37, 'KTM'], ['Álex Rins', 42, 'Yamaha'], ['Jack Miller', 43, 'Yamaha'], ['Fabio Di Giannantonio', 49, 'Ducati'],
-        ['Fermín Aldeguer', 54, 'Ducati'], ['Francesco Bagnaia', 63, 'Ducati'], ['Marco Bezzecchi', 72, 'Aprilia'], ['Álex Márquez', 73, 'Ducati'], ['Ai Ogura', 79, 'Aprilia'],
-        ['Jorge Martín', 89, 'Aprilia'], ['Marc Márquez', 93, 'Ducati']]
-    };
+    var PILOTOS_FAV = window.NAVEIA_PILOTOS || {};
     function acharPiloto(nome) {
       var achado = null;
       Object.keys(PILOTOS_FAV).forEach(function (c) { PILOTOS_FAV[c].forEach(function (p) { if (p[0] === nome) achado = { nome: p[0], num: p[1], equipe: p[2] }; }); });
@@ -209,6 +198,7 @@
       q.style.background = p ? corEquipe(p.equipe) : '';
       q.innerHTML = u.foto ? '<img src="' + u.foto + '" alt="">' : p ? '<b class="ct-num">' + p.num + '</b><small class="ct-num-nome">' + esc(p.nome.split(' ').slice(-1)[0]) + '</small>' : '<span>' + esc((u.nome || '?').trim().charAt(0).toUpperCase()) + '</span>';
       document.getElementById('ct-foto-tirar').hidden = !u.foto;
+      if (window.NAVEIA_AVATAR) window.NAVEIA_AVATAR(u); /* o ícone do topo acompanha */
       document.querySelector('.ct-foto-btn').firstChild.textContent = u.foto ? 'Trocar foto' : 'Colocar foto';
     }
     desenharFoto(u);

@@ -9,6 +9,19 @@
     { n: 'Ducati', c: 'MotoGP', cor: '#D40000' }, { n: 'Aprilia', c: 'MotoGP', cor: '#7B3FA0' }, { n: 'KTM', c: 'MotoGP', cor: '#FF6600' },
     { n: 'Yamaha', c: 'MotoGP', cor: '#2546D6' }, { n: 'Honda', c: 'MotoGP', cor: '#E4002B' }
   ];
+  /* pilotos da F1 e da MotoGP (número e equipe): ícone do perfil no topo e na página da conta */
+  window.NAVEIA_PILOTOS = {
+    'Fórmula 1': [['Lando Norris', 1, 'McLaren'], ['Max Verstappen', 3, 'Red Bull'], ['Gabriel Bortoleto', 5, 'Audi'], ['Isack Hadjar', 6, 'Red Bull'], ['Pierre Gasly', 10, 'Alpine'],
+      ['Sergio Pérez', 11, 'Cadillac'], ['Kimi Antonelli', 12, 'Mercedes'], ['Fernando Alonso', 14, 'Aston Martin'], ['Charles Leclerc', 16, 'Ferrari'], ['Lance Stroll', 18, 'Aston Martin'],
+      ['Alexander Albon', 23, 'Williams'], ['Nico Hülkenberg', 27, 'Audi'], ['Liam Lawson', 30, 'Racing Bulls'], ['Esteban Ocon', 31, 'Haas'], ['Arvid Lindblad', 41, 'Racing Bulls'],
+      ['Franco Colapinto', 43, 'Alpine'], ['Lewis Hamilton', 44, 'Ferrari'], ['Carlos Sainz', 55, 'Williams'], ['George Russell', 63, 'Mercedes'], ['Valtteri Bottas', 77, 'Cadillac'],
+      ['Oscar Piastri', 81, 'McLaren'], ['Oliver Bearman', 87, 'Haas']],
+    'MotoGP': [['Johann Zarco', 5, 'Honda'], ['Toprak Razgatlioglu', 7, 'Yamaha'], ['Luca Marini', 10, 'Honda'], ['Diogo Moreira', 11, 'Honda'], ['Maverick Viñales', 12, 'KTM'],
+      ['Somkiat Chantra', 15, 'Honda'], ['Fabio Quartararo', 20, 'Yamaha'], ['Franco Morbidelli', 21, 'Ducati'], ['Enea Bastianini', 23, 'KTM'], ['Raúl Fernández', 25, 'Aprilia'],
+      ['Brad Binder', 33, 'KTM'], ['Pedro Acosta', 37, 'KTM'], ['Álex Rins', 42, 'Yamaha'], ['Jack Miller', 43, 'Yamaha'], ['Fabio Di Giannantonio', 49, 'Ducati'],
+      ['Fermín Aldeguer', 54, 'Ducati'], ['Francesco Bagnaia', 63, 'Ducati'], ['Marco Bezzecchi', 72, 'Aprilia'], ['Álex Márquez', 73, 'Ducati'], ['Ai Ogura', 79, 'Aprilia'],
+      ['Jorge Martín', 89, 'Aprilia'], ['Marc Márquez', 93, 'Ducati']]
+  };
   var raiz = document.documentElement;
   window.NAVEIA_TEMA = function (equipe) {
     var e = window.NAVEIA_EQUIPES.filter(function (x) { return x.n === equipe; })[0];
@@ -232,6 +245,17 @@
     else if (document.getElementById('oa')) colocar(document.querySelector('#oa .moldura'), 'beforeend');
   });
 
+  /* ícone da conta no topo: a foto da pessoa; sem foto, o número do piloto favorito na cor da equipe; sem piloto, o bonequinho */
+  function avatar(u) {
+    if (u.foto) return '<img src="' + u.foto + '" alt="">';
+    var P = window.NAVEIA_PILOTOS || {}, p = null;
+    Object.keys(P).forEach(function (c) { P[c].forEach(function (x) { if (x[0] === u.piloto) p = x; }); });
+    if (p) {
+      var e = (window.NAVEIA_EQUIPES || []).filter(function (x) { return x.n === p[2]; })[0];
+      return '<b style="background:' + (e ? e.cor : '#8e979f') + '">' + p[1] + '</b>';
+    }
+    return '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>';
+  }
   window.NAVEIA_EU.then(function (r) {
     /* cor da equipe favorita (sem conta, o site volta ao vermelho) */
     if (!r.semServidor) window.NAVEIA_TEMA(r.logado && r.usuario ? r.usuario.equipe : '');
@@ -240,7 +264,8 @@
     if (r.semServidor) { l.remove(); var pc = document.querySelector('.painel-conta'); if (pc) pc.remove(); return; }
     if (r.logado) {
       l.href = 'conta.html';
-      l.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>';
+      window.NAVEIA_AVATAR = function (u) { l.innerHTML = avatar(u); l.classList.toggle('conta-avatar', /<(img|b)/.test(l.innerHTML)); };
+      window.NAVEIA_AVATAR(r.usuario || {});
       l.classList.add('conta-icone'); l.setAttribute('aria-label', 'Meu perfil'); l.title = 'Meu perfil';
     }
     if (/conta|entrar|painel/.test(location.pathname)) l.setAttribute('aria-current', 'page');
@@ -265,10 +290,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=294'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=294'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=294'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=294'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=295'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=295'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=295'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=295'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

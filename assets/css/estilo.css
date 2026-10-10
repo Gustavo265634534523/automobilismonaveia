@@ -1008,3 +1008,8 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
   .topo-in .idioma-btn { order: 4; }
 }
 @media (max-width: 420px) { .painel-menu { grid-template-columns: repeat(3, minmax(0, 1fr)); } .topo .todas { padding: 0 8px !important; gap: 5px; } }
+/* ícone da conta com a foto ou o número do piloto favorito */
+.conta-link.conta-avatar, .topo-in .conta-link.conta-avatar { overflow: hidden; box-shadow: inset 0 0 0 1px var(--linha); }
+.conta-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.conta-avatar b { width: 100%; height: 100%; display: grid; place-items: center; font: 900 18px/1 var(--display); font-style: italic; color: #fff; background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, .1) 0 5px, transparent 5px 11px) !important; }
+.conta-link.conta-avatar:hover { background: none; }
