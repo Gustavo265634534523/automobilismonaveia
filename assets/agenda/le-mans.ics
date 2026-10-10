@@ -7,4 +7,14 @@ X-WR-CALNAME:Na Veia: Le Mans
 X-WR-TIMEZONE:America/Sao_Paulo
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
+BEGIN:VEVENT
+DTSTAMP:20261010T110000Z
+UID:le-mans-2-dia@naveia
+DTSTART;VALUE=DATE:20270613
+DTEND;VALUE=DATE:20270614
+SUMMARY:Le Mans: 24 Horas de Le Mans 2027
+LOCATION:Circuito de La Sarthe\, França\, 95ª edição\, de 9 a 13 de ju
+ nho de 2027\, data oficial confirmada pelo ACO
+DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+END:VEVENT
 END:VCALENDAR
