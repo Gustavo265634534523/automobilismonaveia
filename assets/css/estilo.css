@@ -998,4 +998,13 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
   .todas .todas-menu { display: inline; font: 800 12px var(--texto); letter-spacing: .06em; text-transform: uppercase; color: #e4e7ea; }
 }
 @media (max-width: 1200px) { .painel-menu ~ .painel-noticias { display: none; } }
+/* celular: o botão do menu fica só com o quadradinho, e o ícone da conta vai para depois dele */
+@media (max-width: 620px) {
+  .todas .todas-menu { display: none; }
+  .topo .todas { width: 38px !important; padding: 0 !important; }
+  .topo-in .todas { order: 1; margin-left: auto !important; }
+  .topo-in .conta-link { order: 2; margin-left: 6px; }
+  .topo-in .compartilhar-bt { order: 3; }
+  .topo-in .idioma-btn { order: 4; }
+}
 @media (max-width: 420px) { .painel-menu { grid-template-columns: repeat(3, minmax(0, 1fr)); } .topo .todas { padding: 0 8px !important; gap: 5px; } }
