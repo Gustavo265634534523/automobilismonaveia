@@ -977,6 +977,9 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .pv-mapa-leg b { color: #fff; }
 
 /* Botão de compartilhar no topo (site.js) */
+/* conta logada: só o ícone de pessoa (no lugar de "Meu perfil") */
+.conta-link.conta-icone, .topo-in .conta-link.conta-icone { width: 40px; height: 40px; padding: 0; justify-content: center; clip-path: none; box-shadow: inset 0 0 0 1px var(--linha); color: #c3c8cd; }
+.conta-icone svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; }
 .compartilhar-bt { display: inline-grid; place-items: center; width: 40px; height: 40px; margin-left: 14px; padding: 0; background: none; border: 0; cursor: pointer; box-shadow: inset 0 0 0 1px var(--linha); color: #c3c8cd; flex-shrink: 0; transition: color .2s, box-shadow .2s; }
 .compartilhar-bt:hover { color: #fff; box-shadow: inset 0 0 0 1px var(--aco); }
 .compartilhar-bt svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.8; }
