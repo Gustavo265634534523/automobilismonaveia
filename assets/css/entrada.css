@@ -105,7 +105,7 @@
 @media (prefers-reduced-motion: reduce) { .ent-box-orbe::before { animation: none; } }
 
 /* ===== Entrada estilo revista (2026-10-07) ===== */
-.revista { padding: calc(var(--topo) + 26px) 0 10px; background: var(--breu, #060707); }
+.revista { padding: calc(var(--topo) + 26px) 0 10px; background: var(--asfalto); } /* mesma cor do resto da página */
 .rv-h1 { margin: 0 0 16px; font-family: var(--display); font-weight: 400; font-size: 22px; line-height: 1.2; }
 .rv-h1 span { margin-left: 10px; font-family: var(--texto); font-size: 15px; font-weight: 500; color: var(--aco); }
 .rv-topo { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 24px; }
