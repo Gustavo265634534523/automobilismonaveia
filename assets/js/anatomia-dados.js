@@ -197,3 +197,31 @@ window.ANATOMIA_INDY = {
   ],
   ficha: [['até 750 cv', 'conforme a pista'], ['+60 cv', 'do sistema híbrido'], ['V6 2.2', 'biturbo'], ['380 km/h', 'nos ovais (aprox.)'], ['12 mil', 'rpm (máximo)']]
 };
+
+/* NASCAR: carros genéricos da categoria (assets/img/cat/nascar.jpg, imagem gerada, sem equipe nem marca). Carro Next Gen da Cup Series */
+window.ANATOMIA_NASCAR = {
+  foto: 'assets/img/cat/nascar.jpg', w: 1344, h: 752,
+  pecas: [
+    { id: 'oval', x: 18, y: 24, nome: 'Oval inclinado', numero: 'curvas com rampa',
+      texto: 'As curvas dos ovais são inclinadas, como uma rampa. Isso segura o carro e deixa o piloto fazer a curva quase de pé no fundo, colado no muro.' },
+    { id: 'carroceria', x: 15, y: 45, nome: 'Carroceria', numero: 'cara de carro de rua',
+      texto: 'Por fora, lembra um carro de rua da Chevrolet, da Ford ou da Toyota. Por baixo, todos usam o mesmo chassi de corrida, com peças iguais para todas as equipes.' },
+    { id: 'pneu', x: 30, y: 55, nome: 'Pneus', numero: 'roda 18"',
+      texto: 'As rodas são de alumínio, com 18 polegadas e presas por uma porca só, no meio. Assim a troca de pneus no pit stop fica muito rápida.' },
+    { id: 'parachoque', x: 47, y: 65, nome: 'Para-choque', numero: 'aguenta toques',
+      texto: 'Na NASCAR, encostar faz parte do jogo: os carros se tocam o tempo todo para ganhar espaço. O para-choque é feito para aguentar essas pancadas.' },
+    { id: 'motor', x: 48, y: 50, nome: 'Motor', numero: 'V8 5.86 aspirado',
+      texto: 'É um V8 de 5,86 litros sem turbo, com cerca de 670 cavalos na maioria das pistas. Nos ovais gigantes, como Daytona, a força é limitada para os carros não ficarem rápidos demais.' },
+    { id: 'cockpit', x: 51, y: 40, nome: 'Cockpit', numero: 'gaiola de aço',
+      texto: 'O piloto senta dentro de uma gaiola de tubos de aço, com banco que envolve o corpo e rede na janela. Ela protege nas batidas, que podem passar dos 300 km/h.' },
+    { id: 'farol', x: 61, y: 59, nome: 'Faróis', numero: 'adesivos',
+      texto: 'Os faróis não acendem: são adesivos desenhados para o carro parecer um modelo de rua. Nas corridas à noite, a pista é toda iluminada.' },
+    { id: 'pelotao', x: 66, y: 39, nome: 'Pelotão', numero: '40 carros',
+      texto: 'São cerca de 40 carros no grid, andando colados por horas. Uma batida na frente pode virar um acidente com vários carros, o famoso "big one".' },
+    { id: 'faiscas', x: 67, y: 72, nome: 'Faíscas', numero: 'placas de titânio',
+      texto: 'Embaixo do carro há placas de titânio. Quando o carro raspa no chão, elas soltam aquelas faíscas que aparecem nas corridas à noite.' },
+    { id: 'vacuo', x: 82, y: 50, nome: 'Vácuo', numero: 'lado a lado',
+      texto: 'Nos ovais, um carro atrás do outro anda mais rápido: o da frente abre o ar e o de trás vem no vácuo. Por isso as corridas são em fila e lado a lado até a bandeirada.' }
+  ],
+  ficha: [['670 cv', 'na maioria das pistas'], ['V8 5.86', 'aspirado'], ['≈ 1.540 kg', 'com piloto e gasolina'], ['5 marchas', 'câmbio sequencial'], ['40 carros', 'no grid']]
+};
