@@ -337,3 +337,31 @@ window.ANATOMIA_IMSA = {
   ],
   ficha: [['500 kW', '≈ 680 cv (máximo)'], ['1.030 kg', 'peso mínimo (sem piloto)'], ['4 classes', 'na pista ao mesmo tempo'], ['24 horas', 'em Daytona'], ['50 kW', 'híbrido padrão (LMDh)']]
 };
+
+/* WRC: carro de rali genérico (assets/img/cat/rally.jpg, imagem gerada, sem equipe nem marca). Carro Rally1 de 2026, sem híbrido */
+window.ANATOMIA_WRC = {
+  foto: 'assets/img/cat/rally.jpg', w: 1344, h: 752,
+  pecas: [
+    { id: 'terra', x: 35, y: 68, nome: 'Piso', numero: 'terra, neve, asfalto',
+      texto: 'O rali corre em estradas fechadas, cada etapa num tipo de chão: terra, cascalho, neve, gelo ou asfalto. O carro é acertado de um jeito diferente para cada um.' },
+    { id: 'suspensao', x: 37, y: 57, nome: 'Suspensão', numero: 'curso longo',
+      texto: 'A suspensão tem um curso muito longo para aguentar saltos, buracos e valetas. Nos saltos, o carro pode voar dezenas de metros e cair sem quebrar.' },
+    { id: 'asa', x: 40, y: 35, nome: 'Asa traseira', numero: 'segura nos saltos',
+      texto: 'A asa traseira gera pressão nas curvas rápidas e ajuda a manter o carro reto e equilibrado quando ele está no ar.' },
+    { id: 'cockpit', x: 49, y: 38, nome: 'Navegador', numero: '2 a bordo',
+      texto: 'No banco do lado vai o navegador, que lê as notas da estrada em voz alta: o tipo de curva, a distância até a próxima e os perigos. O piloto confia nele de olhos fechados.' },
+    { id: 'pneu', x: 54, y: 65, nome: 'Pneus', numero: 'um tipo por piso',
+      texto: 'Há pneus para terra, para asfalto e para neve. Nos ralis de neve, os pneus têm pregos de metal para agarrar no gelo.' },
+    { id: 'entrada', x: 58, y: 34.5, nome: 'Entrada de ar', numero: 'no teto',
+      texto: 'A entrada no teto manda ar fresco para dentro do carro. Com tanta poeira e calor, a cabine precisa de ventilação.' },
+    { id: 'motor', x: 62, y: 48, nome: 'Motor', numero: '1.6 turbo',
+      texto: 'É um motor pequeno, de 1,6 litro com turbo, mas muito forte: perto de 330 cavalos num carro compacto, com tração nas 4 rodas.' },
+    { id: 'farol', x: 63, y: 55, nome: 'Faróis', numero: 'de LED',
+      texto: 'Alguns trechos passam por florestas escuras ou são disputados no começo da manhã. Nos ralis noturnos, o carro ainda leva um painel extra de faróis no capô.' },
+    { id: 'protecao', x: 70, y: 72, nome: 'Proteção', numero: 'embaixo do carro',
+      texto: 'Embaixo do carro há placas grossas de proteção, que aguentam pancadas em pedras e protegem o motor e o câmbio.' },
+    { id: 'parachoque', x: 78, y: 62, nome: 'Para-choque', numero: 'entradas de ar',
+      texto: 'As aberturas grandes no para-choque levam ar para o radiador, o intercooler do turbo e os freios.' }
+  ],
+  ficha: [['≈ 330 cv', 'motor 1.6 turbo'], ['4x4', 'tração nas 4 rodas'], ['5 marchas', 'câmbio sequencial'], ['2 a bordo', 'piloto e navegador'], ['3 pisos', 'terra, neve e asfalto']]
+};
