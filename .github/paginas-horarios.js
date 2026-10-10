@@ -88,7 +88,7 @@ function pagina(o) {
 <meta property="og:site_name" content="Automobilismo Na Veia">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
+<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
