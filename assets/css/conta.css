@@ -35,7 +35,7 @@
 .ct-painel-btn { width: auto; display: inline-block; }
 .ct-sair { background: none; border: 0; cursor: pointer; font: 700 16px var(--texto); color: var(--aco); text-decoration: underline; text-underline-offset: 3px; }
 .ct-sair:hover { color: var(--cromo); }
-.ct-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ct-grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
 .ct-bloco { padding: 26px 28px; background: var(--carbono); }
 .ct-bloco h2 { margin: 0 0 14px; font-size: 21px; font-weight: 700; }
 .ct-bloco .pl-botao { width: auto; display: inline-block; margin-top: 18px; }
