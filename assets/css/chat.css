@@ -143,3 +143,7 @@ html.chat-aberto .box-bt { display: none; }
 .chat-enq .enq-ops { gap: 4px; }
 .chat-enq .enq-op { min-height: 32px; font-size: 14px; }
 .chat-enq .enq-pe { margin-top: 6px; font-size: 12px; }
+/* espaço já reservado (as reações e a enquete chegam depois e não podem empurrar a página: CLS) */
+.reacoes { min-height: 30px; }
+.enq-home { min-height: 470px; }
+.enq-home:empty::before { content: 'Carregando a enquete…'; display: block; color: #8e979f; font-size: 14px; }

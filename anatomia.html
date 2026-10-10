@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="assets/js/idioma.js?v=264"></script>
+<title>Anatomia de um carro de Fórmula 1: peça por peça | Na Veia</title>
+<meta name="description" content="Como funciona um carro de F1 por dentro: asa dianteira, halo, motor híbrido de 1.000 cv, freios a 1.000 °C, assoalho, câmbio e asa traseira. Toque em cada peça e entenda.">
+<meta name="theme-color" content="#141619">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
+<meta property="og:title" content="Anatomia de um carro de Fórmula 1 | Automobilismo Na Veia">
+<meta property="og:description" content="Toque em cada peça e entenda como funciona um carro de F1.">
+<link rel="canonical" href="https://automobilismonaveia.com.br/anatomia.html">
+<meta property="og:image" content="https://automobilismonaveia.com.br/assets/img/compartilhar.jpg">
+<meta property="og:url" content="https://automobilismonaveia.com.br/anatomia.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Automobilismo Na Veia">
+<meta property="og:locale" content="pt_BR">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23141619'/%3E%3Cpath d='M9 26L15 6h5l-6 20z' fill='%23b0121b'/%3E%3Cpath d='M17 26l6-20h4l-6 20z' fill='%23e4e7ea'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/estilo.css?v=264">
+<style>
+.an-pagina { padding: calc(var(--topo) + 36px) 0 70px; }
+.an-rot { margin: 0 0 6px; font: 800 13px var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--sangue-vivo); }
+.an-pagina h1 { margin: 0 0 10px; font: 900 clamp(34px, 5.5vw, 68px)/1 var(--display); text-transform: uppercase; }
+.an-pagina h1 span { color: var(--sangue-vivo); }
+.an-lead { max-width: 760px; margin: 0 0 24px; font-size: 18px; color: #c3c8cd; }
+/* palco em estilo "planta técnica": grade fina e o carro */
+.an-palco { position: relative; border: 1px solid var(--linha); background:
+  linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 40px 40px,
+  linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 40px 40px, #0b0c0e; overflow: hidden; }
+.an-carro { position: relative; aspect-ratio: 2400 / 1357; }
+.an-carro img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.an-ponto { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--sangue-vivo); color: #fff; font: 900 14px var(--texto); cursor: pointer; box-shadow: 0 0 0 4px rgba(227,52,60,.3), 0 4px 14px rgba(0,0,0,.6); z-index: 2; transition: transform .15s; }
+.an-ponto::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(255,255,255,.7); animation: an-pulso 2s infinite; }
+.an-ponto:hover, .an-ponto[aria-pressed="true"] { transform: scale(1.18); background: #fff; color: var(--sangue); }
+@keyframes an-pulso { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.9); opacity: 0; } }
+.an-cartao { position: absolute; z-index: 3; width: min(360px, 44%); padding: 18px 20px; background: rgba(12,13,15,.94); border: 1px solid var(--linha); border-top: 3px solid var(--sangue-vivo); box-shadow: 0 18px 40px rgba(0,0,0,.6); }
+.an-cartao h2 { margin: 0 0 4px; font: 800 24px var(--display); text-transform: uppercase; }
+.an-cartao .an-num { margin: 0 0 10px; font: 900 18px var(--display); color: var(--sangue-vivo); }
+.an-cartao p { margin: 0; font-size: 16px; color: #d3d8dc; line-height: 1.5; }
+.an-dica { position: absolute; left: 16px; bottom: 12px; z-index: 1; font-size: 14px; color: #8e979f; }
+.an-ficha { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.an-ficha div { padding: 16px; background: var(--carbono); border: 1px solid var(--linha); border-left: 3px solid var(--sangue-vivo); }
+.an-ficha b { display: block; font: 900 clamp(22px, 2.6vw, 32px) var(--display); }
+.an-ficha span { color: #aab0b6; font-size: 14px; }
+.an-lista { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; margin-top: 30px; padding: 0; list-style: none; }
+.an-lista li { padding: 16px 18px; background: var(--carbono); border: 1px solid var(--linha); }
+.an-lista h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font: 800 18px var(--texto); }
+.an-lista h3 i { flex: none; width: 26px; height: 26px; display: grid; place-items: center; border-radius: 50%; background: var(--sangue-vivo); font: 900 12px var(--texto); font-style: normal; }
+.an-lista .an-num { margin: 0 0 6px; color: var(--sangue-vivo); font-weight: 800; }
+.an-lista p { margin: 0; color: #c3c8cd; font-size: 15px; }
+.an-pe { margin-top: 26px; font-size: 13px; color: #8e979f; }
+@media (max-width: 760px) {
+  .an-ponto { width: 26px; height: 26px; margin: -13px 0 0 -13px; font-size: 11px; }
+  .an-cartao { display: none; }
+  .an-ficha { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .an-ficha div:last-child { grid-column: 1 / -1; }
+}
+</style>
+</head>
+<body data-pagina="anatomia">
+<a class="pular" href="#an">Pular para o conteúdo</a>
+<header id="topo"></header>
+<main class="an-pagina" id="an">
+  <div class="moldura">
+    <p class="an-rot">Guia · como funciona</p>
+    <h1>Anatomia de um carro de <span>Fórmula 1</span></h1>
+    <p class="an-lead">Toque nos pontos vermelhos e descubra o que cada peça faz, do bico à asa traseira. Tudo explicado em poucas palavras.</p>
+    <div class="an-palco">
+      <div class="an-carro" id="an-carro"><img src="assets/img/hero-1-lado.webp" alt="Carro de Fórmula 1 visto de lado (imagem gerada, sem equipe nem marca)"></div>
+      <p class="an-dica">Toque nos números</p>
+    </div>
+    <div class="an-ficha" id="an-ficha"></div>
+    <ol class="an-lista" id="an-lista"></ol>
+    <p class="an-pe">Imagem gerada, sem equipe, marca ou patrocinador real. Números aproximados, com as regras de 2026.</p>
+  </div>
+</main>
+<footer id="rodape"></footer>
+<script src="assets/js/dados.js?v=264"></script>
+<script src="assets/js/site.js?v=264"></script>
+<script src="assets/js/anatomia-dados.js?v=264"></script>
+<script>
+(function () {
+  var A = window.ANATOMIA_F1, esc = window.esc, carro = document.getElementById('an-carro');
+  A.pecas.forEach(function (p, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'an-ponto'; b.textContent = i + 1; b.setAttribute('aria-pressed', 'false');
+    b.setAttribute('aria-label', p.nome); b.style.left = p.x + '%'; b.style.top = p.y + '%';
+    b.addEventListener('click', function () { mostrar(i); });
+    carro.appendChild(b);
+  });
+  var cartao = document.createElement('div'); cartao.className = 'an-cartao'; cartao.hidden = true; carro.appendChild(cartao);
+  function mostrar(i) {
+    var p = A.pecas[i];
+    [].forEach.call(carro.querySelectorAll('.an-ponto'), function (b, k) { b.setAttribute('aria-pressed', k === i); });
+    /* no celular o cartão não cabe em cima da foto: rola até a explicação na lista */
+    if (window.matchMedia('(max-width: 760px)').matches) { document.getElementById('an-p' + i).scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    cartao.innerHTML = '<h2>' + esc(p.nome) + '</h2><p class="an-num">' + esc(p.numero) + '</p><p>' + esc(p.texto) + '</p>';
+    cartao.hidden = false;
+    /* o cartão fica do lado oposto ao ponto, para não cobrir a peça */
+    cartao.style.left = p.x < 50 ? 'auto' : '3%'; cartao.style.right = p.x < 50 ? '3%' : 'auto';
+    cartao.style.top = '3%'; /* sempre na parte escura de cima da foto */
+  }
+  document.getElementById('an-ficha').innerHTML = A.ficha.map(function (f) { return '<div><b>' + esc(f[0]) + '</b><span>' + esc(f[1]) + '</span></div>'; }).join('');
+  document.getElementById('an-lista').innerHTML = A.pecas.map(function (p, i) {
+    return '<li id="an-p' + i + '"><h3><i>' + (i + 1) + '</i>' + esc(p.nome) + '</h3><p class="an-num">' + esc(p.numero) + '</p><p>' + esc(p.texto) + '</p></li>';
+  }).join('');
+  mostrar(0);
+})();
+</script>
+</body>
+</html>
