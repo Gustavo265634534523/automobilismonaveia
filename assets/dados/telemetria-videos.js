@@ -5,8 +5,5 @@
 window.TELEMETRIA_VIDEOS = {
   11730: { id: 'W-nQpaXqqRg', titulo: 'Ghost car: Lewis Hamilton x Max Verstappen, classificação na Malásia' },
   11379: { id: 'JB84kCTCR0c', titulo: 'A volta da pole de Max Verstappen, classificação sprint em Singapura' },
-  11384: [
-    { id: 'mQmE1m5Vz2c', titulo: 'A volta da pole de Max Verstappen no GP de Singapura' },
-    { id: 'WP-QSzJIURw', titulo: 'Carro fantasma: Max Verstappen x Charles Leclerc, classificação em Singapura' }
-  ]
+  11384: { id: 'WP-QSzJIURw', titulo: 'Carro fantasma: Max Verstappen x Charles Leclerc, classificação em Singapura' }
 };
