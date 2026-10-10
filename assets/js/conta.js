@@ -80,6 +80,25 @@
 
   /* ---------- Minha conta ---------- */
   function montarConta(u, modoTeste) {
+    /* Pilotos favoritos possíveis (F1 e MotoGP 2026): número e equipe, para o ícone do perfil na cor da equipe */
+    var PILOTOS_FAV = {
+      'Fórmula 1': [['Lando Norris', 1, 'McLaren'], ['Max Verstappen', 3, 'Red Bull'], ['Gabriel Bortoleto', 5, 'Audi'], ['Isack Hadjar', 6, 'Red Bull'], ['Pierre Gasly', 10, 'Alpine'],
+        ['Sergio Pérez', 11, 'Cadillac'], ['Kimi Antonelli', 12, 'Mercedes'], ['Fernando Alonso', 14, 'Aston Martin'], ['Charles Leclerc', 16, 'Ferrari'], ['Lance Stroll', 18, 'Aston Martin'],
+        ['Alexander Albon', 23, 'Williams'], ['Nico Hülkenberg', 27, 'Audi'], ['Liam Lawson', 30, 'Racing Bulls'], ['Esteban Ocon', 31, 'Haas'], ['Arvid Lindblad', 41, 'Racing Bulls'],
+        ['Franco Colapinto', 43, 'Alpine'], ['Lewis Hamilton', 44, 'Ferrari'], ['Carlos Sainz', 55, 'Williams'], ['George Russell', 63, 'Mercedes'], ['Valtteri Bottas', 77, 'Cadillac'],
+        ['Oscar Piastri', 81, 'McLaren'], ['Oliver Bearman', 87, 'Haas']],
+      'MotoGP': [['Johann Zarco', 5, 'Honda'], ['Toprak Razgatlioglu', 7, 'Yamaha'], ['Luca Marini', 10, 'Honda'], ['Diogo Moreira', 11, 'Honda'], ['Maverick Viñales', 12, 'KTM'],
+        ['Somkiat Chantra', 15, 'Honda'], ['Fabio Quartararo', 20, 'Yamaha'], ['Franco Morbidelli', 21, 'Ducati'], ['Enea Bastianini', 23, 'KTM'], ['Raúl Fernández', 25, 'Aprilia'],
+        ['Brad Binder', 33, 'KTM'], ['Pedro Acosta', 37, 'KTM'], ['Álex Rins', 42, 'Yamaha'], ['Jack Miller', 43, 'Yamaha'], ['Fabio Di Giannantonio', 49, 'Ducati'],
+        ['Fermín Aldeguer', 54, 'Ducati'], ['Francesco Bagnaia', 63, 'Ducati'], ['Marco Bezzecchi', 72, 'Aprilia'], ['Álex Márquez', 73, 'Ducati'], ['Ai Ogura', 79, 'Aprilia'],
+        ['Jorge Martín', 89, 'Aprilia'], ['Marc Márquez', 93, 'Ducati']]
+    };
+    function acharPiloto(nome) {
+      var achado = null;
+      Object.keys(PILOTOS_FAV).forEach(function (c) { PILOTOS_FAV[c].forEach(function (p) { if (p[0] === nome) achado = { nome: p[0], num: p[1], equipe: p[2] }; }); });
+      return achado;
+    }
+    function corEquipe(n) { var e = (window.NAVEIA_EQUIPES || []).filter(function (x) { return x.n === n; })[0]; return e ? e.cor : '#8e979f'; }
     /* Perfil: nome, e-mail, membro desde e piloto favorito */
     var MESES_L = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
     function desenharPerfil(u) {
@@ -89,25 +108,37 @@
         '<div><dt>Nome</dt><dd>' + esc(u.nome) + '</dd></div>' +
         '<div><dt>E-mail da conta</dt><dd>' + esc(u.email) + '</dd></div>' +
         (desde ? '<div><dt>Membro desde</dt><dd>' + MESES_L[desde.getMonth()] + ' de ' + desde.getFullYear() + '</dd></div>' : '') +
-        '<div><dt>Piloto favorito</dt><dd>' + (u.piloto ? esc(u.piloto) : '<span class="ct-vazio-txt">Não escolhido</span>') + '</dd></div>';
+        '<div><dt>Piloto favorito</dt><dd>' + (u.piloto ? esc(u.piloto) : '<span class="ct-vazio-txt">Não escolhido</span>') + '</dd></div>' +
+        '<div><dt>Equipe favorita</dt><dd>' + (u.equipe ? '<i class="ct-cor-eq" style="background:' + corEquipe(u.equipe) + '"></i>' + esc(u.equipe) : '<span class="ct-vazio-txt">Não escolhida</span>') + '</dd></div>';
     }
     desenharPerfil(u);
-    /* listas de sugestão: todos os pilotos e equipes das categorias do site */
-    var pilotos = {}, equipes = {};
-    CATS.forEach(function (c) { (c.equipes || []).forEach(function (e) { equipes[e.n] = 1; (e.p || []).forEach(function (p) { pilotos[p] = 1; }); }); });
-    document.getElementById('ct-lista-pilotos').innerHTML = Object.keys(pilotos).sort().map(function (p) { return '<option value="' + esc(p) + '">'; }).join('');
+    /* listas: pilotos da F1 e da MotoGP; equipes da F1 e fabricantes da MotoGP (a cor do site muda com a equipe) */
+    function opcoes(sel, grupos, vazio, atual) {
+      var tem = false, html = '<option value="">' + vazio + '</option>' + Object.keys(grupos).map(function (g) {
+        return '<optgroup label="' + esc(g) + '">' + grupos[g].map(function (n) { if (n === atual) tem = true; return '<option value="' + esc(n) + '">' + esc(n) + '</option>'; }).join('') + '</optgroup>';
+      }).join('');
+      if (atual && !tem) html += '<option value="' + esc(atual) + '">' + esc(atual) + '</option>'; /* escolha antiga, fora da lista */
+      sel.innerHTML = html; sel.value = atual || '';
+    }
+    function listas() {
+      var gp = {}, ge = {};
+      Object.keys(PILOTOS_FAV).forEach(function (c) { gp[c] = PILOTOS_FAV[c].map(function (p) { return p[0]; }).sort(function (a, b) { return a.localeCompare(b, 'pt'); }); });
+      (window.NAVEIA_EQUIPES || []).forEach(function (e) { (ge[e.c] = ge[e.c] || []).push(e.n); });
+      opcoes(document.getElementById('ct-sel-piloto'), gp, 'Nenhum', u.piloto || '');
+      opcoes(document.getElementById('ct-sel-equipe'), ge, 'Nenhuma (site vermelho)', u.equipe || '');
+    }
     var fPerfil = document.getElementById('f-perfil'), btEditar = document.getElementById('ct-editar');
     btEditar.addEventListener('click', function () {
-      fPerfil.nome.value = u.nome; fPerfil.piloto.value = u.piloto || '';
+      fPerfil.nome.value = u.nome; listas();
       fPerfil.hidden = false; btEditar.hidden = true; fPerfil.nome.focus();
     });
     document.getElementById('ct-editar-cancelar').addEventListener('click', function () { fPerfil.hidden = true; btEditar.hidden = false; });
     fPerfil.addEventListener('submit', function (ev) {
       ev.preventDefault();
       var erro = fPerfil.querySelector('.ct-erro'); erro.hidden = true;
-      API('perfil', { nome: fPerfil.nome.value, piloto: fPerfil.piloto.value }).then(function (r) {
+      API('perfil', { nome: fPerfil.nome.value, piloto: fPerfil.piloto.value, equipe: fPerfil.equipe.value }).then(function (r) {
         if (!r.ok) { erro.textContent = r.erro; erro.hidden = false; return; }
-        u = r.usuario; desenharPerfil(u); desenharFoto(u); fPerfil.hidden = true; btEditar.hidden = false;
+        u = r.usuario; desenharPerfil(u); desenharFoto(u); if (window.NAVEIA_TEMA) window.NAVEIA_TEMA(u.equipe || ''); fPerfil.hidden = true; btEditar.hidden = false;
       }).catch(function () { erro.textContent = 'Não foi possível salvar. Tente de novo.'; erro.hidden = false; });
     });
 
@@ -173,7 +204,10 @@
     /* Foto do perfil: a imagem é diminuída no navegador (256x256) antes de ir para a conta */
     function desenharFoto(u) {
       var q = document.getElementById('ct-foto');
-      q.innerHTML = u.foto ? '<img src="' + u.foto + '" alt="">' : '<span>' + esc((u.nome || '?').trim().charAt(0).toUpperCase()) + '</span>';
+      /* sem foto: o número do piloto favorito na cor da equipe; sem piloto, a inicial do nome */
+      var p = !u.foto && u.piloto ? acharPiloto(u.piloto) : null;
+      q.style.background = p ? corEquipe(p.equipe) : '';
+      q.innerHTML = u.foto ? '<img src="' + u.foto + '" alt="">' : p ? '<b class="ct-num">' + p.num + '</b><small class="ct-num-nome">' + esc(p.nome.split(' ').slice(-1)[0]) + '</small>' : '<span>' + esc((u.nome || '?').trim().charAt(0).toUpperCase()) + '</span>';
       document.getElementById('ct-foto-tirar').hidden = !u.foto;
       document.querySelector('.ct-foto-btn').firstChild.textContent = u.foto ? 'Trocar foto' : 'Colocar foto';
     }

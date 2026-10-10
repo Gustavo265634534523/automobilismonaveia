@@ -179,3 +179,12 @@
 .ct-config summary:hover { color: #fff; background: var(--carbono-2); }
 .ct-config-in { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 0 16px 16px; }
 @media (max-width: 900px) { .ct-config-in { grid-template-columns: 1fr; } }
+
+/* Ícone do piloto favorito (sem foto): número grande na cor da equipe */
+.ct-foto { position: relative; }
+.ct-foto .ct-num { position: relative; z-index: 1; font: 900 56px/1 var(--display); font-style: italic; color: #fff; text-shadow: 0 3px 0 rgba(0, 0, 0, .35); margin-top: -14px; }
+.ct-foto .ct-num-nome { position: absolute; left: 0; right: 0; bottom: 8px; z-index: 1; text-align: center; font: 800 11px var(--texto); letter-spacing: .12em; text-transform: uppercase; color: #fff; }
+.ct-foto:has(.ct-num)::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(135deg, rgba(255, 255, 255, .09) 0 10px, transparent 10px 22px), linear-gradient(180deg, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, .35)); }
+.ct-cor-eq { display: inline-block; width: 10px; height: 10px; margin-right: 7px; border-radius: 50%; vertical-align: 1px; }
+#f-perfil select { width: 100%; min-height: 44px; padding: 0 10px; background: var(--asfalto); color: var(--cromo); border: 1px solid var(--linha); font: 600 15px var(--texto); }
+.ct-form-mini[hidden] { display: none; }

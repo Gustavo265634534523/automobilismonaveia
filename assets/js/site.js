@@ -1,4 +1,27 @@
 /* Menu, rodapé e revelações. Usado em todas as páginas. */
+/* Cor do site pela equipe favorita do perfil: aplica já (cópia salva neste navegador) e confirma quando a conta responde */
+(function () {
+  window.NAVEIA_EQUIPES = [
+    { n: 'Mercedes', c: 'Fórmula 1', cor: '#00A58E' }, { n: 'Ferrari', c: 'Fórmula 1', cor: '#ED1131' }, { n: 'McLaren', c: 'Fórmula 1', cor: '#F47600' },
+    { n: 'Red Bull', c: 'Fórmula 1', cor: '#3671C6' }, { n: 'Racing Bulls', c: 'Fórmula 1', cor: '#4F6FE0' }, { n: 'Alpine', c: 'Fórmula 1', cor: '#0090D0' },
+    { n: 'Haas', c: 'Fórmula 1', cor: '#8A8F94' }, { n: 'Audi', c: 'Fórmula 1', cor: '#F50537' }, { n: 'Williams', c: 'Fórmula 1', cor: '#1868DB' },
+    { n: 'Aston Martin', c: 'Fórmula 1', cor: '#1E8C64' }, { n: 'Cadillac', c: 'Fórmula 1', cor: '#9A9EA3' },
+    { n: 'Ducati', c: 'MotoGP', cor: '#D40000' }, { n: 'Aprilia', c: 'MotoGP', cor: '#7B3FA0' }, { n: 'KTM', c: 'MotoGP', cor: '#FF6600' },
+    { n: 'Yamaha', c: 'MotoGP', cor: '#2546D6' }, { n: 'Honda', c: 'MotoGP', cor: '#E4002B' }
+  ];
+  var raiz = document.documentElement;
+  window.NAVEIA_TEMA = function (equipe) {
+    var e = window.NAVEIA_EQUIPES.filter(function (x) { return x.n === equipe; })[0];
+    try { if (e) localStorage.setItem('naveia-tema', e.cor); else localStorage.removeItem('naveia-tema'); } catch (er) {}
+    pintar(e ? e.cor : '');
+  };
+  function pintar(cor) {
+    if (!cor) { raiz.style.removeProperty('--sangue-vivo'); raiz.style.removeProperty('--sangue'); return; }
+    raiz.style.setProperty('--sangue-vivo', cor);
+    raiz.style.setProperty('--sangue', 'color-mix(in srgb, ' + cor + ' 72%, #000)');
+  }
+  try { pintar(localStorage.getItem('naveia-tema') || ''); } catch (er) {}
+})();
 (function () {
   var CATS = window.CATEGORIAS || [];
   var SECOES = [
@@ -210,6 +233,8 @@
   });
 
   window.NAVEIA_EU.then(function (r) {
+    /* cor da equipe favorita (sem conta, o site volta ao vermelho) */
+    if (!r.semServidor) window.NAVEIA_TEMA(r.logado && r.usuario ? r.usuario.equipe : '');
     var l = document.getElementById('conta-link');
     if (!l) return;
     if (r.semServidor) { l.remove(); var pc = document.querySelector('.painel-conta'); if (pc) pc.remove(); return; }
@@ -240,10 +265,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=293'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=293'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=293'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=293'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=294'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=294'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=294'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=294'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
