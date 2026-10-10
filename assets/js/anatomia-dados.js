@@ -281,3 +281,31 @@ window.ANATOMIA_DTM = {
   ],
   ficha: [['≈ 580 cv', 'potência (varia por carro)'], ['≈ 1.300 kg', 'peso mínimo (varia)'], ['GT3', 'carros de várias marcas'], ['2 corridas', 'por fim de semana'], ['1 parada', 'obrigatória, troca de pneus']]
 };
+
+/* Porsche Cup: carros genéricos da categoria (assets/img/cat/porsche.jpg, imagem gerada). Números do 911 GT3 Cup (geração 992) */
+window.ANATOMIA_PORSCHE = {
+  foto: 'assets/img/cat/porsche.jpg', w: 1344, h: 752,
+  pecas: [
+    { id: 'difusor', x: 20, y: 74, nome: 'Difusor', numero: 'puxa para baixo',
+      texto: 'Embaixo da traseira, o difusor acelera o ar que sai de baixo do carro e puxa o carro contra o chão, dando mais aderência nas curvas.' },
+    { id: 'asa', x: 22, y: 39, nome: 'Asa traseira', numero: 'pescoço de cisne',
+      texto: 'A asa é presa por cima, e não por baixo. Assim a parte de baixo da asa, que é a mais importante, fica livre e trabalha melhor.' },
+    { id: 'motor', x: 24, y: 60, nome: 'Motor', numero: 'atrás do eixo',
+      texto: 'Como no 911 de rua, o motor fica lá atrás, depois do eixo traseiro. É um 6 cilindros boxer de 4 litros, sem turbo, com 510 cavalos e que gira até 8.750 rpm.' },
+    { id: 'cockpit', x: 30, y: 46, nome: 'Cockpit', numero: 'gaiola de aço',
+      texto: 'O interior de carro de rua sai todo: fica uma gaiola de tubos de aço, banco de corrida, cinto de vários pontos e um volante cheio de botões.' },
+    { id: 'lanterna', x: 35, y: 56, nome: 'Lanternas', numero: 'faixa de LED',
+      texto: 'A faixa de luz de ponta a ponta acende forte na freada, avisando quem vem colado atrás.' },
+    { id: 'freio', x: 44, y: 70, nome: 'Freios', numero: 'sem ABS',
+      texto: 'O carro da Cup não tem ABS: o piloto precisa dosar a freada no pé para não travar as rodas. É um dos motivos de a categoria ser uma grande escola.' },
+    { id: 'retrovisor', x: 48.5, y: 46.5, nome: 'Retrovisor', numero: 'olho no rival',
+      texto: 'Com todos os carros iguais, a diferença entre os pilotos é mínima. Defender a posição olhando o retrovisor faz parte da corrida inteira.' },
+    { id: 'entrada', x: 53, y: 60, nome: 'Entrada de ar', numero: 'na lateral',
+      texto: 'As entradas de ar na lateral levam ar fresco para os freios e para o motor, que trabalham no limite a corrida toda.' },
+    { id: 'pneu', x: 55, y: 67, nome: 'Pneus', numero: 'iguais para todos',
+      texto: 'Todos usam o mesmo tipo de pneu. Saber cuidar dele até o fim da corrida faz muita diferença.' },
+    { id: 'iguais', x: 61, y: 48, nome: 'Todos iguais', numero: 'um modelo só',
+      texto: 'Na Porsche Cup todo mundo corre com o mesmo carro, o 911 GT3 Cup, igualzinho. Não há ajuste de peso ou potência entre os carros: ganha quem pilota melhor.' }
+  ],
+  ficha: [['510 cv', 'motor 4.0 de 6 cilindros'], ['1.260 kg', 'com o piloto'], ['8.750', 'rpm (limite)'], ['6 marchas', 'câmbio sequencial'], ['1 modelo', 'todos os carros iguais']]
+};
