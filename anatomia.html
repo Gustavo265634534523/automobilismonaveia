@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=273"></script>
-<title>Anatomia de um carro de F1, da F2, da F3, da IndyCar, da NASCAR, da Fórmula E, da Stock Car e de uma moto de MotoGP: peça por peça | Na Veia</title>
-<meta name="description" content="Como funciona um carro de F1, da F2, da F3, da IndyCar, da NASCAR, da Fórmula E, da Stock Car e uma moto de MotoGP por dentro: asa dianteira, halo, motor híbrido de 1.000 cv, freios a 1.000 °C, assoalho, câmbio e asa traseira. Toque em cada peça e entenda.">
+<script src="assets/js/idioma.js?v=274"></script>
+<title>Anatomia de um carro de F1, da F2, da F3, da IndyCar, da NASCAR, do WEC, da Fórmula E, da Stock Car e de uma moto de MotoGP: peça por peça | Na Veia</title>
+<meta name="description" content="Como funciona um carro de F1, da F2, da F3, da IndyCar, da NASCAR, do WEC, da Fórmula E, da Stock Car e uma moto de MotoGP por dentro: asa dianteira, halo, motor híbrido de 1.000 cv, freios a 1.000 °C, assoalho, câmbio e asa traseira. Toque em cada peça e entenda.">
 <meta name="theme-color" content="#141619">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=273">
+<link rel="stylesheet" href="assets/css/estilo.css?v=274">
 <style>
 .an-pagina { padding: calc(var(--topo) + 36px) 0 70px; }
 .an-rot { margin: 0 0 6px; font: 800 13px var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--sangue-vivo); }
@@ -72,7 +72,7 @@
 <main class="an-pagina" id="an">
   <div class="moldura">
     <p class="an-rot">Guia · como funciona</p>
-    <div class="an-abas" role="group" aria-label="Escolha"><button type="button" data-q="f1" aria-pressed="true">Fórmula 1</button><button type="button" data-q="f2" aria-pressed="false">Fórmula 2</button><button type="button" data-q="f3" aria-pressed="false">Fórmula 3</button><button type="button" data-q="indy" aria-pressed="false">IndyCar</button><button type="button" data-q="nascar" aria-pressed="false">NASCAR</button><button type="button" data-q="motogp" aria-pressed="false">MotoGP</button><button type="button" data-q="stock" aria-pressed="false">Stock Car</button><button type="button" data-q="fe" aria-pressed="false">Fórmula E</button></div>
+    <div class="an-abas" role="group" aria-label="Escolha"><button type="button" data-q="f1" aria-pressed="true">Fórmula 1</button><button type="button" data-q="f2" aria-pressed="false">Fórmula 2</button><button type="button" data-q="f3" aria-pressed="false">Fórmula 3</button><button type="button" data-q="indy" aria-pressed="false">IndyCar</button><button type="button" data-q="nascar" aria-pressed="false">NASCAR</button><button type="button" data-q="wec" aria-pressed="false">WEC</button><button type="button" data-q="motogp" aria-pressed="false">MotoGP</button><button type="button" data-q="stock" aria-pressed="false">Stock Car</button><button type="button" data-q="fe" aria-pressed="false">Fórmula E</button></div>
     <h1 id="an-tit">Anatomia de um carro de <span>Fórmula 1</span></h1>
     <p class="an-lead">Toque nos pontos vermelhos e descubra o que cada peça faz. Tudo explicado em poucas palavras.</p>
     <div class="an-palco">
@@ -85,9 +85,9 @@
   </div>
 </main>
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=273"></script>
-<script src="assets/js/site.js?v=273"></script>
-<script src="assets/js/anatomia-dados.js?v=273"></script>
+<script src="assets/js/dados.js?v=274"></script>
+<script src="assets/js/site.js?v=274"></script>
+<script src="assets/js/anatomia-dados.js?v=274"></script>
 <script>
 (function () {
   var esc = window.esc, carro = document.getElementById('an-carro'), img = document.getElementById('an-img'), A;
@@ -98,7 +98,8 @@
     f2: { d: window.ANATOMIA_F2, tit: 'Anatomia de um carro da <span>Fórmula 2</span>', alt: 'Carro da Fórmula 2 numa pista de rua à beira-mar (imagem gerada, sem equipe nem marca)' },
     f3: { d: window.ANATOMIA_F3, tit: 'Anatomia de um carro da <span>Fórmula 3</span>', alt: 'Carros da Fórmula 3 em fila numa curva (imagem gerada, sem equipe nem marca)' },
     indy: { d: window.ANATOMIA_INDY, tit: 'Anatomia de um carro da <span>IndyCar</span>', alt: 'Carro da IndyCar num oval ao pôr do sol (imagem gerada, sem equipe nem marca)' },
-    nascar: { d: window.ANATOMIA_NASCAR, tit: 'Anatomia de um carro da <span>NASCAR</span>', alt: 'Três carros da NASCAR lado a lado num oval à noite (imagem gerada, sem equipe nem marca)' } };
+    nascar: { d: window.ANATOMIA_NASCAR, tit: 'Anatomia de um carro da <span>NASCAR</span>', alt: 'Três carros da NASCAR lado a lado num oval à noite (imagem gerada, sem equipe nem marca)' },
+    wec: { d: window.ANATOMIA_WEC, tit: 'Anatomia de um <span>Hypercar do WEC</span>', alt: 'Protótipo Hypercar à noite na chuva (imagem gerada, sem equipe nem marca)' } };
   var cartao = document.createElement('div'); cartao.className = 'an-cartao'; cartao.hidden = true;
   function mostrar(i) {
     var p = A.pecas[i];
@@ -109,6 +110,7 @@
     cartao.hidden = false;
     if (A === Q.motogp.d) { cartao.style.left = 'auto'; cartao.style.right = '2%'; cartao.style.top = '46%'; return; } /* a moto: o lado direito da foto é pista vazia */
     if (A === Q.stock.d) { cartao.style.left = 'auto'; cartao.style.right = '3%'; cartao.style.top = '3%'; return; } /* a Stock: os pontos de cima ficam à esquerda */
+    if (A === Q.wec.d) { cartao.style.left = 'auto'; cartao.style.right = '2%'; cartao.style.top = '58%'; return; } /* o WEC: embaixo à direita é só pista */
     if (A === Q.nascar.d) { cartao.style.left = 'auto'; cartao.style.right = '2%'; cartao.style.top = '3%'; return; } /* a NASCAR: em cima à direita é só céu */
     if (A === Q.indy.d) { cartao.style.left = '2%'; cartao.style.right = 'auto'; cartao.style.top = '62%'; return; } /* a Indy: embaixo à esquerda é só pista */
     if (A === Q.f3.d) { cartao.style.left = 'auto'; cartao.style.right = '2%'; cartao.style.top = '56%'; return; } /* a F3: o carro fica à esquerda, embaixo à direita é só pista */

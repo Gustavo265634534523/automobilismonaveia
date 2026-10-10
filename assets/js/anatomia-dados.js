@@ -225,3 +225,31 @@ window.ANATOMIA_NASCAR = {
   ],
   ficha: [['670 cv', 'na maioria das pistas'], ['V8 5.86', 'aspirado'], ['≈ 1.540 kg', 'com piloto e gasolina'], ['5 marchas', 'câmbio sequencial'], ['40 carros', 'no grid']]
 };
+
+/* WEC: protótipo genérico da categoria Hypercar (assets/img/cat/le-mans-noite.jpg, imagem gerada, sem equipe nem marca). Regras de 2026 */
+window.ANATOMIA_WEC = {
+  foto: 'assets/img/cat/le-mans-noite.jpg', w: 1344, h: 752,
+  pecas: [
+    { id: 'noite', x: 7.5, y: 27, nome: 'Noite adentro', numero: '24 horas',
+      texto: 'As corridas do WEC são de resistência: duram de 6 a 24 horas. Nas 24 Horas de Le Mans, o carro corre de dia, de noite e às vezes na chuva, sem parar.' },
+    { id: 'bico', x: 20, y: 58, nome: 'Bico', numero: 'gruda no chão',
+      texto: 'O bico e o fundo do carro aceleram o ar por baixo e puxam o carro contra o asfalto. Isso dá aderência nas curvas rápidas de Le Mans.' },
+    { id: 'cockpit', x: 33, y: 33, nome: 'Cockpit fechado', numero: '3 pilotos',
+      texto: 'Diferente da F1, o cockpit é fechado, com teto e para-brisa. Três pilotos dividem o mesmo carro e se revezam ao volante durante a corrida.' },
+    { id: 'entrada', x: 40, y: 26, nome: 'Entrada de ar', numero: 'no teto',
+      texto: 'A entrada no teto leva ar fresco para o motor, que fica atrás do piloto. Ar mais frio ajuda o motor a render mais.' },
+    { id: 'farol', x: 41, y: 49, nome: 'Faróis', numero: 'de LED',
+      texto: 'Os faróis de LED são fortíssimos: à noite, nas retas de Le Mans, eles iluminam a pista a mais de 300 km/h. Cada marca tem um desenho de farol, que ajuda a reconhecer o carro no escuro.' },
+    { id: 'barbatana', x: 46, y: 21, nome: 'Barbatana', numero: 'estabilidade',
+      texto: 'A barbatana em cima do carro ajuda a mantê-lo reto. Se o carro rodar em alta velocidade, ela diminui o risco de ele levantar voo.' },
+    { id: 'pneu', x: 50, y: 52, nome: 'Pneus', numero: 'turnos duplos',
+      texto: 'Os pneus aguentam muito: muitas vezes um jogo de pneus dura dois turnos seguidos. Nas corridas de resistência, poupar pneu é tão importante quanto ser rápido.' },
+    { id: 'motor', x: 59, y: 43, nome: 'Motor', numero: 'V6, V8 ou turbo',
+      texto: 'Cada marca escolhe o seu motor: tem V6 turbo, V8 e até V12. Para ninguém sair na frente só pelo motor, a organização equilibra o desempenho dos carros (o BoP).' },
+    { id: 'asa', x: 62, y: 31, nome: 'Asa traseira', numero: 'larga e baixa',
+      texto: 'A asa larga segura a traseira nas curvas rápidas. Em Le Mans, que tem retas enormes, as equipes usam asas mais baixas para ganhar velocidade.' },
+    { id: 'hibrido', x: 67, y: 47, nome: 'Híbrido', numero: 'na maioria dos carros',
+      texto: 'A maioria dos carros é híbrida: um motor elétrico recupera energia nas freadas e devolve na aceleração. Somando tudo, o limite é de 500 kW, perto de 680 cavalos.' }
+  ],
+  ficha: [['500 kW', '≈ 680 cv (máximo)'], ['1.030 kg', 'peso mínimo'], ['24 horas', 'em Le Mans'], ['3 pilotos', 'por carro'], ['13,6 km', 'a pista de Le Mans']]
+};
