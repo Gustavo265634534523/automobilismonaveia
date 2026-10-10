@@ -43,7 +43,7 @@ function traduz(t) {
   /* lista dos últimos vídeos de classificação e corrida (Central da F1 na página inicial): junta com os que já estavam salvos */
   let antigos = [];
   try { const w = {}; new Function('window', fs.readFileSync(ARQ, 'utf8'))(w); antigos = w.VIDEOS_F1 || []; } catch (e) {}
-  const vistos = new Set(), lista = videos.map(x => ({ id: x.id, titulo: x.titulo + (gp(x.publicado) ? ' · ' + gp(x.publicado) : ''), publicado: x.publicado })).concat(antigos)
+  const vistos = new Set(), lista = videos.map(x => ({ id: x.id, titulo: x.titulo + (gp(x.publicado) ? ' · ' + gp(x.publicado) : ''), texto: x.texto, publicado: x.publicado })).concat(antigos)
     .filter(x => !vistos.has(x.id) && vistos.add(x.id)).sort((a, b) => Date.parse(b.publicado) - Date.parse(a.publicado)).slice(0, 6);
   /* capa: o mais recente dos últimos 3 dias */
   const v = videos.filter(x => Date.now() - Date.parse(x.publicado) < 3 * 864e5).sort((a, b) => Date.parse(b.publicado) - Date.parse(a.publicado))[0];

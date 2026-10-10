@@ -25,16 +25,32 @@
   var capa = todas.filter(function (n) { return n.manchete; })[0] || todas[0];
   /* depois de uma classificação ou corrida da F1, a capa mostra o vídeo oficial (assets/dados/video-capa.js, por 3 dias);
      a manchete vai para a lista ao lado. A F1 não deixa tocar o vídeo fora do YouTube: o clique abre no canal oficial. */
-  var V = window.VIDEO_CAPA;
-  if (V && V.id && Date.now() - Date.parse(V.publicado) < 3 * 864e5) {
+  var V = window.VIDEO_CAPA, recente = function (x) { return x && x.id && Date.now() - Date.parse(x.publicado) < 3 * 864e5; };
+  if (recente(V)) {
+    /* os outros vídeos oficiais dos últimos 3 dias (VIDEOS_F1) entram atrás, com setas para passar */
+    var vids = [V].concat((window.VIDEOS_F1 || []).filter(function (x) { return x.id !== V.id && recente(x); })), atual = 0;
     var ev = document.getElementById('rv-capa');
-    ev.href = 'https://www.youtube.com/watch?v=' + V.id;
     ev.target = '_blank'; ev.rel = 'noopener';
     ev.classList.add('rv-capa-video');
-    ev.setAttribute('aria-label', 'Assistir no YouTube: ' + V.titulo);
-    ev.innerHTML = '<img src="https://i.ytimg.com/vi/' + V.id + '/maxresdefault.jpg" alt="" fetchpriority="high" onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + V.id + '/hqdefault.jpg\'">' +
-      '<span class="rv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>' +
-      '<span class="rv-capa-txt"><small>Fórmula 1 · vídeo oficial · ' + esc(quando(V.publicado.slice(0, 10))) + '</small><b>' + esc(V.titulo) + '</b><span>' + esc(V.texto) + ' Toque para assistir no YouTube.</span></span>';
+    var pintar = function () {
+      var v = vids[atual];
+      ev.href = 'https://www.youtube.com/watch?v=' + v.id;
+      ev.setAttribute('aria-label', 'Assistir no YouTube: ' + v.titulo);
+      ev.innerHTML = '<img src="https://i.ytimg.com/vi/' + v.id + '/maxresdefault.jpg" alt=""' + (atual ? '' : ' fetchpriority="high"') + ' onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg\'">' +
+        '<span class="rv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>' +
+        '<span class="rv-capa-txt"><small>Fórmula 1 · vídeo oficial · ' + esc(quando(v.publicado.slice(0, 10))) + '</small><b>' + esc(v.titulo) + '</b><span>' + esc(v.texto || 'No canal oficial da Fórmula 1.') + ' Toque para assistir no YouTube.</span></span>';
+      if (conta) conta.textContent = (atual + 1) + ' / ' + vids.length;
+    };
+    var conta = null;
+    if (vids.length > 1) {
+      var roda = document.createElement('div'); roda.className = 'rv-capa-roda';
+      ev.parentNode.insertBefore(roda, ev); roda.appendChild(ev);
+      roda.insertAdjacentHTML('beforeend', '<button type="button" class="rv-seta rv-seta-ant" aria-label="Vídeo anterior">‹</button><button type="button" class="rv-seta rv-seta-prox" aria-label="Próximo vídeo">›</button><span class="rv-conta"></span>');
+      conta = roda.querySelector('.rv-conta');
+      roda.querySelector('.rv-seta-ant').addEventListener('click', function () { atual = (atual + vids.length - 1) % vids.length; pintar(); });
+      roda.querySelector('.rv-seta-prox').addEventListener('click', function () { atual = (atual + 1) % vids.length; pintar(); });
+    }
+    pintar();
     capa = null;
   }
   if (capa) {
