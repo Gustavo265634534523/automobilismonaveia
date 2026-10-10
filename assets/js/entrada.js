@@ -26,9 +26,12 @@
   /* depois de uma classificação ou corrida da F1, a capa mostra o vídeo oficial (assets/dados/video-capa.js, por 3 dias);
      a manchete vai para a lista ao lado. A F1 não deixa tocar o vídeo fora do YouTube: o clique abre no canal oficial. */
   var V = window.VIDEO_CAPA, recente = function (x) { return x && x.id && Date.now() - Date.parse(x.publicado) < 3 * 864e5; };
-  if (recente(V)) {
+  /* F1 primeiro (3 dias), depois o último vídeo oficial de cada outra categoria (7 dias, VIDEOS_CATS) */
+  var f1 = recente(V) ? [V].concat((window.VIDEOS_F1 || []).filter(function (x) { return x.id !== V.id && recente(x); })) : [];
+  var vids = f1.concat((window.VIDEOS_CATS || []).filter(function (x) { return x && x.id && Date.now() - Date.parse(x.publicado) < 7 * 864e5; }));
+  if (vids.length) {
     /* os outros vídeos oficiais dos últimos 3 dias (VIDEOS_F1) entram atrás, com setas para passar */
-    var vids = [V].concat((window.VIDEOS_F1 || []).filter(function (x) { return x.id !== V.id && recente(x); })), atual = 0;
+    var atual = 0;
     var ev = document.getElementById('rv-capa');
     ev.target = '_blank'; ev.rel = 'noopener';
     ev.classList.add('rv-capa-video');
@@ -38,7 +41,7 @@
       ev.setAttribute('aria-label', 'Assistir no YouTube: ' + v.titulo);
       ev.innerHTML = '<img src="https://i.ytimg.com/vi/' + v.id + '/maxresdefault.jpg" alt=""' + (atual ? '' : ' fetchpriority="high"') + ' onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg\'">' +
         '<span class="rv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>' +
-        '<span class="rv-capa-txt"><small>Fórmula 1 · vídeo oficial · ' + esc(quando(v.publicado.slice(0, 10))) + '</small><b>' + esc(v.titulo) + '</b><span>' + esc(v.texto || 'No canal oficial da Fórmula 1.') + ' Toque para assistir no YouTube.</span></span>';
+        '<span class="rv-capa-txt"><small>' + esc(v.nome || 'Fórmula 1') + ' · vídeo oficial · ' + esc(quando(v.publicado.slice(0, 10))) + '</small><b>' + esc(v.titulo) + '</b><span>' + esc(v.texto || 'No canal oficial da Fórmula 1.') + ' Toque para assistir no YouTube.</span></span>';
       if (conta) conta.textContent = (atual + 1) + ' / ' + vids.length;
     };
     var conta = null;
