@@ -253,3 +253,31 @@ window.ANATOMIA_WEC = {
   ],
   ficha: [['500 kW', '≈ 680 cv (máximo)'], ['1.030 kg', 'peso mínimo'], ['24 horas', 'em Le Mans'], ['3 pilotos', 'por carro'], ['13,6 km', 'a pista de Le Mans']]
 };
+
+/* DTM: carros GT3 genéricos (assets/img/cat/dtm.jpg, imagem gerada, sem equipe nem marca). Potência e peso variam com o BoP */
+window.ANATOMIA_DTM = {
+  foto: 'assets/img/cat/dtm.jpg', w: 1344, h: 752,
+  pecas: [
+    { id: 'rivais', x: 30, y: 47, nome: 'Marcas', numero: 'várias fábricas',
+      texto: 'No DTM correm carros GT3 de várias marcas, como BMW, Mercedes-AMG, Porsche, Ferrari, Lamborghini, McLaren, Aston Martin e Ford. É uma briga de fábricas, principalmente alemãs.' },
+    { id: 'pneu', x: 32, y: 66, nome: 'Pneus', numero: 'troca obrigatória',
+      texto: 'Em cada corrida há uma parada obrigatória nos boxes para trocar os pneus. A hora de parar vira estratégia: parar cedo ou tarde pode ganhar ou perder posições.' },
+    { id: 'retrovisor', x: 43, y: 52, nome: 'Retrovisor', numero: 'olho no rival',
+      texto: 'Com o grid tão equilibrado, o piloto passa a corrida olhando o retrovisor. Defender a posição é tão importante quanto atacar.' },
+    { id: 'carroceria', x: 49.5, y: 58, nome: 'Carroceria', numero: 'carro GT3',
+      texto: 'Os carros GT3 são feitos a partir de esportivos de rua, mas viram máquinas de corrida: mais leves, mais baixos, com asa enorme e gaiola de segurança.' },
+    { id: 'freio', x: 46, y: 70, nome: 'Freios', numero: 'ficam em brasa',
+      texto: 'Nas freadas fortes, os discos ficam tão quentes que brilham em vermelho, dá para ver no escuro. Os GT3 também têm ABS, que evita travar as rodas.' },
+    { id: 'lanterna', x: 63, y: 55, nome: 'Lanternas', numero: 'avisam a freada',
+      texto: 'As luzes de trás acendem forte na freada, para avisar quem vem colado atrás. Nas corridas em fila, isso evita muitas batidas.' },
+    { id: 'cockpit', x: 67, y: 40, nome: 'Cockpit', numero: 'gaiola de aço',
+      texto: 'Dentro do carro há uma gaiola de tubos de aço em volta do piloto, com banco de corrida e cinto de vários pontos. O resto do interior do carro de rua sai todo.' },
+    { id: 'difusor', x: 70, y: 72, nome: 'Difusor', numero: 'puxa para baixo',
+      texto: 'Embaixo da traseira, o difusor acelera o ar que sai de baixo do carro e puxa o carro contra o chão. Ajuda muito nas curvas rápidas.' },
+    { id: 'asa', x: 73, y: 33, nome: 'Asa traseira', numero: 'enorme',
+      texto: 'A asa traseira enorme segura a traseira nas curvas. A inclinação dela também entra no equilíbrio entre os carros.' },
+    { id: 'lastro', x: 85, y: 62, nome: 'Lastro', numero: 'equilíbrio (BoP)',
+      texto: 'Para os carros de marcas diferentes andarem juntos, a organização ajusta peso, potência e altura de cada modelo a cada etapa. É o BoP, o equilíbrio de desempenho.' }
+  ],
+  ficha: [['≈ 580 cv', 'potência (varia por carro)'], ['≈ 1.300 kg', 'peso mínimo (varia)'], ['GT3', 'carros de várias marcas'], ['2 corridas', 'por fim de semana'], ['1 parada', 'obrigatória, troca de pneus']]
+};
