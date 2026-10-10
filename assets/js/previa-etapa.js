@@ -71,6 +71,34 @@
   }
 
   window.PREVIA_PROXIMA = proxima;
+  /* fotos reais com licença livre (Wikimedia Commons), por equipe; o crédito do fotógrafo é obrigatório.
+     Equipe sem foto livre usa o carro genérico do site na cor da equipe. */
+  var FOTOS = {
+    'Red Bull Racing': { src: 'assets/img/real/verstappen-rb22.jpg', cred: 'Foto: Liauzh / Wikimedia Commons (CC BY 4.0)' }
+  };
+  function resultados(caixa, R, e) {
+    var S = R.sessoes, ult = S[S.length - 1], v = ult.top[0], foto = FOTOS[v.equipe];
+    var feitas = {}; S.forEach(function (s) { feitas[s.titulo] = s; });
+    /* sessões que ainda vão acontecer neste GP (a corrida de domingo, por exemplo) */
+    var faltam = (e.s || []).filter(function (x) { return /^(Corrida|Sprint|Classifica)/.test(x.t); }).map(function (x) {
+      var t = /^Corrida/.test(x.t) ? 'Vencedor da corrida' : /^Sprint/.test(x.t) ? 'Vencedor da sprint' : /sprint/i.test(x.t) ? 'Pole da sprint' : 'Pole para a corrida';
+      return feitas[t] ? null : { titulo: t, quando: window.dataCurta(x.d) + ', ' + x.h };
+    }).filter(Boolean);
+    caixa.style.setProperty('--cor', v.cor);
+    caixa.innerHTML = '<h3>Resultados do fim de semana</h3>' +
+      '<div class="pv-res-foto' + (foto ? '' : ' pv-res-gen') + '"><img src="' + (foto ? foto.src : 'assets/img/hero-1-lado-m.webp') + '" alt="" loading="lazy">' +
+        (foto ? '<small>' + esc(foto.cred) + '</small>' : '') +
+        '<span class="pv-res-p1"><b>P1</b><span>' + esc(ult.titulo) + '<strong>' + esc(v.nome) + '</strong>' + esc(v.equipe) + '</span></span></div>' +
+      '<ul class="pv-res">' + S.map(function (s) {
+        var p = s.top[0];
+        return '<li><span>' + esc(s.titulo) + '</span><b><i style="background:' + p.cor + '"></i>' + esc(p.nome) + '</b><small>' + esc(p.tempo) + '</small></li>';
+      }).join('') + faltam.map(function (f) {
+        return '<li class="pv-res-falta"><span>' + esc(f.titulo) + '</span><b>' + esc(f.quando) + '</b></li>';
+      }).join('') + '</ul>' +
+      '<p class="pv-fonte">Cronometragem oficial (OpenF1). Atualiza sozinho depois de cada sessão.</p>';
+    caixa.hidden = false;
+  }
+
   window.PREVIA_ETAPA = function (c, alvo, opc) {
     opc = opc || {};
     var e = proxima(c);
@@ -98,6 +126,7 @@
         '<div class="pv-bloco pv-tempo-bloco"><h3>Previsão do tempo</h3><div class="pv-tempo-caixa">' + (loc ? '<p class="pv-vazio">Buscando a previsão…</p>' : '<p class="pv-vazio">Previsão indisponível para esta pista.</p>') + '</div></div>' +
         (camp ? '<div class="pv-bloco"><h3>Campeonato</h3>' + camp + '</div>' : '') +
         (numeros ? '<div class="pv-bloco"><h3>Números da pista</h3>' + numeros + '</div>' : '') +
+        (c.slug === 'formula-1' ? '<div class="pv-bloco pv-res-bloco" hidden></div>' : '') +
         '<div class="pv-bloco pv-mapa-bloco" hidden></div>' +
       '</div>' + (opc.rodape || '');
     /* mapa da pista */
@@ -105,6 +134,13 @@
     if (c.slug === 'formula-1') buscar('pista-proxima.json').then(function (M) { if (M && M.etapa === e.n && M.d && alvo.contains(caixaMapa)) desenharMapa(caixaMapa, M, e); });
     else buscar('pistas-categorias.json').then(function (T) { var M = T && T[c.slug]; if (M && M.etapa === e.n && M.d && alvo.contains(caixaMapa)) desenharMapa(caixaMapa, M, e); });
     if (loc) previsao(alvo.querySelector('.pv-tempo-caixa'), c, e, loc);
+    /* resultados do fim de semana (F1): só aparece enquanto o GP está acontecendo */
+    var caixaRes = alvo.querySelector('.pv-res-bloco');
+    if (caixaRes) buscar('resultados-f1.json').then(function (R) {
+      if (!R || !R.sessoes || !R.sessoes.length || !alvo.contains(caixaRes)) return;
+      if (Math.abs(new Date(R.data + 'T12:00:00') - new Date(e.d + 'T12:00:00')) / 864e5 > 4) return;
+      resultados(caixaRes, R, e);
+    });
     return true;
   };
 })();

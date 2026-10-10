@@ -27,6 +27,8 @@ jobs:
         run: node .github/pistas-categorias.js || true
       - name: Vídeo oficial da F1 na capa da página inicial
         run: node .github/video-capa.js || true
+      - name: Resultados do fim de semana da F1 (pole, sprint, corrida)
+        run: node .github/resultados-f1.js || true
       - name: Enquete do dia (troca depois da largada)
         run: node .github/enquete.js || true
       - name: Telemetria da página inicial

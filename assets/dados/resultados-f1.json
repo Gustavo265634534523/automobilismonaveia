@@ -1,0 +1,101 @@
+{
+ "meeting": 1296,
+ "local": "Marina Bay",
+ "pais": "Singapore",
+ "data": "2026-10-10",
+ "sessoes": [
+  {
+   "tipo": "Sprint Qualifying",
+   "titulo": "Pole da sprint",
+   "data": "2026-10-09",
+   "top": [
+    {
+     "pos": 1,
+     "n": 3,
+     "nome": "Max Verstappen",
+     "equipe": "Red Bull Racing",
+     "cor": "#4781D7",
+     "tempo": "1:31.156"
+    },
+    {
+     "pos": 2,
+     "n": 63,
+     "nome": "George Russell",
+     "equipe": "Mercedes",
+     "cor": "#00D7B6",
+     "tempo": "+0.120s"
+    },
+    {
+     "pos": 3,
+     "n": 16,
+     "nome": "Charles Leclerc",
+     "equipe": "Ferrari",
+     "cor": "#ED1131",
+     "tempo": "+0.243s"
+    }
+   ]
+  },
+  {
+   "tipo": "Sprint",
+   "titulo": "Vencedor da sprint",
+   "data": "2026-10-10",
+   "top": [
+    {
+     "pos": 1,
+     "n": 3,
+     "nome": "Max Verstappen",
+     "equipe": "Red Bull Racing",
+     "cor": "#4781D7",
+     "tempo": "39:48.162"
+    },
+    {
+     "pos": 2,
+     "n": 44,
+     "nome": "Lewis Hamilton",
+     "equipe": "Ferrari",
+     "cor": "#ED1131",
+     "tempo": "+2.591s"
+    },
+    {
+     "pos": 3,
+     "n": 16,
+     "nome": "Charles Leclerc",
+     "equipe": "Ferrari",
+     "cor": "#ED1131",
+     "tempo": "+16.871s"
+    }
+   ]
+  },
+  {
+   "tipo": "Qualifying",
+   "titulo": "Pole para a corrida",
+   "data": "2026-10-10",
+   "top": [
+    {
+     "pos": 1,
+     "n": 3,
+     "nome": "Max Verstappen",
+     "equipe": "Red Bull Racing",
+     "cor": "#4781D7",
+     "tempo": "1:31.373"
+    },
+    {
+     "pos": 2,
+     "n": 16,
+     "nome": "Charles Leclerc",
+     "equipe": "Ferrari",
+     "cor": "#ED1131",
+     "tempo": "+0.054s"
+    },
+    {
+     "pos": 3,
+     "n": 44,
+     "nome": "Lewis Hamilton",
+     "equipe": "Ferrari",
+     "cor": "#ED1131",
+     "tempo": "+0.123s"
+    }
+   ]
+  }
+ ]
+}
