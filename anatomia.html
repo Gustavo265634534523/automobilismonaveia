@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=264"></script>
-<title>Anatomia de um carro de Fórmula 1: peça por peça | Na Veia</title>
-<meta name="description" content="Como funciona um carro de F1 por dentro: asa dianteira, halo, motor híbrido de 1.000 cv, freios a 1.000 °C, assoalho, câmbio e asa traseira. Toque em cada peça e entenda.">
+<script src="assets/js/idioma.js?v=265"></script>
+<title>Anatomia de um carro de F1 e de uma moto de MotoGP: peça por peça | Na Veia</title>
+<meta name="description" content="Como funciona um carro de F1 e uma moto de MotoGP por dentro: asa dianteira, halo, motor híbrido de 1.000 cv, freios a 1.000 °C, assoalho, câmbio e asa traseira. Toque em cada peça e entenda.">
 <meta name="theme-color" content="#141619">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=264">
+<link rel="stylesheet" href="assets/css/estilo.css?v=265">
 <style>
 .an-pagina { padding: calc(var(--topo) + 36px) 0 70px; }
 .an-rot { margin: 0 0 6px; font: 800 13px var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--sangue-vivo); }
@@ -34,6 +34,9 @@
   linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 40px 40px,
   linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px) 0 0 / 40px 40px, #0b0c0e; overflow: hidden; }
 .an-carro { position: relative; aspect-ratio: 2400 / 1357; }
+.an-abas { display: inline-flex; margin: 0 0 14px; border: 1px solid var(--linha); }
+.an-abas button { min-height: 42px; padding: 0 18px; background: none; border: 0; color: #aab0b6; font: 800 15px var(--texto); cursor: pointer; }
+.an-abas button[aria-pressed="true"] { background: var(--sangue); color: #fff; }
 .an-carro img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .an-ponto { position: absolute; width: 34px; height: 34px; margin: -17px 0 0 -17px; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--sangue-vivo); color: #fff; font: 900 14px var(--texto); cursor: pointer; box-shadow: 0 0 0 4px rgba(227,52,60,.3), 0 4px 14px rgba(0,0,0,.6); z-index: 2; transition: transform .15s; }
 .an-ponto::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(255,255,255,.7); animation: an-pulso 2s infinite; }
@@ -69,10 +72,11 @@
 <main class="an-pagina" id="an">
   <div class="moldura">
     <p class="an-rot">Guia · como funciona</p>
-    <h1>Anatomia de um carro de <span>Fórmula 1</span></h1>
-    <p class="an-lead">Toque nos pontos vermelhos e descubra o que cada peça faz, do bico à asa traseira. Tudo explicado em poucas palavras.</p>
+    <div class="an-abas" role="group" aria-label="Escolha"><button type="button" data-q="f1" aria-pressed="true">Fórmula 1</button><button type="button" data-q="motogp" aria-pressed="false">MotoGP</button></div>
+    <h1 id="an-tit">Anatomia de um carro de <span>Fórmula 1</span></h1>
+    <p class="an-lead">Toque nos pontos vermelhos e descubra o que cada peça faz. Tudo explicado em poucas palavras.</p>
     <div class="an-palco">
-      <div class="an-carro" id="an-carro"><img src="assets/img/hero-1-lado.webp" alt="Carro de Fórmula 1 visto de lado (imagem gerada, sem equipe nem marca)"></div>
+      <div class="an-carro" id="an-carro"><img id="an-img" src="assets/img/hero-1-lado.webp" alt="Carro de Fórmula 1 visto de lado (imagem gerada, sem equipe nem marca)"></div>
       <p class="an-dica">Toque nos números</p>
     </div>
     <div class="an-ficha" id="an-ficha"></div>
@@ -81,36 +85,50 @@
   </div>
 </main>
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=264"></script>
-<script src="assets/js/site.js?v=264"></script>
-<script src="assets/js/anatomia-dados.js?v=264"></script>
+<script src="assets/js/dados.js?v=265"></script>
+<script src="assets/js/site.js?v=265"></script>
+<script src="assets/js/anatomia-dados.js?v=265"></script>
 <script>
 (function () {
-  var A = window.ANATOMIA_F1, esc = window.esc, carro = document.getElementById('an-carro');
-  A.pecas.forEach(function (p, i) {
-    var b = document.createElement('button');
-    b.type = 'button'; b.className = 'an-ponto'; b.textContent = i + 1; b.setAttribute('aria-pressed', 'false');
-    b.setAttribute('aria-label', p.nome); b.style.left = p.x + '%'; b.style.top = p.y + '%';
-    b.addEventListener('click', function () { mostrar(i); });
-    carro.appendChild(b);
-  });
-  var cartao = document.createElement('div'); cartao.className = 'an-cartao'; cartao.hidden = true; carro.appendChild(cartao);
+  var esc = window.esc, carro = document.getElementById('an-carro'), img = document.getElementById('an-img'), A;
+  var Q = { f1: { d: window.ANATOMIA_F1, tit: 'Anatomia de um carro de <span>Fórmula 1</span>', alt: 'Carro de Fórmula 1 visto de lado (imagem gerada, sem equipe nem marca)' },
+    motogp: { d: window.ANATOMIA_MOTOGP, tit: 'Anatomia de uma moto de <span>MotoGP</span>', alt: 'Moto de MotoGP na curva (imagem gerada, sem equipe nem marca)' } };
+  var cartao = document.createElement('div'); cartao.className = 'an-cartao'; cartao.hidden = true;
   function mostrar(i) {
     var p = A.pecas[i];
     [].forEach.call(carro.querySelectorAll('.an-ponto'), function (b, k) { b.setAttribute('aria-pressed', k === i); });
     /* no celular o cartão não cabe em cima da foto: rola até a explicação na lista */
-    if (window.matchMedia('(max-width: 760px)').matches) { document.getElementById('an-p' + i).scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+    if (window.matchMedia('(max-width: 760px)').matches) { var li = document.getElementById('an-p' + i); if (li && mostrar.tocou) li.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
     cartao.innerHTML = '<h2>' + esc(p.nome) + '</h2><p class="an-num">' + esc(p.numero) + '</p><p>' + esc(p.texto) + '</p>';
     cartao.hidden = false;
-    /* o cartão fica do lado oposto ao ponto, para não cobrir a peça */
+    if (A === Q.motogp.d) { cartao.style.left = 'auto'; cartao.style.right = '2%'; cartao.style.top = '46%'; return; } /* a moto: o lado direito da foto é pista vazia */
+    /* o carro: cartão na parte escura de cima, do lado oposto ao ponto */
     cartao.style.left = p.x < 50 ? 'auto' : '3%'; cartao.style.right = p.x < 50 ? '3%' : 'auto';
-    cartao.style.top = '3%'; /* sempre na parte escura de cima da foto */
+    cartao.style.top = '3%';
   }
-  document.getElementById('an-ficha').innerHTML = A.ficha.map(function (f) { return '<div><b>' + esc(f[0]) + '</b><span>' + esc(f[1]) + '</span></div>'; }).join('');
-  document.getElementById('an-lista').innerHTML = A.pecas.map(function (p, i) {
-    return '<li id="an-p' + i + '"><h3><i>' + (i + 1) + '</i>' + esc(p.nome) + '</h3><p class="an-num">' + esc(p.numero) + '</p><p>' + esc(p.texto) + '</p></li>';
-  }).join('');
-  mostrar(0);
+  function abrir(q) {
+    var o = Q[q] || Q.f1; A = o.d;
+    [].forEach.call(document.querySelectorAll('.an-abas button'), function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-q') === q); });
+    document.getElementById('an-tit').innerHTML = o.tit;
+    img.src = A.foto; img.alt = o.alt; carro.style.aspectRatio = A.w + ' / ' + A.h;
+    [].forEach.call(carro.querySelectorAll('.an-ponto'), function (b) { b.remove(); });
+    A.pecas.forEach(function (p, i) {
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'an-ponto'; b.textContent = i + 1; b.setAttribute('aria-pressed', 'false');
+      b.setAttribute('aria-label', p.nome); b.style.left = p.x + '%'; b.style.top = p.y + '%';
+      b.addEventListener('click', function () { mostrar.tocou = true; mostrar(i); });
+      carro.appendChild(b);
+    });
+    carro.appendChild(cartao);
+    document.getElementById('an-ficha').innerHTML = A.ficha.map(function (f) { return '<div><b>' + esc(f[0]) + '</b><span>' + esc(f[1]) + '</span></div>'; }).join('');
+    document.getElementById('an-lista').innerHTML = A.pecas.map(function (p, i) {
+      return '<li id="an-p' + i + '"><h3><i>' + (i + 1) + '</i>' + esc(p.nome) + '</h3><p class="an-num">' + esc(p.numero) + '</p><p>' + esc(p.texto) + '</p></li>';
+    }).join('');
+    mostrar.tocou = false; mostrar(0);
+    if (history.replaceState) history.replaceState(null, '', q === 'motogp' ? '#motogp' : location.pathname);
+  }
+  [].forEach.call(document.querySelectorAll('.an-abas button'), function (b) { b.addEventListener('click', function () { abrir(b.getAttribute('data-q')); }); });
+  abrir(location.hash === '#motogp' ? 'motogp' : 'f1');
 })();
 </script>
 </body>
