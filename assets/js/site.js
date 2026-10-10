@@ -107,7 +107,6 @@
     }
 
     topo.addEventListener('click', function (e) {
-      var bx = e.target.closest('a[href="#box"]'); if (bx) { e.preventDefault(); if (window.BOX_ABRIR) window.BOX_ABRIR(true); return; }
       var l = e.target.closest('a[href="#categorias-menu"], a[href="#bate-papo"]'); if (!l) return;
       e.preventDefault();
       if (l.getAttribute('href') === '#categorias-menu') { var t = topo.querySelector('.todas'); if (t) t.click(); }
@@ -201,12 +200,12 @@
     if (!r || r.logado || r.semServidor || /entrar|conta|redefinir|planos/.test(location.pathname)) return;
     var volta = encodeURIComponent((location.pathname.split('/').pop() || 'index.html'));
     var html = '<aside class="convite-conta" aria-label="Crie sua conta grátis"><div class="convite-txt"><b>Crie sua conta grátis</b>' +
-      '<span>Tudo no site é grátis. Com a conta você também <em>conversa no chat da torcida</em>, fala com o Box e recebe os alertas de largada.</span></div>' +
+      '<span>Tudo no site é grátis. Com a conta você também <em>conversa no chat da torcida</em> e recebe os alertas de largada.</span></div>' +
       '<a class="convite-bt" href="entrar.html?volta=' + volta + '#criar">Criar conta grátis</a></aside>';
     function colocar(alvo, onde) { if (alvo) alvo.insertAdjacentHTML(onde, '<div class="moldura convite-vaga">' + html + '</div>'); }
     if (document.body.getAttribute('data-cat')) colocar(document.getElementById('paineis'), 'afterend');
     else if (document.getElementById('feed')) { var f = document.getElementById('feed'); f.insertAdjacentHTML('beforeend', html); }
-    else if (document.querySelector('.box-faixa')) colocar(document.querySelector('.box-faixa'), 'afterend');
+    else if (document.getElementById('entrada')) colocar(document.getElementById('entrada'), 'afterend');
     else if (document.getElementById('oa')) colocar(document.querySelector('#oa .moldura'), 'beforeend');
   });
 
@@ -240,13 +239,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=251'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=251'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=251'; appJs.defer = true; document.body.appendChild(appJs);
-    /* Box: assistente de voz (box.js) */
-    var boxCss = document.createElement('link'); boxCss.rel = 'stylesheet'; boxCss.href = 'assets/css/box.css?v=251'; document.head.appendChild(boxCss);
-    var boxJs = document.createElement('script'); boxJs.src = 'assets/js/box.js?v=251'; boxJs.defer = true; document.body.appendChild(boxJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=251'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=252'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=252'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=252'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=252'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

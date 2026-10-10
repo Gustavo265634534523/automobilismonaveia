@@ -61,7 +61,7 @@
   function linha(m) {
     var selo = m.box ? '<span class="chat-selo-box">robô do site</span>' : ''; /* tudo grátis: sem selo de plano; o Box tem o dele */
     if (m.box) return '<li class="chat-msg chat-box" data-id="' + m.id + '"><i class="chat-av chat-av-box" aria-hidden="true"></i>' +
-      '<div><p class="chat-quem"><b>Box</b>' + selo + '<time datetime="' + esc(m.em) + '">' + hora(m.em) + '</time></p>' +
+      '<div><p class="chat-quem"><b>Na Veia</b>' + selo + '<time datetime="' + esc(m.em) + '">' + hora(m.em) + '</time></p>' +
       '<p class="chat-texto">' + esc(m.texto) + '</p><div class="reacoes" data-alvo="m:' + m.id + '"></div></div></li>';
     var acoes = '';
     if (m.minha || info.dono) acoes += '<button type="button" class="chat-acao" data-apagar="' + m.id + '">apagar</button>';

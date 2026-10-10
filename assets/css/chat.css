@@ -130,12 +130,12 @@ html.chat-aberto .box-bt { display: none; }
 .enq-op:disabled { cursor: default; }
 .enq-pe { margin: 8px 0 0; font-size: 13px; color: #8e979f; }
 /* botão do chat no dia de corrida: aparece pulsando, acima do Box */
-.chat-bt.chat-vivo { display: inline-flex !important; bottom: 120px; right: 18px; padding: 10px 14px; font-size: 15px; animation: chat-vivo-brilho 2s ease-in-out infinite; }
+.chat-bt.chat-vivo { display: inline-flex !important; bottom: 18px; right: 18px; padding: 10px 14px; font-size: 15px; animation: chat-vivo-brilho 2s ease-in-out infinite; }
 .chat-aberto .chat-bt.chat-vivo, body:has(.aviso-priv.ativo) .chat-bt.chat-vivo { display: none !important; }
 .chat-vivo-ponto { display: inline-block; width: 9px; height: 9px; margin-right: 7px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 0 rgba(255,255,255,.7); animation: chat-vivo-ponto 1.4s infinite; vertical-align: 1px; }
 @keyframes chat-vivo-ponto { 70% { box-shadow: 0 0 0 9px rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
 @keyframes chat-vivo-brilho { 50% { box-shadow: 0 0 26px rgba(227,52,60,.75), 0 8px 24px rgba(0,0,0,.45); } }
-@media (max-width: 760px) { .chat-bt.chat-vivo { bottom: 150px; right: 12px; font-size: 14px; } }
+@media (max-width: 760px) { .chat-bt.chat-vivo { bottom: 14px; right: 12px; font-size: 14px; } }
 @media (prefers-reduced-motion: reduce) { .chat-bt.chat-vivo, .chat-vivo-ponto { animation: none; } }
 /* enquete dentro do chat: mais compacta, para sobrar espaço para as mensagens */
 .chat-enq { padding: 10px 14px; max-height: 34vh; }
