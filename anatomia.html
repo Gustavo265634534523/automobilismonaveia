@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=265"></script>
-<title>Anatomia de um carro de F1 e de uma moto de MotoGP: peça por peça | Na Veia</title>
-<meta name="description" content="Como funciona um carro de F1 e uma moto de MotoGP por dentro: asa dianteira, halo, motor híbrido de 1.000 cv, freios a 1.000 °C, assoalho, câmbio e asa traseira. Toque em cada peça e entenda.">
+<script src="assets/js/idioma.js?v=266"></script>
+<title>Anatomia de um carro de F1, da Stock Car e de uma moto de MotoGP: peça por peça | Na Veia</title>
+<meta name="description" content="Como funciona um carro de F1, um carro da Stock Car e uma moto de MotoGP por dentro: asa dianteira, halo, motor híbrido de 1.000 cv, freios a 1.000 °C, assoalho, câmbio e asa traseira. Toque em cada peça e entenda.">
 <meta name="theme-color" content="#141619">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=265">
+<link rel="stylesheet" href="assets/css/estilo.css?v=266">
 <style>
 .an-pagina { padding: calc(var(--topo) + 36px) 0 70px; }
 .an-rot { margin: 0 0 6px; font: 800 13px var(--texto); letter-spacing: .14em; text-transform: uppercase; color: var(--sangue-vivo); }
@@ -72,7 +72,7 @@
 <main class="an-pagina" id="an">
   <div class="moldura">
     <p class="an-rot">Guia · como funciona</p>
-    <div class="an-abas" role="group" aria-label="Escolha"><button type="button" data-q="f1" aria-pressed="true">Fórmula 1</button><button type="button" data-q="motogp" aria-pressed="false">MotoGP</button></div>
+    <div class="an-abas" role="group" aria-label="Escolha"><button type="button" data-q="f1" aria-pressed="true">Fórmula 1</button><button type="button" data-q="motogp" aria-pressed="false">MotoGP</button><button type="button" data-q="stock" aria-pressed="false">Stock Car</button></div>
     <h1 id="an-tit">Anatomia de um carro de <span>Fórmula 1</span></h1>
     <p class="an-lead">Toque nos pontos vermelhos e descubra o que cada peça faz. Tudo explicado em poucas palavras.</p>
     <div class="an-palco">
@@ -85,14 +85,15 @@
   </div>
 </main>
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=265"></script>
-<script src="assets/js/site.js?v=265"></script>
-<script src="assets/js/anatomia-dados.js?v=265"></script>
+<script src="assets/js/dados.js?v=266"></script>
+<script src="assets/js/site.js?v=266"></script>
+<script src="assets/js/anatomia-dados.js?v=266"></script>
 <script>
 (function () {
   var esc = window.esc, carro = document.getElementById('an-carro'), img = document.getElementById('an-img'), A;
   var Q = { f1: { d: window.ANATOMIA_F1, tit: 'Anatomia de um carro de <span>Fórmula 1</span>', alt: 'Carro de Fórmula 1 visto de lado (imagem gerada, sem equipe nem marca)' },
-    motogp: { d: window.ANATOMIA_MOTOGP, tit: 'Anatomia de uma moto de <span>MotoGP</span>', alt: 'Moto de MotoGP na curva (imagem gerada, sem equipe nem marca)' } };
+    motogp: { d: window.ANATOMIA_MOTOGP, tit: 'Anatomia de uma moto de <span>MotoGP</span>', alt: 'Moto de MotoGP na curva (imagem gerada, sem equipe nem marca)' },
+    stock: { d: window.ANATOMIA_STOCK, tit: 'Anatomia de um carro da <span>Stock Car</span>', alt: 'Dois carros da Stock Car disputando posição (imagem gerada, sem equipe nem marca)' } };
   var cartao = document.createElement('div'); cartao.className = 'an-cartao'; cartao.hidden = true;
   function mostrar(i) {
     var p = A.pecas[i];
@@ -102,6 +103,7 @@
     cartao.innerHTML = '<h2>' + esc(p.nome) + '</h2><p class="an-num">' + esc(p.numero) + '</p><p>' + esc(p.texto) + '</p>';
     cartao.hidden = false;
     if (A === Q.motogp.d) { cartao.style.left = 'auto'; cartao.style.right = '2%'; cartao.style.top = '46%'; return; } /* a moto: o lado direito da foto é pista vazia */
+    if (A === Q.stock.d) { cartao.style.left = 'auto'; cartao.style.right = '3%'; cartao.style.top = '3%'; return; } /* a Stock: os pontos de cima ficam à esquerda */
     /* o carro: cartão na parte escura de cima, do lado oposto ao ponto */
     cartao.style.left = p.x < 50 ? 'auto' : '3%'; cartao.style.right = p.x < 50 ? '3%' : 'auto';
     cartao.style.top = '3%';
@@ -125,10 +127,10 @@
       return '<li id="an-p' + i + '"><h3><i>' + (i + 1) + '</i>' + esc(p.nome) + '</h3><p class="an-num">' + esc(p.numero) + '</p><p>' + esc(p.texto) + '</p></li>';
     }).join('');
     mostrar.tocou = false; mostrar(0);
-    if (history.replaceState) history.replaceState(null, '', q === 'motogp' ? '#motogp' : location.pathname);
+    if (history.replaceState) history.replaceState(null, '', q !== 'f1' ? '#' + q : location.pathname);
   }
   [].forEach.call(document.querySelectorAll('.an-abas button'), function (b) { b.addEventListener('click', function () { abrir(b.getAttribute('data-q')); }); });
-  abrir(location.hash === '#motogp' ? 'motogp' : 'f1');
+  abrir(Q[location.hash.slice(1)] ? location.hash.slice(1) : 'f1');
 })();
 </script>
 </body>
