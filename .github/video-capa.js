@@ -50,10 +50,18 @@ function tituloOutro(t) {
   let evento2 = evento, m;
   if ((m = t.match(/^ET\.\d+ \| ([^|]+)/i))) evento2 = m[1].trim().toLowerCase().replace(/(^|\s)\S/g, s => s.toUpperCase());
   else if ((m = t.match(/DTM ([A-Z][\w-]*[a-z][\w-]*)/))) evento2 = m[1];
+  else if ((m = t.match(/#(\w+?)WorldSBK/))) evento2 = m[1];
   evento = evento2;
   let o = 'Melhores momentos';
   if (/Full Race|CORRIDA|LIVE:.*Race/i.test(t)) o = 'Corrida completa';
-  else if (/QUALI/i.test(t)) o = /Highlights/i.test(t) ? 'Melhores momentos da classificação' : 'Classificação completa';
+  else if (/LIVE:/.test(t) && /Qualifying/i.test(t)) o = 'Classificação completa';
+  else if (/QUALI|Pole/i.test(t)) o = /Highlights/i.test(t) ? 'Melhores momentos da classificação' : /QUALI/.test(t) && !/Highlights/i.test(t) ? 'Classificação completa' : 'A briga pela pole';
+  else if (/crash|hit|incident|clash|contact|collision|spin|lock-?up|avoids|chaos|mayhem|drama|tough one|heavy/i.test(t)) o = 'Batida e confusão na pista';
+  else if (/overtake|move|pass(es)?\b|bump drafting/i.test(t)) o = 'Ultrapassagem';
+  else if (/battle|fight|duel/i.test(t)) o = 'Disputa na pista';
+  else if (/race start|\bstart\b|lap 1|turn 1/i.test(t)) o = 'A largada';
+  else if (/onboard/i.test(t)) o = 'Câmera a bordo';
+  else if (/wins?\b|victory|champion|title/i.test(t)) o = 'A vitória';
   else if (/Sprint/i.test(t)) o = 'Melhores momentos da sprint';
   else if (/Final Day/i.test(t)) o = 'Melhores momentos do último dia';
   else if (/Day (\d)/i.test(t)) o = 'Melhores momentos do dia ' + t.match(/Day (\d)/i)[1];
@@ -61,19 +69,23 @@ function tituloOutro(t) {
   else if (/Race/i.test(t)) o = 'Melhores momentos da corrida';
   return o + (evento ? ' · ' + evento : '');
 }
+/* além de corrida e classificação, valem lances da pista (batida, ultrapassagem, largada...); bastidores e entrevistas não */
+const LANCE = /Highlights|Full Race|Qualifying|QUALI|CORRIDA|Pole|crash|hit|incident|clash|contact|spin|lock-?up|chaos|mayhem|drama|overtake|move|battle|fight|duel|race start|\bstart\b|lap 1|turn 1|onboard|wins?\b|victory|Race \d|Sprint/i;
+const NAO = /Press|Practice|Behind|Interview|Podcast|Workout|Kids|Answer|Celebration of Life|Build ?Up|Teaser|reveals|Inside|Film Room|Sounds|Memories|Reacts?|Reaction|drummer|photoshop|Merch|Trailer|Preview|Live Stream|ENGLISH|Season(?! Finale)/i;
 async function outros() {
   const res = [];
   for (const c of OUTROS) {
     const r = await fetch('https://www.youtube.com/feeds/videos.xml?channel_id=' + c.canal, { headers: { 'User-Agent': 'NaVeia/1.0 (automobilismonaveia.com.br)' } }).catch(() => null);
     if (!r || !r.ok) continue;
     const xml = await r.text();
-    const v = xml.split('<entry>').slice(1).map(e => ({
+    /* até 2 por categoria: os mais recentes, com os de corrida e classificação na frente */
+    const vs = xml.split('<entry>').slice(1).map(e => ({
       id: (e.match(/<yt:videoId>([^<]+)/) || [])[1],
       original: html((e.match(/<title>([^<]+)/) || [])[1] || ''),
       publicado: (e.match(/<published>([^<]+)/) || [])[1]
-    })).filter(x => x.id && x.publicado && c.ok.test(x.original) && !c.fora.test(x.original) && Date.now() - Date.parse(x.publicado) < 7 * 864e5)
-      .sort((a, b) => Date.parse(b.publicado) - Date.parse(a.publicado))[0];
-    if (v) res.push({ cat: c.cat, nome: c.nome, id: v.id, titulo: tituloOutro(v.original), texto: 'No canal oficial ' + (c.art || 'da') + ' ' + c.nome + '.', original: v.original, publicado: v.publicado });
+    })).filter(x => x.id && x.publicado && (c.ok.test(x.original) || LANCE.test(x.original)) && !c.fora.test(x.original) && !NAO.test(x.original) && Date.now() - Date.parse(x.publicado) < 7 * 864e5)
+      .sort((a, b) => (c.ok.test(b.original) - c.ok.test(a.original)) || Date.parse(b.publicado) - Date.parse(a.publicado)).slice(0, 2);
+    vs.forEach(v => res.push({ cat: c.cat, nome: c.nome, id: v.id, titulo: tituloOutro(v.original), texto: 'No canal oficial ' + (c.art || 'da') + ' ' + c.nome + '.', original: v.original, publicado: v.publicado }));
   }
   return res.sort((a, b) => Date.parse(b.publicado) - Date.parse(a.publicado));
 }
