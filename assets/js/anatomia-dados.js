@@ -309,3 +309,31 @@ window.ANATOMIA_PORSCHE = {
   ],
   ficha: [['510 cv', 'motor 4.0 de 6 cilindros'], ['1.260 kg', 'com o piloto'], ['8.750', 'rpm (limite)'], ['6 marchas', 'câmbio sequencial'], ['1 modelo', 'todos os carros iguais']]
 };
+
+/* IMSA: protótipo genérico da classe GTP (assets/img/cat/imsa.jpg, imagem gerada, sem equipe nem marca). Regras de 2026 */
+window.ANATOMIA_IMSA = {
+  foto: 'assets/img/cat/imsa.jpg', w: 1344, h: 752,
+  pecas: [
+    { id: 'hibrido', x: 4, y: 52, nome: 'Híbrido', numero: '50 kW',
+      texto: 'Nos carros feitos pela regra LMDh, o sistema híbrido é igual para todos: um motor elétrico de 50 kW junto do câmbio, que recupera energia nas freadas e devolve na aceleração.' },
+    { id: 'asa', x: 8, y: 32, nome: 'Asa traseira', numero: 'larga e baixa',
+      texto: 'A asa larga segura a traseira nas curvas. Em pistas de alta velocidade, como Daytona, ela fica mais baixa para o carro ganhar velocidade nas retas.' },
+    { id: 'motor', x: 14, y: 45, nome: 'Motor', numero: 'cada marca o seu',
+      texto: 'Cada fábrica usa o seu motor, quase sempre V6 ou V8 com turbo. Somando o motor e a parte elétrica, o limite é de 500 kW, perto de 680 cavalos.' },
+    { id: 'pneu', x: 24, y: 60, nome: 'Pneus', numero: 'Michelin',
+      texto: 'Todos usam pneus Michelin. Nas corridas longas, os pneus muitas vezes aguentam mais de um turno seguido, e economizar pneu vira estratégia.' },
+    { id: 'barbatana', x: 32, y: 20, nome: 'Barbatana', numero: 'estabilidade',
+      texto: 'A barbatana em cima do carro ajuda a mantê-lo reto e diminui o risco de ele levantar voo se rodar em alta velocidade.' },
+    { id: 'farol', x: 37, y: 57, nome: 'Faróis', numero: 'de LED',
+      texto: 'As corridas longas, como as 24 Horas de Daytona e as 12 Horas de Sebring, entram pela noite. Os faróis de LED iluminam a pista e ajudam a reconhecer cada carro no escuro.' },
+    { id: 'entrada', x: 38, y: 25, nome: 'Entrada de ar', numero: 'no teto',
+      texto: 'A entrada no teto leva ar fresco para o motor, que fica atrás do piloto.' },
+    { id: 'classes', x: 45, y: 10, nome: '4 classes', numero: 'juntas na pista',
+      texto: 'No IMSA, quatro classes correm juntas: os protótipos GTP e LMP2 e os carros GT das classes GTD Pro e GTD. Os protótipos precisam passar os GTs o tempo todo, o que deixa a corrida cheia de ultrapassagens.' },
+    { id: 'cockpit', x: 50, y: 35, nome: 'Cockpit fechado', numero: '3 ou 4 pilotos',
+      texto: 'O cockpit é fechado, com teto e para-brisa. Nas corridas longas, três ou quatro pilotos dividem o mesmo carro e se revezam ao volante.' },
+    { id: 'bico', x: 70, y: 72, nome: 'Bico', numero: 'gruda no chão',
+      texto: 'O bico e o fundo do carro aceleram o ar por baixo e puxam o carro contra o asfalto, dando aderência nas curvas rápidas.' }
+  ],
+  ficha: [['500 kW', '≈ 680 cv (máximo)'], ['1.030 kg', 'peso mínimo (sem piloto)'], ['4 classes', 'na pista ao mesmo tempo'], ['24 horas', 'em Daytona'], ['50 kW', 'híbrido padrão (LMDh)']]
+};
