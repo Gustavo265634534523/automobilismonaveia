@@ -178,8 +178,7 @@
         '<img src="https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg" alt="" loading="lazy">' +
         '<span class="tl-video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>' +
         '<span class="tl-video-tit">' + v.titulo + '<small>Assistir no YouTube, canal oficial da Fórmula 1 ↗</small></span></a>' +
-        (n > 1 ? '<button type="button" class="tl-video-seta tl-video-ant" aria-label="Vídeo anterior">‹</button><button type="button" class="tl-video-seta tl-video-prox" aria-label="Próximo vídeo">›</button>' +
-          '<span class="tl-video-conta">' + (atual + 1) + ' / ' + n + '</span>' : '') + '</div>';
+        (n > 1 ? '<button type="button" class="tl-video-seta tl-video-ant" aria-label="Vídeo anterior">‹</button><button type="button" class="tl-video-seta tl-video-prox" aria-label="Próximo vídeo">›</button>' : '') + '</div>';
       if (n < 2) return;
       caixa.querySelector('.tl-video-ant').addEventListener('click', function () { atual = (atual + n - 1) % n; mostrar(); });
       caixa.querySelector('.tl-video-prox').addEventListener('click', function () { atual = (atual + 1) % n; mostrar(); });
