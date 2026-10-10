@@ -167,3 +167,15 @@
 .senha-olho:focus-visible { outline: 2px solid var(--sangue-vivo); outline-offset: -2px; }
 .senha-olho svg { width: 22px; height: 22px; }
 .ct-form-mini select { padding: 10px 12px; font: 16px var(--texto); color: var(--cromo); background: var(--asfalto); border: 1px solid var(--linha); border-radius: 0; text-transform: none; letter-spacing: 0; }
+
+/* Configurações da conta (trocar senha e excluir): fechado até a pessoa clicar */
+.ct-config { grid-column: 1 / -1; border: 1px solid var(--linha); background: var(--carbono); }
+.ct-config summary { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding: 16px 20px; cursor: pointer; list-style: none; font: 800 17px var(--texto); }
+.ct-config summary::-webkit-details-marker { display: none; }
+.ct-config summary::after { content: "▾"; margin-left: auto; color: var(--aco); transition: transform .2s; }
+.ct-config[open] summary::after { transform: rotate(180deg); }
+.ct-config summary svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; }
+.ct-config summary small { font: 600 13px var(--texto); color: var(--aco); }
+.ct-config summary:hover { color: #fff; background: var(--carbono-2); }
+.ct-config-in { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 0 16px 16px; }
+@media (max-width: 900px) { .ct-config-in { grid-template-columns: 1fr; } }

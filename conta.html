@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=288"></script>
+<script src="assets/js/idioma.js?v=289"></script>
 <title>Minha conta | Automobilismo Na Veia</title>
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#141619">
@@ -13,9 +13,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Exo+2:wght@700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=288">
-<link rel="stylesheet" href="assets/css/planos.css?v=288">
-<link rel="stylesheet" href="assets/css/conta.css?v=288">
+<link rel="stylesheet" href="assets/css/estilo.css?v=289">
+<link rel="stylesheet" href="assets/css/planos.css?v=289">
+<link rel="stylesheet" href="assets/css/conta.css?v=289">
 </head>
 <body data-pagina="conta">
 <a class="pular" href="#conta">Pular para o conteúdo</a>
@@ -68,35 +68,40 @@
         <div id="ct-pagamentos"><p class="ct-sub">Carregando…</p></div>
       </section>
 
-      <section class="ct-bloco" aria-labelledby="ct-senha-t">
-        <h2 id="ct-senha-t">Trocar senha</h2>
-        <form class="ct-form-mini" id="f-senha" novalidate>
-          <label>Senha atual<input type="password" name="atual" autocomplete="current-password" required></label>
-          <label>Senha nova<input type="password" name="nova" autocomplete="new-password" minlength="8" required><small>Pelo menos 8 caracteres.</small></label>
-          <label>Repita a senha nova<input type="password" name="nova2" autocomplete="new-password" minlength="8" required></label>
-          <p class="ct-erro" role="alert" hidden></p><p class="ct-ok" role="status" hidden></p>
-          <button class="pl-botao" type="submit">Trocar senha</button>
-        </form>
-      </section>
+      <details class="ct-config">
+        <summary><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>Configurações da conta<small>Trocar senha · Excluir conta</small></summary>
+        <div class="ct-config-in">
+          <section class="ct-bloco" aria-labelledby="ct-senha-t">
+            <h2 id="ct-senha-t">Trocar senha</h2>
+            <form class="ct-form-mini" id="f-senha" novalidate>
+              <label>Senha atual<input type="password" name="atual" autocomplete="current-password" required></label>
+              <label>Senha nova<input type="password" name="nova" autocomplete="new-password" minlength="8" required><small>Pelo menos 8 caracteres.</small></label>
+              <label>Repita a senha nova<input type="password" name="nova2" autocomplete="new-password" minlength="8" required></label>
+              <p class="ct-erro" role="alert" hidden></p><p class="ct-ok" role="status" hidden></p>
+              <button class="pl-botao" type="submit">Trocar senha</button>
+            </form>
+          </section>
 
-      <section class="ct-bloco ct-perigo" aria-labelledby="ct-excluir-t">
-        <h2 id="ct-excluir-t">Excluir minha conta</h2>
-        <p class="ct-sub">Apaga a sua conta e todos os seus dados. Se você tem assinatura no cartão, ela é cancelada. Não dá para desfazer.</p>
-        <button type="button" class="ct-mini ct-perigo-btn" id="ct-excluir-abrir">Excluir minha conta</button>
-        <form class="ct-form-mini" id="f-excluir" hidden novalidate>
-          <label>Digite sua senha para confirmar<input type="password" name="senha" autocomplete="current-password" required></label>
-          <p class="ct-erro" role="alert" hidden></p>
-          <div class="ct-form-acoes"><button class="pl-botao ct-perigo-btn" type="submit">Excluir para sempre</button><button type="button" class="ct-link" id="ct-excluir-cancelar">Cancelar</button></div>
-        </form>
-      </section>
+          <section class="ct-bloco ct-perigo" aria-labelledby="ct-excluir-t">
+            <h2 id="ct-excluir-t">Excluir minha conta</h2>
+            <p class="ct-sub">Apaga a sua conta e todos os seus dados. Se você tem assinatura no cartão, ela é cancelada. Não dá para desfazer.</p>
+            <button type="button" class="ct-mini ct-perigo-btn" id="ct-excluir-abrir">Excluir minha conta</button>
+            <form class="ct-form-mini" id="f-excluir" hidden novalidate>
+              <label>Digite sua senha para confirmar<input type="password" name="senha" autocomplete="current-password" required></label>
+              <p class="ct-erro" role="alert" hidden></p>
+              <div class="ct-form-acoes"><button class="pl-botao ct-perigo-btn" type="submit">Excluir para sempre</button><button type="button" class="ct-link" id="ct-excluir-cancelar">Cancelar</button></div>
+            </form>
+          </section>
+        </div>
+      </details>
 
     </div>
   </div>
 </main>
 
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=288"></script>
-<script src="assets/js/site.js?v=288"></script>
-<script src="assets/js/conta.js?v=288"></script>
+<script src="assets/js/dados.js?v=289"></script>
+<script src="assets/js/site.js?v=289"></script>
+<script src="assets/js/conta.js?v=289"></script>
 </body>
 </html>
