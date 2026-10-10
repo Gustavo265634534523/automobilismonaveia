@@ -85,3 +85,31 @@ window.ANATOMIA_STOCK = {
   ],
   ficha: [['≈ 480 cv', 'de potência'], ['V8 5.7', 'motor aspirado'], ['≈ 1.100 kg', 'de peso'], ['6 marchas', 'câmbio sequencial'], ['1979', 'primeira temporada']]
 };
+
+/* Fórmula E: carro genérico da categoria (assets/img/cat/fe.jpg, imagem gerada, sem equipe nem marca). Números do carro novo (GEN4), temporada 2026/27 */
+window.ANATOMIA_FE = {
+  foto: 'assets/img/cat/fe.jpg', w: 1344, h: 752,
+  pecas: [
+    { id: 'asa', x: 49, y: 41, nome: 'Asa traseira', numero: 'baixa pressão',
+      texto: 'É bem menor que a de um F1. Com pouca asa, o carro corta melhor o ar e gasta menos energia, o que é essencial num carro elétrico.' },
+    { id: 'regen', x: 50, y: 53, nome: 'Regeneração', numero: 'até 700 kW',
+      texto: 'Na freada, os motores elétricos funcionam ao contrário e viram geradores: transformam a velocidade em energia para a bateria. Uma boa parte da energia da corrida é recuperada assim.' },
+    { id: 'pneu', x: 61, y: 58, nome: 'Pneus', numero: 'aderência na rua',
+      texto: 'Feitos para o asfalto de cidade, que é cheio de ondulações, faixas pintadas e tampas de bueiro, bem diferente de um autódromo.' },
+    { id: 'piloto', x: 67.5, y: 45, nome: 'Piloto', numero: 'gerencia a energia',
+      texto: 'Não basta acelerar: o piloto precisa economizar energia para chegar ao fim. Muitas vezes ele tira o pé antes da freada de propósito, para gastar menos.' },
+    { id: 'halo', x: 72, y: 39, nome: 'Halo', numero: 'protege a cabeça',
+      texto: 'O arco em cima do cockpit protege a cabeça do piloto em batidas e contra peças soltas. É obrigatório nos carros de fórmula da FIA.' },
+    { id: 'bateria', x: 75, y: 53, nome: 'Bateria', numero: '55 kWh',
+      texto: 'Fica atrás do piloto e guarda a energia da corrida inteira. No carro novo são 55 kWh para a corrida, somando o que vem da bateria cheia com o que é recuperado.' },
+    { id: 'bico', x: 80, y: 61, nome: 'Bico', numero: 'nariz baixo',
+      texto: 'O bico baixo corta o ar na frente e manda o fluxo para baixo e para os lados do carro.' },
+    { id: 'tracao', x: 88, y: 52, nome: 'Tração', numero: 'nas 4 rodas',
+      texto: 'O carro novo tem motor elétrico também na frente, com tração nas 4 rodas o tempo todo. Por isso ele sai de 0 a 100 km/h em cerca de 1,8 segundo, mais rápido que um F1.' },
+    { id: 'rua', x: 92, y: 36, nome: 'Pista de rua', numero: 'no meio da cidade',
+      texto: 'A Fórmula E corre em ruas fechadas no centro das cidades, com muros colados na pista. Não há espaço para errar.' },
+    { id: 'asad', x: 93, y: 65, nome: 'Asa dianteira', numero: 'aguenta toques',
+      texto: 'Nas ruas estreitas, os toques entre os carros são comuns. A asa dianteira é feita para aguentar pequenas batidas sem quebrar.' }
+  ],
+  ficha: [['600 kW', '≈ 816 cv no modo ataque'], ['1,8 s', 'de 0 a 100 km/h'], ['335 km/h', 'velocidade máxima'], ['700 kW', 'regeneração na freada'], ['4x4', 'tração nas 4 rodas']]
+};
