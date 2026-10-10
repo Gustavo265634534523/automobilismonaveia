@@ -113,3 +113,31 @@ window.ANATOMIA_FE = {
   ],
   ficha: [['600 kW', '≈ 816 cv no modo ataque'], ['1,8 s', 'de 0 a 100 km/h'], ['335 km/h', 'velocidade máxima'], ['700 kW', 'regeneração na freada'], ['4x4', 'tração nas 4 rodas']]
 };
+
+/* Fórmula 2: carro genérico da categoria (assets/img/cat/f2.jpg, imagem gerada, sem equipe nem marca). Carro usado desde 2024 */
+window.ANATOMIA_F2 = {
+  foto: 'assets/img/cat/f2.jpg', w: 1344, h: 752,
+  pecas: [
+    { id: 'pneu', x: 46, y: 50, nome: 'Pneus', numero: '18 polegadas',
+      texto: 'São da Pirelli, com aro de 18 polegadas, como na F1. Os pilotos já aprendem a cuidar do desgaste e a escolher a hora certa de parar nos boxes.' },
+    { id: 'asa', x: 54, y: 32, nome: 'Asa traseira', numero: 'tem DRS',
+      texto: 'Segura a traseira no chão nas curvas. Nas retas, o piloto que está a menos de um segundo do carro da frente pode abrir a asa (DRS) para ganhar velocidade e tentar a ultrapassagem.' },
+    { id: 'freio', x: 55, y: 52, nome: 'Freios', numero: 'discos de carbono',
+      texto: 'Os discos são de carbono, como num F1. Eles funcionam melhor muito quentes e param o carro em pouquíssimos metros.' },
+    { id: 'motor', x: 64.5, y: 25, nome: 'Motor', numero: 'V6 3.4 turbo',
+      texto: 'É um V6 de 3,4 litros com turbo, com cerca de 620 cavalos. A entrada de ar fica acima da cabeça do piloto. O motor é igual para todas as equipes.' },
+    { id: 'piloto', x: 66.5, y: 34, nome: 'Piloto', numero: 'a escola da F1',
+      texto: 'A F2 é o último degrau antes da F1. Corre nos mesmos fins de semana e nas mesmas pistas, e muitos campeões da F1 passaram por aqui.' },
+    { id: 'halo', x: 72, y: 29, nome: 'Halo', numero: 'protege a cabeça',
+      texto: 'O arco em cima do cockpit protege a cabeça do piloto em batidas e contra peças soltas, igual ao da F1.' },
+    { id: 'bico', x: 77, y: 50, nome: 'Bico', numero: 'chassi de carbono',
+      texto: 'Todas as equipes usam o mesmo chassi, feito pela Dallara em fibra de carbono. Assim, quem faz a diferença é o piloto e o acerto do carro.' },
+    { id: 'laterais', x: 79, y: 38, nome: 'Laterais', numero: 'radiadores',
+      texto: 'Nas laterais ficam os radiadores, que esfriam o motor com o ar que entra pelas aberturas.' },
+    { id: 'suspensao', x: 85, y: 42, nome: 'Suspensão', numero: 'braços finos',
+      texto: 'Os braços finos ligam as rodas ao carro. Eles são fininhos para atrapalhar o mínimo possível o ar que passa por ali.' },
+    { id: 'asad', x: 91, y: 55, nome: 'Asa dianteira', numero: 'pressão no bico',
+      texto: 'Gera pressão para baixo na frente do carro e manda o ar para o resto do carro. O carro de 2024 foi feito para ficar mais parecido com o F1 atual.' }
+  ],
+  ficha: [['620 cv', 'de potência'], ['V6 3.4', 'turbo'], ['795 kg', 'com piloto e gasolina'], ['≈ 335 km/h', 'velocidade máxima'], ['6 marchas', 'câmbio sequencial']]
+};
