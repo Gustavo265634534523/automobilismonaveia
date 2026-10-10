@@ -169,3 +169,31 @@ window.ANATOMIA_F3 = {
   ],
   ficha: [['380 cv', 'de potência'], ['V6 3.4', 'aspirado'], ['673 kg', 'com o piloto'], ['300 km/h', 'velocidade máx. (aprox.)'], ['6 marchas', 'câmbio sequencial']]
 };
+
+/* IndyCar: carro genérico da categoria (assets/img/cat/indy.jpg, imagem gerada, sem equipe nem marca). Números de 2026 */
+window.ANATOMIA_INDY = {
+  foto: 'assets/img/cat/indy.jpg', w: 1344, h: 752,
+  pecas: [
+    { id: 'oval', x: 16, y: 30, nome: 'Ovais', numero: 'muro colado',
+      texto: 'A marca da IndyCar são os ovais, como o de Indianápolis: o piloto fica com o pé no fundo quase a volta toda, a centímetros do muro. A categoria também corre em autódromos e em ruas.' },
+    { id: 'asad', x: 21, y: 52, nome: 'Asa dianteira', numero: 'muda por pista',
+      texto: 'O carro usa um pacote de asas para cada tipo de pista. Nos ovais as asas são menores e quase retas, para cortar o ar; nos autódromos são maiores, para segurar o carro nas curvas.' },
+    { id: 'pneu', x: 29, y: 36, nome: 'Pneus', numero: 'Firestone',
+      texto: 'Todos usam pneus Firestone. Nos ovais, os pneus de um lado são diferentes dos do outro, porque o carro só vira para a esquerda e o lado de fora trabalha muito mais.' },
+    { id: 'suspensao', x: 36, y: 44, nome: 'Suspensão', numero: 'braços finos',
+      texto: 'Os braços finos ligam as rodas ao carro. Nos ovais, o acerto é diferente de um lado e do outro, também por causa das curvas sempre para a esquerda.' },
+    { id: 'bico', x: 36.5, y: 57, nome: 'Bico', numero: 'chassi Dallara',
+      texto: 'Todas as equipes usam o mesmo chassi, feito pela Dallara. A diferença fica no motor, no acerto e no piloto.' },
+    { id: 'aeroscreen', x: 55, y: 33, nome: 'Aeroscreen', numero: 'para-brisa blindado',
+      texto: 'Em vez do halo da F1, a IndyCar usa o aeroscreen: um para-brisa reforçado em volta do cockpit, que protege a cabeça do piloto de batidas e de peças soltas em alta velocidade.' },
+    { id: 'motor', x: 62, y: 36, nome: 'Motor', numero: 'V6 2.2 biturbo',
+      texto: 'É um V6 de 2,2 litros com dois turbos, da Honda ou da Chevrolet. Gira até 12 mil rotações por minuto e a força muda conforme a pista, de 550 a 750 cavalos.' },
+    { id: 'freio', x: 69, y: 60, nome: 'Freios', numero: 'discos de carbono',
+      texto: 'Os discos são de carbono. Nos ovais quase não se freia, mas nos autódromos e nas pistas de rua os freios trabalham muito.' },
+    { id: 'asa', x: 71, y: 32, nome: 'Asa traseira', numero: 'quase reta no oval',
+      texto: 'Nos ovais a asa traseira fica quase reta, para o carro passar dos 370 km/h. Nas outras pistas ela é maior e mais inclinada, para segurar a traseira nas curvas.' },
+    { id: 'hibrido', x: 77, y: 47, nome: 'Híbrido', numero: '+60 cv',
+      texto: 'Desde 2024 o carro tem um sistema híbrido entre o motor e o câmbio. Ele recupera energia nas freadas e devolve até 60 cavalos a mais quando o piloto aperta o botão.' }
+  ],
+  ficha: [['até 750 cv', 'conforme a pista'], ['+60 cv', 'do sistema híbrido'], ['V6 2.2', 'biturbo'], ['380 km/h', 'nos ovais (aprox.)'], ['12 mil', 'rpm (máximo)']]
+};
