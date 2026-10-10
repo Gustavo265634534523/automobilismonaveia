@@ -42,14 +42,11 @@
       ev.innerHTML = '<img src="https://i.ytimg.com/vi/' + v.id + '/maxresdefault.jpg" alt=""' + (atual ? '' : ' fetchpriority="high"') + ' onerror="this.onerror=null;this.src=\'https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg\'">' +
         '<span class="rv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>' +
         '<span class="rv-capa-txt"><small>' + esc(v.nome || 'Fórmula 1') + ' · vídeo oficial · ' + esc(quando(v.publicado.slice(0, 10))) + '</small><b>' + esc(v.titulo) + '</b><span>' + esc(v.texto || 'No canal oficial da Fórmula 1.') + ' Toque para assistir no YouTube.</span></span>';
-      if (conta) conta.textContent = (atual + 1) + ' / ' + vids.length;
     };
-    var conta = null;
     if (vids.length > 1) {
       var roda = document.createElement('div'); roda.className = 'rv-capa-roda';
       ev.parentNode.insertBefore(roda, ev); roda.appendChild(ev);
-      roda.insertAdjacentHTML('beforeend', '<button type="button" class="rv-seta rv-seta-ant" aria-label="Vídeo anterior">‹</button><button type="button" class="rv-seta rv-seta-prox" aria-label="Próximo vídeo">›</button><span class="rv-conta"></span>');
-      conta = roda.querySelector('.rv-conta');
+      roda.insertAdjacentHTML('beforeend', '<button type="button" class="rv-seta rv-seta-ant" aria-label="Vídeo anterior">‹</button><button type="button" class="rv-seta rv-seta-prox" aria-label="Próximo vídeo">›</button>');
       roda.querySelector('.rv-seta-ant').addEventListener('click', function () { atual = (atual + vids.length - 1) % vids.length; pintar(); });
       roda.querySelector('.rv-seta-prox').addEventListener('click', function () { atual = (atual + 1) % vids.length; pintar(); });
     }
