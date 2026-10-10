@@ -170,11 +170,21 @@
     var v = (typeof window !== 'undefined' && window.TELEMETRIA_VIDEOS || {})[sessao];
     if (!caixa) return;
     if (!v) { caixa.innerHTML = ''; caixa.hidden = true; return; }
+    var lista = [].concat(v), atual = 0;
     caixa.hidden = false;
-    caixa.innerHTML = '<a class="tl-video-capa" href="https://www.youtube.com/watch?v=' + v.id + '" target="_blank" rel="noopener" aria-label="Assistir no YouTube: ' + v.titulo + '">' +
-      '<img src="https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg" alt="" loading="lazy">' +
-      '<span class="tl-video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>' +
-      '<span class="tl-video-tit">' + v.titulo + '<small>Assistir no YouTube, canal oficial da Fórmula 1 ↗</small></span></a>';
+    function mostrar() {
+      var v = lista[atual], n = lista.length;
+      caixa.innerHTML = '<div class="tl-video-roda"><a class="tl-video-capa" href="https://www.youtube.com/watch?v=' + v.id + '" target="_blank" rel="noopener" aria-label="Assistir no YouTube: ' + v.titulo + '">' +
+        '<img src="https://i.ytimg.com/vi/' + v.id + '/hqdefault.jpg" alt="" loading="lazy">' +
+        '<span class="tl-video-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>' +
+        '<span class="tl-video-tit">' + v.titulo + '<small>Assistir no YouTube, canal oficial da Fórmula 1 ↗</small></span></a>' +
+        (n > 1 ? '<button type="button" class="tl-video-seta tl-video-ant" aria-label="Vídeo anterior">‹</button><button type="button" class="tl-video-seta tl-video-prox" aria-label="Próximo vídeo">›</button>' +
+          '<span class="tl-video-conta">' + (atual + 1) + ' / ' + n + '</span>' : '') + '</div>';
+      if (n < 2) return;
+      caixa.querySelector('.tl-video-ant').addEventListener('click', function () { atual = (atual + n - 1) % n; mostrar(); });
+      caixa.querySelector('.tl-video-prox').addEventListener('click', function () { atual = (atual + 1) % n; mostrar(); });
+    }
+    mostrar();
   }
 
   var api = { volta: volta, comparar: comparar, desenhar: desenhar, fmtTempo: fmtTempo, interp: interp, video: video };
