@@ -27,6 +27,8 @@ jobs:
         run: node .github/pistas-categorias.js || true
       - name: Vídeo oficial da F1 na capa da página inicial
         run: node .github/video-capa.js || true
+      - name: Enquete do dia (troca depois da largada)
+        run: node .github/enquete.js || true
       - name: Telemetria da página inicial
         run: node .github/telemetria-amostra.js || true
       - name: Raio-x da MotoGP

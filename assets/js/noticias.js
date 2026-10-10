@@ -92,6 +92,8 @@
     }).join('');
   }
 
+  /* código curto e fixo de cada notícia (para as reações): data + título */
+  function codigo(n) { var h = 5381, t = n.d + n.t; for (var i = 0; i < t.length; i++) h = ((h << 5) + h + t.charCodeAt(i)) >>> 0; return h.toString(36); }
   function desenhar() {
     var itens = todas.filter(function (n) { return !catAtual || n.cat === catAtual; });
     if (!catAtual) itens = itens.filter(function (n) { return manchetes.indexOf(n) < 0; });
@@ -103,10 +105,11 @@
         html += '<h3 class="nt-dia"><time datetime="' + n.d + '">' + dataLonga(n.d) + '</time></h3><div class="nt-grupo">';
       }
       html += '<article class="nt-item"><div class="nt-item-img">' + foto(n.cat, 'loading="lazy"') + '</div>' +
-        '<div>' + selo(n.cat) + '<h4>' + esc(n.t) + '</h4><p>' + esc(n.x) + '</p></div></article>';
+        '<div>' + selo(n.cat) + '<h4>' + esc(n.t) + '</h4><p>' + esc(n.x) + '</p><div class="reacoes" data-alvo="n:' + codigo(n) + '"></div></div></article>';
     });
     if (diaAtual) html += '</div>';
     lista.innerHTML = html || '<p class="nota">Nenhuma notícia nessa categoria por enquanto.</p>';
+    if (window.NAVEIA_REACOES) window.NAVEIA_REACOES(lista); /* 🔥 😂 😱 🏁 (chat.js; se ainda não carregou, ele mesmo preenche) */
   }
 
   filtros.addEventListener('click', function (e) {

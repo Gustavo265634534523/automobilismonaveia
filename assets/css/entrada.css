@@ -193,3 +193,9 @@
 .rv-play svg { width: 38px; height: 38px; margin-left: 4px; }
 .rv-capa-video:hover .rv-play { transform: scale(1.08); }
 @media (max-width: 760px) { .rv-play { width: 58px; height: 58px; margin: -29px 0 0 -29px; } .rv-play svg { width: 28px; height: 28px; } }
+
+/* Enquete "Quem vence?" na página inicial (chat.js preenche [data-enquete]) */
+.rv-baixo { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 18px; align-items: start; }
+.enq-home .enq-perg { font-size: 20px; }
+@media (max-width: 1000px) { .rv-baixo { grid-template-columns: 1fr; } }
+.rv-baixo:has(.enq-home[hidden]) { grid-template-columns: 1fr; }
