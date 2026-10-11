@@ -69,9 +69,11 @@
   var ordem = []; GRUPOS.forEach(function (g) { g.cats.forEach(function (c) { ordem.push(c); }); });
   if (!ordem.length) ordem = CATS;
   document.getElementById('entrada-cats').innerHTML = ordem.map(function (c) {
-    return '<a class="rv-cat" href="' + c.slug + '.html"><img src="' + c.foto + '" alt="" loading="lazy"><b>' + esc(c.menu || c.nome) + '</b>' +
+    /* foto real com licença livre (assets/dados/fotos-reais.js), com o crédito no title; sem ela, a imagem gerada */
+    var fr = (window.FOTOS_REAIS || {})[c.slug];
+    return '<a class="rv-cat' + (fr ? ' rv-cat-real' : '') + '" href="' + c.slug + '.html"' + (fr ? ' title="Foto: ' + esc(fr.autor) + ' (' + esc(fr.lic) + ')"' : '') + '><img src="' + (fr ? fr.src : c.foto) + '" alt="" loading="lazy"><b>' + esc(c.menu || c.nome) + '</b>' +
       (correSemana(c) ? '<i class="ent-ponto" title="Corre nos próximos dias"></i>' : '') + '</a>';
-  }).join('');
+  }).join('') + (window.FOTOS_REAIS ? '<a class="rv-creditos" href="creditos-fotos.html">Fotos: Wikimedia Commons · créditos</a>' : '');
 
   /* 4. brigas pelo título: campeonatos em aberto, ordenados pela diferença entre 1º e 2º */
   function num(v) { var n = parseFloat(String(v).replace(/\./g, '').replace(',', '.')); return isNaN(n) ? null : n; }

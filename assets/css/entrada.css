@@ -218,3 +218,10 @@
 .rv-cat b { z-index: 1; }
 .rv-cat .ent-ponto { z-index: 1; }
 .rv-cat:hover img { opacity: 1; filter: brightness(1.55) saturate(1.2) contrast(1.05); transform: scale(1.05); }
+/* fotos reais das categorias (licença livre): sem o clareamento das imagens geradas */
+.rv-cat.rv-cat-real img { filter: none; }
+.rv-cat.rv-cat-real:hover img { filter: brightness(1.08); }
+.rv-cat.rv-cat-real::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .7)); pointer-events: none; }
+.rv-cat.rv-cat-real b { z-index: 1; }
+.rv-creditos { grid-column: 1 / -1; justify-self: end; font-size: 11px; color: var(--aco); text-decoration: none; }
+.rv-creditos:hover { color: var(--cromo); text-decoration: underline; }

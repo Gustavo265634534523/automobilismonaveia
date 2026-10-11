@@ -305,10 +305,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=298'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=298'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=298'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=298'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=299'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=299'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=299'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=299'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -411,7 +411,7 @@
     function ja() { try { return !!localStorage.getItem(CHAVE); } catch (e) { return true; } }
     function marcar() { try { localStorage.setItem(CHAVE, new Date().toISOString()); } catch (e) {} }
     function abrir() {
-      if (ja() || document.getElementById('boas-vindas') || /entrar|conta|redefinir|privacidade|termos|404/.test(location.pathname)) return;
+      if (ja() || document.getElementById('boas-vindas') || /entrar|conta|redefinir|privacidade|termos|creditos|404/.test(location.pathname)) return;
       window.NAVEIA_EU.then(function (r) {
         if (r && r.logado) { marcar(); return; } /* quem tem conta escolhe no perfil */
         var EQ = window.NAVEIA_EQUIPES || [], P = window.NAVEIA_PILOTOS || {}, esc = window.esc, fav = window.NAVEIA_FAV();
