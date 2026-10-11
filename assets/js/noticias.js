@@ -15,8 +15,8 @@
     { src: 'assets/img/hero-2-motor-m.webp', pos: '60% 55%' }
   ];
   var contaF1 = 0;
-  function foto(slug, extra) {
-    var fr = (window.FOTOS_REAIS || {})[slug];
+  function foto(slug, extra, titulo) {
+    var fr = window.fotoNoticia ? window.fotoNoticia(slug, titulo) : (window.FOTOS_REAIS || {})[slug];
     if (fr) return '<img src="' + (/fetchpriority/.test(extra) ? fr.grande : fr.src) + '" alt="" title="Foto: ' + esc(fr.autor) + ' (' + esc(fr.lic) + ')" ' + extra + '>';
     if (slug === 'formula-1') {
       var f = F1_SEM_MARCA[contaF1++ % F1_SEM_MARCA.length];
@@ -68,7 +68,7 @@
     document.getElementById('manchetes').innerHTML = manchetes.map(function (n, i) {
       var c = PORSLUG[n.cat];
       return '<article class="nt-manchete' + (i === 0 ? ' nt-principal' : '') + '">' +
-        '<div class="nt-img">' + foto(n.cat, i === 0 ? 'fetchpriority="high"' : 'loading="lazy"') + '</div>' +
+        '<div class="nt-img">' + foto(n.cat, i === 0 ? 'fetchpriority="high"' : 'loading="lazy"', n.pt) + '</div>' +
         '<div class="nt-texto">' + selo(n.cat) + '<time datetime="' + n.d + '">' + dataLonga(n.d) + '</time>' +
         '<h2><a href="' + window.linkNoticia(n.pt) + '">' + esc(n.t) + '</a></h2><p>' + esc(n.x) + '</p></div></article>';
     }).join('');
@@ -106,7 +106,7 @@
         diaAtual = n.d;
         html += '<h3 class="nt-dia"><time datetime="' + n.d + '">' + dataLonga(n.d) + '</time></h3><div class="nt-grupo">';
       }
-      html += '<article class="nt-item"><div class="nt-item-img">' + foto(n.cat, 'loading="lazy"') + '</div>' +
+      html += '<article class="nt-item"><div class="nt-item-img">' + foto(n.cat, 'loading="lazy"', n.pt) + '</div>' +
         '<div>' + selo(n.cat) + '<h4><a href="' + window.linkNoticia(n.pt) + '">' + esc(n.t) + '</a></h4><p>' + esc(n.x) + '</p><div class="reacoes" data-alvo="n:' + codigo(n) + '"></div></div></article>';
     });
     if (diaAtual) html += '</div>';

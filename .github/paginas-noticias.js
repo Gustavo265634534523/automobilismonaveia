@@ -86,7 +86,7 @@ todas.forEach(n => {
   nomes.add(arq);
   const c = PORSLUG[n.cat], cat = c.menu || c.nome;
   /* foto real da categoria (licença livre, com crédito); sem ela, a imagem gerada */
-  const fr = (window.FOTOS_REAIS || {})[n.cat];
+  const fr = window.fotoNoticia ? window.fotoNoticia(n.cat, n.t) : (window.FOTOS_REAIS || {})[n.cat];
   const foto = fr ? fr.grande : (c.foto || 'assets/img/compartilhar.jpg');
   const legenda = fr ? `<a href="creditos-fotos.html">Foto: ${esc(fr.autor)} · ${esc(fr.lic)} · Wikimedia Commons</a>` : 'Imagem ilustrativa gerada, sem equipe ou marca real';
   const desc = n.x.length > 158 ? n.x.slice(0, 155).replace(/\s+\S*$/, '') + '…' : n.x;
