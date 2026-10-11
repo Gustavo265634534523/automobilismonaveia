@@ -15,8 +15,10 @@
     { src: 'assets/img/hero-2-motor-m.webp', pos: '60% 55%' }
   ];
   var contaF1 = 0;
+  /* usadas: fotos que já apareceram na página (não repete foto) */
+  var usadasManchetes = {}, usadas = {};
   function foto(slug, extra, titulo) {
-    var fr = window.fotoNoticia ? window.fotoNoticia(slug, titulo) : (window.FOTOS_REAIS || {})[slug];
+    var fr = window.fotoNoticia ? window.fotoNoticia(slug, titulo, usadas) : (window.FOTOS_REAIS || {})[slug];
     if (fr) return '<img src="' + (/fetchpriority/.test(extra) ? fr.grande : fr.src) + '" alt="" title="Foto: ' + esc(fr.autor) + ' (' + esc(fr.lic) + ')" ' + extra + '>';
     if (slug === 'formula-1') {
       var f = F1_SEM_MARCA[contaF1++ % F1_SEM_MARCA.length];
@@ -65,6 +67,7 @@
     /* Manchetes na ordem em que aparecem em noticias-gerais.js: a primeira grande, as outras ao lado */
     manchetes = todas.filter(function (n) { return n.manchete; }).sort(function (a, b) { return a.ordem - b.ordem; }).slice(0, 3);
     if (manchetes.length < 3) manchetes = manchetes.concat(todas.filter(function (n) { return manchetes.indexOf(n) < 0; }).slice(0, 3 - manchetes.length));
+    usadas = usadasManchetes = {};
     document.getElementById('manchetes').innerHTML = manchetes.map(function (n, i) {
       var c = PORSLUG[n.cat];
       return '<article class="nt-manchete' + (i === 0 ? ' nt-principal' : '') + '">' +
@@ -97,6 +100,7 @@
   /* código curto e fixo de cada notícia (para as reações): data + título */
   function codigo(n) { var h = 5381, t = n.d + n.t; for (var i = 0; i < t.length; i++) h = ((h << 5) + h + t.charCodeAt(i)) >>> 0; return h.toString(36); }
   function desenhar() {
+    usadas = Object.assign({}, usadasManchetes);
     var itens = todas.filter(function (n) { return !catAtual || n.cat === catAtual; });
     if (!catAtual) itens = itens.filter(function (n) { return manchetes.indexOf(n) < 0; });
     var html = '', diaAtual = '';
