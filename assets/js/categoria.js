@@ -5,10 +5,12 @@
   if (!c) return;
   var hoje = window.hojeISO();
 
-  /* Topo */
+  /* Topo: foto real com licença livre (assets/dados/fotos-reais.js, com crédito); sem ela, a imagem gerada */
+  var fr = (window.FOTOS_REAIS || {})[c.slug];
   document.getElementById('cat-topo').innerHTML =
-    '<div class="cat-foto" data-paralaxe=".12"><img src="' + c.foto + '" alt=""></div>' +
-    '<p class="credito">Imagem gerada, sem equipe, marca ou patrocinador real.</p>' +
+    '<div class="cat-foto" data-paralaxe=".12"><img src="' + (fr ? fr.grande : c.foto) + '" alt=""></div>' +
+    (fr ? '<p class="credito"><a href="creditos-fotos.html">Foto: ' + esc(fr.autor) + ' · ' + esc(fr.lic) + ' · Wikimedia Commons</a></p>'
+      : '<p class="credito">Imagem gerada, sem equipe, marca ou patrocinador real.</p>') +
     '<div class="moldura"><h1 class="cat-nome">' + esc(c.nome) + '</h1>' +
     '<p class="cat-frase">' + esc(c.frase) + '</p>' +
     '<div class="cat-rodape"><div><p class="cat-intro">' + esc(c.intro) + '</p>' +
@@ -23,7 +25,7 @@
     /* a vaga do quadro já entra agora, com a altura reservada, para a página não pular quando os canais chegarem (CLS) */
     document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura oa-vaga" id="oa-vaga"></div>');
     var vaga = document.getElementById('oa-vaga');
-    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=299';
+    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=300';
     s.onload = function () {
       var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug);
       if (!q) { vaga.remove(); return; }
