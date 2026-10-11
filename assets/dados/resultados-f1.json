@@ -2,7 +2,7 @@
  "meeting": 1296,
  "local": "Marina Bay",
  "pais": "Singapore",
- "data": "2026-10-10",
+ "data": "2026-10-11",
  "sessoes": [
   {
    "tipo": "Sprint Qualifying",
@@ -94,6 +94,37 @@
      "equipe": "Ferrari",
      "cor": "#ED1131",
      "tempo": "+0.123s"
+    }
+   ]
+  },
+  {
+   "tipo": "Race",
+   "titulo": "Vencedor da corrida",
+   "data": "2026-10-11",
+   "top": [
+    {
+     "pos": 1,
+     "n": 3,
+     "nome": "Max Verstappen",
+     "equipe": "Red Bull Racing",
+     "cor": "#4781D7",
+     "tempo": "1:42:00.785"
+    },
+    {
+     "pos": 2,
+     "n": 16,
+     "nome": "Charles Leclerc",
+     "equipe": "Ferrari",
+     "cor": "#ED1131",
+     "tempo": "+7.335s"
+    },
+    {
+     "pos": 3,
+     "n": 12,
+     "nome": "Kimi Antonelli",
+     "equipe": "Mercedes",
+     "cor": "#00D7B6",
+     "tempo": "+24.573s"
     }
    ]
   }
