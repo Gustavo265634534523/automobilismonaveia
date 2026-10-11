@@ -17,7 +17,8 @@
 
   /* 1 e 2. manchete e últimas notícias */
   var F1_FOTOS = ['assets/img/hero-1-lado-m.webp', 'assets/img/hero-3-frente-m.webp', 'assets/img/cat/f1.jpg', 'assets/img/hero-2-motor-m.webp'], nF1 = 0;
-  function foto(slug) { return slug === 'formula-1' ? F1_FOTOS[nF1++ % F1_FOTOS.length] : (PORSLUG[slug] ? PORSLUG[slug].foto : 'assets/img/cat/f1.jpg'); }
+  /* foto real da categoria (licença livre, assets/dados/fotos-reais.js); sem ela, as imagens geradas */
+  function foto(slug, grande) { var fr = (window.FOTOS_REAIS || {})[slug]; if (fr) return grande ? fr.grande : fr.src; return slug === 'formula-1' ? F1_FOTOS[nF1++ % F1_FOTOS.length] : (PORSLUG[slug] ? PORSLUG[slug].foto : 'assets/img/cat/f1.jpg'); }
   function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === -1 ? 'Ontem' : window.dataCurta(d); }
   var en = window.LANG === 'en';
   var todas = (window.NOTICIAS_GERAIS || []).filter(function (n) { return PORSLUG[n.cat]; }).slice()
@@ -57,7 +58,7 @@
     var c = PORSLUG[capa.cat], t = (en && capa.t_en) || capa.t, x = (en && capa.x_en) || capa.x;
     var el = document.getElementById('rv-capa');
     el.href = window.linkNoticia ? window.linkNoticia(capa.t) : 'noticias.html';
-    el.innerHTML = '<img src="' + foto(capa.cat) + '" alt="" fetchpriority="high">' +
+    el.innerHTML = '<img src="' + foto(capa.cat, true) + '" alt="" fetchpriority="high">' +
       '<span class="rv-capa-txt"><small>' + esc(c.menu || c.nome) + ' · ' + esc(quando(capa.d)) + '</small><b>' + esc(t) + '</b><span>' + esc(x.split(/(?<=\.)\s/)[0]) + '</span></span>';
   }
   document.getElementById('rv-lista').innerHTML = todas.filter(function (n) { return n !== capa; }).slice(0, 5).map(function (n) {

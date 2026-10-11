@@ -16,6 +16,8 @@
   ];
   var contaF1 = 0;
   function foto(slug, extra) {
+    var fr = (window.FOTOS_REAIS || {})[slug];
+    if (fr) return '<img src="' + (/fetchpriority/.test(extra) ? fr.grande : fr.src) + '" alt="" title="Foto: ' + esc(fr.autor) + ' (' + esc(fr.lic) + ')" ' + extra + '>';
     if (slug === 'formula-1') {
       var f = F1_SEM_MARCA[contaF1++ % F1_SEM_MARCA.length];
       return '<img src="' + f.src + '" alt="" style="object-position:' + f.pos + '" ' + extra + '>';
@@ -108,7 +110,7 @@
         '<div>' + selo(n.cat) + '<h4><a href="' + window.linkNoticia(n.pt) + '">' + esc(n.t) + '</a></h4><p>' + esc(n.x) + '</p><div class="reacoes" data-alvo="n:' + codigo(n) + '"></div></div></article>';
     });
     if (diaAtual) html += '</div>';
-    lista.innerHTML = html || '<p class="nota">Nenhuma notícia nessa categoria por enquanto.</p>';
+    lista.innerHTML = (html || '<p class="nota">Nenhuma notícia nessa categoria por enquanto.</p>') + (window.FOTOS_REAIS ? '<p class="nota"><a href="creditos-fotos.html">Fotos: Wikimedia Commons · créditos</a></p>' : '');
     if (window.NAVEIA_REACOES) window.NAVEIA_REACOES(lista); /* 🔥 😂 😱 🏁 (chat.js; se ainda não carregou, ele mesmo preenche) */
   }
 

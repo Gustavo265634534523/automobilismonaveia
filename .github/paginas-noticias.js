@@ -10,6 +10,7 @@ global.window = {};
 eval(fs.readFileSync(path.join(RAIZ, 'assets/js/dados.js'), 'utf8'));
 eval(fs.readFileSync(path.join(RAIZ, 'assets/js/noticias-gerais.js'), 'utf8'));
 eval(fs.readFileSync(path.join(RAIZ, 'assets/dados/noticias-arquivo.js'), 'utf8'));
+eval(fs.readFileSync(path.join(RAIZ, 'assets/dados/fotos-reais.js'), 'utf8'));
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
 const V = (fs.readFileSync(path.join(RAIZ, 'sw.js'), 'utf8').match(/naveia-v(\d+)/) || [])[1] || '1';
 const hoje = new Date(Date.now() - 3 * 36e5).toISOString().slice(0, 10);
@@ -54,6 +55,7 @@ const CSS = `<style>
 .nw-pag h1 { margin: 0 0 18px; font-family: var(--display); font-weight: 400; font-size: clamp(30px, 4.4vw, 48px); line-height: 1.08; }
 .nw-foto { position: relative; margin: 0 0 24px; aspect-ratio: 16 / 8; overflow: hidden; background: #000; }
 .nw-foto img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .9; }
+.nw-foto figcaption a { color: inherit; }
 .nw-foto figcaption { position: absolute; right: 8px; bottom: 6px; padding: 2px 8px; background: rgba(0, 0, 0, .6); font-size: 11px; color: #c3c8cd; }
 .nw-texto p { margin: 0 0 18px; font-size: 19px; line-height: 1.65; color: #d3d8dc; }
 .nw-acoes { display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0 0; }
@@ -83,7 +85,10 @@ todas.forEach(n => {
   if (nomes.has(arq)) return;
   nomes.add(arq);
   const c = PORSLUG[n.cat], cat = c.menu || c.nome;
-  const foto = c.foto || 'assets/img/compartilhar.jpg';
+  /* foto real da categoria (licença livre, com crédito); sem ela, a imagem gerada */
+  const fr = (window.FOTOS_REAIS || {})[n.cat];
+  const foto = fr ? fr.grande : (c.foto || 'assets/img/compartilhar.jpg');
+  const legenda = fr ? `<a href="creditos-fotos.html">Foto: ${esc(fr.autor)} · ${esc(fr.lic)} · Wikimedia Commons</a>` : 'Imagem ilustrativa gerada, sem equipe ou marca real';
   const desc = n.x.length > 158 ? n.x.slice(0, 155).replace(/\s+\S*$/, '') + '…' : n.x;
   const hp = horarioProx(c);
   const mais = todas.filter(o => o !== n && o.cat === n.cat).slice(0, 5);
@@ -138,7 +143,7 @@ ${CSS}
     <article>
       <p class="nw-rot"><a href="${c.slug}.html">${esc(cat)}</a> · <time datetime="${n.d}">${esc(dataLonga(n.d))}</time></p>
       <h1>${esc(n.t)}</h1>
-      <figure class="nw-foto"><img src="${esc(foto)}" alt="" fetchpriority="high"><figcaption>Imagem ilustrativa gerada, sem equipe ou marca real</figcaption></figure>
+      <figure class="nw-foto"><img src="${esc(foto)}" alt="" fetchpriority="high"><figcaption>${legenda}</figcaption></figure>
       <div class="nw-texto">
       ${paragrafos(n.x)}
       </div>
