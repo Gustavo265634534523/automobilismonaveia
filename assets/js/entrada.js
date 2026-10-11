@@ -56,13 +56,13 @@
   if (capa) {
     var c = PORSLUG[capa.cat], t = (en && capa.t_en) || capa.t, x = (en && capa.x_en) || capa.x;
     var el = document.getElementById('rv-capa');
-    el.href = 'noticias.html';
+    el.href = window.linkNoticia ? window.linkNoticia(capa.t) : 'noticias.html';
     el.innerHTML = '<img src="' + foto(capa.cat) + '" alt="" fetchpriority="high">' +
       '<span class="rv-capa-txt"><small>' + esc(c.menu || c.nome) + ' · ' + esc(quando(capa.d)) + '</small><b>' + esc(t) + '</b><span>' + esc(x.split(/(?<=\.)\s/)[0]) + '</span></span>';
   }
   document.getElementById('rv-lista').innerHTML = todas.filter(function (n) { return n !== capa; }).slice(0, 5).map(function (n) {
     var c = PORSLUG[n.cat];
-    return '<a class="rv-item" href="' + c.slug + '.html"><img src="' + foto(n.cat) + '" alt="" loading="lazy"><span><small>' + esc(c.menu || c.nome) + ' · ' + esc(quando(n.d)) + '</small><b>' + esc((en && n.t_en) || n.t) + '</b></span></a>';
+    return '<a class="rv-item" href="' + (window.linkNoticia ? window.linkNoticia(n.t) : c.slug + '.html') + '"><img src="' + foto(n.cat) + '" alt="" loading="lazy"><span><small>' + esc(c.menu || c.nome) + ' · ' + esc(quando(n.d)) + '</small><b>' + esc((en && n.t_en) || n.t) + '</b></span></a>';
   }).join('');
 
   /* 3. categorias em foto, na ordem dos grupos */

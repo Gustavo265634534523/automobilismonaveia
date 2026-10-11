@@ -23,7 +23,7 @@
     /* a vaga do quadro já entra agora, com a altura reservada, para a página não pular quando os canais chegarem (CLS) */
     document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura oa-vaga" id="oa-vaga"></div>');
     var vaga = document.getElementById('oa-vaga');
-    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=296';
+    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=297';
     s.onload = function () {
       var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug);
       if (!q) { vaga.remove(); return; }
@@ -80,7 +80,7 @@
     var chave = n.t.toLowerCase();
     if (vistas[chave]) return;
     vistas[chave] = 1;
-    lista.push({ d: n.d, t: (en && n.t_en) || n.t, x: (en && n.x_en) || n.x, ordem: i });
+    lista.push({ d: n.d, pt: n.t, t: (en && n.t_en) || n.t, x: (en && n.x_en) || n.x, ordem: i });
   });
   /* cada etapa com vencedor também vira uma notícia curta de resultado (se não houver notícia daquele dia) */
   var diasComNoticia = {}; lista.forEach(function (n) { diasComNoticia[n.d] = 1; });
@@ -93,7 +93,7 @@
   var mostrar = 9, extras = lista.length - mostrar;
   P.noticias = '<h2>Notícias</h2><div class="noticias">' + lista.map(function (n, i) {
     return '<article class="noticia' + (n.res ? ' noticia-res' : '') + '"' + (i >= mostrar ? ' hidden' : '') + '>' +
-      '<time datetime="' + n.d + '">' + window.dataCurta(n.d) + (n.res ? ' · Resultado' : '') + '</time><h3>' + esc(n.t) + '</h3><p>' + esc(n.x) + '</p></article>';
+      '<time datetime="' + n.d + '">' + window.dataCurta(n.d) + (n.res ? ' · Resultado' : '') + '</time><h3>' + (n.pt && window.linkNoticia ? '<a href="' + window.linkNoticia(n.pt) + '">' + esc(n.t) + '</a>' : esc(n.t)) + '</h3><p>' + esc(n.x) + '</p></article>';
   }).join('') + '</div>' +
     (extras > 0 ? '<button type="button" class="ct-mini noticias-mais" onclick="[].forEach.call(this.previousElementSibling.querySelectorAll(\'.noticia[hidden]\'),function(a){a.hidden=false});this.remove()">Ver mais ' + extras + ' notícias</button>' : '');
 

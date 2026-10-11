@@ -27,6 +27,8 @@ jobs:
         run: node .github/arquivar-noticias.js
       - name: Páginas de horário e onde assistir (para o Google)
         run: node .github/paginas-horarios.js
+      - name: Página própria de cada notícia (para o Google)
+        run: node .github/paginas-noticias.js
       - name: Enquete do dia (quem vence?)
         run: node .github/enquete.js || true
       - name: Atualizar o sitemap
@@ -35,7 +37,7 @@ jobs:
         run: |
           git config user.name "Robô Na Veia"
           git config user.email "automobilismonaveiacontato@gmail.com"
-          git add assets/dados/agenda.json assets/dados/noticias-arquivo.js assets/agenda sitemap.xml horarios.html horario-*.html assets/dados/enquete.json
+          git add assets/dados/agenda.json assets/dados/noticias-arquivo.js assets/agenda sitemap.xml horarios.html horario-*.html noticia-*.html assets/dados/enquete.json
           git diff --cached --quiet && exit 0
           git commit -m "Robô: agenda e sitemap atualizados"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done

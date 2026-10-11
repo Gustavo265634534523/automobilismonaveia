@@ -22,6 +22,10 @@
       ['Fermín Aldeguer', 54, 'Ducati'], ['Francesco Bagnaia', 63, 'Ducati'], ['Marco Bezzecchi', 72, 'Aprilia'], ['Álex Márquez', 73, 'Ducati'], ['Ai Ogura', 79, 'Aprilia'],
       ['Jorge Martín', 89, 'Aprilia'], ['Marc Márquez', 93, 'Ducati']]
   };
+  /* endereço da página própria de cada notícia (o mesmo cálculo de .github/paginas-noticias.js) */
+  window.linkNoticia = function (t) {
+    return 'noticia-' + String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80).replace(/-+$/, '') + '.html';
+  };
   var raiz = document.documentElement;
   window.NAVEIA_TEMA = function (equipe) {
     var e = window.NAVEIA_EQUIPES.filter(function (x) { return x.n === equipe; })[0];
@@ -290,10 +294,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=296'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=296'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=296'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=296'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=297'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=297'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=297'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=297'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

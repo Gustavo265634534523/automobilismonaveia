@@ -51,7 +51,7 @@
       if (vistos[chave] || !PORSLUG[slug]) return;
       vistos[chave] = 1;
       var en = window.LANG === 'en';
-      todas.push({ d: n.d, cat: slug, t: (en && n.t_en) || n.t, x: (en && n.x_en) || n.x, manchete: !!n.manchete, ordem: todas.length });
+      todas.push({ d: n.d, cat: slug, pt: n.t, t: (en && n.t_en) || n.t, x: (en && n.x_en) || n.x, manchete: !!n.manchete, ordem: todas.length });
     }
     (window.NOTICIAS_GERAIS || []).forEach(function (n) { add(n, n.cat); });
     CATS.forEach(function (c) { (c.noticias || []).forEach(function (n) { add(n, c.slug); }); });
@@ -68,7 +68,7 @@
       return '<article class="nt-manchete' + (i === 0 ? ' nt-principal' : '') + '">' +
         '<div class="nt-img">' + foto(n.cat, i === 0 ? 'fetchpriority="high"' : 'loading="lazy"') + '</div>' +
         '<div class="nt-texto">' + selo(n.cat) + '<time datetime="' + n.d + '">' + dataLonga(n.d) + '</time>' +
-        '<h2>' + esc(n.t) + '</h2><p>' + esc(n.x) + '</p></div></article>';
+        '<h2><a href="' + window.linkNoticia(n.pt) + '">' + esc(n.t) + '</a></h2><p>' + esc(n.x) + '</p></div></article>';
     }).join('');
 
     /* Filtros por categoria (só as que têm notícia) */
@@ -105,7 +105,7 @@
         html += '<h3 class="nt-dia"><time datetime="' + n.d + '">' + dataLonga(n.d) + '</time></h3><div class="nt-grupo">';
       }
       html += '<article class="nt-item"><div class="nt-item-img">' + foto(n.cat, 'loading="lazy"') + '</div>' +
-        '<div>' + selo(n.cat) + '<h4>' + esc(n.t) + '</h4><p>' + esc(n.x) + '</p><div class="reacoes" data-alvo="n:' + codigo(n) + '"></div></div></article>';
+        '<div>' + selo(n.cat) + '<h4><a href="' + window.linkNoticia(n.pt) + '">' + esc(n.t) + '</a></h4><p>' + esc(n.x) + '</p><div class="reacoes" data-alvo="n:' + codigo(n) + '"></div></div></article>';
     });
     if (diaAtual) html += '</div>';
     lista.innerHTML = html || '<p class="nota">Nenhuma notícia nessa categoria por enquanto.</p>';

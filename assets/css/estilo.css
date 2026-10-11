@@ -1013,3 +1013,4 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .conta-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .conta-avatar b { width: 100%; height: 100%; display: grid; place-items: center; font: 900 18px/1 var(--display); font-style: italic; color: #fff; background-image: repeating-linear-gradient(135deg, rgba(255, 255, 255, .1) 0 5px, transparent 5px 11px) !important; }
 .conta-link.conta-avatar:hover { background: none; }
+.noticia h3 a { color: inherit; text-decoration: none; } .noticia h3 a:hover { color: var(--sangue-vivo); }
