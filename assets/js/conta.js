@@ -101,6 +101,13 @@
         '<div><dt>Equipe favorita</dt><dd>' + (u.equipe ? '<i class="ct-cor-eq" style="background:' + corEquipe(u.equipe) + '"></i>' + esc(u.equipe) : '<span class="ct-vazio-txt">Não escolhida</span>') + '</dd></div>';
     }
     desenharPerfil(u);
+    /* quem escolheu equipe/piloto nas boas-vindas antes de ter conta: leva a escolha para a conta */
+    var favL = window.NAVEIA_FAV ? window.NAVEIA_FAV() : {};
+    if ((!u.equipe && favL.equipe) || (!u.piloto && favL.piloto)) {
+      API('perfil', { nome: u.nome, piloto: u.piloto || favL.piloto || '', equipe: u.equipe || favL.equipe || '' }).then(function (r) {
+        if (r && r.ok) { u = r.usuario; desenharPerfil(u); desenharFoto(u); if (window.NAVEIA_TEMA) window.NAVEIA_TEMA(u.equipe || ''); }
+      }).catch(function () {});
+    }
     /* listas: pilotos da F1 e da MotoGP; equipes da F1 e fabricantes da MotoGP (a cor do site muda com a equipe) */
     function opcoes(sel, grupos, vazio, atual) {
       var tem = false, html = '<option value="">' + vazio + '</option>' + Object.keys(grupos).map(function (g) {

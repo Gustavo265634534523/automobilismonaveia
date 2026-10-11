@@ -26,6 +26,13 @@
   window.linkNoticia = function (t) {
     return 'noticia-' + String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80).replace(/-+$/, '') + '.html';
   };
+  /* escolha de equipe e piloto feita sem conta (boas-vindas), guardada neste aparelho */
+  window.NAVEIA_FAV = function (novo) {
+    try {
+      if (novo) { localStorage.setItem('naveia-fav', JSON.stringify(novo)); return novo; }
+      return JSON.parse(localStorage.getItem('naveia-fav') || '{}') || {};
+    } catch (e) { return {}; }
+  };
   var raiz = document.documentElement;
   window.NAVEIA_TEMA = function (equipe) {
     var e = window.NAVEIA_EQUIPES.filter(function (x) { return x.n === equipe; })[0];
@@ -247,6 +254,8 @@
     else if (document.getElementById('feed')) { var f = document.getElementById('feed'); f.insertAdjacentHTML('beforeend', html); }
     else if (document.getElementById('entrada')) colocar(document.getElementById('entrada'), 'afterend');
     else if (document.getElementById('oa')) colocar(document.querySelector('#oa .moldura'), 'beforeend');
+    else if (document.getElementById('rx')) colocar(document.getElementById('rx'), 'beforeend');
+    else if (document.querySelector('main.sm')) colocar(document.querySelector('main.sm'), 'beforeend');
   });
 
   /* ícone da conta no topo: a foto da pessoa; sem foto, o número do piloto favorito na cor da equipe; sem piloto, o bonequinho */
@@ -262,7 +271,9 @@
   }
   window.NAVEIA_EU.then(function (r) {
     /* cor da equipe favorita (sem conta, o site volta ao vermelho) */
-    if (!r.semServidor) window.NAVEIA_TEMA(r.logado && r.usuario ? r.usuario.equipe : '');
+    var favLocal = window.NAVEIA_FAV ? window.NAVEIA_FAV() : {};
+    if (!r.semServidor && r.logado && r.usuario && r.usuario.equipe) window.NAVEIA_TEMA(r.usuario.equipe);
+    else if (favLocal.equipe) window.NAVEIA_TEMA(favLocal.equipe);
     var l = document.getElementById('conta-link');
     if (!l) return;
     if (r.semServidor) { l.remove(); var pc = document.querySelector('.painel-conta'); if (pc) pc.remove(); return; }
@@ -294,10 +305,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=297'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=297'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=297'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=297'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=298'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=298'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=298'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=298'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -386,10 +397,69 @@
       d.querySelector('.aviso-priv-ok').addEventListener('click', function () {
         try { localStorage.setItem(CHAVE, new Date().toISOString()); } catch (e) {}
         d.classList.remove('ativo'); setTimeout(function () { d.remove(); }, 300);
+        if (window.NAVEIA_BOAS_VINDAS) setTimeout(window.NAVEIA_BOAS_VINDAS, 500);
       });
     }
     window.NAVEIA_AVISO_PRIVACIDADE = mostrar;
     mostrar(false);
+  })();
+
+  /* Boas-vindas na primeira visita (depois do aviso de privacidade): escolher equipe e piloto favoritos.
+     O site já fica na cor da equipe; a escolha fica neste aparelho e vira convite para criar a conta grátis (sem obrigar). */
+  (function () {
+    var CHAVE = 'naveia-boasvindas';
+    function ja() { try { return !!localStorage.getItem(CHAVE); } catch (e) { return true; } }
+    function marcar() { try { localStorage.setItem(CHAVE, new Date().toISOString()); } catch (e) {} }
+    function abrir() {
+      if (ja() || document.getElementById('boas-vindas') || /entrar|conta|redefinir|privacidade|termos|404/.test(location.pathname)) return;
+      window.NAVEIA_EU.then(function (r) {
+        if (r && r.logado) { marcar(); return; } /* quem tem conta escolhe no perfil */
+        var EQ = window.NAVEIA_EQUIPES || [], P = window.NAVEIA_PILOTOS || {}, esc = window.esc, fav = window.NAVEIA_FAV();
+        var grupos = {}; EQ.forEach(function (e) { (grupos[e.c] = grupos[e.c] || []).push(e); });
+        var d = document.createElement('div');
+        d.id = 'boas-vindas'; d.className = 'bv'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'bv-tit');
+        d.innerHTML = '<div class="bv-caixa"><button type="button" class="bv-fechar" aria-label="Fechar">×</button>' +
+          '<p class="bv-rot">Bem-vindo ao Na Veia</p><h2 id="bv-tit">Qual é a sua equipe?</h2>' +
+          '<p class="bv-sub">Escolha sua equipe e seu piloto favorito. O site inteiro fica com a cor da sua equipe.</p>' +
+          Object.keys(grupos).map(function (g) {
+            return '<p class="bv-grupo">' + esc(g) + '</p><div class="bv-equipes">' + grupos[g].map(function (e) {
+              return '<button type="button" class="bv-eq" data-eq="' + esc(e.n) + '" aria-pressed="' + (fav.equipe === e.n) + '"><i style="background:' + e.cor + '"></i>' + esc(e.n) + '</button>';
+            }).join('') + '</div>';
+          }).join('') +
+          '<div class="bv-piloto"><div class="bv-avatar" id="bv-avatar"></div><label>Piloto favorito<select id="bv-sel"><option value="">Escolha (opcional)</option>' +
+          Object.keys(P).map(function (c) { return '<optgroup label="' + esc(c) + '">' + P[c].slice().sort(function (a, b) { return a[0].localeCompare(b[0], 'pt'); }).map(function (p) { return '<option' + (fav.piloto === p[0] ? ' selected' : '') + '>' + esc(p[0]) + '</option>'; }).join('') + '</optgroup>'; }).join('') +
+          '</select></label></div>' +
+          '<div class="bv-acoes"><a class="bv-conta" href="entrar.html?volta=' + encodeURIComponent(location.pathname.split('/').pop() || 'index.html') + '#criar">Criar conta grátis e salvar</a>' +
+          '<button type="button" class="bv-salvar">Salvar só neste aparelho</button></div>' +
+          '<p class="bv-nota">Com a conta grátis sua escolha vale em qualquer celular, e você participa do chat da corrida e do bolão.</p></div>';
+        document.body.appendChild(d);
+        var escolha = { equipe: fav.equipe || '', piloto: fav.piloto || '' };
+        function avatar() {
+          var p = null; Object.keys(P).forEach(function (c) { P[c].forEach(function (x) { if (x[0] === escolha.piloto) p = x; }); });
+          var e = p && EQ.filter(function (x) { return x.n === p[2]; })[0];
+          d.querySelector('#bv-avatar').innerHTML = p ? '<b style="background:' + (e ? e.cor : '#8e979f') + '">' + p[1] + '</b>' : '';
+        }
+        function guardar() { window.NAVEIA_FAV(escolha); }
+        function fechar() { marcar(); d.classList.remove('ativo'); setTimeout(function () { d.remove(); }, 250); }
+        [].forEach.call(d.querySelectorAll('.bv-eq'), function (b) {
+          b.addEventListener('click', function () {
+            escolha.equipe = b.getAttribute('data-eq');
+            [].forEach.call(d.querySelectorAll('.bv-eq'), function (x) { x.setAttribute('aria-pressed', x === b); });
+            window.NAVEIA_TEMA(escolha.equipe); guardar();
+          });
+        });
+        d.querySelector('#bv-sel').addEventListener('change', function (e) { escolha.piloto = e.target.value; avatar(); guardar(); });
+        d.querySelector('.bv-salvar').addEventListener('click', function () { guardar(); fechar(); });
+        d.querySelector('.bv-conta').addEventListener('click', function () { guardar(); marcar(); });
+        d.querySelector('.bv-fechar').addEventListener('click', fechar);
+        d.addEventListener('click', function (e) { if (e.target === d) fechar(); });
+        avatar();
+        setTimeout(function () { d.classList.add('ativo'); }, 30);
+      });
+    }
+    window.NAVEIA_BOAS_VINDAS = abrir;
+    /* quem já aceitou a privacidade antes vê as boas-vindas logo ao entrar */
+    try { if (localStorage.getItem('naveia-privacidade')) setTimeout(abrir, 1200); } catch (e) {}
   })();
 
   /* Copiar o e-mail do rodapé (funciona no celular, mesmo sem HTTPS) */
