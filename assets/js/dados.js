@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '11 de outubro de 2026';
+window.ATUALIZADO = '12 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -12,7 +12,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/f1.jpg',
   frase: 'O piloto encontra o limite a 340 km/h.',
   intro: 'Vinte e dois carros, mil cavalos em cada um. Na freada do fim da reta, o corpo pesa cinco vezes mais e o pé direito ainda espera o último metro. A Fórmula 1 decide campeonatos em milésimos.',
-  lider: { nome: 'Kimi Antonelli', info: 'Mercedes, 320 pontos' },
+  lider: { nome: 'Kimi Antonelli', info: 'Mercedes, 340 pontos' },
   noticias: [
     { d: '2026-09-26', t: 'Russell segura Verstappen e vence em Baku', x: 'George Russell ganhou o GP do Azerbaijão com 0s196 de vantagem sobre Max Verstappen, numa corrida com dois safety cars e seis abandonos. Antonelli saiu de 16º, chegou em quinto e ainda lidera por 66 pontos.' },
     { d: '2026-09-26', t: 'Colapinto causa batida tripla na relargada', x: 'O argentino errou a freada na curva 1 e acertou Pierre Gasly, que levou junto Lando Norris. Norris pediu gancho de uma corrida para o piloto da Alpine.' },
@@ -47,7 +47,7 @@ window.CATEGORIAS = [
     { e: 14, n: 'GP da Espanha', l: 'Madri', d: '2026-09-13', venc: 'Kimi Antonelli (Mercedes)' },
     { e: 15, n: 'GP do Azerbaijão', l: 'Baku', d: '2026-09-26', s: [{ t: 'Treino livre 1', d: '2026-09-24', h: '05:30' }, { t: 'Treino livre 2', d: '2026-09-24', h: '09:00' }, { t: 'Treino livre 3', d: '2026-09-25', h: '05:30' }, { t: 'Classificação', d: '2026-09-25', h: '09:00' }, { t: 'Corrida', d: '2026-09-26', h: '08:00' }], venc: 'George Russell (Mercedes)' },
     { e: 16, n: 'GP do Bahrein', l: 'Sepang (Malásia)', d: '2026-10-04', nota: 'transferido do Bahrein para a Malásia', s: [{ t: 'Treino livre 1', d: '2026-10-02', h: '01:30' }, { t: 'Treino livre 2', d: '2026-10-02', h: '05:00' }, { t: 'Treino livre 3', d: '2026-10-03', h: '01:30' }, { t: 'Classificação', d: '2026-10-03', h: '05:00' }, { t: 'Corrida', d: '2026-10-04', h: '04:00' }], venc: 'Max Verstappen (Red Bull)' },
-    { e: 17, n: 'GP de Singapura', l: 'Marina Bay', d: '2026-10-11', nota: 'primeiro fim de semana de sprint em Singapura', s: [{ t: 'Treino livre 1', d: '2026-10-09', h: '05:30' }, { t: 'Classificação sprint', d: '2026-10-09', h: '09:30' }, { t: 'Sprint', d: '2026-10-10', h: '06:00' }, { t: 'Classificação', d: '2026-10-10', h: '10:00' }, { t: 'Corrida', d: '2026-10-11', h: '09:00' }] },
+    { e: 17, n: 'GP de Singapura', l: 'Marina Bay', d: '2026-10-11', nota: 'primeiro fim de semana de sprint em Singapura', s: [{ t: 'Treino livre 1', d: '2026-10-09', h: '05:30' }, { t: 'Classificação sprint', d: '2026-10-09', h: '09:30' }, { t: 'Sprint', d: '2026-10-10', h: '06:00' }, { t: 'Classificação', d: '2026-10-10', h: '10:00' }, { t: 'Corrida', d: '2026-10-11', h: '09:00' }], venc: 'Max Verstappen (Red Bull)' },
     { e: 18, n: 'GP dos Estados Unidos', l: 'Austin', d: '2026-10-25' },
     { e: 19, n: 'GP da Cidade do México', l: 'Hermanos Rodríguez', d: '2026-11-01' },
     { e: 20, n: 'GP de São Paulo', l: 'Interlagos', d: '2026-11-08' },
@@ -59,15 +59,15 @@ window.CATEGORIAS = [
     titulo: 'Pilotos',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
     linhas: [
-      ['1', 'Kimi Antonelli', 'Mercedes', '320'], ['2', 'George Russell', 'Mercedes', '236'],
-      ['3', 'Lewis Hamilton', 'Ferrari', '214'], ['4', 'Charles Leclerc', 'Ferrari', '191'],
-      ['5', 'Lando Norris', 'McLaren', '188'], ['6', 'Max Verstappen', 'Red Bull', '188'],
-      ['7', 'Oscar Piastri', 'McLaren', '128'], ['8', 'Isack Hadjar', 'Red Bull', '96'],
-      ['9', 'Liam Lawson', 'Racing Bulls', '65'], ['10', 'Pierre Gasly', 'Alpine', '41'],
+      ['1', 'Kimi Antonelli', 'Mercedes', '340'], ['2', 'George Russell', 'Mercedes', '238'],
+      ['3', 'Lewis Hamilton', 'Ferrari', '229'], ['4', 'Max Verstappen', 'Red Bull', '221'],
+      ['5', 'Charles Leclerc', 'Ferrari', '215'], ['6', 'Lando Norris', 'McLaren', '201'],
+      ['7', 'Oscar Piastri', 'McLaren', '138'], ['8', 'Isack Hadjar', 'Red Bull', '97'],
+      ['9', 'Liam Lawson', 'Racing Bulls', '75'], ['10', 'Pierre Gasly', 'Alpine', '41'],
       ['11', 'Arvid Lindblad', 'Racing Bulls', '38'], ['12', 'Franco Colapinto', 'Alpine', '27'],
-      ['13', 'Oliver Bearman', 'Haas', '20'], ['14', 'Gabriel Bortoleto', 'Audi', '10'],
-      ['15', 'Nico Hülkenberg', 'Audi', '7'], ['16', 'Esteban Ocon', 'Haas', '7'],
-      ['17', 'Carlos Sainz', 'Williams', '7'], ['18', 'Fernando Alonso', 'Aston Martin', '7'],
+      ['13', 'Oliver Bearman', 'Haas', '23'], ['14', 'Nico Hülkenberg', 'Audi', '13'],
+      ['15', 'Gabriel Bortoleto', 'Audi', '10'], ['16', 'Esteban Ocon', 'Haas', '7'],
+      ['17', 'Fernando Alonso', 'Aston Martin', '7'], ['18', 'Carlos Sainz', 'Williams', '7'],
       ['19', 'Alexander Albon', 'Williams', '5'], ['20', 'Yuki Tsunoda', 'Racing Bulls', '1'],
       ['21', 'Lance Stroll', 'Aston Martin', '0'], ['22', 'Valtteri Bottas', 'Cadillac', '0'],
       ['23', 'Sergio Pérez', 'Cadillac', '0']
@@ -463,7 +463,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/nascar.jpg',
   frase: 'Quarenta carros, um vácuo, nenhum espaço.',
   intro: 'Nos ovais americanos, os carros andam colados a 300 km/h e o vácuo empurra o pelotão inteiro. Um toque e dez carros saem de cena. O Chase começou: Kyle Larson lidera por um ponto.',
-  lider: { nome: 'Kyle Larson', info: 'Hendrick, lidera o Chase' },
+  lider: { nome: 'Kyle Larson', info: 'Hendrick, lidera o Round of 8' },
   noticias: [
     { d: '2026-09-19', t: 'Logano vence a corrida noturna de Bristol', x: 'Joey Logano ganhou sob as luzes da meia milha mais rápida do mundo. Larson segue um ponto à frente de Denny Hamlin.' },
     { d: '2026-09-13', t: 'Larson vence em St. Louis', x: 'O piloto da Hendrick levou a segunda corrida do Chase e assumiu a ponta.' },
@@ -477,17 +477,17 @@ window.CATEGORIAS = [
     { e: 29, n: 'Bristol Night Race', l: 'Bristol', d: '2026-09-19', venc: 'Joey Logano' },
     { e: 30, n: 'Hollywood Casino 400', l: 'Kansas', d: '2026-09-27', s: [{ t: 'Treino', d: '2026-09-26', h: '11:00' }, { t: 'Classificação', d: '2026-09-26', h: '12:10' }, { t: 'Corrida', d: '2026-09-27', h: '16:00' }], venc: 'Kyle Larson' },
     { e: 31, n: 'South Point 400', l: 'Las Vegas', d: '2026-10-04', s: [{ t: 'Treino', d: '2026-10-03', h: '17:30' }, { t: 'Classificação', d: '2026-10-03', h: '18:35' }, { t: 'Corrida', d: '2026-10-04', h: '18:30' }], venc: 'Chase Briscoe' },
-    { e: 32, n: 'Bank of America 400', l: 'Charlotte', d: '2026-10-11', s: [{ t: 'Treino', d: '2026-10-10', h: '14:00' }, { t: 'Classificação', d: '2026-10-10', h: '15:05' }, { t: 'Corrida', d: '2026-10-11', h: '16:00' }] },
+    { e: 32, n: 'Bank of America 400', l: 'Charlotte', d: '2026-10-11', s: [{ t: 'Treino', d: '2026-10-10', h: '14:00' }, { t: 'Classificação', d: '2026-10-10', h: '15:05' }, { t: 'Corrida', d: '2026-10-11', h: '16:00' }], venc: 'Chase Briscoe' },
     { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18', s: [{ t: 'Treino e classificação', d: '2026-10-17', h: '17:30' }, { t: 'Corrida', d: '2026-10-18', h: '16:00' }] },
     { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25' },
     { e: 35, n: 'Xfinity 500', l: 'Martinsville', d: '2026-11-01' },
     { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08' }
   ],
   classificacao: {
-    titulo: 'Chase, após Bristol',
+    titulo: 'Round of 8, após Charlotte',
     colunas: ['Pos', 'Piloto', 'Equipe'],
-    linhas: [['1', 'Kyle Larson', 'Hendrick (Chevrolet)'], ['2', 'Denny Hamlin', 'Joe Gibbs (Toyota)'], ['3', 'Ryan Blaney', 'Penske (Ford)'], ['4', 'Tyler Reddick', '23XI (Toyota)'], ['5', 'Joey Logano', 'Penske (Ford)'], ['6', 'Christopher Bell', 'Joe Gibbs (Toyota)'], ['7', 'Chase Elliott', 'Hendrick (Chevrolet)'], ['8', 'Ty Gibbs', 'Joe Gibbs (Toyota)'], ['9', 'Chase Briscoe', 'Joe Gibbs (Toyota)'], ['10', 'Carson Hocevar', 'Spire (Chevrolet)'], ['11', 'Shane van Gisbergen', 'Trackhouse (Chevrolet)'], ['12', 'Corey Heim', '23XI (Toyota)']],
-    nota: 'Larson lidera por 1 ponto. O calendário mostra a reta final da temporada.'
+    linhas: [['1', 'Kyle Larson', 'Hendrick (Chevrolet)'], ['2', 'Denny Hamlin', 'Joe Gibbs (Toyota)'], ['3', 'Christopher Bell', 'Joe Gibbs (Toyota)'], ['4', 'Chase Briscoe', 'Joe Gibbs (Toyota)'], ['5', 'Ryan Blaney', 'Penske (Ford)'], ['6', 'Joey Logano', 'Penske (Ford)'], ['7', 'Tyler Reddick', '23XI (Toyota)'], ['8', 'Austin Cindric', 'Penske (Ford)']],
+    nota: 'Kyle Larson venceu o corte do Round of 12 em Charlotte e lidera o Round of 8 por 65 pontos sobre Briscoe. Chase Elliott e William Byron foram eliminados.'
   },
   equipes: [
     { n: 'Hendrick Motorsports', i: 'Chevrolet', p: ['Kyle Larson', 'Chase Elliott', 'William Byron', 'Alex Bowman'] },
@@ -552,7 +552,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/motogp.jpg',
   frase: 'Cotovelo no asfalto a 60 graus de inclinação.',
   intro: 'Na MotoGP, o piloto pendura o corpo para fora da moto e arrasta o cotovelo na zebra. São 300 cavalos em duas rodas e 360 km/h na reta. Jorge Martín lidera com 12 pontos sobre Marc Márquez, faltando sete etapas.',
-  lider: { nome: 'Jorge Martín', info: 'Aprilia, 333 pontos' },
+  lider: { nome: 'Jorge Martín', info: 'Aprilia, 355 pontos' },
   noticias: [
     { d: '2026-09-20', t: 'Acosta vence na Áustria', x: 'Pedro Acosta deu à KTM a primeira vitória do ano em casa, no Red Bull Ring. Cinco pilotos seguem separados por 24 pontos.' },
     { d: '2026-09-13', t: 'Márquez vence em Misano', x: 'Marc Márquez emendou Aragão e San Marino e chegou a 190 pontos, 18 atrás do líder.' },
@@ -575,7 +575,7 @@ window.CATEGORIAS = [
     { e: 14, n: 'GP de San Marino', l: 'Misano', d: '2026-09-13', venc: 'Marc Márquez (Ducati)' },
     { e: 15, n: 'GP da Áustria', l: 'Spielberg', d: '2026-09-20', venc: 'Pedro Acosta (KTM)' },
     { e: 16, n: 'GP do Japão', l: 'Motegi', d: '2026-10-04', s: [{ t: 'Treino livre 1', d: '2026-10-01', h: '22:45' }, { t: 'Treino', d: '2026-10-02', h: '03:00' }, { t: 'Treino livre 2', d: '2026-10-02', h: '22:10' }, { t: 'Classificação Q1', d: '2026-10-02', h: '22:50' }, { t: 'Classificação Q2', d: '2026-10-02', h: '23:15' }, { t: 'Sprint', d: '2026-10-03', h: '03:00' }, { t: 'Corrida', d: '2026-10-04', h: '02:00' }], venc: 'Marc Márquez (Ducati)' },
-    { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-08', h: '23:45' }, { t: 'Treino', d: '2026-10-09', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-09', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-09', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-10', h: '00:15' }, { t: 'Sprint', d: '2026-10-10', h: '04:00' }, { t: 'Corrida', d: '2026-10-11', h: '04:00' }] },
+    { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-08', h: '23:45' }, { t: 'Treino', d: '2026-10-09', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-09', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-09', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-10', h: '00:15' }, { t: 'Sprint', d: '2026-10-10', h: '04:00' }, { t: 'Corrida', d: '2026-10-11', h: '04:00' }], venc: 'Marco Bezzecchi (Aprilia)' },
     { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25' },
     { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01' },
     { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08' },
@@ -585,8 +585,8 @@ window.CATEGORIAS = [
   classificacao: {
     titulo: 'Pilotos',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
-    linhas: [['1', 'Jorge Martín', 'Aprilia Racing', '333'], ['2', 'Marc Márquez', 'Ducati Lenovo', '331'], ['3', 'Marco Bezzecchi', 'Aprilia Racing', '284'], ['4', 'Pedro Acosta', 'Red Bull KTM', '243'], ['5', 'Ai Ogura', 'Trackhouse', '237'], ['6', 'Fabio Di Giannantonio', 'VR46', '230'], ['7', 'Raúl Fernández', 'Trackhouse', '216'], ['8', 'Francesco Bagnaia', 'Ducati Lenovo', '164'], ['9', 'Álex Márquez', 'Gresini', '158'], ['10', 'Fermín Aldeguer', 'Gresini', '122'], ['11', 'Enea Bastianini', 'KTM Tech3', '116'], ['12', 'Luca Marini', 'Honda HRC', '104'], ['13', 'Brad Binder', 'Red Bull KTM', '99'], ['14', 'Diogo Moreira', 'LCR Honda', '74'], ['15', 'Fabio Quartararo', 'Yamaha', '66'], ['16', 'Franco Morbidelli', 'VR46', '56'], ['17', 'Johann Zarco', 'LCR Honda', '45'], ['18', 'Joan Mir', 'Honda HRC', '33'], ['19', 'Jack Miller', 'Pramac Yamaha', '28'], ['20', 'Álex Rins', 'Yamaha', '24'], ['21', 'Toprak Razgatlıoğlu', 'Pramac Yamaha', '18'], ['22', 'Maverick Viñales', 'KTM Tech3', '10']],
-    nota: 'Classificação após o GP do Japão (etapa 16 de 22). Martín lidera por 2 pontos sobre Márquez.'
+    linhas: [['1', 'Jorge Martín', 'Aprilia Racing', '355'], ['2', 'Marc Márquez', 'Ducati Lenovo', '353'], ['3', 'Marco Bezzecchi', 'Aprilia Racing', '309'], ['4', 'Ai Ogura', 'Trackhouse', '259'], ['5', 'Pedro Acosta', 'Red Bull KTM', '258'], ['6', 'Fabio Di Giannantonio', 'VR46', '245'], ['7', 'Raúl Fernández', 'Trackhouse', '236'], ['8', 'Álex Márquez', 'Gresini', '172'], ['9', 'Francesco Bagnaia', 'Ducati Lenovo', '166'], ['10', 'Fermín Aldeguer', 'Gresini', '125'], ['11', 'Enea Bastianini', 'KTM Tech3', '116'], ['12', 'Luca Marini', 'Honda HRC', '104'], ['13', 'Brad Binder', 'Red Bull KTM', '99'], ['14', 'Diogo Moreira', 'LCR Honda', '74'], ['15', 'Fabio Quartararo', 'Yamaha', '66'], ['16', 'Franco Morbidelli', 'VR46', '56'], ['17', 'Johann Zarco', 'LCR Honda', '45'], ['18', 'Joan Mir', 'Honda HRC', '33'], ['19', 'Jack Miller', 'Pramac Yamaha', '28'], ['20', 'Álex Rins', 'Yamaha', '24'], ['21', 'Toprak Razgatlıoğlu', 'Pramac Yamaha', '18'], ['22', 'Maverick Viñales', 'KTM Tech3', '10']],
+    nota: 'Classificação após o GP da Indonésia (etapa 17 de 22). Martín lidera por 2 pontos sobre Márquez.'
   },
   equipes: [
     { n: 'Aprilia Racing', i: 'Aprilia', p: ['Jorge Martín', 'Marco Bezzecchi'] },
@@ -706,7 +706,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/dtm.jpg',
   frase: 'Carros GT, porta com porta, nas pistas da Alemanha.',
   intro: 'O DTM é o campeonato alemão de turismo: Porsche, BMW, Mercedes, Ferrari, Aston Martin, McLaren e Ford na mesma pista, com duas corridas por fim de semana. Thomas Preining lidera por 23 pontos antes da final em Hockenheim.',
-  lider: { nome: 'Thomas Preining', info: 'Manthey, Porsche, 197 pontos' },
+  lider: { nome: 'Thomas Preining', info: 'Manthey, Porsche, campeão 2026 (bicampeão)' },
   noticias: [
     { d: '2026-09-13', t: 'Wittmann e Dörr vencem em Sachsenring', x: 'Marco Wittmann ganhou a corrida de sábado e Ben Dörr a de domingo. Preining segue líder e leva 23 pontos de vantagem para Hockenheim.' },
     { d: '2026-08-16', t: 'Cairoli chega à terceira vitória no Nürburgring', x: 'Matteo Cairoli, da Ferrari Emil Frey, venceu a primeira corrida. Wittmann ganhou a segunda e entrou na briga pelo título.' },
@@ -720,7 +720,7 @@ window.CATEGORIAS = [
     { e: 5, n: 'Oschersleben', l: 'Alemanha', d: '2026-07-26', venc: 'Corrida 1: Thomas Preining · Corrida 2: Maro Engel' },
     { e: 6, n: 'Nürburgring', l: 'Alemanha', d: '2026-08-16', venc: 'Corrida 1: Matteo Cairoli · Corrida 2: Marco Wittmann' },
     { e: 7, n: 'Sachsenring', l: 'Alemanha', d: '2026-09-13', venc: 'Corrida 1: Marco Wittmann · Corrida 2: Ben Dörr' },
-    { e: 8, n: 'Hockenheim (final)', l: 'Alemanha', d: '2026-10-11', s: [{ t: 'Classificação 1', d: '2026-10-10', h: '04:30' }, { t: 'Corrida 1', d: '2026-10-10', h: '08:30' }, { t: 'Classificação 2', d: '2026-10-11', h: '04:30' }, { t: 'Corrida 2', d: '2026-10-11', h: '08:30' }] }
+    { e: 8, n: 'Hockenheim (final)', l: 'Alemanha', d: '2026-10-11', s: [{ t: 'Classificação 1', d: '2026-10-10', h: '04:30' }, { t: 'Corrida 1', d: '2026-10-10', h: '08:30' }, { t: 'Classificação 2', d: '2026-10-11', h: '04:30' }, { t: 'Corrida 2', d: '2026-10-11', h: '08:30' }], venc: 'Corrida 1: Lucas Auer · Corrida 2: Maro Engel' }
   ],
   classificacao: {
     titulo: 'Pilotos',
@@ -731,7 +731,7 @@ window.CATEGORIAS = [
       ['5', 'Matteo Cairoli', 'Emil Frey (Ferrari)', '150'], ['6', 'Nicki Thiim', 'Comtoyou (Aston Martin)', '147'],
       ['7', 'Ben Dörr', 'Dörr (McLaren)', '123'], ['8', 'Arjun Maini', 'HRT (Ford)', '117']
     ],
-    nota: 'Após Sachsenring (etapa 7 de 8). A final em Hockenheim, nos dias 10 e 11 de outubro, tem duas corridas e decide o título.'
+    nota: 'Thomas Preining é bicampeão da DTM: Lucas Auer venceu a corrida 1 em Hockenheim e Maro Engel a corrida 2, com Preining em terceiro garantindo o título na final. A tabela de pontos acima é da véspera da final, em Sachsenring; os pontos finais ainda não foram confirmados.'
   },
   equipes: [
     { n: 'Manthey Racing', i: 'Porsche 911 GT3 R', p: ['Thomas Preining'] },
@@ -766,7 +766,7 @@ window.CATEGORIAS = [
     { e: 8, n: 'Inglaterra', l: 'Donington Park', d: '2026-07-12', venc: 'Corrida 1: Iker Lecuona · Superpole e Corrida 2: Nicolò Bulega' },
     { e: 9, n: 'França', l: 'Magny-Cours', d: '2026-09-06', venc: 'Nicolò Bulega (3 corridas)' },
     { e: 10, n: 'Itália', l: 'Cremona', d: '2026-09-27', venc: 'Iker Lecuona (3 corridas)' },
-    { e: 11, n: 'Estoril', l: 'Portugal', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-09', h: '06:20' }, { t: 'Treino livre 2', d: '2026-10-09', h: '11:00' }, { t: 'Treino livre 3', d: '2026-10-10', h: '05:40' }, { t: 'Superpole', d: '2026-10-10', h: '07:15' }, { t: 'Corrida 1', d: '2026-10-10', h: '11:30' }, { t: 'Warm-up', d: '2026-10-11', h: '05:15' }, { t: 'Superpole Race', d: '2026-10-11', h: '07:10' }, { t: 'Corrida 2', d: '2026-10-11', h: '11:30' }] },
+    { e: 11, n: 'Estoril', l: 'Portugal', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-09', h: '06:20' }, { t: 'Treino livre 2', d: '2026-10-09', h: '11:00' }, { t: 'Treino livre 3', d: '2026-10-10', h: '05:40' }, { t: 'Superpole', d: '2026-10-10', h: '07:15' }, { t: 'Corrida 1', d: '2026-10-10', h: '11:30' }, { t: 'Warm-up', d: '2026-10-11', h: '05:15' }, { t: 'Superpole Race', d: '2026-10-11', h: '07:10' }, { t: 'Corrida 2', d: '2026-10-11', h: '11:30' }], venc: 'Nicolò Bulega (3 corridas)' },
     { e: 12, n: 'Espanha', l: 'Jerez', d: '2026-10-18' }
   ],
   classificacao: {
