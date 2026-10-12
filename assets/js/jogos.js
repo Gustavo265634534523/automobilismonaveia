@@ -19,7 +19,7 @@
       '<ul class="jg-trava-lista"><li><b>Largada</b>As cinco luzes vermelhas apagam. Qual é o seu tempo de reação?</li>' +
       '<li><b>Adivinhe o circuito</b>Só o desenho da pista. Você reconhece?</li>' +
       '<li><b>Piloto misterioso</b>Dica por dica, descubra quem é. Menos dicas, mais pontos.</li>' +
-      '<li><b>Chefe de Equipe</b>Escolha a cor do seu carro e comande a estratégia: ritmo, pit stop e pneus.</li></ul></div>';
+      '<li><b>Na Veia Racing</b>Pilote em 3D um F1, um Hypercar ou GT3 no WEC, ou um Porsche Cup, contra 11 adversários.</li></ul></div>';
   }
   window.NAVEIA_LIVRE.then(function (r) {
     if (r.semServidor) {
@@ -35,10 +35,10 @@
 
   /* ---------- Página dos jogos ---------- */
   var JOGOS = [
+    ['corrida', 'Na Veia Racing', 'Pilote em 3D'],
     ['largada', 'Largada', 'Reflexo'],
     ['circuito', 'Adivinhe o circuito', 'Traçados'],
-    ['piloto', 'Piloto misterioso', 'Dicas'],
-    ['chefe', 'Chefe de Equipe', 'Estratégia']
+    ['piloto', 'Piloto misterioso', 'Dicas']
   ];
   function liberar(teste, plano) {
     var medio = plano === 'medio';
@@ -63,8 +63,8 @@
       circuito(document.getElementById('jogo-circuito'));
       piloto(document.getElementById('jogo-piloto'));
     }
-    if (window.JOGO_CHEFE) window.JOGO_CHEFE(document.getElementById('jogo-chefe'), { plano: plano });
-    var h = location.hash.slice(1) || (medio ? 'chefe' : '');
+    if (window.JOGO_CORRIDA) window.JOGO_CORRIDA(document.getElementById('jogo-corrida'));
+    var h = location.hash.slice(1) || (medio ? 'corrida' : '');
     if (document.getElementById('jogo-' + h)) abrir(h);
   }
 
