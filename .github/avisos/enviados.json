@@ -217,7 +217,12 @@
   "alerta:formula-1:17:Corrida:2026-10-11": "2026-10-11T11:35:44.073Z",
   "alerta:superbike:11:Corrida 2:2026-10-11": "2026-10-11T14:03:20.852Z",
   "f1rapido:formula-1:17": "2026-10-11T14:46:18.648Z",
-  "alerta:nascar:32:Corrida:2026-10-11": "2026-10-11T18:47:35.660Z"
+  "alerta:nascar:32:Corrida:2026-10-11": "2026-10-11T18:47:35.660Z",
+  "resultado:formula-1:17:venc:Max Verstappen (Red Bull)": "2026-10-12T11:06:03.335Z",
+  "resultado:nascar:32:venc:Chase Briscoe": "2026-10-12T11:06:03.900Z",
+  "resultado:motogp:17:venc:Marco Bezzecchi (Aprilia)": "2026-10-12T11:06:04.186Z",
+  "resultado:dtm:8:venc:Corrida 1: Lucas Auer · Corrida 2: Maro Engel": "2026-10-12T11:06:04.478Z",
+  "resultado:superbike:11:venc:Nicolò Bulega (3 corridas)": "2026-10-12T11:06:04.768Z"
  },
  "iniciado": true,
  "horarios": {
