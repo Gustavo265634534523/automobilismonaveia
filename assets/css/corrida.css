@@ -309,3 +309,7 @@ html.nv-jogando .chat-bt, html.nv-jogando .app-bt, html.nv-jogando .app-aviso, h
   .nv-setores dd { font-size: 9px; }
   .nv-setores dt { font-size: 8px; }
 }
+.nv-toque .nv-mch { width: 46px; height: 46px; font: 900 26px/1 var(--display); color: #fff; }
+/* setas de direção (no lugar do volante) */
+.nv-lado { display: flex; gap: 12px; align-items: flex-end; }
+.nv-toque .nv-seta { width: clamp(74px, 22vh, 92px); height: clamp(74px, 22vh, 92px); }

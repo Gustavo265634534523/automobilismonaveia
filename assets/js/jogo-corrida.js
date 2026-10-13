@@ -383,15 +383,15 @@
      Se o modelo não carregar, o jogo usa o carro desenhado (montarCarro). */
   var URL_GLTF = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';
   var MODELOS = {
-    f1: { esc: 0.94 /* 2026: 3,40 m entre eixos, ~1,95 m de largura */, url: 'assets/modelos/jogo-f1.glb?v=304', painel: 'f1w', volante: 'assets/modelos/jogo-volante-f1.glb?v=304', cabine: 'assets/modelos/jogo-f1-cabine.glb?v=304', espelhos: [], olho: [-0.34, 1.08, 0], olharDesce: 1.05, capaceteCab: [-0.06, 0.84, 0.135], olhoPiloto: [0.44, -0.2, -0.1] /* Cockpit: frente, altura, olhar menos para baixo */, capacete: [-0.12, 0.79, 0.135], numeros: [[1.35, 3, 0, 0, -1, 0, 0.3], [-0.85, 0.72, 3, 0, 0, -1, 0.3], [-0.85, 0.72, -3, 0, 0, 1, 0.3]] },
-    peugeot: { url: 'assets/modelos/jogo-peugeot.glb?v=304', painel: 'peugeot', cabine: 'assets/modelos/jogo-peugeot-cabine.glb?v=304', olhoAj: [0.15, -0.06], tomTex: 0.45, tomInt: 0.5, espelhos: [[0.6, 0.915, 0.06, 0.26, 0.045, 'C']], numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [-0.3, 0.6, 3, 0, 0, -1, 0.46], [-0.3, 0.6, -3, 0, 0, 1, 0.46]] },
-    gt3: { url: 'assets/modelos/jogo-gt3.glb?v=304', cabine: 'assets/modelos/jogo-gt3-cabine.glb?v=304', espelhos: [[0.55, 0.86, -0.95, 0.15, 0.085, 'E'], [0.24, 0.945, -0.03, 0.2, 0.05, 'C']], numeros: [[1.45, 3, 0, 0, -1, 0, 0.42], [0.05, 0.55, 3, 0, 0, -1, 0.46], [0.05, 0.55, -3, 0, 0, 1, 0.46]] },
-    mercedes: { url: 'assets/modelos/jogo-mercedes.glb?v=304', cabine: 'assets/modelos/jogo-mercedes-cabine.glb?v=304', painel: 'mercedes-gt3', espelhos: [[0.22, 1.06, 0.12, 0.22, 0.055, 'C'], [0.1, 0.88, -1.0, 0.15, 0.085, 'E'], [0.032, 0.826, -0.108, 0.15, 0.088, 'C', [-0.94, 0.21, -0.27]]] /* o último é o monitor da câmera de ré */, numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [0.05, 0.6, 3, 0, 0, -1, 0.46], [0.05, 0.6, -3, 0, 0, 1, 0.46]] },
-    porsche: { url: 'assets/modelos/jogo-porsche.glb?v=304', painel: 'porsche', cabine: 'assets/modelos/jogo-porsche-cabine.glb?v=304', espelhos: [[0.40, 0.84, -0.82, 0.15, 0.085, 'E'], [0.25, 0.985, -0.025, 0.25, 0.065, 'C']], numeros: [[1.5, 3, 0, 0, -1, 0, 0.42], [0.15, 0.55, 3, 0, 0, -1, 0.46], [0.15, 0.55, -3, 0, 0, 1, 0.46]] }
+    f1: { esc: 0.94 /* 2026: 3,40 m entre eixos, ~1,95 m de largura */, url: 'assets/modelos/jogo-f1.glb?v=306', painel: 'f1w', volante: 'assets/modelos/jogo-volante-f1.glb?v=306', cabine: 'assets/modelos/jogo-f1-cabine.glb?v=306', espelhos: [], olho: [-0.34, 1.08, 0], olharDesce: 1.05, capaceteCab: [-0.06, 0.84, 0.135], olhoPiloto: [0.44, -0.2, -0.1] /* Cockpit: frente, altura, olhar menos para baixo */, capacete: [-0.12, 0.79, 0.135], numeros: [[1.35, 3, 0, 0, -1, 0, 0.3], [-0.85, 0.72, 3, 0, 0, -1, 0.3], [-0.85, 0.72, -3, 0, 0, 1, 0.3]] },
+    peugeot: { url: 'assets/modelos/jogo-peugeot.glb?v=306', painel: 'peugeot', cabine: 'assets/modelos/jogo-peugeot-cabine.glb?v=306', olhoAj: [0.15, -0.06], tomTex: 0.45, tomInt: 0.5, espelhos: [[0.6, 0.915, 0.06, 0.26, 0.045, 'C']], numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [-0.3, 0.6, 3, 0, 0, -1, 0.46], [-0.3, 0.6, -3, 0, 0, 1, 0.46]] },
+    gt3: { url: 'assets/modelos/jogo-gt3.glb?v=306', cabine: 'assets/modelos/jogo-gt3-cabine.glb?v=306', espelhos: [[0.55, 0.86, -0.95, 0.15, 0.085, 'E'], [0.24, 0.945, -0.03, 0.2, 0.05, 'C']], numeros: [[1.45, 3, 0, 0, -1, 0, 0.42], [0.05, 0.55, 3, 0, 0, -1, 0.46], [0.05, 0.55, -3, 0, 0, 1, 0.46]] },
+    mercedes: { url: 'assets/modelos/jogo-mercedes.glb?v=306', cabine: 'assets/modelos/jogo-mercedes-cabine.glb?v=306', painel: 'mercedes-gt3', espelhos: [[0.22, 1.06, 0.12, 0.22, 0.055, 'C'], [0.1, 0.88, -1.0, 0.15, 0.085, 'E'], [0.032, 0.826, -0.108, 0.15, 0.088, 'C', [-0.94, 0.21, -0.27]]] /* o último é o monitor da câmera de ré */, numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [0.05, 0.6, 3, 0, 0, -1, 0.46], [0.05, 0.6, -3, 0, 0, 1, 0.46]] },
+    porsche: { url: 'assets/modelos/jogo-porsche.glb?v=306', painel: 'porsche', cabine: 'assets/modelos/jogo-porsche-cabine.glb?v=306', espelhos: [[0.40, 0.84, -0.82, 0.15, 0.085, 'E'], [0.25, 0.985, -0.025, 0.25, 0.065, 'C']], numeros: [[1.5, 3, 0, 0, -1, 0, 0.42], [0.15, 0.55, 3, 0, 0, -1, 0.46], [0.15, 0.55, -3, 0, 0, 1, 0.46]] }
   };
   /* carros de cada classe (os adversários se revezam; quem joga escolhe no menu) */
   var VARIANTES = { f1: ['f1'], hyper: ['peugeot'], gt3: ['mercedes', 'gt3'], porsche: ['porsche'] };
-  MODELOS.sc = { url: 'assets/modelos/jogo-safety-car.glb?v=304' }; /* safety car */
+  MODELOS.sc = { url: 'assets/modelos/jogo-safety-car.glb?v=306' }; /* safety car */
   var NOME_CARRO = { f1: 'F1 2026', peugeot: 'Peugeot 9X8', gt3: 'McLaren 720S', mercedes: 'Mercedes-AMG', porsche: 'Porsche 911' };
   var MOLDES = {}; /* modelo -> molde pronto, ou 'falhou' */
   function carregarModelos(classes, pronto, progresso) {
@@ -811,6 +811,8 @@
     raio: svgI('<path d="M27 5L12 27h11l-3 16 16-23H25z"/>'),
     box: svgI('<path d="M9 40V8"/><path d="M9 9h26l-5 7 5 7H9"/>'),
     /* volante de corrida: aro, raios, cubo e a marca do centro (vermelha) */
+    esq: svgI('<path d="M29 10L15 24l14 14" stroke-width="5"/>'),
+    dir: svgI('<path d="M19 10l14 14-14 14" stroke-width="5"/>'),
     volante: '<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="41" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="9"/>' +
       '<path d="M12 54h26M62 54h26M50 62v27" stroke="rgba(255,255,255,.85)" stroke-width="8" stroke-linecap="round"/><circle cx="50" cy="54" r="12" fill="rgba(20,22,26,.85)" stroke="rgba(255,255,255,.85)" stroke-width="4"/>' +
       '<rect x="46" y="5" width="8" height="12" rx="2" fill="#e3343c"/></svg>',
@@ -942,7 +944,7 @@
   var DADOS_PISTA = {};
   function carregarPista(id, pronto, falha) {
     if (DADOS_PISTA[id]) return pronto();
-    fetch('assets/dados/pistas/' + id + '.json?v=304').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    fetch('assets/dados/pistas/' + id + '.json?v=306').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) { DADOS_PISTA[id] = d; pronto(); }).catch(falha);
   }
 
@@ -1614,7 +1616,7 @@
           ((VARIANTES[classeJog()] || []).length > 1 ? chips('Seu carro', VARIANTES[classeJog()].map(function (m) { return ['carro', m, NOME_CARRO[m]]; }), carroJog()) : '') +
           chips('Cor', Object.keys(CORES_CARRO).map(function (k) { return ['cor', k, CORES_CARRO[k][2]]; }), CORES_CARRO[cfg.cor] ? cfg.cor : 'preto') +
           chips('Acelerar sozinho', [['auto', true, 'Sim'], ['auto', false, 'Não']], cfg.auto) +
-          (toque ? '' : chips('Câmbio', [['cambio', 'auto', 'Automático'], ['cambio', 'manual', 'Manual (Q e E)']], cfg.cambio === 'manual' ? 'manual' : 'auto')) +
+          chips('Câmbio', [['cambio', 'auto', 'Automático'], ['cambio', 'manual', toque ? 'Manual (− e +)' : 'Manual (Q e E)']], cfg.cambio === 'manual' ? 'manual' : 'auto') +
           chips('Câmera', [['cam', 0, 'Atrás'], ['cam', 1, 'Alta'], ['cam', 2, cfg.classe === 'f1' ? 'Atrás do capacete' : 'Primeira pessoa']].concat(cfg.classe === 'f1' ? [['cam', 3, 'Cockpit']] : []), cfg.classe === 'f1' ? ler('corrida-cam', 0) : Math.min(2, ler('corrida-cam', 0))) +
           chips('Horário', [['hora', 'tarde', 'Fim de tarde'], ['hora', 'dia', 'Dia']], cfg.hora || 'tarde') +
           chips('Gráfico', [['grafico', 'alto', 'Bonito'], ['grafico', 'medio', 'Médio'], ['grafico', 'leve', 'Leve (celular fraco)']], cfg.grafico || (toque ? 'medio' : 'alto')) +
@@ -1687,10 +1689,10 @@
         '<div class="nv-pitbox" id="nv-pitbox"></div>' +
         (toque ? '<p class="nv-girar">Melhor com o celular deitado</p>' : '') +
         (toque ? '<div class="nv-toque">' +
-          '<div class="nv-t-esq"><div class="nv-volante" id="nv-volante" aria-label="Volante: gire com o dedo">' + ICONES.volante + '</div><div class="nv-icones">' +
+          '<div class="nv-t-esq"><div class="nv-lado"><button type="button" data-c="esq" class="nv-seta" aria-label="Esquerda">' + ICONES.esq + '</button><button type="button" data-c="dir" class="nv-seta" aria-label="Direita">' + ICONES.dir + '</button></div><div class="nv-icones">' +
             (C.ers ? '<button type="button" data-c="turbo" class="nv-ic" aria-label="Bateria">' + ICONES.raio + '</button>' : '') +
           '</div></div>' +
-          '<div class="nv-t-dir">' +
+          '<div class="nv-t-dir">' + (cfg.cambio === 'manual' ? '<div class="nv-marchas"><button type="button" data-c="sobe" class="nv-ic nv-mch" aria-label="Subir marcha">+</button><button type="button" data-c="desce" class="nv-ic nv-mch" aria-label="Reduzir marcha">−</button></div>' : '') +
             '<div class="nv-pedais"><button type="button" data-c="freio" class="nv-pedal nv-pedal-freio" aria-label="Freio">' + ICONES.freio + '</button>' +
             '<button type="button" data-c="acel" class="nv-pedal nv-pedal-acel" aria-label="Acelerador">' + ICONES.acel + '</button></div></div>' + /* os dois pedais sempre (com Acelerar sozinho o carro já acelera) */
         '</div>' : '') +
@@ -1758,7 +1760,7 @@
           habil: eu ? 1 : lerp(nv.habil[0], nv.habil[1], Math.random()), lado: (Math.random() - 0.5) * 1.6, alvoD: lado, ultr: 0, agr: Math.random(), lf: 1, lo: 0, dentro: 0, trocaL: 0, defT: 0, voltas: multi && kc === 'gt3' ? 0 : 1, /* GT3 do WEC largam à frente: a 1ª passagem pela linha só abre a volta 1 */ meio: false, fim: 0,
           x: 0, z: 0, th: 0, idx: 0, vy: 0, k: kc, C: cc, cor: det, corBase: base, VEL: VELS[kc] || (VELS[kc] = perfilVel(T, cc)) });
       }
-      var J = carros[POS_JOG], manual = cfg.cambio === 'manual' && !toque; J.marcha = 1; /* no celular o câmbio é automático */
+      var J = carros[POS_JOG], manual = cfg.cambio === 'manual'; J.marcha = 1;
       /* safety car: entra depois de uma batida forte sua, ou (corridas de 3+ voltas) às vezes no meio da prova; fica 1 volta na frente do líder */
       var SC = MOLDES.sc && MOLDES.sc !== 'falhou' ? montarSafetyCar(MOLDES.sc) : null, scPlano = cfg.voltas >= 3 && Math.random() < 0.45 ? T.L * (1.3 + Math.random() * (cfg.voltas - 2.3)) : 0;
       if (SC) { scene.add(SC.grupo); SC.s = 0; SC.d = 0; SC.v = 0; SC.dist = 0; SC.x = 0; SC.z = 0; SC.idx = 0; SC.th = 0; SC.sc = true; }
@@ -1830,14 +1832,13 @@
       (function () {
         var vol = el.querySelector('#nv-volante'); if (!vol) return;
         var MAX = 2.0, rot = 0, a0 = 0, r0 = 0, dedo = null, svg = vol.querySelector('svg'); /* gira até 115° para cada lado */
-        function ang(e) { var b = vol.getBoundingClientRect(); return Math.atan2(e.clientY - (b.top + b.height / 2), e.clientX - (b.left + b.width / 2)); }
-        function mostrar() { svg.style.transform = 'rotate(' + rot + 'rad)'; cmd.vol = dedo === null ? null : Math.max(-1, Math.min(1, rot / MAX * 1.15)); }
-        vol.addEventListener('pointerdown', function (e) { e.preventDefault(); motor.retomar(); if (dedo !== null) return; dedo = e.pointerId; try { vol.setPointerCapture(dedo); } catch (er) {} a0 = ang(e); r0 = rot; vol.classList.add('ativo'); svg.style.transition = 'none'; mostrar(); });
+        /* arrastar o dedo para os lados vira o volante (pelo ângulo do dedo ele trocava de lado sozinho quando o dedo passava perto do centro) */
+        var x0 = 0;
+        function mostrar() { svg.style.transform = 'rotate(' + rot + 'rad)'; cmd.vol = dedo === null ? null : Math.max(-1, Math.min(1, rot / MAX)); }
+        vol.addEventListener('pointerdown', function (e) { e.preventDefault(); motor.retomar(); if (dedo !== null) return; dedo = e.pointerId; try { vol.setPointerCapture(dedo); } catch (er) {} x0 = e.clientX; rot = 0; vol.classList.add('ativo'); svg.style.transition = 'none'; mostrar(); });
         vol.addEventListener('pointermove', function (e) {
-          if (e.pointerId !== dedo) return; var b = vol.getBoundingClientRect(), dx = e.clientX - (b.left + b.width / 2), dy = e.clientY - (b.top + b.height / 2);
-          if (Math.hypot(dx, dy) < b.width * 0.12) return; /* muito no centro: o ângulo fica instável */
-          var d = ang(e) - a0; d = Math.atan2(Math.sin(d), Math.cos(d)); rot = Math.max(-MAX, Math.min(MAX, r0 + d));
-          if (Math.abs(rot) >= MAX) { a0 = ang(e); r0 = rot; } /* no batente: continua de onde parou */
+          if (e.pointerId !== dedo) return; var w = vol.getBoundingClientRect().width;
+          rot = Math.max(-MAX, Math.min(MAX, (e.clientX - x0) / (w * 0.55) * MAX)); /* meio volante de arrasto = volante todo virado */
           mostrar();
         });
         ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (ev) { vol.addEventListener(ev, function (e) { if (e.pointerId !== dedo) return; dedo = null; rot = 0; svg.style.transition = 'transform .18s ease-out'; mostrar(); vol.classList.remove('ativo'); }); });
