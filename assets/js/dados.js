@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '12 de outubro de 2026';
+window.ATUALIZADO = '14 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -118,8 +118,8 @@ window.CATEGORIAS = [
     { e: 10, n: 'Itália', l: 'Monza', d: '2026-09-06', venc: 'Sprint: Joshua Dürksen. Principal: Joshua Dürksen' },
     { e: 11, n: 'Espanha', l: 'Madring', d: '2026-09-13', venc: 'Sprint: Ritomo Miyata. Principal: Dino Beganovic' },
     { e: 12, n: 'Azerbaijão', l: 'Baku', d: '2026-09-26', venc: 'Sprint: Dino Beganovic. Principal 1: Alex Dunne. Principal 2: Rafael Câmara' },
-    { e: 13, n: 'Catar', l: 'Lusail', d: '2026-11-29', nota: 'data a confirmar' },
-    { e: 14, n: 'Abu Dhabi', l: 'Yas Marina', d: '2026-12-06', nota: 'data a confirmar' }
+    { e: 13, n: 'Catar', l: 'Lusail', d: '2026-11-29' },
+    { e: 14, n: 'Abu Dhabi', l: 'Yas Marina', d: '2026-12-06' }
   ],
   classificacao: {
     titulo: 'Pilotos (após Baku)',
@@ -706,7 +706,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/dtm.jpg',
   frase: 'Carros GT, porta com porta, nas pistas da Alemanha.',
   intro: 'O DTM é o campeonato alemão de turismo: Porsche, BMW, Mercedes, Ferrari, Aston Martin, McLaren e Ford na mesma pista, com duas corridas por fim de semana. Thomas Preining lidera por 23 pontos antes da final em Hockenheim.',
-  lider: { nome: 'Thomas Preining', info: 'Manthey, Porsche, campeão 2026 (bicampeão)' },
+  lider: { nome: 'Thomas Preining', info: 'Manthey, Porsche, campeão 2026 (bicampeão), 225 pontos' },
   noticias: [
     { d: '2026-09-13', t: 'Wittmann e Dörr vencem em Sachsenring', x: 'Marco Wittmann ganhou a corrida de sábado e Ben Dörr a de domingo. Preining segue líder e leva 23 pontos de vantagem para Hockenheim.' },
     { d: '2026-08-16', t: 'Cairoli chega à terceira vitória no Nürburgring', x: 'Matteo Cairoli, da Ferrari Emil Frey, venceu a primeira corrida. Wittmann ganhou a segunda e entrou na briga pelo título.' },
@@ -723,15 +723,15 @@ window.CATEGORIAS = [
     { e: 8, n: 'Hockenheim (final)', l: 'Alemanha', d: '2026-10-11', s: [{ t: 'Classificação 1', d: '2026-10-10', h: '04:30' }, { t: 'Corrida 1', d: '2026-10-10', h: '08:30' }, { t: 'Classificação 2', d: '2026-10-11', h: '04:30' }, { t: 'Corrida 2', d: '2026-10-11', h: '08:30' }], venc: 'Corrida 1: Lucas Auer · Corrida 2: Maro Engel' }
   ],
   classificacao: {
-    titulo: 'Pilotos',
+    titulo: 'Pilotos (final)',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
     linhas: [
-      ['1', 'Thomas Preining', 'Manthey (Porsche)', '197'], ['2', 'Maro Engel', 'Winward (Mercedes)', '174'],
-      ['3', 'Marco Wittmann', 'Schubert (BMW)', '173'], ['4', 'Lucas Auer', 'Landgraf (Mercedes)', '152'],
-      ['5', 'Matteo Cairoli', 'Emil Frey (Ferrari)', '150'], ['6', 'Nicki Thiim', 'Comtoyou (Aston Martin)', '147'],
-      ['7', 'Ben Dörr', 'Dörr (McLaren)', '123'], ['8', 'Arjun Maini', 'HRT (Ford)', '117']
+      ['1', 'Thomas Preining', 'Manthey (Porsche)', '225'], ['2', 'Maro Engel', 'Winward (Mercedes)', '213'],
+      ['3', 'Marco Wittmann', 'Schubert (BMW)', '198'], ['4', 'Lucas Auer', 'Landgraf (Mercedes)', '182'],
+      ['5', 'Matteo Cairoli', 'Emil Frey (Ferrari)', '160'], ['6', 'Nicki Thiim', 'Comtoyou (Aston Martin)', '149'],
+      ['7', 'Ben Dörr', 'Dörr (McLaren)', '139'], ['8', 'Arjun Maini', 'HRT (Ford)', '133']
     ],
-    nota: 'Thomas Preining é bicampeão da DTM: Lucas Auer venceu a corrida 1 em Hockenheim e Maro Engel a corrida 2, com Preining em terceiro garantindo o título na final. A tabela de pontos acima é da véspera da final, em Sachsenring; os pontos finais ainda não foram confirmados.'
+    nota: 'Classificação final da temporada. Thomas Preining é bicampeão da DTM, com 225 pontos: Lucas Auer venceu a corrida 1 em Hockenheim e Maro Engel a corrida 2, mas o terceiro lugar de Preining na corrida 2 foi suficiente para fechar o título com 12 pontos de vantagem sobre Engel. Marco Wittmann terminou em terceiro.'
   },
   equipes: [
     { n: 'Manthey Racing', i: 'Porsche 911 GT3 R', p: ['Thomas Preining'] },
@@ -749,7 +749,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/superbike.jpg',
   frase: 'Motos de rua preparadas para a pista. Três corridas por fim de semana.',
   intro: 'No Mundial de Superbike, as motos são versões de corrida de modelos vendidos em loja. Cada etapa tem três corridas: a 1, a Superpole Race, curtinha, e a 2. Nicolò Bulega, da Ducati, já é campeão de 2026.',
-  lider: { nome: 'Nicolò Bulega', info: 'Campeão mundial 2026, Ducati, 602 pontos' },
+  lider: { nome: 'Nicolò Bulega', info: 'Campeão mundial 2026, Ducati, 664 pontos' },
   noticias: [
     { d: '2026-09-27', t: 'Bulega é campeão mundial de Superbike', x: 'O italiano da Ducati garantiu o título com o segundo lugar na corrida 2 em Cremona, depois de dois vice-campeonatos seguidos. Iker Lecuona venceu as três corridas do fim de semana.' },
     { d: '2026-09-06', t: 'Bulega vence as três em Magny-Cours', x: 'Mais um fim de semana perfeito na França, o oitavo do ano em que ele venceu as três corridas.' },
@@ -773,12 +773,13 @@ window.CATEGORIAS = [
     titulo: 'Pilotos',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
     linhas: [
-      ['1', 'Nicolò Bulega', 'Aruba.it Ducati', '602'], ['2', 'Iker Lecuona', 'Aruba.it Ducati', '469'],
-      ['3', 'Yari Montella', 'Barni Ducati', '269'], ['4', 'Alex Lowes', 'Bimota', '226'],
-      ['5', 'Sam Lowes', 'Marc VDS Ducati', '219'], ['6', 'Lorenzo Baldassarri', 'Ducati', '193'],
-      ['7', 'Axel Bassani', 'Bimota', '184'], ['8', 'Garrett Gerloff', 'Kawasaki', '145']
+      ['1', 'Nicolò Bulega', 'Aruba.it Ducati', '664'], ['2', 'Iker Lecuona', 'Aruba.it Ducati', '518'],
+      ['3', 'Yari Montella', 'Barni Ducati', '290'], ['4', 'Alex Lowes', 'Bimota', '237'],
+      ['5', 'Sam Lowes', 'Marc VDS Ducati', '225'], ['6', 'Lorenzo Baldassarri', 'Ducati', '214'],
+      ['7', 'Axel Bassani', 'Bimota', '208'], ['8', 'Alberto Surra', 'Motocorsa Ducati', '179'],
+      ['9', 'Garrett Gerloff', 'Kawasaki', '160'], ['10', 'Álvaro Bautista', 'Barni Ducati', '137']
     ],
-    nota: 'Após Cremona (etapa 10 de 12). Bulega garantiu o título em Cremona. Cada etapa vale até 62 pontos (25 + 12 + 25).'
+    nota: 'Após Estoril (etapa 11 de 12). Bulega garantiu o título em Cremona e chegou a 664 pontos, a temporada de mais pontos da história do WorldSBK. Cada etapa vale até 62 pontos (25 + 12 + 25).'
   },
   equipes: [
     { n: 'Aruba.it Racing Ducati', i: 'Ducati Panigale V4 R', p: ['Nicolò Bulega', 'Iker Lecuona'] },
