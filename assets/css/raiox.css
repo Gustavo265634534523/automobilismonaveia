@@ -1,19 +1,19 @@
 /* Raio-x pós-corrida. Usa os tokens de estilo.css. */
 .rx-main { padding: calc(var(--topo) + 56px) 0 110px; }
-.rx-selo { display: inline-block; margin: 0 0 18px; padding: 6px 12px; border-left: 3px solid var(--sangue-vivo); background: var(--carbono); font-size: 15px; font-weight: 600; color: #c3c8cd; }
-.rx-titulo { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(30px, 5vw, 64px); line-height: 1.05; }
-.rx-sub { margin: 14px 0 0; font-size: 19px; color: #c3c8cd; }
+.rx-selo { display: inline-block; margin: 0 0 18px; padding: 6px 12px; border-left: 3px solid var(--sangue-vivo); background: var(--carbono); font-size: 15px; font-weight: 600; color: var(--texto-2); }
+.rx-titulo { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(28px, 4vw, 50px); line-height: 1.05; }
+.rx-sub { margin: 14px 0 0; font-size: 19px; color: var(--texto-2); }
 
 .rx-destaques { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 40px; }
 .rx-dest { padding: 22px 24px; background: var(--carbono); box-shadow: inset 3px 0 0 var(--sangue); }
 .rx-dest span { display: block; font-size: 15px; font-weight: 600; color: var(--aco); }
-.rx-dest b { display: block; margin-top: 8px; font-family: var(--display); font-weight: 400; font-size: clamp(19px, 1.8vw, 24px); }
-.rx-dest small { display: block; margin-top: 6px; font-size: 16px; color: #c3c8cd; }
+.rx-dest b { display: block; margin-top: 8px; font-family: var(--display); font-weight: 700; font-size: clamp(19px, 1.8vw, 24px); }
+.rx-dest small { display: block; margin-top: 6px; font-size: 16px; color: var(--texto-2); }
 @media (max-width: 860px) { .rx-destaques { grid-template-columns: 1fr; } }
 
 .rx-bloco { margin-top: 72px; }
 .rx-bloco-cab { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 20px; }
-.rx-bloco-cab h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(22px, 2.4vw, 30px); }
+.rx-bloco-cab h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.4vw, 30px); }
 .rx-bloco-cab p { margin: 0; color: var(--aco); max-width: 52ch; }
 
 .rx-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
@@ -23,7 +23,7 @@
 
 .rx-graf { background: var(--carbono); padding: 16px 12px 8px; }
 .rx-graf svg { display: block; width: 100%; height: auto; touch-action: pan-y; }
-.rx-grade { stroke: #2c3137; stroke-width: 1; }
+.rx-grade { stroke: var(--linha-2); stroke-width: 1; }
 .rx-eixo { fill: var(--aco); font: 600 13px var(--texto); }
 .rx-linha-fundo { fill: none; stroke: #3a4048; stroke-width: 1.5; stroke-linejoin: round; }
 .rx-linha-sombra { fill: none; stroke: var(--carbono); stroke-width: 6; stroke-linejoin: round; }
@@ -33,21 +33,21 @@
 .rx-guia { stroke: var(--aco); stroke-width: 1; stroke-dasharray: 3 3; }
 .rx-alvo { fill: transparent; cursor: crosshair; }
 
-.rx-dica { position: fixed; z-index: 60; pointer-events: none; min-width: 180px; max-width: 280px; padding: 12px 14px; background: #0f1113; border: 1px solid var(--linha); font-size: 15px; box-shadow: 0 8px 24px rgba(0,0,0,.5); }
-.rx-dica strong { display: block; font-family: var(--display); font-weight: 400; font-size: 14px; margin-bottom: 6px; }
+.rx-dica { position: fixed; z-index: 60; pointer-events: none; min-width: 180px; max-width: 280px; padding: 12px 14px; background: var(--rodape-fundo); border: 1px solid var(--linha); font-size: 15px; box-shadow: 0 8px 24px rgba(0,0,0,.5); }
+.rx-dica strong { display: block; font-family: var(--display); font-weight: 700; font-size: 14px; margin-bottom: 6px; }
 .rx-dica ul { list-style: none; margin: 0; padding: 0; }
 .rx-dica li { display: flex; align-items: center; gap: 8px; padding: 3px 0; }
 .rx-dica li i { width: 10px; height: 3px; flex-shrink: 0; }
 .rx-dica li b { margin-left: auto; font-variant-numeric: tabular-nums; }
 
-.rx-legenda { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 14px; font-size: 15px; color: #c3c8cd; }
+.rx-legenda { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 14px; font-size: 15px; color: var(--texto-2); }
 .rx-legenda span { display: flex; align-items: center; gap: 8px; }
 .rx-legenda i { display: grid; place-items: center; min-width: 26px; height: 20px; padding: 0 4px; font-style: normal; font-size: 12px; font-weight: 700; color: #141619; }
 .rx-pneus { background: var(--carbono); padding: 14px 16px 6px; }
 .rx-pneu-linha { display: grid; grid-template-columns: 76px minmax(0, 1fr) 150px; gap: 14px; align-items: center; height: 26px; }
 .rx-pneu-nome { font-size: 14px; font-weight: 700; letter-spacing: .03em; white-space: nowrap; }
 .rx-pneu-nome b { display: inline-block; width: 30px; color: var(--aco); font-weight: 600; }
-.rx-pneu-trilho { position: relative; height: 16px; background: #262b31; }
+.rx-pneu-trilho { position: relative; height: 16px; background: var(--linha-2); }
 .rx-stint { position: absolute; top: 0; height: 100%; border-right: 2px solid var(--carbono); display: grid; place-items: center; font-size: 11px; font-weight: 700; color: #141619; overflow: hidden; }
 .rx-abandono { position: absolute; top: -3px; transform: translateX(-50%); color: var(--sangue-vivo); font-weight: 700; font-size: 16px; line-height: 1; }
 .rx-pneu-info { font-size: 14px; color: var(--aco); font-variant-numeric: tabular-nums; white-space: nowrap; }
@@ -73,7 +73,7 @@
 .rx-aba { padding: 12px 22px; background: none; border: 0; border-bottom: 3px solid transparent; margin-bottom: -1px; color: var(--aco); font: 700 16px var(--texto); letter-spacing: .04em; text-transform: uppercase; cursor: pointer; }
 .rx-aba:hover { color: var(--cromo); }
 .rx-aba[aria-selected="true"] { color: var(--cromo); border-bottom-color: var(--sangue-vivo); }
-.rx-gp { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(24px, 3.2vw, 38px); line-height: 1.1; }
+.rx-gp { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(24px, 3.2vw, 38px); line-height: 1.1; }
 #rx-p-telemetria > .rx-sub { margin: 0 0 22px; max-width: 900px; }
 .rx-legenda-mgp { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 8px 4px 0; font-size: 14px; color: var(--cromo); }
 .rx-legenda-mgp i { display: inline-block; width: 14px; height: 3px; margin-right: 6px; vertical-align: middle; }
@@ -95,11 +95,11 @@
 .rx-barras, .rx-gc, .rx-ult { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
 .rx-barras li { display: grid; grid-template-columns: 44px minmax(0, 1fr) 84px; align-items: center; gap: 10px; }
 .rx-b-nome { font-weight: 800; font-size: 14px; }
-.rx-b-trilho { height: 12px; background: rgba(255,255,255,.06); } .rx-b-trilho i { display: block; height: 100%; }
+.rx-b-trilho { height: 12px; background: var(--sutil); } .rx-b-trilho i { display: block; height: 100%; }
 .rx-barras b { text-align: right; font-variant-numeric: tabular-nums; font-size: 14px; }
 .rx-ideal td:nth-child(n+2), .rx-ideal th:nth-child(n+2) { text-align: right; font-variant-numeric: tabular-nums; }
 .rx-gc li { display: grid; grid-template-columns: 44px minmax(0, 1fr) 40px 92px; align-items: center; gap: 10px; }
-.rx-gc-trilho { position: relative; height: 12px; background: rgba(255,255,255,.04); }
+.rx-gc-trilho { position: relative; height: 12px; background: var(--sutil); }
 .rx-gc-trilho::after { content: ''; position: absolute; left: 50%; top: -3px; bottom: -3px; width: 1px; background: var(--linha); }
 .rx-gc-mais { position: absolute; left: 50%; top: 0; bottom: 0; background: #2fb36b; }
 .rx-gc-menos { position: absolute; right: 50%; top: 0; bottom: 0; background: var(--sangue-vivo); }

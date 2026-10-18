@@ -7,7 +7,10 @@
    para o conteúdo não dar um pulo ao carregar (CLS). As regras são as mesmas do site.js. */
 (function () {
   var h = document.documentElement, p = location.pathname;
-  if (!/(^|\/)(index\.html)?$/.test(p)) h.classList.add('com-cats');
+  h.classList.add('com-cats'); /* a faixa (seletor de esporte) aparece em todas as páginas, inclusive na inicial */
+  /* Tema claro ou escuro (botão sol/lua no topo, site.js). Aplicado aqui para a página já nascer na cor certa.
+     A página de jogos fica sempre escura. */
+  try { if (localStorage.getItem('naveia-tema-site') === 'claro' && !/jogos/.test(p)) h.setAttribute('data-tema', 'claro'); } catch (e) {}
   try {
     var fechado = +localStorage.getItem('avisoPlanosFechado') || 0;
     /* (a faixa de aviso dos planos saiu: tudo grátis desde 07/10/2026) */

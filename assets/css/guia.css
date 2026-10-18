@@ -6,14 +6,14 @@
 .gu-topo .moldura { position: relative; z-index: 1; padding-bottom: clamp(36px, 6vh, 64px); }
 .gu-trilha { font-size: 15px; font-weight: 600; color: var(--aco); margin-bottom: 14px; }
 .gu-trilha a { color: var(--cromo); }
-.gu-topo h1, .gu-hub h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(30px, 5.4vw, 72px); line-height: 1.04; max-width: 24ch; text-wrap: balance; }
-.gu-lead { margin: 20px 0 0; font-size: clamp(18px, 1.7vw, 22px); line-height: 1.5; color: #d4d8dc; max-width: 62ch; }
+.gu-topo h1, .gu-hub h1 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(28px, 4vw, 50px); line-height: 1.04; max-width: 24ch; text-wrap: balance; }
+.gu-lead { margin: 20px 0 0; font-size: clamp(18px, 1.7vw, 22px); line-height: 1.5; color: var(--texto-2); max-width: 62ch; }
 
 .gu-corpo { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 64px; align-items: start; padding-top: 56px; padding-bottom: 110px; }
 .gu-texto { max-width: 68ch; }
 .gu-texto section + section { margin-top: 56px; }
-.gu-texto h2 { margin: 0 0 20px; font-family: var(--display); font-weight: 400; font-size: clamp(22px, 2.3vw, 30px); }
-.gu-texto p { margin: 0; font-size: 19px; line-height: 1.6; color: #d4d8dc; }
+.gu-texto h2 { margin: 0 0 20px; font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.3vw, 30px); }
+.gu-texto p { margin: 0; font-size: 19px; line-height: 1.6; color: var(--texto-2); }
 .gu-texto a { color: var(--cromo); text-underline-offset: 3px; }
 .gu-nota { margin-top: 16px !important; font-size: 17px !important; color: var(--aco) !important; }
 
@@ -26,7 +26,7 @@
 .gu-termos { margin: 0; border-top: 1px solid var(--linha); }
 .gu-termos > div { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 20px; padding: 16px 0; border-bottom: 1px solid var(--linha); }
 .gu-termos dt { font-weight: 700; font-size: 19px; }
-.gu-termos dd { margin: 0; font-size: 18px; line-height: 1.5; color: #d4d8dc; }
+.gu-termos dd { margin: 0; font-size: 18px; line-height: 1.5; color: var(--texto-2); }
 
 .gu-curiosidade { margin: 56px 0 0; padding: 24px 28px; background: var(--carbono); box-shadow: inset 3px 0 0 var(--sangue-vivo); }
 .gu-curiosidade p { font-size: 20px; font-weight: 600; color: var(--cromo); }
@@ -34,7 +34,7 @@
 .gu-lado { position: sticky; top: calc(var(--topo) + 24px); display: grid; gap: 16px; }
 .gu-caixa { padding: 22px 24px; background: var(--carbono); }
 .gu-caixa h2 { margin: 0 0 14px; font-size: 18px; font-weight: 700; }
-.gu-lider { margin: 0 0 14px; font-size: 16px; color: #c3c8cd; line-height: 1.4; }
+.gu-lider { margin: 0 0 14px; font-size: 16px; color: var(--texto-2); line-height: 1.4; }
 .gu-lider b { color: var(--cromo); font-size: 18px; }
 .gu-links, .gu-outros ul { list-style: none; margin: 0; padding: 0; }
 .gu-links li, .gu-outros li { border-top: 1px solid var(--linha); }
@@ -60,17 +60,17 @@
 .gu-lista li { background: var(--asfalto); }
 .gu-lista a { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 20px; align-items: center; padding: 18px; text-decoration: none; transition: background .25s var(--ease); }
 .gu-lista a:hover { background: var(--carbono); }
-.gu-lista img { width: 120px; height: 80px; object-fit: cover; filter: brightness(.85); clip-path: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%); }
-.gu-lista b { display: block; font-family: var(--display); font-weight: 400; font-size: 18px; margin-bottom: 6px; }
-.gu-lista span { font-size: 16px; line-height: 1.4; color: #c3c8cd; }
+.gu-lista img { width: 120px; height: 80px; object-fit: cover; filter: brightness(.85); clip-path: none; }
+.gu-lista b { display: block; font-family: var(--display); font-weight: 700; font-size: 18px; margin-bottom: 6px; }
+.gu-lista span { font-size: 16px; line-height: 1.4; color: var(--texto-2); }
 .gu-bandeiras { margin-top: 90px; }
-.gu-bandeiras h2 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(24px, 2.8vw, 36px); }
+.gu-bandeiras h2 { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(24px, 2.8vw, 36px); }
 .gu-bandeiras > p { margin: 12px 0 28px; color: var(--aco); font-size: 18px; }
 .gu-bandeiras ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; border-top: 1px solid var(--linha); }
 .gu-bandeiras li { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 18px; align-items: start; padding: 18px 0; border-bottom: 1px solid var(--linha); }
 .gu-bandeiras i { width: 54px; height: 36px; display: block; clip-path: polygon(0 0, 100% 8%, 100% 92%, 0 100%); }
 .gu-bandeiras b { font-size: 19px; }
-.gu-bandeiras li p { margin: 4px 0 0; font-size: 17px; color: #c3c8cd; line-height: 1.45; }
+.gu-bandeiras li p { margin: 4px 0 0; font-size: 17px; color: var(--texto-2); line-height: 1.45; }
 @media (max-width: 860px) {
   .gu-lista, .gu-bandeiras ul { grid-template-columns: 1fr; }
   .gu-lista a { grid-template-columns: 88px minmax(0, 1fr); gap: 14px; padding: 14px; }

@@ -121,6 +121,9 @@
         '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Todas as categorias</span><span class="todas-menu">Menu</span>' +
         '<span class="grade-ic" aria-hidden="true">' + new Array(10).join('<i></i>') + '</span><span class="sr">Abrir todas as categorias</span></button>' +
         '<button type="button" class="compartilhar-bt" id="compartilhar-bt" aria-label="' + (window.LANG === 'en' ? 'Share this page' : 'Compartilhar esta página') + '" title="' + (window.LANG === 'en' ? 'Share' : 'Compartilhar') + '"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.4M8.3 13.2l7.4 4.4"/></svg></button>' +
+        '<button type="button" class="tema-btn" id="tema-btn" aria-label="Alternar tema claro ou escuro" title="Tema claro ou escuro">' +
+          '<svg class="tema-lua" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>' +
+          '<svg class="tema-sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg></button>' +
         '<button type="button" class="idioma-btn" id="idioma-btn" data-sem-traducao aria-label="' + (window.LANG === 'en' ? 'Change the site language' : 'Mudar o idioma do site') + '" title="' + (window.LANG === 'en' ? 'Português' : 'English') + '">' +
           '<span' + (window.LANG !== 'en' ? ' class="ativo"' : '') + '>PT</span><i aria-hidden="true"></i><span' + (window.LANG === 'en' ? ' class="ativo"' : '') + '>EN</span></button>' +
       '</div>';
@@ -131,7 +134,7 @@
     /* no celular o menu de cima some: os mesmos botões aparecem no topo do painel */
     var menuPainel = '<nav class="painel-menu" aria-label="Menu">' + itensMenu.filter(function (m) { return m[0] !== 'categorias'; }).concat([['raiox', './#analise', 'Raio-x e telemetria', false]]).map(function (m) {
       return '<a class="painel-menu-it" href="' + m[1] + '"' + (m[3] ? ' aria-current="page"' : '') + '>' + ic(m[0]) + '<span>' + m[2] + '</span></a>';
-    }).join('') + '</nav>';
+    }).join('') + '<button type="button" class="painel-menu-it painel-tema" onclick="window.NAVEIA_TROCAR_TEMA()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span>Tema claro/escuro</span></button></nav>';
     painel.innerHTML = '<div class="moldura painel-in">' + menuPainel + '<a class="painel-noticias" href="noticias.html"><b>Notícias</b><span>Tudo o que está acontecendo no automobilismo</span></a>' + GRUPOS.map(function (g) {
       return '<section class="painel-grupo"><h2>' + esc(g.nome) + '</h2><ul class="painel-lista">' + g.cats.map(function (c) {
         return '<li><a class="painel-cat" href="' + pagina(c) + '"><strong>' + esc(c.nome) + '</strong><span><em>' + esc(c.lider.nome) + '</em><br>' + esc(c.lider.info) + '</span></a>' +
@@ -203,6 +206,14 @@
       else copiar();
       bt.blur();
     });
+    /* tema claro/escuro: troca na hora e guarda neste aparelho (idioma.js aplica nas próximas páginas) */
+    window.NAVEIA_TROCAR_TEMA = function () {
+      var claro = document.documentElement.getAttribute('data-tema') !== 'claro';
+      if (claro) document.documentElement.setAttribute('data-tema', 'claro'); else document.documentElement.removeAttribute('data-tema');
+      try { localStorage.setItem('naveia-tema-site', claro ? 'claro' : 'escuro'); } catch (e) {}
+      var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = claro ? '#ffffff' : '#121a24';
+    };
+    document.getElementById('tema-btn').addEventListener('click', window.NAVEIA_TROCAR_TEMA);
     document.getElementById('idioma-btn').addEventListener('click', function () { window.trocarIdioma(window.LANG === 'en' ? 'pt' : 'en'); });
 
     var itens = topo.querySelectorAll('.nav-item');
@@ -337,10 +348,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=309'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=309'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=309'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=309'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=310'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=310'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=310'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=310'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
