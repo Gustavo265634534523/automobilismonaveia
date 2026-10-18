@@ -279,5 +279,35 @@ window.FOTOS_ESPORTES = {
   "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "pagina": "https://commons.wikimedia.org/wiki/File:Gin%C3%A1sio_Pedroc%C3%A3o,_Franca_(SP),_Brazil.jpg",
   "titulo": "Ginásio Pedrocão, Franca (SP), Brazil"
+ },
+ "euroleague": {
+  "nome": "Euroleague",
+  "src": "assets/img/real/esp-euroleague.jpg",
+  "grande": "assets/img/real/esp-euroleague-g.jpg",
+  "autor": "User:Zafer",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Real_Madrid_Baloncesto_Euroleague_20260929_(2).JPG",
+  "titulo": "Real Madrid Baloncesto Euroleague 20260929 (2)"
+ },
+ "panathinaikos": {
+  "nome": "Panathinaikos",
+  "src": "assets/img/real/esp-panathinaikos.jpg",
+  "grande": "assets/img/real/esp-panathinaikos-g.jpg",
+  "autor": "Sportingn",
+  "lic": "CC BY-SA 3.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Panathinaikos_BC_pins_collection.JPG",
+  "titulo": "Panathinaikos BC pins collection"
+ },
+ "nbb": {
+  "nome": "NBB",
+  "src": "assets/img/real/esp-franca.jpg",
+  "grande": "assets/img/real/esp-franca-g.jpg",
+  "autor": "Fernandobrasilien",
+  "lic": "CC BY-SA 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Gin%C3%A1sio_Pedroc%C3%A3o,_Franca_(SP),_Brazil.jpg",
+  "titulo": "Ginásio Pedrocão, Franca (SP), Brazil"
  }
 };
