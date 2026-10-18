@@ -11,6 +11,11 @@
   /* o sobrenome vai na segunda linha, como numa camisa */
   function nomeDuasLinhas(n) { var p = n.split(' '); return p.length > 1 ? esc(p[0]) + '<br>' + esc(p.slice(1).join(' ')) : esc(n); }
 
+  /* foto do jogador (fotos-esportes.js, chave em j.foto), com o crédito no title */
+  function foto(j) {
+    var f = (window.FOTOS_ESPORTES || {})[j.foto];
+    return f ? '<img src="' + f.grande + '" alt="' + esc(j.nome) + '" loading="lazy" title="Foto: ' + esc(f.autor) + ' (' + esc(f.lic) + ', Wikimedia Commons)">' : '';
+  }
   /* ficha do jogador; "curta" = versão da página inicial */
   function ficha(j, curta) {
     var temporadas = 2026 - (+j.estreia) + 1;
@@ -19,7 +24,7 @@
       '<div class="bq-ficha-esq"><span class="bq-rot">Jogador em destaque</span><h3>' + nomeDuasLinhas(j.nome) + '</h3>' +
         '<p class="bq-time"><i aria-hidden="true"></i>' + esc(j.time) + '</p>' +
         '<dl class="bq-medidas"><div><dt>Altura</dt><dd>' + esc(j.altura) + '</dd></div><div><dt>Peso</dt><dd>' + esc(j.peso) + '</dd></div><div><dt>Posição</dt><dd>' + esc(j.pos) + '</dd></div></dl></div>' +
-      '<div class="bq-num" aria-label="Camisa ' + esc(j.num) + '"><small>#</small>' + esc(j.num) + '</div>' +
+      '<div class="bq-num' + (foto(j) ? ' com-foto' : '') + '" aria-label="Camisa ' + esc(j.num) + '">' + foto(j) + '<span><small>#</small>' + esc(j.num) + '</span></div>' +
       (curta ? '' : '<div class="bq-ficha-dir"><div class="bq-prox"><span>Próximo jogo</span><b>' + esc(j.proximo.txt) + '</b><small>' + quando(j.proximo.d) + (j.proximo.h ? ' · ' + esc(j.proximo.h) : '') + '</small></div>' +
         '<dl class="bq-dados"><div><dt>Nascimento</dt><dd>' + dataLonga(j.nasc) + '</dd></div><div><dt>Idade</dt><dd>' + idade(j.nasc) + ' anos</dd></div><div><dt>De</dt><dd>' + esc(j.de) + '</dd></div>' +
         '<div><dt>Estreia na NBA</dt><dd>' + esc(j.estreia) + '</dd></div><div><dt>Temporada</dt><dd>' + temporadas + 'ª</dd></div><div><dt>Antes</dt><dd>' + esc(j.antes) + '</dd></div></dl></div>') +
@@ -59,7 +64,7 @@
   var bn = document.getElementById('bq-noticias');
   if (bn) bn.innerHTML = nots.map(function (n) {
     var c = (window.COMPETICOES || []).filter(function (x) { return x.slug === n.comp; })[0] || {};
-    return '<a class="bq-not" href="' + (n.comp || 'basquete') + '.html"><span class="hm-arte hm-basquete" aria-hidden="true">' + cesta + '</span><span class="bq-not-txt"><small>' + esc(c.menu || 'Basquete') + ' · ' + quando(n.d) + '</small><b>' + esc(n.t) + '</b><span>' + esc(n.x) + '</span></span></a>';
+    return '<a class="bq-not" href="' + (n.comp || 'basquete') + '.html">' + window.fotoEsporte(n) + '<span class="bq-not-txt"><small>' + esc(c.menu || 'Basquete') + ' · ' + quando(n.d) + '</small><b>' + esc(n.t) + '</b><span>' + esc(n.x) + '</span></span></a>';
   }).join('');
 
   /* mercado do basquete */

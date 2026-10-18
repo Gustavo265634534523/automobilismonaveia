@@ -181,10 +181,26 @@ Original uploader was Alfonso Galuba at it.wikipedia · <a href="https://creativ
       <li><img src="assets/img/real/extra-nascar-125.jpg" alt="" loading="lazy"><div><b>NASCAR</b><span>Foto: Marco Espino-Ovalle · <a href="#" rel="noopener" target="_blank">Public domain</a> · <a href="https://commons.wikimedia.org/wiki/File:2024_Ally_400_-2.jpg" rel="noopener" target="_blank">ver no Wikimedia Commons</a></span><small>2024 Ally 400 -2.jpg</small></div></li>
       <li><img src="assets/img/real/extra-nascar-126.jpg" alt="" loading="lazy"><div><b>NASCAR</b><span>Foto: Marco Espino-Ovalle · <a href="#" rel="noopener" target="_blank">Public domain</a> · <a href="https://commons.wikimedia.org/wiki/File:2024_Ally_400.jpg" rel="noopener" target="_blank">ver no Wikimedia Commons</a></span><small>2024 Ally 400.jpg</small></div></li>
     </ul>
+    <h2 id="esportes">Futebol e basquete</h2>
+    <p>Fotos do Wikimedia Commons com licença livre, escolhidas pelo robô .github/fotos-esportes.js.</p>
+    <ul id="cf-esportes"></ul>
   </div>
 </main>
 <footer id="rodape"></footer>
 <script src="assets/js/dados.js?v=310"></script>
 <script src="assets/js/site.js?v=310"></script>
+<script src="assets/dados/fotos-esportes.js?v=310"></script>
+<script>
+  /* créditos das fotos de futebol e basquete (assets/dados/fotos-esportes.js) */
+  (function () {
+    var F = window.FOTOS_ESPORTES || {}, el = document.getElementById('cf-esportes'), esc = window.esc;
+    el.innerHTML = Object.keys(F).map(function (k) {
+      var f = F[k];
+      return '<li><img src="' + f.src + '" alt="" loading="lazy"><div><b>' + esc(f.nome) + '</b><span>Foto: ' + esc(f.autor) + ' · ' +
+        (f.licUrl ? '<a href="' + esc(f.licUrl) + '" rel="noopener" target="_blank">' + esc(f.lic) + '</a>' : esc(f.lic)) +
+        ' · <a href="' + esc(f.pagina) + '" rel="noopener" target="_blank">Wikimedia Commons</a></span></div></li>';
+    }).join('');
+  })();
+</script>
 </body>
 </html>

@@ -1281,3 +1281,12 @@ button.painel-menu-it { display: none; }
 /* arte das notícias sem foto, em tamanho grande: gramado listrado e quadra */
 .hm-arte.hm-futebol { background: radial-gradient(circle at 50% 50%, transparent 0 17%, rgba(255, 255, 255, .14) 17.3% 17.9%, transparent 18.2%), linear-gradient(90deg, transparent calc(50% - 1px), rgba(255, 255, 255, .14) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)), repeating-linear-gradient(90deg, #1f6a40 0 10%, #1a5c37 10% 20%); }
 .hm-arte.hm-basquete { background: radial-gradient(circle at 50% 50%, transparent 0 15%, rgba(255, 255, 255, .16) 15.3% 15.9%, transparent 16.2%), linear-gradient(90deg, transparent calc(50% - 1px), rgba(255, 255, 255, .16) calc(50% - 1px) calc(50% + 1px), transparent calc(50% + 1px)), repeating-linear-gradient(90deg, #a2501c 0 6%, #96491a 6% 12%); }
+/* fotos reais de futebol e basquete */
+.bq-not > img { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; }
+.comp-cartao { overflow: hidden; }
+.comp-cartao .comp-img { display: block; width: calc(100% + 40px); max-width: none; height: 120px; margin: -20px -20px 8px; object-fit: cover; border-radius: 0; }
+.bq-num.com-foto { position: relative; align-self: stretch; min-height: 260px; border-radius: 12px; overflow: hidden; }
+.bq-num.com-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 20%; }
+.bq-num.com-foto::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8, 12, 18, .7) 0%, rgba(8, 12, 18, 0) 55%); }
+.bq-num.com-foto span { position: absolute; left: 14px; bottom: 6px; z-index: 1; font-size: clamp(64px, 7vw, 104px); color: #fff; text-shadow: 0 4px 20px rgba(0, 0, 0, .4); }
+@media (max-width: 560px) { .bq-not > img { height: 160px; } .bq-num.com-foto { min-height: 300px; } }

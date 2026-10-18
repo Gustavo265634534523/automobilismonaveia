@@ -23,7 +23,7 @@
   });
   var outras = (window.NOTICIAS_ESPORTES || []).map(function (n) {
     var c = PCOMP[n.comp] || {};
-    return { d: n.d, esporte: n.esporte, rot: c.menu || c.nome || NOME_ESP[n.esporte], t: n.t, x: n.x, manchete: n.manchete, href: (n.comp || n.esporte) + '.html' };
+    return { d: n.d, esporte: n.esporte, rot: c.menu || c.nome || NOME_ESP[n.esporte], t: n.t, x: n.x, manchete: n.manchete, href: (n.comp || n.esporte) + '.html', foto: n.foto, comp: n.comp };
   });
   function porData(a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; }
   var filas = { automobilismo: motor.sort(porData), futebol: outras.filter(function (n) { return n.esporte === 'futebol'; }).sort(porData), basquete: outras.filter(function (n) { return n.esporte === 'basquete'; }).sort(porData) };
@@ -39,7 +39,7 @@
       var src = fr ? (grande ? fr.grande : fr.src) : (PCAT[n.cat] && PCAT[n.cat].foto) || 'assets/img/cat/f1.jpg';
       return '<img src="' + src + '" alt="" loading="' + (grande ? 'eager' : 'lazy') + '">';
     }
-    return '<span class="hm-arte hm-' + n.esporte + '" aria-hidden="true">' + (ICONE[n.esporte] || '') + '</span>';
+    return window.fotoEsporte ? window.fotoEsporte(n, grande) : '<span class="hm-arte hm-' + n.esporte + '" aria-hidden="true">' + (ICONE[n.esporte] || '') + '</span>';
   }
   function etiqueta(n) { return '<span class="hm-tag hm-tag-' + n.esporte + '">' + esc(n.rot) + '</span>'; }
 

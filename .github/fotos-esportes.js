@@ -12,22 +12,22 @@ const UA = { headers: { 'User-Agent': 'NaVeiaFotos/1.0 (https://automobilismonav
 
 const FOTOS = [
   /* campeonatos (topo da página do campeonato e notícia sem foto própria) */
-  { chave: 'brasileirao', nome: 'Brasileirão', buscas: ['Maracanã stadium match crowd', 'Estádio do Maracanã jogo'], exige: /maracan/i },
+  { chave: 'brasileirao', nome: 'Brasileirão', buscas: ['Maracanã jogo Campeonato Brasileiro', 'Maracanã stadium match crowd', 'Estádio do Maracanã jogo'], exige: /maracan/i },
   { chave: 'libertadores', nome: 'Libertadores', buscas: ['Copa Libertadores match', 'Copa Libertadores final'], exige: /libertadores/i },
   { chave: 'sul-americana', nome: 'Sul-Americana', buscas: ['Copa Sudamericana match', 'Copa Sul-Americana'], exige: /sudamericana|sul-americana|sulamericana/i },
   { chave: 'champions-league', nome: 'Champions League', buscas: ['UEFA Champions League match', 'Champions League match stadium'], exige: /champions/i },
-  { chave: 'premier-league', nome: 'Premier League', buscas: ['Premier League match stadium', 'Etihad Stadium match'], exige: /premier league|etihad|anfield|emirates stadium/i },
+  { chave: 'premier-league', nome: 'Premier League', buscas: ['Anfield Premier League match', 'Old Trafford match', 'Premier League match'], exige: /anfield|old trafford|premier league/i },
   { chave: 'la-liga', nome: 'La Liga', buscas: ['La Liga match Barcelona', 'Camp Nou match'], exige: /la liga|laliga|camp nou|barcelona|bernab/i },
   { chave: 'bundesliga', nome: 'Bundesliga', buscas: ['Allianz Arena Bundesliga match', 'Bundesliga match stadium'], exige: /allianz arena|bundesliga|signal iduna/i },
   { chave: 'serie-a', nome: 'Serie A', buscas: ['San Siro stadium match', 'Serie A match stadium'], exige: /san siro|meazza|serie a|olimpico/i },
   { chave: 'ligue-1', nome: 'Ligue 1', buscas: ['Parc des Princes match', 'Ligue 1 match'], exige: /parc des princes|ligue 1/i },
   { chave: 'nba', nome: 'NBA', buscas: ['NBA game arena', 'Madison Square Garden basketball game'], exige: /nba|basketball|garden/i },
-  { chave: 'euroleague', nome: 'Euroleague', buscas: ['EuroLeague basketball game', 'Euroleague match'], exige: /euroleague|euroliga/i },
-  { chave: 'nbb', nome: 'NBB', buscas: ['Novo Basquete Brasil', 'NBB basquete jogo'], exige: /nbb|basquete|basketball/i },
+  { chave: 'euroleague', nome: 'Euroleague', buscas: ['EuroLeague basketball game Real Madrid', 'EuroLeague game', 'Euroleague match'], exige: /euroleague|euroliga/i },
+  { chave: 'nbb', nome: 'NBB', buscas: ['Novo Basquete Brasil jogo', 'basquete jogo ginásio Brasil', 'Flamengo basquete'], exige: /basquete|basketball|nbb/i },
   /* times, estádios e jogadores das notícias */
   { chave: 'santos', nome: 'Santos', buscas: ['Santos FC Vila Belmiro', 'Philippe Coutinho'], exige: /santos|vila belmiro|coutinho/i },
   { chave: 'palmeiras', nome: 'Palmeiras', buscas: ['Allianz Parque Palmeiras', 'Palmeiras jogo'], exige: /palmeiras|allianz parque/i },
-  { chave: 'flamengo', nome: 'Flamengo', buscas: ['Flamengo torcida Maracanã', 'Clube de Regatas do Flamengo jogo'], exige: /flamengo/i },
+  { chave: 'flamengo', nome: 'Flamengo', buscas: ['Flamengo torcida Maracanã', 'Flamengo Maracanã jogo', 'Clube de Regatas do Flamengo jogo'], exige: /flamengo/i },
   { chave: 'botafogo', nome: 'Botafogo', buscas: ['Estádio Nilton Santos Botafogo', 'Botafogo jogo'], exige: /botafogo|nilton santos/i },
   { chave: 'atletico-mg', nome: 'Atlético-MG', buscas: ['Arena MRV', 'Clube Atlético Mineiro jogo'], exige: /arena mrv|atl[eé]tico mineiro/i },
   { chave: 'vasco', nome: 'Vasco', buscas: ['São Januário estádio Vasco', 'Vasco da Gama jogo'], exige: /vasco|s[aã]o janu[aá]rio/i },
@@ -42,13 +42,13 @@ const FOTOS = [
   { chave: 'sixers', nome: 'Philadelphia 76ers', buscas: ['Philadelphia 76ers game', 'Wells Fargo Center 76ers'], exige: /76ers|sixers/i },
   { chave: 'celtics', nome: 'Boston Celtics', buscas: ['Boston Celtics TD Garden', 'Boston Celtics game'], exige: /celtics/i },
   { chave: 'tacko', nome: 'Tacko Fall', buscas: ['Tacko Fall'], exige: /tacko/i },
-  { chave: 'panathinaikos', nome: 'Panathinaikos', buscas: ['Panathinaikos basketball', 'Panathinaikos BC'], exige: /panathinaikos/i },
+  { chave: 'panathinaikos', nome: 'Panathinaikos', buscas: ['Panathinaikos basketball OAKA', 'Panathinaikos basketball game', 'Panathinaikos BC'], exige: /panathinaikos/i },
   { chave: 'mogi', nome: 'Mogi Basquete', buscas: ['Mogi das Cruzes basquete', 'Mogi Basquete'], exige: /mogi/i },
   { chave: 'franca', nome: 'Franca Basquete', buscas: ['Franca Basquete', 'Franca basketball'], exige: /franca/i }
 ];
 
 const LIVRE = /^(cc[ -]by(-sa)?[ -][\d.]+|cc0|public domain|domínio público|pd)/i;
-const NAO = /logo|map|mapa|diagram|kit|jersey|camisa|badge|escudo|crest|svg|chart|graph|signature|assinatura|ticket|ingresso|trophy only|stamp|selo/i;
+const NAO = /wheelchair|cadeira de rodas|building|edif[ií]cio|sede|headquarters|cheerleader|dancer|logo|map|mapa|diagram|kit|jersey|camisa|badge|escudo|crest|svg|chart|graph|signature|assinatura|ticket|ingresso|trophy only|stamp|selo/i;
 const limpa = h => String(h || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 
 async function busca(q, exige) {
@@ -61,7 +61,10 @@ async function busca(q, exige) {
   for (const p of ps) {
     const ii = (p.imageinfo || [])[0]; if (!ii) continue;
     const m = ii.extmetadata || {}, lic = limpa(m.LicenseShortName && m.LicenseShortName.value);
-    if (ii.mime !== 'image/jpeg' || ii.width < 1200 || ii.width < ii.height * 1.2) continue;
+    if (ii.mime !== 'image/jpeg' || ii.width < 1200 || ii.width < ii.height * 1.2 || ii.width > ii.height * 2.2) continue;
+    /* só fotos de 2008 em diante (fora as antigas em preto e branco) */
+    const ano = +((limpa(m.DateTimeOriginal && m.DateTimeOriginal.value) || limpa(m.DateTime && m.DateTime.value)).match(/(1[89]|20)\d\d/) || [0])[0];
+    if (ano && ano < 2008) continue;
     if (!LIVRE.test(lic) || NAO.test(p.title) || !exige.test(p.title)) continue;
     return {
       thumb: ii.thumburl, pagina: ii.descriptionurl, lic,
@@ -85,12 +88,14 @@ async function baixa(url, destino) {
   for (const f of FOTOS) {
     if (res[f.chave] && fs.existsSync(path.join(RAIZ, res[f.chave].src))) continue;
     let achou = null;
-    for (const q of f.buscas) { achou = await busca(q, f.exige); if (achou) break; }
+    for (const q of f.buscas) { achou = await busca(q, f.exige); if (achou) break; await new Promise(r => setTimeout(r, 400)); }
     if (!achou) { console.log('fotos-esportes:', f.chave, '- nenhuma foto livre encontrada'); continue; }
     const src = 'assets/img/real/esp-' + f.chave + '.jpg', grande = 'assets/img/real/esp-' + f.chave + '-g.jpg';
     const ok1 = await baixa(achou.thumb, path.join(RAIZ, grande));
-    const ok2 = await baixa(achou.thumb.replace(/\/1280px-/, '/480px-'), path.join(RAIZ, src));
-    if (!ok1 || !ok2) { console.log('fotos-esportes:', f.chave, '- falhou o download'); continue; }
+    /* versão pequena: 500 px é um dos tamanhos padrão do Wikimedia; se falhar, usa a grande */
+    const ok2 = /\/1280px-/.test(achou.thumb) && await baixa(achou.thumb.replace(/\/1280px-/, '/500px-'), path.join(RAIZ, src));
+    if (!ok2 && ok1) fs.copyFileSync(path.join(RAIZ, grande), path.join(RAIZ, src));
+    if (!ok1) { console.log('fotos-esportes:', f.chave, '- falhou o download'); continue; }
     res[f.chave] = { nome: f.nome, src, grande, autor: achou.autor, lic: achou.lic, licUrl: achou.licUrl, pagina: achou.pagina, titulo: achou.titulo };
     console.log('fotos-esportes:', f.chave, '->', achou.titulo, '(' + achou.lic + ')');
   }
