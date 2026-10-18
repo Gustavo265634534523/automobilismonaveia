@@ -168,9 +168,7 @@
       ESP_PAINEL.map(function (e) {
         return '<div class="pm-painel" role="tabpanel" id="pm-' + e.slug + '" aria-labelledby="pm-aba-' + e.slug + '"' + (e.slug === esporteAtual ? '' : ' hidden') + '><div class="pm-atalhos">' + e.atalhos + '</div>' + e.corpo + '</div>';
       }).join('') +
-      '<section class="painel-planos" aria-label="Atalhos">' +
-        '<div class="painel-planos-acoes"><a class="painel-guia" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="anatomia.html">Anatomia dos carros</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
-      '</section></div>';
+      '</div>';
     /* tocar no esporte troca o menu de baixo (sem fechar o painel) */
     [].forEach.call(painel.querySelectorAll('.pm-esporte'), function (b) {
       b.addEventListener('click', function () {
