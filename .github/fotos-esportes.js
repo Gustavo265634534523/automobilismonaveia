@@ -22,7 +22,7 @@ const FOTOS = [
   { chave: 'serie-a', nome: 'Serie A', buscas: ['San Siro stadium match', 'Serie A match stadium'], exige: /san siro|meazza|serie a|olimpico/i },
   { chave: 'ligue-1', nome: 'Ligue 1', buscas: ['Parc des Princes match', 'Ligue 1 match'], exige: /parc des princes|ligue 1/i },
   { chave: 'nba', nome: 'NBA', buscas: ['NBA game arena', 'Madison Square Garden basketball game'], exige: /nba|basketball|garden/i },
-  { chave: 'euroleague', nome: 'Euroleague', buscas: ['Real Madrid Baloncesto Euroleague', 'Fenerbahce basketball Euroleague', 'Olympiacos basketball Euroleague', 'EuroLeague game'], exige: /euroleague|euroliga/i },
+  { chave: 'euroleague', nome: 'Euroleague', buscas: ['Euroleague Final Four game', 'Euroleague vs game basketball', 'Euroleague Real Madrid vs', 'Euroleague Olympiacos vs'], exige: /(euroleague|euroliga).*( vs\.? | v |final four|game)|final four/i },
   /* times, estádios e jogadores das notícias */
   { chave: 'santos', nome: 'Santos', buscas: ['Santos FC Vila Belmiro', 'Philippe Coutinho'], exige: /santos|vila belmiro|coutinho/i },
   { chave: 'palmeiras', nome: 'Palmeiras', buscas: ['Allianz Parque Palmeiras', 'Palmeiras jogo'], exige: /palmeiras|allianz parque/i },
@@ -41,14 +41,14 @@ const FOTOS = [
   { chave: 'sixers', nome: 'Philadelphia 76ers', buscas: ['Philadelphia 76ers game', 'Wells Fargo Center 76ers'], exige: /76ers|sixers/i },
   { chave: 'celtics', nome: 'Boston Celtics', buscas: ['Boston Celtics TD Garden', 'Boston Celtics game'], exige: /celtics/i },
   { chave: 'tacko', nome: 'Tacko Fall', buscas: ['Tacko Fall'], exige: /tacko/i },
-  { chave: 'panathinaikos', nome: 'Panathinaikos', buscas: ['Panathinaikos basketball OAKA', 'Panathinaikos basketball game', 'Panathinaikos BC'], exige: /panathinaikos/i },
+  { chave: 'panathinaikos', nome: 'Panathinaikos', buscas: ['Panathinaikos vs basketball Euroleague', 'Panathinaikos BC vs', 'Panathinaikos basketball game OAKA'], exige: /panathinaikos.*( vs\.? | v |game|match)|( vs\.? | v ).*panathinaikos/i },
   { chave: 'mogi', nome: 'Mogi Basquete', buscas: ['Mogi das Cruzes basquete', 'Mogi Basquete'], exige: /mogi/i },
   { chave: 'franca', nome: 'Franca Basquete', buscas: ['Franca Basquete', 'Franca basketball'], exige: /franca/i },
   { chave: 'nbb', nome: 'NBB', mesma: 'franca' } /* a quadra do Pedrocão, em Franca, casa do atual campeão */,
 ];
 
 const LIVRE = /^(cc[ -]by(-sa)?[ -][\d.]+|cc0|public domain|domínio público|pd)/i;
-const NAO = /toulouse ic|wheelchair|cadeira de rodas|building|edif[ií]cio|sede|headquarters|cheerleader|dancer|logo|map|mapa|diagram|kit|jersey|camisa|badge|escudo|crest|svg|chart|graph|signature|assinatura|ticket|ingresso|trophy only|stamp|selo/i;
+const NAO = /pins|collection|cole[cç][aã]o|sneaks|toulouse ic|wheelchair|cadeira de rodas|building|edif[ií]cio|sede|headquarters|cheerleader|dancer|logo|map|mapa|diagram|kit|jersey|camisa|badge|escudo|crest|svg|chart|graph|signature|assinatura|ticket|ingresso|trophy only|stamp|selo/i;
 const limpa = h => String(h || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 
 async function busca(q, exige) {
