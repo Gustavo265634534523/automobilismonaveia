@@ -100,26 +100,6 @@ window.FOTOS_ESPORTES = {
   "pagina": "https://commons.wikimedia.org/wiki/File:State_Farm_Arena_-_Bulls_VS_Hawks_NBA_Game.jpg",
   "titulo": "State Farm Arena - Bulls VS Hawks NBA Game"
  },
- "euroleague": {
-  "nome": "Euroleague",
-  "src": "assets/img/real/esp-euroleague.jpg",
-  "grande": "assets/img/real/esp-euroleague-g.jpg",
-  "autor": "Pierre-Selim",
-  "lic": "CC BY-SA 3.0",
-  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "pagina": "https://commons.wikimedia.org/wiki/File:Euroleague_-_LE_Roma_vs_Toulouse_IC-27.jpg",
-  "titulo": "Euroleague - LE Roma vs Toulouse IC-27"
- },
- "nbb": {
-  "nome": "NBB",
-  "src": "assets/img/real/esp-nbb.jpg",
-  "grande": "assets/img/real/esp-nbb-g.jpg",
-  "autor": "MARCO AURÉLIO ESPARZ…",
-  "lic": "CC BY-SA 3.0",
-  "licUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-  "pagina": "https://commons.wikimedia.org/wiki/File:Gin%C3%A1sio_Pedroc%C3%A3o_-_Local_dos_Jogos_de_Basquete_visto_da_rodovia_C%C3%A2ndido_Portinari_SP-334_-_panoramio.jpg",
-  "titulo": "Ginásio Pedrocão - Local dos Jogos de Basquete visto da rodovia Cândido Portinari SP-334 - panoramio"
- },
  "santos": {
   "nome": "Santos",
   "src": "assets/img/real/esp-santos.jpg",
@@ -289,16 +269,6 @@ window.FOTOS_ESPORTES = {
   "licUrl": "https://creativecommons.org/licenses/by/2.0",
   "pagina": "https://commons.wikimedia.org/wiki/File:Tacko_Fall_warmups,_Cleveland_Cavaliers_vs_Boston_Celtics_on_November_15,_2021.jpg",
   "titulo": "Tacko Fall warmups, Cleveland Cavaliers vs Boston Celtics on November 15, 2021"
- },
- "panathinaikos": {
-  "nome": "Panathinaikos",
-  "src": "assets/img/real/esp-panathinaikos.jpg",
-  "grande": "assets/img/real/esp-panathinaikos-g.jpg",
-  "autor": "AnonymousUnknown author",
-  "lic": "Public domain",
-  "licUrl": "",
-  "pagina": "https://commons.wikimedia.org/wiki/File:Panathinaikos_BC_vs_Ethnikos_GS_-_1921.jpg",
-  "titulo": "Panathinaikos BC vs Ethnikos GS - 1921"
  },
  "franca": {
   "nome": "Franca Basquete",

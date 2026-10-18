@@ -22,8 +22,7 @@ const FOTOS = [
   { chave: 'serie-a', nome: 'Serie A', buscas: ['San Siro stadium match', 'Serie A match stadium'], exige: /san siro|meazza|serie a|olimpico/i },
   { chave: 'ligue-1', nome: 'Ligue 1', buscas: ['Parc des Princes match', 'Ligue 1 match'], exige: /parc des princes|ligue 1/i },
   { chave: 'nba', nome: 'NBA', buscas: ['NBA game arena', 'Madison Square Garden basketball game'], exige: /nba|basketball|garden/i },
-  { chave: 'euroleague', nome: 'Euroleague', buscas: ['EuroLeague basketball game Real Madrid', 'EuroLeague game', 'Euroleague match'], exige: /euroleague|euroliga/i },
-  { chave: 'nbb', nome: 'NBB', buscas: ['Novo Basquete Brasil jogo', 'basquete jogo ginásio Brasil', 'Flamengo basquete'], exige: /basquete|basketball|nbb/i },
+  { chave: 'euroleague', nome: 'Euroleague', buscas: ['Real Madrid Baloncesto Euroleague', 'Fenerbahce basketball Euroleague', 'Olympiacos basketball Euroleague', 'EuroLeague game'], exige: /euroleague|euroliga/i },
   /* times, estádios e jogadores das notícias */
   { chave: 'santos', nome: 'Santos', buscas: ['Santos FC Vila Belmiro', 'Philippe Coutinho'], exige: /santos|vila belmiro|coutinho/i },
   { chave: 'palmeiras', nome: 'Palmeiras', buscas: ['Allianz Parque Palmeiras', 'Palmeiras jogo'], exige: /palmeiras|allianz parque/i },
@@ -44,11 +43,12 @@ const FOTOS = [
   { chave: 'tacko', nome: 'Tacko Fall', buscas: ['Tacko Fall'], exige: /tacko/i },
   { chave: 'panathinaikos', nome: 'Panathinaikos', buscas: ['Panathinaikos basketball OAKA', 'Panathinaikos basketball game', 'Panathinaikos BC'], exige: /panathinaikos/i },
   { chave: 'mogi', nome: 'Mogi Basquete', buscas: ['Mogi das Cruzes basquete', 'Mogi Basquete'], exige: /mogi/i },
-  { chave: 'franca', nome: 'Franca Basquete', buscas: ['Franca Basquete', 'Franca basketball'], exige: /franca/i }
+  { chave: 'franca', nome: 'Franca Basquete', buscas: ['Franca Basquete', 'Franca basketball'], exige: /franca/i },
+  { chave: 'nbb', nome: 'NBB', mesma: 'franca' } /* a quadra do Pedrocão, em Franca, casa do atual campeão */,
 ];
 
 const LIVRE = /^(cc[ -]by(-sa)?[ -][\d.]+|cc0|public domain|domínio público|pd)/i;
-const NAO = /wheelchair|cadeira de rodas|building|edif[ií]cio|sede|headquarters|cheerleader|dancer|logo|map|mapa|diagram|kit|jersey|camisa|badge|escudo|crest|svg|chart|graph|signature|assinatura|ticket|ingresso|trophy only|stamp|selo/i;
+const NAO = /toulouse ic|wheelchair|cadeira de rodas|building|edif[ií]cio|sede|headquarters|cheerleader|dancer|logo|map|mapa|diagram|kit|jersey|camisa|badge|escudo|crest|svg|chart|graph|signature|assinatura|ticket|ingresso|trophy only|stamp|selo/i;
 const limpa = h => String(h || '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 
 async function busca(q, exige) {
@@ -65,7 +65,7 @@ async function busca(q, exige) {
     /* só fotos de 2008 em diante (fora as antigas em preto e branco) */
     const ano = +((limpa(m.DateTimeOriginal && m.DateTimeOriginal.value) || limpa(m.DateTime && m.DateTime.value)).match(/(1[89]|20)\d\d/) || [0])[0];
     if (ano && ano < 2008) continue;
-    if (!LIVRE.test(lic) || NAO.test(p.title) || !exige.test(p.title)) continue;
+    if (!LIVRE.test(lic) || NAO.test(p.title) || !exige.test(p.title) || /\b(1[89]\d\d|200[0-7])\b/.test(p.title)) continue;
     return {
       thumb: ii.thumburl, pagina: ii.descriptionurl, lic,
       licUrl: limpa(m.LicenseUrl && m.LicenseUrl.value), autor: limpa(m.Artist && m.Artist.value).slice(0, 120) || 'Autor no Commons',
@@ -86,6 +86,7 @@ async function baixa(url, destino) {
   try { const w = {}; new Function('window', fs.readFileSync(ARQ, 'utf8'))(w); antes = w.FOTOS_ESPORTES || {}; } catch (e) {}
   const res = Object.assign({}, antes);
   for (const f of FOTOS) {
+    if (f.mesma) continue;
     if (res[f.chave] && fs.existsSync(path.join(RAIZ, res[f.chave].src))) continue;
     let achou = null;
     for (const q of f.buscas) { achou = await busca(q, f.exige); if (achou) break; await new Promise(r => setTimeout(r, 400)); }
@@ -99,6 +100,8 @@ async function baixa(url, destino) {
     res[f.chave] = { nome: f.nome, src, grande, autor: achou.autor, lic: achou.lic, licUrl: achou.licUrl, pagina: achou.pagina, titulo: achou.titulo };
     console.log('fotos-esportes:', f.chave, '->', achou.titulo, '(' + achou.lic + ')');
   }
+  /* chaves que usam a mesma foto de outra */
+  FOTOS.filter(f => f.mesma && res[f.mesma]).forEach(f => { res[f.chave] = Object.assign({}, res[f.mesma], { nome: f.nome }); });
   const novo = '/* Gerado por .github/fotos-esportes.js. Fotos do Wikimedia Commons com licença livre. Não editar à mão. */\nwindow.FOTOS_ESPORTES = ' + JSON.stringify(res, null, 1) + ';\n';
   fs.writeFileSync(ARQ, novo);
   console.log('fotos-esportes:', Object.keys(res).length, 'fotos');
