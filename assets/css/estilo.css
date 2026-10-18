@@ -598,7 +598,7 @@ a.torre-cat:hover, a.torre-evento:hover { color: var(--sangue-vivo); }
 .painel-grupo .painel-lista { grid-template-columns: repeat(5, 1fr); }
 @media (max-width: 1080px) { .painel-grupo .painel-lista { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 620px) { .painel-grupo .painel-lista { grid-template-columns: 1fr; } }
-.rodape-grade { grid-template-columns: minmax(0, 1.4fr) repeat(4, minmax(0, 1fr)); gap: 32px; }
+.rodape-grade { grid-template-columns: minmax(0, 1.4fr) repeat(5, minmax(0, 1fr)); gap: 32px; }
 .rodape-col h2 { margin: 0 0 14px; font-size: 15px; font-weight: 700; color: var(--cromo); }
 .rodape-col ul { list-style: none; margin: 0; padding: 0; }
 .rodape-col li { margin-bottom: 9px; }
@@ -1040,3 +1040,63 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .bv-salvar { flex: 1 1 180px; min-height: 48px; padding: 0 16px; background: none; border: 1px solid var(--linha); color: var(--cromo); font: 700 15px var(--texto); cursor: pointer; }
 .bv-salvar:hover { border-color: var(--aco); }
 .bv-nota { margin: 12px 0 0; font-size: 13px; color: var(--aco); }
+
+/* ---------- Futebol e basquete ---------- */
+/* seletor de esporte no começo da faixa de baixo do menu */
+.faixa-esportes { flex: 0 0 auto; display: inline-flex; gap: 2px; padding: 2px; margin-right: 10px; border-radius: 999px; background: rgba(255, 255, 255, .06); }
+.faixa-esp { display: inline-flex; align-items: center; height: 26px; padding: 0 12px; border-radius: 999px; color: #aab1b8; text-decoration: none; font-size: 13px; font-weight: 700; white-space: nowrap; transition: color .2s, background .2s; }
+.faixa-esp:hover { color: var(--cromo); }
+.faixa-esp[aria-current] { color: #fff; background: var(--sangue); }
+@media (max-width: 620px) { .faixa-esp { padding: 0 10px; font-size: 12px; } .faixa-esportes { margin-right: 6px; } }
+
+/* topo do campeonato: sem foto, um fundo com o desenho da bola */
+.comp-topo { min-height: 62vh; padding-top: calc(var(--topo) + 40px); }
+.comp-fundo { position: absolute; inset: 0; overflow: hidden; }
+.comp-fundo.comp-futebol { background: radial-gradient(120% 90% at 85% 10%, #1d4d2f 0%, #10261a 45%, var(--breu) 100%); }
+.comp-fundo.comp-basquete { background: radial-gradient(120% 90% at 85% 10%, #6b3415 0%, #2c160b 45%, var(--breu) 100%); }
+.comp-fundo svg { position: absolute; right: -6vw; top: 8%; width: min(64vw, 720px); height: auto; fill: none; stroke: rgba(255, 255, 255, .07); stroke-width: .6; }
+.comp-esporte { display: inline-block; margin-bottom: 14px; font-size: 14px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--sangue-vivo); text-decoration: none; }
+.comp-esporte:hover { text-decoration: underline; }
+
+/* lista de jogos */
+.jogos, .confrontos { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--linha); }
+.jogo, .confronto { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.6fr) 150px; gap: 18px; align-items: center; padding: 16px 0 16px 16px; border-bottom: 1px solid var(--linha); }
+.confronto { grid-template-columns: minmax(0, .9fr) minmax(0, 1.6fr) minmax(0, 1fr); }
+.jogo-fase { font-size: 14px; font-weight: 700; color: var(--aco); text-transform: uppercase; letter-spacing: .03em; }
+.jogo-fase small { display: block; text-transform: none; letter-spacing: 0; font-weight: 500; }
+.jogo-times { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 14px; align-items: center; }
+.jogo-times b { font-size: 18px; font-weight: 700; }
+.jogo-times b:first-child { text-align: right; }
+.jogo-times em { font-style: normal; font-family: var(--display); font-size: 18px; min-width: 56px; text-align: center; padding: 4px 8px; background: var(--carbono); color: var(--aco); }
+.jogo.feito .jogo-times em, .confronto .jogo-times em { color: var(--cromo); background: var(--carbono-2); }
+.jogo-data { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; padding-right: 8px; }
+.jogo-data small, .confronto-sit { display: block; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--aco); }
+.confronto-sit { text-transform: none; letter-spacing: 0; font-size: 15px; font-weight: 500; color: #c3c8cd; }
+@media (max-width: 760px) {
+  .jogo, .confronto { grid-template-columns: 1fr auto; gap: 8px 12px; padding-left: 12px; }
+  .jogo-times { grid-column: 1 / -1; grid-row: 2; }
+  .jogo-times b { font-size: 16px; }
+  .confronto-sit { grid-column: 1 / -1; }
+}
+.tabela-comp { min-width: 0; max-width: 640px; }
+
+/* cartões dos campeonatos (página do esporte e página inicial) */
+.comp-hub { padding-top: calc(var(--topo) + 48px); padding-bottom: 110px; }
+.comp-hub-cab h1 { margin: 0; font-family: var(--display); font-weight: 400; font-size: clamp(40px, 7vw, 96px); line-height: 1; }
+.comp-hub-cab p { margin: 14px 0 0; color: var(--aco); font-size: 20px; max-width: 46ch; }
+.comp-grupo { margin-top: 48px; }
+.comp-grupo h2 { margin: 0 0 16px; font-size: 18px; font-weight: 700; color: var(--sangue-vivo); }
+.comp-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px; }
+.comp-cartao { display: flex; flex-direction: column; gap: 6px; padding: 20px; background: var(--carbono); border: 1px solid var(--linha); text-decoration: none; transition: border-color .2s, transform .2s var(--ease); }
+.comp-cartao:hover { border-color: var(--sangue-vivo); transform: translateY(-2px); }
+.comp-cartao b { font-family: var(--display); font-weight: 400; font-size: 26px; line-height: 1.1; }
+.comp-reg { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--aco); }
+.comp-lider { color: #c3c8cd; font-size: 15px; }
+.comp-lider em { display: block; font-style: normal; font-weight: 700; color: var(--cromo); font-size: 17px; }
+.comp-prox { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--linha); font-size: 14px; color: var(--aco); }
+.esp-bloco + .esp-bloco { margin-top: 40px; }
+.esp-tit { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; text-decoration: none; }
+.esp-tit svg { width: 30px; height: 30px; fill: none; stroke: var(--sangue-vivo); stroke-width: 1.6; }
+.esp-tit b { font-family: var(--display); font-weight: 400; font-size: 30px; }
+.esp-tit span { margin-left: auto; font-size: 15px; font-weight: 700; color: var(--sangue-vivo); }
+.painel-grupo h2 a { color: inherit; text-decoration: none; }

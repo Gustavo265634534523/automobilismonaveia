@@ -71,6 +71,14 @@
     { nome: 'Motos', desc: 'Duas rodas', slugs: ['motogp', 'superbike', 'motocross'] }
   ].map(function (g) { g.cats = g.slugs.map(function (s) { return PORSLUG[s]; }).filter(Boolean); return g; });
   window.GRUPOS = GRUPOS;
+  /* Futebol e basquete: só os nomes, para o menu, o painel e o rodapé (os dados ficam em esportes-dados.js) */
+  var ESPORTES_MENU = [
+    { slug: 'futebol', nome: 'Futebol', comps: [['brasileirao', 'Brasileirão', 'Brasil'], ['libertadores', 'Libertadores', 'América do Sul'], ['sul-americana', 'Sul-Americana', 'América do Sul'],
+      ['champions-league', 'Champions', 'Europa'], ['premier-league', 'Premier League', 'Inglaterra'], ['la-liga', 'La Liga', 'Espanha'], ['bundesliga', 'Bundesliga', 'Alemanha'], ['serie-a', 'Serie A', 'Itália'], ['ligue-1', 'Ligue 1', 'França']] },
+    { slug: 'basquete', nome: 'Basquete', comps: [['nba', 'NBA', 'Estados Unidos'], ['euroleague', 'Euroleague', 'Europa'], ['nbb', 'NBB', 'Brasil']] }
+  ];
+  window.ESPORTES_MENU = ESPORTES_MENU;
+  var esporteAtual = document.body.getAttribute('data-esporte') || 'automobilismo';
 
   /* Topo */
   var topo = document.getElementById('topo');
@@ -129,6 +137,10 @@
         return '<li><a class="painel-cat" href="' + pagina(c) + '"><strong>' + esc(c.nome) + '</strong><span><em>' + esc(c.lider.nome) + '</em><br>' + esc(c.lider.info) + '</span></a>' +
           '<ul class="painel-secoes">' + SECOES.slice(1, 5).map(function (s) { return '<li><a href="' + pagina(c) + '#' + s[0] + '">' + s[1] + '</a></li>'; }).join('') + '</ul></li>';
       }).join('') + '</ul></section>';
+    }).join('') + ESPORTES_MENU.map(function (e) {
+      return '<section class="painel-grupo"><h2><a href="' + e.slug + '.html">' + e.nome + '</a></h2><ul class="painel-lista">' + e.comps.map(function (c) {
+        return '<li><a class="painel-cat" href="' + c[0] + '.html"><strong>' + esc(c[1]) + '</strong><span>' + esc(c[2]) + '</span></a></li>';
+      }).join('') + '</ul></section>';
     }).join('') +
       '<section class="painel-planos" aria-label="Atalhos">' +
         '<div class="painel-planos-acoes"><a class="botao" href="jogos.html">Jogos</a><a class="painel-guia" href="./#analise">Raio-x e telemetria</a><a class="painel-guia" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="horarios.html">Horários e alerta de largada</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia" href="anatomia.html">Anatomia dos carros</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
@@ -137,12 +149,32 @@
 
     /* Faixa fina com as categorias, logo abaixo do menu (menos na página inicial, que já mostra as categorias na entrada).
        No celular ela desliza para o lado. Ponto vermelho = corre nos próximos 7 dias. */
-    if (!inicio) {
+    /* seletor de esporte (Automobilismo, Futebol, Basquete) no começo da faixa */
+    var pilulas = '<span class="faixa-esportes">' + [['automobilismo', 'Automobilismo', './'], ['futebol', 'Futebol', 'futebol.html'], ['basquete', 'Basquete', 'basquete.html']].map(function (x) {
+      return '<a class="faixa-esp" href="' + x[2] + '"' + (x[0] === esporteAtual ? ' aria-current="true"' : '') + '>' + x[1] + '</a>';
+    }).join('') + '</span>';
+    if (esporteAtual !== 'automobilismo') {
+      var compAtual = document.body.getAttribute('data-comp');
+      var fx = document.createElement('nav');
+      fx.className = 'faixa-cats'; fx.setAttribute('aria-label', 'Esportes e campeonatos');
+      fx.innerHTML = '<div class="moldura faixa-cats-in">' + pilulas + ESPORTES_MENU.filter(function (e) { return e.slug === esporteAtual; })[0].comps.map(function (c) {
+        return '<a class="faixa-cat" href="' + c[0] + '.html"' + (c[0] === compAtual ? ' aria-current="page"' : '') + '>' + esc(c[1]) + '</a>';
+      }).join('') + '</div>';
+      topo.querySelector('.topo-in').after(fx);
+      document.documentElement.classList.add('com-cats');
+      var at = fx.querySelector('.faixa-cat[aria-current]'); if (at) fx.querySelector('.faixa-cats-in').scrollLeft = at.offsetLeft - 16;
+    } else if (inicio) {
+      var fi = document.createElement('nav');
+      fi.className = 'faixa-cats'; fi.setAttribute('aria-label', 'Esportes');
+      fi.innerHTML = '<div class="moldura faixa-cats-in">' + pilulas + '</div>';
+      topo.querySelector('.topo-in').after(fi);
+      document.documentElement.classList.add('com-cats');
+    } else {
       var h7 = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10), hj = new Date().toISOString().slice(0, 10);
       var ordemCats = ['formula-1', 'motogp', 'stock-car', 'formula-2', 'formula-3', 'formula-e', 'indycar', 'nascar', 'porsche-cup', 'dtm', 'endurance', 'le-mans', 'imsa', 'rally', 'dakar', 'superbike', 'motocross'];
       var faixa = document.createElement('nav');
       faixa.className = 'faixa-cats'; faixa.setAttribute('aria-label', 'Categorias');
-      faixa.innerHTML = '<div class="moldura faixa-cats-in">' + ordemCats.map(function (slug) {
+      faixa.innerHTML = '<div class="moldura faixa-cats-in">' + pilulas + ordemCats.map(function (slug) {
         var c = PORSLUG[slug]; if (!c) return '';
         var prox = c.calendario.filter(function (e) { return !e.venc && e.d && e.d >= hj; })[0];
         var corre = prox && ((prox.s && prox.s[0] && prox.s[0].d) || prox.d) <= h7;
@@ -150,7 +182,7 @@
       }).join('') + '</div>';
       topo.querySelector('.topo-in').after(faixa);
       document.documentElement.classList.add('com-cats');
-      var ativo = faixa.querySelector('[aria-current]'); if (ativo) faixa.querySelector('.faixa-cats-in').scrollLeft = ativo.offsetLeft - 16;
+      var ativo = faixa.querySelector('.faixa-cat[aria-current]'); if (ativo) faixa.querySelector('.faixa-cats-in').scrollLeft = ativo.offsetLeft - 16;
     }
 
     topo.addEventListener('click', function (e) {
@@ -305,10 +337,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=308'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=308'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=308'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=308'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=309'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=309'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=309'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=309'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -375,6 +407,7 @@
         var cats = [].concat.apply([], GRUPOS.filter(function (g) { return col[1].indexOf(g.nome) > -1; }).map(function (g) { return g.cats; }));
         return coluna(col[0], cats.map(function (c) { return li(pagina(c), esc(c.nome)); }));
       }).join('') +
+      coluna('Futebol e Basquete', ESPORTES_MENU.map(function (e) { return li(e.slug + '.html', '<b>' + e.nome + '</b>'); }).concat(ESPORTES_MENU[0].comps.slice(0, 3).concat(ESPORTES_MENU[1].comps.slice(0, 1)).map(function (c) { return li(c[0] + '.html', esc(c[1])); }))) +
       coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('anatomia.html', 'Anatomia dos carros'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +
