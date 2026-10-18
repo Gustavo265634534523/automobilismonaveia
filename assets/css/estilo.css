@@ -1196,3 +1196,81 @@ button.painel-menu-it { display: none; }
   .pm-esporte svg { width: 24px; height: 24px; }
   .pm-chip { height: 34px; padding: 0 12px; font-size: 13px; }
 }
+
+/* ---------- Basquete: faixa de placar, jogador em destaque, notícias e mercado (basquete.js) ---------- */
+.bq-placar { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: thin; margin: -20px 0 32px; padding-bottom: 6px; }
+.bq-jogo { flex: 0 0 auto; min-width: 190px; display: flex; flex-direction: column; gap: 4px; padding: 10px 12px; border-radius: 8px; background: var(--carbono); border: 1px solid var(--linha); text-decoration: none; }
+.bq-jogo small { font-size: 12px; font-weight: 700; color: var(--aco); text-transform: uppercase; letter-spacing: .03em; }
+.bq-jogo span { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; }
+.bq-jogo b { font-weight: 700; white-space: nowrap; }
+.bq-jogo em { font-style: normal; font-weight: 800; font-variant-numeric: tabular-nums; }
+.bq-jogo:hover { border-color: #e07a2e; }
+.bq-vazio { color: var(--aco); font-size: 14px; }
+.bq-sec { margin: 36px 0 0; }
+.bq-troca { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.bq-troca button { padding: 7px 14px; border-radius: 999px; border: 1px solid var(--linha); background: none; cursor: pointer; font: 700 14px var(--texto); color: var(--texto-2); }
+.bq-troca button[aria-pressed="true"] { background: var(--cromo); color: var(--asfalto); border-color: var(--cromo); }
+/* a ficha: sempre clara, como o cartão de jogador do site da NBA */
+.bq-ficha { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(160px, .9fr) minmax(0, 1.1fr); grid-template-areas: "esq num dir" "stats stats stats" "nota nota nota"; gap: 18px 24px; padding: 28px 28px 22px 34px; border-radius: 14px; background: linear-gradient(180deg, #eef1f5 0%, #e3e8ee 100%); color: #121a24; box-shadow: inset 8px 0 0 var(--time); }
+.bq-fundo-nome { position: absolute; left: 50%; top: 6px; transform: translateX(-50%); font: 900 clamp(64px, 12vw, 170px)/1 var(--texto); letter-spacing: -.02em; text-transform: uppercase; color: rgba(18, 26, 36, .06); white-space: nowrap; pointer-events: none; }
+.bq-ficha-esq { grid-area: esq; position: relative; }
+.bq-rot { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--time); }
+.bq-ficha h3 { margin: 8px 0 10px; font-size: clamp(32px, 4vw, 54px); line-height: .98; font-weight: 900; letter-spacing: -.02em; }
+.bq-time { display: flex; align-items: center; gap: 8px; margin: 0 0 18px; font-weight: 700; color: #3a4655; }
+.bq-time i { width: 14px; height: 14px; border-radius: 50%; background: var(--time); box-shadow: 4px 0 0 var(--time2); }
+.bq-medidas { display: flex; gap: 24px; margin: 0; }
+.bq-medidas dt, .bq-dados dt { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: #5d6a7a; }
+.bq-medidas dd { margin: 2px 0 0; font-size: 22px; font-weight: 800; }
+.bq-num { grid-area: num; position: relative; align-self: center; text-align: center; font: 900 clamp(110px, 14vw, 200px)/.85 var(--texto); letter-spacing: -.04em; color: var(--time2); }
+.bq-num small { font-size: .4em; vertical-align: .9em; margin-right: 2px; }
+.bq-ficha-dir { grid-area: dir; position: relative; display: flex; flex-direction: column; gap: 14px; }
+.bq-prox { padding: 14px 16px; border-radius: 10px; background: #fff; box-shadow: 0 6px 20px rgba(18, 26, 36, .08); }
+.bq-prox span { font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--time); }
+.bq-prox b { display: block; margin-top: 4px; font-size: 17px; }
+.bq-prox small { font-size: 13px; color: #5d6a7a; }
+.bq-dados { display: grid; grid-template-columns: 1fr 1fr; gap: 0 18px; margin: 0; }
+.bq-dados div { padding: 7px 0; border-bottom: 1px solid rgba(18, 26, 36, .1); }
+.bq-dados dd { margin: 2px 0 0; font-size: 14px; font-weight: 700; }
+.bq-stats { grid-area: stats; position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.bq-stats div { padding: 14px 10px 16px; border-radius: 10px; text-align: center; color: #fff; background: var(--time); box-shadow: 0 10px 24px rgba(18, 26, 36, .18); }
+.bq-stats div:nth-child(2) { background: #121a24; }
+.bq-stats span { display: block; font-size: 11px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; opacity: .85; }
+.bq-stats b { display: block; margin-top: 6px; font-size: clamp(30px, 3.4vw, 44px); font-weight: 900; font-variant-numeric: tabular-nums; }
+.bq-nota { grid-area: nota; position: relative; margin: 0; font-size: 13px; color: #5d6a7a; }
+.bq-curta { grid-template-columns: minmax(0, 1.4fr) minmax(120px, .8fr); grid-template-areas: "esq num" "stats stats" "nota nota"; }
+.bq-mais { display: inline-block; margin-top: 12px; font-size: 14px; font-weight: 700; color: var(--sangue-vivo); text-decoration: none; }
+/* notícias e mercado */
+.bq-duas { display: grid; grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr); gap: 24px; margin-top: 40px; align-items: start; }
+.bq-noticias { display: grid; gap: 12px; }
+.bq-not { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 14px; text-decoration: none; padding: 10px; border-radius: 10px; background: var(--carbono); border: 1px solid var(--linha); }
+.bq-not .hm-arte { height: 100px; border-radius: 8px; }
+.bq-not-txt small { font-size: 12px; font-weight: 700; color: #e07a2e; text-transform: uppercase; letter-spacing: .03em; }
+.bq-not-txt b { display: block; margin: 4px 0; font-size: 17px; line-height: 1.25; }
+.bq-not-txt span { font-size: 14px; color: var(--texto-2); }
+.bq-not:hover b { color: var(--sangue-vivo); }
+.bq-mercado { display: grid; gap: 10px; }
+.bq-troca-card { display: flex; flex-direction: column; gap: 6px; padding: 14px; border-radius: 10px; background: var(--carbono); border: 1px solid var(--linha); }
+.bq-troca-card b { font-size: 17px; }
+.bq-troca-card small { font-size: 13px; color: var(--aco); }
+.comp-hub .bq-duas + #comp-hub .vd-bloco { margin-top: 40px; }
+@media (max-width: 960px) {
+  .bq-ficha { grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: "esq num" "dir dir" "stats stats" "nota nota"; padding: 22px 18px 18px 24px; }
+  .bq-duas { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .bq-ficha, .bq-curta { grid-template-columns: 1fr; grid-template-areas: "num" "esq" "dir" "stats" "nota"; }
+  .bq-num { text-align: left; font-size: 96px; }
+  .bq-stats { gap: 8px; } .bq-stats div { padding: 12px 6px; } .bq-stats span { font-size: 10px; } .bq-stats b { font-size: 28px; }
+  .bq-not { grid-template-columns: 1fr; } .bq-not .hm-arte { height: 90px; }
+}
+/* comuns à capa e à página de basquete (iguais aos de entrada.css) */
+.hm-tit { margin: 0 0 14px; padding-left: 12px; border-left: 4px solid var(--sangue-vivo); font-size: 20px; font-weight: 800; line-height: 1.2; }
+.hm-arte { display: grid; place-items: center; width: 100%; height: 100%; overflow: hidden; }
+.hm-arte svg { width: 46%; max-width: 120px; height: auto; fill: none; stroke: rgba(255, 255, 255, .28); stroke-width: 1.2; }
+.hm-arte.hm-futebol { background: linear-gradient(135deg, #1f6a40 0%, #123b25 70%); }
+.hm-arte.hm-basquete { background: linear-gradient(135deg, #a2501c 0%, #5a2a0d 70%); }
+.hm-arte.hm-automobilismo { background: linear-gradient(135deg, #8f1a20 0%, #3d0a0d 70%); }
+.hm-rota { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 15px; color: var(--texto-2); }
+.hm-rota i { font-style: normal; color: var(--aco); }
+.hm-rota em { font-style: normal; font-weight: 700; color: var(--cromo); }
+#bq-home { margin: 0 0 44px; }

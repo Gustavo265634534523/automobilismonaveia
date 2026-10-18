@@ -233,3 +233,18 @@ window.COMPETICOES = [
   nota: 'O Brasília só estreia na 2ª rodada, em 22 de outubro, por causa da Liga Sul-Americana.'
 }
 ];
+
+/* Jogadores em destaque (página de Basquete e página inicial). Médias da última temporada regular completa.
+   Fontes: Basketball-Reference, StatMuse e ESPN. "cor" e "cor2" são as cores do time atual. */
+window.JOGADORES_DESTAQUE = [
+  { nome: 'LeBron James', time: 'Philadelphia 76ers', num: '23', pos: 'Ala', cor: '#006bb6', cor2: '#ed174c',
+    altura: '2,06 m', peso: '113 kg', nasc: '1984-12-30', de: 'Akron, Ohio (EUA)', estreia: '2003', antes: 'Lakers (2018-26)',
+    temporada: '2025/26 pelo Lakers, 60 jogos', pts: '20,9', reb: '6,1', ast: '7,2',
+    nota: 'Maior pontuador da história da NBA, começa a 24ª temporada, recorde da liga.',
+    proximo: { d: '2026-10-20', h: '20:00', txt: '76ers x Knicks, em Nova York' } },
+  { nome: 'Giannis Antetokounmpo', time: 'Miami Heat', num: '7', pos: 'Ala-pivô', cor: '#98002e', cor2: '#f9a01b',
+    altura: '2,11 m', peso: '110 kg', nasc: '1994-12-06', de: 'Atenas (Grécia)', estreia: '2013', antes: 'Bucks (2013-26)',
+    temporada: '2025/26 pelo Bucks, 36 jogos', pts: '27,6', reb: '9,8', ast: '5,4',
+    nota: 'Duas vezes MVP, chegou ao Heat numa troca em julho. Usou a camisa 7 na pré-temporada.',
+    proximo: { d: '2026-10-21', txt: 'Heat x Timberwolves, a estreia pelo Miami' } }
+];
