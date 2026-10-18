@@ -130,7 +130,7 @@
     if (!vids.length) { caixaV.closest('section').hidden = true; }
     else {
       var yt = function (v) { return 'https://www.youtube.com/watch?v=' + encodeURIComponent(v.id); };
-      var img = function (v, q) { return '<img src="https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/' + q + '.jpg" alt="" loading="lazy"' + (q === 'maxresdefault' ? ' onerror="this.onerror=null;this.src=this.src.replace(\'maxresdefault\',\'hqdefault\')"' : '') + '>'; };
+      var img = function (v, q) { return window.capaVideo(v.id, q, v.esporte || 'automobilismo'); };
       var play = '<i class="hm-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></i>';
       caixaV.innerHTML = '<a class="hm-vid-grande" href="' + yt(vids[0]) + '" target="_blank" rel="noopener">' + img(vids[0], 'maxresdefault') + play +
         '<span class="hm-hero-txt"><span class="hm-tag hm-tag-video">' + esc(vids[0].rot) + '</span><b>' + esc(vids[0].t) + '</b><span>' + esc(quando(vids[0].d)) + ' · no canal oficial, toque para assistir no YouTube</span></span></a>' +

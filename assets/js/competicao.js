@@ -44,7 +44,7 @@
   function quandoVideo(p) { var n = window.diasAte(p.slice(0, 10)); return n === 0 ? 'Hoje' : n === -1 ? 'Ontem' : window.dataCurta(p.slice(0, 10)); }
   function videoCartao(v) {
     return '<a class="vd-cartao" href="https://www.youtube.com/watch?v=' + encodeURIComponent(v.id) + '" target="_blank" rel="noopener" aria-label="Assistir no YouTube: ' + esc(v.titulo) + '">' +
-      '<span class="vd-img"><img src="https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/hqdefault.jpg" alt="" loading="lazy"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></i></span>' +
+      '<span class="vd-img">' + (window.capaVideo ? window.capaVideo(v.id, 'hqdefault', v.esporte) : '<img src="https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/hqdefault.jpg" alt="" loading="lazy">') + '<i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></i></span>' +
       '<small>' + esc(v.nome) + ' · ' + esc(quandoVideo(v.publicado)) + '</small><b>' + esc(v.titulo) + '</b></a>';
   }
   /* no máximo "por" vídeos de cada campeonato, para nenhum tomar a vitrine inteira */
