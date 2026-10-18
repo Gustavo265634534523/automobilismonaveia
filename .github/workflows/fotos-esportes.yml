@@ -1,0 +1,36 @@
+# Fotos reais (Wikimedia Commons, licença livre) para as notícias e páginas de futebol e basquete.
+# Roda quando a lista de fotos muda (.github/fotos-esportes.js), uma vez por dia e quando pedido à mão.
+name: Fotos de futebol e basquete
+on:
+  push:
+    paths:
+      - '.github/fotos-esportes.js'
+      - '.github/workflows/fotos-esportes.yml'
+  schedule:
+    - cron: '17 9 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: salvar-no-site
+  cancel-in-progress: false
+jobs:
+  fotos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Buscar fotos livres no Wikimedia Commons
+        run: node .github/fotos-esportes.js
+      - name: Salvar no site
+        run: |
+          git config user.name "Robô Na Veia"
+          git config user.email "automobilismonaveiacontato@gmail.com"
+          git add assets/img/real assets/dados/fotos-esportes.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Robô: fotos de futebol e basquete"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1
