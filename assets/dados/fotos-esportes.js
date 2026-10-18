@@ -289,5 +289,25 @@ window.FOTOS_ESPORTES = {
   "licUrl": "https://creativecommons.org/licenses/by-sa/4.0",
   "pagina": "https://commons.wikimedia.org/wiki/File:Gin%C3%A1sio_Pedroc%C3%A3o,_Franca_(SP),_Brazil.jpg",
   "titulo": "Ginásio Pedrocão, Franca (SP), Brazil"
+ },
+ "euroleague": {
+  "nome": "Euroleague",
+  "src": "assets/img/real/esp-euroleague.jpg",
+  "grande": "assets/img/real/esp-euroleague-g.jpg",
+  "autor": "Aaron Akinyemi",
+  "lic": "CC BY-SA 2.0",
+  "licUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Kyle_Hines_at_Euroleague_Final_-_Olympiacos_VS_Real_Madrid.jpg",
+  "titulo": "Kyle Hines at Euroleague Final - Olympiacos VS Real Madrid"
+ },
+ "panathinaikos": {
+  "nome": "Panathinaikos",
+  "src": "assets/img/real/esp-panathinaikos.jpg",
+  "grande": "assets/img/real/esp-panathinaikos-g.jpg",
+  "autor": "Zafer",
+  "lic": "CC BY 4.0",
+  "licUrl": "https://creativecommons.org/licenses/by/4.0",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Fenerbah%C3%A7e_Basketbol_vs_Panathinaikos_BC_EuroLeague_20251216_(1).jpg",
+  "titulo": "Fenerbahçe Basketbol vs Panathinaikos BC EuroLeague 20251216 (1)"
  }
 };
