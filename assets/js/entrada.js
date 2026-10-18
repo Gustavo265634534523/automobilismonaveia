@@ -37,6 +37,7 @@
   var filas = [motor].concat(['futebol', 'basquete'].map(function (e) { return esp.filter(function (x) { return x.esporte === e; }); }));
   var vids = [];
   for (var r = 0; filas.some(function (f) { return r < f.length; }); r++) filas.forEach(function (f) { if (f[r]) vids.push(f[r]); });
+  if (!document.getElementById('rv-capa')) { vids = []; capa = null; } /* a capa nova (capa.js) cuida da manchete e dos vídeos */
   if (vids.length) {
     /* os outros vídeos oficiais dos últimos 3 dias (VIDEOS_F1) entram atrás, com setas para passar */
     var atual = 0;
@@ -68,7 +69,7 @@
     el.innerHTML = '<img src="' + foto(capa.cat, true, capa.t) + '" alt="" fetchpriority="high">' +
       '<span class="rv-capa-txt"><small>' + esc(c.menu || c.nome) + ' · ' + esc(quando(capa.d)) + '</small><b>' + esc(t) + '</b><span>' + esc(x.split(/(?<=\.)\s/)[0]) + '</span></span>';
   }
-  document.getElementById('rv-lista').innerHTML = todas.filter(function (n) { return n !== capa; }).slice(0, 5).map(function (n) {
+  if (document.getElementById('rv-lista')) document.getElementById('rv-lista').innerHTML = todas.filter(function (n) { return n !== capa; }).slice(0, 5).map(function (n) {
     var c = PORSLUG[n.cat];
     return '<a class="rv-item" href="' + (window.linkNoticia ? window.linkNoticia(n.t) : c.slug + '.html') + '"><img src="' + foto(n.cat, false, n.t) + '" alt="" loading="lazy"><span><small>' + esc(c.menu || c.nome) + ' · ' + esc(quando(n.d)) + '</small><b>' + esc((en && n.t_en) || n.t) + '</b></span></a>';
   }).join('');

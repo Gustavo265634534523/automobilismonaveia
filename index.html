@@ -39,31 +39,59 @@
 </svg>
 
 <main>
-  <section class="revista" id="entrada" aria-labelledby="entrada-titulo">
+  <section class="revista hm" id="entrada" aria-labelledby="entrada-titulo">
     <div class="moldura">
       <h1 class="rv-h1" id="entrada-titulo">Automobilismo Na Veia <span>Automobilismo, futebol e basquete: notícias, resultados e calendário</span></h1>
-      <div class="rv-topo">
-        <a class="rv-capa" id="rv-capa" href="noticias.html"></a>
-        <aside class="rv-lat" aria-label="Últimas notícias"><h2>Últimas notícias</h2><div id="rv-lista"></div><a class="rv-todas" href="noticias.html">Ver todas as notícias →</a></aside>
+      <div class="hm-faixa" id="hm-faixa" aria-label="Últimas manchetes"></div>
+      <div class="hm-topo">
+        <div id="hm-hero"></div>
+        <aside class="hm-caixa" id="hm-placar" aria-label="Próximos jogos e últimos resultados"></aside>
       </div>
-    </div>
-    <div class="cats-carro"><div class="moldura"><div class="rv-cats" id="entrada-cats" aria-label="Categorias"></div></div></div>
-    <div class="moldura">
-      <div class="rv-baixo">
-        <aside class="entrada-dir" id="entrada-brigas" aria-label="Brigas pelo título"></aside>
-        <aside class="enq-home" data-enquete="home" aria-label="Enquete: quem vence?"></aside>
-        
+      <div class="hm-meio">
+        <section id="hm-naoperca" aria-label="Não perca"></section>
+        <aside class="hm-caixa" id="hm-agora" aria-label="Agora há pouco"></aside>
       </div>
     </div>
   </section>
 
-  <section class="secao esportes-sec" id="futebol-basquete" aria-labelledby="esportes-t">
+  <section class="secao hm-sec" id="mercado" aria-labelledby="mercado-t">
     <div class="moldura">
-      <div class="secao-cab revelar">
+      <div class="secao-cab">
+        <h2 id="mercado-t">Mercado de transferências.</h2>
+        <p>Quem chega, quem sai e quem renova: pilotos e jogadores. Especulação aparece marcada como especulação.</p>
+      </div>
+      <div id="hm-mercado"></div>
+    </div>
+  </section>
+
+  <section class="secao hm-sec" id="videos" aria-labelledby="videos-t">
+    <div class="moldura">
+      <h2 class="hm-tit" id="videos-t">Vídeos</h2>
+      <div class="hm-videos" id="hm-videos"></div>
+    </div>
+  </section>
+
+  <section class="secao esportes-sec hm-sec" id="futebol-basquete" aria-labelledby="esportes-t">
+    <div class="moldura">
+      <div class="secao-cab">
         <h2 id="esportes-t">Futebol e basquete.</h2>
         <p>Brasileirão, Libertadores, Champions, as grandes ligas da Europa, NBA, Euroleague e NBB.</p>
       </div>
       <div id="esportes-home"></div>
+    </div>
+  </section>
+
+  <section class="secao hm-sec" id="automobilismo" aria-labelledby="automobilismo-t">
+    <div class="moldura">
+      <div class="secao-cab">
+        <h2 id="automobilismo-t">Automobilismo.</h2>
+        <p>Fórmula 1, MotoGP, Stock Car e mais 14 categorias, com as brigas pelo título.</p>
+      </div>
+      <div class="rv-cats" id="entrada-cats" aria-label="Categorias"></div>
+      <div class="rv-baixo">
+        <aside class="entrada-dir" id="entrada-brigas" aria-label="Brigas pelo título"></aside>
+        <aside class="enq-home" data-enquete="home" aria-label="Enquete: quem vence?"></aside>
+      </div>
     </div>
   </section>
 
@@ -148,5 +176,7 @@
 <script src="assets/js/simulador.js?v=310"></script>
 <script src="assets/js/esportes-dados.js?v=310"></script>
 <script src="assets/js/competicao.js?v=310"></script>
+<script src="assets/js/noticias-esportes.js?v=310"></script>
+<script src="assets/js/capa.js?v=310"></script>
 </body>
 </html>

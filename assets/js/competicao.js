@@ -57,7 +57,7 @@
   /* Página inicial: os dois esportes */
   var home = document.getElementById('esportes-home');
   if (home) {
-    home.innerHTML = vitrine(variados(VIDS, 8, 1), 'Melhores momentos') + ESP.map(function (e) {
+    home.innerHTML = ESP.map(function (e) {
       return '<div class="esp-bloco"><a class="esp-tit" href="' + e.pagina + '">' + ICONE[e.slug] + '<b>' + esc(e.nome) + '</b><span>Ver tudo →</span></a>' +
         '<div class="comp-grade">' + [].concat.apply([], e.grupos.map(function (g) { return g.slugs; })).map(function (s) { return PORSLUG[s] ? cartao(PORSLUG[s]) : ''; }).join('') + '</div></div>';
     }).join('');
