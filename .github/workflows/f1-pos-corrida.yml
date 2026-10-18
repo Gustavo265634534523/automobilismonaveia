@@ -1,4 +1,4 @@
-# Depois de cada corrida: Raio-x da F1, amostra de telemetria da página inicial (OpenF1) e Raio-x da MotoGP (resultados oficiais da MotoGP).
+# Depois de cada corrida: Raio-x da F1, melhores momentos de futebol e basquete, amostra de telemetria da página inicial (OpenF1) e Raio-x da MotoGP (resultados oficiais da MotoGP).
 # Roda a cada 30 minutos; só faz algo quando sai resultado novo.
 name: F1 pos-corrida
 on:
@@ -27,6 +27,8 @@ jobs:
         run: node .github/pistas-categorias.js || true
       - name: Vídeo oficial da F1 na capa da página inicial
         run: node .github/video-capa.js || true
+      - name: Melhores momentos de futebol e basquete (canais oficiais no YouTube)
+        run: node .github/videos-esportes.js || true
       - name: Resultados do fim de semana da F1 (pole, sprint, corrida)
         run: node .github/resultados-f1.js || true
       - name: Enquete do dia (troca depois da largada)

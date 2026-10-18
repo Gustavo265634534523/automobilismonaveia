@@ -31,6 +31,23 @@
       '<b>' + esc(c.nome) + '</b><span class="comp-lider"><em>' + esc(c.lider.nome) + '</em>' + esc(c.lider.info) + '</span>' +
       '<span class="comp-prox">' + (px ? 'Próximo: ' + esc(px.casa) + ' x ' + esc(px.fora) + ', ' + window.dataCurta(px.d) : esc(c.fase)) + '</span></a>';
   }
+  /* melhores momentos (assets/dados/videos-esportes.js, robô .github/videos-esportes.js): vídeos dos últimos 10 dias.
+     Abrem no YouTube, porque vários canais oficiais não deixam tocar o vídeo fora de lá. */
+  var VIDS = (window.VIDEOS_ESPORTES || []).filter(function (v) { return v && v.id && Date.now() - Date.parse(v.publicado) < 10 * 864e5; });
+  function quandoVideo(p) { var n = window.diasAte(p.slice(0, 10)); return n === 0 ? 'Hoje' : n === -1 ? 'Ontem' : window.dataCurta(p.slice(0, 10)); }
+  function videoCartao(v) {
+    return '<a class="vd-cartao" href="https://www.youtube.com/watch?v=' + encodeURIComponent(v.id) + '" target="_blank" rel="noopener" aria-label="Assistir no YouTube: ' + esc(v.titulo) + '">' +
+      '<span class="vd-img"><img src="https://i.ytimg.com/vi/' + encodeURIComponent(v.id) + '/hqdefault.jpg" alt="" loading="lazy"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></i></span>' +
+      '<small>' + esc(v.nome) + ' · ' + esc(quandoVideo(v.publicado)) + '</small><b>' + esc(v.titulo) + '</b></a>';
+  }
+  /* no máximo "por" vídeos de cada campeonato, para nenhum tomar a vitrine inteira */
+  function variados(lista, max, por) {
+    var conta = {};
+    return lista.filter(function (v) { conta[v.comp] = (conta[v.comp] || 0) + 1; return conta[v.comp] <= por; }).slice(0, max);
+  }
+  function vitrine(lista, titulo) {
+    return lista.length ? '<section class="vd-bloco"><h2>' + titulo + '</h2><div class="vd-grade">' + lista.map(videoCartao).join('') + '</div><p class="vd-nota">Vídeos dos canais oficiais dos campeonatos. Toque para assistir no YouTube.</p></section>' : '';
+  }
   function grade(e) {
     return e.grupos.map(function (g) {
       return '<section class="comp-grupo"><h2>' + esc(g.nome) + '</h2><div class="comp-grade">' + g.slugs.map(function (s) { return PORSLUG[s] ? cartao(PORSLUG[s]) : ''; }).join('') + '</div></section>';
@@ -40,7 +57,7 @@
   /* Página inicial: os dois esportes */
   var home = document.getElementById('esportes-home');
   if (home) {
-    home.innerHTML = ESP.map(function (e) {
+    home.innerHTML = vitrine(variados(VIDS, 8, 1), 'Melhores momentos') + ESP.map(function (e) {
       return '<div class="esp-bloco"><a class="esp-tit" href="' + e.pagina + '">' + ICONE[e.slug] + '<b>' + esc(e.nome) + '</b><span>Ver tudo →</span></a>' +
         '<div class="comp-grade">' + [].concat.apply([], e.grupos.map(function (g) { return g.slugs; })).map(function (s) { return PORSLUG[s] ? cartao(PORSLUG[s]) : ''; }).join('') + '</div></div>';
     }).join('');
@@ -51,7 +68,7 @@
   if (hub) {
     var e = ESP.filter(function (x) { return x.slug === hub; })[0];
     var alvo = document.getElementById('comp-hub');
-    if (e && alvo) alvo.innerHTML = grade(e) + '<p class="atualizado">Dados atualizados em ' + esc(window.ESPORTES_ATUALIZADO) + '. Fontes: sites oficiais das competições e imprensa esportiva.</p>';
+    if (e && alvo) alvo.innerHTML = vitrine(variados(VIDS.filter(function (v) { return v.esporte === hub; }), 8, 2), 'Melhores momentos') + grade(e) + '<p class="atualizado">Dados atualizados em ' + esc(window.ESPORTES_ATUALIZADO) + '. Fontes: sites oficiais das competições e imprensa esportiva.</p>';
   }
 
   /* Página do campeonato */
@@ -67,6 +84,8 @@
     '<div class="cat-lider"><span>' + (c.tabela ? 'Na ponta' : 'Agora') + '</span><b>' + esc(c.lider.nome) + '</b><small>' + esc(c.lider.info) + '</small></div></div></div>';
 
   var P = [];
+  var meus = VIDS.filter(function (v) { return v.comp === c.slug; });
+  if (meus.length) P.push(['videos', 'Vídeos', '<h2>Melhores momentos</h2><div class="vd-grade">' + meus.map(videoCartao).join('') + '</div><p class="vd-nota">Vídeos do canal oficial no YouTube.</p>']);
   var futuros = (c.jogos || []).filter(function (j) { return !j.p; }), feitos = (c.jogos || []).filter(function (j) { return j.p; }).reverse();
   P.push(['jogos', 'Jogos', '<h2>Jogos · ' + esc(c.fase) + '</h2>' +
     (futuros.length ? '<h3 style="margin-top:0">Próximos jogos</h3><ul class="jogos">' + futuros.map(jogo).join('') + '</ul>' : '') +

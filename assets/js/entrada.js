@@ -30,7 +30,13 @@
   var V = window.VIDEO_CAPA, recente = function (x) { return x && x.id && Date.now() - Date.parse(x.publicado) < 3 * 864e5; };
   /* F1 primeiro (3 dias), depois o último vídeo oficial de cada outra categoria (7 dias, VIDEOS_CATS) */
   var f1 = recente(V) ? [V].concat((window.VIDEOS_F1 || []).filter(function (x) { return x.id !== V.id && recente(x); })) : [];
-  var vids = f1.concat((window.VIDEOS_CATS || []).filter(function (x) { return x && x.id && Date.now() - Date.parse(x.publicado) < 7 * 864e5; }));
+  var motor = f1.concat((window.VIDEOS_CATS || []).filter(function (x) { return x && x.id && Date.now() - Date.parse(x.publicado) < 7 * 864e5; }));
+  /* melhores momentos de futebol e basquete (videos-esportes.js, 3 dias) entram intercalados: automobilismo, futebol, basquete, ... */
+  var esp = (window.VIDEOS_ESPORTES || []).filter(function (x) { return x && x.id && Date.now() - Date.parse(x.publicado) < 3 * 864e5; })
+    .map(function (x) { return { id: x.id, nome: x.nome, esporte: x.esporte, titulo: x.titulo, texto: 'No canal oficial do campeonato.', publicado: x.publicado }; });
+  var filas = [motor].concat(['futebol', 'basquete'].map(function (e) { return esp.filter(function (x) { return x.esporte === e; }); }));
+  var vids = [];
+  for (var r = 0; filas.some(function (f) { return r < f.length; }); r++) filas.forEach(function (f) { if (f[r]) vids.push(f[r]); });
   if (vids.length) {
     /* os outros vídeos oficiais dos últimos 3 dias (VIDEOS_F1) entram atrás, com setas para passar */
     var atual = 0;

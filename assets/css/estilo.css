@@ -1157,3 +1157,18 @@ button.painel-menu-it { display: none; }
 @media (max-width: 1200px) { button.painel-menu-it { display: flex; } }
 @media (max-width: 620px) { .topo-in .tema-btn { display: none; } } /* no celular o botão fica no menu */
 .contagem-treino { color: var(--cromo); }
+
+/* melhores momentos (futebol e basquete) */
+.vd-bloco { margin-bottom: 44px; }
+.vd-bloco h2, .esportes-sec .vd-bloco h2 { margin: 0 0 16px; font-size: 18px; font-weight: 700; color: var(--sangue-vivo); }
+.vd-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 16px; }
+.vd-cartao { display: flex; flex-direction: column; gap: 6px; text-decoration: none; }
+.vd-img { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; background: var(--carbono); }
+.vd-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); }
+.vd-cartao:hover .vd-img img { transform: scale(1.04); }
+.vd-img i { position: absolute; left: 12px; bottom: 12px; width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; background: var(--sangue); color: #fff; }
+.vd-img i svg { width: 18px; height: 18px; margin-left: 2px; }
+.vd-cartao small { margin-top: 4px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--sangue-vivo); }
+.vd-cartao b { font-size: 17px; line-height: 1.3; }
+.vd-cartao:hover b { text-decoration: underline; }
+.vd-nota { margin: 14px 0 0; font-size: 14px; color: var(--aco); }
