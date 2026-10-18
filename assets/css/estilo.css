@@ -1172,3 +1172,27 @@ button.painel-menu-it { display: none; }
 .vd-cartao b { font-size: 17px; line-height: 1.3; }
 .vd-cartao:hover b { text-decoration: underline; }
 .vd-nota { margin: 14px 0 0; font-size: 14px; color: var(--aco); }
+
+/* ---------- Painel do menu: esporte primeiro, depois o menu daquele esporte (site.js) ---------- */
+.pm-rapido { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.pm-chip { display: inline-flex; align-items: center; gap: 7px; height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--linha); background: none; color: var(--texto-2); font: 700 14px var(--texto); text-decoration: none; cursor: pointer; }
+.pm-chip svg, .pm-esporte svg, .pm-tile svg { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.pm-chip svg { width: 17px; height: 17px; }
+.pm-chip:hover, .pm-chip[aria-current] { color: var(--forte); border-color: var(--aco); }
+.pm-esportes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.pm-esporte { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 64px; padding: 10px; border: 1px solid var(--linha); border-radius: 10px; background: var(--carbono); color: var(--cromo); font: 800 17px var(--texto); cursor: pointer; transition: border-color .2s, background .2s; }
+.pm-esporte svg { width: 26px; height: 26px; }
+.pm-esporte:hover { border-color: var(--aco); }
+.pm-esporte[aria-selected="true"] { border-color: var(--sangue-vivo); background: var(--sangue); color: #fff; }
+.pm-painel { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--linha); }
+.pm-atalhos { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-bottom: 24px; }
+.pm-tile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 7px; min-height: 76px; padding: 10px 6px; border: 1px solid var(--linha); border-radius: 8px; background: var(--carbono); color: var(--cromo); text-decoration: none; font: 700 13px/1.15 var(--texto); text-align: center; }
+.pm-tile svg { width: 24px; height: 24px; }
+.pm-tile:hover { border-color: var(--sangue-vivo); }
+.pm-painel .painel-cat[aria-current] { box-shadow: inset 3px 0 0 var(--sangue-vivo); }
+@media (max-width: 900px) { .pm-atalhos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 620px) {
+  .pm-esporte { flex-direction: column; gap: 5px; min-height: 72px; font-size: 14px; }
+  .pm-esporte svg { width: 24px; height: 24px; }
+  .pm-chip { height: 34px; padding: 0 12px; font-size: 13px; }
+}

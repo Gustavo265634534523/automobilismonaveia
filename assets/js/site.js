@@ -131,23 +131,53 @@
     var painel = document.createElement('div');
     painel.className = 'painel'; painel.id = 'painel';
     painel.setAttribute('role', 'dialog'); painel.setAttribute('aria-label', 'Todas as categorias');
-    /* no celular o menu de cima some: os mesmos botões aparecem no topo do painel */
-    var menuPainel = '<nav class="painel-menu" aria-label="Menu">' + itensMenu.filter(function (m) { return m[0] !== 'categorias'; }).concat([['raiox', './#analise', 'Raio-x e telemetria', false]]).map(function (m) {
-      return '<a class="painel-menu-it" href="' + m[1] + '"' + (m[3] ? ' aria-current="page"' : '') + '>' + ic(m[0]) + '<span>' + m[2] + '</span></a>';
-    }).join('') + '<button type="button" class="painel-menu-it painel-tema" onclick="window.NAVEIA_TROCAR_TEMA()"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span>Tema claro/escuro</span></button></nav>';
-    painel.innerHTML = '<div class="moldura painel-in">' + menuPainel + '<a class="painel-noticias" href="noticias.html"><b>Notícias</b><span>Tudo o que está acontecendo no automobilismo</span></a>' + GRUPOS.map(function (g) {
-      return '<section class="painel-grupo"><h2>' + esc(g.nome) + '</h2><ul class="painel-lista">' + g.cats.map(function (c) {
-        return '<li><a class="painel-cat" href="' + pagina(c) + '"><strong>' + esc(c.nome) + '</strong><span><em>' + esc(c.lider.nome) + '</em><br>' + esc(c.lider.info) + '</span></a>' +
-          '<ul class="painel-secoes">' + SECOES.slice(1, 5).map(function (s) { return '<li><a href="' + pagina(c) + '#' + s[0] + '">' + s[1] + '</a></li>'; }).join('') + '</ul></li>';
-      }).join('') + '</ul></section>';
-    }).join('') + ESPORTES_MENU.map(function (e) {
-      return '<section class="painel-grupo"><h2><a href="' + e.slug + '.html">' + e.nome + '</a></h2><ul class="painel-lista">' + e.comps.map(function (c) {
-        return '<li><a class="painel-cat" href="' + c[0] + '.html"><strong>' + esc(c[1]) + '</strong><span>' + esc(c[2]) + '</span></a></li>';
-      }).join('') + '</ul></section>';
-    }).join('') +
+    /* Painel do menu: primeiro o esporte (Automobilismo, Futebol, Basquete); ao tocar num deles, abre o menu daquele esporte
+       (atalhos + categorias ou campeonatos). Começa aberto no esporte da página atual. Início, Chat e Tema ficam sempre no topo. */
+    IC.carro = '<path d="M3 15.5l1.8-4.8A2 2 0 0 1 6.7 9.4h9.1a2 2 0 0 1 1.6.8l2.6 3.3H21v2H3z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/>';
+    IC.bola = '<circle cx="12" cy="12" r="9"/><path d="M12 7.5l4 2.9-1.5 4.7h-5L8 10.4z"/><path d="M12 3v4.5M16 10.4l4.3-1.3M14.5 15.1l2.6 3.8M9.5 15.1l-2.6 3.8M8 10.4L3.7 9.1"/>';
+    IC.cesta = '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18"/><path d="M5.6 5.6a9 9 0 0 1 0 12.8M18.4 5.6a9 9 0 0 0 0 12.8"/>';
+    IC.relogio = '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>';
+    IC.troca = '<path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/>';
+    IC.tema = '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>';
+    function tile(icone, href, txt) { return '<a class="pm-tile" href="' + href + '">' + ic(icone) + '<span>' + txt + '</span></a>'; }
+    var ESP_PAINEL = [
+      { slug: 'automobilismo', nome: 'Automobilismo', icone: 'carro',
+        atalhos: tile('noticias', 'noticias.html', 'Notícias') + tile('tv', 'onde-assistir.html', 'Onde assistir') + tile('raiox', './#analise', 'Raio-x e telemetria') +
+          tile('guia', 'guia.html', 'Guia') + tile('jogos', 'jogos.html', 'Jogos') + tile('relogio', 'horarios.html', 'Horários'),
+        corpo: GRUPOS.map(function (g) {
+          return '<section class="painel-grupo"><h2>' + esc(g.nome) + '</h2><ul class="painel-lista">' + g.cats.map(function (c) {
+            return '<li><a class="painel-cat" href="' + pagina(c) + '"><strong>' + esc(c.nome) + '</strong><span><em>' + esc(c.lider.nome) + '</em><br>' + esc(c.lider.info) + '</span></a>' +
+              '<ul class="painel-secoes">' + SECOES.slice(1, 5).map(function (s) { return '<li><a href="' + pagina(c) + '#' + s[0] + '">' + s[1] + '</a></li>'; }).join('') + '</ul></li>';
+          }).join('') + '</ul></section>';
+        }).join('') }
+    ].concat(ESPORTES_MENU.map(function (e) {
+      return { slug: e.slug, nome: e.nome, icone: e.slug === 'futebol' ? 'bola' : 'cesta',
+        atalhos: tile(e.slug === 'futebol' ? 'bola' : 'cesta', e.slug + '.html', 'Tudo de ' + e.nome.toLowerCase()) + tile('tv', e.slug + '.html', 'Melhores momentos') + tile('troca', './#mercado', 'Mercado'),
+        corpo: '<section class="painel-grupo"><h2>Campeonatos</h2><ul class="painel-lista">' + e.comps.map(function (c) {
+          return '<li><a class="painel-cat" href="' + c[0] + '.html"' + (c[0] === atual || c[0] === document.body.getAttribute('data-comp') ? ' aria-current="page"' : '') + '><strong>' + esc(c[1]) + '</strong><span>' + esc(c[2]) + '</span></a></li>';
+        }).join('') + '</ul></section>' };
+    }));
+    var rapido = '<div class="pm-rapido"><a class="pm-chip" href="./"' + (inicio ? ' aria-current="page"' : '') + '>' + ic('inicio') + 'Início</a>' +
+      '<a class="pm-chip" href="#bate-papo">' + ic('chat') + 'Chat</a>' +
+      '<button type="button" class="pm-chip" onclick="window.NAVEIA_TROCAR_TEMA()">' + ic('tema') + 'Tema claro/escuro</button></div>';
+    painel.innerHTML = '<div class="moldura painel-in">' + rapido +
+      '<div class="pm-esportes" role="tablist" aria-label="Esporte">' + ESP_PAINEL.map(function (e) {
+        var sim = e.slug === esporteAtual;
+        return '<button type="button" class="pm-esporte" role="tab" id="pm-aba-' + e.slug + '" aria-controls="pm-' + e.slug + '" aria-selected="' + sim + '">' + ic(e.icone) + '<span>' + e.nome + '</span></button>';
+      }).join('') + '</div>' +
+      ESP_PAINEL.map(function (e) {
+        return '<div class="pm-painel" role="tabpanel" id="pm-' + e.slug + '" aria-labelledby="pm-aba-' + e.slug + '"' + (e.slug === esporteAtual ? '' : ' hidden') + '><div class="pm-atalhos">' + e.atalhos + '</div>' + e.corpo + '</div>';
+      }).join('') +
       '<section class="painel-planos" aria-label="Atalhos">' +
-        '<div class="painel-planos-acoes"><a class="botao" href="jogos.html">Jogos</a><a class="painel-guia" href="./#analise">Raio-x e telemetria</a><a class="painel-guia" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="horarios.html">Horários e alerta de largada</a><a class="painel-guia" href="guia.html">Novo por aqui? Guia para iniciantes</a><a class="painel-guia" href="anatomia.html">Anatomia dos carros</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#bate-papo">Chat da torcida</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
+        '<div class="painel-planos-acoes"><a class="painel-guia" href="area-master.html">Ferramentas grátis</a><a class="painel-guia" href="anatomia.html">Anatomia dos carros</a><a class="painel-guia painel-conta" href="entrar.html">Entrar ou minha conta</a><a class="painel-guia" href="#instalar-app">Instalar o app no celular</a></div>' +
       '</section></div>';
+    /* tocar no esporte troca o menu de baixo (sem fechar o painel) */
+    [].forEach.call(painel.querySelectorAll('.pm-esporte'), function (b) {
+      b.addEventListener('click', function () {
+        [].forEach.call(painel.querySelectorAll('.pm-esporte'), function (x) { x.setAttribute('aria-selected', x === b); });
+        [].forEach.call(painel.querySelectorAll('.pm-painel'), function (p) { p.hidden = p.id !== b.getAttribute('aria-controls'); });
+      });
+    });
     topo.after(painel);
 
     /* Faixa fina com as categorias, logo abaixo do menu (menos na página inicial, que já mostra as categorias na entrada).
