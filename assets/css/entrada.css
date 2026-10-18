@@ -240,8 +240,6 @@
 /* arte dos esportes sem foto */
 .hm-arte { display: grid; place-items: center; width: 100%; height: 100%; overflow: hidden; }
 .hm-arte svg { width: 46%; max-width: 120px; height: auto; fill: none; stroke: rgba(255, 255, 255, .28); stroke-width: 1.2; }
-.hm-arte.hm-futebol { background: linear-gradient(135deg, #1f6a40 0%, #123b25 70%); }
-.hm-arte.hm-basquete { background: linear-gradient(135deg, #a2501c 0%, #5a2a0d 70%); }
 .hm-arte.hm-automobilismo { background: linear-gradient(135deg, #8f1a20 0%, #3d0a0d 70%); }
 /* etiquetas por esporte */
 .hm-tag { display: inline-block; padding: 3px 9px; border-radius: 4px; font-size: 12px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; color: #fff; background: var(--sangue); }

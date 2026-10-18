@@ -3,7 +3,7 @@
    Um jogo com "p" (placar) aparece como encerrado. Sem "d", aparece só a fase (ex.: data a confirmar).
    tabela.linhas: só o que foi conferido em mais de uma fonte; o resto vai em tabela.nota. */
 
-window.ESPORTES_ATUALIZADO = '18 de outubro de 2026';
+window.ESPORTES_ATUALIZADO = '18 de outubro de 2026, à noite';
 
 window.ESPORTES = [
 {
@@ -30,7 +30,7 @@ window.COMPETICOES = [
   frase: 'Trinta e oito rodadas, vinte clubes e nenhuma rodada fácil.',
   intro: 'Pontos corridos em turno e returno: todo mundo joga contra todo mundo duas vezes e quem somar mais pontos é campeão. Os primeiros colocados vão para a Libertadores e os quatro últimos caem para a Série B.',
   fase: '31ª rodada',
-  lider: { nome: 'Flamengo', info: '64 pontos em 30 jogos' },
+  lider: { nome: 'Palmeiras', info: '66 pontos; o Flamengo, com 64, ainda joga a 31ª rodada' },
   tabela: {
     titulo: 'Classificação após a 30ª rodada',
     colunas: ['Pos', 'Time', 'Pts'],
@@ -42,12 +42,12 @@ window.COMPETICOES = [
     nota: 'Zona de rebaixamento: Grêmio (31 pontos), Remo (25) e Chapecoense (18, com um jogo a menos) estão entre os quatro últimos.'
   },
   jogos: [
-    { fase: '31ª rodada', d: '2026-10-16', h: '20:00', casa: 'Mirassol', fora: 'Internacional' },
-    { fase: '31ª rodada', d: '2026-10-17', h: '18:00', casa: 'Botafogo', fora: 'Chapecoense' },
-    { fase: '31ª rodada', d: '2026-10-17', h: '18:30', casa: 'Atlético-MG', fora: 'Coritiba' },
-    { fase: '31ª rodada', d: '2026-10-17', h: '19:30', casa: 'Athletico-PR', fora: 'Palmeiras' },
-    { fase: '31ª rodada', d: '2026-10-17', h: '21:00', casa: 'São Paulo', fora: 'Vasco' },
-    { fase: '31ª rodada', d: '2026-10-18', h: '16:00', casa: 'Fluminense', fora: 'Santos' },
+    { fase: '31ª rodada', d: '2026-10-16', h: '20:00', casa: 'Mirassol', fora: 'Internacional', p: '2 x 0' },
+    { fase: '31ª rodada', d: '2026-10-17', h: '18:00', casa: 'Botafogo', fora: 'Chapecoense', p: '1 x 0' },
+    { fase: '31ª rodada', d: '2026-10-17', h: '18:30', casa: 'Atlético-MG', fora: 'Coritiba', p: '1 x 0' },
+    { fase: '31ª rodada', d: '2026-10-17', h: '19:30', casa: 'Athletico-PR', fora: 'Palmeiras', p: '0 x 2' },
+    { fase: '31ª rodada', d: '2026-10-17', h: '21:00', casa: 'São Paulo', fora: 'Vasco', p: '1 x 0' },
+    { fase: '31ª rodada', d: '2026-10-18', h: '16:00', casa: 'Fluminense', fora: 'Santos', p: '1 x 2' },
     { fase: '31ª rodada', d: '2026-10-18', h: '16:00', casa: 'Grêmio', fora: 'Cruzeiro' },
     { fase: '31ª rodada', d: '2026-10-18', h: '18:30', casa: 'Bahia', fora: 'Flamengo' },
     { fase: '31ª rodada', d: '2026-10-18', h: '19:30', casa: 'Remo', fora: 'Red Bull Bragantino' },
@@ -134,7 +134,7 @@ window.COMPETICOES = [
   frase: 'Barcelona e Real Madrid, e quem tiver coragem de se meter.',
   intro: 'O Campeonato Espanhol: 20 clubes, pontos corridos e 38 rodadas. Os quatro primeiros vão para a Champions League e os três últimos caem.',
   fase: '9ª rodada',
-  lider: { nome: 'Barcelona', info: '24 pontos, 8 vitórias em 8 jogos' },
+  lider: { nome: 'Barcelona', info: '27 pontos, 9 vitórias em 9 jogos' },
   tabela: {
     titulo: 'Topo da tabela após a 8ª rodada',
     colunas: ['Pos', 'Time', 'Pts'],
@@ -142,7 +142,7 @@ window.COMPETICOES = [
     nota: 'O Barcelona fez 34 gols e sofreu 7 nas oito primeiras rodadas. O Levante é o lanterna, com 6 pontos.'
   },
   jogos: [
-    { fase: '9ª rodada, 16 a 19/10', casa: 'Real Betis', fora: 'Barcelona' },
+    { fase: '9ª rodada', d: '2026-10-17', casa: 'Real Betis', fora: 'Barcelona', p: '2 x 5', l: 'La Cartuja' },
     { fase: '9ª rodada, 16 a 19/10', casa: 'Espanyol', fora: 'Atlético de Madrid' }
   ]
 },
@@ -224,9 +224,9 @@ window.COMPETICOES = [
   fase: '1ª rodada',
   lider: { nome: 'Franca', info: 'Atual campeão' },
   jogos: [
-    { fase: '1ª rodada', d: '2026-10-17', h: '16:00', casa: 'Mogi Basquete', fora: 'Corinthians', l: 'Ginásio Professor Hugo Ramos' },
-    { fase: '1ª rodada', d: '2026-10-17', casa: 'Caxias do Sul', fora: 'Cruzeiro' },
-    { fase: '1ª rodada', d: '2026-10-17', casa: 'Unifacisa', fora: 'Basket Osasco' },
+    { fase: '1ª rodada', d: '2026-10-17', h: '16:00', casa: 'Mogi Basquete', fora: 'Corinthians', l: 'Ginásio Professor Hugo Ramos', p: '84 x 73' },
+    { fase: '1ª rodada', d: '2026-10-17', casa: 'Caxias do Sul', fora: 'Cruzeiro', p: '61 x 72' },
+    { fase: '1ª rodada', d: '2026-10-17', casa: 'Unifacisa', fora: 'Basket Osasco', p: '96 x 70' },
     { fase: '1ª rodada', d: '2026-10-18', h: '11:00', casa: 'Flamengo', fora: 'Bauru Basket', l: 'Maracanãzinho' },
     { fase: '1ª rodada', d: '2026-10-19', casa: 'Franca', fora: 'São José' }
   ],

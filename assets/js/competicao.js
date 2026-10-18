@@ -48,6 +48,15 @@
   function vitrine(lista, titulo) {
     return lista.length ? '<section class="vd-bloco"><h2>' + titulo + '</h2><div class="vd-grade">' + lista.map(videoCartao).join('') + '</div><p class="vd-nota">Vídeos dos canais oficiais dos campeonatos. Toque para assistir no YouTube.</p></section>' : '';
   }
+  /* notícias de futebol e basquete (noticias-esportes.js), da mais nova para a mais antiga */
+  function listaNoticias(filtro, max) {
+    var ns = (window.NOTICIAS_ESPORTES || []).filter(filtro).sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; }).slice(0, max || 99);
+    return ns.map(function (n) {
+      var cc = PORSLUG[n.comp] || {};
+      return '<a class="bq-not" href="' + (n.comp || n.esporte) + '.html"><span class="hm-arte hm-' + n.esporte + '" aria-hidden="true">' + (ICONE[n.esporte] || '') + '</span>' +
+        '<span class="bq-not-txt"><small>' + esc(cc.menu || cc.nome || '') + ' · ' + esc(quandoVideo(n.d)) + '</small><b>' + esc(n.t) + '</b><span>' + esc(n.x) + '</span></span></a>';
+    }).join('');
+  }
   function grade(e) {
     return e.grupos.map(function (g) {
       return '<section class="comp-grupo"><h2>' + esc(g.nome) + '</h2><div class="comp-grade">' + g.slugs.map(function (s) { return PORSLUG[s] ? cartao(PORSLUG[s]) : ''; }).join('') + '</div></section>';
@@ -68,7 +77,9 @@
   if (hub) {
     var e = ESP.filter(function (x) { return x.slug === hub; })[0];
     var alvo = document.getElementById('comp-hub');
-    if (e && alvo) alvo.innerHTML = vitrine(variados(VIDS.filter(function (v) { return v.esporte === hub; }), 8, 2), 'Melhores momentos') + grade(e) + '<p class="atualizado">Dados atualizados em ' + esc(window.ESPORTES_ATUALIZADO) + '. Fontes: sites oficiais das competições e imprensa esportiva.</p>';
+    /* a página de basquete tem as notícias dela (basquete.js); a de futebol ganha a lista aqui */
+    var nfut = hub === 'futebol' ? listaNoticias(function (n) { return n.esporte === 'futebol'; }, 12) : '';
+    if (e && alvo) alvo.innerHTML = (nfut ? '<section class="vd-bloco"><h2>Notícias</h2><div class="bq-noticias">' + nfut + '</div></section>' : '') + vitrine(variados(VIDS.filter(function (v) { return v.esporte === hub; }), 8, 2), 'Melhores momentos') + grade(e) + '<p class="atualizado">Dados atualizados em ' + esc(window.ESPORTES_ATUALIZADO) + '. Fontes: sites oficiais das competições e imprensa esportiva.</p>';
   }
 
   /* Página do campeonato */
@@ -84,6 +95,8 @@
     '<div class="cat-lider"><span>' + (c.tabela ? 'Na ponta' : 'Agora') + '</span><b>' + esc(c.lider.nome) + '</b><small>' + esc(c.lider.info) + '</small></div></div></div>';
 
   var P = [];
+  var nots = listaNoticias(function (n) { return n.comp === c.slug; });
+  if (nots) P.push(['noticias', 'Notícias', '<h2>Notícias</h2><div class="bq-noticias">' + nots + '</div>']);
   var meus = VIDS.filter(function (v) { return v.comp === c.slug; });
   if (meus.length) P.push(['videos', 'Vídeos', '<h2>Melhores momentos</h2><div class="vd-grade">' + meus.map(videoCartao).join('') + '</div><p class="vd-nota">Vídeos do canal oficial no YouTube.</p>']);
   var futuros = (c.jogos || []).filter(function (j) { return !j.p; }), feitos = (c.jogos || []).filter(function (j) { return j.p; }).reverse();
