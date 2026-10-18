@@ -9,17 +9,14 @@
   /* Foto de cada notícia. Na Fórmula 1 usa o carro gerado da abertura (sem equipe, marca ou patrocínio),
      alternando três ângulos para as notícias não ficarem todas iguais. */
   var F1_SEM_MARCA = [
-    { src: 'assets/img/hero-1-lado-m.webp', pos: '50% 55%' },
-    { src: 'assets/img/cat/f1.jpg', pos: '70% 55%' },
-    { src: 'assets/img/hero-3-frente-m.webp', pos: '55% 60%' },
-    { src: 'assets/img/hero-2-motor-m.webp', pos: '60% 55%' }
+    { src: 'assets/img/esportes/automobilismo-m.webp', pos: '50% 50%' }
   ];
   var contaF1 = 0;
   /* usadas: fotos que já apareceram na página (não repete foto) */
   var usadasManchetes = {}, usadas = {};
   function foto(slug, extra, titulo) {
     var fr = window.fotoNoticia ? window.fotoNoticia(slug, titulo, usadas) : (window.FOTOS_REAIS || {})[slug];
-    if (fr) return '<img src="' + (/fetchpriority/.test(extra) ? fr.grande : fr.src) + '" alt="" title="Foto: ' + esc(fr.autor) + ' (' + esc(fr.lic) + ')" ' + extra + '>';
+    if (fr) return '<img src="' + (/fetchpriority/.test(extra) ? fr.grande : fr.src) + '" alt=""' + (fr.autor ? ' title="Foto: ' + esc(fr.autor) + ' (' + esc(fr.lic) + ')"' : '') + ' ' + extra + '>';
     if (slug === 'formula-1') {
       var f = F1_SEM_MARCA[contaF1++ % F1_SEM_MARCA.length];
       return '<img src="' + f.src + '" alt="" style="object-position:' + f.pos + '" ' + extra + '>';

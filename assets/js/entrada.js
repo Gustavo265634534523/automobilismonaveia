@@ -16,10 +16,10 @@
   function correSemana(c) { var e = proxima(c); if (!e) return null; return dataEtapa(e).ini <= daqui7 ? e : null; }
 
   /* 1 e 2. manchete e últimas notícias */
-  var F1_FOTOS = ['assets/img/hero-1-lado-m.webp', 'assets/img/hero-3-frente-m.webp', 'assets/img/cat/f1.jpg', 'assets/img/hero-2-motor-m.webp'], nF1 = 0;
+  var F1_FOTOS = ['assets/img/esportes/automobilismo-m.webp'], nF1 = 0;
   /* foto real da categoria (licença livre, assets/dados/fotos-reais.js); sem ela, as imagens geradas */
   var usadas = {}; /* fotos já usadas na capa e na lista: não repete */
-  function foto(slug, grande, titulo) { var fr = window.fotoNoticia ? window.fotoNoticia(slug, titulo, usadas) : (window.FOTOS_REAIS || {})[slug]; if (fr) return grande ? fr.grande : fr.src; return slug === 'formula-1' ? F1_FOTOS[nF1++ % F1_FOTOS.length] : (PORSLUG[slug] ? PORSLUG[slug].foto : 'assets/img/cat/f1.jpg'); }
+  function foto(slug, grande, titulo) { var fr = window.fotoNoticia ? window.fotoNoticia(slug, titulo, usadas) : (window.FOTOS_REAIS || {})[slug]; if (fr) return grande ? fr.grande : fr.src; return slug === 'formula-1' ? F1_FOTOS[nF1++ % F1_FOTOS.length] : (PORSLUG[slug] ? PORSLUG[slug].foto : 'assets/img/esportes/automobilismo.webp'); }
   function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === -1 ? 'Ontem' : window.dataCurta(d); }
   var en = window.LANG === 'en';
   var todas = (window.NOTICIAS_GERAIS || []).filter(function (n) { return PORSLUG[n.cat]; }).slice()

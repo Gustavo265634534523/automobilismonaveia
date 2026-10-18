@@ -36,7 +36,7 @@
   function imagem(n, grande) {
     if (n.esporte === 'automobilismo') {
       var fr = window.fotoNoticia ? window.fotoNoticia(n.cat, n.tituloPt, usadas) : (window.FOTOS_REAIS || {})[n.cat];
-      var src = fr ? (grande ? fr.grande : fr.src) : (PCAT[n.cat] && PCAT[n.cat].foto) || 'assets/img/cat/f1.jpg';
+      var src = fr ? (grande ? fr.grande : fr.src) : (PCAT[n.cat] && PCAT[n.cat].foto) || 'assets/img/esportes/automobilismo.webp';
       return '<img src="' + src + '" alt="" loading="' + (grande ? 'eager' : 'lazy') + '">';
     }
     return window.fotoEsporte ? window.fotoEsporte(n, grande) : '<span class="hm-arte hm-' + n.esporte + '" aria-hidden="true">' + (ICONE[n.esporte] || '') + '</span>';

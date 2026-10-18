@@ -4,11 +4,11 @@
    - página inicial (#esportes-home): cartões dos dois esportes. */
 (function () {
   var COMPS = window.COMPETICOES || [], ESP = window.ESPORTES || [], esc = window.esc;
-  /* foto real (assets/dados/fotos-esportes.js, Wikimedia Commons com licença livre) da notícia, do jogador ou do campeonato;
-     sem foto, a arte do esporte (gramado ou quadra). Usado também por capa.js e basquete.js. */
+  /* imagem do esporte (IMG_ESPORTE, em assets/dados/fotos-reais.js): bola de futebol ou cesta de basquete;
+     sem ela, a arte do esporte (gramado ou quadra). Usado também por capa.js e basquete.js. */
   window.fotoEsporte = function (n, grande, classe) {
-    var F = window.FOTOS_ESPORTES || {}, f = F[n.foto] || F[n.comp] || F[n.slug];
-    if (f) return '<img' + (classe ? ' class="' + classe + '"' : '') + ' src="' + (grande ? f.grande : f.src) + '" alt="" loading="' + (grande ? 'eager' : 'lazy') + '" title="Foto: ' + window.esc(f.autor) + ' (' + window.esc(f.lic) + ', Wikimedia Commons)">';
+    var f = (window.IMG_ESPORTE || {})[n.esporte || 'futebol'];
+    if (f) return '<img' + (classe ? ' class="' + classe + '"' : '') + ' src="' + (grande ? f.grande : f.src) + '" alt="" loading="' + (grande ? 'eager' : 'lazy') + '">';
     return '<span class="hm-arte hm-' + (n.esporte || 'futebol') + (classe ? ' ' + classe : '') + '" aria-hidden="true">' + ((window.ESPORTES_ICONE || {})[n.esporte] || '') + '</span>';
   };
   var hoje = window.hojeISO();
@@ -95,9 +95,8 @@
   if (!c) return;
   var espNome = (ESP.filter(function (x) { return x.slug === c.esporte; })[0] || {}).nome || '';
   document.getElementById('cat-topo').innerHTML =
-    ((window.FOTOS_ESPORTES || {})[c.slug] ? (function (f) {
-      return '<div class="cat-foto"><img class="pronta" src="' + f.grande + '" alt=""></div><p class="credito"><a href="creditos-fotos.html#esportes">Foto: ' + esc(f.autor) + ' · ' + esc(f.lic) + ' · Wikimedia Commons</a></p>';
-    })(window.FOTOS_ESPORTES[c.slug]) : '<div class="comp-fundo comp-' + c.esporte + '" aria-hidden="true">' + ICONE[c.esporte] + '</div>') +
+    ((window.IMG_ESPORTE || {})[c.esporte] ? '<div class="cat-foto"><img class="pronta" src="' + window.IMG_ESPORTE[c.esporte].grande + '" alt=""></div>'
+      : '<div class="comp-fundo comp-' + c.esporte + '" aria-hidden="true">' + ICONE[c.esporte] + '</div>') +
     '<div class="moldura"><a class="comp-esporte" href="' + c.esporte + '.html">' + esc(espNome) + ' · ' + esc(c.regiao) + '</a>' +
     '<h1 class="cat-nome">' + esc(c.nome) + '</h1><p class="cat-frase">' + esc(c.frase) + '</p>' +
     '<div class="cat-rodape"><div><p class="cat-intro">' + esc(c.intro) + '</p></div>' +

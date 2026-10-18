@@ -73,9 +73,7 @@
   window.PREVIA_PROXIMA = proxima;
   /* fotos reais com licença livre (Wikimedia Commons), por equipe; o crédito do fotógrafo é obrigatório.
      Equipe sem foto livre usa o carro genérico do site na cor da equipe. */
-  var FOTOS = {
-    'Red Bull Racing': { src: 'assets/img/real/verstappen-rb22.jpg', cred: 'Foto: Liauzh / Wikimedia Commons (CC BY 4.0)' }
-  };
+  var FOTOS = {}; /* todas as equipes usam a imagem do automobilismo do site */
   var CORES_EQ = { 'Mercedes': '#00D7B6', 'Ferrari': '#ED1131', 'McLaren': '#F47600', 'Red Bull': '#4781D7', 'Red Bull Racing': '#4781D7', 'Aston Martin': '#229971', 'Alpine': '#00A1E8', 'Williams': '#1868DB', 'Racing Bulls': '#6C98FF', 'Haas': '#9C9FA2', 'Audi': '#F50537', 'Cadillac': '#AAAAAD' };
   function resultados(caixa, R, e, c) {
     var S = R.sessoes, feitas = {}; S.forEach(function (s) { feitas[s.titulo] = s; });
@@ -96,7 +94,7 @@
         '<div class="rs-nome">' + esc(v.nome).replace(' ', '<br>') + '</div><div class="rs-equipe">' + esc(v.equipe) + '</div><div class="rs-num">#' + v.n + '</div>' +
         '<dl class="rs-info">' + info.map(function (i) { return '<div><dt>' + esc(i[0]) + '</dt><dd>' + esc(i[1]) + '</dd></div>'; }).join('') + '</dl></div>' +
       '<div class="rs-card rs-foto' + (foto ? ' rs-real' : '') + '"><i class="rs-faixa"></i>' + (foto ? '' : '<span class="rs-n">' + v.n + '</span>') +
-        '<img src="' + (foto ? foto.src : 'assets/img/hero-1-lado-m.webp') + '" alt="" loading="lazy">' + (foto ? '<small class="rs-cred">' + esc(foto.cred) + '</small>' : '') +
+        '<img src="' + (foto ? foto.src : 'assets/img/esportes/automobilismo-m.webp') + '" alt="" loading="lazy">' + (foto ? '<small class="rs-cred">' + esc(foto.cred) + '</small>' : '') +
         '<div class="rs-legenda"><b>P1</b><span>' + esc(frase) + '</span></div></div>' +
       '<div class="rs-dir"><div class="rs-card rs-bloco"><h4>Pódio · ' + esc(ref.titulo.replace(/^Vencedor d[ao] /, '').replace(/^Pole para a /, 'grid da ').replace(/^Pole d[ao] /, 'grid da ')) + '</h4><div class="rs-podio">' + ref.top.map(function (p) {
           return '<div><i>P' + p.pos + '</i><em style="background:' + p.cor + '"></em><span>' + esc(p.nome) + '<br><small>' + esc(p.equipe) + '</small></span><small>' + esc(p.tempo) + '</small></div>'; }).join('') + '</div></div>' +

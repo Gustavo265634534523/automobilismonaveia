@@ -9,7 +9,7 @@ window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 window.CATEGORIAS = [
 {
   slug: 'formula-1', nome: 'Fórmula 1', menu: 'Fórmula 1', principal: true,
-  foto: 'assets/img/cat/f1.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'O piloto encontra o limite a 340 km/h.',
   intro: 'Vinte e dois carros, mil cavalos em cada um. Na freada do fim da reta, o corpo pesa cinco vezes mais e o pé direito ainda espera o último metro. A Fórmula 1 decide campeonatos em milésimos.',
   lider: { nome: 'Kimi Antonelli', info: 'Mercedes, 340 pontos' },
@@ -95,7 +95,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'formula-2', nome: 'Fórmula 2', menu: 'Fórmula 2',
-  foto: 'assets/img/cat/f2.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'A última porta antes da Fórmula 1.',
   intro: 'Carro igual, pneu igual, motor igual. Sobra o piloto. Na Fórmula 2, quem freia depois ganha contrato. O brasileiro Rafael Câmara lidera a temporada por sete pontos.',
   lider: { nome: 'Rafael Câmara', info: 'Invicta, 7 pontos à frente' },
@@ -144,7 +144,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'formula-3', nome: 'Fórmula 3', menu: 'Fórmula 3',
-  foto: 'assets/img/cat/f3.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Trinta carros disputam a mesma curva.',
   intro: 'A Fórmula 3 junta trinta jovens num pelotão em que ninguém cede um centímetro. Largada lotada, roda com roda até a bandeirada. Ugo Ugochukwu saiu de Madri com o título.',
   lider: { nome: 'Ugo Ugochukwu', info: 'Campeão 2026, Campos, 159 pontos' },
@@ -187,7 +187,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'formula-e', nome: 'Fórmula E', menu: 'Fórmula E',
-  foto: 'assets/img/cat/fe.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Silêncio. Depois, o chicote do torque.',
   intro: 'Sem ronco, sobra o assobio do motor elétrico e o pneu raspando no muro. A Fórmula E corre no centro das cidades e decide a vitória na energia que resta na última volta. Pascal Wehrlein fechou a temporada 12 como campeão.',
   lider: { nome: 'Pascal Wehrlein', info: 'Campeão da temporada 12, Porsche' },
@@ -244,7 +244,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'stock-car', nome: 'Stock Car', menu: 'Stock Car', principal: true,
-  foto: 'assets/img/cat/stock.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Porta com porta, até a tinta sair.',
   intro: 'A Stock Car transforma o autódromo brasileiro em briga de rua com regulamento. Toque na traseira, pressão na curva, pit stop no grito. Felipe Fraga chega a Brasília com 141 pontos de vantagem.',
   lider: { nome: 'Felipe Fraga', info: 'Eurofarma RC, 746 pontos' },
@@ -287,7 +287,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'rally', nome: 'Rally', menu: 'WRC',
-  foto: 'assets/img/cat/rally.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'O carro voa. O copiloto continua lendo.',
   intro: 'Cascalho, neve, lama e asfalto. No rali, o piloto ataca uma estrada que conhece só pela voz do copiloto. Uma palavra trocada e o carro sai da estrada. Elfyn Evans lidera por 17 pontos antes da Sardenha.',
   lider: { nome: 'Elfyn Evans', info: 'Campeão mundial 2026, Toyota, 243 pontos' },
@@ -331,7 +331,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'endurance', nome: 'Endurance', menu: 'WEC',
-  foto: 'assets/img/cat/endurance.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Seis horas, vinte e quatro horas. O relógio também corre.',
   intro: 'Três pilotos dividem o mesmo carro e trocam de lugar no escuro. Farol cortando a neblina de Le Mans, disco de freio em brasa às quatro da manhã. No Mundial de Endurance, terminar já é metade da vitória.',
   lider: { nome: 'Buemi, Hartley e Hirakawa', info: 'Toyota #8, 89 pontos' },
@@ -368,7 +368,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'indycar', nome: 'IndyCar', menu: 'IndyCar',
-  foto: 'assets/img/cat/indy.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Oval, 370 km/h, e o muro a um palmo.',
   intro: 'Na IndyCar, o carro raspa o concreto do oval dentro de um pelotão colado. Uma bolha de ar muda a corrida inteira. Álex Palou fechou 2026 com o quinto título, o quarto seguido.',
   lider: { nome: 'Álex Palou', info: 'Campeão 2026, Chip Ganassi' },
@@ -425,7 +425,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'porsche-cup', nome: 'Porsche Cup', menu: 'Porsche Cup', principal: true,
-  foto: 'assets/img/cat/porsche.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Trinta 911 iguais. Só o pé direito muda.',
   intro: 'Mesmo carro, mesmo acerto, mesmo pneu. Na Porsche Cup, o seis cilindros berra atrás do banco e a diferença entre o primeiro e o décimo cabe num piscar de olhos. Marçal Müller lidera a Carrera Cup.',
   lider: { nome: 'Marçal Müller', info: 'Carrera Cup, 159 pontos' },
@@ -460,7 +460,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'nascar', nome: 'NASCAR', menu: 'NASCAR',
-  foto: 'assets/img/cat/nascar.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Quarenta carros, um vácuo, nenhum espaço.',
   intro: 'Nos ovais americanos, os carros andam colados a 300 km/h e o vácuo empurra o pelotão inteiro. Um toque e dez carros saem de cena. O Chase começou: Kyle Larson lidera por um ponto.',
   lider: { nome: 'Kyle Larson', info: 'Hendrick, lidera o Round of 8' },
@@ -503,7 +503,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'motocross', nome: 'Motocross', menu: 'Motocross',
-  foto: 'assets/img/cat/motocross.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'A moto sai do chão. O piloto decide onde ela pousa.',
   intro: 'Terra vermelha, sulcos de meio metro, saltos de trinta metros. No Motocross, o antebraço queima na décima volta e a pista muda a cada passagem. Jeffrey Herlings fechou o Mundial MXGP com 973 pontos e o sexto título.',
   lider: { nome: 'Jeffrey Herlings', info: 'Campeão MXGP 2026, Honda' },
@@ -549,7 +549,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'motogp', nome: 'MotoGP', menu: 'MotoGP', principal: true,
-  foto: 'assets/img/cat/motogp.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Cotovelo no asfalto a 60 graus de inclinação.',
   intro: 'Na MotoGP, o piloto pendura o corpo para fora da moto e arrasta o cotovelo na zebra. São 300 cavalos em duas rodas e 360 km/h na reta. Jorge Martín lidera com 12 pontos sobre Marc Márquez, faltando sete etapas.',
   lider: { nome: 'Jorge Martín', info: 'Aprilia, 355 pontos' },
@@ -602,7 +602,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'le-mans', nome: 'Le Mans', menu: 'Le Mans', guia: false,
-  foto: 'assets/img/cat/le-mans-noite.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Um dia inteiro de corrida. Sem parar.',
   intro: 'A corrida mais famosa do mundo dura 24 horas: três pilotos revezam o mesmo carro, de dia, de noite e na neblina da madrugada. Em 2026, a Toyota #7 venceu por apenas 10 segundos depois de 381 voltas.',
   lider: { nome: 'Conway, Kobayashi e De Vries', info: 'Vencedores de 2026, Toyota #7' },
@@ -661,7 +661,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'imsa', nome: 'IMSA', menu: 'IMSA', guia: false,
-  foto: 'assets/img/cat/imsa.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'O endurance dos Estados Unidos, de Daytona a Road Atlanta.',
   intro: 'O IMSA é o campeonato de endurance dos Estados Unidos: protótipos e carros GT dividem a pista em provas de 2h40 a 24 horas, como Daytona e Sebring. O brasileiro Felipe Nasr venceu as duas maiores do ano com a Porsche.',
   lider: { nome: 'Jack Aitken', info: 'Campeão 2026 da GTP, Cadillac, 3.020 pontos' },
@@ -703,7 +703,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'dtm', nome: 'DTM', menu: 'DTM', guia: false,
-  foto: 'assets/img/cat/dtm.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Carros GT, porta com porta, nas pistas da Alemanha.',
   intro: 'O DTM é o campeonato alemão de turismo: Porsche, BMW, Mercedes, Ferrari, Aston Martin, McLaren e Ford na mesma pista, com duas corridas por fim de semana. Thomas Preining lidera por 23 pontos antes da final em Hockenheim.',
   lider: { nome: 'Thomas Preining', info: 'Manthey, Porsche, campeão 2026 (bicampeão), 225 pontos' },
@@ -746,7 +746,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'superbike', nome: 'Superbike', menu: 'Superbike', guia: false,
-  foto: 'assets/img/cat/superbike.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Motos de rua preparadas para a pista. Três corridas por fim de semana.',
   intro: 'No Mundial de Superbike, as motos são versões de corrida de modelos vendidos em loja. Cada etapa tem três corridas: a 1, a Superpole Race, curtinha, e a 2. Nicolò Bulega, da Ducati, já é campeão de 2026.',
   lider: { nome: 'Nicolò Bulega', info: 'Campeão mundial 2026, Ducati, 664 pontos' },
@@ -791,7 +791,7 @@ window.CATEGORIAS = [
 },
 {
   slug: 'dakar', nome: 'Rally Dakar', menu: 'Dakar', guia: false,
-  foto: 'assets/img/cat/dakar.jpg',
+  foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Duas semanas, quase 8 mil quilômetros de deserto.',
   intro: 'O Dakar é o rali mais duro do mundo: carros, motos e caminhões cruzam o deserto da Arábia Saudita em 13 etapas, sem estrada e guiados por navegação. Em 2026, Nasser Al-Attiyah ganhou pela sexta vez nos carros.',
   lider: { nome: 'Nasser Al-Attiyah', info: 'Campeão 2026 nos carros, Dacia' },

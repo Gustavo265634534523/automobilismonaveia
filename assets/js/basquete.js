@@ -11,10 +11,10 @@
   /* o sobrenome vai na segunda linha, como numa camisa */
   function nomeDuasLinhas(n) { var p = n.split(' '); return p.length > 1 ? esc(p[0]) + '<br>' + esc(p.slice(1).join(' ')) : esc(n); }
 
-  /* foto do jogador (fotos-esportes.js, chave em j.foto), com o crédito no title */
+  /* imagem do basquete atrás do número da camisa */
   function foto(j) {
-    var f = (window.FOTOS_ESPORTES || {})[j.foto];
-    return f ? '<img src="' + f.grande + '" alt="' + esc(j.nome) + '" loading="lazy" title="Foto: ' + esc(f.autor) + ' (' + esc(f.lic) + ', Wikimedia Commons)">' : '';
+    var f = (window.IMG_ESPORTE || {}).basquete;
+    return f ? '<img src="' + f.grande + '" alt="" loading="lazy">' : '';
   }
   /* ficha do jogador; "curta" = versão da página inicial */
   function ficha(j, curta) {
