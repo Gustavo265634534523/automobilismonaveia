@@ -1,9 +1,25 @@
-/* Entrada do site (index.html): carrossel 3D de Futebol, Basquete e Automobilismo.
+/* Entrada do site (index.html): carrossel 3D de Futebol, Basquete e Automobilismo, com o nome do esporte gigante atrás.
    Gira sozinho; também gira com a roda do mouse (um esporte por vez), arrastando, pelas setas e pelo teclado.
-   Clicar no cartão da frente abre o esporte. Atrás, traços de luz na cor do esporte (canvas). */
+   Clicar no objeto da frente ou em Entrar abre o esporte. Atrás, traços de luz na cor do esporte (canvas). */
 (function () {
   var CORES = { futebol: '#2ea062', basquete: '#f07a2a', automobilismo: '#e3343c' };
   var NOMES = { futebol: 'Futebol', basquete: 'Basquete', automobilismo: 'Automobilismo' };
+  var FRASES = {
+    futebol: '<b>Brasileirão, Libertadores e Champions</b> e as grandes ligas da Europa.',
+    basquete: '<b>NBA, Euroleague e NBB</b>: jogos, tabelas e destaques.',
+    automobilismo: '<b>Fórmula 1, MotoGP, NASCAR</b> e mais, no horário de Brasília.'
+  };
+  var palavras = [].slice.call(document.querySelectorAll('.ld-palavra'));
+  var links = [].slice.call(document.querySelectorAll('.ld-nav a[data-esp]'));
+  var cta = document.getElementById('ld-cta'), frase = document.getElementById('ld-frase'), num = document.getElementById('ld-num');
+  var contador = document.querySelector('.ld-contador');
+  /* o tamanho do nome gigante depende do número de letras, para AUTOMOBILISMO caber na tela */
+  palavras.forEach(function (p) { p.style.setProperty('--letras', p.textContent.trim().length); });
+  /* se a imagem já vier recortada (fundo transparente), tira a máscara redonda */
+  [].forEach.call(document.querySelectorAll('.ld-obj'), function (img) {
+    var alt = img.getAttribute('src').replace(/\.webp$/, '-recorte.webp'), t = new Image();
+    t.onload = function () { img.src = alt; img.classList.add('recortado'); }; t.src = alt;
+  });
   var calmo = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var body = document.body, raiz = document.documentElement;
   var palco = document.getElementById('ld-palco');
@@ -39,6 +55,12 @@
     ambs.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('data-esp') === esp); });
     pontos.forEach(function (p, i) { p.setAttribute('aria-selected', i === atual ? 'true' : 'false'); });
     raiz.style.setProperty('--cor', CORES[esp]);
+    palavras.forEach(function (p) { p.classList.toggle('ativa', p.getAttribute('data-esp') === esp); });
+    links.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('data-esp') === esp); });
+    if (cta) { cta.href = cards[atual].getAttribute('href'); cta.textContent = 'Entrar no ' + NOMES[esp].toLowerCase(); }
+    if (frase) frase.innerHTML = FRASES[esp];
+    if (num) num.textContent = '0' + (atual + 1);
+    if (contador) contador.style.setProperty('--prog', Math.round((atual + 1) / n * 100) + '%');
   }
   function ir(i) {
     i = ((i % n) + n) % n;
@@ -66,6 +88,7 @@
       if (i === atual) entrar(); else { parar(); ir(i); }
     });
   });
+  if (cta) cta.addEventListener('click', function (e) { e.preventDefault(); entrar(); });
   document.getElementById('ld-ant').addEventListener('click', function () { parar(); passo(-1); });
   document.getElementById('ld-prox').addEventListener('click', function () { parar(); passo(1); });
 

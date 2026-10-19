@@ -21,7 +21,7 @@ jobs:
         run: |
           grep -v '^#' .github/imagens-para-baixar.txt | while read -r destino url; do
             [ -z "$destino" ] && continue
-            [ -f "$destino.png" ] && continue
+            if [ -f "$destino.png" ] || [ -f "$destino.webp" ]; then continue; fi
             mkdir -p "$(dirname "$destino")"
             curl -sSfL --retry 3 -m 120 -o "$destino.png" "$url" || { echo "falhou: $url"; continue; }
             convert "$destino.png" -resize '900x900>' -quality 82 "$destino.webp" || true

@@ -22,47 +22,63 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Kanit:ital,wght@1,900&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/img/esportes/futebol.webp">
-<link rel="stylesheet" href="assets/css/landing.css?v=321">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Alfa+Slab+One&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/entrada/futebol.webp">
+<link rel="stylesheet" href="assets/css/landing.css?v=322">
 </head>
 <body class="ld">
-<!-- Entrada do site: só o carrossel 3D dos três esportes, com fundo animado (assets/js/landing.js).
-     O portal com notícias e jogos fica em inicio.html. -->
+<!-- Entrada do site: hero escuro com o nome do esporte gigante atrás do objeto (bola, bola, capacete) e o carrossel 3D
+     dos três esportes (assets/js/landing.js). O portal com notícias e jogos fica em inicio.html. -->
 <div class="ld-fundo" aria-hidden="true">
   <div class="ld-amb" data-esp="futebol" style="background-image:url(assets/img/esportes/futebol-m.webp)"></div>
   <div class="ld-amb" data-esp="basquete" style="background-image:url(assets/img/esportes/basquete-m.webp)"></div>
   <div class="ld-amb" data-esp="automobilismo" style="background-image:url(assets/img/esportes/automobilismo-m.webp)"></div>
+  <div class="ld-holofote"></div>
   <canvas class="ld-luzes" id="ld-luzes"></canvas>
   <div class="ld-vinheta"></div>
 </div>
 
-<a class="ld-marca" href="inicio.html" aria-label="Automobilismo Na Veia, ir para o portal"><span class="ld-sinal" aria-hidden="true"><i></i><i></i></span><span>NA VEIA</span></a>
+<header class="ld-topo">
+  <a class="ld-marca" href="inicio.html" aria-label="Automobilismo Na Veia, ir para o portal"><span class="ld-sinal" aria-hidden="true"><i></i><i></i></span><span>NA VEIA</span></a>
+  <nav class="ld-nav" aria-label="Esportes">
+    <a href="futebol.html" data-esp="futebol">Futebol</a><a href="basquete.html" data-esp="basquete">Basquete</a><a href="automobilismo.html" data-esp="automobilismo">Automobilismo</a><a href="inicio.html">Portal</a>
+  </nav>
+</header>
 
 <main class="ld-palco" id="ld-palco" aria-roledescription="carrossel" aria-label="Escolha o seu esporte">
   <h1 class="sr">Automobilismo Na Veia: escolha o seu esporte</h1>
   <div class="ld-anel" id="ld-anel">
+    <div class="ld-palavras" aria-hidden="true">
+      <span class="ld-palavra" data-esp="futebol">Futebol</span>
+      <span class="ld-palavra" data-esp="basquete">Basquete</span>
+      <span class="ld-palavra" data-esp="automobilismo">Automobilismo</span>
+    </div>
     <a class="ld-card" data-esp="futebol" href="futebol.html" aria-label="Futebol">
-      <img src="assets/img/esportes/futebol.webp" alt="" draggable="false">
-      <span class="ld-card-txt"><b>Futebol</b><em class="ld-entrar">Entrar</em></span>
+      <img class="ld-obj" src="assets/img/entrada/futebol.webp" alt="" draggable="false">
     </a>
     <a class="ld-card" data-esp="basquete" href="basquete.html" aria-label="Basquete">
-      <img src="assets/img/esportes/basquete.webp" alt="" draggable="false">
-      <span class="ld-card-txt"><b>Basquete</b><em class="ld-entrar">Entrar</em></span>
+      <img class="ld-obj" src="assets/img/entrada/basquete.webp" alt="" draggable="false">
     </a>
     <a class="ld-card" data-esp="automobilismo" href="automobilismo.html" aria-label="Automobilismo">
-      <img src="assets/img/esportes/automobilismo.webp" alt="" draggable="false">
-      <span class="ld-card-txt"><b>Automobilismo</b><em class="ld-entrar">Entrar</em></span>
+      <img class="ld-obj" src="assets/img/entrada/automobilismo.webp" alt="" draggable="false">
     </a>
+    <svg class="ld-aro" viewBox="0 0 300 300" aria-hidden="true"><defs><path id="ld-circ" d="M150,150 m-128,0 a128,128 0 1,1 256,0 a128,128 0 1,1 -256,0"/></defs>
+      <text><textPath href="#ld-circ" textLength="800" lengthAdjust="spacing">NOTÍCIAS • RESULTADOS • TABELAS • HORÁRIOS • AO VIVO •</textPath></text></svg>
   </div>
-  <div class="ld-controles">
-    <button type="button" class="ld-seta liquid-glass" id="ld-ant" aria-label="Esporte anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-    <div class="ld-pontos" id="ld-pontos" role="tablist" aria-label="Esportes"></div>
-    <button type="button" class="ld-seta liquid-glass" id="ld-prox" aria-label="Próximo esporte"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  <div class="ld-info">
+    <p class="ld-frase" id="ld-frase"></p>
+    <a class="ld-cta" id="ld-cta" href="futebol.html">Entrar</a>
   </div>
 </main>
 
-<script src="assets/js/landing.js?v=321"></script>
+<div class="ld-setas">
+  <button type="button" class="ld-seta liquid-glass" id="ld-prox" aria-label="Próximo esporte"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  <button type="button" class="ld-seta liquid-glass" id="ld-ant" aria-label="Esporte anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+</div>
+<div class="ld-contador" aria-hidden="true"><b id="ld-num">01</b><i></i><span>03</span></div>
+<div class="ld-pontos" id="ld-pontos" role="tablist" aria-label="Esportes"></div>
+
+<script src="assets/js/landing.js?v=322"></script>
 <script>
   /* contador de visitas (Cloudflare Web Analytics, sem cookies), igual ao resto do site */
   if (/automobilismonaveia.com.br$/.test(location.hostname)) {
