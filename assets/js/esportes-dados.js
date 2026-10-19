@@ -8,9 +8,9 @@ window.ESPORTES_ATUALIZADO = '19 de outubro de 2026';
 window.ESPORTES = [
 {
   slug: 'futebol', nome: 'Futebol', pagina: 'futebol.html',
-  frase: 'Brasileirão, Libertadores, Sul-Americana e as cinco grandes ligas da Europa.',
+  frase: 'Brasileirão, Copa do Brasil, Libertadores, Sul-Americana e as cinco grandes ligas da Europa.',
   grupos: [
-    { nome: 'No Brasil e na América do Sul', slugs: ['brasileirao', 'libertadores', 'sul-americana'] },
+    { nome: 'No Brasil e na América do Sul', slugs: ['brasileirao', 'copa-do-brasil', 'libertadores', 'sul-americana'] },
     { nome: 'Na Europa', slugs: ['champions-league', 'premier-league', 'la-liga', 'bundesliga', 'serie-a', 'ligue-1'] }
   ]
 },
@@ -106,6 +106,52 @@ window.COMPETICOES = [
     ['2020', 'Flamengo', 'Internacional'],
     ['2019', 'Flamengo', 'Palmeiras'],
     ['2018', 'Palmeiras', 'Flamengo']
+  ]
+},
+{
+  slug: 'copa-do-brasil',
+  esporte: 'futebol',
+  nome: 'Copa do Brasil',
+  menu: 'Copa do Brasil',
+  regiao: 'Brasil',
+  temporada: '2026',
+  frase: 'Quatro times, uma taça e a primeira final em jogo único.',
+  intro: 'O mata-mata nacional da CBF, com clubes de todo o país. Até as semifinais os confrontos são em ida e volta; em 2026, pela primeira vez, a final é em jogo único, em Brasília. O campeão vai para a Libertadores do ano seguinte.',
+  fase: 'Semifinais (ida em 01/11)',
+  lider: { nome: 'Corinthians', info: 'Atual campeão (2025): venceu o Vasco na final, com gol de Memphis no Maracanã. Em 2026 caiu nas oitavas para o Internacional.' },
+  confrontos: [
+    { fase: 'Semifinal', a: 'Palmeiras', b: 'Vasco', situacao: 'Ida em 01/11, às 16h, no Nubank Parque. Volta em 08/11, às 17h, em São Januário.' },
+    { fase: 'Semifinal', a: 'Grêmio', b: 'Atlético-MG', situacao: 'Ida em 01/11, às 18h30, na Arena do Grêmio. Volta em 07/11, às 18h, na Arena MRV.' }
+  ],
+  jogos: [
+    { fase: 'Quartas – volta', d: '2026-09-01', casa: 'Atlético-MG', fora: 'Cruzeiro', l: 'Arena MRV', p: '2 x 1' },
+    { fase: 'Quartas – volta', d: '2026-09-02', casa: 'Santos', fora: 'Palmeiras', l: 'Vila Belmiro', p: '0 x 0' },
+    { fase: 'Quartas – volta', d: '2026-09-02', casa: 'Vitória', fora: 'Vasco', l: 'Barradão', p: '0 x 2' },
+    { fase: 'Quartas – volta', d: '2026-09-03', casa: 'Grêmio', fora: 'Internacional', l: 'Arena do Grêmio', p: '3 x 1' },
+    { fase: 'Semifinal – ida', d: '2026-11-01', h: '16:00', casa: 'Palmeiras', fora: 'Vasco', l: 'Nubank Parque' },
+    { fase: 'Semifinal – ida', d: '2026-11-01', h: '18:30', casa: 'Grêmio', fora: 'Atlético-MG', l: 'Arena do Grêmio' },
+    { fase: 'Semifinal – volta', d: '2026-11-07', h: '18:00', casa: 'Atlético-MG', fora: 'Grêmio', l: 'Arena MRV' },
+    { fase: 'Semifinal – volta', d: '2026-11-08', h: '17:00', casa: 'Vasco', fora: 'Palmeiras', l: 'São Januário' },
+    { fase: 'Final (jogo único)', d: '2026-12-06', casa: 'A definir', fora: 'A definir', l: 'Estádio Mané Garrincha, Brasília' }
+  ],
+  nota: 'Nas quartas, o Atlético-MG virou o clássico contra o Cruzeiro, o Grêmio bateu o Internacional, o Palmeiras passou pelo Santos e o Vasco pelo Vitória.',
+  sobre: [
+    ['Criação', '1989'],
+    ['Organização', 'CBF'],
+    ['Maior campeão', 'Cruzeiro, com 6 títulos'],
+    ['Atual campeão', 'Corinthians (2025), que venceu o Vasco na final'],
+    ['Final de 2026', 'Pela primeira vez em jogo único: 06/12, no Estádio Mané Garrincha, em Brasília'],
+    ['Vaga', 'O campeão vai para a fase de grupos da Libertadores de 2027']
+  ],
+  campeoes: [
+    ['2025', 'Corinthians', 'Vasco'],
+    ['2024', 'Flamengo', 'Atlético-MG'],
+    ['2023', 'São Paulo', 'Flamengo'],
+    ['2022', 'Flamengo', 'Corinthians'],
+    ['2021', 'Atlético-MG', 'Athletico-PR'],
+    ['2020', 'Palmeiras', 'Grêmio'],
+    ['2019', 'Athletico-PR', 'Internacional'],
+    ['2018', 'Cruzeiro', 'Corinthians']
   ]
 },
 {
@@ -1018,3 +1064,163 @@ window.JOGADORES_DESTAQUE = [
     nota: 'Duas vezes MVP, chegou ao Heat numa troca em julho. Usou a camisa 7 na pré-temporada.',
     proximo: { d: '2026-10-21', txt: 'Heat x Timberwolves, a estreia pelo Miami' } }
 ];
+
+/* Chaveamentos do mata-mata e dos playoffs (aba Chaveamento de cada campeonato e páginas do Futebol e do Basquete).
+   Futebol: a = mandante da ida; ida e volta no placar do jogo (mandante x visitante); pen = pênaltis; unico = jogo único.
+   Basquete: sa/sb = posição na temporada; res = vitórias de a - vitórias de b. vence = quem passou.
+   Fontes: sites oficiais (NBA, EuroLeague, LNB), ESPN, Basketball-Reference e imprensa, conferidos em out/2026. */
+window.CHAVES = {
+  'copa-do-brasil': { titulo: 'Mata-mata 2026', fases: [
+    { fase: 'Oitavas de final', confrontos: [
+      { a: 'Palmeiras', b: 'Fortaleza', ida: '3 x 0', volta: '3 x 2', vence: 'Palmeiras' },
+      { a: 'Santos', b: 'Remo', ida: '0 x 0', volta: '0 x 1', vence: 'Santos' },
+      { a: 'Vasco', b: 'Fluminense', ida: '0 x 0', volta: '1 x 3', vence: 'Vasco', info: 'os dois jogos no Maracanã' },
+      { a: 'Athletico-PR', b: 'Vitória', ida: '2 x 0', volta: '4 x 0', vence: 'Vitória' },
+      { a: 'Internacional', b: 'Corinthians', ida: '2 x 0', volta: '2 x 1', vence: 'Internacional', info: 'o atual campeão caiu' },
+      { a: 'Mirassol', b: 'Grêmio', ida: '1 x 1', volta: '1 x 0', vence: 'Grêmio' },
+      { a: 'Chapecoense', b: 'Cruzeiro', ida: '0 x 0', volta: '2 x 0', vence: 'Cruzeiro' },
+      { a: 'Atlético-MG', b: 'Juventude', ida: '0 x 0', volta: '0 x 1', vence: 'Atlético-MG' }] },
+    { fase: 'Quartas de final', confrontos: [
+      { a: 'Palmeiras', b: 'Santos', ida: '3 x 0', volta: '0 x 0', vence: 'Palmeiras' },
+      { a: 'Vasco', b: 'Vitória', ida: '1 x 0', volta: '0 x 2', vence: 'Vasco' },
+      { a: 'Internacional', b: 'Grêmio', ida: '0 x 0', volta: '3 x 1', vence: 'Grêmio' },
+      { a: 'Cruzeiro', b: 'Atlético-MG', ida: '1 x 1', volta: '2 x 1', vence: 'Atlético-MG' }] },
+    { fase: 'Semifinais', confrontos: [
+      { a: 'Palmeiras', b: 'Vasco', info: 'ida 01/11 em São Paulo, volta 08/11 em São Januário' },
+      { a: 'Grêmio', b: 'Atlético-MG', info: 'ida 01/11 em Porto Alegre, volta 07/11 na Arena MRV' }] },
+    { fase: 'Final', confrontos: [{ a: 'A definir', b: 'A definir', info: 'jogo único em 06/12, no Mané Garrincha (Brasília)' }] }
+  ] },
+  libertadores: { titulo: 'Mata-mata 2026', fases: [
+    { fase: 'Oitavas de final', confrontos: [
+      { a: 'Fluminense', b: 'Independiente Rivadavia', ida: '0 x 0', volta: '1 x 1', pen: '5 x 4', vence: 'Fluminense' },
+      { a: 'Platense', b: 'Coquimbo Unido', ida: '1 x 1', volta: '0 x 0', pen: '7 x 6', vence: 'Platense' },
+      { a: 'Palmeiras', b: 'Cerro Porteño', ida: '1 x 1', volta: '0 x 1', vence: 'Palmeiras' },
+      { a: 'Mirassol', b: 'LDU', ida: '1 x 1', volta: '0 x 0', pen: '4 x 5', vence: 'LDU' },
+      { a: 'Estudiantes', b: 'Universidad Católica', ida: '1 x 1', volta: '0 x 3', vence: 'Estudiantes' },
+      { a: 'Rosario Central', b: 'Corinthians', ida: '0 x 0', volta: '1 x 0', vence: 'Corinthians' },
+      { a: 'Cruzeiro', b: 'Flamengo', ida: '1 x 1', volta: '2 x 1', vence: 'Flamengo' },
+      { a: 'Deportes Tolima', b: 'Independiente del Valle', ida: '0 x 1', volta: '3 x 1', vence: 'Independiente del Valle' }] },
+    { fase: 'Quartas de final', confrontos: [
+      { a: 'Fluminense', b: 'Platense', ida: '2 x 0', volta: '2 x 1', vence: 'Fluminense' },
+      { a: 'Palmeiras', b: 'LDU', ida: '1 x 0', volta: '3 x 2', pen: '4 x 3', vence: 'Palmeiras' },
+      { a: 'Estudiantes', b: 'Corinthians', ida: '1 x 1', volta: '0 x 1', vence: 'Estudiantes' },
+      { a: 'Independiente del Valle', b: 'Flamengo', ida: '0 x 2', volta: '1 x 1', vence: 'Flamengo' }] },
+    { fase: 'Semifinais', confrontos: [
+      { a: 'Fluminense', b: 'Palmeiras', ida: '1 x 2', info: 'volta 21/10 no Nubank Parque' },
+      { a: 'Estudiantes', b: 'Flamengo', ida: '0 x 0', info: 'volta 22/10 no Maracanã' }] },
+    { fase: 'Final', confrontos: [{ a: 'A definir', b: 'A definir', info: 'jogo único em 28/11, no Centenario (Montevidéu)' }] }
+  ] },
+  'sul-americana': { titulo: 'Mata-mata 2026', fases: [
+    { fase: 'Oitavas de final', confrontos: [
+      { a: 'Boca Juniors', b: 'Recoleta', ida: '3 x 1', volta: '0 x 4', vence: 'Boca Juniors' },
+      { a: 'Bolívar', b: 'São Paulo', ida: '1 x 1', volta: '3 x 1', vence: 'São Paulo' },
+      { a: 'Independiente Santa Fe', b: 'River Plate', ida: '0 x 0', volta: '1 x 1', pen: '8 x 7', vence: 'Independiente Santa Fe' },
+      { a: 'Vasco', b: 'Olimpia', ida: '0 x 0', volta: '1 x 4', vence: 'Vasco' },
+      { a: 'Santos', b: 'Macará', ida: '2 x 1', volta: '0 x 0', vence: 'Santos' },
+      { a: 'Red Bull Bragantino', b: 'Atlético-MG', ida: '0 x 1', volta: '2 x 2', vence: 'Atlético-MG' },
+      { a: 'Cienciano', b: 'Botafogo', ida: '6 x 1', volta: '1 x 0', vence: 'Cienciano' },
+      { a: 'Tigre', b: 'Montevideo City Torque', ida: '0 x 1', volta: '2 x 1', vence: 'Montevideo City Torque' }] },
+    { fase: 'Quartas de final', confrontos: [
+      { a: 'Boca Juniors', b: 'São Paulo', ida: '1 x 0', volta: '1 x 1', vence: 'Boca Juniors' },
+      { a: 'Independiente Santa Fe', b: 'Vasco', ida: '0 x 0', volta: '2 x 0', vence: 'Vasco' },
+      { a: 'Santos', b: 'Atlético-MG', ida: '2 x 0', volta: '4 x 2', pen: '1 x 3', vence: 'Atlético-MG' },
+      { a: 'Cienciano', b: 'Montevideo City Torque', ida: '2 x 0', volta: '3 x 0', vence: 'Montevideo City Torque' }] },
+    { fase: 'Semifinais', confrontos: [
+      { a: 'Boca Juniors', b: 'Vasco', ida: '0 x 1', info: 'volta 20/10 no Maracanã' },
+      { a: 'Atlético-MG', b: 'Montevideo City Torque', ida: '3 x 0', info: 'volta 21/10 em Montevidéu' }] },
+    { fase: 'Final', confrontos: [{ a: 'A definir', b: 'A definir', info: 'jogo único em 21/11, em Barranquilla' }] }
+  ] },
+  'champions-league': { titulo: 'Mata-mata da temporada passada (2025/26)', campeao: 'Paris Saint-Germain', nota: 'Na temporada 2026/27, a fase de liga vai até 27/01/2027. Os playoffs do mata-mata são em fevereiro e a final é em 05/06/2027, no Metropolitano (Madri).', fases: [
+    { fase: 'Playoffs', confrontos: [
+      { a: 'Monaco', b: 'Paris Saint-Germain', ida: '2 x 3', volta: '2 x 2', vence: 'Paris Saint-Germain' },
+      { a: 'Qarabag', b: 'Newcastle', ida: '1 x 6', volta: '3 x 2', vence: 'Newcastle' },
+      { a: 'Benfica', b: 'Real Madrid', ida: '0 x 1', volta: '2 x 1', vence: 'Real Madrid' },
+      { a: 'Borussia Dortmund', b: 'Atalanta', ida: '2 x 0', volta: '4 x 1', vence: 'Atalanta' },
+      { a: 'Bodø/Glimt', b: 'Inter de Milão', ida: '3 x 1', volta: '1 x 2', vence: 'Bodø/Glimt' },
+      { a: 'Olympiacos', b: 'Bayer Leverkusen', ida: '0 x 2', volta: '0 x 0', vence: 'Bayer Leverkusen' },
+      { a: 'Galatasaray', b: 'Juventus', ida: '5 x 2', volta: '3 x 2', vence: 'Galatasaray', info: 'volta com prorrogação' },
+      { a: 'Club Brugge', b: 'Atlético de Madrid', ida: '3 x 3', volta: '4 x 1', vence: 'Atlético de Madrid' }] },
+    { fase: 'Oitavas de final', confrontos: [
+      { a: 'Paris Saint-Germain', b: 'Chelsea', ida: '5 x 2', volta: '0 x 3', vence: 'Paris Saint-Germain' },
+      { a: 'Galatasaray', b: 'Liverpool', ida: '1 x 0', volta: '4 x 0', vence: 'Liverpool' },
+      { a: 'Real Madrid', b: 'Manchester City', ida: '3 x 0', volta: '1 x 2', vence: 'Real Madrid' },
+      { a: 'Atalanta', b: 'Bayern de Munique', ida: '1 x 6', volta: '4 x 1', vence: 'Bayern de Munique' },
+      { a: 'Newcastle', b: 'Barcelona', ida: '1 x 1', volta: '7 x 2', vence: 'Barcelona' },
+      { a: 'Atlético de Madrid', b: 'Tottenham', ida: '5 x 2', volta: '3 x 2', vence: 'Atlético de Madrid' },
+      { a: 'Bodø/Glimt', b: 'Sporting', ida: '3 x 0', volta: '5 x 0', vence: 'Sporting', info: 'volta com prorrogação' },
+      { a: 'Bayer Leverkusen', b: 'Arsenal', ida: '1 x 1', volta: '2 x 0', vence: 'Arsenal' }] },
+    { fase: 'Quartas de final', confrontos: [
+      { a: 'Paris Saint-Germain', b: 'Liverpool', ida: '2 x 0', volta: '0 x 2', vence: 'Paris Saint-Germain' },
+      { a: 'Real Madrid', b: 'Bayern de Munique', ida: '1 x 2', volta: '4 x 3', vence: 'Bayern de Munique' },
+      { a: 'Barcelona', b: 'Atlético de Madrid', ida: '0 x 2', volta: '1 x 2', vence: 'Atlético de Madrid' },
+      { a: 'Sporting', b: 'Arsenal', ida: '0 x 1', volta: '0 x 0', vence: 'Arsenal' }] },
+    { fase: 'Semifinais', confrontos: [
+      { a: 'Paris Saint-Germain', b: 'Bayern de Munique', ida: '5 x 4', volta: '1 x 1', vence: 'Paris Saint-Germain' },
+      { a: 'Atlético de Madrid', b: 'Arsenal', ida: '1 x 1', volta: '1 x 0', vence: 'Arsenal' }] },
+    { fase: 'Final', confrontos: [{ a: 'Paris Saint-Germain', b: 'Arsenal', unico: '1 x 1', pen: '4 x 3', vence: 'Paris Saint-Germain', info: 'em Budapeste (30/05), com prorrogação' }] }
+  ] },
+  nba: { titulo: 'Playoffs 2026', campeao: 'New York Knicks', fases: [
+    { fase: 'Play-in', conf: 'Leste', series: [
+      { a: 'Philadelphia 76ers', sa: 7, b: 'Orlando Magic', sb: 8, res: '1-0', vence: 'Philadelphia 76ers', info: '109 x 97' },
+      { a: 'Charlotte Hornets', sa: 9, b: 'Miami Heat', sb: 10, res: '1-0', vence: 'Charlotte Hornets', info: '127 x 126 na prorrogação' },
+      { a: 'Orlando Magic', sa: 8, b: 'Charlotte Hornets', sb: 9, res: '1-0', vence: 'Orlando Magic', info: '121 x 90, vaga 8' }] },
+    { fase: 'Play-in', conf: 'Oeste', series: [
+      { a: 'Phoenix Suns', sa: 7, b: 'Portland Trail Blazers', sb: 8, res: '0-1', vence: 'Portland Trail Blazers', info: '110 x 114' },
+      { a: 'LA Clippers', sa: 9, b: 'Golden State Warriors', sb: 10, res: '0-1', vence: 'Golden State Warriors', info: '121 x 126' },
+      { a: 'Phoenix Suns', sa: 7, b: 'Golden State Warriors', sb: 10, res: '1-0', vence: 'Phoenix Suns', info: 'vaga 8' }] },
+    { fase: 'Primeira rodada', conf: 'Leste', series: [
+      { a: 'Detroit Pistons', sa: 1, b: 'Orlando Magic', sb: 8, res: '4-3', vence: 'Detroit Pistons' },
+      { a: 'Cleveland Cavaliers', sa: 4, b: 'Toronto Raptors', sb: 5, res: '4-3', vence: 'Cleveland Cavaliers' },
+      { a: 'New York Knicks', sa: 3, b: 'Atlanta Hawks', sb: 6, res: '4-2', vence: 'New York Knicks' },
+      { a: 'Boston Celtics', sa: 2, b: 'Philadelphia 76ers', sb: 7, res: '3-4', vence: 'Philadelphia 76ers' }] },
+    { fase: 'Primeira rodada', conf: 'Oeste', series: [
+      { a: 'Oklahoma City Thunder', sa: 1, b: 'Phoenix Suns', sb: 8, res: '4-0', vence: 'Oklahoma City Thunder' },
+      { a: 'Los Angeles Lakers', sa: 4, b: 'Houston Rockets', sb: 5, res: '4-2', vence: 'Los Angeles Lakers' },
+      { a: 'Denver Nuggets', sa: 3, b: 'Minnesota Timberwolves', sb: 6, res: '2-4', vence: 'Minnesota Timberwolves' },
+      { a: 'San Antonio Spurs', sa: 2, b: 'Portland Trail Blazers', sb: 7, res: '4-1', vence: 'San Antonio Spurs' }] },
+    { fase: 'Semifinais de conferência', conf: 'Leste', series: [
+      { a: 'Detroit Pistons', sa: 1, b: 'Cleveland Cavaliers', sb: 4, res: '3-4', vence: 'Cleveland Cavaliers' },
+      { a: 'New York Knicks', sa: 3, b: 'Philadelphia 76ers', sb: 7, res: '4-0', vence: 'New York Knicks' }] },
+    { fase: 'Semifinais de conferência', conf: 'Oeste', series: [
+      { a: 'Oklahoma City Thunder', sa: 1, b: 'Los Angeles Lakers', sb: 4, res: '4-0', vence: 'Oklahoma City Thunder' },
+      { a: 'San Antonio Spurs', sa: 2, b: 'Minnesota Timberwolves', sb: 6, res: '4-2', vence: 'San Antonio Spurs' }] },
+    { fase: 'Finais de conferência', conf: 'Leste', series: [{ a: 'New York Knicks', sa: 3, b: 'Cleveland Cavaliers', sb: 4, res: '4-0', vence: 'New York Knicks' }] },
+    { fase: 'Finais de conferência', conf: 'Oeste', series: [{ a: 'Oklahoma City Thunder', sa: 1, b: 'San Antonio Spurs', sb: 2, res: '3-4', vence: 'San Antonio Spurs', info: 'Jogo 7: Spurs 111 x 103' }] },
+    { fase: 'Finais', series: [{ a: 'New York Knicks', sa: 3, b: 'San Antonio Spurs', sb: 2, res: '4-1', vence: 'New York Knicks', info: 'Terceiro título dos Knicks, o primeiro desde 1973' }] }
+  ] },
+  euroleague: { titulo: 'Playoffs e Final Four 2025/26', campeao: 'Olympiacos', fases: [
+    { fase: 'Play-in', series: [
+      { a: 'Panathinaikos', b: 'Monaco', res: '1-0', vence: 'Panathinaikos', info: '87 x 79, vaga 7' },
+      { a: 'Barcelona', sa: 9, b: 'Crvena Zvezda', sb: 10, res: '1-0', vence: 'Barcelona', info: '80 x 72' },
+      { a: 'Monaco', b: 'Barcelona', sb: 9, res: '1-0', vence: 'Monaco', info: '79 x 70, vaga 8' }] },
+    { fase: 'Playoffs (melhor de 5)', series: [
+      { a: 'Olympiacos', sa: 1, b: 'Monaco', sb: 8, res: '3-0', vence: 'Olympiacos' },
+      { a: 'Fenerbahçe', sa: 4, b: 'Žalgiris', sb: 5, res: '3-1', vence: 'Fenerbahçe' },
+      { a: 'Real Madrid', sa: 3, b: 'Hapoel Tel Aviv', sb: 6, res: '3-1', vence: 'Real Madrid' },
+      { a: 'Valencia Basket', sa: 2, b: 'Panathinaikos', sb: 7, res: '3-2', vence: 'Valencia Basket', info: 'Valencia virou depois de perder os dois primeiros jogos' }] },
+    { fase: 'Final Four: semifinais', series: [
+      { a: 'Olympiacos', sa: 1, b: 'Fenerbahçe', sb: 4, res: '1-0', vence: 'Olympiacos', info: '79 x 61, em Atenas' },
+      { a: 'Valencia Basket', sa: 2, b: 'Real Madrid', sb: 3, res: '0-1', vence: 'Real Madrid', info: '90 x 105, em Atenas' }] },
+    { fase: 'Final', series: [{ a: 'Olympiacos', sa: 1, b: 'Real Madrid', sb: 3, res: '1-0', vence: 'Olympiacos', info: '92 x 85, em Atenas (24/05). Quarto título do Olympiacos' }] }
+  ] },
+  nbb: { titulo: 'Playoffs 2025/26', campeao: 'Sesi Franca', fases: [
+    { fase: 'Oitavas de final', series: [
+      { a: 'Sesi Franca', sa: 1, b: 'Botafogo', sb: 16, res: '3-0', vence: 'Sesi Franca' },
+      { a: 'São José Basketball', sa: 8, b: 'Mogi Basquete', sb: 9, res: '0-3', vence: 'Mogi Basquete' },
+      { a: 'CAIXA/Brasília', sa: 4, b: 'Caxias do Sul Basquete', sb: 13, res: '3-1', vence: 'CAIXA/Brasília' },
+      { a: 'Flamengo', sa: 5, b: 'União Corinthians', sb: 12, res: '3-1', vence: 'Flamengo' },
+      { a: 'Pinheiros', sa: 2, b: 'Rio Claro', sb: 15, res: '3-0', vence: 'Pinheiros' },
+      { a: 'Paulistano', sa: 7, b: 'Bauru Basket', sb: 10, res: '3-1', vence: 'Paulistano' },
+      { a: 'Minas Storm', sa: 3, b: 'Itatiaiuçu Cruzeiro', sb: 14, res: '3-1', vence: 'Minas Storm' },
+      { a: 'Corinthians', sa: 6, b: 'Unifacisa', sb: 11, res: '3-1', vence: 'Corinthians' }] },
+    { fase: 'Quartas de final', series: [
+      { a: 'Sesi Franca', sa: 1, b: 'Mogi Basquete', sb: 9, res: '3-2', vence: 'Sesi Franca' },
+      { a: 'CAIXA/Brasília', sa: 4, b: 'Flamengo', sb: 5, res: '3-2', vence: 'CAIXA/Brasília' },
+      { a: 'Pinheiros', sa: 2, b: 'Paulistano', sb: 7, res: '3-0', vence: 'Pinheiros' },
+      { a: 'Minas Storm', sa: 3, b: 'Corinthians', sb: 6, res: '1-3', vence: 'Corinthians' }] },
+    { fase: 'Semifinais', series: [
+      { a: 'Sesi Franca', sa: 1, b: 'CAIXA/Brasília', sb: 4, res: '3-2', vence: 'Sesi Franca', info: 'Jogo 5: 68 x 66 no Pedrocão' },
+      { a: 'Pinheiros', sa: 2, b: 'Corinthians', sb: 6, res: '3-1', vence: 'Pinheiros' }] },
+    { fase: 'Final', series: [{ a: 'Sesi Franca', sa: 1, b: 'Pinheiros', sb: 2, res: '3-1', vence: 'Sesi Franca', info: 'Quinto título seguido do Franca' }] }
+  ] }
+};

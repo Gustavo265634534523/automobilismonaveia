@@ -33,15 +33,18 @@
 
   function tabela(t) {
     return '<div class="tabela-wrap"><table class="tabela tabela-comp"><thead><tr>' + t.colunas.map(function (h) { return '<th scope="col">' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      t.linhas.map(function (l) { return '<tr class="p' + esc(l[0]) + '">' + l.map(function (v, i) { return /^(Time|Campeão|Vice)$/.test(t.colunas[i]) ? '<td class="td-time">' + window.escudoTime(v) + esc(v) + '</td>' : '<td>' + esc(v) + '</td>'; }).join('') + '</tr>'; }).join('') +
+      t.linhas.map(function (l) { return '<tr class="p' + esc(l[0]) + '">' + l.map(function (v, i) { return /^(Time|Campeão|Vice)$/.test(t.colunas[i]) ? '<td class="td-time">' + (window.linkTime && window.escudoTime(v) ? '<a href="' + window.linkTime(v) + '">' + window.escudoTime(v) + esc(v) + '</a>' : window.escudoTime(v) + esc(v)) + '</td>' : '<td>' + esc(v) + '</td>'; }).join('') + '</tr>'; }).join('') +
       '</tbody></table></div>';
   }
   /* próximo jogo: o primeiro sem placar, de hoje em diante */
   function proximo(c) { return (c.jogos || []).filter(function (j) { return !j.p && j.d && j.d >= hoje; })[0]; }
   function jogo(j) {
-    var status = j.p ? 'Encerrado' : !j.d ? 'Data a confirmar' : j.d < hoje ? 'Aguardando placar' : window.quando(j.d);
-    return '<li class="jogo' + (j.p ? ' feito' : '') + '"><span class="jogo-fase">' + esc(j.fase || '') + (j.l ? '<small>' + esc(j.l) + '</small>' : '') + '</span>' +
-      '<span class="jogo-times"><b>' + esc(j.casa) + window.escudoTime(j.casa) + '</b><em>' + (j.p ? esc(j.p) : 'x') + '</em><b>' + window.escudoTime(j.fora) + esc(j.fora) + '</b></span>' +
+    var vivo = window.jogoRolando && window.jogoRolando(j);
+    var status = vivo ? window.statusJogo(j) : j.p ? 'Encerrado' + (j.pen ? ' (pênaltis ' + esc(j.pen) + ')' : '') : j.adiado ? 'Adiado' : !j.d ? 'Data a confirmar' : j.d < hoje ? 'Aguardando placar' : window.quando(j.d);
+    function nome(n, antes) { var e = window.escudoTime(n); return e && window.linkTime ? '<a href="' + window.linkTime(n) + '">' + (antes ? e + esc(n) : esc(n) + e) + '</a>' : (antes ? e + esc(n) : esc(n) + e); }
+    var pl = j.vivo ? j.vivo.p : j.p;
+    return '<li class="jogo' + (j.p ? ' feito' : '') + (vivo ? ' vivo' : '') + '"><span class="jogo-fase">' + esc(j.fase || '') + (j.l ? '<small>' + esc(j.l) + '</small>' : '') + '</span>' +
+      '<span class="jogo-times"><b>' + nome(j.casa) + '</b><em>' + (pl ? esc(pl) : 'x') + '</em><b>' + nome(j.fora, true) + '</b></span>' +
       '<span class="jogo-data">' + (j.d ? window.dataCurta(j.d) + (j.h ? ' · ' + esc(j.h) : '') : '') + '<small>' + status + '</small></span></li>';
   }
   function cartao(c) {
@@ -143,6 +146,15 @@
   function blocoTabela(t, primeiro) { return '<h3' + (primeiro ? ' style="margin-top:0"' : '') + '>' + esc(t.titulo) + '</h3>' + tabela(t) + (t.nota ? '<p class="nota">' + esc(t.nota) + '</p>' : ''); }
   if (c.tabela) P.push(['classificacao', 'Classificação', '<h2>Classificação</h2>' + blocoTabela(c.tabela, true) + (c.tabela2 ? blocoTabela(c.tabela2) : '')]);
   if (c.destaques) P.push(['destaques', c.destaques.aba || (c.esporte === 'futebol' ? 'Artilharia' : 'Destaques'), '<h2>' + esc(c.destaques.titulo) + '</h2>' + tabela(c.destaques) + (c.destaques.nota ? '<p class="nota">' + esc(c.destaques.nota) + '</p>' : '')]);
+  /* chaveamento do mata-mata ou dos playoffs (CHAVES em esportes-dados.js) e, no basquete, a projeção pela tabela atual */
+  var CH = (window.CHAVES || {})[c.slug], proj = c.esporte === 'basquete' && c.tabela && !/passada|final da temporada/i.test(c.tabela.titulo) && window.chaveProjetada ? window.chaveProjetada(c) : null;
+  if ((CH || proj) && window.chaveHTML) P.push(['chave', c.esporte === 'basquete' ? 'Playoffs' : 'Chaveamento', '<h2>' + (c.esporte === 'basquete' ? 'Playoffs' : 'Chaveamento') + '</h2>' +
+    (proj ? '<h3 style="margin-top:0">Se os playoffs começassem hoje</h3>' + window.chaveHTML(proj) : '') +
+    (CH ? (CH.campeao ? '<p class="ch-campeao">' + window.escudoTime(CH.campeao) + 'Campeão: ' + esc(CH.campeao) + '</p>' : '') + '<h3' + (proj ? '' : ' style="margin-top:0"') + '>' + esc(CH.titulo) + '</h3>' + window.chaveHTML(CH) : '')]);
+  var lid = c.slug === 'nba' && window.lideresHTML ? window.lideresHTML() : '';
+  if (lid) P.push(['lideres', 'Líderes', '<h2>Líderes de estatística</h2>' + lid]);
+  var tv = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug);
+  if (tv) P.push(['onde-assistir', 'Onde assistir', '<h2>Onde assistir no Brasil</h2>' + tv + '<p class="nota">A divisão dos jogos entre os canais muda a cada rodada: na dúvida, confira a grade do canal no dia. <a href="onde-assistir.html">Todos os canais</a>.</p>']);
   if (c.sobre || c.campeoes) P.push(['sobre', 'Sobre', '<h2>Sobre ' + (/^(Copa|Champions|Premier|La |Bundesliga|Serie|Ligue|Euroleague)/.test(c.nome) ? 'a ' : 'o ') + esc(c.nome) + '</h2>' +
     (c.sobre ? '<dl class="cr-fatos">' + c.sobre.map(function (f) { return '<div><dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd></div>'; }).join('') + '</dl>' : '') +
     (c.campeoes ? '<h3>Últimos campeões</h3>' + tabela({ colunas: c.campeoes[0].length > 2 ? ['Temporada', 'Campeão', 'Vice'] : ['Temporada', 'Campeão'], linhas: c.campeoes }) : '')]);

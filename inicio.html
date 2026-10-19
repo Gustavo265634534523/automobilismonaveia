@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=332"></script>
+<script src="assets/js/idioma.js?v=333"></script>
 <title>Início | Automobilismo Na Veia</title>
 <meta name="description" content="Fórmula 1, MotoGP e mais 4 categorias do automobilismo, além de futebol (Brasileirão, Libertadores, Champions) e basquete (NBA, Euroleague, NBB). Horários em Brasília, onde assistir, resultados, classificação, calendário e telemetria da temporada 2026.">
 <meta name="theme-color" content="#232427">
@@ -24,10 +24,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=332">
-<link rel="stylesheet" href="assets/css/planos.css?v=332">
-<link rel="stylesheet" href="assets/css/entrada.css?v=332">
-<link rel="stylesheet" href="assets/css/telemetria.css?v=332">
+<link rel="stylesheet" href="assets/css/estilo.css?v=333">
+<link rel="stylesheet" href="assets/css/futebol.css?v=333">
+<link rel="stylesheet" href="assets/css/esportes-mais.css?v=333">
+<link rel="stylesheet" href="assets/css/planos.css?v=333">
+<link rel="stylesheet" href="assets/css/entrada.css?v=333">
+<link rel="stylesheet" href="assets/css/telemetria.css?v=333">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -50,6 +52,14 @@
         <section id="hm-naoperca" aria-label="Não perca"></section>
         <aside class="hm-caixa" id="hm-agora" aria-label="Agora há pouco"></aside>
       </div>
+    </div>
+  </section>
+
+  <!-- Ao vivo e hoje (futebol e basquete, placar automático) e os times favoritos (assets/js/esportes-mais.js) -->
+  <section class="secao hm-sec" id="aovivo" aria-label="Ao vivo e meus times" style="padding-top:8px">
+    <div class="moldura">
+      <div class="em-vivo-box" id="em-aovivo"></div>
+      <div class="hm-meus"><div id="hm-meu-futebol"></div><div id="hm-meu-basquete"></div></div>
     </div>
   </section>
 
@@ -109,6 +119,7 @@
         <p>Quem chega, quem sai e quem renova: pilotos e jogadores. Especulação aparece marcada como especulação.</p>
       </div>
       <div id="hm-mercado"></div>
+      <p style="margin:18px 0 0"><a class="botao" href="mercado.html">Mercado completo</a> <a class="botao" href="resumo.html">Resumo da semana</a></p>
     </div>
   </section>
 
@@ -123,23 +134,30 @@
 
 <footer id="rodape"></footer>
 
-<script src="assets/js/dados.js?v=332"></script>
-<script src="assets/js/site.js?v=332"></script>
-<script src="assets/js/locais-pistas.js?v=332"></script>
-<script src="assets/js/previa-pistas.js?v=332"></script>
-<script src="assets/js/previa-etapa.js?v=332"></script>
-<script src="assets/js/inicio.js?v=332"></script>
-<script src="assets/js/noticias-gerais.js?v=332"></script>
-<script src="assets/dados/video-capa.js?v=332"></script>
-<script src="assets/dados/fotos-reais.js?v=332"></script>
-<script src="assets/dados/videos-esportes.js?v=332"></script>
-<script src="assets/js/entrada.js?v=332"></script>
-<script src="assets/js/simulador.js?v=332"></script>
-<script src="assets/js/esportes-dados.js?v=332"></script>
-<script src="assets/dados/escudos.js?v=332"></script>
-<script src="assets/js/competicao.js?v=332"></script>
-<script src="assets/js/noticias-esportes.js?v=332"></script>
-<script src="assets/js/capa.js?v=332"></script>
-<script src="assets/js/basquete.js?v=332"></script>
+<script src="assets/js/dados.js?v=333"></script>
+<script src="assets/js/site.js?v=333"></script>
+<script src="assets/js/locais-pistas.js?v=333"></script>
+<script src="assets/js/previa-pistas.js?v=333"></script>
+<script src="assets/js/previa-etapa.js?v=333"></script>
+<script src="assets/js/inicio.js?v=333"></script>
+<script src="assets/js/noticias-gerais.js?v=333"></script>
+<script src="assets/dados/video-capa.js?v=333"></script>
+<script src="assets/dados/fotos-reais.js?v=333"></script>
+<script src="assets/dados/videos-esportes.js?v=333"></script>
+<script src="assets/js/entrada.js?v=333"></script>
+<script src="assets/js/simulador.js?v=333"></script>
+<script src="assets/js/esportes-dados.js?v=333"></script>
+<script src="assets/dados/escudos.js?v=333"></script>
+<script src="assets/dados/ao-vivo.js?v=333"></script>
+<script src="assets/js/onde-assistir-dados.js?v=333"></script>
+<script src="assets/js/esportes-mais.js?v=333"></script>
+<script src="assets/js/competicao.js?v=333"></script>
+<script src="assets/js/noticias-esportes.js?v=333"></script>
+<script src="assets/js/capa.js?v=333"></script>
+<script src="assets/js/basquete.js?v=333"></script>
+<script>
+  /* ao vivo de hoje (os dois esportes) e os times favoritos */
+  if (window.blocoAoVivo) { window.blocoAoVivo(document.getElementById('em-aovivo')); window.blocoMeuTime(document.getElementById('hm-meu-futebol'), 'futebol'); window.blocoMeuTime(document.getElementById('hm-meu-basquete'), 'basquete'); }
+</script>
 </body>
 </html>

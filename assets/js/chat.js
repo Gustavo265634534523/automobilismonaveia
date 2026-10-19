@@ -171,7 +171,13 @@
   function enquete(el) {
     if (!el) return;
     window.NAVEIA_API('enquete_ver&quem=' + quem()).then(function (r) {
-      if (!r || !r.ok || !r.enquetes || !r.enquetes.length) { el.hidden = true; return; }
+      /* nas páginas do futebol e do basquete, só as enquetes do esporte (pelos campeonatos dele) */
+      var so = el.getAttribute('data-enquete-esporte');
+      if (so && r && r.enquetes) {
+        var menus = (window.COMPETICOES || []).filter(function (c) { return c.esporte === so; }).map(function (c) { return c.menu; });
+        r.enquetes = r.enquetes.filter(function (e) { return menus.indexOf(e.categoria) > -1; });
+      }
+      if (!r || !r.ok || !r.enquetes || !r.enquetes.length) { el.hidden = true; var sec = el.closest('#sec-enquete'); if (sec) sec.hidden = true; return; }
       var lista = r.enquetes.filter(function (e) { return e.aberta; });
       if (!lista.length) lista = r.enquetes;
       var atual = +(el.getAttribute('data-atual') || 0); if (!lista[atual]) atual = 0;

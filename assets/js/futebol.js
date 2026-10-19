@@ -17,7 +17,7 @@
   var jogos = [];
   COMPS.forEach(function (c) { (c.jogos || []).forEach(function (j) { if (j.casa && j.fora) jogos.push({ c: c, j: j }); }); });
   var feitos = jogos.filter(function (x) { return x.j.p; }).sort(function (a, b) { return (b.j.d || '') < (a.j.d || '') ? -1 : 1; });
-  var proximos = jogos.filter(function (x) { return !x.j.p && x.j.d && x.j.d >= hoje; })
+  var proximos = jogos.filter(function (x) { return !x.j.p && !x.j.vivo && x.j.d && x.j.d >= hoje; })
     .sort(function (a, b) { return (a.j.d + (a.j.h || '')) < (b.j.d + (b.j.h || '')) ? -1 : 1; });
 
   /* 1. o jogo grande dos próximos 7 dias: o que tiver mais clubes grandes; no empate, o mais cedo */
@@ -72,7 +72,7 @@
   function tabela(c) {
     var t = c.tabela, ver = t.linhas.length > 10;
     return '<div class="ft-tab-wrap"><table class="ft-tab"><caption>' + esc(t.titulo) + '</caption><thead><tr>' + t.colunas.map(function (h) { return '<th scope="col">' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      t.linhas.slice(0, 10).map(function (l) { return '<tr>' + l.map(function (v, i) { return '<td' + (t.colunas[i] === 'Time' ? ' class="ft-tab-time"' : '') + '>' + (t.colunas[i] === 'Time' ? escudo(v) : '') + esc(v) + '</td>'; }).join('') + '</tr>'; }).join('') +
+      t.linhas.slice(0, 10).map(function (l) { return '<tr>' + l.map(function (v, i) { return (t.colunas[i] === 'Time' ? '<td class="ft-tab-time"><a href="' + window.linkTime(v) + '">' + escudo(v) + esc(v) + '</a></td>' : '<td>' + esc(v) + '</td>'); }).join('') + '</tr>'; }).join('') +
       '</tbody></table></div><p class="ft-centro"><a class="ft-btn" href="' + c.slug + '.html#classificacao">' + (ver ? 'Tabela completa' : 'Ver o campeonato') + '</a></p>';
   }
   function abrirTabela(i) {
@@ -118,4 +118,64 @@
     return '<a class="ft-camp" href="' + c.slug + '.html"><small>' + esc(c.regiao) + '</small><b>' + esc(c.menu) + '</b><span>' + esc(c.lider ? c.lider.nome : c.fase) + '</span></a>';
   }).join('');
   document.getElementById('ft-atualizado').textContent = 'Dados atualizados em ' + window.ESPORTES_ATUALIZADO + '. Fontes: sites oficiais das competições e imprensa esportiva.';
+
+  /* 7. ao vivo (placar sozinho) e o meu time (esportes-mais.js) */
+  window.blocoAoVivo(document.getElementById('em-aovivo'), ESPORTE);
+  window.blocoMeuTime(document.getElementById('em-meutime'), ESPORTE);
+
+  /* 8. chaveamento: uma aba por campeonato com mata-mata (futebol) ou playoffs (basquete) */
+  var CH = window.CHAVES || {}, abasC = document.getElementById('ch-abas'), caixaC = document.getElementById('ch-caixa');
+  /* projeção só quando a tabela é da temporada que está rolando */
+  function atual(c) { return c.tabela && !/passada|final da temporada/i.test(c.tabela.titulo); }
+  var comChave = COMPS.filter(function (c) { return CH[c.slug] || (BQ && atual(c)); });
+  function chave(c) {
+    var h = '', ch = CH[c.slug];
+    if (BQ && atual(c)) { var pj = window.chaveProjetada(c); if (pj) h += '<h3 class="ft-ch-tit">Se os playoffs começassem hoje</h3>' + window.chaveHTML(pj); }
+    if (ch) h += (ch.campeao ? '<p class="ch-campeao">' + escudo(ch.campeao) + 'Campeão: ' + esc(ch.campeao) + '</p>' : '') + '<h3 class="ft-ch-tit">' + esc(ch.titulo) + '</h3>' + window.chaveHTML(ch);
+    return h + '<p class="ft-centro" style="margin-top:22px"><a class="ft-btn" href="' + c.slug + '.html#chave">Ver o campeonato</a></p>';
+  }
+  if (abasC && comChave.length) {
+    abasC.innerHTML = comChave.map(function (c, i) { return '<button type="button" role="tab" data-i="' + i + '">' + esc(c.menu) + '</button>'; }).join('');
+    var abrirC = function (i) { [].forEach.call(abasC.children, function (b, k) { b.setAttribute('aria-selected', k === i ? 'true' : 'false'); }); caixaC.innerHTML = chave(comChave[i]); };
+    [].forEach.call(abasC.children, function (b) { b.addEventListener('click', function () { abrirC(+b.getAttribute('data-i')); }); });
+    abrirC(0);
+  } else if (abasC) document.getElementById('sec-chave').hidden = true;
+
+  /* 9. líderes de estatística (basquete) */
+  var lid = document.getElementById('lid-caixa');
+  if (lid) lid.innerHTML = window.lideresHTML() || '<p class="ft-vazio">Os líderes de pontos, rebotes e assistências aparecem aqui depois das primeiras rodadas.</p>';
+
+  /* 10. mercado: filtro por situação; mostra 9 */
+  var MK = (window.MERCADO || []).filter(function (m) { return m.esporte === ESPORTE; }).sort(function (a, b) { return a.d < b.d ? 1 : -1; });
+  var FMK = [['Todos', ''], ['Confirmados', 'confirmado'], ['Saídas', 'saida'], ['Rumores', 'especulacao']], fmk = 0;
+  var gradeMK = document.getElementById('mk-grade'), filtrosMK = document.getElementById('mk-filtros');
+  function pintarMK() {
+    var l = MK.filter(function (m) { return !FMK[fmk][1] || m.status === FMK[fmk][1]; });
+    gradeMK.innerHTML = l.slice(0, 9).map(window.mercadoHTML).join('') || '<p class="ft-vazio">Nada nesta lista por enquanto.</p>';
+    [].forEach.call(filtrosMK.children, function (b, k) { b.setAttribute('aria-pressed', k === fmk ? 'true' : 'false'); });
+  }
+  if (gradeMK) {
+    filtrosMK.innerHTML = FMK.map(function (f, i) { return '<button type="button" data-i="' + i + '">' + f[0] + '</button>'; }).join('');
+    filtrosMK.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) { fmk = +b.getAttribute('data-i'); pintarMK(); } });
+    pintarMK();
+  }
+
+  /* 11. times: os do campeonato principal; o resto na página de todos os times */
+  var tm = document.getElementById('tm-grade');
+  if (tm) {
+    var principal = BQ ? 'nba' : 'brasileirao';
+    tm.innerHTML = window.todosTimes(ESPORTE).filter(function (t) { return t.comps.indexOf(principal) > -1; }).map(function (t) {
+      return '<a href="' + window.linkTime(t.nome) + '">' + escudo(t.nome) + '<span>' + esc(t.nome) + '</span></a>';
+    }).join('') + '<a href="time.html#' + ESPORTE + '"><span>Todos os times →</span></a>';
+  }
+
+  /* 12. atalhos no alto: só para as seções que existem na página */
+  var sub = document.getElementById('em-subnav');
+  if (sub) {
+    var ATALHOS = [['sec-aovivo', 'Ao vivo'], ['sec-aovivo', 'Meu time', 'em-meutime'], ['sec-agenda', 'Agenda'], ['ft-tabelas', 'Tabelas'], ['sec-chave', BQ ? 'Playoffs' : 'Mata-mata'],
+      ['sec-lideres', 'Líderes'], ['sec-noticias', 'Notícias'], ['sec-mercado', 'Mercado'], ['sec-times', 'Times'], ['sec-camps', 'Campeonatos']];
+    sub.innerHTML = '<div class="em-subnav-in">' + ATALHOS.filter(function (a) { var el = document.getElementById(a[0]); return el && !el.hidden; }).map(function (a, i) {
+      return '<a href="#' + (a[2] || a[0]) + '"' + (i === 0 ? ' class="em-vivo-link"' : '') + '>' + a[1] + '</a>';
+    }).join('') + '<a href="fim-de-semana.html">Fim de semana</a><a href="resumo.html">Resumo da semana</a></div>';
+  }
 })();

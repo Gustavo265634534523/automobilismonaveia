@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=332"></script>
+<script src="assets/js/idioma.js?v=333"></script>
 <title>Basquete | Automobilismo Na Veia</title>
 <meta name="description" content="Basquete: NBA, Euroleague e o NBB, o campeonato brasileiro. Classificação, jogos e horários no horário de Brasília.">
 <meta name="theme-color" content="#232427">
@@ -23,8 +23,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=332">
-<link rel="stylesheet" href="assets/css/futebol.css?v=332">
+<link rel="stylesheet" href="assets/css/estilo.css?v=333">
+<link rel="stylesheet" href="assets/css/futebol.css?v=333">
+<link rel="stylesheet" href="assets/css/esportes-mais.css?v=333">
 </head>
 <body data-esporte="basquete">
 <a class="pular" href="#ft">Pular para o conteúdo</a>
@@ -39,12 +40,17 @@
       <div id="ft-grande"></div>
     </div>
   </section>
+  <nav class="em-subnav" id="em-subnav" aria-label="Nesta página"></nav>
   <section class="ft-caixa ft-recentes" aria-labelledby="ft-rec-t">
     <div class="ft-rec-cab"><div><p class="ft-rot">Placar</p><h2 id="ft-rec-t">Jogos recentes</h2></div>
       <div class="ft-setas"><button type="button" id="ft-rec-ant" aria-label="Anteriores">‹</button><button type="button" id="ft-rec-prox" aria-label="Próximos">›</button></div></div>
     <div class="ft-rec-trilho" id="ft-recentes"></div>
   </section>
-  <section class="ft-caixa ft-sec" aria-labelledby="ft-ag-t">
+  <section class="ft-caixa" id="sec-aovivo" aria-label="Ao vivo e meu time">
+    <div class="em-vivo-box" id="em-aovivo"></div>
+    <div id="em-meutime"></div>
+  </section>
+  <section class="ft-caixa ft-sec" id="sec-agenda" aria-labelledby="ft-ag-t">
     <div class="ft-agenda">
       <div class="ft-agenda-intro"><p class="ft-rot">Próximos dias</p><h2 id="ft-ag-t">Agenda</h2><p>Os próximos jogos da NBA, da Euroleague e do NBB, no horário de Brasília.</p><a class="ft-btn" href="#ft-tabelas">Classificação</a></div>
       <div class="ft-agenda-lista" id="ft-agenda"></div>
@@ -56,28 +62,52 @@
     <div class="ft-abas" id="ft-tab-abas" role="tablist" aria-label="Campeonato"></div>
     <div id="ft-tabela"></div>
   </section>
-  <section class="ft-caixa ft-sec" aria-labelledby="ft-not-t">
+  <section class="ft-caixa ft-sec" id="sec-chave" aria-labelledby="ch-t">
+    <p class="ft-rot ft-centro">Chaveamento</p><h2 class="ft-centro" id="ch-t">Playoffs</h2>
+    <div class="ft-abas" id="ch-abas" role="tablist" aria-label="Campeonato"></div>
+    <div id="ch-caixa"></div>
+  </section>
+  <section class="ft-caixa ft-sec" id="sec-lideres" aria-labelledby="lid-t">
+    <p class="ft-rot">Estatísticas</p><h2 id="lid-t">Líderes da NBA</h2>
+    <div id="lid-caixa" style="margin-top:24px"></div>
+  </section>
+  <section class="ft-caixa ft-sec" id="sec-noticias" aria-labelledby="ft-not-t">
     <div class="ft-not-cab"><h2 id="ft-not-t">Últimas notícias</h2><div class="ft-abas ft-abas-pq" id="ft-not-abas" role="tablist" aria-label="Filtrar notícias"></div></div>
     <div class="ft-noticias" id="ft-noticias"></div>
     <p class="ft-centro"><button type="button" class="ft-btn ft-btn-linha" id="ft-not-mais">Mais notícias</button></p>
   </section>
-  <section class="ft-caixa ft-sec" aria-labelledby="bq-merc-t"><h2 id="bq-merc-t">Mercado</h2><div class="bq-mercado" id="bq-mercado" style="margin-top:24px"></div></section>
-  <section class="ft-caixa ft-sec" aria-labelledby="ft-camp-t">
+  <section class="ft-caixa ft-sec" id="sec-mercado" aria-labelledby="mk-t">
+    <div class="ft-not-cab"><div><p class="ft-rot">Trocas, contratos e reforços</p><h2 id="mk-t">Mercado</h2></div><a class="ft-btn ft-btn-linha" href="mercado.html#basquete">Ver tudo</a></div>
+    <div class="mk-filtros" id="mk-filtros" style="margin-top:22px"></div>
+    <div class="mk-grade" id="mk-grade"></div>
+  </section>
+  <section class="ft-caixa ft-sec" id="sec-enquete" aria-labelledby="enq-t">
+    <div class="em-enq-wrap"><div><p class="ft-rot">Enquete</p><h2 id="enq-t">Quem vence?</h2><p>Vote no palpite do jogo grande da semana. Sem conta, um toque só. O resultado aparece na hora.</p></div>
+    <aside class="em-enquete" data-enquete="esporte" data-enquete-esporte="basquete" aria-label="Enquete"></aside></div>
+  </section>
+  <section class="ft-caixa ft-sec" id="sec-times" aria-labelledby="tm-t">
+    <p class="ft-rot">Página de cada time</p><h2 id="tm-t">Times</h2>
+    <div class="pg-times" id="tm-grade" style="margin-top:24px"></div>
+  </section>
+  <section class="ft-caixa ft-sec" id="sec-camps" aria-labelledby="ft-camp-t">
     <h2 id="ft-camp-t">Campeonatos</h2>
     <div class="ft-camps" id="ft-camps"></div>
     <p class="ft-atualizado" id="ft-atualizado"></p>
   </section>
 </main>
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=332"></script>
-<script src="assets/js/site.js?v=332"></script>
-<script src="assets/dados/videos-esportes.js?v=332"></script>
-<script src="assets/dados/fotos-reais.js?v=332"></script>
-<script src="assets/js/esportes-dados.js?v=332"></script>
-<script src="assets/js/noticias-esportes.js?v=332"></script>
-<script src="assets/dados/escudos.js?v=332"></script>
-<script src="assets/js/competicao.js?v=332"></script>
-<script src="assets/js/basquete.js?v=332"></script>
-<script src="assets/js/futebol.js?v=332"></script>
+<script src="assets/js/dados.js?v=333"></script>
+<script src="assets/js/site.js?v=333"></script>
+<script src="assets/dados/videos-esportes.js?v=333"></script>
+<script src="assets/dados/fotos-reais.js?v=333"></script>
+<script src="assets/js/esportes-dados.js?v=333"></script>
+<script src="assets/js/noticias-esportes.js?v=333"></script>
+<script src="assets/dados/escudos.js?v=333"></script>
+<script src="assets/dados/ao-vivo.js?v=333"></script>
+<script src="assets/js/onde-assistir-dados.js?v=333"></script>
+<script src="assets/js/esportes-mais.js?v=333"></script>
+<script src="assets/js/competicao.js?v=333"></script>
+<script src="assets/js/basquete.js?v=333"></script>
+<script src="assets/js/futebol.js?v=333"></script>
 </body>
 </html>

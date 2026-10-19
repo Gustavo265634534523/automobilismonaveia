@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=332"></script>
-<title>Onde assistir automobilismo no Brasil em 2026 | Automobilismo Na Veia</title>
-<meta name="description" content="Onde assistir Fórmula 1, MotoGP, WEC e mais 3 categorias no Brasil em 2026: TV aberta, TV por assinatura, streaming e transmissões grátis.">
+<script src="assets/js/idioma.js?v=333"></script>
+<title>Onde assistir futebol, basquete e automobilismo no Brasil | Automobilismo Na Veia</title>
+<meta name="description" content="Onde assistir Brasileirão, Copa do Brasil, Libertadores, Champions, NBA, NBB, Fórmula 1, MotoGP e mais no Brasil: TV aberta, TV por assinatura, streaming e transmissões grátis.">
 <meta name="theme-color" content="#141619">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
-<meta property="og:title" content="Onde assistir automobilismo no Brasil em 2026 | Automobilismo Na Veia">
-<meta property="og:description" content="Os canais de TV e streaming de cada categoria, num lugar só.">
+<meta property="og:title" content="Onde assistir futebol, basquete e automobilismo no Brasil | Automobilismo Na Veia">
+<meta property="og:description" content="Os canais de TV e streaming de cada campeonato e categoria, num lugar só.">
 <link rel="canonical" href="https://automobilismonaveia.com.br/onde-assistir.html">
 <meta property="og:image" content="https://automobilismonaveia.com.br/assets/img/compartilhar.jpg">
 <meta property="og:url" content="https://automobilismonaveia.com.br/onde-assistir.html">
@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=332">
+<link rel="stylesheet" href="assets/css/estilo.css?v=333">
 <style>
 .oa-pagina { padding: calc(var(--topo) + 40px) 0 70px; }
 .oa-pagina h1 { margin: 0 0 10px; font-family: var(--display); font-weight: 400; font-size: clamp(34px, 5vw, 60px); line-height: 1.05; }
@@ -37,6 +37,9 @@
 .oa-foto img { width: 100%; height: 100%; object-fit: cover; opacity: .55; transition: opacity .2s; }
 .oa-foto:hover img { opacity: .75; }
 .oa-foto b { position: absolute; left: 14px; bottom: 10px; font-family: var(--display); font-weight: 400; font-size: 22px; color: #fff; text-shadow: 0 2px 8px rgba(0, 0, 0, .8); }
+.oa-foto-futebol, .oa-foto-basquete { height: 84px; background: linear-gradient(120deg, #14532d, #0b0f14 70%); }
+.oa-foto-basquete { background: linear-gradient(120deg, #9a3f0c, #0b0f14 70%); }
+.oa-esporte-tit { margin-top: 48px; }
 .oa-card .oa-canais { padding: 12px; }
 .oa-card .oa-nota { margin: 0; padding: 0 12px 12px; font-size: 13px; }
 .oa-rodape { margin-top: 30px; font-size: 14px; color: var(--aco); }
@@ -49,7 +52,7 @@
 <main class="oa-pagina" id="oa">
   <div class="moldura">
     <h1>Onde assistir em 2026.</h1>
-    <p class="oa-lead">Os canais de TV e de streaming de cada categoria no Brasil, num lugar só. Toque em um canal para abrir. Para o horário de cada corrida, veja os <a href="horarios.html">horários das corridas</a>.</p>
+    <p class="oa-lead">Os canais de TV e de streaming de cada campeonato de futebol e basquete e de cada categoria do automobilismo no Brasil, num lugar só. Toque em um canal para abrir. Para o horário de cada corrida, veja os <a href="horarios.html">horários das corridas</a>.</p>
     <p class="oa-legenda"><span><i class="oa-aberta"></i>TV aberta</span><span><i class="oa-paga"></i>TV por assinatura</span><span><i class="oa-stream"></i>Streaming</span><span><i class="oa-gratis"></i>Grátis na internet</span></p>
     <div id="oa-lista"></div>
     <p class="oa-rodape" id="oa-rodape"></p>
@@ -57,14 +60,25 @@
 </main>
 
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=332"></script>
-<script src="assets/js/site.js?v=332"></script>
-<script src="assets/js/onde-assistir-dados.js?v=332"></script>
+<script src="assets/js/dados.js?v=333"></script>
+<script src="assets/js/site.js?v=333"></script>
+<script src="assets/js/esportes-dados.js?v=333"></script>
+<script src="assets/js/onde-assistir-dados.js?v=333"></script>
 <script>
   /* Cartões por grupo de categorias (os grupos vêm de site.js) */
   (function () {
     var O = window.ONDE_ASSISTIR, esc = window.esc;
-    document.getElementById('oa-lista').innerHTML = (window.GRUPOS || []).map(function (g) {
+    /* futebol e basquete primeiro (um cartão por campeonato), depois os grupos do automobilismo */
+    var esportes = (window.ESPORTES || []).map(function (e) {
+      var slugs = [].concat.apply([], e.grupos.map(function (g) { return g.slugs; }));
+      return '<h2 class="oa-grupo-tit">' + esc(e.nome) + '</h2><div class="oa-grade">' + slugs.map(function (s) {
+        var c = (window.COMPETICOES || []).filter(function (x) { return x.slug === s; })[0];
+        if (!c || !O.cats[s]) return '';
+        return '<article class="oa-card"><a class="oa-foto oa-foto-' + c.esporte + '" href="' + s + '.html"><b>' + esc(c.nome) + '</b></a>' +
+          O.quadro(s, true) + (O.cats[s].nota ? '<p class="oa-nota">' + esc(O.cats[s].nota) + '</p>' : '') + '</article>';
+      }).join('') + '</div>';
+    }).join('');
+    document.getElementById('oa-lista').innerHTML = esportes + '<h2 class="oa-grupo-tit oa-esporte-tit">Automobilismo</h2>' + (window.GRUPOS || []).map(function (g) {
       return '<h2 class="oa-grupo-tit">' + esc(g.nome) + '</h2><div class="oa-grade">' + g.cats.map(function (c) {
         if (!O.cats[c.slug]) return '';
         return '<article class="oa-card"><a class="oa-foto" href="' + c.slug + '.html"><img src="' + c.foto + '" alt="" loading="lazy"><b>' + esc(c.menu || c.nome) + '</b></a>' +

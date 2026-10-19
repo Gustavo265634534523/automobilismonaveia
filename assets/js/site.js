@@ -75,7 +75,7 @@
   window.ORDEM_CATS = ORDEM_CATS;
   /* Futebol e basquete: só os nomes, para o menu, o painel e o rodapé (os dados ficam em esportes-dados.js) */
   var ESPORTES_MENU = [
-    { slug: 'futebol', nome: 'Futebol', comps: [['brasileirao', 'Brasileirão', 'Brasil'], ['libertadores', 'Libertadores', 'América do Sul'], ['sul-americana', 'Sul-Americana', 'América do Sul'],
+    { slug: 'futebol', nome: 'Futebol', comps: [['brasileirao', 'Brasileirão', 'Brasil'], ['copa-do-brasil', 'Copa do Brasil', 'Brasil'], ['libertadores', 'Libertadores', 'América do Sul'], ['sul-americana', 'Sul-Americana', 'América do Sul'],
       ['champions-league', 'Champions', 'Europa'], ['premier-league', 'Premier League', 'Inglaterra'], ['la-liga', 'La Liga', 'Espanha'], ['bundesliga', 'Bundesliga', 'Alemanha'], ['serie-a', 'Serie A', 'Itália'], ['ligue-1', 'Ligue 1', 'França']] },
     { slug: 'basquete', nome: 'Basquete', comps: [['nba', 'NBA', 'Estados Unidos'], ['euroleague', 'Euroleague', 'Europa'], ['nbb', 'NBB', 'Brasil']] }
   ];
@@ -105,6 +105,7 @@
       ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
       ['tv', 'onde-assistir.html', 'Onde assistir', /onde-assistir/.test(location.pathname)],
       ['categorias', '#categorias-menu', 'Categorias', false],
+      ['agenda', 'fim-de-semana.html', 'Fim de semana', /fim-de-semana/.test(location.pathname)],
       ['jogos', 'jogos.html', 'Jogos', /jogos/.test(location.pathname)],
       ['chat', '#bate-papo', 'Chat', false],
       ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)]
@@ -155,21 +156,24 @@
         }).join('') }
     ].concat(ESPORTES_MENU.map(function (e) {
       return { slug: e.slug, nome: e.nome, icone: e.slug === 'futebol' ? 'bola' : 'cesta',
-        atalhos: tile(e.slug === 'futebol' ? 'bola' : 'cesta', e.slug + '.html', 'Tudo de ' + e.nome.toLowerCase()) + tile('tv', e.slug + '.html', 'Melhores momentos') + tile('troca', './#mercado', 'Mercado'),
+        atalhos: tile(e.slug === 'futebol' ? 'bola' : 'cesta', e.slug + '.html', 'Tudo de ' + e.nome.toLowerCase()) + tile('relogio', e.slug + '.html#sec-aovivo', 'Ao vivo e hoje') +
+          tile('agenda', 'fim-de-semana.html#' + e.slug, 'Fim de semana') + tile('noticias', 'resumo.html#' + e.slug, 'Resumo da semana') + tile('troca', 'mercado.html#' + e.slug, 'Mercado') + tile('tv', 'onde-assistir.html', 'Onde assistir') +
+          tile(e.slug === 'futebol' ? 'bola' : 'cesta', 'time.html#' + e.slug, 'Times'),
         corpo: '<section class="painel-grupo"><h2>Campeonatos</h2><ul class="painel-lista">' + e.comps.map(function (c) {
           return '<li><a class="painel-cat" href="' + c[0] + '.html"' + (c[0] === atual || c[0] === document.body.getAttribute('data-comp') ? ' aria-current="page"' : '') + '><strong>' + esc(c[1]) + '</strong><span>' + esc(c[2]) + '</span></a></li>';
         }).join('') + '</ul></section>' };
     }));
+    var abaPainel = esporteAtual === 'todos' ? 'futebol' : esporteAtual;
     var rapido = '<div class="pm-rapido"><a class="pm-chip" href="inicio.html"' + (inicio ? ' aria-current="page"' : '') + '>' + ic('inicio') + 'Início</a>' +
       '<a class="pm-chip" href="#bate-papo">' + ic('chat') + 'Chat</a>' +
       '<button type="button" class="pm-chip" onclick="window.NAVEIA_TROCAR_TEMA()">' + ic('tema') + 'Fundo cinza/branco</button></div>';
     painel.innerHTML = '<div class="moldura painel-in">' + rapido +
       '<div class="pm-esportes" role="tablist" aria-label="Esporte">' + ESP_PAINEL.map(function (e) {
-        var sim = e.slug === esporteAtual;
+        var sim = e.slug === abaPainel;
         return '<button type="button" class="pm-esporte" role="tab" id="pm-aba-' + e.slug + '" aria-controls="pm-' + e.slug + '" aria-selected="' + sim + '">' + ic(e.icone) + '<span>' + e.nome + '</span></button>';
       }).join('') + '</div>' +
       ESP_PAINEL.map(function (e) {
-        return '<div class="pm-painel" role="tabpanel" id="pm-' + e.slug + '" aria-labelledby="pm-aba-' + e.slug + '"' + (e.slug === esporteAtual ? '' : ' hidden') + '><div class="pm-atalhos">' + e.atalhos + '</div>' + e.corpo + '</div>';
+        return '<div class="pm-painel" role="tabpanel" id="pm-' + e.slug + '" aria-labelledby="pm-aba-' + e.slug + '"' + (e.slug === abaPainel ? '' : ' hidden') + '><div class="pm-atalhos">' + e.atalhos + '</div>' + e.corpo + '</div>';
       }).join('') +
       '</div>';
     /* tocar no esporte troca o menu de baixo (sem fechar o painel) */
@@ -187,7 +191,7 @@
     var pilulas = '<span class="faixa-esportes">' + [['automobilismo', 'Automobilismo', 'automobilismo.html'], ['futebol', 'Futebol', 'futebol.html'], ['basquete', 'Basquete', 'basquete.html']].map(function (x) {
       return '<a class="faixa-esp" href="' + x[2] + '"' + (x[0] === esporteAtual ? ' aria-current="true"' : '') + '>' + x[1] + '</a>';
     }).join('') + '</span>';
-    if (esporteAtual !== 'automobilismo') {
+    if (esporteAtual !== 'automobilismo' && esporteAtual !== 'todos') {
       var compAtual = document.body.getAttribute('data-comp');
       var fx = document.createElement('nav');
       fx.className = 'faixa-cats'; fx.setAttribute('aria-label', 'Esportes e campeonatos');
@@ -197,7 +201,7 @@
       topo.querySelector('.topo-in').after(fx);
       document.documentElement.classList.add('com-cats');
       var at = fx.querySelector('.faixa-cat[aria-current]'); if (at) fx.querySelector('.faixa-cats-in').scrollLeft = at.offsetLeft - 16;
-    } else if (inicio) {
+    } else if (inicio || esporteAtual === 'todos') { /* página inicial e páginas dos três esportes (time, fim de semana, resumo, mercado) */
       var fi = document.createElement('nav');
       fi.className = 'faixa-cats'; fi.setAttribute('aria-label', 'Esportes');
       fi.innerHTML = '<div class="moldura faixa-cats-in">' + pilulas + '</div>';
@@ -379,10 +383,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=332'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=332'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=332'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=332'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=333'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=333'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=333'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=333'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -450,7 +454,7 @@
       ESPORTES_MENU.map(function (e) {
         return coluna(e.nome, [li(e.slug + '.html', '<b>' + e.nome + '</b>')].concat(e.comps.map(function (c) { return li(c[0] + '.html', esc(c[1])); })));
       }).join('') +
-      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
+      coluna('O site', [li('noticias.html', 'Notícias'), li('fim-de-semana.html', 'Agenda do fim de semana'), li('resumo.html', 'Resumo da semana'), li('mercado.html', 'Mercado'), li('time.html', 'Times'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +
         '<span class="rodape-responsavel">Responsável: Gustavo Teixeira · Estrada Doutor Manoel Reis, Rio de Janeiro, Brasil</span></div></div>';
