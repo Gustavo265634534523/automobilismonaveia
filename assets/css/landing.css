@@ -1,5 +1,5 @@
 /* Entrada do site (index.html): carrossel 3D dos três esportes sobre um fundo animado.
-   Visual: vidro translúcido nos controles, título em serifa itálica e entradas suaves (blur + subida). */
+   Visual: vidro translúcido nos controles, títulos em letra condensada (Bebas Neue) e entradas suaves (blur + subida). */
 :root {
   --fundo: #05070b;
   --texto: #f4f6f8;
@@ -8,7 +8,7 @@
   --basquete: #f07a2a;
   --automobilismo: #e3343c;
   --cor: var(--futebol); /* cor do esporte que está na frente (landing.js troca) */
-  --serifa: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --titulo: 'Bebas Neue', 'Oswald', Impact, sans-serif;
   --sans: 'Inter', Arial, sans-serif;
   color-scheme: dark;
 }
@@ -40,7 +40,7 @@ body.ld { margin: 0; overflow: hidden; background: var(--fundo); color: var(--te
 .ld-card.frente { filter: none; box-shadow: 0 40px 100px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .14), 0 0 60px -10px var(--cor); }
 .ld-card.frente img { transform: scale(1.04); }
 .ld-card-txt { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 90px 20px 26px; background: linear-gradient(0deg, rgba(5, 7, 11, .92) 0%, rgba(5, 7, 11, .55) 55%, rgba(5, 7, 11, 0) 100%); text-align: center; }
-.ld-card-txt b { font-family: var(--serifa); font-style: italic; font-weight: 400; font-size: clamp(38px, 6vw, 60px); line-height: 1; letter-spacing: -.01em; text-shadow: 0 4px 24px rgba(0, 0, 0, .6); }
+.ld-card-txt b { font-family: var(--titulo); font-weight: 400; font-size: clamp(42px, 6.4vw, 66px); line-height: .9; letter-spacing: .03em; text-transform: uppercase; text-shadow: 0 4px 24px rgba(0, 0, 0, .6); }
 .ld-entrar { font-style: normal; font-weight: 800; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; padding: 10px 22px; border-radius: 999px; color: #fff; background: var(--cor-card, var(--cor)); opacity: 0; transform: translateY(8px); transition: opacity .4s ease .2s, transform .4s ease .2s; }
 .ld-card.frente .ld-entrar { opacity: 1; transform: none; }
 .ld-card[data-esp="futebol"] { --cor-card: #1e7a46; }
