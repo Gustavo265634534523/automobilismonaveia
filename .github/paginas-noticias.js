@@ -139,7 +139,7 @@ ${CSS}
 <header id="topo"></header>
 <main class="nw-pag" id="nw">
   <div class="moldura">
-    <p class="nw-trilha"><a href="./">Início</a> › <a href="noticias.html">Notícias</a> › <a href="${c.slug}.html">${esc(c.nome)}</a></p>
+    <p class="nw-trilha"><a href="inicio.html">Início</a> › <a href="noticias.html">Notícias</a> › <a href="${c.slug}.html">${esc(c.nome)}</a></p>
     <article>
       <p class="nw-rot"><a href="${c.slug}.html">${esc(cat)}</a> · <time datetime="${n.d}">${esc(dataLonga(n.d))}</time></p>
       <h1>${esc(n.t)}</h1>

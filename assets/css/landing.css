@@ -1,0 +1,86 @@
+/* Entrada do site (index.html): carrossel 3D dos três esportes sobre um fundo animado.
+   Visual: vidro translúcido nos controles, título em serifa itálica e entradas suaves (blur + subida). */
+:root {
+  --fundo: #05070b;
+  --texto: #f4f6f8;
+  --apagado: rgba(244, 246, 248, .62);
+  --futebol: #2ea062;
+  --basquete: #f07a2a;
+  --automobilismo: #e3343c;
+  --cor: var(--futebol); /* cor do esporte que está na frente (landing.js troca) */
+  --serifa: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+  --sans: 'Inter', Arial, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body.ld { margin: 0; overflow: hidden; background: var(--fundo); color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+:focus-visible { outline: 2px solid var(--cor); outline-offset: 4px; }
+
+/* fundo: a imagem do esporte da frente, ampliada e desfocada, com zoom lento; por cima, os traços de luz (canvas) */
+.ld-fundo { position: fixed; inset: 0; overflow: hidden; }
+.ld-amb { position: absolute; inset: -8%; background-size: cover; background-position: center; filter: blur(38px) saturate(1.3) brightness(.55); opacity: 0; transform: scale(1.1); transition: opacity 1s ease; animation: ld-zoom 18s ease-in-out infinite alternate; }
+.ld-amb.ativo { opacity: 1; }
+@keyframes ld-zoom { from { transform: scale(1.1) translate3d(0, 0, 0); } to { transform: scale(1.25) translate3d(-2%, -2%, 0); } }
+.ld-luzes { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: screen; }
+.ld-vinheta { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 60% at 50% 50%, transparent 30%, rgba(5, 7, 11, .75) 80%, var(--fundo) 100%); }
+
+/* marca no canto */
+.ld-marca { position: fixed; z-index: 3; top: max(18px, env(safe-area-inset-top)); left: max(20px, env(safe-area-inset-left)); display: inline-flex; align-items: center; gap: 10px; color: var(--texto); text-decoration: none; font-weight: 800; letter-spacing: .14em; font-size: 14px; }
+.ld-sinal { display: inline-flex; gap: 4px; }
+.ld-sinal i { display: block; width: 6px; height: 20px; background: var(--automobilismo); transform: skewX(-24deg); }
+.ld-sinal i + i { background: var(--texto); }
+
+/* palco do carrossel */
+.ld-palco { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(18px, 4vh, 40px); perspective: 1400px; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.ld-anel { --w: min(70vw, 400px); --passo: calc(var(--w) * .74); position: relative; width: var(--w); aspect-ratio: 4 / 5; max-height: 62vh; transform-style: preserve-3d; }
+.ld-card { position: absolute; inset: 0; display: block; border-radius: 22px; overflow: hidden; color: #fff; text-decoration: none; z-index: var(--zi, 1); transform: translate3d(calc(var(--k, 0) * var(--passo)), 0, calc(var(--ak, 0) * -240px + var(--z, 0px))) rotateY(calc(var(--k, 0) * -34deg)); box-shadow: 0 30px 80px rgba(0, 0, 0, .55), 0 0 0 1px rgba(255, 255, 255, .08); transition: filter .6s ease, opacity .6s ease, box-shadow .6s ease; filter: brightness(.45) saturate(.7); }
+.ld-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; transition: transform 1.2s cubic-bezier(.22, .9, .25, 1); }
+.ld-card.frente { filter: none; box-shadow: 0 40px 100px rgba(0, 0, 0, .6), 0 0 0 1px rgba(255, 255, 255, .14), 0 0 60px -10px var(--cor); }
+.ld-card.frente img { transform: scale(1.04); }
+.ld-card-txt { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: 90px 20px 26px; background: linear-gradient(0deg, rgba(5, 7, 11, .92) 0%, rgba(5, 7, 11, .55) 55%, rgba(5, 7, 11, 0) 100%); text-align: center; }
+.ld-card-txt b { font-family: var(--serifa); font-style: italic; font-weight: 400; font-size: clamp(38px, 6vw, 60px); line-height: 1; letter-spacing: -.01em; text-shadow: 0 4px 24px rgba(0, 0, 0, .6); }
+.ld-entrar { font-style: normal; font-weight: 800; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; padding: 10px 22px; border-radius: 999px; color: #fff; background: var(--cor-card, var(--cor)); opacity: 0; transform: translateY(8px); transition: opacity .4s ease .2s, transform .4s ease .2s; }
+.ld-card.frente .ld-entrar { opacity: 1; transform: none; }
+.ld-card[data-esp="futebol"] { --cor-card: #1e7a46; }
+.ld-card[data-esp="basquete"] { --cor-card: #c0601f; }
+.ld-card[data-esp="automobilismo"] { --cor-card: #b0121b; }
+
+/* setas e pontos (vidro translúcido) */
+.ld-controles { display: flex; align-items: center; gap: 18px; }
+.ld-seta { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 50%; color: var(--texto); cursor: pointer; }
+.ld-seta svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; position: relative; z-index: 1; }
+.ld-seta:hover { background: rgba(255, 255, 255, .08); }
+.ld-pontos { display: flex; gap: 10px; }
+.ld-ponto { width: 10px; height: 10px; padding: 0; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .3); cursor: pointer; transition: width .4s ease, background .4s ease; }
+.ld-ponto[aria-selected="true"] { width: 32px; background: var(--cor); }
+
+/* vidro translúcido (do estilo "cinematic hero") */
+.liquid-glass { background: rgba(255, 255, 255, .03); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: none; box-shadow: inset 0 1px 1px rgba(255, 255, 255, .12); position: relative; overflow: hidden; }
+.liquid-glass::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.4px; background: linear-gradient(180deg, rgba(255,255,255,.45) 0%, rgba(255,255,255,.15) 20%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,.15) 80%, rgba(255,255,255,.45) 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+
+/* cartão que dá a volta (de um lado para o outro) passa por trás, apagado */
+.ld-card.volta { opacity: 0; }
+
+/* abertura (cerca de 1,5 s): os cartões vêm do fundo, desfocados, e encaixam no anel */
+.ld-intro .ld-card { --z: -900px; opacity: 0; filter: blur(18px) brightness(.4); }
+.ld-intro .ld-controles, .ld-intro .ld-marca { opacity: 0; transform: translateY(14px); }
+.ld-card { transition: transform 1.1s cubic-bezier(.22, .9, .25, 1), filter .6s ease, opacity .8s ease, box-shadow .6s ease; }
+.ld-controles, .ld-marca { transition: opacity .8s ease .7s, transform .8s ease .7s; }
+.ld-card:nth-child(2) { transition-delay: .08s, 0s, .08s, 0s; }
+.ld-card:nth-child(3) { transition-delay: .16s, 0s, .16s, 0s; }
+
+/* ao escolher: o cartão cresce e a tela escurece antes de abrir a página */
+.ld-saindo .ld-card.frente { --z: 300px; }
+.ld-saindo .ld-card:not(.frente) { opacity: 0; }
+.ld-saindo .ld-fundo, .ld-saindo .ld-controles, .ld-saindo .ld-marca { opacity: 0; transition: opacity .45s ease; }
+
+@media (max-width: 640px) {
+  .ld-anel { --w: 68vw; }
+  .ld-seta { width: 44px; height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ld-amb { animation: none; }
+  .ld-anel, .ld-card, .ld-card img { transition-duration: .01s !important; }
+}

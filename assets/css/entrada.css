@@ -375,7 +375,7 @@ a.hm-merc:hover { border-color: var(--sangue-vivo); }
   .hero-op img { object-position: center 40%; }
   .hero-op-txt { padding: 40px 16px 14px; }
 }
-#entrada.revista { padding-top: 34px; }
+
 
 /* ---------- Cartões só de texto, com a cor do esporte (sem imagem repetida) ---------- */
 .hm-hero { min-height: 340px; background: linear-gradient(135deg, #3a0d11 0%, #121a24 70%); }

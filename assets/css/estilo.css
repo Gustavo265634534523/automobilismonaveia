@@ -1293,3 +1293,4 @@ button.painel-menu-it { display: none; }
 /* notícias em lista, só texto, com a cor do esporte */
 .bq-not { grid-template-columns: 1fr; box-shadow: inset 3px 0 0 var(--sangue-vivo); padding: 14px 16px; }
 .bq-not-futebol { box-shadow: inset 3px 0 0 #2ea062; } .bq-not-basquete { box-shadow: inset 3px 0 0 #e07a2e; }
+.auto-atalhos { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 28px; }

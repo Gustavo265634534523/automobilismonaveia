@@ -97,9 +97,9 @@
       guia: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5"/>'
     };
     function ic(n) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + IC[n] + '</svg>'; }
-    var inicio = /(^|\/)(index\.html)?$/.test(location.pathname);
+    var inicio = /(^|\/)inicio\.html$/.test(location.pathname); /* o portal; a raiz (index.html) é a entrada com o carrossel */
     var itensMenu = [
-      ['inicio', './', 'Início', inicio],
+      ['inicio', 'inicio.html', 'Início', inicio],
       ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
       ['tv', 'onde-assistir.html', 'Onde assistir', /onde-assistir/.test(location.pathname)],
       ['categorias', '#categorias-menu', 'Categorias', false],
@@ -114,7 +114,7 @@
     topo.className = 'topo';
     topo.innerHTML =
       '<div class="moldura topo-in">' +
-        '<a class="marca" href="./" aria-label="Automobilismo Na Veia, início"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span>' +
+        '<a class="marca" href="inicio.html" aria-label="Automobilismo Na Veia, início"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span>' +
         '<span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
         '<nav class="nav" aria-label="Menu principal">' + menu + '</nav>' +
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
@@ -157,7 +157,7 @@
           return '<li><a class="painel-cat" href="' + c[0] + '.html"' + (c[0] === atual || c[0] === document.body.getAttribute('data-comp') ? ' aria-current="page"' : '') + '><strong>' + esc(c[1]) + '</strong><span>' + esc(c[2]) + '</span></a></li>';
         }).join('') + '</ul></section>' };
     }));
-    var rapido = '<div class="pm-rapido"><a class="pm-chip" href="./"' + (inicio ? ' aria-current="page"' : '') + '>' + ic('inicio') + 'Início</a>' +
+    var rapido = '<div class="pm-rapido"><a class="pm-chip" href="inicio.html"' + (inicio ? ' aria-current="page"' : '') + '>' + ic('inicio') + 'Início</a>' +
       '<a class="pm-chip" href="#bate-papo">' + ic('chat') + 'Chat</a>' +
       '<button type="button" class="pm-chip" onclick="window.NAVEIA_TROCAR_TEMA()">' + ic('tema') + 'Tema claro/escuro</button></div>';
     painel.innerHTML = '<div class="moldura painel-in">' + rapido +
@@ -181,7 +181,7 @@
     /* Faixa fina com as categorias, logo abaixo do menu (menos na página inicial, que já mostra as categorias na entrada).
        No celular ela desliza para o lado. Ponto vermelho = corre nos próximos 7 dias. */
     /* seletor de esporte (Automobilismo, Futebol, Basquete) no começo da faixa */
-    var pilulas = '<span class="faixa-esportes">' + [['automobilismo', 'Automobilismo', './'], ['futebol', 'Futebol', 'futebol.html'], ['basquete', 'Basquete', 'basquete.html']].map(function (x) {
+    var pilulas = '<span class="faixa-esportes">' + [['automobilismo', 'Automobilismo', 'automobilismo.html'], ['futebol', 'Futebol', 'futebol.html'], ['basquete', 'Basquete', 'basquete.html']].map(function (x) {
       return '<a class="faixa-esp" href="' + x[2] + '"' + (x[0] === esporteAtual ? ' aria-current="true"' : '') + '>' + x[1] + '</a>';
     }).join('') + '</span>';
     if (esporteAtual !== 'automobilismo') {
@@ -376,10 +376,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=311'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=311'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=311'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=311'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=312'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=312'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=312'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=312'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -436,7 +436,7 @@
     function li(href, txt, fora) { return '<li><a href="' + href + '"' + (fora ? ' target="_blank" rel="noopener"' : '') + '>' + txt + '</a></li>'; }
     var local = /^(localhost|127.0.0.1|)$/.test(location.hostname);
     rod.innerHTML = '<div class="moldura"><div class="rodape-grade"><div class="rodape-marca">' +
-      '<a class="marca" href="./"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span><span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
+      '<a class="marca" href="inicio.html"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span><span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
       '<p>' + CATS.length + ' categorias acompanhadas de perto. Dados atualizados em ' + esc(window.ATUALIZADO) + '.</p>' +
       '<p class="rodape-contato"><span>Contato:</span> <a href="mailto:automobilismonaveiacontato@gmail.com">automobilismonaveiacontato@gmail.com</a>' +
         '<button type="button" class="copiar-email" data-email="automobilismonaveiacontato@gmail.com">' +
