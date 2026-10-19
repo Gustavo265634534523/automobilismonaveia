@@ -9,7 +9,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: salvar-no-site
+  group: baixar-imagens
   cancel-in-progress: false
 jobs:
   baixar:
