@@ -46,13 +46,13 @@
   /* 2. manchete: a mais nova marcada como manchete em qualquer esporte */
   var capa = mistura.filter(function (n) { return n.manchete; }).sort(porData)[0] || mistura[0];
   var resto = mistura.filter(function (n) { return n !== capa; });
-  document.getElementById('hm-hero').innerHTML = '<a class="hm-hero" href="' + capa.href + '">' + imagem(capa, true) +
+  document.getElementById('hm-hero').innerHTML = '<a class="hm-hero hm-hero-' + capa.esporte + '" href="' + capa.href + '">' +
     '<span class="hm-hero-txt">' + etiqueta(capa) + '<b>' + esc(capa.t) + '</b><span>' + esc(capa.x.split(/(?<=\.)\s/)[0]) + '</span><em>Ler a notícia →</em></span></a>';
 
   /* 1. faixa: as próximas quatro, uma de cada esporte primeiro */
   var faixa = resto.slice(0, 4);
   document.getElementById('hm-faixa').innerHTML = faixa.map(function (n) {
-    return '<a class="hm-mini" href="' + n.href + '">' + imagem(n) + '<span><b>' + esc(n.t) + '</b><small>' + esc(n.rot) + ' · ' + esc(quando(n.d)) + '</small></span></a>';
+    return '<a class="hm-mini hm-mini-' + n.esporte + '" href="' + n.href + '"><span><b>' + esc(n.t) + '</b><small>' + esc(n.rot) + ' · ' + esc(quando(n.d)) + '</small></span></a>';
   }).join('');
   resto = resto.slice(4);
 
@@ -87,11 +87,11 @@
   /* 3. não perca (5 cartões) e agora há pouco (lista na ordem de publicação) */
   var naoPerca = resto.slice(0, 5);
   document.getElementById('hm-naoperca').innerHTML = '<h2 class="hm-tit">Não perca</h2><div class="hm-grade">' + naoPerca.map(function (n, i) {
-    return '<a class="hm-card' + (i === 0 ? ' hm-card-alto' : '') + '" href="' + n.href + '">' + imagem(n) + '<span class="hm-card-txt">' + etiqueta(n) + '<b>' + esc(n.t) + '</b><small>' + esc(quando(n.d)) + '</small></span></a>';
+    return '<a class="hm-card hm-card-' + n.esporte + (i === 0 ? ' hm-card-alto' : '') + '" href="' + n.href + '"><span class="hm-card-txt">' + etiqueta(n) + '<b>' + esc(n.t) + '</b>' + (i === 0 ? '<span class="hm-card-x">' + esc(n.x.split(/(?<=\.)\s/)[0]) + '</span>' : '') + '<small>' + esc(quando(n.d)) + '</small></span></a>';
   }).join('') + '</div>';
   var agora = resto.slice(5).concat(faixa).sort(porData).slice(0, 5);
   document.getElementById('hm-agora').innerHTML = '<div class="hm-caixa-cab"><h2>Agora há pouco</h2><a href="noticias.html">Todas →</a></div><ol class="hm-lista">' + agora.map(function (n) {
-    return '<li><a href="' + n.href + '"><span><b>' + esc(n.t) + '</b><small>' + esc(n.rot) + ' · ' + esc(quando(n.d)) + '</small></span>' + imagem(n) + '</a></li>';
+    return '<li><a href="' + n.href + '"><span><b>' + esc(n.t) + '</b><small>' + esc(n.rot) + ' · ' + esc(quando(n.d)) + '</small></span></a></li>';
   }).join('') + '</ol>';
 
   /* 4. mercado de transferências, com filtro por esporte */
@@ -153,8 +153,8 @@
   }
   function cartao(n, grande) {
     var c = P[n.comp] || {};
-    return '<a class="hm-card' + (grande ? ' hm-card-alto' : '') + '" href="' + (n.comp || n.esporte) + '.html">' + window.fotoEsporte(n, grande) +
-      '<span class="hm-card-txt"><span class="hm-tag hm-tag-' + n.esporte + '">' + esc(c.menu || c.nome || '') + '</span><b>' + esc(n.t) + '</b><small>' + quando(n.d) + '</small></span></a>';
+    return '<a class="hm-card hm-card-' + n.esporte + (grande ? ' hm-card-alto' : '') + '" href="' + (n.comp || n.esporte) + '.html">' +
+      '<span class="hm-card-txt"><span class="hm-tag hm-tag-' + n.esporte + '">' + esc(c.menu || c.nome || '') + '</span><b>' + esc(n.t) + '</b>' + (grande ? '<span class="hm-card-x">' + esc(n.x.split(/(?<=\.)\s/)[0]) + '</span>' : '') + '<small>' + quando(n.d) + '</small></span></a>';
   }
   function jogos(esporte, max) {
     var lista = [];
@@ -189,7 +189,7 @@
   document.getElementById('hm-bq-lado').innerHTML = '<div class="hm-caixa-cab"><h2>Notícias</h2><a href="basquete.html">Todas →</a></div>' +
     '<ol class="hm-lista">' + nb.map(function (n) {
       var c = P[n.comp] || {};
-      return '<li><a href="' + (n.comp || 'basquete') + '.html"><span><b>' + esc(n.t) + '</b><small>' + esc(c.menu || '') + ' · ' + quando(n.d) + '</small></span>' + window.fotoEsporte(n) + '</a></li>';
+      return '<li><a href="' + (n.comp || 'basquete') + '.html"><span><b>' + esc(n.t) + '</b><small>' + esc(c.menu || '') + ' · ' + quando(n.d) + '</small></span></a></li>';
     }).join('') + '</ol><div class="hm-caixa-cab hm-sub"><h2>Próximos jogos</h2></div>' + jogos('basquete', 3);
   chips('hm-bq-chips', 'basquete');
 })();

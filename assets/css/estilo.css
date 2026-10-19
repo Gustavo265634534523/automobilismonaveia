@@ -1290,3 +1290,6 @@ button.painel-menu-it { display: none; }
 .bq-num.com-foto::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8, 12, 18, .7) 0%, rgba(8, 12, 18, 0) 55%); }
 .bq-num.com-foto span { position: absolute; left: 14px; bottom: 6px; z-index: 1; font-size: clamp(64px, 7vw, 104px); color: #fff; text-shadow: 0 4px 20px rgba(0, 0, 0, .4); }
 @media (max-width: 560px) { .bq-not > img { height: 160px; } .bq-num.com-foto { min-height: 300px; } }
+/* notícias em lista, só texto, com a cor do esporte */
+.bq-not { grid-template-columns: 1fr; box-shadow: inset 3px 0 0 var(--sangue-vivo); padding: 14px 16px; }
+.bq-not-futebol { box-shadow: inset 3px 0 0 #2ea062; } .bq-not-basquete { box-shadow: inset 3px 0 0 #e07a2e; }

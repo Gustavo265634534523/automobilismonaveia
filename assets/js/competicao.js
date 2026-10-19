@@ -34,7 +34,7 @@
   }
   function cartao(c) {
     var px = proximo(c);
-    return '<a class="comp-cartao" href="' + c.slug + '.html">' + window.fotoEsporte({ comp: c.slug, esporte: c.esporte }, false, 'comp-img') + '<span class="comp-reg">' + esc(c.regiao) + ' · ' + esc(c.temporada) + '</span>' +
+    return '<a class="comp-cartao" href="' + c.slug + '.html">' + '<span class="comp-reg">' + esc(c.regiao) + ' · ' + esc(c.temporada) + '</span>' +
       '<b>' + esc(c.nome) + '</b><span class="comp-lider"><em>' + esc(c.lider.nome) + '</em>' + esc(c.lider.info) + '</span>' +
       '<span class="comp-prox">' + (px ? 'Próximo: ' + esc(px.casa) + ' x ' + esc(px.fora) + ', ' + window.dataCurta(px.d) : esc(c.fase)) + '</span></a>';
   }
@@ -60,7 +60,7 @@
     var ns = (window.NOTICIAS_ESPORTES || []).filter(filtro).sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; }).slice(0, max || 99);
     return ns.map(function (n) {
       var cc = PORSLUG[n.comp] || {};
-      return '<a class="bq-not" href="' + (n.comp || n.esporte) + '.html"><span class="hm-arte hm-' + n.esporte + '" aria-hidden="true">' + (ICONE[n.esporte] || '') + '</span>' +
+      return '<a class="bq-not bq-not-' + n.esporte + '" href="' + (n.comp || n.esporte) + '.html">' +
         '<span class="bq-not-txt"><small>' + esc(cc.menu || cc.nome || '') + ' · ' + esc(quandoVideo(n.d)) + '</small><b>' + esc(n.t) + '</b><span>' + esc(n.x) + '</span></span></a>';
     }).join('');
   }

@@ -12,10 +12,7 @@
   function nomeDuasLinhas(n) { var p = n.split(' '); return p.length > 1 ? esc(p[0]) + '<br>' + esc(p.slice(1).join(' ')) : esc(n); }
 
   /* imagem do basquete atrás do número da camisa */
-  function foto(j) {
-    var f = (window.IMG_ESPORTE || {}).basquete;
-    return f ? '<img src="' + f.grande + '" alt="" loading="lazy">' : '';
-  }
+  function foto() { return ''; } /* sem imagem: o número da camisa é o destaque */
   /* ficha do jogador; "curta" = versão da página inicial */
   function ficha(j, curta) {
     var temporadas = 2026 - (+j.estreia) + 1;
@@ -64,7 +61,7 @@
   var bn = document.getElementById('bq-noticias');
   if (bn) bn.innerHTML = nots.map(function (n) {
     var c = (window.COMPETICOES || []).filter(function (x) { return x.slug === n.comp; })[0] || {};
-    return '<a class="bq-not" href="' + (n.comp || 'basquete') + '.html">' + window.fotoEsporte(n) + '<span class="bq-not-txt"><small>' + esc(c.menu || 'Basquete') + ' · ' + quando(n.d) + '</small><b>' + esc(n.t) + '</b><span>' + esc(n.x) + '</span></span></a>';
+    return '<a class="bq-not bq-not-basquete" href="' + (n.comp || 'basquete') + '.html"><span class="bq-not-txt"><small>' + esc(c.menu || 'Basquete') + ' · ' + quando(n.d) + '</small><b>' + esc(n.t) + '</b><span>' + esc(n.x) + '</span></span></a>';
   }).join('');
 
   /* mercado do basquete */

@@ -351,3 +351,54 @@ a.hm-merc:hover { border-color: var(--sangue-vivo); }
 .hm-esp-futebol .hm-chip-comp:hover { border-color: #2ea062; } .hm-esp-basquete .hm-chip-comp:hover { border-color: #e07a2e; }
 @media (max-width: 900px) { .hm-esp-grade { grid-template-columns: 1fr; } }
 .hm-tab-nota { margin: 0 0 4px; font-size: 12px; color: var(--aco); }
+
+/* ---------- Hero da entrada: escolha do esporte (uma imagem para cada) ---------- */
+.hero-esp { padding: calc(var(--topo) + 40px) 0 8px; background: radial-gradient(90% 70% at 50% 0%, rgba(227, 52, 60, .12), transparent 70%), var(--asfalto); }
+.hero-cab { text-align: center; max-width: 760px; margin: 0 auto; }
+.hero-cab h1 { margin: 0; font-size: clamp(32px, 5vw, 60px); font-weight: 900; letter-spacing: -.02em; line-height: 1.05; }
+.hero-cab p { margin: 12px 0 0; font-size: clamp(16px, 1.6vw, 19px); color: var(--texto-2); }
+.hero-pergunta { margin: 28px 0 14px; text-align: center; font-size: 13px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--aco); }
+.hero-opcoes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.hero-op { position: relative; display: block; aspect-ratio: 4 / 3; max-height: 340px; width: 100%; overflow: hidden; border-radius: 16px; background: #05080c; color: #fff; text-decoration: none; box-shadow: 0 0 0 1px var(--linha); transition: transform .3s var(--ease), box-shadow .3s; }
+.hero-op img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+.hero-op:hover { transform: translateY(-3px); }
+.hero-op:hover img { transform: scale(1.05); }
+.hero-op-futebol:hover { box-shadow: 0 0 0 2px #2ea062; } .hero-op-basquete:hover { box-shadow: 0 0 0 2px #e07a2e; } .hero-op-automobilismo:hover { box-shadow: 0 0 0 2px var(--sangue-vivo); }
+.hero-op-txt { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 4px; padding: 70px 20px 18px; background: linear-gradient(0deg, rgba(5, 8, 12, .95) 0%, rgba(5, 8, 12, .6) 55%, rgba(5, 8, 12, 0) 100%); }
+.hero-op-txt b { font-size: clamp(24px, 2.4vw, 32px); font-weight: 900; }
+.hero-op-txt small { font-size: 14px; color: #d5dbe2; }
+.hero-op-txt em { align-self: flex-start; margin-top: 8px; padding: 7px 16px; border-radius: 999px; font-style: normal; font-weight: 800; font-size: 14px; color: #fff; background: var(--sangue); }
+.hero-op-futebol em { background: #1e7a46; } .hero-op-basquete em { background: #c0601f; }
+@media (max-width: 760px) {
+  .hero-opcoes { grid-template-columns: 1fr; gap: 10px; }
+  .hero-op { aspect-ratio: auto; height: 150px; }
+  .hero-op img { object-position: center 40%; }
+  .hero-op-txt { padding: 40px 16px 14px; }
+}
+#entrada.revista { padding-top: 34px; }
+
+/* ---------- Cartões só de texto, com a cor do esporte (sem imagem repetida) ---------- */
+.hm-hero { min-height: 340px; background: linear-gradient(135deg, #3a0d11 0%, #121a24 70%); }
+.hm-hero-futebol { background: linear-gradient(135deg, #10432a 0%, #121a24 70%); }
+.hm-hero-basquete { background: linear-gradient(135deg, #5a2a0d 0%, #121a24 70%); }
+.hm-hero .hm-hero-txt { background: none; padding-top: 40px; }
+.hm-mini { grid-template-columns: 1fr; padding-left: 12px; border-left: 3px solid var(--sangue-vivo); }
+.hm-mini-futebol { border-color: #2ea062; } .hm-mini-basquete { border-color: #e07a2e; }
+.hm-grade { grid-auto-rows: minmax(150px, auto); }
+.hm-card { background: var(--carbono); color: var(--cromo); box-shadow: inset 0 3px 0 var(--sangue-vivo), inset 0 0 0 1px var(--linha); }
+.hm-card-futebol { box-shadow: inset 0 3px 0 #2ea062, inset 0 0 0 1px var(--linha); }
+.hm-card-basquete { box-shadow: inset 0 3px 0 #e07a2e, inset 0 0 0 1px var(--linha); }
+.hm-card .hm-card-txt { position: static; height: 100%; justify-content: flex-start; padding: 18px 16px 14px; background: none; }
+.hm-card-txt small { color: var(--aco); margin-top: auto; }
+.hm-card-alto .hm-card-txt b { font-size: clamp(20px, 2vw, 26px); }
+.hm-card-x { font-size: 15px; color: var(--texto-2); line-height: 1.45; }
+.hm-card:hover { background: var(--carbono-2); }
+.hm-lista a { grid-template-columns: 26px minmax(0, 1fr); }
+.rv-cat.rv-cat-txt { height: auto; min-height: 70px; display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: 12px 14px; background: var(--carbono); color: var(--cromo); box-shadow: inset 3px 0 0 var(--sangue-vivo), inset 0 0 0 1px var(--linha); border-radius: 8px; }
+.rv-cat.rv-cat-txt::after { content: none; }
+.rv-cat.rv-cat-txt b { position: static; font-family: var(--texto); font-size: 15px; font-weight: 800; text-shadow: none; }
+.rv-cat.rv-cat-txt small { font-size: 12px; color: var(--aco); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rv-cat.rv-cat-txt:hover { background: var(--carbono-2); }
+.hm-topo { align-items: start; }
+.hm-hero { height: auto; }
+@media (max-width: 760px) { .hero-op-txt { top: 0; justify-content: center; background: linear-gradient(90deg, rgba(5, 8, 12, .9) 0%, rgba(5, 8, 12, .55) 70%, rgba(5, 8, 12, .3) 100%); } }

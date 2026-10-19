@@ -77,12 +77,11 @@
   /* 3. categorias em foto, na ordem dos grupos */
   var ordem = []; GRUPOS.forEach(function (g) { g.cats.forEach(function (c) { ordem.push(c); }); });
   if (!ordem.length) ordem = CATS;
+  /* categorias em cartões de texto: nome, quem lidera e um ponto vermelho em quem corre nos próximos 7 dias */
   document.getElementById('entrada-cats').innerHTML = ordem.map(function (c) {
-    /* foto real com licença livre (assets/dados/fotos-reais.js), com o crédito no title; sem ela, a imagem gerada */
-    var fr = (window.FOTOS_REAIS || {})[c.slug];
-    return '<a class="rv-cat' + (fr ? ' rv-cat-real' : '') + '" href="' + c.slug + '.html"' + (fr ? ' title="Foto: ' + esc(fr.autor) + ' (' + esc(fr.lic) + ')"' : '') + '><img src="' + (fr ? fr.src : c.foto) + '" alt="" loading="lazy"><b>' + esc(c.menu || c.nome) + '</b>' +
+    return '<a class="rv-cat rv-cat-txt" href="' + c.slug + '.html"><b>' + esc(c.menu || c.nome) + '</b><small>' + esc(c.lider ? c.lider.nome : '') + '</small>' +
       (correSemana(c) ? '<i class="ent-ponto" title="Corre nos próximos dias"></i>' : '') + '</a>';
-  }).join('') + (window.FOTOS_REAIS ? '<a class="rv-creditos" href="creditos-fotos.html">Fotos: Wikimedia Commons · créditos</a>' : '');
+  }).join('');
 
   /* 4. brigas pelo título: campeonatos em aberto, ordenados pela diferença entre 1º e 2º */
   function num(v) { var n = parseFloat(String(v).replace(/\./g, '').replace(',', '.')); return isNaN(n) ? null : n; }
