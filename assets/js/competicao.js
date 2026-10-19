@@ -100,7 +100,7 @@
     '<div class="moldura"><a class="comp-esporte" href="' + c.esporte + '.html">' + esc(espNome) + ' · ' + esc(c.regiao) + '</a>' +
     '<h1 class="cat-nome">' + esc(c.nome) + '</h1><p class="cat-frase">' + esc(c.frase) + '</p>' +
     '<div class="cat-rodape"><div><p class="cat-intro">' + esc(c.intro) + '</p></div>' +
-    '<div class="cat-lider"><span>' + (c.tabela ? 'Na ponta' : 'Agora') + '</span><b>' + esc(c.lider.nome) + '</b><small>' + esc(c.lider.info) + '</small></div></div></div>';
+    '<div class="cat-lider"><span>' + (/^atual (penta|tetra|tri|bi)?campe/i.test(c.lider.info) ? 'Atual campeão' : c.tabela ? 'Na ponta' : 'Agora') + '</span><b>' + esc(c.lider.nome) + '</b><small>' + esc(c.lider.info) + '</small></div></div></div>';
 
   var P = [];
   var futuros = (c.jogos || []).filter(function (j) { return !j.p; }), feitos = (c.jogos || []).filter(function (j) { return j.p; }).reverse();
