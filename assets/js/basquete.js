@@ -37,7 +37,7 @@
     function pintar() {
       alvo.innerHTML = (J.length > 1 ? '<div class="bq-troca" role="group" aria-label="Escolha o jogador">' + J.map(function (j, i) {
         return '<button type="button" aria-pressed="' + (i === atual) + '" data-i="' + i + '">' + esc(j.nome) + '</button>';
-      }).join('') + '</div>' : '') + ficha(J[atual], curta) + (curta ? '<a class="bq-mais" href="basquete.html">Mais do basquete →</a>' : '');
+      }).join('') + '</div>' : '') + ficha(J[atual], curta);
       [].forEach.call(alvo.querySelectorAll('.bq-troca button'), function (b) { b.addEventListener('click', function () { atual = +b.getAttribute('data-i'); pintar(); }); });
     }
     pintar();

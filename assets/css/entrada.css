@@ -328,3 +328,26 @@ a.hm-merc:hover { border-color: var(--sangue-vivo); }
   .hm-vid-grande { min-height: 230px; }
   .hm-vid { grid-template-columns: 120px minmax(0, 1fr); }
 }
+
+/* ---------- Uma seção por esporte, com o mesmo peso (capa.js) ---------- */
+.hm-esp { padding-top: 48px; }
+.hm-esp-cab { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 3px solid var(--sangue-vivo); }
+.hm-esp-cab h2 { margin: 0; font-size: clamp(26px, 3vw, 36px); font-weight: 900; letter-spacing: -.01em; }
+.hm-esp-cab a { font-size: 15px; font-weight: 700; color: var(--sangue-vivo); text-decoration: none; }
+.hm-esp-futebol .hm-esp-cab { border-color: #2ea062; } .hm-esp-futebol .hm-esp-cab a { color: #2ea062; }
+.hm-esp-basquete .hm-esp-cab { border-color: #e07a2e; } .hm-esp-basquete .hm-esp-cab a { color: #e07a2e; }
+.hm-esp-grade { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(280px, 1fr); gap: 18px; align-items: start; }
+.hm-esp-basquete .bq-sec { margin: 0; }
+.hm-tab { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+.hm-tab td { padding: 8px 0; border-top: 1px solid var(--linha); }
+.hm-tab td:first-child { width: 28px; color: var(--aco); font-weight: 700; }
+.hm-tab td:nth-child(2) { font-weight: 700; }
+.hm-tab td:last-child { text-align: right; font-weight: 800; }
+.hm-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.hm-chip-comp { display: inline-flex; flex-direction: column; padding: 8px 14px; border-radius: 10px; border: 1px solid var(--linha); background: var(--carbono); text-decoration: none; }
+.hm-chip-comp b { font-size: 14px; }
+.hm-chip-comp small { font-size: 12px; color: var(--aco); }
+.hm-chip-comp:hover { border-color: var(--sangue-vivo); }
+.hm-esp-futebol .hm-chip-comp:hover { border-color: #2ea062; } .hm-esp-basquete .hm-chip-comp:hover { border-color: #e07a2e; }
+@media (max-width: 900px) { .hm-esp-grade { grid-template-columns: 1fr; } }
+.hm-tab-nota { margin: 0 0 4px; font-size: 12px; color: var(--aco); }

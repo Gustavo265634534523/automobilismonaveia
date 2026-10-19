@@ -140,3 +140,56 @@
     }
   }
 })();
+
+/* Seções de Futebol e de Basquete na página inicial: notícias com imagem, tabela do Brasileirão, próximos jogos e atalhos.
+   Cada esporte tem o mesmo peso que o automobilismo. */
+(function () {
+  if (!document.getElementById('hm-fut-noticias')) return;
+  var esc = window.esc, hoje = window.hojeISO(), COMPS = window.COMPETICOES || [], P = {};
+  COMPS.forEach(function (c) { P[c.slug] = c; });
+  function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === 1 ? 'Amanhã' : n === -1 ? 'Ontem' : window.dataCurta(d); }
+  function nots(esporte) {
+    return (window.NOTICIAS_ESPORTES || []).filter(function (n) { return n.esporte === esporte; }).sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
+  }
+  function cartao(n, grande) {
+    var c = P[n.comp] || {};
+    return '<a class="hm-card' + (grande ? ' hm-card-alto' : '') + '" href="' + (n.comp || n.esporte) + '.html">' + window.fotoEsporte(n, grande) +
+      '<span class="hm-card-txt"><span class="hm-tag hm-tag-' + n.esporte + '">' + esc(c.menu || c.nome || '') + '</span><b>' + esc(n.t) + '</b><small>' + quando(n.d) + '</small></span></a>';
+  }
+  function jogos(esporte, max) {
+    var lista = [];
+    COMPS.filter(function (c) { return c.esporte === esporte; }).forEach(function (c) {
+      (c.jogos || []).forEach(function (j) { if (j.d && !j.p && j.d >= hoje && j.casa !== 'A definir') lista.push({ c: c, j: j }); });
+    });
+    lista.sort(function (a, b) { return (a.j.d + (a.j.h || '')) < (b.j.d + (b.j.h || '')) ? -1 : 1; });
+    return lista.slice(0, max).map(function (x) {
+      return '<a class="hm-jogo" href="' + x.c.slug + '.html"><span class="hm-jogo-cab"><i class="hm-ponto hm-' + esporte + '"></i>' + esc(x.c.menu) + ' · ' + quando(x.j.d) + '</span>' +
+        '<span class="hm-jogo-linha"><b>' + esc(x.j.casa) + '</b><strong>' + esc(x.j.h || '--') + '</strong></span><span class="hm-jogo-linha"><b>' + esc(x.j.fora) + '</b><strong></strong></span></a>';
+    }).join('');
+  }
+  function chips(alvo, esporte) {
+    var el = document.getElementById(alvo); if (!el) return;
+    el.innerHTML = COMPS.filter(function (c) { return c.esporte === esporte; }).map(function (c) {
+      return '<a class="hm-chip-comp" href="' + c.slug + '.html"><b>' + esc(c.menu) + '</b><small>' + esc(c.lider.nome) + '</small></a>';
+    }).join('');
+  }
+
+  /* Futebol: 1 notícia grande + 4 menores; ao lado, o topo do Brasileirão e os próximos jogos */
+  var nf = nots('futebol').slice(0, 5);
+  document.getElementById('hm-fut-noticias').innerHTML = '<div class="hm-grade">' + nf.map(function (n, i) { return cartao(n, i === 0); }).join('') + '</div>';
+  var br = P.brasileirao;
+  document.getElementById('hm-fut-lado').innerHTML =
+    (br && br.tabela ? '<div class="hm-caixa-cab"><h2>Brasileirão</h2><a href="brasileirao.html#classificacao">Tabela →</a></div><p class="hm-tab-nota">' + esc(br.tabela.titulo) + '</p>' +
+      '<table class="hm-tab"><tbody>' + br.tabela.linhas.slice(0, 6).map(function (l) { return '<tr><td>' + esc(l[0]) + '</td><td>' + esc(l[1]) + '</td><td>' + esc(l[l.length - 1]) + '</td></tr>'; }).join('') + '</tbody></table>' : '') +
+    '<div class="hm-caixa-cab hm-sub"><h2>Próximos jogos</h2></div>' + jogos('futebol', 3);
+  chips('hm-fut-chips', 'futebol');
+
+  /* Basquete: ficha do jogador (basquete.js, #bq-home) e, ao lado, notícias e próximos jogos */
+  var nb = nots('basquete').slice(0, 3);
+  document.getElementById('hm-bq-lado').innerHTML = '<div class="hm-caixa-cab"><h2>Notícias</h2><a href="basquete.html">Todas →</a></div>' +
+    '<ol class="hm-lista">' + nb.map(function (n) {
+      var c = P[n.comp] || {};
+      return '<li><a href="' + (n.comp || 'basquete') + '.html"><span><b>' + esc(n.t) + '</b><small>' + esc(c.menu || '') + ' · ' + quando(n.d) + '</small></span>' + window.fotoEsporte(n) + '</a></li>';
+    }).join('') + '</ol><div class="hm-caixa-cab hm-sub"><h2>Próximos jogos</h2></div>' + jogos('basquete', 3);
+  chips('hm-bq-chips', 'basquete');
+})();

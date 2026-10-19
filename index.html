@@ -53,6 +53,50 @@
     </div>
   </section>
 
+  <section class="secao hm-sec hm-esp hm-esp-futebol" id="futebol" aria-labelledby="futebol-t">
+    <div class="moldura">
+      <div class="hm-esp-cab"><h2 id="futebol-t">Futebol</h2><a href="futebol.html">Tudo de futebol →</a></div>
+      <div class="hm-esp-grade">
+        <div class="hm-esp-noticias" id="hm-fut-noticias"></div>
+        <aside class="hm-caixa" id="hm-fut-lado" aria-label="Brasileirão e próximos jogos"></aside>
+      </div>
+      <nav class="hm-chips" id="hm-fut-chips" aria-label="Campeonatos de futebol"></nav>
+    </div>
+  </section>
+
+  <section class="secao hm-sec hm-esp hm-esp-basquete" id="basquete" aria-labelledby="basquete-t">
+    <div class="moldura">
+      <div class="hm-esp-cab"><h2 id="basquete-t">Basquete</h2><a href="basquete.html">Tudo de basquete →</a></div>
+      <div class="hm-esp-grade">
+        <div class="bq-sec" id="bq-home" aria-label="Jogador em destaque no basquete"></div>
+        <aside class="hm-caixa" id="hm-bq-lado" aria-label="Notícias e jogos do basquete"></aside>
+      </div>
+      <nav class="hm-chips" id="hm-bq-chips" aria-label="Ligas de basquete"></nav>
+    </div>
+  </section>
+
+  <section class="secao hm-sec hm-esp hm-esp-automobilismo" id="automobilismo" aria-labelledby="automobilismo-t">
+    <div class="moldura">
+      <div class="hm-esp-cab"><h2 id="automobilismo-t">Automobilismo</h2><a href="raiox.html">Raio-x e telemetria →</a></div>
+      <div class="rv-cats" id="entrada-cats" aria-label="Categorias"></div>
+      <div class="rv-baixo">
+        <aside class="entrada-dir" id="entrada-brigas" aria-label="Brigas pelo título"></aside>
+        <aside class="enq-home" data-enquete="home" aria-label="Enquete: quem vence?"></aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao agenda hm-sec" id="conteudo" style="padding-top:24px">
+    <div class="moldura">
+      <div class="secao-cab revelar">
+        <h2>Agenda do automobilismo.</h2>
+        <p>Treinos, classificação e corrida de cada dia, no horário de Brasília.</p>
+      </div>
+      <div class="largada revelar" id="largada"></div>
+      <div class="torre revelar" id="torre"></div>
+    </div>
+  </section>
+
   <section class="secao hm-sec" id="mercado" aria-labelledby="mercado-t">
     <div class="moldura">
       <div class="secao-cab">
@@ -67,94 +111,6 @@
     <div class="moldura">
       <h2 class="hm-tit" id="videos-t">Vídeos</h2>
       <div class="hm-videos" id="hm-videos"></div>
-    </div>
-  </section>
-
-  <section class="secao esportes-sec hm-sec" id="futebol-basquete" aria-labelledby="esportes-t">
-    <div class="moldura">
-      <div class="secao-cab">
-        <h2 id="esportes-t">Futebol e basquete.</h2>
-        <p>Brasileirão, Libertadores, Champions, as grandes ligas da Europa, NBA, Euroleague e NBB.</p>
-      </div>
-      <div class="bq-sec" id="bq-home" aria-label="Jogador em destaque no basquete"></div>
-      <div id="esportes-home"></div>
-    </div>
-  </section>
-
-  <section class="secao hm-sec" id="automobilismo" aria-labelledby="automobilismo-t">
-    <div class="moldura">
-      <div class="secao-cab">
-        <h2 id="automobilismo-t">Automobilismo.</h2>
-        <p>Fórmula 1, MotoGP, Stock Car e mais 14 categorias, com as brigas pelo título.</p>
-      </div>
-      <div class="rv-cats" id="entrada-cats" aria-label="Categorias"></div>
-      <div class="rv-baixo">
-        <aside class="entrada-dir" id="entrada-brigas" aria-label="Brigas pelo título"></aside>
-        <aside class="enq-home" data-enquete="home" aria-label="Enquete: quem vence?"></aside>
-      </div>
-    </div>
-  </section>
-
-  <section class="secao agenda" id="conteudo">
-    <div class="moldura">
-      <div class="secao-cab revelar">
-        <h2>Os motores ligam nos próximos dias.</h2>
-        <p>Treinos, classificação e corrida de cada dia, no horário de Brasília.</p>
-      </div>
-      <div class="largada revelar" id="largada"></div>
-      <div class="torre revelar" id="torre"></div>
-    </div>
-  </section>
-
-  <section class="secao proxima" id="proxima-corrida" aria-labelledby="proxima-t" style="padding-top:0">
-    <div class="moldura">
-      <div class="secao-cab revelar">
-        <h2 id="proxima-t">Informações da próxima corrida.</h2>
-        <p>Horários de Brasília, previsão do tempo, mapa da pista e como está o campeonato. Escolha a categoria.</p>
-      </div>
-      <div class="sm-cats" id="pc-cats" role="group" aria-label="Categoria"></div>
-      <div class="pv-cat-in pc-caixa" id="pc-caixa" aria-live="polite"></div>
-    </div>
-  </section>
-
-  <section class="secao analise" id="analise" aria-labelledby="analise-t" style="padding-top:0">
-    <div class="moldura">
-      <div class="secao-cab revelar">
-        <h2 id="analise-t">Análise da temporada.</h2>
-        <p>Simule o campeonato, veja a última corrida por dentro ou compare a telemetria de dois pilotos.</p>
-      </div>
-      <div class="an-cartoes" role="tablist" aria-label="Análises">
-        <button type="button" class="an-cartao" role="tab" id="an-titulo" data-an="titulo" aria-selected="true"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0z"/><path d="M8 6H5a3 3 0 0 0 3 4M16 6h3a3 3 0 0 1-3 4M12 13v4M9 20h6"/></svg><b>Quem leva o título</b><small>Simulador de todas as categorias</small></button>
-        <button type="button" class="an-cartao" role="tab" id="an-raiox" data-an="raiox" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 13h4l2.5-6 4 11 2.5-5H21"/></svg><b>Raio-x</b><small>A última corrida da F1 e da MotoGP</small></button>
-        <button type="button" class="an-cartao" role="tab" id="an-telemetria" data-an="telemetria" aria-selected="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17a8 8 0 1 1 16 0"/><path d="M12 17l4-5"/></svg><b>Telemetria</b><small>Duas voltas da F1, metro a metro</small></button>
-      </div>
-      <div id="simulador-demo" role="tabpanel" aria-labelledby="an-titulo">
-        <div class="sm-cats" id="sm-cats" role="group" aria-label="Categoria"></div>
-        <div id="simulador" class="pl-sim" data-home aria-live="polite"></div>
-      </div>
-      <div id="an-quadro" role="tabpanel" hidden>
-        <iframe class="rx-quadro" id="rx-quadro" title="Raio-x e telemetria" scrolling="no"></iframe>
-      </div>
-      <script>
-        /* cartões: o simulador fica na página; Raio-x e Telemetria vêm da página raiox.html (embutida, carregada só no primeiro toque) */
-        (function () {
-          var cartoes = [].slice.call(document.querySelectorAll('.an-cartao'));
-          var sim = document.getElementById('simulador-demo'), caixa = document.getElementById('an-quadro'), q = document.getElementById('rx-quadro');
-          window.addEventListener('message', function (e) {
-            if (e.origin !== location.origin || !e.data || !e.data.rxAltura) return;
-            q.style.height = Math.ceil(e.data.rxAltura) + 'px';
-          });
-          q.addEventListener('load', function () { try { q.contentWindow.postMessage({ rxPedeAltura: 1 }, location.origin); } catch (er) {} });
-          function abrir(id) {
-            cartoes.forEach(function (c) { c.setAttribute('aria-selected', c.getAttribute('data-an') === id); });
-            sim.hidden = id !== 'titulo'; caixa.hidden = id === 'titulo';
-            if (id === 'titulo') return;
-            if (!q.getAttribute('src')) q.setAttribute('src', 'raiox.html?embutido=1&modo=' + id);
-            else try { q.contentWindow.postMessage({ rxModo: id }, location.origin); } catch (er) {}
-          }
-          cartoes.forEach(function (c) { c.addEventListener('click', function () { abrir(c.getAttribute('data-an')); }); });
-        })();
-      </script>
     </div>
   </section>
 

@@ -142,7 +142,7 @@
     function tile(icone, href, txt) { return '<a class="pm-tile" href="' + href + '">' + ic(icone) + '<span>' + txt + '</span></a>'; }
     var ESP_PAINEL = [
       { slug: 'automobilismo', nome: 'Automobilismo', icone: 'carro',
-        atalhos: tile('noticias', 'noticias.html', 'Notícias') + tile('tv', 'onde-assistir.html', 'Onde assistir') + tile('raiox', './#analise', 'Raio-x e telemetria') +
+        atalhos: tile('noticias', 'noticias.html', 'Notícias') + tile('tv', 'onde-assistir.html', 'Onde assistir') + tile('raiox', 'raiox.html', 'Raio-x e telemetria') +
           tile('guia', 'guia.html', 'Guia') + tile('jogos', 'jogos.html', 'Jogos') + tile('relogio', 'horarios.html', 'Horários'),
         corpo: GRUPOS.map(function (g) {
           return '<section class="painel-grupo"><h2>' + esc(g.nome) + '</h2><ul class="painel-lista">' + g.cats.map(function (c) {
