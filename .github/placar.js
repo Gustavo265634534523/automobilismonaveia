@@ -32,7 +32,7 @@ const LIGAS = [
   { slug: 'bundesliga', liga: 'soccer/ger.1', tabela: true },
   { slug: 'serie-a', liga: 'soccer/ita.1', tabela: true },
   { slug: 'ligue-1', liga: 'soccer/fra.1', tabela: true },
-  { slug: 'nba', liga: 'basketball/nba', tabela: true, porDia: true }
+  { slug: 'nba', liga: 'basketball/nba', tabela: true }
 ];
 
 /* nome da ESPN -> nome usado no site (só quando a comparação sem acento não resolve) */
@@ -51,7 +51,7 @@ const APELIDO = {
   'PSV Eindhoven': 'PSV', 'FC Porto': 'Porto', 'Club Brugge KV': 'Club Brugge', 'Shakhtar': 'Shakhtar Donetsk', 'Monaco': 'Monaco', 'AS Monaco': 'Monaco',
   'Stade Rennais': 'Rennes', 'Stade Brestois': 'Brest', 'Strasbourg': 'Strasbourg', 'RC Strasbourg': 'Strasbourg', 'Le Havre AC': 'Le Havre',
   'Gremio': 'Grêmio', 'Sao Paulo': 'São Paulo', 'Vitoria': 'Vitória', 'Ceara': 'Ceará', 'Clube do Remo': 'Remo', 'Chapecoense-SC': 'Chapecoense',
-  'Estudiantes de La Plata': 'Estudiantes', 'LA Clippers': 'LA Clippers', 'Los Angeles Clippers': 'LA Clippers'
+  'Estudiantes de La Plata': 'Estudiantes', 'Deportivo': 'Deportivo La Coruña', 'LASK Linz': 'LASK', 'Viking FK': 'Viking', 'LA Clippers': 'LA Clippers', 'Los Angeles Clippers': 'LA Clippers'
 };
 const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
   .replace(/\b(fc|cf|ac|as|sc|afc|ssc|ec|se|cr|ca|club|clube|de|da|do|futebol|calcio|sv|vfb|vfl|tsg|bc|1)\b/g, ' ')
@@ -99,6 +99,7 @@ function brasilia(iso) {
   const t = new Date(Date.parse(iso) - 3 * 3600e3).toISOString();
   return { d: t.slice(0, 10), h: t.slice(11, 16) };
 }
+const DIAS_ANTES = 7, DIAS_DEPOIS = 16;
 const ymd = dt => dt.toISOString().slice(0, 10).replace(/-/g, '');
 const FASES = [
   [/final/i, 'Final'], [/semi/i, 'Semifinal'], [/quarter/i, 'Quartas de final'], [/round of 16|octavos|eighth/i, 'Oitavas de final'],
@@ -120,7 +121,8 @@ function jogoDe(ev, esporte) {
   const st = ev.status || comp.status || {}, tipo = st.type || {};
   const { d, h } = brasilia(ev.date);
   const j = { id: ev.id, d, h, casa: nomeSite(casa.team, esporte), fora: nomeSite(fora.team, esporte) };
-  const f = fase(ev, comp); if (f) j.fase = f;
+  const f = esporte === 'basketball' ? (/cup|group/i.test(((comp.notes || [])[0] || {}).headline || '') ? 'Copa da NBA' : (ev.season && ev.season.type === 3 ? 'Playoffs' : '')) : fase(ev, comp);
+  if (f) j.fase = f;
   if (comp.venue && comp.venue.fullName) j.l = comp.venue.fullName;
   const placar = (casa.score || '0') + ' x ' + (fora.score || '0');
   if (tipo.state === 'post' && tipo.completed) {
@@ -137,27 +139,26 @@ function jogoDe(ev, esporte) {
 }
 
 async function jogosDa(l) {
-  const hoje = new Date(), de = new Date(hoje - 10 * 864e5), ate = new Date(+hoje + 21 * 864e5);
+  const hoje = new Date(), de = new Date(hoje - DIAS_ANTES * 864e5), ate = new Date(+hoje + DIAS_DEPOIS * 864e5);
   const esporte = l.liga.split('/')[0];
   const eventos = [];
-  if (l.porDia) {
-    for (let t = +new Date(hoje - 5 * 864e5); t <= +hoje + 12 * 864e5; t += 864e5) {
-      const j = await pedir(API + l.liga + '/scoreboard?dates=' + ymd(new Date(t)));
-      if (j && j.events) eventos.push(...j.events);
-    }
-  } else {
-    const j = await pedir(API + l.liga + '/scoreboard?limit=500&dates=' + ymd(de) + '-' + ymd(ate));
-    if (j && j.events) eventos.push(...j.events);
+  /* um pedido por dia (o intervalo de datas não funciona no futebol), de 6 em 6 ao mesmo tempo */
+  const dias = [];
+  for (let t = +de; t <= +ate; t += 864e5) dias.push(ymd(new Date(t)));
+  for (let i = 0; i < dias.length; i += 6) {
+    const r = await Promise.all(dias.slice(i, i + 6).map(d => pedir(API + l.liga + '/scoreboard?limit=200&dates=' + d)));
+    r.forEach(j => { if (j && j.events) eventos.push(...j.events); });
   }
   const vistos = new Set();
-  return eventos.filter(e => !vistos.has(e.id) && vistos.add(e.id)).map(e => jogoDe(e, esporte)).filter(Boolean)
+  /* na NBA, fora a pré-temporada (season.type 1) */
+  return eventos.filter(e => !vistos.has(e.id) && vistos.add(e.id) && !(esporte === 'basketball' && e.season && e.season.type === 1)).map(e => jogoDe(e, esporte)).filter(Boolean)
     .sort((a, b) => (a.d + (a.h || '')) < (b.d + (b.h || '')) ? -1 : 1);
 }
 
 function stat(e, nome) { const s = (e.stats || []).find(x => x.name === nome); return s ? s.value : null; }
 async function tabelaDa(l) {
   const esporte = l.liga.split('/')[0];
-  const j = await pedir(API_TAB + l.liga + '/standings');
+  const j = await pedir(API_TAB + l.liga + '/standings' + (esporte === 'basketball' ? '?seasontype=2' : ''));
   if (!j) return null;
   const grupos = (j.children && j.children.length ? j.children : [j]).filter(g => g.standings && g.standings.entries && g.standings.entries.length);
   if (!grupos.length) return null;
@@ -167,7 +168,9 @@ async function tabelaDa(l) {
       return { nome: /east/i.test(g.name) ? 'Leste' : 'Oeste', linhas: ent.map((e, i) => [String(i + 1), nomeSite(e.team, esporte), stat(e, 'wins') + '-' + stat(e, 'losses')]),
         jogos: ent.reduce((s, e) => s + (stat(e, 'wins') || 0) + (stat(e, 'losses') || 0), 0) };
     });
-    if (!conf.some(c => c.jogos > 0)) return null; /* temporada ainda não começou: fica a tabela do site */
+    /* temporada ainda não começou (ou a ESPN ainda devolve a passada): fica a tabela do site */
+    const maxJ = Math.max(...conf.map(c => Math.max(...c.linhas.map(x => x[2].split('-').reduce((a, b) => +a + +b, 0)))));
+    if (!maxJ || maxJ > diasDeTemporada() + 1) return null;
     const L = conf.find(c => c.nome === 'Leste') || conf[0], O = conf.find(c => c.nome === 'Oeste') || conf[1];
     return {
       tabela: { titulo: 'Conferência Leste', colunas: ['Pos', 'Time', 'V-D'], linhas: L.linhas },
@@ -187,6 +190,12 @@ async function tabelaDa(l) {
   };
 }
 
+/* dias desde o começo da temporada regular da NBA (por volta de 20 de outubro) */
+function diasDeTemporada() {
+  const h = new Date(), ano = h.getUTCMonth() >= 8 ? h.getUTCFullYear() : h.getUTCFullYear() - 1;
+  return Math.max(0, Math.floor((h - Date.UTC(ano, 9, 20)) / 864e5));
+}
+
 /* líderes da NBA (pontos, rebotes e assistências por jogo). Começo de temporada sem jogos suficientes: usa a anterior. */
 async function lideresNBA() {
   const agora = new Date(), ano = agora.getUTCMonth() >= 8 ? agora.getUTCFullYear() + 1 : agora.getUTCFullYear();
@@ -195,6 +204,9 @@ async function lideresNBA() {
     for (const [chave, campo] of [['pts', 'avgPoints'], ['reb', 'avgRebounds'], ['ast', 'avgAssists']]) {
       out[chave] = await porAtleta(temporada, campo);
     }
+    /* a ESPN devolve a temporada passada quando a atual ainda não tem números: confere pelo número de jogos */
+    const maxJ = Math.max(0, ...out.pts.map(x => +x[3] || 0));
+    if (temporada === ano && maxJ > diasDeTemporada() + 1) continue;
     if (out.pts.length >= 5) return out;
   }
   return null;
@@ -233,7 +245,7 @@ function nomeTimeNBA(at) {
     const t = l.tabela ? await tabelaDa(l) : null;
     if (!jogos.length && !t) { if (antes.comps && antes.comps[l.slug]) comps[l.slug] = antes.comps[l.slug]; console.log(l.slug + ': sem resposta, mantém o anterior'); continue; }
     const hoje = new Date();
-    comps[l.slug] = Object.assign({ liga: l.liga, de: brasilia(new Date(hoje - (l.porDia ? 5 : 10) * 864e5).toISOString()).d, ate: brasilia(new Date(+hoje + (l.porDia ? 12 : 21) * 864e5).toISOString()).d, jogos }, t || {});
+    comps[l.slug] = Object.assign({ liga: l.liga, de: brasilia(new Date(hoje - DIAS_ANTES * 864e5).toISOString()).d, ate: brasilia(new Date(+hoje + DIAS_DEPOIS * 864e5).toISOString()).d, jogos }, t || {});
     console.log(l.slug + ':', jogos.length, 'jogos', t ? '+ tabela' : '');
   }
   if (!Object.keys(comps).length) { console.log('a ESPN não respondeu; nada muda'); return; }
