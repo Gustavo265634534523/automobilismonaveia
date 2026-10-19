@@ -92,7 +92,7 @@ function casar(nome, lista, esporte) {
   const ok = lista.filter(t => t.strBadge && t.strSport === (esporte === 'basquete' ? 'Basketball' : 'Soccer') && !/women|feminin|femenin|ladies|\bu ?\d\d\b|\bii\b/.test(norm(t.strTeam)));
   const nomesDe = t => [t.strTeam, t.strTeamShort].concat(String(t.strTeamAlternate || '').split(',')).filter(Boolean).map(norm);
   return ok.find(t => nomesDe(t).some(n => alvos.includes(n))) ||
-    ok.find(t => nomesDe(t).some(n => alvos.some(a => a.length >= 5 && (n.startsWith(a + ' ') || n.endsWith(' ' + a)))));
+    ok.find(t => nomesDe(t).some(n => alvos.some(a => a.length >= 5 && n.startsWith(a + ' ')))); /* só no começo: 'Sporting' não pode virar 'Ceará Sporting' */
 }
 
 (async () => {

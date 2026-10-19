@@ -36,10 +36,11 @@
   var trilho = document.getElementById('ft-recentes');
   trilho.innerHTML = feitos.slice(0, 16).map(function (x) {
     var j = x.j, pl = String(j.p).split(/\s*x\s*/);
-    return '<a class="ft-res" href="' + x.c.slug + '.html#jogos"><span class="ft-res-topo"><span>Encerrado</span><b>' + esc(x.c.menu) + '</b><span>' + (j.d ? quando(j.d) : esc(j.fase || '')) + '</span></span>' +
-      '<span class="ft-res-meio"><span class="ft-res-time">' + escudo(j.casa) + '<small>' + esc(j.casa) + '</small></span>' +
+    /* só os escudos: o nome fica no title (ao passar o mouse) e no aria-label (leitor de tela) */
+    return '<a class="ft-res" href="' + x.c.slug + '.html#jogos" aria-label="' + esc(j.casa + ' ' + pl[0] + ' x ' + (pl[1] || '') + ' ' + j.fora + ', ' + x.c.menu) + '"><span class="ft-res-topo"><span>Encerrado</span><b>' + esc(x.c.menu) + '</b><span>' + (j.d ? quando(j.d) : esc(j.fase || '')) + '</span></span>' +
+      '<span class="ft-res-meio"><span class="ft-res-time" title="' + esc(j.casa) + '">' + escudo(j.casa) + '</span>' +
       '<span class="ft-placar">' + esc(pl[0]) + '<i>–</i>' + esc(pl[1] || '') + '</span>' +
-      '<span class="ft-res-time">' + escudo(j.fora) + '<small>' + esc(j.fora) + '</small></span></span></a>';
+      '<span class="ft-res-time" title="' + esc(j.fora) + '">' + escudo(j.fora) + '</span></span></a>';
   }).join('');
   function rolar(d) { trilho.scrollBy({ left: d * trilho.clientWidth * .8, behavior: 'smooth' }); }
   document.getElementById('ft-rec-ant').addEventListener('click', function () { rolar(-1); });
@@ -50,8 +51,9 @@
   var agenda = proximos.filter(function (x) { conta[x.c.slug] = (conta[x.c.slug] || 0) + 1; return conta[x.c.slug] <= 2 && x !== grande; }).slice(0, 6);
   document.getElementById('ft-agenda').innerHTML = agenda.map(function (x) {
     var j = x.j;
-    return '<a class="ft-jogo" href="' + x.c.slug + '.html#jogos"><span class="ft-jogo-escudos">' + escudo(j.casa) + escudo(j.fora) + '</span>' +
-      '<b>' + esc(j.casa) + ' x ' + esc(j.fora) + '</b><small>' + esc(x.c.menu) + (j.fase ? ' · ' + esc(j.fase) : '') + '</small>' +
+    return '<a class="ft-jogo" href="' + x.c.slug + '.html#jogos" aria-label="' + esc(j.casa + ' x ' + j.fora + ', ' + x.c.menu) + '">' +
+      '<span class="ft-jogo-escudos"><span title="' + esc(j.casa) + '">' + escudo(j.casa) + '</span><em>x</em><span title="' + esc(j.fora) + '">' + escudo(j.fora) + '</span></span>' +
+      '<small>' + esc(x.c.menu) + (j.fase ? ' · ' + esc(j.fase) : '') + '</small>' +
       '<span class="ft-jogo-quando"><strong>' + diaSemana(j.d) + ', ' + window.dataCurta(j.d) + '</strong>' + (j.h ? esc(j.h) : 'Horário a confirmar') + '</span>' +
       (j.l ? '<span class="ft-jogo-local">' + esc(j.l) + '</span>' : '') + '<span class="ft-jogo-mais">Detalhes →</span></a>';
   }).join('') || '<p class="ft-vazio">Os próximos jogos aparecem aqui assim que forem confirmados.</p>';
