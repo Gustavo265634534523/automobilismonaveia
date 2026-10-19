@@ -1,4 +1,2 @@
 Times da ESPN que não casaram com um nome do site (entram com o nome da ESPN; acrescente em APELIDO no placar.js se for o mesmo time):
-soccer: Deportivo (id 90)
-soccer: LASK Linz (id 4411)
-soccer: Viking FK (id 510)
+
