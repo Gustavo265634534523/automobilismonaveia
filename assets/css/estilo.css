@@ -612,7 +612,7 @@ a.torre-cat:hover, a.torre-evento:hover { color: var(--sangue-vivo); }
 .indice-grupo-cab p { margin: 0; color: var(--aco); font-size: 16px; }
 .painel-grupo + .painel-grupo { margin-top: 30px; }
 .painel-grupo h2 { margin: 0 0 12px; font-size: 18px; font-weight: 700; color: var(--sangue-vivo); }
-.painel-grupo .painel-lista { grid-template-columns: repeat(5, 1fr); }
+.painel-grupo .painel-lista { grid-template-columns: repeat(3, 1fr); } /* 6 categorias = duas fileiras de 3 */
 @media (max-width: 1080px) { .painel-grupo .painel-lista { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 620px) { .painel-grupo .painel-lista { grid-template-columns: 1fr; } }
 .rodape-grade { grid-template-columns: minmax(0, 1.4fr) repeat(5, minmax(0, 1fr)); gap: 32px; }

@@ -22,7 +22,6 @@
       return '<a class="bq-not bq-not-automobilismo" href="' + (window.linkNoticia ? window.linkNoticia(n.t) : c.slug + '.html') + '"><span class="bq-not-txt"><small>' +
         esc(c.menu || c.nome) + ' · ' + quando(n.d) + '</small><b>' + esc(n.t) + '</b><span>' + esc(String(n.x).split(/(?<=\.)\s/)[0]) + '</span></span></a>';
     }).join('') + '</div></section>' : '') +
-    window.GRUPOS.map(function (g) {
-      return '<section class="comp-grupo"><h2>' + esc(g.nome) + '</h2><div class="comp-grade">' + g.cats.map(cartao).join('') + '</div></section>';
-    }).join('');
+    '<section class="comp-grupo"><h2>Categorias</h2><div class="comp-grade">' +
+      (window.ORDEM_CATS || []).map(function (sl) { return PORSLUG[sl]; }).filter(Boolean).map(cartao).join('') + '</div></section>';
 })();

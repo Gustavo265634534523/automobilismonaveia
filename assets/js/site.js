@@ -70,6 +70,9 @@
     { nome: 'Motos', desc: 'Duas rodas', slugs: ['motogp'] }
   ].map(function (g) { g.cats = g.slugs.map(function (s) { return PORSLUG[s]; }).filter(Boolean); return g; });
   window.GRUPOS = GRUPOS;
+  /* ordem das categorias quando aparecem todas juntas (painel do menu e página Automobilismo) */
+  var ORDEM_CATS = ['formula-1', 'formula-2', 'formula-e', 'motogp', 'porsche-cup', 'endurance'];
+  window.ORDEM_CATS = ORDEM_CATS;
   /* Futebol e basquete: só os nomes, para o menu, o painel e o rodapé (os dados ficam em esportes-dados.js) */
   var ESPORTES_MENU = [
     { slug: 'futebol', nome: 'Futebol', comps: [['brasileirao', 'Brasileirão', 'Brasil'], ['libertadores', 'Libertadores', 'América do Sul'], ['sul-americana', 'Sul-Americana', 'América do Sul'],
@@ -143,7 +146,8 @@
       { slug: 'automobilismo', nome: 'Automobilismo', icone: 'carro',
         atalhos: tile('noticias', 'noticias.html', 'Notícias') + tile('tv', 'onde-assistir.html', 'Onde assistir') + tile('raiox', 'raiox.html', 'Raio-x e telemetria') +
           tile('guia', 'guia.html', 'Guia') + tile('jogos', 'jogos.html', 'Jogos') + tile('relogio', 'horarios.html', 'Horários'),
-        corpo: GRUPOS.map(function (g) {
+        /* todas as categorias juntas, uma do lado da outra, sem separar por grupo */
+        corpo: [{ nome: 'Automobilismo', cats: ORDEM_CATS.map(function (sl) { return PORSLUG[sl]; }).filter(Boolean) }].map(function (g) {
           return '<section class="painel-grupo"><h2>' + esc(g.nome) + '</h2><ul class="painel-lista">' + g.cats.map(function (c) {
             return '<li><a class="painel-cat" href="' + pagina(c) + '"><strong>' + esc(c.nome) + '</strong><span><em>' + esc(c.lider.nome) + '</em><br>' + esc(c.lider.info) + '</span></a>' +
               '<ul class="painel-secoes">' + SECOES.slice(1, 5).map(function (s) { return '<li><a href="' + pagina(c) + '#' + s[0] + '">' + s[1] + '</a></li>'; }).join('') + '</ul></li>';
@@ -375,10 +379,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=327'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=327'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=327'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=327'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=328'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=328'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=328'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=328'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
