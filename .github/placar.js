@@ -1,0 +1,266 @@
+/* Placar automático do futebol e da NBA: busca na ESPN (API pública do site da ESPN, sem chave) os jogos dos últimos
+   10 dias e das próximas 3 semanas, as classificações das ligas e os líderes de estatística da NBA, e grava tudo em
+   assets/dados/ao-vivo.js (window.AO_VIVO). O site junta esses dados aos de esportes-dados.js (assets/js/esportes-mais.js):
+   o que vem daqui vale mais para placar, horário e tabela; o resto (textos, fases, notas) continua vindo de lá.
+   Euroleague e NBB não estão na ESPN e continuam à mão.
+   Nomes dos times: o robô usa o nome que o site já usa (Bayern de Munique, Inter de Milão...). Time novo, que o site ainda
+   não conhece, entra com o nome da ESPN e o escudo da ESPN. Quem não casou fica listado em .github/placar-relatorio.txt.
+   Roda no GitHub (.github/workflows/placar.yml) a cada 30 minutos ou no PC: node .github/placar.js */
+const fs = require('fs');
+const path = require('path');
+const RAIZ = path.join(__dirname, '..');
+const ARQ = path.join(RAIZ, 'assets/dados/ao-vivo.js');
+const ARQ_ESC = path.join(RAIZ, 'assets/dados/escudos.js');
+const RELATORIO = path.join(__dirname, 'placar-relatorio.txt');
+const API = 'https://site.api.espn.com/apis/site/v2/sports/';
+const API_TAB = 'https://site.api.espn.com/apis/v2/sports/';
+
+global.window = {};
+eval(fs.readFileSync(path.join(RAIZ, 'assets/js/esportes-dados.js'), 'utf8'));
+const esc0 = {}; try { new Function('window', fs.readFileSync(ARQ_ESC, 'utf8'))(esc0); } catch (e) { /* sem escudos */ }
+const ESCUDOS = esc0.ESCUDOS || {};
+
+/* campeonato do site -> liga na ESPN. tabela: a ESPN tem classificação (pontos corridos ou fase de liga) */
+const LIGAS = [
+  { slug: 'brasileirao', liga: 'soccer/bra.1', tabela: true },
+  { slug: 'copa-do-brasil', liga: 'soccer/bra.copa_do_brazil' },
+  { slug: 'libertadores', liga: 'soccer/conmebol.libertadores' },
+  { slug: 'sul-americana', liga: 'soccer/conmebol.sudamericana' },
+  { slug: 'champions-league', liga: 'soccer/uefa.champions', tabela: true },
+  { slug: 'premier-league', liga: 'soccer/eng.1', tabela: true },
+  { slug: 'la-liga', liga: 'soccer/esp.1', tabela: true },
+  { slug: 'bundesliga', liga: 'soccer/ger.1', tabela: true },
+  { slug: 'serie-a', liga: 'soccer/ita.1', tabela: true },
+  { slug: 'ligue-1', liga: 'soccer/fra.1', tabela: true },
+  { slug: 'nba', liga: 'basketball/nba', tabela: true, porDia: true }
+];
+
+/* nome da ESPN -> nome usado no site (só quando a comparação sem acento não resolve) */
+const APELIDO = {
+  'Bayern Munich': 'Bayern de Munique', 'Internazionale': 'Inter de Milão', 'Inter Milan': 'Inter de Milão', 'AC Milan': 'Milan', 'AS Roma': 'Roma',
+  'Atlético Madrid': 'Atlético de Madrid', 'Atletico Madrid': 'Atlético de Madrid', 'Atlético-MG': 'Atlético-MG', 'Atletico-MG': 'Atlético-MG', 'Atlético Mineiro': 'Atlético-MG',
+  'Athletico-PR': 'Athletico-PR', 'Athletico Paranaense': 'Athletico-PR', 'Bragantino': 'Red Bull Bragantino', 'RB Bragantino': 'Red Bull Bragantino',
+  'Vasco da Gama': 'Vasco', 'Marseille': 'Olympique de Marselha', 'Olympique Marseille': 'Olympique de Marselha', 'Olympique Lyonnais': 'Lyon',
+  'Paris Saint-Germain': 'Paris Saint-Germain', 'Sporting CP': 'Sporting', 'Borussia Monchengladbach': 'Borussia Mönchengladbach',
+  '1. FC Köln': 'Colônia', 'FC Cologne': 'Colônia', 'FC Koln': 'Colônia', 'Hamburg SV': 'Hamburgo', 'Hamburger SV': 'Hamburgo', 'Mainz': 'Mainz 05', '1. FSV Mainz 05': 'Mainz 05',
+  'VfB Stuttgart': 'Stuttgart', 'SC Freiburg': 'Freiburg', 'TSG Hoffenheim': 'Hoffenheim', 'FC Augsburg': 'Augsburg', 'SV Elversberg': 'Elversberg', 'SC Paderborn 07': 'Paderborn',
+  'Tottenham Hotspur': 'Tottenham', 'Newcastle United': 'Newcastle', 'Brighton & Hove Albion': 'Brighton', 'AFC Bournemouth': 'Bournemouth', 'Wolverhampton Wanderers': 'Wolverhampton',
+  'West Ham United': 'West Ham', 'Leeds': 'Leeds United', 'Ipswich': 'Ipswich Town', 'Hull': 'Hull City', 'Coventry': 'Coventry City',
+  'Deportivo La Coruna': 'Deportivo La Coruña', 'Deportivo de La Coruña': 'Deportivo La Coruña', 'Celta Vigo': 'Celta de Vigo', 'Athletic Club': 'Athletic Bilbao', 'Alaves': 'Alavés', 'Racing de Santander': 'Racing Santander',
+  'Malaga': 'Málaga', 'Spal': 'SPAL', 'Bodo/Glimt': 'Bodø/Glimt', 'FK Bodo/Glimt': 'Bodø/Glimt', 'AEK Athens': 'AEK Atenas', 'Slavia Prague': 'Slavia Praga', 'Fenerbahce': 'Fenerbahçe',
+  'PSV Eindhoven': 'PSV', 'FC Porto': 'Porto', 'Club Brugge KV': 'Club Brugge', 'Shakhtar': 'Shakhtar Donetsk', 'Monaco': 'Monaco', 'AS Monaco': 'Monaco',
+  'Stade Rennais': 'Rennes', 'Stade Brestois': 'Brest', 'Strasbourg': 'Strasbourg', 'RC Strasbourg': 'Strasbourg', 'Le Havre AC': 'Le Havre',
+  'Gremio': 'Grêmio', 'Sao Paulo': 'São Paulo', 'Vitoria': 'Vitória', 'Ceara': 'Ceará', 'Clube do Remo': 'Remo', 'Chapecoense-SC': 'Chapecoense',
+  'Estudiantes de La Plata': 'Estudiantes', 'LA Clippers': 'LA Clippers', 'Los Angeles Clippers': 'LA Clippers'
+};
+const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+  .replace(/\b(fc|cf|ac|as|sc|afc|ssc|ec|se|cr|ca|club|clube|de|da|do|futebol|calcio|sv|vfb|vfl|tsg|bc|1)\b/g, ' ')
+  .replace(/[^a-z0-9]+/g, ' ').trim();
+const arquivo = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+
+/* nomes que o site já conhece, por esporte */
+const conhecidos = { soccer: {}, basketball: {} };
+for (const c of window.COMPETICOES) {
+  const k = c.esporte === 'basquete' ? 'basketball' : 'soccer';
+  const add = n => { if (n && !/^(a definir|vencedor|perdedor)/i.test(n)) conhecidos[k][norm(n)] = n; };
+  (c.jogos || []).forEach(j => { add(j.casa); add(j.fora); });
+  (c.confrontos || []).forEach(x => { add(x.a); add(x.b); });
+  [c.tabela, c.tabela2].forEach(t => { if (!t) return; const i = t.colunas.indexOf('Time'); if (i > -1) t.linhas.forEach(l => add(l[i])); });
+}
+Object.keys(ESCUDOS).forEach(n => { conhecidos.soccer[norm(n)] = conhecidos.soccer[norm(n)] || n; });
+
+const naoCasou = new Set(), novosEscudos = [];
+const ids = {}; /* 's123' / 'b13' -> nome no site, para o placar ao vivo no navegador */
+function nomeSite(team, esporte) {
+  const k = esporte === 'basketball' ? 'basketball' : 'soccer';
+  const cand = [team.displayName, team.shortDisplayName, team.name, team.location].filter(Boolean);
+  let nome = null;
+  for (const c of cand) { if (APELIDO[c]) { nome = APELIDO[c]; break; } }
+  if (!nome) for (const c of cand) { const n = conhecidos[k][norm(c)]; if (n) { nome = n; break; } }
+  if (!nome) { nome = team.displayName; naoCasou.add(esporte + ': ' + team.displayName + ' (id ' + team.id + ')'); }
+  ids[(k === 'basketball' ? 'b' : 's') + team.id] = nome;
+  if (!ESCUDOS[nome] && team.id && esporte === 'soccer') novosEscudos.push({ nome, id: team.id });
+  return nome;
+}
+
+async function pedir(u, tipo) {
+  for (let i = 0; i < 3; i++) {
+    try {
+      const r = await fetch(u, { signal: AbortSignal.timeout(20000), headers: { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) NaVeia/1.0' } });
+      if (!r.ok) { if (r.status >= 500) continue; return null; }
+      return tipo === 'buffer' ? Buffer.from(await r.arrayBuffer()) : await r.json();
+    } catch (e) { /* rede: tenta de novo */ }
+  }
+  return null;
+}
+
+/* horário de Brasília (UTC-3, sem horário de verão) */
+function brasilia(iso) {
+  const t = new Date(Date.parse(iso) - 3 * 3600e3).toISOString();
+  return { d: t.slice(0, 10), h: t.slice(11, 16) };
+}
+const ymd = dt => dt.toISOString().slice(0, 10).replace(/-/g, '');
+const FASES = [
+  [/final/i, 'Final'], [/semi/i, 'Semifinal'], [/quarter/i, 'Quartas de final'], [/round of 16|octavos|eighth/i, 'Oitavas de final'],
+  [/knockout round playoff|playoff/i, 'Playoff'], [/round of 32/i, 'Segunda fase'], [/third round/i, 'Terceira fase'], [/group/i, 'Fase de grupos']
+];
+function fase(ev, comp) {
+  const nota = ((comp.notes || [])[0] || {}).headline || (ev.season && ev.season.slug) || '';
+  let f = '';
+  for (const [re, nome] of FASES) if (re.test(nota)) { f = nome; break; }
+  if (f && /1st leg|first leg|ida/i.test(nota)) f += ' – ida';
+  if (f && /2nd leg|second leg|volta/i.test(nota)) f += ' – volta';
+  return f;
+}
+
+function jogoDe(ev, esporte) {
+  const comp = (ev.competitions || [])[0]; if (!comp) return null;
+  const casa = comp.competitors.find(x => x.homeAway === 'home'), fora = comp.competitors.find(x => x.homeAway === 'away');
+  if (!casa || !fora) return null;
+  const st = ev.status || comp.status || {}, tipo = st.type || {};
+  const { d, h } = brasilia(ev.date);
+  const j = { id: ev.id, d, h, casa: nomeSite(casa.team, esporte), fora: nomeSite(fora.team, esporte) };
+  const f = fase(ev, comp); if (f) j.fase = f;
+  if (comp.venue && comp.venue.fullName) j.l = comp.venue.fullName;
+  const placar = (casa.score || '0') + ' x ' + (fora.score || '0');
+  if (tipo.state === 'post' && tipo.completed) {
+    j.p = placar;
+    if (casa.shootoutScore != null && fora.shootoutScore != null) j.pen = casa.shootoutScore + ' x ' + fora.shootoutScore;
+  } else if (tipo.state === 'in') {
+    j.vivo = { p: placar, min: tipo.shortDetail || st.displayClock || '' };
+  } else if (/POSTPONED|CANCELED|SUSPENDED/.test(tipo.name || '')) {
+    j.adiado = true; delete j.h;
+  } else if (tipo.name === 'STATUS_SCHEDULED' && /TBD/i.test(tipo.shortDetail || '')) {
+    delete j.h; /* horário a confirmar */
+  }
+  return j;
+}
+
+async function jogosDa(l) {
+  const hoje = new Date(), de = new Date(hoje - 10 * 864e5), ate = new Date(+hoje + 21 * 864e5);
+  const esporte = l.liga.split('/')[0];
+  const eventos = [];
+  if (l.porDia) {
+    for (let t = +new Date(hoje - 5 * 864e5); t <= +hoje + 12 * 864e5; t += 864e5) {
+      const j = await pedir(API + l.liga + '/scoreboard?dates=' + ymd(new Date(t)));
+      if (j && j.events) eventos.push(...j.events);
+    }
+  } else {
+    const j = await pedir(API + l.liga + '/scoreboard?limit=500&dates=' + ymd(de) + '-' + ymd(ate));
+    if (j && j.events) eventos.push(...j.events);
+  }
+  const vistos = new Set();
+  return eventos.filter(e => !vistos.has(e.id) && vistos.add(e.id)).map(e => jogoDe(e, esporte)).filter(Boolean)
+    .sort((a, b) => (a.d + (a.h || '')) < (b.d + (b.h || '')) ? -1 : 1);
+}
+
+function stat(e, nome) { const s = (e.stats || []).find(x => x.name === nome); return s ? s.value : null; }
+async function tabelaDa(l) {
+  const esporte = l.liga.split('/')[0];
+  const j = await pedir(API_TAB + l.liga + '/standings');
+  if (!j) return null;
+  const grupos = (j.children && j.children.length ? j.children : [j]).filter(g => g.standings && g.standings.entries && g.standings.entries.length);
+  if (!grupos.length) return null;
+  if (esporte === 'basketball') {
+    const conf = grupos.map(g => {
+      const ent = g.standings.entries.slice().sort((a, b) => (stat(a, 'playoffSeed') || 99) - (stat(b, 'playoffSeed') || 99));
+      return { nome: /east/i.test(g.name) ? 'Leste' : 'Oeste', linhas: ent.map((e, i) => [String(i + 1), nomeSite(e.team, esporte), stat(e, 'wins') + '-' + stat(e, 'losses')]),
+        jogos: ent.reduce((s, e) => s + (stat(e, 'wins') || 0) + (stat(e, 'losses') || 0), 0) };
+    });
+    if (!conf.some(c => c.jogos > 0)) return null; /* temporada ainda não começou: fica a tabela do site */
+    const L = conf.find(c => c.nome === 'Leste') || conf[0], O = conf.find(c => c.nome === 'Oeste') || conf[1];
+    return {
+      tabela: { titulo: 'Conferência Leste', colunas: ['Pos', 'Time', 'V-D'], linhas: L.linhas },
+      tabela2: O ? { titulo: 'Conferência Oeste', colunas: ['Pos', 'Time', 'V-D'], linhas: O.linhas } : undefined
+    };
+  }
+  const ent = grupos[0].standings.entries.slice().sort((a, b) => (stat(a, 'rank') || 99) - (stat(b, 'rank') || 99) || (stat(b, 'points') || 0) - (stat(a, 'points') || 0));
+  const jogados = ent.reduce((s, e) => s + (stat(e, 'gamesPlayed') || 0), 0);
+  if (!jogados) return null;
+  const sg = v => (v > 0 ? '+' : '') + v;
+  return {
+    tabela: {
+      titulo: 'Classificação', colunas: ['Pos', 'Time', 'Pts', 'J', 'V', 'E', 'D', 'SG'],
+      linhas: ent.map((e, i) => [String(stat(e, 'rank') || i + 1), nomeSite(e.team, esporte), String(stat(e, 'points')), String(stat(e, 'gamesPlayed')),
+        String(stat(e, 'wins')), String(stat(e, 'ties')), String(stat(e, 'losses')), sg(stat(e, 'pointDifferential') || 0)])
+    }
+  };
+}
+
+/* líderes da NBA (pontos, rebotes e assistências por jogo). Começo de temporada sem jogos suficientes: usa a anterior. */
+async function lideresNBA() {
+  const agora = new Date(), ano = agora.getUTCMonth() >= 8 ? agora.getUTCFullYear() + 1 : agora.getUTCFullYear();
+  for (const temporada of [ano, ano - 1]) {
+    const out = { temporada: (temporada - 1) + '/' + String(temporada).slice(2) };
+    for (const [chave, campo] of [['pts', 'avgPoints'], ['reb', 'avgRebounds'], ['ast', 'avgAssists']]) {
+      out[chave] = await porAtleta(temporada, campo);
+    }
+    if (out.pts.length >= 5) return out;
+  }
+  return null;
+}
+async function porAtleta(temporada, campo) {
+  const grupo = campo === 'avgRebounds' ? 'general' : 'offensive';
+  const u = 'https://site.web.api.espn.com/apis/common/v3/sports/basketball/nba/statistics/byathlete?region=us&lang=en&contentorigin=espn&isqualified=true&page=1&limit=10&season=' + temporada + '&seasontype=2&sort=' + grupo + '.' + campo + ':desc';
+  const j = await pedir(u);
+  if (!j || !j.athletes) return [];
+  const cats = j.categories || [];
+  return j.athletes.slice(0, 10).map(a => {
+    let valor = null, jogos = null;
+    (a.categories || []).forEach((c, i) => {
+      const nomes = (cats.find(x => x.name === c.name) || cats[i] || {}).names || [];
+      const k = nomes.indexOf(campo); if (k > -1 && c.values) valor = c.values[k];
+      const g = nomes.indexOf('gamesPlayed'); if (g > -1 && c.values && jogos == null) jogos = c.values[g];
+    });
+    const at = a.athlete || {};
+    const time = at.teamName || at.teamShortName || '';
+    return valor == null ? null : [at.displayName, nomeTimeNBA(at), valor.toFixed(1).replace('.', ','), jogos == null ? '' : String(Math.round(jogos)), (at.headshot && at.headshot.href) || ''];
+  }).filter(Boolean);
+}
+/* o time do jogador vem só com a sigla ou o apelido: casa com o nome completo que o site usa */
+function nomeTimeNBA(at) {
+  const cand = [at.teamName, at.teamShortName].filter(Boolean).map(norm);
+  const lista = Object.values(conhecidos.basketball);
+  return lista.find(n => cand.some(c => norm(n) === c || norm(n).endsWith(' ' + c))) || at.teamName || at.teamShortName || '';
+}
+
+(async () => {
+  let antes = {};
+  try { const w = {}; new Function('window', fs.readFileSync(ARQ, 'utf8'))(w); antes = w.AO_VIVO || {}; } catch (e) { /* primeira vez */ }
+  const comps = {};
+  for (const l of LIGAS) {
+    const jogos = await jogosDa(l);
+    const t = l.tabela ? await tabelaDa(l) : null;
+    if (!jogos.length && !t) { if (antes.comps && antes.comps[l.slug]) comps[l.slug] = antes.comps[l.slug]; console.log(l.slug + ': sem resposta, mantém o anterior'); continue; }
+    const hoje = new Date();
+    comps[l.slug] = Object.assign({ liga: l.liga, de: brasilia(new Date(hoje - (l.porDia ? 5 : 10) * 864e5).toISOString()).d, ate: brasilia(new Date(+hoje + (l.porDia ? 12 : 21) * 864e5).toISOString()).d, jogos }, t || {});
+    console.log(l.slug + ':', jogos.length, 'jogos', t ? '+ tabela' : '');
+  }
+  if (!Object.keys(comps).length) { console.log('a ESPN não respondeu; nada muda'); return; }
+  const lideres = await lideresNBA();
+  if (lideres) console.log('líderes NBA', lideres.temporada, lideres.pts.length);
+
+  /* escudo da ESPN para time que o site ainda não tem */
+  for (const n of novosEscudos) {
+    if (ESCUDOS[n.nome]) continue;
+    const img = await pedir('https://a.espncdn.com/combiner/i?img=/i/teamlogos/soccer/500/' + n.id + '.png&w=96&h=96', 'buffer');
+    if (!img || img.length < 300) continue;
+    const destino = 'assets/img/escudos/espn-' + arquivo(n.nome) + '.png';
+    fs.writeFileSync(path.join(RAIZ, destino), img);
+    ESCUDOS[n.nome] = destino;
+    console.log('escudo novo:', n.nome);
+  }
+  if (novosEscudos.length) {
+    const ord = {}; Object.keys(ESCUDOS).sort().forEach(k => { ord[k] = ESCUDOS[k]; });
+    const cab = fs.readFileSync(ARQ_ESC, 'utf8').split('\n')[0];
+    fs.writeFileSync(ARQ_ESC, cab + '\nwindow.ESCUDOS = ' + JSON.stringify(ord) + ';\n');
+  }
+
+  const dados = { comps, lideres: lideres ? { nba: lideres } : (antes.lideres || {}), ids };
+  const igual = JSON.stringify(dados) === JSON.stringify({ comps: antes.comps, lideres: antes.lideres, ids: antes.ids });
+  if (igual) { console.log('sem novidade'); return; }
+  dados.atualizado = new Date().toISOString();
+  fs.writeFileSync(ARQ, '/* Gerado por .github/placar.js (dados: ESPN). Não editar à mão. */\nwindow.AO_VIVO = ' + JSON.stringify(dados) + ';\n');
+  fs.writeFileSync(RELATORIO, 'Times da ESPN que não casaram com um nome do site (entram com o nome da ESPN; acrescente em APELIDO no placar.js se for o mesmo time):\n' + [...naoCasou].sort().join('\n') + '\n');
+  console.log('gravado. não casaram:', naoCasou.size);
+})();
