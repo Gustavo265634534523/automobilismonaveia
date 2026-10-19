@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '18 de outubro de 2026';
+window.ATUALIZADO = '19 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -263,7 +263,7 @@ window.CATEGORIAS = [
     { e: 7, n: 'Etapa 7', l: 'Santa Cruz do Sul (RS)', d: '2026-08-09', venc: 'Felipe Baptista e Felipe Fraga' },
     { e: 8, n: 'Etapa 8', l: 'Curvelo (MG)', d: '2026-09-06', venc: 'Léo Reis e César Ramos' },
     { e: 9, n: 'Etapa 9, endurance', l: 'Brasília (DF)', d: '2026-09-27', s: [{ t: 'Classificação', d: '2026-09-26', h: '14:15' }, { t: 'Warm-up', d: '2026-09-27', h: '09:15' }, { t: 'Corrida de 2 horas', d: '2026-09-27', h: '12:15' }], venc: 'Sérgio Sette Câmara e Lucas di Grassi' },
-    { e: 10, n: 'Etapa 10, endurance', l: 'Goiânia (GO)', d: '2026-10-18', nota: 'primeira prova de endurance da história da Stock Car, 3 horas em duplas, no Autódromo Internacional de Goiânia' },
+    { e: 10, n: 'Etapa 10', l: 'Cascavel (PR)', d: '2026-10-18', nota: 'transferida de Goiânia para Cascavel, por obras no asfalto do Autódromo Internacional de Goiânia; disputada no formato tradicional, sem duplas', venc: 'Felipe Fraga e Gabriel Casagrande' },
     { e: 11, n: 'Etapa 11', l: 'Velopark (RS)', d: '2026-11-15' },
     { e: 12, n: 'Final', l: 'Interlagos (SP)', d: '2026-12-13' }
   ],
@@ -348,7 +348,7 @@ window.CATEGORIAS = [
     { e: 4, n: '6 Horas de São Paulo', l: 'Interlagos', d: '2026-07-12', venc: 'BMW #15' },
     { e: 5, n: 'Lone Star Le Mans', l: 'Austin', d: '2026-09-06', venc: 'Ferrari #50' },
     { e: 6, n: '6 Horas de Fuji', l: 'Fuji', d: '2026-09-27', venc: 'Toyota #8' },
-    { e: 7, n: '6 Horas de Barcelona', l: 'Montmeló', d: '2026-10-18', s: [{ t: 'Treino livre 1', d: '2026-10-16', h: '06:30' }, { t: 'Treino livre 2', d: '2026-10-16', h: '11:30' }, { t: 'Treino livre 3', d: '2026-10-17', h: '03:50' }, { t: 'Classificação LMGT3', d: '2026-10-17', h: '06:50' }, { t: 'Hyperpole LMGT3', d: '2026-10-17', h: '07:10' }, { t: 'Classificação Hypercar', d: '2026-10-17', h: '10:40' }, { t: 'Hyperpole Hypercar', d: '2026-10-17', h: '11:00' }, { t: 'Corrida', d: '2026-10-18', h: '07:00' }] },
+    { e: 7, n: '6 Horas de Barcelona', l: 'Montmeló', d: '2026-10-18', s: [{ t: 'Treino livre 1', d: '2026-10-16', h: '06:30' }, { t: 'Treino livre 2', d: '2026-10-16', h: '11:30' }, { t: 'Treino livre 3', d: '2026-10-17', h: '03:50' }, { t: 'Classificação LMGT3', d: '2026-10-17', h: '06:50' }, { t: 'Hyperpole LMGT3', d: '2026-10-17', h: '07:10' }, { t: 'Classificação Hypercar', d: '2026-10-17', h: '10:40' }, { t: 'Hyperpole Hypercar', d: '2026-10-17', h: '11:00' }, { t: 'Corrida', d: '2026-10-18', h: '07:00' }], nota: 'Toyota venceu com um 1-2 (#8 e #7) e fechou o título de construtores antes da última etapa, em Monza.', venc: 'Toyota #8' },
     { e: 8, n: '6 Horas de Monza', l: 'Monza', d: '2026-11-08' }
   ],
   classificacao: {
@@ -478,16 +478,16 @@ window.CATEGORIAS = [
     { e: 30, n: 'Hollywood Casino 400', l: 'Kansas', d: '2026-09-27', s: [{ t: 'Treino', d: '2026-09-26', h: '11:00' }, { t: 'Classificação', d: '2026-09-26', h: '12:10' }, { t: 'Corrida', d: '2026-09-27', h: '16:00' }], venc: 'Kyle Larson' },
     { e: 31, n: 'South Point 400', l: 'Las Vegas', d: '2026-10-04', s: [{ t: 'Treino', d: '2026-10-03', h: '17:30' }, { t: 'Classificação', d: '2026-10-03', h: '18:35' }, { t: 'Corrida', d: '2026-10-04', h: '18:30' }], venc: 'Chase Briscoe' },
     { e: 32, n: 'Bank of America 400', l: 'Charlotte', d: '2026-10-11', s: [{ t: 'Treino', d: '2026-10-10', h: '14:00' }, { t: 'Classificação', d: '2026-10-10', h: '15:05' }, { t: 'Corrida', d: '2026-10-11', h: '16:00' }], venc: 'Chase Briscoe' },
-    { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18', s: [{ t: 'Treino e classificação', d: '2026-10-17', h: '17:30' }, { t: 'Corrida', d: '2026-10-18', h: '16:00' }] },
-    { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25', s: [{ t: 'Corrida', d: '2026-10-25', h: '15:00' }] },
+    { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18', s: [{ t: 'Treino e classificação', d: '2026-10-17', h: '17:30' }, { t: 'Corrida', d: '2026-10-18', h: '16:00' }], venc: 'Tyler Reddick' },
+    { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25', s: [{ t: 'Classificação', d: '2026-10-24', h: '14:00' }, { t: 'Corrida', d: '2026-10-25', h: '15:00' }] },
     { e: 35, n: 'Xfinity 500', l: 'Martinsville', d: '2026-11-01' },
     { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08' }
   ],
   classificacao: {
-    titulo: 'Round of 8, após Charlotte',
+    titulo: 'Round of 8, após Phoenix',
     colunas: ['Pos', 'Piloto', 'Equipe'],
-    linhas: [['1', 'Kyle Larson', 'Hendrick (Chevrolet)'], ['2', 'Denny Hamlin', 'Joe Gibbs (Toyota)'], ['3', 'Christopher Bell', 'Joe Gibbs (Toyota)'], ['4', 'Chase Briscoe', 'Joe Gibbs (Toyota)'], ['5', 'Ryan Blaney', 'Penske (Ford)'], ['6', 'Joey Logano', 'Penske (Ford)'], ['7', 'Tyler Reddick', '23XI (Toyota)'], ['8', 'Austin Cindric', 'Penske (Ford)']],
-    nota: 'Kyle Larson venceu o corte do Round of 12 em Charlotte e lidera o Round of 8 por 65 pontos sobre Briscoe. Chase Elliott e William Byron foram eliminados.'
+    linhas: [['1', 'Kyle Larson', 'Hendrick (Chevrolet)'], ['2', 'Christopher Bell', 'Joe Gibbs (Toyota)'], ['3', 'Chase Briscoe', 'Joe Gibbs (Toyota)'], ['4', 'Denny Hamlin', 'Joe Gibbs (Toyota)'], ['5', 'Ryan Blaney', 'Penske (Ford)'], ['6', 'Joey Logano', 'Penske (Ford)'], ['7', 'Tyler Reddick', '23XI (Toyota)'], ['8', 'Austin Cindric', 'Penske (Ford)']],
+    nota: 'Tyler Reddick venceu o Freeway Insurance 500 em Phoenix. Kyle Larson sofreu um problema no final e caiu para 34º, mas segue na liderança do Round of 8, agora por poucos pontos sobre Christopher Bell. O corte para o Championship 4 só ocorre depois de Martinsville; Phoenix e Talladega não eliminam ninguém.'
   },
   equipes: [
     { n: 'Hendrick Motorsports', i: 'Chevrolet', p: ['Kyle Larson', 'Chase Elliott', 'William Byron', 'Alex Bowman'] },
@@ -576,7 +576,7 @@ window.CATEGORIAS = [
     { e: 15, n: 'GP da Áustria', l: 'Spielberg', d: '2026-09-20', venc: 'Pedro Acosta (KTM)' },
     { e: 16, n: 'GP do Japão', l: 'Motegi', d: '2026-10-04', s: [{ t: 'Treino livre 1', d: '2026-10-01', h: '22:45' }, { t: 'Treino', d: '2026-10-02', h: '03:00' }, { t: 'Treino livre 2', d: '2026-10-02', h: '22:10' }, { t: 'Classificação Q1', d: '2026-10-02', h: '22:50' }, { t: 'Classificação Q2', d: '2026-10-02', h: '23:15' }, { t: 'Sprint', d: '2026-10-03', h: '03:00' }, { t: 'Corrida', d: '2026-10-04', h: '02:00' }], venc: 'Marc Márquez (Ducati)' },
     { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-08', h: '23:45' }, { t: 'Treino', d: '2026-10-09', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-09', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-09', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-10', h: '00:15' }, { t: 'Sprint', d: '2026-10-10', h: '04:00' }, { t: 'Corrida', d: '2026-10-11', h: '04:00' }], venc: 'Marco Bezzecchi (Aprilia)' },
-    { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25' },
+    { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-22', h: '20:45' }, { t: 'Treino', d: '2026-10-23', h: '01:00' }, { t: 'Treino livre 2', d: '2026-10-23', h: '20:10' }, { t: 'Classificação Q1', d: '2026-10-23', h: '20:50' }, { t: 'Classificação Q2', d: '2026-10-23', h: '21:15' }, { t: 'Sprint', d: '2026-10-24', h: '01:00' }, { t: 'Corrida', d: '2026-10-25', h: '00:00' }] },
     { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01' },
     { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08' },
     { e: 21, n: 'GP de Portugal', l: 'Portimão', d: '2026-11-22' },
@@ -749,7 +749,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/superbike.jpg',
   frase: 'Motos de rua preparadas para a pista. Três corridas por fim de semana.',
   intro: 'No Mundial de Superbike, as motos são versões de corrida de modelos vendidos em loja. Cada etapa tem três corridas: a 1, a Superpole Race, curtinha, e a 2. Nicolò Bulega, da Ducati, já é campeão de 2026.',
-  lider: { nome: 'Nicolò Bulega', info: 'Campeão mundial 2026, Ducati, 664 pontos' },
+  lider: { nome: 'Nicolò Bulega', info: 'Campeão mundial 2026, Ducati, 726 pontos' },
   noticias: [
     { d: '2026-09-27', t: 'Bulega é campeão mundial de Superbike', x: 'O italiano da Ducati garantiu o título com o segundo lugar na corrida 2 em Cremona, depois de dois vice-campeonatos seguidos. Iker Lecuona venceu as três corridas do fim de semana.' },
     { d: '2026-09-06', t: 'Bulega vence as três em Magny-Cours', x: 'Mais um fim de semana perfeito na França, o oitavo do ano em que ele venceu as três corridas.' },
@@ -767,19 +767,19 @@ window.CATEGORIAS = [
     { e: 9, n: 'França', l: 'Magny-Cours', d: '2026-09-06', venc: 'Nicolò Bulega (3 corridas)' },
     { e: 10, n: 'Itália', l: 'Cremona', d: '2026-09-27', venc: 'Iker Lecuona (3 corridas)' },
     { e: 11, n: 'Estoril', l: 'Portugal', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-09', h: '06:20' }, { t: 'Treino livre 2', d: '2026-10-09', h: '11:00' }, { t: 'Treino livre 3', d: '2026-10-10', h: '05:40' }, { t: 'Superpole', d: '2026-10-10', h: '07:15' }, { t: 'Corrida 1', d: '2026-10-10', h: '11:30' }, { t: 'Warm-up', d: '2026-10-11', h: '05:15' }, { t: 'Superpole Race', d: '2026-10-11', h: '07:10' }, { t: 'Corrida 2', d: '2026-10-11', h: '11:30' }], venc: 'Nicolò Bulega (3 corridas)' },
-    { e: 12, n: 'Espanha', l: 'Jerez', d: '2026-10-18', s: [{ t: 'Treino livre 1', d: '2026-10-16', h: '05:35' }, { t: 'Treino livre 2', d: '2026-10-16', h: '10:00' }, { t: 'Treino livre 3', d: '2026-10-17', h: '04:35' }, { t: 'Superpole', d: '2026-10-17', h: '06:15' }, { t: 'Corrida 1', d: '2026-10-17', h: '10:30' }, { t: 'Warm-up', d: '2026-10-18', h: '04:35' }, { t: 'Superpole Race', d: '2026-10-18', h: '06:10' }, { t: 'Corrida 2', d: '2026-10-18', h: '10:30' }] }
+    { e: 12, n: 'Espanha', l: 'Jerez', d: '2026-10-18', s: [{ t: 'Treino livre 1', d: '2026-10-16', h: '05:35' }, { t: 'Treino livre 2', d: '2026-10-16', h: '10:00' }, { t: 'Treino livre 3', d: '2026-10-17', h: '04:35' }, { t: 'Superpole', d: '2026-10-17', h: '06:15' }, { t: 'Corrida 1', d: '2026-10-17', h: '10:30' }, { t: 'Warm-up', d: '2026-10-18', h: '04:35' }, { t: 'Superpole Race', d: '2026-10-18', h: '06:10' }, { t: 'Corrida 2', d: '2026-10-18', h: '10:30' }], venc: 'Nicolò Bulega (3 corridas)' }
   ],
   classificacao: {
-    titulo: 'Pilotos',
+    titulo: 'Pilotos (final)',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
     linhas: [
-      ['1', 'Nicolò Bulega', 'Aruba.it Ducati', '664'], ['2', 'Iker Lecuona', 'Aruba.it Ducati', '518'],
-      ['3', 'Yari Montella', 'Barni Ducati', '290'], ['4', 'Alex Lowes', 'Bimota', '237'],
-      ['5', 'Sam Lowes', 'Marc VDS Ducati', '225'], ['6', 'Lorenzo Baldassarri', 'Ducati', '214'],
-      ['7', 'Axel Bassani', 'Bimota', '208'], ['8', 'Alberto Surra', 'Motocorsa Ducati', '179'],
-      ['9', 'Garrett Gerloff', 'Kawasaki', '160'], ['10', 'Álvaro Bautista', 'Barni Ducati', '137']
+      ['1', 'Nicolò Bulega', 'Aruba.it Ducati', '726'], ['2', 'Iker Lecuona', 'Aruba.it Ducati', '563'],
+      ['3', 'Yari Montella', 'Barni Ducati', '318'], ['4', 'Sam Lowes', 'Marc VDS Ducati', '268'],
+      ['5', 'Alex Lowes', 'Bimota', '259'], ['6', 'Lorenzo Baldassarri', 'Ducati', '236'],
+      ['7', 'Axel Bassani', 'Bimota', '222'], ['8', 'Alberto Surra', 'Motocorsa Ducati', '198'],
+      ['9', 'Álvaro Bautista', 'Barni Ducati', '167'], ['10', 'Garrett Gerloff', 'Kawasaki', '137']
     ],
-    nota: 'Após Estoril (etapa 11 de 12). Bulega garantiu o título em Cremona e chegou a 664 pontos, a temporada de mais pontos da história do WorldSBK. Cada etapa vale até 62 pontos (25 + 12 + 25).'
+    nota: 'Classificação final da temporada 2026. Bulega fechou com 726 pontos, depois de vencer as três corridas em Jerez, na despedida da categoria antes de ir para a MotoGP em 2027. Cada etapa vale até 62 pontos (25 + 12 + 25).'
   },
   equipes: [
     { n: 'Aruba.it Racing Ducati', i: 'Ducati Panigale V4 R', p: ['Nicolò Bulega', 'Iker Lecuona'] },
