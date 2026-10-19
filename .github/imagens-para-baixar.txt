@@ -15,3 +15,4 @@ assets/img/escudos/espn-independiente-del-valle https://a.espncdn.com/i/teamlogo
 assets/img/escudos/espn-millonarios https://a.espncdn.com/i/teamlogos/soccer/500/5484.png
 assets/img/escudos/espn-universidad-catolica https://a.espncdn.com/i/teamlogos/soccer/500/885.png
 assets/img/escudos/espn-independiente-rivadavia https://a.espncdn.com/i/teamlogos/soccer/500/9744.png
+assets/img/escudos/sofa-uniao-corinthians https://api.sofascore.app/api/v1/team/397207/image
