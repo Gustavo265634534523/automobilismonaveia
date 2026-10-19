@@ -447,7 +447,7 @@
         return coluna(col[0], cats.map(function (c) { return li(pagina(c), esc(c.nome)); }));
       }).join('') +
       coluna('Futebol e Basquete', ESPORTES_MENU.map(function (e) { return li(e.slug + '.html', '<b>' + e.nome + '</b>'); }).concat(ESPORTES_MENU[0].comps.slice(0, 3).concat(ESPORTES_MENU[1].comps.slice(0, 1)).map(function (c) { return li(c[0] + '.html', esc(c[1])); }))) +
-      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('anatomia.html', 'Anatomia dos carros'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
+      coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +
         '<span class="rodape-responsavel">Responsável: Gustavo Teixeira · Estrada Doutor Manoel Reis, Rio de Janeiro, Brasil</span></div></div>';
