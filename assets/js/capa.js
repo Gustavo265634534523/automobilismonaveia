@@ -186,12 +186,44 @@
     '<div class="hm-caixa-cab hm-sub"><h2>Próximos jogos</h2></div>' + jogos('futebol', 3);
   chips('hm-fut-chips', 'futebol');
 
-  /* Basquete: ficha do jogador (basquete.js, #bq-home) e, ao lado, notícias e próximos jogos */
-  var nb = nots('basquete').slice(0, 3);
-  document.getElementById('hm-bq-lado').innerHTML = '<div class="hm-caixa-cab"><h2>Notícias</h2><a href="basquete.html">Todas →</a></div>' +
-    '<ol class="hm-lista">' + nb.map(function (n) {
-      var c = P[n.comp] || {};
-      return '<li><a href="' + (n.comp || 'basquete') + '.html"><span><b>' + esc(n.t) + '</b><small>' + esc(c.menu || '') + ' · ' + quando(n.d) + '</small></span></a></li>';
-    }).join('') + '</ol><div class="hm-caixa-cab hm-sub"><h2>Próximos jogos</h2></div>' + jogos('basquete', 3);
+  /* as três seções no mesmo formato: notícias à esquerda; à direita a tabela e os próximos jogos ou corridas */
+  function tabelaLado(titulo, href, t, n) {
+    if (!t) return '';
+    return '<div class="hm-caixa-cab"><h2>' + esc(titulo) + '</h2><a href="' + href + '">Tabela →</a></div><p class="hm-tab-nota">' + esc(t.titulo || '') + '</p>' +
+      '<table class="hm-tab"><tbody>' + t.linhas.slice(0, n || 6).map(function (l) {
+        var nome = l[1]; return '<tr><td>' + esc(l[0]) + '</td><td>' + (window.escudoTime ? window.escudoTime(nome) : '') + esc(nome) + '</td><td>' + esc(l[l.length - 1]) + '</td></tr>';
+      }).join('') + '</tbody></table>';
+  }
+
+  /* Basquete: 1 notícia grande + 4 menores; ao lado, a Euroleague (a NBA ainda não começou) e os próximos jogos */
+  var nb = nots('basquete').slice(0, 5);
+  document.getElementById('hm-bq-noticias').innerHTML = '<div class="hm-grade">' + nb.map(function (n, i) { return cartao(n, i === 0); }).join('') + '</div>';
+  var el = P.euroleague;
+  document.getElementById('hm-bq-lado').innerHTML = (el && el.tabela ? tabelaLado('Euroleague', 'euroleague.html#classificacao', el.tabela, 6) : '') +
+    '<div class="hm-caixa-cab hm-sub"><h2>Próximos jogos</h2></div>' + jogos('basquete', 3);
+
+  /* Automobilismo: as notícias mais novas das categorias, o campeonato da F1 e as próximas corridas */
+  var CATS = window.CATEGORIAS || [], PC = {}; CATS.forEach(function (c) { PC[c.slug] = c; });
+  var na = (window.NOTICIAS_GERAIS || []).filter(function (n) { return PC[n.cat]; }).slice().sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; }).slice(0, 5);
+  var autoN = document.getElementById('hm-auto-noticias');
+  if (autoN) autoN.innerHTML = '<div class="hm-grade">' + na.map(function (n, i) {
+    var c = PC[n.cat];
+    return '<a class="hm-card hm-card-automobilismo' + (i === 0 ? ' hm-card-alto' : '') + '" href="' + (window.linkNoticia ? window.linkNoticia(n.t) : c.slug + '.html') + '">' +
+      '<span class="hm-card-txt"><span class="hm-tag hm-tag-automobilismo">' + esc(c.menu || c.nome) + '</span><b>' + esc(n.t) + '</b>' + (i === 0 ? '<span class="hm-card-x">' + esc(String(n.x).split(/(?<=\.)\s/)[0]) + '</span>' : '') + '<small>' + quando(n.d) + '</small></span></a>';
+  }).join('') + '</div>';
+  var f1 = PC['formula-1'], corridas = [];
+  CATS.forEach(function (c) {
+    var e = (c.calendario || []).filter(function (x) { return !x.venc && x.d && x.d >= hoje; })[0]; if (!e) return;
+    var cor = (e.s || []).filter(function (x) { return /Corrida|Principal/.test(x.t); }).pop();
+    corridas.push({ c: c, e: e, h: cor ? cor.h : '' });
+  });
+  corridas.sort(function (a, b) { return a.e.d < b.e.d ? -1 : 1; });
+  var autoL = document.getElementById('hm-auto-lado');
+  if (autoL) autoL.innerHTML = (f1 && f1.classificacao ? '<div class="hm-caixa-cab"><h2>Fórmula 1</h2><a href="formula-1.html#classificacao">Tabela →</a></div><p class="hm-tab-nota">Campeonato de pilotos</p>' +
+      '<table class="hm-tab"><tbody>' + f1.classificacao.linhas.slice(0, 6).map(function (l) { return '<tr><td>' + esc(l[0]) + '</td><td>' + esc(l[1]) + '</td><td>' + esc(l[l.length - 1]) + '</td></tr>'; }).join('') + '</tbody></table>' : '') +
+    '<div class="hm-caixa-cab hm-sub"><h2>Próximas corridas</h2><a href="horarios.html">Horários →</a></div>' + corridas.slice(0, 3).map(function (x) {
+      return '<a class="hm-jogo" href="' + x.c.slug + '.html"><span class="hm-jogo-cab"><i class="hm-ponto hm-automobilismo"></i>' + esc(x.c.menu || x.c.nome) + ' · ' + quando(x.e.d) + '</span>' +
+        '<span class="hm-jogo-linha"><b>' + esc(x.e.n) + '</b><strong>' + esc(x.h || '--') + '</strong></span><span class="hm-jogo-sub">' + esc(x.e.l || '') + '</span></a>';
+    }).join('');
   chips('hm-bq-chips', 'basquete');
 })();

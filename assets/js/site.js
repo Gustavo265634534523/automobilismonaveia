@@ -379,10 +379,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=329'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=329'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=329'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=329'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=330'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=330'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=330'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=330'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -445,11 +445,11 @@
         '<button type="button" class="copiar-email" data-email="automobilismonaveiacontato@gmail.com">' +
         '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M3 11V3.5A1.5 1.5 0 0 1 4.5 2H11" fill="none" stroke="currentColor" stroke-width="1.4"/></svg><span>Copiar</span></button></p></div>' +
       /* no rodapé, os 5 grupos viram 3 colunas para não ficar espalhado */
-      [['Monopostos', ['Monopostos']], ['Turismo e Endurance', ['Turismo', 'Endurance']], ['Motos', ['Motos']]].map(function (col) {
-        var cats = [].concat.apply([], GRUPOS.filter(function (g) { return col[1].indexOf(g.nome) > -1; }).map(function (g) { return g.cats; }));
-        return coluna(col[0], cats.map(function (c) { return li(pagina(c), esc(c.nome)); }));
+      /* uma coluna por esporte: automobilismo (as 6 categorias), futebol e basquete (os campeonatos) */
+      coluna('Automobilismo', [li('automobilismo.html', '<b>Automobilismo</b>')].concat(ORDEM_CATS.map(function (sl) { return PORSLUG[sl]; }).filter(Boolean).map(function (c) { return li(pagina(c), esc(c.nome)); }))) +
+      ESPORTES_MENU.map(function (e) {
+        return coluna(e.nome, [li(e.slug + '.html', '<b>' + e.nome + '</b>')].concat(e.comps.map(function (c) { return li(c[0] + '.html', esc(c[1])); })));
       }).join('') +
-      coluna('Futebol e Basquete', ESPORTES_MENU.map(function (e) { return li(e.slug + '.html', '<b>' + e.nome + '</b>'); }).concat(ESPORTES_MENU[0].comps.slice(0, 3).concat(ESPORTES_MENU[1].comps.slice(0, 1)).map(function (c) { return li(c[0] + '.html', esc(c[1])); }))) +
       coluna('O site', [li('noticias.html', 'Notícias'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +

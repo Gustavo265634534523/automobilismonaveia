@@ -383,15 +383,15 @@
      Se o modelo não carregar, o jogo usa o carro desenhado (montarCarro). */
   var URL_GLTF = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';
   var MODELOS = {
-    f1: { esc: 0.94 /* 2026: 3,40 m entre eixos, ~1,95 m de largura */, url: 'assets/modelos/jogo-f1.glb?v=329', painel: 'f1w', volante: 'assets/modelos/jogo-volante-f1.glb?v=329', cabine: 'assets/modelos/jogo-f1-cabine.glb?v=329', espelhos: [], olho: [-0.34, 1.08, 0], olharDesce: 1.05, capaceteCab: [-0.06, 0.84, 0.135], olhoPiloto: [0.44, -0.2, -0.1] /* Cockpit: frente, altura, olhar menos para baixo */, capacete: [-0.12, 0.79, 0.135], numeros: [[1.35, 3, 0, 0, -1, 0, 0.3], [-0.85, 0.72, 3, 0, 0, -1, 0.3], [-0.85, 0.72, -3, 0, 0, 1, 0.3]] },
-    peugeot: { url: 'assets/modelos/jogo-peugeot.glb?v=329', painel: 'peugeot', cabine: 'assets/modelos/jogo-peugeot-cabine.glb?v=329', olhoAj: [0.15, -0.06], tomTex: 0.45, tomInt: 0.5, espelhos: [[0.6, 0.915, 0.06, 0.26, 0.045, 'C']], numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [-0.3, 0.6, 3, 0, 0, -1, 0.46], [-0.3, 0.6, -3, 0, 0, 1, 0.46]] },
-    gt3: { url: 'assets/modelos/jogo-gt3.glb?v=329', cabine: 'assets/modelos/jogo-gt3-cabine.glb?v=329', espelhos: [[0.55, 0.86, -0.95, 0.15, 0.085, 'E'], [0.24, 0.945, -0.03, 0.2, 0.05, 'C']], numeros: [[1.45, 3, 0, 0, -1, 0, 0.42], [0.05, 0.55, 3, 0, 0, -1, 0.46], [0.05, 0.55, -3, 0, 0, 1, 0.46]] },
-    mercedes: { url: 'assets/modelos/jogo-mercedes.glb?v=329', cabine: 'assets/modelos/jogo-mercedes-cabine.glb?v=329', painel: 'mercedes-gt3', espelhos: [[0.22, 1.06, 0.12, 0.22, 0.055, 'C'], [0.1, 0.88, -1.0, 0.15, 0.085, 'E'], [0.032, 0.826, -0.108, 0.15, 0.088, 'C', [-0.94, 0.21, -0.27]]] /* o último é o monitor da câmera de ré */, numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [0.05, 0.6, 3, 0, 0, -1, 0.46], [0.05, 0.6, -3, 0, 0, 1, 0.46]] },
-    porsche: { url: 'assets/modelos/jogo-porsche.glb?v=329', painel: 'porsche', cabine: 'assets/modelos/jogo-porsche-cabine.glb?v=329', espelhos: [[0.40, 0.84, -0.82, 0.15, 0.085, 'E'], [0.25, 0.985, -0.025, 0.25, 0.065, 'C']], numeros: [[1.5, 3, 0, 0, -1, 0, 0.42], [0.15, 0.55, 3, 0, 0, -1, 0.46], [0.15, 0.55, -3, 0, 0, 1, 0.46]] }
+    f1: { esc: 0.94 /* 2026: 3,40 m entre eixos, ~1,95 m de largura */, url: 'assets/modelos/jogo-f1.glb?v=330', painel: 'f1w', volante: 'assets/modelos/jogo-volante-f1.glb?v=330', cabine: 'assets/modelos/jogo-f1-cabine.glb?v=330', espelhos: [], olho: [-0.34, 1.08, 0], olharDesce: 1.05, capaceteCab: [-0.06, 0.84, 0.135], olhoPiloto: [0.44, -0.2, -0.1] /* Cockpit: frente, altura, olhar menos para baixo */, capacete: [-0.12, 0.79, 0.135], numeros: [[1.35, 3, 0, 0, -1, 0, 0.3], [-0.85, 0.72, 3, 0, 0, -1, 0.3], [-0.85, 0.72, -3, 0, 0, 1, 0.3]] },
+    peugeot: { url: 'assets/modelos/jogo-peugeot.glb?v=330', painel: 'peugeot', cabine: 'assets/modelos/jogo-peugeot-cabine.glb?v=330', olhoAj: [0.15, -0.06], tomTex: 0.45, tomInt: 0.5, espelhos: [[0.6, 0.915, 0.06, 0.26, 0.045, 'C']], numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [-0.3, 0.6, 3, 0, 0, -1, 0.46], [-0.3, 0.6, -3, 0, 0, 1, 0.46]] },
+    gt3: { url: 'assets/modelos/jogo-gt3.glb?v=330', cabine: 'assets/modelos/jogo-gt3-cabine.glb?v=330', espelhos: [[0.55, 0.86, -0.95, 0.15, 0.085, 'E'], [0.24, 0.945, -0.03, 0.2, 0.05, 'C']], numeros: [[1.45, 3, 0, 0, -1, 0, 0.42], [0.05, 0.55, 3, 0, 0, -1, 0.46], [0.05, 0.55, -3, 0, 0, 1, 0.46]] },
+    mercedes: { url: 'assets/modelos/jogo-mercedes.glb?v=330', cabine: 'assets/modelos/jogo-mercedes-cabine.glb?v=330', painel: 'mercedes-gt3', espelhos: [[0.22, 1.06, 0.12, 0.22, 0.055, 'C'], [0.1, 0.88, -1.0, 0.15, 0.085, 'E'], [0.032, 0.826, -0.108, 0.15, 0.088, 'C', [-0.94, 0.21, -0.27]]] /* o último é o monitor da câmera de ré */, numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [0.05, 0.6, 3, 0, 0, -1, 0.46], [0.05, 0.6, -3, 0, 0, 1, 0.46]] },
+    porsche: { url: 'assets/modelos/jogo-porsche.glb?v=330', painel: 'porsche', cabine: 'assets/modelos/jogo-porsche-cabine.glb?v=330', espelhos: [[0.40, 0.84, -0.82, 0.15, 0.085, 'E'], [0.25, 0.985, -0.025, 0.25, 0.065, 'C']], numeros: [[1.5, 3, 0, 0, -1, 0, 0.42], [0.15, 0.55, 3, 0, 0, -1, 0.46], [0.15, 0.55, -3, 0, 0, 1, 0.46]] }
   };
   /* carros de cada classe (os adversários se revezam; quem joga escolhe no menu) */
   var VARIANTES = { f1: ['f1'], hyper: ['peugeot'], gt3: ['mercedes', 'gt3'], porsche: ['porsche'] };
-  MODELOS.sc = { url: 'assets/modelos/jogo-safety-car.glb?v=329' }; /* safety car */
+  MODELOS.sc = { url: 'assets/modelos/jogo-safety-car.glb?v=330' }; /* safety car */
   var NOME_CARRO = { f1: 'F1 2026', peugeot: 'Peugeot 9X8', gt3: 'McLaren 720S', mercedes: 'Mercedes-AMG', porsche: 'Porsche 911' };
   var MOLDES = {}; /* modelo -> molde pronto, ou 'falhou' */
   function carregarModelos(classes, pronto, progresso) {
@@ -944,7 +944,7 @@
   var DADOS_PISTA = {};
   function carregarPista(id, pronto, falha) {
     if (DADOS_PISTA[id]) return pronto();
-    fetch('assets/dados/pistas/' + id + '.json?v=329').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    fetch('assets/dados/pistas/' + id + '.json?v=330').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) { DADOS_PISTA[id] = d; pronto(); }).catch(falha);
   }
 

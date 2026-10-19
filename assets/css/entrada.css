@@ -402,3 +402,4 @@ a.hm-merc:hover { border-color: var(--sangue-vivo); }
 .hm-topo { align-items: start; }
 .hm-hero { height: auto; }
 @media (max-width: 760px) { .hero-op-txt { top: 0; justify-content: center; background: linear-gradient(90deg, rgba(5, 8, 12, .9) 0%, rgba(5, 8, 12, .55) 70%, rgba(5, 8, 12, .3) 100%); } }
+.hm-bq-ficha { margin-top: 26px; }

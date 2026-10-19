@@ -1,10 +1,12 @@
-/* Página do futebol (futebol.html): o jogo grande da semana, carrossel de resultados, agenda,
-   classificação com uma aba por campeonato, notícias com filtro e os campeonatos.
+/* Página do esporte (futebol.html e basquete.html, <main id="ft" data-esporte="...">): o jogo grande da semana,
+   carrossel de resultados, agenda, classificação com uma aba por tabela, notícias com filtro e os campeonatos.
    Tudo sai de esportes-dados.js (COMPETICOES) e noticias-esportes.js (NOTICIAS_ESPORTES). */
 (function () {
-  if (!document.getElementById('ft')) return;
+  var raiz = document.getElementById('ft');
+  if (!raiz) return;
+  var ESPORTE = raiz.getAttribute('data-esporte') || 'futebol', BQ = ESPORTE === 'basquete';
   var esc = window.esc, hoje = window.hojeISO();
-  var COMPS = (window.COMPETICOES || []).filter(function (c) { return c.esporte === 'futebol'; });
+  var COMPS = (window.COMPETICOES || []).filter(function (c) { return c.esporte === ESPORTE; });
   var PORSLUG = {}; COMPS.forEach(function (c) { PORSLUG[c.slug] = c; });
   function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === 1 ? 'Amanhã' : n === -1 ? 'Ontem' : window.dataCurta(d); }
   var SEMANA = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
@@ -19,8 +21,9 @@
     .sort(function (a, b) { return (a.j.d + (a.j.h || '')) < (b.j.d + (b.j.h || '')) ? -1 : 1; });
 
   /* 1. o jogo grande dos próximos 7 dias: o que tiver mais clubes grandes; no empate, o mais cedo */
-  var GRANDES = /Paris Saint-Germain|PSG|Barcelona|Real Madrid|Bayern|Arsenal|Liverpool|Manchester City|Inter|Milan|Juventus|Flamengo|Palmeiras|Corinthians|São Paulo|Atlético de Madrid|Chelsea|Dortmund|Boca/;
-  function peso(x) { return (GRANDES.test(x.j.casa) ? 1 : 0) + (GRANDES.test(x.j.fora) ? 1 : 0) + (x.c.slug === 'champions-league' || x.c.slug === 'libertadores' ? .5 : 0); }
+  var GRANDES = BQ ? /Lakers|Celtics|Knicks|Warriors|76ers|Heat|Thunder|Spurs|Nuggets|Bucks|Real Madrid|Panathinaikos|Olympiacos|Fenerbahçe|Franca|Flamengo/
+    : /Paris Saint-Germain|PSG|Barcelona|Real Madrid|Bayern|Arsenal|Liverpool|Manchester City|Inter|Milan|Juventus|Flamengo|Palmeiras|Corinthians|São Paulo|Atlético de Madrid|Chelsea|Dortmund|Boca/;
+  function peso(x) { return (GRANDES.test(x.j.casa) ? 1 : 0) + (GRANDES.test(x.j.fora) ? 1 : 0) + (/champions-league|libertadores|nba/.test(x.c.slug) ? .5 : 0); }
   var semana = proximos.filter(function (x) { return window.diasAte(x.j.d) <= 7; });
   var grande = semana.slice().sort(function (a, b) { return peso(b) - peso(a); })[0];
   var g = document.getElementById('ft-grande');
@@ -59,7 +62,12 @@
   }).join('') || '<p class="ft-vazio">Os próximos jogos aparecem aqui assim que forem confirmados.</p>';
 
   /* 4. classificação: uma aba por campeonato com tabela */
-  var comTabela = COMPS.filter(function (c) { return c.tabela && c.tabela.linhas && c.tabela.linhas.length; });
+  var comTabela = [];
+  COMPS.forEach(function (c) {
+    [c.tabela, c.tabela2].forEach(function (t, k) {
+      if (t && t.linhas && t.linhas.length) comTabela.push({ slug: c.slug, menu: c.menu + (c.tabela2 ? (k ? ' Oeste' : ' Leste') : ''), tabela: t });
+    });
+  });
   var abasT = document.getElementById('ft-tab-abas'), caixaT = document.getElementById('ft-tabela');
   function tabela(c) {
     var t = c.tabela, ver = t.linhas.length > 10;
@@ -76,8 +84,13 @@
   if (comTabela.length) abrirTabela(0);
 
   /* 5. notícias com filtro; mostra 6 e o botão traz mais 6 */
-  var NOTS = (window.NOTICIAS_ESPORTES || []).filter(function (n) { return n.esporte === 'futebol'; }).sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
-  var FILTROS = [
+  var NOTS = (window.NOTICIAS_ESPORTES || []).filter(function (n) { return n.esporte === ESPORTE; }).sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
+  var FILTROS = BQ ? [
+    ['Todas', function () { return true; }],
+    ['NBA', function (n) { return n.comp === 'nba'; }],
+    ['Euroleague', function (n) { return n.comp === 'euroleague'; }],
+    ['NBB', function (n) { return n.comp === 'nbb'; }]
+  ] : [
     ['Todas', function () { return true; }],
     ['Brasil', function (n) { return /brasileirao|libertadores|sul-americana/.test(n.comp); }],
     ['Champions', function (n) { return n.comp === 'champions-league'; }],
@@ -90,7 +103,7 @@
     [].forEach.call(abasN.children, function (b, k) { b.setAttribute('aria-selected', k === filtro ? 'true' : 'false'); });
     caixaN.innerHTML = lista.slice(0, mostrar).map(function (n) {
       var c = PORSLUG[n.comp] || {};
-      return '<a class="ft-not" href="' + (n.comp || 'futebol') + '.html"><span class="ft-not-tag">' + esc(c.menu || 'Futebol') + '</span>' +
+      return '<a class="ft-not" href="' + (n.comp || ESPORTE) + '.html"><span class="ft-not-tag">' + esc(c.menu || (BQ ? 'Basquete' : 'Futebol')) + '</span>' +
         '<b>' + esc(n.t) + '</b><span>' + esc(String(n.x).split(/(?<=\.)\s/)[0]) + '</span><small>' + quando(n.d) + '</small></a>';
     }).join('');
     mais.hidden = lista.length <= mostrar;

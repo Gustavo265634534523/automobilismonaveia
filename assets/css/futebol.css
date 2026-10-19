@@ -128,3 +128,21 @@
   .ft-rec-cab, .ft-rec-trilho { padding-left: 18px; padding-right: 18px; }
   .ft-abas-pq { justify-content: flex-start; }
 }
+
+/* basquete: a mesma página, com o laranja do basquete como cor de destaque */
+.ft[data-esporte="basquete"] { --ft-cor: #f07a2a; --ft-cor-2: #c0601f; }
+.ft[data-esporte="basquete"] .ft-hero .ft-rot { color: #ffa267; }
+
+/* página de Notícias */
+.nt2-topo { padding-top: calc(var(--topo) + 84px); }
+.nt2-h1 { margin: 0; font-family: var(--ft-titulo); font-weight: 400; font-size: clamp(56px, 8vw, 96px); line-height: .9; text-transform: uppercase; }
+.nt2-sub { margin: 12px 0 30px; color: var(--texto-3); }
+.nt2-manchetes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.nt2-esp { margin: 0 0 10px; font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.nt2-esp.nt2-automobilismo { color: #e3343c; } .nt2-esp.nt2-futebol { color: #2ea062; } .nt2-esp.nt2-basquete { color: #f07a2a; }
+.ft-not.nt2-futebol::before { background: #2ea062; } .ft-not.nt2-basquete::before { background: #f07a2a; }
+.ft-not.nt2-futebol .ft-not-tag { color: #2ea062; } .ft-not.nt2-basquete .ft-not-tag { color: #f07a2a; }
+.nt2-grande { min-height: 210px; } .nt2-grande b { font-size: 19px; }
+.nt2-sub-abas { justify-content: flex-start; margin: -10px 0 24px; }
+.nt2-sub-abas[hidden] { display: none; }
+@media (max-width: 900px) { .nt2-manchetes { grid-template-columns: 1fr; } }

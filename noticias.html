@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=329"></script>
+<script src="assets/js/idioma.js?v=330"></script>
 <title>Notícias | Automobilismo Na Veia</title>
-<meta name="description" content="Tudo o que está acontecendo no automobilismo: Fórmula 1, MotoGP, Fórmula E, Endurance e mais. Resultados, bastidores e mercado de pilotos em português.">
+<meta name="description" content="Notícias de automobilismo, futebol e basquete: Fórmula 1, MotoGP, Brasileirão, Champions, NBA e mais. Resultados, bastidores e mercado de pilotos em português.">
 <meta name="theme-color" content="#141619">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
 <meta property="og:title" content="Notícias | Automobilismo Na Veia">
-<meta property="og:description" content="Tudo o que está acontecendo no automobilismo, em português.">
+<meta property="og:description" content="Notícias de automobilismo, futebol e basquete, em português.">
 <meta property="og:image" content="https://automobilismonaveia.com.br/assets/img/esportes/automobilismo.jpg">
 <link rel="canonical" href="https://automobilismonaveia.com.br/noticias.html">
 <meta property="og:url" content="https://automobilismonaveia.com.br/noticias.html">
@@ -22,50 +22,37 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=329">
-<link rel="stylesheet" href="assets/css/noticias.css?v=329">
+<link rel="stylesheet" href="assets/css/estilo.css?v=330">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/futebol.css?v=330">
 </head>
 <body data-pagina="noticias">
 <a class="pular" href="#feed">Pular para o conteúdo</a>
 <header id="topo"></header>
 
-<main class="nt">
-  <div class="moldura">
-    <div class="nt-cab">
-      <h1>Notícias</h1>
-      <p>Tudo o que está acontecendo no automobilismo, das pistas aos bastidores. <span id="nt-atualizado"></span></p>
-    </div>
-
-    <section class="nt-manchetes" id="manchetes" aria-label="Manchetes"></section>
-
-    <div class="nt-corpo">
-      <section class="nt-feed" id="feed" aria-labelledby="feed-t">
-        <div class="nt-feed-cab">
-          <h2 id="feed-t">Últimas notícias</h2>
-          <div class="nt-filtros" id="filtros" role="group" aria-label="Filtrar por categoria"></div>
-        </div>
-        <div id="lista"></div>
-      </section>
-
-      <aside class="nt-lado" aria-labelledby="olho-t">
-        <div class="nt-caixa">
-          <h2 id="olho-t">Fique de olho</h2>
-          <ul class="nt-olho" id="olho"></ul>
-        </div>
-        <div class="nt-caixa">
-          <h2>Quem lidera</h2>
-          <ul class="nt-lideres" id="lideres"></ul>
-        </div>
-      </aside>
-    </div>
-  </div>
+<main class="ft" id="nt-pagina">
+  <!-- Notícias dos três esportes (assets/js/noticias.js): manchete de cada esporte lado a lado, filtro por esporte e por campeonato -->
+  <section class="ft-caixa nt2-topo">
+    <p class="ft-rot">Automobilismo, futebol e basquete</p>
+    <h1 class="nt2-h1">Notícias</h1>
+    <p class="nt2-sub">O que aconteceu nos três esportes, da mais nova para a mais antiga. <span id="nt-atualizado"></span></p>
+    <div class="nt2-manchetes" id="manchetes"></div>
+  </section>
+  <section class="ft-caixa ft-sec" id="feed" aria-labelledby="feed-t">
+    <div class="ft-not-cab"><h2 id="feed-t">Últimas notícias</h2><div class="ft-abas ft-abas-pq" id="nt-esportes" role="tablist" aria-label="Esporte"></div></div>
+    <div class="ft-abas ft-abas-pq nt2-sub-abas" id="nt-comps" role="tablist" aria-label="Campeonato"></div>
+    <div class="ft-noticias" id="lista"></div>
+    <p class="ft-centro"><button type="button" class="ft-btn ft-btn-linha" id="nt-mais">Mais notícias</button></p>
+  </section>
 </main>
 
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=329"></script>
-<script src="assets/js/noticias-gerais.js?v=329"></script>
-<script src="assets/js/site.js?v=329"></script>
-<script src="assets/dados/fotos-reais.js?v=329"></script>
-<script src="assets/js/noticias.js?v=329"></script>
+<script src="assets/js/dados.js?v=330"></script>
+<script src="assets/js/noticias-gerais.js?v=330"></script>
+<script src="assets/js/site.js?v=330"></script>
+<script src="assets/dados/fotos-reais.js?v=330"></script>
+<script src="assets/js/esportes-dados.js?v=330"></script>
+<script src="assets/js/noticias-esportes.js?v=330"></script>
+<script src="assets/js/noticias.js?v=330"></script>
 </body>
 </html>
