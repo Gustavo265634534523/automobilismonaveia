@@ -223,7 +223,12 @@
   "resultado:motogp:17:venc:Marco Bezzecchi (Aprilia)": "2026-10-12T11:06:04.186Z",
   "resultado:dtm:8:venc:Corrida 1: Lucas Auer · Corrida 2: Maro Engel": "2026-10-12T11:06:04.478Z",
   "resultado:superbike:11:venc:Nicolò Bulega (3 corridas)": "2026-10-12T11:06:04.768Z",
-  "resumo:2026-10-12": "2026-10-12T12:36:17.809Z"
+  "resumo:2026-10-12": "2026-10-12T12:36:17.809Z",
+  "resultado:stock-car:10:venc:Felipe Fraga e Gabriel Casagrande": "2026-10-19T14:49:36.659Z",
+  "resultado:endurance:7:venc:Toyota #8": "2026-10-19T14:49:37.086Z",
+  "resultado:nascar:33:venc:Tyler Reddick": "2026-10-19T14:49:37.333Z",
+  "resultado:superbike:12:venc:Nicolò Bulega (3 corridas)": "2026-10-19T14:49:37.598Z",
+  "resumo:2026-10-19": "2026-10-19T14:49:37.845Z"
  },
  "iniciado": true,
  "horarios": {
@@ -277,6 +282,11 @@
   "superbike:12:Superpole": "2026-10-17 06:15",
   "superbike:12:Corrida 1": "2026-10-17 10:30",
   "superbike:12:Superpole Race": "2026-10-18 06:10",
-  "superbike:12:Corrida 2": "2026-10-18 10:30"
+  "superbike:12:Corrida 2": "2026-10-18 10:30",
+  "nascar:34:Classificação": "2026-10-24 14:00",
+  "motogp:18:Classificação Q1": "2026-10-23 20:50",
+  "motogp:18:Classificação Q2": "2026-10-23 21:15",
+  "motogp:18:Sprint": "2026-10-24 01:00",
+  "motogp:18:Corrida": "2026-10-25 00:00"
  }
 }
