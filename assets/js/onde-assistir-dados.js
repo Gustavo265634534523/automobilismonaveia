@@ -7,21 +7,13 @@ window.ONDE_ASSISTIR = {
   cats: {
     'formula-1': { canais: [['TV Globo', 'aberta'], ['SporTV', 'paga'], ['Globoplay', 'stream'], ['F1 TV Premium', 'stream']], nota: 'A Globo mostra 15 dos 24 GPs na TV aberta. O SporTV mostra todas as classificações, sprints e corridas.' },
     'formula-2': { canais: [['SporTV 3', 'paga'], ['Globoplay', 'stream'], ['F1 TV Premium', 'stream']], nota: 'Corridas no SporTV 3. Depois ficam inteiras no Globoplay.' },
-    'formula-3': { canais: [['F1 TV Premium', 'stream']], nota: 'Sem emissora confirmada no Brasil em 2026. O F1 TV Premium mostra todas as sessões.' },
     'formula-e': { canais: [['Band', 'aberta'], ['BandSports', 'paga'], ['Grande Prêmio (YouTube e GPTV)', 'gratis']], nota: 'A Band mostra classificação e corrida de algumas etapas. BandSports e Grande Prêmio mostram a temporada toda.' },
-    'indycar': { canais: [['Band', 'aberta'], ['ESPN', 'paga'], ['Disney+', 'stream'], ['IndyCar Live', 'stream']], nota: 'A Band mostra boa parte das corridas, incluindo as 500 Milhas de Indianápolis. ESPN e Disney+ cobrem quase tudo.' },
-    'stock-car': { canais: [['Band', 'aberta'], ['BandSports', 'paga'], ['BandPlay', 'gratis'], ['YouTube Stock Car e Esporte na Band', 'gratis']], nota: 'A Band mostra as duas corridas do fim de semana. A classificação passa de graça no YouTube.' },
     'porsche-cup': { canais: [['Band', 'aberta'], ['BandSports', 'paga'], ['BandPlay', 'gratis'], ['YouTube Porsche Cup', 'gratis']], nota: '' },
     'nascar': { canais: [['XSports', 'aberta'], ['ESPN', 'paga'], ['Disney+', 'stream']], nota: 'O XSports mostra a Cup Series na TV aberta. ESPN e Disney+ mostram as três divisões.' },
     'endurance': { canais: [['BandSports', 'paga'], ['YouTube Esporte na Band', 'gratis'], ['Jovem Pan (YouTube)', 'gratis'], ['Grande Prêmio (YouTube e GPTV)', 'gratis']], nota: 'Todas as etapas do WEC ao vivo, com várias opções grátis no YouTube.' },
-    'le-mans': { canais: [['BandSports', 'paga'], ['Grande Prêmio (YouTube e GPTV)', 'gratis'], ['Jovem Pan (YouTube)', 'gratis']], nota: 'As 24 Horas fazem parte do WEC: mesma transmissão do Mundial de Endurance.' },
-    'imsa': { canais: [['Grande Prêmio (YouTube e GPTV)', 'gratis'], ['IMSA TV', 'stream']], nota: 'O Grande Prêmio mostra a temporada completa, de graça e com imagens.' },
-    'dtm': { canais: [['ESPN', 'paga'], ['Disney+', 'stream'], ['YouTube DTM', 'gratis']], nota: 'O YouTube oficial do DTM pode estar bloqueado no Brasil em algumas etapas.' },
     'rally': { canais: [['Rally.TV (DAZN)', 'stream']], nota: 'Todas as especiais ao vivo, com narração em inglês. Não há transmissão em português.' },
     'dakar': { canais: [['ESPN', 'paga'], ['Disney+', 'stream']], nota: 'Resumos diários de cada etapa. O Dakar não tem transmissão ao vivo completa.' },
     'motogp': { canais: [['ESPN', 'paga'], ['Disney+', 'stream'], ['MotoGP VideoPass', 'stream']], nota: 'ESPN e Disney+ mostram todas as sessões de MotoGP, Moto2 e Moto3. Em 2026, a Band mostrou só o GP do Brasil.' },
-    'superbike': { canais: [['BandSports', 'paga'], ['WorldSBK VideoPass', 'stream']], nota: 'Em fins de semana com conflito de horário, o BandSports pode passar só o compacto (VT).' },
-    'motocross': { canais: [['BandSports', 'paga'], ['MXGP-TV', 'stream']], nota: 'O BandSports mostra as corridas do Mundial MXGP e o Motocross das Nações.' }
   }
 };
 

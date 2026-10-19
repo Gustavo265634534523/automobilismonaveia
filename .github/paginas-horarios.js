@@ -18,7 +18,7 @@ const V = (fs.readFileSync(path.join(RAIZ, 'sw.js'), 'utf8').match(/naveia-v(\d+
 const hoje = new Date(Date.now() - 3 * 36e5).toISOString().slice(0, 10);
 const DESDE = '2026-09-01';
 
-const CURTO = { 'formula-1': 'F1', 'formula-2': 'F2', 'formula-3': 'F3', 'endurance': 'WEC', 'rally': 'WRC' };
+const CURTO = { 'formula-1': 'F1', 'formula-2': 'F2', 'endurance': 'WEC', 'rally': 'WRC' };
 const curto = c => CURTO[c.slug] || c.menu || c.nome;
 const slugTexto = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 /* o mesmo nome é montado em assets/js/categoria.js (link da próxima etapa) */
@@ -181,15 +181,15 @@ const depois = proximas.filter(f => f.e.d > limite);
 const corpoCentral = `    <p class="hr-rot">Agenda · horário de Brasília</p>
     <h1>Horário das corridas de hoje e do fim de semana</h1>
     <p class="hr-alerta">${BTN('*', 'Avisar 30 min antes de todas as largadas')}</p>
-    <p class="hr-lead">Que horas é a corrida? Aqui estão os horários de Brasília de F1, MotoGP, Stock Car, NASCAR, IndyCar, WEC, DTM e mais categorias, com o canal que transmite no Brasil. Toque na corrida para ver todas as sessões.</p>
+    <p class="hr-lead">Que horas é a corrida? Aqui estão os horários de Brasília de F1, MotoGP, NASCAR, WEC, Fórmula E e mais categorias, com o canal que transmite no Brasil. Toque na corrida para ver todas as sessões.</p>
     ${semana || '<p>Sem corridas nos próximos 14 dias.</p>'}
     ${depois.length ? `<h2 class="hr-dia">Próximas etapas</h2><div class="hr-cards">${depois.slice(0, 30).map(cartao).join('')}</div>` : ''}
     <p class="hr-nota" style="margin-top:24px">Atualizado em ${esc(dataLonga(hoje))} de ${hoje.slice(0, 4)}. Os horários podem mudar por decisão da organização.</p>
     <div class="hr-links"><a href="onde-assistir.html">Onde assistir cada categoria</a><a href="noticias.html">Notícias</a><a href="guia.html">Guia para iniciantes</a></div>`;
 fs.writeFileSync(path.join(RAIZ, 'horarios.html'), pagina({
   arq: 'horarios.html',
-  titulo: 'Horário das corridas hoje: F1, MotoGP, Stock Car e mais | Na Veia',
-  desc: 'Que horas é a corrida hoje? Horários de Brasília de F1, MotoGP, Stock Car, NASCAR, IndyCar, WEC e mais, com onde assistir no Brasil. Atualizado todo dia.',
+  titulo: 'Horário das corridas hoje: F1, MotoGP, NASCAR e mais | Na Veia',
+  desc: 'Que horas é a corrida hoje? Horários de Brasília de F1, MotoGP, NASCAR, WEC, Fórmula E e mais, com onde assistir no Brasil. Atualizado todo dia.',
   corpo: corpoCentral
 }));
 

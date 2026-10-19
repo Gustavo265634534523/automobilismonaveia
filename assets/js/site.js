@@ -61,14 +61,14 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]; }); }
   window.esc = esc;
 
-  /* As 17 categorias organizadas em 5 grupos (usado no painel, na página inicial e no rodapé) */
+  /* As 9 categorias organizadas em 5 grupos (usado no painel, na página inicial e no rodapé) */
   var PORSLUG = {}; CATS.forEach(function (c) { PORSLUG[c.slug] = c; });
   var GRUPOS = [
-    { nome: 'Monopostos', desc: 'Carros de fórmula, com rodas descobertas', slugs: ['formula-1', 'formula-2', 'formula-3', 'formula-e', 'indycar'] },
-    { nome: 'Turismo', desc: 'Carros de carroceria fechada', slugs: ['stock-car', 'porsche-cup', 'nascar', 'dtm'] },
-    { nome: 'Endurance', desc: 'Corridas longas, de 6 a 24 horas', slugs: ['endurance', 'le-mans', 'imsa'] },
+    { nome: 'Monopostos', desc: 'Carros de fórmula, com rodas descobertas', slugs: ['formula-1', 'formula-2', 'formula-e'] },
+    { nome: 'Turismo', desc: 'Carros de carroceria fechada', slugs: ['porsche-cup', 'nascar'] },
+    { nome: 'Endurance', desc: 'Corridas longas, de 6 a 24 horas', slugs: ['endurance'] },
     { nome: 'Rally', desc: 'Estradas de terra, asfalto e neve', slugs: ['rally', 'dakar'] },
-    { nome: 'Motos', desc: 'Duas rodas', slugs: ['motogp', 'superbike', 'motocross'] }
+    { nome: 'Motos', desc: 'Duas rodas', slugs: ['motogp'] }
   ].map(function (g) { g.cats = g.slugs.map(function (s) { return PORSLUG[s]; }).filter(Boolean); return g; });
   window.GRUPOS = GRUPOS;
   /* Futebol e basquete: só os nomes, para o menu, o painel e o rodapé (os dados ficam em esportes-dados.js) */
@@ -202,7 +202,7 @@
       document.documentElement.classList.add('com-cats');
     } else {
       var h7 = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10), hj = new Date().toISOString().slice(0, 10);
-      var ordemCats = ['formula-1', 'motogp', 'stock-car', 'formula-2', 'formula-3', 'formula-e', 'indycar', 'nascar', 'porsche-cup', 'dtm', 'endurance', 'le-mans', 'imsa', 'rally', 'dakar', 'superbike', 'motocross'];
+      var ordemCats = ['formula-1', 'motogp', 'formula-2', 'formula-e', 'nascar', 'porsche-cup', 'endurance', 'rally', 'dakar'];
       var faixa = document.createElement('nav');
       faixa.className = 'faixa-cats'; faixa.setAttribute('aria-label', 'Categorias');
       faixa.innerHTML = '<div class="moldura faixa-cats-in">' + pilulas + ordemCats.map(function (slug) {
@@ -376,10 +376,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=314'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=314'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=314'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=314'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=315'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=315'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=315'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=315'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

@@ -12,7 +12,7 @@
     f1: [25, 18, 15], f1Sprint: [8, 7, 6],
     f2: [25, 18, 15], f2Sprint: [10, 8, 6],
     moto: [25, 20, 16], motoSprint: [12, 9, 7],
-    stockPrincipal: [80, 74, 69], stockSprint: [55, 50, 46],
+   
     porsche1: [28, 25, 23], porsche2: [25, 22, 20],
     rali: [25, 17, 15], raliExtra: [5, 4, 3],
     wec: [25, 18, 15]
@@ -54,14 +54,6 @@
       ],
       nota: 'Conta o pódio da sprint (12, 9 e 7) e da corrida (25, 20 e 16) de cada GP.'
     },
-    'stock-car': {
-      etapas: [
-        gp('Etapa 10, Cascavel', '2026-10-18', [s('Corrida sprint', P.stockSprint), s('Corrida principal', P.stockPrincipal)]),
-        gp('Etapa 11, Velopark', '2026-11-15', [s('Corrida sprint', P.stockSprint), s('Corrida principal', P.stockPrincipal)]),
-        gp('Final, Interlagos', '2026-12-13', [s('Corrida sprint', P.stockSprint), s('Corrida principal', P.stockPrincipal)])
-      ],
-      nota: 'Conta o pódio da sprint (55, 50 e 46) e da principal (80, 74 e 69). A etapa de Brasília (endurance) ainda não entrou na tabela. Os descartes dos piores resultados não entram na conta.'
-    },
     'porsche-cup': {
       etapas: [
         gp('Interlagos', '2026-11-08', [s('Corrida 1', P.porsche1), s('Corrida 2 (grid invertido)', P.porsche2)]),
@@ -87,7 +79,7 @@
       fora: 'A NASCAR decide o título no Chase, com regras próprias de classificação, e não só pela soma de pontos. Por isso ela não entra no simulador.'
     }
   };
-  var ORDEM = ['formula-1', 'motogp', 'stock-car', 'porsche-cup', 'formula-2', 'rally', 'endurance', 'nascar', 'formula-3', 'formula-e', 'indycar', 'motocross'];
+  var ORDEM = ['formula-1', 'motogp', 'porsche-cup', 'formula-2', 'rally', 'endurance', 'nascar', 'formula-e'];
 
   var abas = document.getElementById('sm-cats');
   var caixa = document.getElementById('simulador');

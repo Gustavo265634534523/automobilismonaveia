@@ -207,11 +207,11 @@
   [].forEach.call(document.querySelectorAll('[data-enquete]:not(.chat-enq)'), enquete);
 
   /* ---------- Dia de corrida: o botão do chat aparece pulsando ----------
-     Quando a F1, a MotoGP ou a Stock Car tem classificação, sprint ou corrida hoje (horário de Brasília). */
+     Quando a F1 ou a MotoGP tem classificação, sprint ou corrida hoje (horário de Brasília). */
   (function () {
     var hoje = window.hojeISO ? window.hojeISO() : new Date().toISOString().slice(0, 10), tem = null;
     (window.CATEGORIAS || []).forEach(function (c) {
-      if (!/^(formula-1|motogp|stock-car)$/.test(c.slug)) return;
+      if (!/^(formula-1|motogp)$/.test(c.slug)) return;
       c.calendario.forEach(function (e) { (e.s || []).forEach(function (s) { if (s.d === hoje && /Classifica|Sprint|Corrida|Principal/.test(s.t)) tem = tem || (c.menu || c.nome); }); });
     });
     if (!tem) return;
