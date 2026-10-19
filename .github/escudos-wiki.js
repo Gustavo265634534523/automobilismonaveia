@@ -19,6 +19,12 @@ async function imagem(wiki, titulo) {
     return p.thumbnail ? p.thumbnail.source : null;
   } catch (e) { return null; }
 }
+async function busca(wiki, q) {
+  try {
+    const r = await fetch('https://' + wiki + '.wikipedia.org/w/api.php?action=query&format=json&list=search&srlimit=1&srsearch=' + encodeURIComponent(q), { headers: UA, signal: AbortSignal.timeout(15000) });
+    const j = await r.json(); const h = ((j.query || {}).search || [])[0]; return h ? h.title : null;
+  } catch (e) { return null; }
+}
 (async () => {
   fs.mkdirSync(PASTA, { recursive: true });
   const linhas = fs.readFileSync(path.join(__dirname, 'escudos-wiki.txt'), 'utf8').split('\n').filter(l => l.trim() && !l.startsWith('#'));
@@ -26,9 +32,11 @@ async function imagem(wiki, titulo) {
   for (const l of linhas) {
     const [nome, en, pt] = l.split('|').map(s => s.trim());
     indice[nome] = [];
-    for (const [wiki, titulo] of [['en', en], ['pt', pt]]) {
+    for (const [wiki, titulo] of [['en', en], ['pt', pt], ['fr', en]]) {
       if (!titulo) continue;
-      const src = await imagem(wiki, titulo); await espera(400);
+      let src = await imagem(wiki, titulo); await espera(400);
+      /* sem artigo com esse título: procura pelo nome e usa o primeiro resultado */
+      if (!src) { const t = await busca(wiki, titulo); if (t) { src = await imagem(wiki, t); await espera(400); } }
       if (!src) { console.log('  sem imagem:', nome, wiki, titulo); continue; }
       try {
         const r = await fetch(src, { headers: UA, signal: AbortSignal.timeout(20000) });
