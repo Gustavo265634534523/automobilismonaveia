@@ -36,9 +36,7 @@ function traduz(t) {
 const OUTROS = [
   { cat: 'motogp', nome: 'MotoGP', canal: 'UC8pYaQzbBBXg9GIOHRvTmDQ', ok: /(Race|Sprint|Qualifying|Q2) Highlights|Full Race/i, fora: /Moto2|Moto3|MotoE/i },
   { cat: 'endurance', nome: 'WEC', art: 'do', canal: 'UCwU7U7PiarcJKLjDJTnANjw', ok: /Highlights|Full Race/i, fora: /^$/ },
-  { cat: 'nascar', nome: 'NASCAR', canal: 'UCuN9hYw2RpoAW8rZ3VK3isA', ok: /Cup Series.*Highlights|Highlights.*Cup Series/i, fora: /Truck|Xfinity|O'Reilly/i },
   { cat: 'formula-e', nome: 'Fórmula E', canal: 'UC-DuRqsBQOEk_5o1q4Ze-Fg', ok: /(Race|Qualifying) Highlights|Full Race/i, fora: /^$/ },
-  { cat: 'rally', nome: 'WRC', art: 'do', canal: 'UC5G6kTnHXDz0WIBC2VGBOqg', ok: /Highlights \| WRC/i, fora: /WRC2|WRC3|Junior/i },
   { cat: 'porsche-cup', nome: 'Porsche Cup', canal: 'UCwiRFcstDPKaCiOTXuoFhrQ', ok: /^ET\.\d+ \|.*\| (CORRIDA|QUALI)/i, fora: /ENGLISH/i }
 ];
 function tituloOutro(t) {

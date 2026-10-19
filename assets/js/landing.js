@@ -7,7 +7,7 @@
   var FRASES = {
     futebol: '<b>Brasileirão, Libertadores e Champions</b> e as grandes ligas da Europa.',
     basquete: '<b>NBA, Euroleague e NBB</b>: jogos, tabelas e destaques.',
-    automobilismo: '<b>Fórmula 1, MotoGP, NASCAR</b> e mais, no horário de Brasília.'
+    automobilismo: '<b>Fórmula 1, MotoGP, Fórmula E</b> e mais, no horário de Brasília.'
   };
   var palavras = [].slice.call(document.querySelectorAll('.ld-palavra'));
   var links = [].slice.call(document.querySelectorAll('.ld-nav a[data-esp]'));

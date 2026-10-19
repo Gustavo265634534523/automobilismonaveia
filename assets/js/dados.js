@@ -200,50 +200,6 @@ window.CATEGORIAS = [
   videos: ['Fórmula E Londres 2026 melhores momentos', 'Pascal Wehrlein campeão Fórmula E', 'Fórmula E São Paulo E-Prix']
 },
 {
-  slug: 'rally', nome: 'Rally', menu: 'WRC',
-  foto: 'assets/img/esportes/automobilismo.webp',
-  frase: 'O carro voa. O copiloto continua lendo.',
-  intro: 'Cascalho, neve, lama e asfalto. No rali, o piloto ataca uma estrada que conhece só pela voz do copiloto. Uma palavra trocada e o carro sai da estrada. Elfyn Evans lidera por 17 pontos antes da Sardenha.',
-  lider: { nome: 'Elfyn Evans', info: 'Campeão mundial 2026, Toyota, 243 pontos' },
-  noticias: [
-    { d: '2026-09-13', t: 'Solberg vence no Chile', x: 'Oliver Solberg ganhou o Rally Chile e ficou a 21 pontos de Elfyn Evans. Três pilotos da Toyota chegam à Sardenha separados por 21 pontos.' },
-    { d: '2026-08-30', t: 'Pajari fecha trinca no Paraguai', x: 'Sami Pajari venceu Estônia, Finlândia e Paraguai em sequência e subiu para segundo no campeonato.' },
-    { d: '2026-09-13', t: 'Toyota é campeã de construtores pela sexta vez seguida', x: 'A Toyota Gazoo Racing chega à Sardenha com o título garantido e mais de 200 pontos sobre a Hyundai.' }
-  ],
-  calendario: [
-    { e: 1, n: 'Rally Monte Carlo', l: 'Mônaco', d: '2026-01-25', venc: 'Oliver Solberg' },
-    { e: 2, n: 'Rally da Suécia', l: 'Umeå', d: '2026-02-15', venc: 'Elfyn Evans' },
-    { e: 3, n: 'Safari Rally', l: 'Quênia', d: '2026-03-15', venc: 'Takamoto Katsuta' },
-    { e: 4, n: 'Rally da Croácia', l: 'Rijeka', d: '2026-04-12', venc: 'Takamoto Katsuta' },
-    { e: 5, n: 'Rally Ilhas Canárias', l: 'Gran Canaria', d: '2026-04-26', venc: 'Sébastien Ogier' },
-    { e: 6, n: 'Rally de Portugal', l: 'Matosinhos', d: '2026-05-10', venc: 'Thierry Neuville' },
-    { e: 7, n: 'Rally do Japão', l: 'Toyota City', d: '2026-05-31', venc: 'Elfyn Evans' },
-    { e: 8, n: 'Rally Acrópole', l: 'Grécia', d: '2026-06-28', venc: 'Sébastien Ogier' },
-    { e: 9, n: 'Rally da Estônia', l: 'Tartu', d: '2026-07-19', venc: 'Sami Pajari' },
-    { e: 10, n: 'Rally da Finlândia', l: 'Jyväskylä', d: '2026-08-02', venc: 'Sami Pajari' },
-    { e: 11, n: 'Rally do Paraguai', l: 'Encarnación', d: '2026-08-30', venc: 'Sami Pajari' },
-    { e: 12, n: 'Rally do Chile', l: 'Concepción', d: '2026-09-13', venc: 'Oliver Solberg' },
-    { e: 13, n: 'Rally Itália Sardenha', l: 'Alghero', d: '2026-10-04', s: [{ t: 'Shakedown', d: '2026-10-01', h: '04:01' }, { t: 'Especial de abertura', d: '2026-10-01', h: '11:05' }, { t: 'Dia 2, primeira especial', d: '2026-10-02', h: '03:01' }, { t: 'Dia 3, primeira especial', d: '2026-10-03', h: '03:01' }, { t: 'Dia 4, primeira especial', d: '2026-10-04', h: '03:31' }, { t: 'Power Stage', d: '2026-10-04', h: '09:15' }], venc: 'Oliver Solberg' }
-  ],
-  classificacao: {
-    titulo: 'Pilotos (final)',
-    colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
-    linhas: [
-      ['1', 'Elfyn Evans', 'Toyota', '243'], ['2', 'Oliver Solberg', 'Toyota', '238'], ['3', 'Sami Pajari', 'Toyota', '237'],
-      ['4', 'Sébastien Ogier', 'Toyota', '189'], ['5', 'Adrien Fourmaux', 'Hyundai', '183'], ['6', 'Takamoto Katsuta', 'Toyota', '175'],
-      ['7', 'Thierry Neuville', 'Hyundai', '134'], ['8', 'Hayden Paddon', 'Hyundai', '38'], ['9', 'Josh McErlean', 'M-Sport Ford', '35'],
-      ['10', 'Esapekka Lappi', 'Hyundai', '33']
-    ],
-    nota: 'Classificação final da temporada. Elfyn Evans é campeão mundial de pilotos, o primeiro título da carreira, depois de Oliver Solberg sair da pista a duas curvas do fim da Power Stage em Sardenha. Construtores: Toyota Gazoo Racing campeã antecipada, 6º título seguido. O Rally da Arábia Saudita foi cancelado.'
-  },
-  equipes: [
-    { n: 'Toyota Gazoo Racing', i: 'GR Yaris Rally1', p: ['Elfyn Evans', 'Sami Pajari', 'Oliver Solberg', 'Takamoto Katsuta', 'Sébastien Ogier'] },
-    { n: 'Hyundai Shell Mobis', i: 'i20 N Rally1', p: ['Thierry Neuville', 'Adrien Fourmaux', 'Esapekka Lappi', 'Dani Sordo', 'Hayden Paddon'] },
-    { n: 'M-Sport Ford', i: 'Puma Rally1', p: ['Josh McErlean', 'Jon Armstrong', 'Mārtiņš Sesks'] }
-  ],
-  videos: ['WRC 2026 Rally Chile melhores momentos', 'WRC 2026 Rally Finlândia saltos', 'WRC 2026 onboard']
-},
-{
   slug: 'endurance', nome: 'Endurance', menu: 'WEC',
   foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Seis horas, vinte e quatro horas. O relógio também corre.',
@@ -316,49 +272,6 @@ window.CATEGORIAS = [
   videos: ['Porsche Cup Brasil 2026 Le Mans', 'Porsche Cup Brasil 2026 Interlagos', 'Porsche Cup Brasil onboard']
 },
 {
-  slug: 'nascar', nome: 'NASCAR', menu: 'NASCAR',
-  foto: 'assets/img/esportes/automobilismo.webp',
-  frase: 'Quarenta carros, um vácuo, nenhum espaço.',
-  intro: 'Nos ovais americanos, os carros andam colados a 300 km/h e o vácuo empurra o pelotão inteiro. Um toque e dez carros saem de cena. O Chase começou: Kyle Larson lidera por um ponto.',
-  lider: { nome: 'Kyle Larson', info: 'Hendrick, lidera o Round of 8' },
-  noticias: [
-    { d: '2026-09-19', t: 'Logano vence a corrida noturna de Bristol', x: 'Joey Logano ganhou sob as luzes da meia milha mais rápida do mundo. Larson segue um ponto à frente de Denny Hamlin.' },
-    { d: '2026-09-13', t: 'Larson vence em St. Louis', x: 'O piloto da Hendrick levou a segunda corrida do Chase e assumiu a ponta.' },
-    { d: '2026-09-06', t: 'Bell abre o Chase com vitória em Darlington', x: 'Christopher Bell venceu a Southern 500, a primeira das dez corridas que decidem o título.' }
-  ],
-  calendario: [
-    { e: 25, n: 'New Hampshire', l: 'Loudon', d: '2026-08-23', venc: 'Ryan Blaney' },
-    { e: 26, n: 'Coke Zero Sugar 400', l: 'Daytona', d: '2026-08-29', venc: 'Ryan Preece' },
-    { e: 27, n: 'Southern 500', l: 'Darlington', d: '2026-09-06', venc: 'Christopher Bell' },
-    { e: 28, n: 'Enjoy Illinois 300', l: 'St. Louis', d: '2026-09-13', venc: 'Kyle Larson' },
-    { e: 29, n: 'Bristol Night Race', l: 'Bristol', d: '2026-09-19', venc: 'Joey Logano' },
-    { e: 30, n: 'Hollywood Casino 400', l: 'Kansas', d: '2026-09-27', s: [{ t: 'Treino', d: '2026-09-26', h: '11:00' }, { t: 'Classificação', d: '2026-09-26', h: '12:10' }, { t: 'Corrida', d: '2026-09-27', h: '16:00' }], venc: 'Kyle Larson' },
-    { e: 31, n: 'South Point 400', l: 'Las Vegas', d: '2026-10-04', s: [{ t: 'Treino', d: '2026-10-03', h: '17:30' }, { t: 'Classificação', d: '2026-10-03', h: '18:35' }, { t: 'Corrida', d: '2026-10-04', h: '18:30' }], venc: 'Chase Briscoe' },
-    { e: 32, n: 'Bank of America 400', l: 'Charlotte', d: '2026-10-11', s: [{ t: 'Treino', d: '2026-10-10', h: '14:00' }, { t: 'Classificação', d: '2026-10-10', h: '15:05' }, { t: 'Corrida', d: '2026-10-11', h: '16:00' }], venc: 'Chase Briscoe' },
-    { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18', s: [{ t: 'Treino e classificação', d: '2026-10-17', h: '17:30' }, { t: 'Corrida', d: '2026-10-18', h: '16:00' }] },
-    { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25', s: [{ t: 'Corrida', d: '2026-10-25', h: '15:00' }] },
-    { e: 35, n: 'Xfinity 500', l: 'Martinsville', d: '2026-11-01' },
-    { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08' }
-  ],
-  classificacao: {
-    titulo: 'Round of 8, após Charlotte',
-    colunas: ['Pos', 'Piloto', 'Equipe'],
-    linhas: [['1', 'Kyle Larson', 'Hendrick (Chevrolet)'], ['2', 'Denny Hamlin', 'Joe Gibbs (Toyota)'], ['3', 'Christopher Bell', 'Joe Gibbs (Toyota)'], ['4', 'Chase Briscoe', 'Joe Gibbs (Toyota)'], ['5', 'Ryan Blaney', 'Penske (Ford)'], ['6', 'Joey Logano', 'Penske (Ford)'], ['7', 'Tyler Reddick', '23XI (Toyota)'], ['8', 'Austin Cindric', 'Penske (Ford)']],
-    nota: 'Kyle Larson venceu o corte do Round of 12 em Charlotte e lidera o Round of 8 por 65 pontos sobre Briscoe. Chase Elliott e William Byron foram eliminados.'
-  },
-  equipes: [
-    { n: 'Hendrick Motorsports', i: 'Chevrolet', p: ['Kyle Larson', 'Chase Elliott', 'William Byron', 'Alex Bowman'] },
-    { n: 'Joe Gibbs Racing', i: 'Toyota', p: ['Denny Hamlin', 'Christopher Bell', 'Ty Gibbs', 'Chase Briscoe'] },
-    { n: 'Team Penske', i: 'Ford', p: ['Ryan Blaney', 'Joey Logano', 'Austin Cindric'] },
-    { n: '23XI Racing', i: 'Toyota', p: ['Tyler Reddick', 'Bubba Wallace', 'Riley Herbst', 'Corey Heim'] },
-    { n: 'Trackhouse Racing', i: 'Chevrolet', p: ['Shane van Gisbergen'] },
-    { n: 'Spire Motorsports', i: 'Chevrolet', p: ['Carson Hocevar', 'Daniel Suárez', 'Michael McDowell'] },
-    { n: 'RFK Racing', i: 'Ford', p: ['Brad Keselowski', 'Chris Buescher', 'Ryan Preece'] },
-    { n: 'Richard Childress Racing', i: 'Chevrolet', p: ['Austin Dillon', 'Kyle Busch'] }
-  ],
-  videos: ['NASCAR Cup 2026 Bristol melhores momentos', 'NASCAR Chase 2026', 'NASCAR Daytona 2026 final']
-},
-{
   slug: 'motogp', nome: 'MotoGP', menu: 'MotoGP', principal: true,
   foto: 'assets/img/esportes/automobilismo.webp',
   frase: 'Cotovelo no asfalto a 60 graus de inclinação.',
@@ -410,59 +323,5 @@ window.CATEGORIAS = [
     { n: 'Monster Energy Yamaha', i: 'Yamaha', p: ['Fabio Quartararo', 'Álex Rins'] }
   ],
   videos: ['MotoGP 2026 Áustria melhores momentos', 'MotoGP 2026 Misano Marc Márquez', 'MotoGP 2026 onboard']
-},
-{
-  slug: 'dakar', nome: 'Rally Dakar', menu: 'Dakar', guia: false,
-  foto: 'assets/img/esportes/automobilismo.webp',
-  frase: 'Duas semanas, quase 8 mil quilômetros de deserto.',
-  intro: 'O Dakar é o rali mais duro do mundo: carros, motos e caminhões cruzam o deserto da Arábia Saudita em 13 etapas, sem estrada e guiados por navegação. Em 2026, Nasser Al-Attiyah ganhou pela sexta vez nos carros.',
-  lider: { nome: 'Nasser Al-Attiyah', info: 'Campeão 2026 nos carros, Dacia' },
-  noticias: [
-    { d: '2026-01-17', t: 'Al-Attiyah conquista o sexto Dakar', x: 'O catariano venceu nos carros com a Dacia, 9min42s à frente de Nani Roma. O brasileiro Lucas Moraes terminou em sétimo, também de Dacia.' },
-    { d: '2026-01-17', t: 'Benavides vence nas motos por 2 segundos', x: 'O argentino Luciano Benavides, da KTM, ganhou a categoria por apenas 2 segundos sobre Ricky Brabec, da Honda, depois de quase 49 horas de prova.' },
-    { d: '2026-01-17', t: 'Caminhões: vitória de Žala com Iveco', x: 'Vaidotas Žala venceu entre os caminhões, à frente de Aleš Loprais. Nos carros de série (Stock), Rokas Baciuška ganhou.' }
-  ],
-  calendario: [
-    { e: 1, n: 'Etapa 1', l: 'Yanbu', d: '2026-01-04', venc: 'Carros: Guillaume De Mévius · Motos: Edgar Canet' },
-    { e: 2, n: 'Etapa 2', l: 'Yanbu a Al-Ula', d: '2026-01-05', venc: 'Carros: Seth Quintero · Motos: Daniel Sanders' },
-    { e: 3, n: 'Etapa 3', l: 'Al-Ula', d: '2026-01-06', venc: 'Carros: Mitch Guthrie · Motos: Tosha Schareina' },
-    { e: 4, n: 'Etapa 4 (maratona)', l: 'Al-Ula', d: '2026-01-07', venc: 'Carros: Henk Lategan · Motos: Tosha Schareina' },
-    { e: 5, n: 'Etapa 5 (maratona)', l: 'Ha\'il', d: '2026-01-08', venc: 'Carros: Nani Roma · Motos: Luciano Benavides' },
-    { e: 6, n: 'Etapa 6', l: 'Ha\'il a Riad', d: '2026-01-09', venc: 'Carros: Nasser Al-Attiyah · Motos: Ricky Brabec' },
-    { e: 7, n: 'Etapa 7', l: 'Riad a Wadi ad-Dawasir', d: '2026-01-11', venc: 'Carros: Mattias Ekström · Motos: Luciano Benavides' },
-    { e: 8, n: 'Etapa 8', l: 'Wadi ad-Dawasir', d: '2026-01-12', venc: 'Carros: Saood Variawa · Motos: Luciano Benavides' },
-    { e: 9, n: 'Etapa 9', l: 'Wadi ad-Dawasir', d: '2026-01-13', venc: 'Carros: Eryk Goczał · Motos: Tosha Schareina' },
-    { e: 10, n: 'Etapa 10', l: 'Bisha', d: '2026-01-14', venc: 'Carros: Mathieu Serradori · Motos: Adrien Van Beveren' },
-    { e: 11, n: 'Etapa 11', l: 'Bisha a Al Henakiyah', d: '2026-01-15', venc: 'Carros: Mattias Ekström · Motos: Skyler Howes' },
-    { e: 12, n: 'Etapa 12', l: 'Al Henakiyah a Yanbu', d: '2026-01-16', venc: 'Carros: Nasser Al-Attiyah · Motos: Ricky Brabec' },
-    { e: 13, n: 'Etapa 13', l: 'Yanbu', d: '2026-01-17', venc: 'Carros: Mattias Ekström · Motos: Edgar Canet' }
-  ],
-  classificacao: {
-    titulo: 'Carros (final)',
-    colunas: ['Pos', 'Piloto', 'Carro', 'Tempo'],
-    linhas: [
-      ['1', 'Nasser Al-Attiyah', 'Dacia', '48:56:53'], ['2', 'Nani Roma', 'Ford', '+9min42s'],
-      ['3', 'Mattias Ekström', 'Ford', '+14min33s'], ['4', 'Sébastien Loeb', 'Dacia', '+15min10s'],
-      ['5', 'Carlos Sainz', 'Ford', '+28min30s'], ['6', 'Mathieu Serradori', 'Century', '+45min02s'],
-      ['7', 'Lucas Moraes', 'Dacia', '+47min50s']
-    ],
-    extra: {
-      titulo: 'Motos (final)',
-      colunas: ['Pos', 'Piloto', 'Moto', 'Tempo'],
-      linhas: [
-        ['1', 'Luciano Benavides', 'KTM', '49:00:41'], ['2', 'Ricky Brabec', 'Honda', '+2s'],
-        ['3', 'Tosha Schareina', 'Honda', '+25min12s'], ['4', 'Skyler Howes', 'Honda', '+56min41s'],
-        ['5', 'Daniel Sanders', 'KTM', '+1h03min'], ['6', 'Adrien Van Beveren', 'Honda', '+1h04min']
-      ]
-    },
-    nota: '48ª edição, de 3 a 17 de janeiro de 2026, na Arábia Saudita. Outras categorias: caminhões, Vaidotas Žala (Iveco); carros de série, Rokas Baciuška; T3, Pau Navarro; SSV, Brock Heger. A 49ª edição está confirmada para 1 a 15 de janeiro de 2027, com largada e chegada em King Abdullah Economic City, na Arábia Saudita; a Dacia, campeã de 2026, anunciou que não vai disputar o rali no ano seguinte.'
-  },
-  equipes: [
-    { n: 'Dacia Sandriders', i: 'Dacia Sandrider', p: ['Nasser Al-Attiyah', 'Sébastien Loeb', 'Lucas Moraes'] },
-    { n: 'Ford Racing', i: 'Ford Raptor', p: ['Nani Roma', 'Mattias Ekström', 'Carlos Sainz', 'Mitch Guthrie'] },
-    { n: 'Red Bull KTM', i: 'KTM 450 Rally', p: ['Luciano Benavides', 'Daniel Sanders', 'Edgar Canet'] },
-    { n: 'Monster Energy Honda', i: 'Honda CRF 450 Rally', p: ['Ricky Brabec', 'Tosha Schareina', 'Skyler Howes', 'Adrien Van Beveren'] }
-  ],
-  videos: ['Dakar 2026 melhores momentos', 'Dakar 2026 Al-Attiyah', 'Dakar 2026 motos Benavides Brabec']
 }
 ];

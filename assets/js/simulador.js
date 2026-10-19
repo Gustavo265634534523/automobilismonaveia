@@ -61,12 +61,6 @@
       ],
       nota: 'Campeonato Sprint da Carrera Cup. Conta o pódio da corrida 1 (28, 25 e 23) e da corrida 2 (25, 22 e 20). As provas de endurance têm campeonato próprio.'
     },
-    'rally': {
-      etapas: [
-        gp('Rally Itália Sardenha', '2026-10-04', [s('Resultado final', P.rali), s('Super Sunday', P.raliExtra), s('Power Stage', P.raliExtra)])
-      ],
-      nota: 'Última etapa. Conta o pódio final (25, 17 e 15), o Super Sunday e a Power Stage (5, 4 e 3 cada).'
-    },
     'endurance': {
       etapas: [
         gp('6 Horas de Barcelona', '2026-10-18', [s('Corrida', P.wec)]),
@@ -74,12 +68,9 @@
       ],
       nota: 'Hypercar. Você escolhe o carro, e os pontos vão para a dupla ou o trio dele (25, 18 e 15). Os pontos de pole ficam de fora.',
       porCarro: true
-    },
-    'nascar': {
-      fora: 'A NASCAR decide o título no Chase, com regras próprias de classificação, e não só pela soma de pontos. Por isso ela não entra no simulador.'
     }
   };
-  var ORDEM = ['formula-1', 'motogp', 'porsche-cup', 'formula-2', 'rally', 'endurance', 'nascar', 'formula-e'];
+  var ORDEM = ['formula-1', 'motogp', 'porsche-cup', 'formula-2', 'endurance', 'formula-e'];
 
   var abas = document.getElementById('sm-cats');
   var caixa = document.getElementById('simulador');

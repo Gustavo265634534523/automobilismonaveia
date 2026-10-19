@@ -9,10 +9,7 @@ window.ONDE_ASSISTIR = {
     'formula-2': { canais: [['SporTV 3', 'paga'], ['Globoplay', 'stream'], ['F1 TV Premium', 'stream']], nota: 'Corridas no SporTV 3. Depois ficam inteiras no Globoplay.' },
     'formula-e': { canais: [['Band', 'aberta'], ['BandSports', 'paga'], ['Grande Prêmio (YouTube e GPTV)', 'gratis']], nota: 'A Band mostra classificação e corrida de algumas etapas. BandSports e Grande Prêmio mostram a temporada toda.' },
     'porsche-cup': { canais: [['Band', 'aberta'], ['BandSports', 'paga'], ['BandPlay', 'gratis'], ['YouTube Porsche Cup', 'gratis']], nota: '' },
-    'nascar': { canais: [['XSports', 'aberta'], ['ESPN', 'paga'], ['Disney+', 'stream']], nota: 'O XSports mostra a Cup Series na TV aberta. ESPN e Disney+ mostram as três divisões.' },
     'endurance': { canais: [['BandSports', 'paga'], ['YouTube Esporte na Band', 'gratis'], ['Jovem Pan (YouTube)', 'gratis'], ['Grande Prêmio (YouTube e GPTV)', 'gratis']], nota: 'Todas as etapas do WEC ao vivo, com várias opções grátis no YouTube.' },
-    'rally': { canais: [['Rally.TV (DAZN)', 'stream']], nota: 'Todas as especiais ao vivo, com narração em inglês. Não há transmissão em português.' },
-    'dakar': { canais: [['ESPN', 'paga'], ['Disney+', 'stream']], nota: 'Resumos diários de cada etapa. O Dakar não tem transmissão ao vivo completa.' },
     'motogp': { canais: [['ESPN', 'paga'], ['Disney+', 'stream'], ['MotoGP VideoPass', 'stream']], nota: 'ESPN e Disney+ mostram todas as sessões de MotoGP, Moto2 e Moto3. Em 2026, a Band mostrou só o GP do Brasil.' },
   }
 };
