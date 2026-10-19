@@ -23,7 +23,7 @@ jobs:
             [ -z "$destino" ] && continue
             if [ -f "$destino.png" ] || [ -f "$destino.webp" ]; then continue; fi
             mkdir -p "$(dirname "$destino")"
-            curl -sSfL --retry 3 -m 120 -o "$destino.png" "$url" || { echo "falhou: $url"; continue; }
+            curl -sSfL --retry 3 -m 120 -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36" -H "Referer: https://www.sofascore.com/" -o "$destino.png" "$url" || { echo "falhou: $url"; continue; }
             convert "$destino.png" -resize '900x900>' -quality 82 "$destino.webp" || true
             ls -la "$destino".*
           done
