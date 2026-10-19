@@ -378,9 +378,9 @@ a.hm-merc:hover { border-color: var(--sangue-vivo); }
 
 
 /* ---------- Cartões só de texto, com a cor do esporte (sem imagem repetida) ---------- */
-.hm-hero { min-height: 340px; background: linear-gradient(135deg, #3a0d11 0%, #121a24 70%); }
-.hm-hero-futebol { background: linear-gradient(135deg, #10432a 0%, #121a24 70%); }
-.hm-hero-basquete { background: linear-gradient(135deg, #5a2a0d 0%, #121a24 70%); }
+.hm-hero { min-height: 340px; background: linear-gradient(135deg, #3a0d11 0%, #232427 70%); }
+.hm-hero-futebol { background: linear-gradient(135deg, #10432a 0%, #232427 70%); }
+.hm-hero-basquete { background: linear-gradient(135deg, #5a2a0d 0%, #232427 70%); }
 .hm-hero .hm-hero-txt { background: none; padding-top: 40px; }
 .hm-mini { grid-template-columns: 1fr; padding-left: 12px; border-left: 3px solid var(--sangue-vivo); }
 .hm-mini-futebol { border-color: #2ea062; } .hm-mini-basquete { border-color: #e07a2e; }
