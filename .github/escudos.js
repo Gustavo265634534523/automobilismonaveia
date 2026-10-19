@@ -11,7 +11,7 @@ const PASTA = path.join(RAIZ, 'assets/img/escudos');
 const ARQ = path.join(RAIZ, 'assets/dados/escudos.js');
 const CHAVE = process.env.THESPORTSDB_CHAVE || '123';
 const API = 'https://www.thesportsdb.com/api/v1/json/' + CHAVE + '/';
-const INICIO = Date.now(), LIMITE_MS = 25 * 60e3, MAX_BUSCAS = 120;
+const INICIO = Date.now(), LIMITE_MS = 28 * 60e3, MAX_BUSCAS = 150, INTERVALO = 3500;
 const espera = ms => new Promise(r => setTimeout(r, ms));
 
 global.window = {};
@@ -37,6 +37,8 @@ const APELIDO = {
   'Tottenham': 'Tottenham Hotspur', 'Wolverhampton': 'Wolverhampton Wanderers', 'Newcastle': 'Newcastle United', 'West Ham': 'West Ham United',
   'Leverkusen': 'Bayer Leverkusen', 'Bayer Leverkusen': 'Bayer Leverkusen', 'Eintracht Frankfurt': 'Eintracht Frankfurt', 'Stuttgart': 'VfB Stuttgart',
   'Hoffenheim': 'TSG Hoffenheim', 'Wolfsburg': 'VfL Wolfsburg', 'Freiburg': 'SC Freiburg', 'Mainz': 'Mainz 05', 'Hamburgo': 'Hamburger SV',
+  'ASVEL': 'LDLC ASVEL', 'Bodø/Glimt': 'Bodo Glimt', 'AEK Atenas': 'AEK Athens', 'Crvena Zvezda': 'Crvena Zvezda', 'Žalgiris': 'Zalgiris Kaunas',
+  'Olympiacos': 'Olympiacos BC', 'Panathinaikos': 'Panathinaikos BC', 'LA Clippers': 'Los Angeles Clippers', 'Málaga': 'Malaga', 'Mainz 05': 'Mainz',
   'Benfica': 'Benfica', 'Porto': 'FC Porto', 'Fenerbahçe': 'Fenerbahce', 'Galatasaray': 'Galatasaray', 'Slavia Praga': 'Slavia Prague'
 };
 const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
@@ -54,10 +56,10 @@ for (const c of window.COMPETICOES) {
 }
 
 async function pedir(u) {
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 3; i++) {
     try {
       const r = await fetch(u, { signal: AbortSignal.timeout(15000), headers: { 'User-Agent': 'NaVeia/1.0 (automobilismonaveia.com.br)' } });
-      if (r.status === 429) { await espera(8000); continue; }
+      if (r.status === 429) { await espera(30000); continue; } /* pediu demais: espera meio minuto */
       return r.ok ? r : null;
     } catch (e) { /* tempo esgotado ou rede: tenta de novo uma vez */ }
   }
@@ -86,7 +88,8 @@ async function baixar(nome, time) {
 /* casa o nome do site com um time da lista: nome igual (sem acento e sem FC, SC...) ou um dos nomes alternativos */
 function casar(nome, lista, esporte) {
   const alvos = [norm(APELIDO[nome] || nome), norm(nome)];
-  const ok = lista.filter(t => t.strBadge && t.strSport === (esporte === 'basquete' ? 'Basketball' : 'Soccer') && !/women|feminin|\bu-?\d\d\b/i.test(t.strTeam));
+  /* fora times femininos e de base (o nome vem com acento, por isso compara sem acento) */
+  const ok = lista.filter(t => t.strBadge && t.strSport === (esporte === 'basquete' ? 'Basketball' : 'Soccer') && !/women|feminin|femenin|ladies|\bu ?\d\d\b|\bii\b/.test(norm(t.strTeam)));
   const nomesDe = t => [t.strTeam, t.strTeamShort].concat(String(t.strTeamAlternate || '').split(',')).filter(Boolean).map(norm);
   return ok.find(t => nomesDe(t).some(n => alvos.includes(n))) ||
     ok.find(t => nomesDe(t).some(n => alvos.some(a => a.length >= 5 && (n.startsWith(a + ' ') || n.endsWith(' ' + a)))));
@@ -104,7 +107,7 @@ function casar(nome, lista, esporte) {
     const lista = (j && (j.teams || j.countries)) || [];
     console.log('liga', l + ':', lista.length, 'times');
     todos.push(...lista);
-    await espera(2100);
+    await espera(INTERVALO);
   }
   for (const nome of faltam) {
     const t = casar(nome, todos, times[nome].esporte);
@@ -120,7 +123,7 @@ function casar(nome, lista, esporte) {
     let achado = null;
     for (const termo of [...new Set([APELIDO[nome], nome])].filter(Boolean)) {
       const j = await json(API + 'searchteams.php?t=' + encodeURIComponent(termo)); buscas++;
-      await espera(2100); /* a chave gratuita aceita 30 pedidos por minuto */
+      await espera(INTERVALO); /* a chave gratuita aceita poucos pedidos por minuto */
       achado = casar(nome, (j && j.teams) || [], times[nome].esporte);
       if (achado) break;
     }
