@@ -10,13 +10,7 @@
   var SEMANA = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
   function diaSemana(d) { return SEMANA[new Date(d + 'T12:00:00').getDay()]; }
 
-  /* escudo: sem logos oficiais, um círculo com as iniciais na cor do time (sempre a mesma para o mesmo nome) */
-  function sigla(n) {
-    var p = String(n).replace(/\b(de|da|do|des|del|FC|CF|AC|SC|AFC|Club)\b/g, '').trim().split(/[\s-]+/).filter(Boolean);
-    return (p.length > 1 ? p[0][0] + p[1][0] : (p[0] || '?').slice(0, 3)).toUpperCase();
-  }
-  function cor(n) { var h = 0; for (var i = 0; i < n.length; i++) h = (h * 31 + n.charCodeAt(i)) % 360; return 'hsl(' + h + ' 55% 38%)'; }
-  function escudo(n) { return '<span class="ft-escudo" style="--c:' + cor(n) + '" aria-hidden="true">' + esc(sigla(n)) + '</span>'; }
+  function escudo(n) { return window.escudoTime(n, 'ft-escudo'); }
 
   var jogos = [];
   COMPS.forEach(function (c) { (c.jogos || []).forEach(function (j) { if (j.casa && j.fora) jogos.push({ c: c, j: j }); }); });

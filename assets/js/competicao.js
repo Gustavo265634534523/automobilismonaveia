@@ -11,6 +11,17 @@
     if (f) return '<img' + (classe ? ' class="' + classe + '"' : '') + ' src="' + (grande ? f.grande : f.src) + '" alt="" loading="' + (grande ? 'eager' : 'lazy') + '">';
     return '<span class="hm-arte hm-' + (n.esporte || 'futebol') + (classe ? ' ' + classe : '') + '" aria-hidden="true">' + ((window.ESPORTES_ICONE || {})[n.esporte] || '') + '</span>';
   };
+  /* escudo do time (assets/dados/escudos.js, baixado pelo robô .github/escudos.js); sem ele, um círculo com as iniciais */
+  function sigla(n) {
+    var p = String(n).replace(/\b(de|da|do|des|del|FC|CF|AC|SC|AFC|Club)\b/g, '').trim().split(/[\s-]+/).filter(Boolean);
+    return (p.length > 1 ? p[0][0] + p[1][0] : (p[0] || '?').slice(0, 3)).toUpperCase();
+  }
+  function corTime(n) { var h = 0; for (var i = 0; i < n.length; i++) h = (h * 31 + n.charCodeAt(i)) % 360; return 'hsl(' + h + ' 55% 38%)'; }
+  window.escudoTime = function (n, classe) {
+    var src = (window.ESCUDOS || {})[n];
+    return '<span class="escudo' + (classe ? ' ' + classe : '') + (src ? ' tem-img' : '') + '" style="--c:' + corTime(String(n)) + '" aria-hidden="true">' +
+      (src ? '<img src="' + src + '" alt="" loading="lazy" onerror="this.parentNode.classList.remove(\'tem-img\');this.remove()">' : '') + esc(sigla(n)) + '</span>';
+  };
   var hoje = window.hojeISO();
   var PORSLUG = {}; COMPS.forEach(function (c) { PORSLUG[c.slug] = c; });
   var ICONE = {
@@ -21,7 +32,7 @@
 
   function tabela(t) {
     return '<div class="tabela-wrap"><table class="tabela tabela-comp"><thead><tr>' + t.colunas.map(function (h) { return '<th scope="col">' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      t.linhas.map(function (l) { return '<tr class="p' + esc(l[0]) + '">' + l.map(function (v) { return '<td>' + esc(v) + '</td>'; }).join('') + '</tr>'; }).join('') +
+      t.linhas.map(function (l) { return '<tr class="p' + esc(l[0]) + '">' + l.map(function (v, i) { return t.colunas[i] === 'Time' ? '<td class="td-time">' + window.escudoTime(v) + esc(v) + '</td>' : '<td>' + esc(v) + '</td>'; }).join('') + '</tr>'; }).join('') +
       '</tbody></table></div>';
   }
   /* próximo jogo: o primeiro sem placar, de hoje em diante */
@@ -29,7 +40,7 @@
   function jogo(j) {
     var status = j.p ? 'Encerrado' : !j.d ? 'Data a confirmar' : j.d < hoje ? 'Aguardando placar' : window.quando(j.d);
     return '<li class="jogo' + (j.p ? ' feito' : '') + '"><span class="jogo-fase">' + esc(j.fase || '') + (j.l ? '<small>' + esc(j.l) + '</small>' : '') + '</span>' +
-      '<span class="jogo-times"><b>' + esc(j.casa) + '</b><em>' + (j.p ? esc(j.p) : 'x') + '</em><b>' + esc(j.fora) + '</b></span>' +
+      '<span class="jogo-times"><b>' + esc(j.casa) + window.escudoTime(j.casa) + '</b><em>' + (j.p ? esc(j.p) : 'x') + '</em><b>' + window.escudoTime(j.fora) + esc(j.fora) + '</b></span>' +
       '<span class="jogo-data">' + (j.d ? window.dataCurta(j.d) + (j.h ? ' · ' + esc(j.h) : '') : '') + '<small>' + status + '</small></span></li>';
   }
   function cartao(c) {

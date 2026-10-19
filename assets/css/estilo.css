@@ -1309,3 +1309,10 @@ button.painel-menu-it { display: none; }
 .cr-fatos dt { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--aco); }
 .cr-fatos dd { margin: 6px 0 0; font-size: 17px; font-weight: 700; }
 @media (max-width: 820px) { .cr-grade { grid-template-columns: 1fr; } }
+/* escudo dos times (competicao.js: window.escudoTime) */
+.escudo { position: relative; flex: none; display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--c); color: #fff; font-size: 8px; font-weight: 800; letter-spacing: .02em; vertical-align: middle; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .18); }
+.escudo.tem-img { background: transparent; box-shadow: none; color: transparent; border-radius: 0; }
+.escudo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.td-time { white-space: nowrap; }
+.td-time .escudo { margin-right: 10px; }
+.jogo-times b .escudo { margin: 0 10px; }

@@ -1,0 +1,37 @@
+# Escudos dos times (TheSportsDB): baixa os que faltam para assets/img/escudos e atualiza assets/dados/escudos.js.
+# Roda quando os times mudam (esportes-dados.js), uma vez por semana e quando pedido à mão.
+name: Escudos dos times
+on:
+  push:
+    paths:
+      - 'assets/js/esportes-dados.js'
+      - '.github/escudos.js'
+      - '.github/workflows/escudos.yml'
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: salvar-no-site
+  cancel-in-progress: false
+jobs:
+  escudos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Baixar escudos
+        run: node .github/escudos.js
+      - name: Salvar no site
+        run: |
+          git config user.name "Robô Na Veia"
+          git config user.email "automobilismonaveiacontato@gmail.com"
+          git add assets/dados/escudos.js assets/img/escudos
+          git diff --cached --quiet && exit 0
+          git commit -m "Robô: escudos dos times"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1
