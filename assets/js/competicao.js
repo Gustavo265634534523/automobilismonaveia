@@ -103,20 +103,37 @@
     '<div class="cat-lider"><span>' + (c.tabela ? 'Na ponta' : 'Agora') + '</span><b>' + esc(c.lider.nome) + '</b><small>' + esc(c.lider.info) + '</small></div></div></div>';
 
   var P = [];
+  var futuros = (c.jogos || []).filter(function (j) { return !j.p; }), feitos = (c.jogos || []).filter(function (j) { return j.p; }).reverse();
+  var meus = VIDS.filter(function (v) { return v.comp === c.slug; });
+  /* Resumo: o essencial de cada aba, para a página não abrir vazia */
+  function mini(t, n) { return { titulo: t.titulo, colunas: t.colunas, linhas: t.linhas.slice(0, n) }; }
+  var resumo = [];
+  if (futuros.length || feitos.length) resumo.push('<div class="cr-bloco"><h3>' + (futuros.length ? 'Próximos jogos' : 'Últimos resultados') + '</h3><ul class="jogos">' + (futuros.length ? futuros : feitos).slice(0, 4).map(jogo).join('') + '</ul><button type="button" class="cr-mais" data-aba="jogos">Todos os jogos →</button></div>');
+  if (c.tabela) resumo.push('<div class="cr-bloco"><h3>' + esc(c.tabela.titulo) + '</h3>' + tabela(mini(c.tabela, 6)) + '<button type="button" class="cr-mais" data-aba="classificacao">Classificação completa →</button></div>');
+  else if (c.confrontos) resumo.push('<div class="cr-bloco"><h3>Confrontos</h3><ul class="confrontos">' + c.confrontos.slice(0, 2).map(confronto).join('') + '</ul></div>');
+  if (c.destaques) resumo.push('<div class="cr-bloco"><h3>' + esc(c.destaques.titulo) + '</h3>' + tabela(mini(c.destaques, 3)) + '<button type="button" class="cr-mais" data-aba="destaques">Ver todos →</button></div>');
+  var nres = listaNoticias(function (n) { return n.comp === c.slug; }, 3);
+  if (nres) resumo.push('<div class="cr-bloco cr-largo"><h3>Últimas notícias</h3><div class="bq-noticias">' + nres + '</div></div>');
+  if (resumo.length > 1) P.push(['resumo', 'Resumo', '<h2>Resumo</h2><div class="cr-grade">' + resumo.join('') + '</div>']);
+
   var nots = listaNoticias(function (n) { return n.comp === c.slug; });
   if (nots) P.push(['noticias', 'Notícias', '<h2>Notícias</h2><div class="bq-noticias">' + nots + '</div>']);
-  var meus = VIDS.filter(function (v) { return v.comp === c.slug; });
   if (meus.length) P.push(['videos', 'Vídeos', '<h2>Melhores momentos</h2><div class="vd-grade">' + meus.map(videoCartao).join('') + '</div><p class="vd-nota">Vídeos do canal oficial no YouTube.</p>']);
-  var futuros = (c.jogos || []).filter(function (j) { return !j.p; }), feitos = (c.jogos || []).filter(function (j) { return j.p; }).reverse();
   P.push(['jogos', 'Jogos', '<h2>Jogos · ' + esc(c.fase) + '</h2>' +
     (futuros.length ? '<h3 style="margin-top:0">Próximos jogos</h3><ul class="jogos">' + futuros.map(jogo).join('') + '</ul>' : '') +
     (feitos.length ? '<h3' + (futuros.length ? '' : ' style="margin-top:0"') + '>Resultados</h3><ul class="jogos">' + feitos.map(jogo).join('') + '</ul>' : '') +
     (!futuros.length && !feitos.length ? '<p class="nota">Os jogos da rodada entram aqui assim que forem confirmados.</p>' : '') +
     (c.nota ? '<p class="nota">' + esc(c.nota) + '</p>' : '')]);
-  if (c.confrontos) P.push(['confrontos', 'Confrontos', '<h2>Confrontos</h2><ul class="confrontos">' + c.confrontos.map(function (x) {
-    return '<li class="confronto"><span class="jogo-fase">' + esc(x.fase) + '</span><span class="jogo-times"><b>' + esc(x.a) + '</b><em>' + esc(x.ida) + '</em><b>' + esc(x.b) + '</b></span><span class="confronto-sit">Ida. ' + esc(x.situacao) + '</span></li>';
-  }).join('') + '</ul>']);
-  if (c.tabela) P.push(['classificacao', 'Classificação', '<h2>Classificação</h2><h3 style="margin-top:0">' + esc(c.tabela.titulo) + '</h3>' + tabela(c.tabela) + (c.tabela.nota ? '<p class="nota">' + esc(c.tabela.nota) + '</p>' : '')]);
+  function confronto(x) {
+    return '<li class="confronto"><span class="jogo-fase">' + esc(x.fase) + '</span><span class="jogo-times"><b>' + esc(x.a) + '</b><em>' + esc(x.ida || 'x') + '</em><b>' + esc(x.b) + '</b></span><span class="confronto-sit">' + esc(x.situacao || '') + '</span></li>';
+  }
+  if (c.confrontos) P.push(['confrontos', 'Confrontos', '<h2>Confrontos</h2><ul class="confrontos">' + c.confrontos.map(confronto).join('') + '</ul>']);
+  function blocoTabela(t, primeiro) { return '<h3' + (primeiro ? ' style="margin-top:0"' : '') + '>' + esc(t.titulo) + '</h3>' + tabela(t) + (t.nota ? '<p class="nota">' + esc(t.nota) + '</p>' : ''); }
+  if (c.tabela) P.push(['classificacao', 'Classificação', '<h2>Classificação</h2>' + blocoTabela(c.tabela, true) + (c.tabela2 ? blocoTabela(c.tabela2) : '')]);
+  if (c.destaques) P.push(['destaques', c.destaques.aba || (c.esporte === 'futebol' ? 'Artilharia' : 'Destaques'), '<h2>' + esc(c.destaques.titulo) + '</h2>' + tabela(c.destaques) + (c.destaques.nota ? '<p class="nota">' + esc(c.destaques.nota) + '</p>' : '')]);
+  if (c.sobre || c.campeoes) P.push(['sobre', 'Sobre', '<h2>Sobre ' + (/^(Copa|Champions|Premier|La |Bundesliga|Serie|Ligue|Euroleague)/.test(c.nome) ? 'a ' : 'o ') + esc(c.nome) + '</h2>' +
+    (c.sobre ? '<dl class="cr-fatos">' + c.sobre.map(function (f) { return '<div><dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd></div>'; }).join('') + '</dl>' : '') +
+    (c.campeoes ? '<h3>Últimos campeões</h3>' + tabela({ colunas: c.campeoes[0].length > 2 ? ['Temporada', 'Campeão', 'Vice'] : ['Temporada', 'Campeão'], linhas: c.campeoes }) : '')]);
 
   var abas = document.getElementById('abas'), paineis = document.getElementById('paineis');
   abas.innerHTML = P.map(function (s) {
@@ -140,6 +157,9 @@
       var alvo = botoes[(i + n + botoes.length) % botoes.length];
       alvo.focus(); alvo.click();
     });
+  });
+  [].forEach.call(paineis.querySelectorAll('.cr-mais'), function (b) {
+    b.addEventListener('click', function () { var bt = document.getElementById('aba-' + b.getAttribute('data-aba')); if (bt) { bt.click(); window.scrollTo({ top: document.getElementById('abas-barra').offsetTop - 70, behavior: 'smooth' }); } });
   });
   abrir(location.hash.slice(1));
 })();
