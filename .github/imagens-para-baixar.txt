@@ -3,3 +3,12 @@
 assets/img/entrada/futebol https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261019_040156_18e780e2-b8ea-432f-a4c2-9a67ac4eeed4.png
 assets/img/entrada/basquete https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261019_040156_f58a0909-1acf-498c-a7e5-cb9ae68e46ef.png
 assets/img/entrada/automobilismo https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261019_040157_be840ba5-91bb-4a2a-8a83-d687acb3ca67.png
+# escudos que o TheSportsDB gratuito não entregou (fonte: ESPN); conferidos à mão antes de entrar no site
+assets/img/escudos/espn-paris-saint-germain https://a.espncdn.com/i/teamlogos/soccer/500/160.png
+assets/img/escudos/espn-real-madrid https://a.espncdn.com/i/teamlogos/soccer/500/86.png
+assets/img/escudos/espn-sporting https://a.espncdn.com/i/teamlogos/soccer/500/2250.png
+assets/img/escudos/espn-nottingham-forest https://a.espncdn.com/i/teamlogos/soccer/500/393.png
+assets/img/escudos/espn-estudiantes https://a.espncdn.com/i/teamlogos/soccer/500/6.png
+assets/img/escudos/espn-venezia https://a.espncdn.com/i/teamlogos/soccer/500/2731.png
+assets/img/escudos/espn-besiktas https://a.espncdn.com/i/teamlogos/soccer/500/1895.png
+assets/img/escudos/espn-toronto-raptors https://a.espncdn.com/i/teamlogos/nba/500/tor.png
