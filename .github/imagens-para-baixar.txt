@@ -8,7 +8,5 @@ assets/img/escudos/espn-paris-saint-germain https://a.espncdn.com/i/teamlogos/so
 assets/img/escudos/espn-real-madrid https://a.espncdn.com/i/teamlogos/soccer/500/86.png
 assets/img/escudos/espn-sporting https://a.espncdn.com/i/teamlogos/soccer/500/2250.png
 assets/img/escudos/espn-nottingham-forest https://a.espncdn.com/i/teamlogos/soccer/500/393.png
-assets/img/escudos/espn-estudiantes https://a.espncdn.com/i/teamlogos/soccer/500/6.png
-assets/img/escudos/espn-venezia https://a.espncdn.com/i/teamlogos/soccer/500/2731.png
 assets/img/escudos/espn-besiktas https://a.espncdn.com/i/teamlogos/soccer/500/1895.png
 assets/img/escudos/espn-toronto-raptors https://a.espncdn.com/i/teamlogos/nba/500/tor.png
