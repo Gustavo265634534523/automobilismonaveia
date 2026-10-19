@@ -1,0 +1,33 @@
+# Candidatos a escudo pela Wikipédia (.github/escudos-wiki.js). Roda quando a lista muda ou quando pedido à mão.
+name: Escudos pela Wikipédia
+on:
+  push:
+    paths:
+      - '.github/escudos-wiki.txt'
+      - '.github/escudos-wiki.js'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: escudos-wiki
+  cancel-in-progress: false
+jobs:
+  wiki:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Baixar candidatos
+        run: node .github/escudos-wiki.js
+      - name: Salvar no site
+        run: |
+          git config user.name "Robô Na Veia"
+          git config user.email "automobilismonaveiacontato@gmail.com"
+          git add assets/img/escudos/cand
+          git diff --cached --quiet && exit 0
+          git commit -m "Robô: candidatos a escudo pela Wikipédia"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1

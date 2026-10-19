@@ -1,0 +1,31 @@
+# Escudos procurados na Wikipédia (imagem principal do artigo do clube). Uma linha por time:
+# Nome usado no site | título do artigo em inglês | título do artigo em português (opcional)
+# O robô (.github/escudos-wiki.js) baixa candidatos para assets/img/escudos/cand/; cada um é conferido à mão antes de entrar no site.
+Partizan | KK Partizan | KK Partizan
+Crvena Zvezda | KK Crvena zvezda | KK Crvena Zvezda
+Virtus Bologna | Virtus Bologna | Virtus Pallacanestro Bologna
+Maccabi Tel Aviv | Maccabi Tel Aviv B.C. | Maccabi Tel Aviv Basketball Club
+ASVEL | ASVEL Basket | ASVEL Basket
+AS Monaco | AS Monaco Basket | AS Monaco Basket
+CSKA Moscou | PBC CSKA Moscow | PBC CSKA Moscou
+Sesi Franca | Franca Basquetebol Clube | Franca Basquetebol Clube
+Bauru Basket | Bauru Basket | Bauru Basket
+Mogi Basquete | Mogi das Cruzes Basquete | Mogi Basquete
+Unifacisa | Unifacisa Basquete | Unifacisa Basquete
+Basket Osasco | Basket Osasco | Basket Osasco
+Caxias do Sul Basquete | Caxias do Sul Basquete | Caxias do Sul Basquete
+Itatiaiuçu Cruzeiro | Cruzeiro Esporte Clube (basketball) | Cruzeiro Esporte Clube (basquete)
+São José Basketball | São José Basketball | São José Basketball
+Pato Basquete | Pato Basquete | Pato Basquete
+Paulistano | Club Athletico Paulistano | Club Athletico Paulistano
+União Corinthians | União Corinthians | União Corinthians
+CAIXA/Brasília | Brasília Basquete | Brasília Basquete
+Libertad | Club Libertad | Club Libertad
+River Plate | Club Atlético River Plate | Club Atlético River Plate
+Lanús | Club Atlético Lanús | Club Atlético Lanús
+Racing | Racing Club de Avellaneda | Racing Club
+LDU | L.D.U. Quito | Liga Deportiva Universitaria de Quito
+Fortaleza | Fortaleza Esporte Clube | Fortaleza Esporte Clube
+Defensa y Justicia | Defensa y Justicia | Club Social y Deportivo Defensa y Justicia
+Colón | Club Atlético Colón | Club Atlético Colón
+Junior Barranquilla | Atlético Junior | Club Deportivo Popular Junior
