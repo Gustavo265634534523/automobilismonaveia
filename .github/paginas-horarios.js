@@ -152,7 +152,6 @@ CATS.forEach(c => {
     <h1>${esc(e.n)} ${ano}: horário e onde assistir</h1>
     <p class="hr-lead">${e.venc ? `O ${esc(e.n)} ${ano} já aconteceu. Veja o resultado, os horários que foram usados e onde passou no Brasil.` : p && p.h ? `A corrida é ${esc(quandoTxt)}, no horário de Brasília. Abaixo, todas as sessões do fim de semana e os canais que transmitem no Brasil.` : `A etapa está marcada para ${esc(dataLonga(e.d))}. Abaixo, onde assistir no Brasil.`}${e.nota ? ' ' + esc(e.nota.charAt(0).toUpperCase() + e.nota.slice(1)) + '.' : ''}</p>
     ${status}
-    ${e.venc ? '' : '<p class="hr-alerta">' + BTN(c.slug, 'Avisar 30 min antes da largada') + '</p>'}
     <h2>Horários de todas as sessões</h2>
     ${sessoes}
     <p class="hr-nota">Horários de Brasília. Podem mudar por decisão da organização; esta página é atualizada todo dia.</p>
@@ -180,7 +179,6 @@ const semana = Object.keys(porDia).sort().map(d => `<h2 class="hr-dia">${esc(dat
 const depois = proximas.filter(f => f.e.d > limite);
 const corpoCentral = `    <p class="hr-rot">Agenda · horário de Brasília</p>
     <h1>Horário das corridas de hoje e do fim de semana</h1>
-    <p class="hr-alerta">${BTN('*', 'Avisar 30 min antes de todas as largadas')}</p>
     <p class="hr-lead">Que horas é a corrida? Aqui estão os horários de Brasília de F1, MotoGP, WEC, Fórmula E e mais categorias, com o canal que transmite no Brasil. Toque na corrida para ver todas as sessões.</p>
     ${semana || '<p>Sem corridas nos próximos 14 dias.</p>'}
     ${depois.length ? `<h2 class="hr-dia">Próximas etapas</h2><div class="hr-cards">${depois.slice(0, 30).map(cartao).join('')}</div>` : ''}

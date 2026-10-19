@@ -14,7 +14,7 @@
     '<div class="moldura"><h1 class="cat-nome">' + esc(c.nome) + '</h1>' +
     '<p class="cat-frase">' + esc(c.frase) + '</p>' +
     '<div class="cat-rodape"><div><p class="cat-intro">' + esc(c.intro) + '</p>' +
-    '<p class="cat-alerta"><button type="button" class="alerta-bt" data-alerta="' + c.slug + '" data-rotulo="Avisar 30 min antes da largada" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M10 20.5a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span class="alerta-txt">Avisar 30 min antes da largada</span></button></p>' + (c.guia === false ? '' : '<a class="cat-guia" href="guia-' + c.slug + '.html">Novo por aqui? Veja como funciona ' + (/^(Fórmula|Stock|Porsche|NASCAR|IndyCar|MotoGP)/.test(c.nome) ? 'a ' : 'o ') + esc(c.nome) + '</a>') + '</div>' +
+    (c.guia === false ? '' : '<a class="cat-guia" href="guia-' + c.slug + '.html">Novo por aqui? Veja como funciona ' + (/^(Fórmula|Stock|Porsche|NASCAR|IndyCar|MotoGP)/.test(c.nome) ? 'a ' : 'o ') + esc(c.nome) + '</a>') + '</div>' +
     '<div class="cat-lider"><span>Na ponta</span><b>' + esc(c.lider.nome) + '</b><small>' + esc(c.lider.info) + '</small></div></div></div>';
   var img = document.querySelector('.cat-foto img');
   function mostrar() { img.classList.add('pronta'); }
@@ -25,7 +25,7 @@
     /* a vaga do quadro já entra agora, com a altura reservada, para a página não pular quando os canais chegarem (CLS) */
     document.getElementById('abas-barra').insertAdjacentHTML('beforebegin', '<div class="moldura oa-vaga" id="oa-vaga"></div>');
     var vaga = document.getElementById('oa-vaga');
-    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=328';
+    var s = document.createElement('script'); s.src = 'assets/js/onde-assistir-dados.js?v=329';
     s.onload = function () {
       var q = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug);
       if (!q) { vaga.remove(); return; }
