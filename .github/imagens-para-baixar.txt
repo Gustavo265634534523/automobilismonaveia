@@ -10,3 +10,8 @@ assets/img/escudos/espn-sporting https://a.espncdn.com/i/teamlogos/soccer/500/22
 assets/img/escudos/espn-nottingham-forest https://a.espncdn.com/i/teamlogos/soccer/500/393.png
 assets/img/escudos/espn-besiktas https://a.espncdn.com/i/teamlogos/soccer/500/1895.png
 assets/img/escudos/espn-toronto-raptors https://a.espncdn.com/i/teamlogos/nba/500/tor.png
+assets/img/escudos/espn-estudiantes-lp https://a.espncdn.com/i/teamlogos/soccer/500/8.png
+assets/img/escudos/espn-independiente-del-valle https://a.espncdn.com/i/teamlogos/soccer/500/17086.png
+assets/img/escudos/espn-millonarios https://a.espncdn.com/i/teamlogos/soccer/500/5484.png
+assets/img/escudos/espn-universidad-catolica https://a.espncdn.com/i/teamlogos/soccer/500/885.png
+assets/img/escudos/espn-independiente-rivadavia https://a.espncdn.com/i/teamlogos/soccer/500/9744.png

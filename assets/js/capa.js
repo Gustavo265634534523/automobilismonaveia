@@ -74,11 +74,13 @@
   var feitos = jogos.filter(function (j) { return j.p; }).sort(function (x, y) { return x.d < y.d ? 1 : -1; });
   /* um de cada campeonato antes de repetir */
   function variado(lista, max) { var visto = {}, a = [], b = []; lista.forEach(function (j) { (visto[j.rot] ? b : a).push(j); visto[j.rot] = 1; }); return a.concat(b).slice(0, max); }
+  /* escudo antes do nome do time (competicao.js: window.escudoTime) */
+  function esc2(n) { return (window.escudoTime ? window.escudoTime(n) : '') + esc(n); }
   function linhaJogo(j) {
     return '<a class="hm-jogo" href="' + j.href + '"><span class="hm-jogo-cab"><i class="hm-ponto hm-' + j.esporte + '"></i>' + esc(j.rot) + ' · ' + esc(quando(j.d)) + '</span>' +
       (j.corrida ? '<span class="hm-jogo-linha"><b>' + esc(j.a) + '</b><strong>' + esc(j.h || '--') + '</strong></span><span class="hm-jogo-sub">' + esc(j.b) + '</span>'
-        : '<span class="hm-jogo-linha"><b>' + esc(j.a) + '</b><strong>' + (j.p ? esc(j.p.split(' x ')[0]) : esc(j.h || '--')) + '</strong></span>' +
-          '<span class="hm-jogo-linha"><b>' + esc(j.b) + '</b><strong>' + (j.p ? esc(j.p.split(' x ')[1]) : '') + '</strong></span>') + '</a>';
+        : '<span class="hm-jogo-linha"><b>' + esc2(j.a) + '</b><strong>' + (j.p ? esc(j.p.split(' x ')[0]) : esc(j.h || '--')) + '</strong></span>' +
+          '<span class="hm-jogo-linha"><b>' + esc2(j.b) + '</b><strong>' + (j.p ? esc(j.p.split(' x ')[1]) : '') + '</strong></span>') + '</a>';
   }
   document.getElementById('hm-placar').innerHTML = '<div class="hm-caixa-cab"><h2>Próximos jogos</h2><a href="horarios.html">Horários →</a></div>' +
     variado(proximos, 4).map(linhaJogo).join('') +
@@ -164,7 +166,7 @@
     lista.sort(function (a, b) { return (a.j.d + (a.j.h || '')) < (b.j.d + (b.j.h || '')) ? -1 : 1; });
     return lista.slice(0, max).map(function (x) {
       return '<a class="hm-jogo" href="' + x.c.slug + '.html"><span class="hm-jogo-cab"><i class="hm-ponto hm-' + esporte + '"></i>' + esc(x.c.menu) + ' · ' + quando(x.j.d) + '</span>' +
-        '<span class="hm-jogo-linha"><b>' + esc(x.j.casa) + '</b><strong>' + esc(x.j.h || '--') + '</strong></span><span class="hm-jogo-linha"><b>' + esc(x.j.fora) + '</b><strong></strong></span></a>';
+        '<span class="hm-jogo-linha"><b>' + (window.escudoTime ? window.escudoTime(x.j.casa) : '') + esc(x.j.casa) + '</b><strong>' + esc(x.j.h || '--') + '</strong></span><span class="hm-jogo-linha"><b>' + (window.escudoTime ? window.escudoTime(x.j.fora) : '') + esc(x.j.fora) + '</b><strong></strong></span></a>';
     }).join('');
   }
   function chips(alvo, esporte) {

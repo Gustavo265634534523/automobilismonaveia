@@ -18,6 +18,7 @@
   }
   function corTime(n) { var h = 0; for (var i = 0; i < n.length; i++) h = (h * 31 + n.charCodeAt(i)) % 360; return 'hsl(' + h + ' 55% 38%)'; }
   window.escudoTime = function (n, classe) {
+    if (!n || /^(a definir|vencedor|perdedor|a confirmar)/i.test(String(n))) return ''; /* time ainda não definido: sem escudo */
     var src = (window.ESCUDOS || {})[n];
     return '<span class="escudo' + (classe ? ' ' + classe : '') + (src ? ' tem-img' : '') + '" style="--c:' + corTime(String(n)) + '" aria-hidden="true">' +
       (src ? '<img src="' + src + '" alt="" loading="lazy" onerror="this.parentNode.classList.remove(\'tem-img\');this.remove()">' : '') + esc(sigla(n)) + '</span>';

@@ -52,7 +52,7 @@
   if (faixa) faixa.innerHTML = jogos.length ? jogos.map(function (x) {
     var j = x.j, pl = j.p ? j.p.split(' x ') : null;
     return '<a class="bq-jogo" href="' + x.c.slug + '.html"><small>' + esc(x.c.menu) + ' · ' + (pl ? 'Final' : quando(j.d) + (j.h ? ' ' + esc(j.h) : '')) + '</small>' +
-      '<span><b>' + esc(j.fora) + '</b><em>' + (pl ? esc(pl[1]) : '') + '</em></span><span><b>' + esc(j.casa) + '</b><em>' + (pl ? esc(pl[0]) : '') + '</em></span></a>';
+      '<span><b>' + (window.escudoTime ? window.escudoTime(j.fora) : '') + esc(j.fora) + '</b><em>' + (pl ? esc(pl[1]) : '') + '</em></span><span><b>' + (window.escudoTime ? window.escudoTime(j.casa) : '') + esc(j.casa) + '</b><em>' + (pl ? esc(pl[0]) : '') + '</em></span></a>';
   }).join('') : '<p class="bq-vazio">Os próximos jogos aparecem aqui assim que forem confirmados.</p>';
 
   /* notícias do basquete */
