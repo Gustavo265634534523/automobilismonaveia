@@ -1,0 +1,5 @@
+# Imagens geradas fora do site que o robô (.github/workflows/baixar-imagens.yml) baixa para dentro do site.
+# Uma por linha: <arquivo de destino sem extensão> <endereço>. Ele grava .png e uma versão .webp leve (900 px).
+assets/img/entrada/futebol https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261019_040156_18e780e2-b8ea-432f-a4c2-9a67ac4eeed4.png
+assets/img/entrada/basquete https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261019_040156_f58a0909-1acf-498c-a7e5-cb9ae68e46ef.png
+assets/img/entrada/automobilismo https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261019_040157_be840ba5-91bb-4a2a-8a83-d687acb3ca67.png

@@ -1,0 +1,38 @@
+# Baixa para o site as imagens listadas em .github/imagens-para-baixar.txt (as que ainda não existem)
+# e cria uma versão .webp leve de cada uma. Roda quando a lista muda ou quando pedido à mão.
+name: Baixar imagens
+on:
+  push:
+    paths:
+      - '.github/imagens-para-baixar.txt'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: salvar-no-site
+  cancel-in-progress: false
+jobs:
+  baixar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Baixar
+        run: |
+          grep -v '^#' .github/imagens-para-baixar.txt | while read -r destino url; do
+            [ -z "$destino" ] && continue
+            [ -f "$destino.png" ] && continue
+            mkdir -p "$(dirname "$destino")"
+            curl -sSfL --retry 3 -m 120 -o "$destino.png" "$url" || { echo "falhou: $url"; continue; }
+            convert "$destino.png" -resize '900x900>' -quality 82 "$destino.webp" || true
+            ls -la "$destino".*
+          done
+      - name: Salvar no site
+        run: |
+          git config user.name "Robô Na Veia"
+          git config user.email "automobilismonaveiacontato@gmail.com"
+          git add assets/img
+          git diff --cached --quiet && exit 0
+          git commit -m "Robô: imagens novas da entrada"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1
