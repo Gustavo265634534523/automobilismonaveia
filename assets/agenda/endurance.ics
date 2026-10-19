@@ -8,12 +8,13 @@ X-WR-TIMEZONE:America/Sao_Paulo
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
-DTSTAMP:20261018T111000Z
+DTSTAMP:20261019T104400Z
 UID:endurance-7-2026-10-16-Treinolivre1@naveia
 DTSTART:20261016T093000Z
 DTEND:20261016T103000Z
 SUMMARY:Endurance: Treino livre 1 (6 Horas de Barcelona)
-LOCATION:Montmeló
+LOCATION:Montmeló\, Toyota venceu com um 1-2 (#8 e #7) e fechou o título
+  de construtores antes da última etapa\, em Monza.
 DESCRIPTION:Horário de Brasília: 06h30. Automobilismo Na Veia.
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -22,12 +23,13 @@ TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20261018T111000Z
+DTSTAMP:20261019T104400Z
 UID:endurance-7-2026-10-16-Treinolivre2@naveia
 DTSTART:20261016T143000Z
 DTEND:20261016T153000Z
 SUMMARY:Endurance: Treino livre 2 (6 Horas de Barcelona)
-LOCATION:Montmeló
+LOCATION:Montmeló\, Toyota venceu com um 1-2 (#8 e #7) e fechou o título
+  de construtores antes da última etapa\, em Monza.
 DESCRIPTION:Horário de Brasília: 11h30. Automobilismo Na Veia.
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -36,12 +38,13 @@ TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20261018T111000Z
+DTSTAMP:20261019T104400Z
 UID:endurance-7-2026-10-17-Treinolivre3@naveia
 DTSTART:20261017T065000Z
 DTEND:20261017T075000Z
 SUMMARY:Endurance: Treino livre 3 (6 Horas de Barcelona)
-LOCATION:Montmeló
+LOCATION:Montmeló\, Toyota venceu com um 1-2 (#8 e #7) e fechou o título
+  de construtores antes da última etapa\, em Monza.
 DESCRIPTION:Horário de Brasília: 03h50. Automobilismo Na Veia.
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -50,12 +53,13 @@ TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20261018T111000Z
+DTSTAMP:20261019T104400Z
 UID:endurance-7-2026-10-17-ClassificaoLMGT3@naveia
 DTSTART:20261017T095000Z
 DTEND:20261017T110500Z
 SUMMARY:Endurance: Classificação LMGT3 (6 Horas de Barcelona)
-LOCATION:Montmeló
+LOCATION:Montmeló\, Toyota venceu com um 1-2 (#8 e #7) e fechou o título
+  de construtores antes da última etapa\, em Monza.
 DESCRIPTION:Horário de Brasília: 06h50. Automobilismo Na Veia.
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -64,12 +68,13 @@ TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20261018T111000Z
+DTSTAMP:20261019T104400Z
 UID:endurance-7-2026-10-17-HyperpoleLMGT3@naveia
 DTSTART:20261017T101000Z
 DTEND:20261017T112500Z
 SUMMARY:Endurance: Hyperpole LMGT3 (6 Horas de Barcelona)
-LOCATION:Montmeló
+LOCATION:Montmeló\, Toyota venceu com um 1-2 (#8 e #7) e fechou o título
+  de construtores antes da última etapa\, em Monza.
 DESCRIPTION:Horário de Brasília: 07h10. Automobilismo Na Veia.
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -78,12 +83,13 @@ TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20261018T111000Z
+DTSTAMP:20261019T104400Z
 UID:endurance-7-2026-10-17-ClassificaoHypercar@naveia
 DTSTART:20261017T134000Z
 DTEND:20261017T145500Z
 SUMMARY:Endurance: Classificação Hypercar (6 Horas de Barcelona)
-LOCATION:Montmeló
+LOCATION:Montmeló\, Toyota venceu com um 1-2 (#8 e #7) e fechou o título
+  de construtores antes da última etapa\, em Monza.
 DESCRIPTION:Horário de Brasília: 10h40. Automobilismo Na Veia.
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -92,12 +98,13 @@ TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20261018T111000Z
+DTSTAMP:20261019T104400Z
 UID:endurance-7-2026-10-17-HyperpoleHypercar@naveia
 DTSTART:20261017T140000Z
 DTEND:20261017T151500Z
 SUMMARY:Endurance: Hyperpole Hypercar (6 Horas de Barcelona)
-LOCATION:Montmeló
+LOCATION:Montmeló\, Toyota venceu com um 1-2 (#8 e #7) e fechou o título
+  de construtores antes da última etapa\, em Monza.
 DESCRIPTION:Horário de Brasília: 11h00. Automobilismo Na Veia.
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -106,12 +113,13 @@ TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20261018T111000Z
+DTSTAMP:20261019T104400Z
 UID:endurance-7-2026-10-18-Corrida@naveia
 DTSTART:20261018T100000Z
 DTEND:20261018T120000Z
 SUMMARY:Endurance: Corrida (6 Horas de Barcelona)
-LOCATION:Montmeló
+LOCATION:Montmeló\, Toyota venceu com um 1-2 (#8 e #7) e fechou o título
+  de construtores antes da última etapa\, em Monza.
 DESCRIPTION:Horário de Brasília: 07h00. Automobilismo Na Veia.
 BEGIN:VALARM
 ACTION:DISPLAY
@@ -120,7 +128,7 @@ TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20261018T111000Z
+DTSTAMP:20261019T104400Z
 UID:endurance-8-dia@naveia
 DTSTART;VALUE=DATE:20261108
 DTEND;VALUE=DATE:20261109
