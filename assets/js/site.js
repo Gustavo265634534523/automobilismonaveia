@@ -121,7 +121,7 @@
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
         '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Menu</span><span class="todas-menu">Menu</span>' +
         '<span class="grade-ic" aria-hidden="true">' + new Array(10).join('<i></i>') + '</span><span class="sr">Abrir todas as categorias</span></button>' +
-        '<button type="button" class="tema-btn" id="tema-btn" aria-label="Trocar o fundo: cinza ou branco" title="Fundo cinza ou branco">' +
+        '<button type="button" class="tema-btn" id="tema-btn" aria-label="Trocar entre modo claro e modo escuro" title="Modo claro ou escuro">' +
           '<svg class="tema-lua" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>' +
           '<svg class="tema-sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg></button>' +
         '<button type="button" class="idioma-btn" id="idioma-btn" data-sem-traducao aria-label="' + (window.LANG === 'en' ? 'Change the site language' : 'Mudar o idioma do site') + '" title="' + (window.LANG === 'en' ? 'Português' : 'English') + '">' +
@@ -162,7 +162,7 @@
     var abaPainel = esporteAtual === 'todos' ? 'futebol' : esporteAtual;
     var rapido = '<div class="pm-rapido"><a class="pm-chip" href="inicio.html"' + (inicio ? ' aria-current="page"' : '') + '>' + ic('inicio') + 'Início</a>' +
       '<a class="pm-chip" href="#bate-papo">' + ic('chat') + 'Chat</a>' +
-      '<button type="button" class="pm-chip" onclick="window.NAVEIA_TROCAR_TEMA()">' + ic('tema') + 'Fundo cinza/branco</button></div>';
+      '<button type="button" class="pm-chip" onclick="window.NAVEIA_TROCAR_TEMA()">' + ic('tema') + 'Modo claro/escuro</button></div>';
     painel.innerHTML = '<div class="moldura painel-in">' + rapido +
       '<div class="pm-esportes" role="tablist" aria-label="Esporte">' + ESP_PAINEL.map(function (e) {
         var sim = e.slug === abaPainel;
@@ -379,10 +379,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=335'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=335'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=335'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=335'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=336'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=336'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=336'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=336'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

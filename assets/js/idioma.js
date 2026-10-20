@@ -9,8 +9,9 @@
   var h = document.documentElement, p = location.pathname;
   h.classList.add('com-cats'); /* a faixa (seletor de esporte) aparece em todas as páginas, inclusive na inicial */
   /* Tema claro ou escuro (botão sol/lua no topo, site.js). Aplicado aqui para a página já nascer na cor certa.
-     A página de jogos fica sempre escura. */
-  try { if (localStorage.getItem('naveia-tema-site') === 'claro' && !/jogos/.test(p)) h.setAttribute('data-tema', 'claro'); } catch (e) {}
+     O padrão é o claro (branco); o escuro (preto com azul) só para quem escolheu. A página de jogos fica sempre escura. */
+  var temaSalvo = null; try { temaSalvo = localStorage.getItem('naveia-tema-site'); } catch (e) {}
+  if (temaSalvo !== 'escuro' && !/jogos/.test(p)) h.setAttribute('data-tema', 'claro');
   try {
     var fechado = +localStorage.getItem('avisoPlanosFechado') || 0;
     /* (a faixa de aviso dos planos saiu: tudo grátis desde 07/10/2026) */

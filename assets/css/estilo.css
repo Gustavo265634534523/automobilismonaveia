@@ -1,25 +1,26 @@
 /* Arena Sports */
 
 :root {
-  /* Fundo cinza (padrão): grafite neutro. A opção branca troca estes valores em html[data-tema="claro"] (fim do arquivo). */
-  --asfalto: #232427;      /* fundo da página */
-  --carbono: #2c2d31;      /* cartões e caixas */
-  --carbono-2: #36373c;
-  --linha: #404146;
-  --linha-2: #34353a;
-  --aco: #9a9ba1;          /* texto apagado */
-  --cromo: #ececee;        /* texto principal */
-  --texto-2: #cfd0d4;
-  --texto-3: #b1b2b8;
+  /* Modo escuro: preto de verdade com azul. O padrão do site é o claro (branco clean), em html[data-tema="claro"]
+     (fim do arquivo); idioma.js liga o claro para todo mundo que não escolheu o escuro. */
+  --asfalto: #050608;      /* fundo da página */
+  --carbono: #0f1115;      /* cartões e caixas */
+  --carbono-2: #171a20;
+  --linha: #252a33;
+  --linha-2: #1b1f26;
+  --aco: #8b93a3;          /* texto apagado */
+  --cromo: #f2f4f8;        /* texto principal */
+  --texto-2: #cdd3de;
+  --texto-3: #a9b1c0;
   --forte: #fff;
-  --sutil: rgba(255, 255, 255, .06);
-  --topo-fundo: rgba(30, 31, 34, .95);
-  --faixa-fundo: #1d1e21;
-  --barra-fundo: rgba(35, 36, 39, .96);
-  --rodape-fundo: #1b1c1f;
-  --sangue: #b0121b;
-  --sangue-vivo: #e3343c;
-  --breu: #18191b;
+  --sutil: rgba(255, 255, 255, .05);
+  --topo-fundo: rgba(5, 6, 8, .96);
+  --faixa-fundo: #08090c;
+  --barra-fundo: rgba(5, 6, 8, .96);
+  --rodape-fundo: #030405;
+  --sangue: #1d4ed8;       /* destaque (o nome ficou da época do vermelho): azul */
+  --sangue-vivo: #3b82f6;
+  --breu: #020203;
   --metal: linear-gradient(90deg, var(--linha), var(--linha));
   --display: 'Inter', Arial, sans-serif;
   --texto: 'Inter', Arial, sans-serif;
@@ -853,7 +854,7 @@ html.com-cats.com-aviso { --topo: 140px; }
 .faixa-cats-in::-webkit-scrollbar { display: none; }
 .faixa-cat { position: relative; flex: 0 0 auto; display: inline-flex; align-items: center; height: 28px; padding: 0 12px; color: var(--texto-3); text-decoration: none; font-size: 14px; font-weight: 600; letter-spacing: .02em; white-space: nowrap; transition: color .2s, background .2s; }
 .faixa-cat:hover { color: var(--cromo); background: var(--sutil); }
-.faixa-cat[aria-current] { color: var(--forte); background: rgba(227, 52, 60, .18); box-shadow: inset 0 -2px 0 var(--sangue-vivo); }
+.faixa-cat[aria-current] { color: var(--forte); background: rgba(59, 130, 246, .18); box-shadow: inset 0 -2px 0 var(--sangue-vivo); }
 .faixa-cat i { position: absolute; top: 4px; right: 4px; width: 6px; height: 6px; border-radius: 50%; background: var(--sangue-vivo); }
 @media (max-width: 620px) {
   html.com-cats, html.com-cats.com-aviso { --topo: 100px; }
@@ -868,7 +869,7 @@ html.com-cats.com-aviso { --topo: 140px; }
 .oa-canal { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: var(--carbono-2); border: 1px solid var(--linha); color: var(--cromo); text-decoration: none; min-width: 0; }
 a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .oa-selo { flex: 0 0 40px; height: 40px; display: grid; place-items: center; font: 800 14px var(--texto); letter-spacing: .02em; color: #fff; background: #3a4047; }
-.oa-aberta { background: #b0121b; }
+.oa-aberta { background: #1d4ed8; }
 .oa-paga { background: #4a525b; }
 .oa-stream { background: #2f4f7a; }
 .oa-gratis { background: #2d6a3e; }
@@ -898,7 +899,7 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 
 /* Convite para criar conta (visitante sem conta) */
 .convite-vaga { margin-top: 10px; margin-bottom: 40px; }
-.convite-conta { display: flex; align-items: center; justify-content: space-between; gap: 18px 28px; flex-wrap: wrap; margin-top: 30px; padding: 22px 24px; background: radial-gradient(ellipse at 0% 50%, rgba(227, 52, 60, .22), var(--carbono) 60%); border: 1px solid rgba(227, 52, 60, .5); box-shadow: inset 4px 0 0 var(--sangue-vivo); }
+.convite-conta { display: flex; align-items: center; justify-content: space-between; gap: 18px 28px; flex-wrap: wrap; margin-top: 30px; padding: 22px 24px; background: radial-gradient(ellipse at 0% 50%, rgba(59, 130, 246, .22), var(--carbono) 60%); border: 1px solid rgba(59, 130, 246, .5); box-shadow: inset 4px 0 0 var(--sangue-vivo); }
 .convite-txt { flex: 1 1 320px; display: flex; flex-direction: column; gap: 6px; }
 .convite-txt b { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 2.4vw, 28px); }
 .convite-txt span { font-size: 16px; line-height: 1.45; color: var(--texto-2); }
@@ -910,7 +911,7 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 /* Alerta de largada pelo site (assets/js/alerta.js) */
 .alerta-bt { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 9px 16px; background: transparent; border: 1px solid var(--sangue-vivo); color: var(--cromo); font: 700 15px var(--texto); cursor: pointer; }
 .alerta-bt svg { width: 20px; height: 20px; flex: none; }
-.alerta-bt:hover { background: rgba(227,52,60,.12); }
+.alerta-bt:hover { background: rgba(59, 130, 246,.12); }
 .alerta-bt.alerta-on { background: var(--sangue-vivo); color: #fff; }
 .alerta-bt:disabled { opacity: .6; cursor: wait; }
 .alerta-msg { display: block; margin-top: 8px; font-size: 14px; color: var(--texto-2); max-width: 520px; }
@@ -936,7 +937,7 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 .pv-fonte { margin: 10px 0 0; font-size: 12px; color: var(--aco); }
 /* Resultados do fim de semana (F1): ocupa a largura toda da caixa da próxima etapa */
 .pv-res-bloco { grid-column: 1 / -1; }
-.pv-res-bloco .rs { --cor: #e3343c; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr); gap: 14px; }
+.pv-res-bloco .rs { --cor: #3b82f6; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) minmax(0, 1fr); gap: 14px; }
 .pv-res-bloco .rs-card { position: relative; overflow: hidden; background: var(--carbono); border: 1px solid var(--linha); }
 .pv-res-bloco .rs-p1 { display: flex; flex-direction: column; padding: 20px; }
 .pv-res-bloco .rs-rot { display: flex; align-items: center; gap: 8px; font: 800 11px var(--texto); letter-spacing: .16em; text-transform: uppercase; color: var(--sangue-vivo); }
@@ -1123,22 +1124,25 @@ a.oa-canal:hover { border-color: var(--sangue-vivo); }
 
 /* ---------- Tema claro (botão sol/lua no topo; escolha guardada neste aparelho, aplicada em idioma.js antes de desenhar a página) ---------- */
 html[data-tema="claro"] {
-  --asfalto: #f5f5f6;
+  /* Branco clean (padrão) com destaque azul-royal */
+  --asfalto: #f4f6f9;
   --carbono: #ffffff;
-  --carbono-2: #efeff1;
-  --linha: #dcdce0;
-  --linha-2: #e8e8eb;
-  --aco: #63646b;
-  --cromo: #1b1c1f;
-  --texto-2: #3c3d43;
-  --texto-3: #54555c;
-  --forte: #0e0f11;
-  --sutil: rgba(20, 20, 24, .05);
-  --topo-fundo: rgba(255, 255, 255, .96);
-  --faixa-fundo: #fafafa;
-  --barra-fundo: rgba(245, 245, 246, .97);
-  --rodape-fundo: #ebebed;
-  --breu: #e9e9ec;
+  --carbono-2: #eef1f5;
+  --linha: #dde2ea;
+  --linha-2: #e8ecf2;
+  --aco: #5f6878;
+  --cromo: #121826;
+  --texto-2: #2f3748;
+  --texto-3: #4a5366;
+  --forte: #0b1020;
+  --sutil: rgba(20, 30, 60, .04);
+  --topo-fundo: rgba(255, 255, 255, .97);
+  --faixa-fundo: #ffffff;
+  --barra-fundo: rgba(244, 246, 249, .97);
+  --rodape-fundo: #e9edf3;
+  --breu: #e6eaf0;
+  --sangue: #1d4ed8;
+  --sangue-vivo: #2563eb;
   color-scheme: light;
 }
 html[data-tema="claro"] .topo { box-shadow: 0 1px 0 var(--linha); }
@@ -1311,7 +1315,7 @@ button.painel-menu-it { display: none; }
 .cr-bloco .jogo { grid-template-columns: minmax(0, 1.6fr) auto; padding-left: 0; }
 .cr-bloco .jogo .jogo-fase { display: none; }
 .cr-largo { grid-column: 1 / -1; }
-.cr-mais { margin-top: 14px; padding: 0; border: 0; background: none; color: var(--sangue-vivo, #e3343c); font: inherit; font-weight: 700; font-size: 14px; cursor: pointer; }
+.cr-mais { margin-top: 14px; padding: 0; border: 0; background: none; color: var(--sangue-vivo, #3b82f6); font: inherit; font-weight: 700; font-size: 14px; cursor: pointer; }
 .cr-mais:hover { text-decoration: underline; }
 .cr-fatos { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; margin: 0 0 10px; }
 .cr-fatos div { padding: 16px 18px; border: 1px solid var(--linha); border-radius: 12px; background: var(--carbono); }

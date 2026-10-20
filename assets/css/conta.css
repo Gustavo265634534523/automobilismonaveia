@@ -156,7 +156,7 @@
 .ct-rot-tg { width: 100%; margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--aco); }
 .ct-tg-ajuda { width: 100%; margin: 0; font-size: 14px; }
 .ct-telegram .ct-erro { width: 100%; margin: 0; }
-.ct-teste-gratis { margin: 10px 0 14px; padding: 10px 12px; font-size: 15px; color: var(--texto-2); background: rgba(227, 52, 60, .1); border-left: 3px solid var(--sangue-vivo); }
+.ct-teste-gratis { margin: 10px 0 14px; padding: 10px 12px; font-size: 15px; color: var(--texto-2); background: rgba(59, 130, 246, .1); border-left: 3px solid var(--sangue-vivo); }
 .ct-teste-gratis b { color: var(--forte); }
 /* olhinho para ver a senha */
 .senha-caixa { position: relative; display: block; margin-top: 6px; }
