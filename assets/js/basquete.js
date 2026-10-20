@@ -1,6 +1,6 @@
-/* Basquete: faixa de placar (estilo NBA.com), jogador em destaque (ficha com número grande e médias),
+/* Basquete: faixa de placar (estilo NBA.com),
    notícias e mercado do basquete. Usado na página de Basquete (#bq-*) e, em versão curta, na página inicial (#bq-home).
-   Dados: esportes-dados.js (jogos e JOGADORES_DESTAQUE) e noticias-esportes.js. */
+   Dados: esportes-dados.js (jogos) e noticias-esportes.js. */
 (function () {
   var esc = window.esc, hoje = window.hojeISO();
   var COMPS = (window.COMPETICOES || []).filter(function (c) { return c.esporte === 'basquete'; });
@@ -39,10 +39,7 @@
     }
     pintar();
   }
-  destaque(document.getElementById('bq-home'), true);
-
-  if (!document.getElementById('bq-destaque')) return;
-  destaque(document.getElementById('bq-destaque'), false);
+  if (!document.getElementById('bq-placar') && !document.getElementById('bq-noticias')) return;
 
   /* faixa de placar: resultados recentes e próximos jogos de NBA, NBB e Euroleague */
   var jogos = [];

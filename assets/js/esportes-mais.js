@@ -275,12 +275,41 @@
     return '<div class="ch-conf">' + lado(x.a, null, s ? s[0] : null, x.vence && x.vence === x.a) + lado(x.b, null, s ? s[1] : null, x.vence && x.vence === x.b) +
       ((det || x.pen || x.info) ? '<small>' + det + (x.pen ? ' · pênaltis ' + esc(x.pen) : '') + (x.info ? (det ? ' · ' : '') + esc(x.info) : '') + '</small>' : '') + '</div>';
   }
+  /* chaveamento organizado por etapa: uma pílula por fase (Play-in, Primeira rodada, ... Final) e os confrontos dela em grade,
+     com Leste e Oeste lado a lado quando houver; abre na fase que está rolando. Sem rolagem para os lados. */
+  function semTime(n) { return !n || indef.test(n); }
   window.chaveHTML = function (ch) {
     if (!ch || !ch.fases || !ch.fases.length) return '';
-    return '<div class="ch-wrap"><div class="ch" style="--fases:' + ch.fases.length + '">' + ch.fases.map(function (f) {
-      return '<div class="ch-fase"><h4>' + esc(f.fase) + (f.conf ? ' · ' + esc(f.conf) : '') + '</h4><div class="ch-lista">' + (f.confrontos || f.series || []).map(confrontoHTML).join('') + '</div></div>';
-    }).join('') + '</div></div>' + (ch.nota ? '<p class="nota ch-nota">' + esc(ch.nota) + '</p>' : '');
+    var grupos = [];
+    ch.fases.forEach(function (f) {
+      var g = grupos.filter(function (x) { return x.fase === f.fase; })[0];
+      if (!g) grupos.push(g = { fase: f.fase, partes: [] });
+      g.partes.push({ conf: f.conf || '', lista: f.confrontos || f.series || [] });
+    });
+    function todos(g) { return [].concat.apply([], g.partes.map(function (p) { return p.lista; })); }
+    var ativo = -1;
+    grupos.forEach(function (g, i) { if (ativo < 0 && todos(g).some(function (x) { return !x.vence && !semTime(x.a) && !semTime(x.b); })) ativo = i; });
+    if (ativo < 0) grupos.forEach(function (g, i) { if (todos(g).some(function (x) { return !semTime(x.a) || !semTime(x.b); })) ativo = i; });
+    if (ativo < 0) ativo = 0;
+    var abas = grupos.length > 1 ? '<div class="ch-etapas" role="tablist">' + grupos.map(function (g, i) {
+      return '<button type="button" role="tab" aria-selected="' + (i === ativo) + '" data-i="' + i + '">' + esc(g.fase) + '</button>';
+    }).join('') + '</div>' : '';
+    return '<div class="ch-tabs">' + abas + grupos.map(function (g, i) {
+      var duas = g.partes.length > 1;
+      return '<div class="ch-etapa' + (duas ? ' ch-duas' : '') + '" data-i="' + i + '"' + (i === ativo ? '' : ' hidden') + '>' + g.partes.map(function (p) {
+        return '<div class="ch-parte">' + (p.conf ? '<h4>' + esc(p.conf) + '</h4>' : '') + '<div class="ch-grade' + (p.lista.length === 1 ? ' ch-um' : '') + '">' + p.lista.map(confrontoHTML).join('') + '</div></div>';
+      }).join('') + '</div>';
+    }).join('') + '</div>' + (ch.nota ? '<p class="nota ch-nota">' + esc(ch.nota) + '</p>' : '');
   };
+  if (!window.__chEtapas) {
+    window.__chEtapas = 1;
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('.ch-etapas button'); if (!b) return;
+      var box = b.closest('.ch-tabs'), i = b.getAttribute('data-i');
+      [].forEach.call(box.querySelectorAll('.ch-etapas button'), function (x) { x.setAttribute('aria-selected', String(x === b)); });
+      [].forEach.call(box.querySelectorAll('.ch-etapa'), function (x) { x.hidden = x.getAttribute('data-i') !== i; });
+    });
+  }
   /* playoffs projetados a partir da tabela atual: 1º x 8º, 4º x 5º, 3º x 6º, 2º x 7º (NBA e Euroleague; 7º a 10º no play-in) e 1º x 16º... (NBB) */
   window.chaveProjetada = function (c) {
     function nomes(t) { var i = t.colunas.indexOf('Time'); return t.linhas.map(function (l) { return l[i]; }); }

@@ -87,10 +87,17 @@
 .mt-tirar button { border: 0; background: none; color: var(--aco); font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer; }
 
 /* chaveamento */
-.ch-wrap { overflow-x: auto; padding-bottom: 6px; }
-.ch { display: grid; grid-template-columns: repeat(var(--fases), minmax(220px, 1fr)); gap: 18px; min-width: calc(var(--fases) * 232px); }
-.ch-fase h4 { margin: 0 0 10px; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ft-cor, var(--sangue-vivo)); }
-.ch-lista { display: flex; flex-direction: column; justify-content: space-around; gap: 10px; height: calc(100% - 28px); }
+.ch-etapas { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+.ch-etapas button { padding: 8px 15px; border: 0; border-radius: 999px; background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha); color: var(--texto-2); font: 700 13px var(--texto); cursor: pointer; transition: background .2s, color .2s; }
+.ch-etapas button:hover { color: var(--cromo); }
+.ch-etapas button[aria-selected="true"] { background: var(--ft-cor, var(--sangue-vivo)); box-shadow: none; color: #fff; }
+.ch-etapa[hidden] { display: none !important; }
+.ch-etapa.ch-duas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px 28px; }
+.ch-parte h4 { margin: 0 0 10px; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ft-cor, var(--sangue-vivo)); }
+.ch-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; }
+.ch-duas .ch-grade { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.ch-grade.ch-um { grid-template-columns: minmax(0, 420px); }
+@media (max-width: 720px) { .ch-etapa.ch-duas { grid-template-columns: 1fr; } .ch-grade, .ch-duas .ch-grade { grid-template-columns: 1fr; } }
 .ch-conf { display: flex; flex-direction: column; border-radius: 10px; background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha); overflow: hidden; }
 .ch-lado { display: flex; align-items: center; gap: 8px; padding: 8px 10px; color: var(--texto-2); }
 .ch-lado + .ch-lado { border-top: 1px solid var(--linha-2); }

@@ -134,7 +134,7 @@
   function chave(c) {
     var h = '', ch = CH[c.slug];
     if (BQ && atual(c)) { var pj = window.chaveProjetada(c); if (pj) h += '<h3 class="ft-ch-tit">Se os playoffs começassem hoje</h3>' + window.chaveHTML(pj); }
-    if (ch) h += (ch.campeao ? '<p class="ch-campeao">' + escudo(ch.campeao) + 'Campeão: ' + esc(ch.campeao) + '</p>' : '') + '<h3 class="ft-ch-tit">' + esc(ch.titulo) + '</h3>' + window.chaveHTML(ch);
+    if (ch) h += '<h3 class="ft-ch-tit">' + esc(ch.titulo) + '</h3>' + (ch.campeao ? '<p class="ch-campeao">' + escudo(ch.campeao) + 'Campeão: ' + esc(ch.campeao) + '</p>' : '') + window.chaveHTML(ch);
     return h + '<p class="ft-centro" style="margin-top:22px"><a class="ft-btn" href="' + c.slug + '.html#chave">Ver o campeonato</a></p>';
   }
   if (abasC && comChave.length) {
