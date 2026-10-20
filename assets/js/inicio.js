@@ -70,7 +70,7 @@
   (function () {
     var botoes = document.getElementById('pc-cats'), caixa = document.getElementById('pc-caixa');
     if (!botoes || !caixa || !window.PREVIA_ETAPA) return;
-    var ORDEM = ['formula-1', 'motogp', 'formula-2', 'porsche-cup', 'endurance', 'formula-e'];
+    var ORDEM = ['formula-1'];
     var lista = ORDEM.map(function (sl) { return CATS.filter(function (c) { return c.slug === sl; })[0]; })
       .filter(function (c) { return c && window.PREVIA_PROXIMA(c); });
     if (!lista.length) { document.getElementById('proxima-corrida').hidden = true; return; }

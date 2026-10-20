@@ -179,15 +179,15 @@ const semana = Object.keys(porDia).sort().map(d => `<h2 class="hr-dia">${esc(dat
 const depois = proximas.filter(f => f.e.d > limite);
 const corpoCentral = `    <p class="hr-rot">Agenda · horário de Brasília</p>
     <h1>Horário das corridas de hoje e do fim de semana</h1>
-    <p class="hr-lead">Que horas é a corrida? Aqui estão os horários de Brasília de F1, MotoGP, WEC, Fórmula E e mais categorias, com o canal que transmite no Brasil. Toque na corrida para ver todas as sessões.</p>
+    <p class="hr-lead">Que horas é a corrida? Aqui estão os horários de Brasília da Fórmula 1, com o canal que transmite no Brasil. Toque na corrida para ver todas as sessões.</p>
     ${semana || '<p>Sem corridas nos próximos 14 dias.</p>'}
     ${depois.length ? `<h2 class="hr-dia">Próximas etapas</h2><div class="hr-cards">${depois.slice(0, 30).map(cartao).join('')}</div>` : ''}
     <p class="hr-nota" style="margin-top:24px">Atualizado em ${esc(dataLonga(hoje))} de ${hoje.slice(0, 4)}. Os horários podem mudar por decisão da organização.</p>
     <div class="hr-links"><a href="onde-assistir.html">Onde assistir cada categoria</a><a href="noticias.html">Notícias</a><a href="guia.html">Guia para iniciantes</a></div>`;
 fs.writeFileSync(path.join(RAIZ, 'horarios.html'), pagina({
   arq: 'horarios.html',
-  titulo: 'Horário das corridas hoje: F1, MotoGP, WEC e mais | Arena Sports',
-  desc: 'Que horas é a corrida hoje? Horários de Brasília de F1, MotoGP, WEC, Fórmula E e mais, com onde assistir no Brasil. Atualizado todo dia.',
+  titulo: 'Horário da Fórmula 1 hoje: treinos, classificação e corrida | Arena Sports',
+  desc: 'Que horas é a corrida hoje? Horários de Brasília da Fórmula 1 (treinos, classificação, sprint e corrida), com onde assistir no Brasil. Atualizado todo dia.',
   corpo: corpoCentral
 }));
 

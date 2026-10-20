@@ -9,13 +9,7 @@
 
   /* Pontos do 1º, 2º e 3º em cada tipo de corrida */
   var P = {
-    f1: [25, 18, 15], f1Sprint: [8, 7, 6],
-    f2: [25, 18, 15], f2Sprint: [10, 8, 6],
-    moto: [25, 20, 16], motoSprint: [12, 9, 7],
-   
-    porsche1: [28, 25, 23], porsche2: [25, 22, 20],
-    rali: [25, 17, 15], raliExtra: [5, 4, 3],
-    wec: [25, 18, 15]
+    f1: [25, 18, 15], f1Sprint: [8, 7, 6]
   };
   function gp(nome, data, sessoes) { return { n: nome, d: data, s: sessoes }; }
   function s(nome, pontos) { return { t: nome, p: pontos }; }
@@ -34,43 +28,9 @@
       ],
       nota: 'Conta o pódio de cada corrida (25, 18 e 15 pontos) e da sprint de Singapura (8, 7 e 6).',
       pilotosDoGrid: true
-    },
-    'formula-2': {
-      etapas: [
-        gp('Catar', '2026-11-29', [s('Sprint', P.f2Sprint), s('Principal', P.f2)]),
-        gp('Abu Dhabi', '2026-12-06', [s('Sprint', P.f2Sprint), s('Principal', P.f2)])
-      ],
-      nota: 'Conta o pódio da sprint (10, 8 e 6) e da principal (25, 18 e 15). Pontos de pole e volta mais rápida ficam de fora.'
-    },
-    'motogp': {
-      etapas: [
-        gp('GP do Japão', '2026-10-04', [s('Sprint', P.motoSprint), s('Corrida', P.moto)]),
-        gp('GP da Indonésia', '2026-10-11', [s('Sprint', P.motoSprint), s('Corrida', P.moto)]),
-        gp('GP da Austrália', '2026-10-25', [s('Sprint', P.motoSprint), s('Corrida', P.moto)]),
-        gp('GP da Malásia', '2026-11-01', [s('Sprint', P.motoSprint), s('Corrida', P.moto)]),
-        gp('GP do Catar', '2026-11-08', [s('Sprint', P.motoSprint), s('Corrida', P.moto)]),
-        gp('GP de Portugal', '2026-11-22', [s('Sprint', P.motoSprint), s('Corrida', P.moto)]),
-        gp('GP de Valência', '2026-11-29', [s('Sprint', P.motoSprint), s('Corrida', P.moto)])
-      ],
-      nota: 'Conta o pódio da sprint (12, 9 e 7) e da corrida (25, 20 e 16) de cada GP.'
-    },
-    'porsche-cup': {
-      etapas: [
-        gp('Interlagos', '2026-11-08', [s('Corrida 1', P.porsche1), s('Corrida 2 (grid invertido)', P.porsche2)]),
-        gp('Interlagos', '2026-11-22', [s('Corrida 1', P.porsche1), s('Corrida 2 (grid invertido)', P.porsche2)])
-      ],
-      nota: 'Campeonato Sprint da Carrera Cup. Conta o pódio da corrida 1 (28, 25 e 23) e da corrida 2 (25, 22 e 20). As provas de endurance têm campeonato próprio.'
-    },
-    'endurance': {
-      etapas: [
-        gp('6 Horas de Barcelona', '2026-10-18', [s('Corrida', P.wec)]),
-        gp('6 Horas de Monza', '2026-11-08', [s('Corrida', P.wec)])
-      ],
-      nota: 'Hypercar. Você escolhe o carro, e os pontos vão para a dupla ou o trio dele (25, 18 e 15). Os pontos de pole ficam de fora.',
-      porCarro: true
     }
   };
-  var ORDEM = ['formula-1', 'motogp', 'porsche-cup', 'formula-2', 'endurance', 'formula-e'];
+  var ORDEM = ['formula-1'];
 
   var abas = document.getElementById('sm-cats');
   var caixa = document.getElementById('simulador');

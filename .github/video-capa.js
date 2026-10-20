@@ -34,10 +34,6 @@ function traduz(t) {
 /* Outras categorias: canal oficial de cada campeonato no YouTube. "ok" diz quais vídeos contam (corrida, classificação,
    melhores momentos); "fora" tira os de outras classes do mesmo canal. Fica o mais recente de cada uma, dos últimos 7 dias. */
 const OUTROS = [
-  { cat: 'motogp', nome: 'MotoGP', canal: 'UC8pYaQzbBBXg9GIOHRvTmDQ', ok: /(Race|Sprint|Qualifying|Q2) Highlights|Full Race/i, fora: /Moto2|Moto3|MotoE/i },
-  { cat: 'endurance', nome: 'WEC', art: 'do', canal: 'UCwU7U7PiarcJKLjDJTnANjw', ok: /Highlights|Full Race/i, fora: /^$/ },
-  { cat: 'formula-e', nome: 'Fórmula E', canal: 'UC-DuRqsBQOEk_5o1q4Ze-Fg', ok: /(Race|Qualifying) Highlights|Full Race/i, fora: /^$/ },
-  { cat: 'porsche-cup', nome: 'Porsche Cup', canal: 'UCwiRFcstDPKaCiOTXuoFhrQ', ok: /^ET\.\d+ \|.*\| (CORRIDA|QUALI)/i, fora: /ENGLISH/i }
 ];
 function tituloOutro(t) {
   let evento = (t.split('|').map(s => s.trim()).filter(s => /\d{4}|GP|Rally|Hours|ET\./i.test(s) && !/^ET\.\d+$/i.test(s)).pop() || '').replace(/#\w+|[^\w\s.,'&À-ÿ-]/g, '').trim();

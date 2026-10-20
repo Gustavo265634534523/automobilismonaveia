@@ -80,7 +80,7 @@
 
   /* ---------- Minha conta ---------- */
   function montarConta(u, modoTeste) {
-    /* Pilotos favoritos possíveis (F1 e MotoGP 2026): número e equipe, para o ícone do perfil na cor da equipe */
+    /* Pilotos favoritos possíveis (F1 2026): número e equipe, para o ícone do perfil na cor da equipe */
     var PILOTOS_FAV = window.NAVEIA_PILOTOS || {};
     function acharPiloto(nome) {
       var achado = null;
@@ -108,7 +108,7 @@
         if (r && r.ok) { u = r.usuario; desenharPerfil(u); desenharFoto(u); if (window.NAVEIA_TEMA) window.NAVEIA_TEMA(u.equipe || ''); }
       }).catch(function () {});
     }
-    /* listas: pilotos da F1 e da MotoGP; equipes da F1 e fabricantes da MotoGP (a cor do site muda com a equipe) */
+    /* listas: pilotos e equipes da F1 (a cor do site muda com a equipe) */
     function opcoes(sel, grupos, vazio, atual) {
       var tem = false, html = '<option value="">' + vazio + '</option>' + Object.keys(grupos).map(function (g) {
         return '<optgroup label="' + esc(g) + '">' + grupos[g].map(function (n) { if (n === atual) tem = true; return '<option value="' + esc(n) + '">' + esc(n) + '</option>'; }).join('') + '</optgroup>';
@@ -121,7 +121,7 @@
       Object.keys(PILOTOS_FAV).forEach(function (c) { gp[c] = PILOTOS_FAV[c].map(function (p) { return p[0]; }).sort(function (a, b) { return a.localeCompare(b, 'pt'); }); });
       (window.NAVEIA_EQUIPES || []).forEach(function (e) { (ge[e.c] = ge[e.c] || []).push(e.n); });
       opcoes(document.getElementById('ct-sel-piloto'), gp, 'Nenhum', u.piloto || '');
-      opcoes(document.getElementById('ct-sel-equipe'), ge, 'Nenhuma (site vermelho)', u.equipe || '');
+      opcoes(document.getElementById('ct-sel-equipe'), ge, 'Nenhuma (site azul)', u.equipe || '');
     }
     var fPerfil = document.getElementById('f-perfil'), btEditar = document.getElementById('ct-editar');
     btEditar.addEventListener('click', function () {

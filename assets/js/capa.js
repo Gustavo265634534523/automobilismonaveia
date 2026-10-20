@@ -56,7 +56,7 @@
   }).join('');
   resto = resto.slice(4);
 
-  /* 2b. placar e próximos jogos: resultados recentes e próximos jogos de futebol e basquete + a próxima corrida da F1 e da MotoGP */
+  /* 2b. placar e próximos jogos: resultados recentes e próximos jogos de futebol e basquete + a próxima corrida da F1 */
   var jogos = [];
   COMPS.forEach(function (c) {
     (c.jogos || []).forEach(function (j) {
@@ -64,7 +64,7 @@
       if (j.p ? window.diasAte(j.d) >= -5 : j.d >= hoje) jogos.push({ d: j.d, h: j.h, rot: c.menu || c.nome, esporte: c.esporte, href: c.slug + '.html', a: j.casa, b: j.fora, p: j.p });
     });
   });
-  ['formula-1', 'motogp'].forEach(function (s) {
+  ['formula-1'].forEach(function (s) {
     var c = PCAT[s]; if (!c) return;
     var e = c.calendario.filter(function (x) { return !x.venc && x.d && x.d >= hoje; })[0]; if (!e) return;
     var corrida = (e.s || []).filter(function (x) { return /Corrida/.test(x.t); })[0];

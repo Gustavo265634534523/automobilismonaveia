@@ -1,4 +1,4 @@
-/* Enquete do dia ("Quem vence?"): o jogo grande da semana do futebol e do basquete e a próxima corrida da F1, da MotoGP ou da Fórmula E (a que vier primeiro),
+/* Enquete do dia ("Quem vence?"): o jogo grande da semana do futebol e do basquete e a próxima corrida da F1,
    com os 6 primeiros do campeonato e "Outro piloto". Grava assets/dados/enquete.json; o servidor das contas lê esse
    arquivo para conferir os votos (ações enquete_ver e enquete_votar). A votação fecha na hora da largada.
    Roda no GitHub (agenda.yml e f1-pos-corrida.yml) ou no PC: node .github/enquete.js */
@@ -8,7 +8,7 @@ const RAIZ = path.join(__dirname, '..');
 const ARQ = path.join(RAIZ, 'assets/dados/enquete.json');
 global.window = {};
 eval(fs.readFileSync(path.join(RAIZ, 'assets/js/dados.js'), 'utf8'));
-const CATS = ['formula-1', 'motogp', 'formula-e'];
+const CATS = ['formula-1'];
 
 const agora = Date.now();
 const opcoes = [];

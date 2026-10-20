@@ -6,11 +6,6 @@ window.ONDE_ASSISTIR = {
   atualizado: 'outubro de 2026',
   cats: {
     'formula-1': { canais: [['TV Globo', 'aberta'], ['SporTV', 'paga'], ['Globoplay', 'stream'], ['F1 TV Premium', 'stream']], nota: 'A Globo mostra 15 dos 24 GPs na TV aberta. O SporTV mostra todas as classificações, sprints e corridas.' },
-    'formula-2': { canais: [['SporTV 3', 'paga'], ['Globoplay', 'stream'], ['F1 TV Premium', 'stream']], nota: 'Corridas no SporTV 3. Depois ficam inteiras no Globoplay.' },
-    'formula-e': { canais: [['Band', 'aberta'], ['BandSports', 'paga'], ['Grande Prêmio (YouTube e GPTV)', 'gratis']], nota: 'A Band mostra classificação e corrida de algumas etapas. BandSports e Grande Prêmio mostram a temporada toda.' },
-    'porsche-cup': { canais: [['Band', 'aberta'], ['BandSports', 'paga'], ['BandPlay', 'gratis'], ['YouTube Porsche Cup', 'gratis']], nota: '' },
-    'endurance': { canais: [['BandSports', 'paga'], ['YouTube Esporte na Band', 'gratis'], ['Jovem Pan (YouTube)', 'gratis'], ['Grande Prêmio (YouTube e GPTV)', 'gratis']], nota: 'Todas as etapas do WEC ao vivo, com várias opções grátis no YouTube.' },
-    'motogp': { canais: [['ESPN', 'paga'], ['Disney+', 'stream'], ['MotoGP VideoPass', 'stream']], nota: 'ESPN e Disney+ mostram todas as sessões de MotoGP, Moto2 e Moto3. Em 2026, a Band mostrou só o GP do Brasil.' },
   }
 };
 

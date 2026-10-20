@@ -5,22 +5,15 @@
     { n: 'Mercedes', c: 'Fórmula 1', cor: '#00A58E' }, { n: 'Ferrari', c: 'Fórmula 1', cor: '#ED1131' }, { n: 'McLaren', c: 'Fórmula 1', cor: '#F47600' },
     { n: 'Red Bull', c: 'Fórmula 1', cor: '#3671C6' }, { n: 'Racing Bulls', c: 'Fórmula 1', cor: '#4F6FE0' }, { n: 'Alpine', c: 'Fórmula 1', cor: '#0090D0' },
     { n: 'Haas', c: 'Fórmula 1', cor: '#8A8F94' }, { n: 'Audi', c: 'Fórmula 1', cor: '#F50537' }, { n: 'Williams', c: 'Fórmula 1', cor: '#1868DB' },
-    { n: 'Aston Martin', c: 'Fórmula 1', cor: '#1E8C64' }, { n: 'Cadillac', c: 'Fórmula 1', cor: '#9A9EA3' },
-    { n: 'Ducati', c: 'MotoGP', cor: '#D40000' }, { n: 'Aprilia', c: 'MotoGP', cor: '#7B3FA0' }, { n: 'KTM', c: 'MotoGP', cor: '#FF6600' },
-    { n: 'Yamaha', c: 'MotoGP', cor: '#2546D6' }, { n: 'Honda', c: 'MotoGP', cor: '#E4002B' }
+    { n: 'Aston Martin', c: 'Fórmula 1', cor: '#1E8C64' }, { n: 'Cadillac', c: 'Fórmula 1', cor: '#9A9EA3' }
   ];
-  /* pilotos da F1 e da MotoGP (número e equipe): ícone do perfil no topo e na página da conta */
+  /* pilotos da F1 (número e equipe): ícone do perfil no topo e na página da conta */
   window.NAVEIA_PILOTOS = {
     'Fórmula 1': [['Lando Norris', 1, 'McLaren'], ['Max Verstappen', 3, 'Red Bull'], ['Gabriel Bortoleto', 5, 'Audi'], ['Isack Hadjar', 6, 'Red Bull'], ['Pierre Gasly', 10, 'Alpine'],
       ['Sergio Pérez', 11, 'Cadillac'], ['Kimi Antonelli', 12, 'Mercedes'], ['Fernando Alonso', 14, 'Aston Martin'], ['Charles Leclerc', 16, 'Ferrari'], ['Lance Stroll', 18, 'Aston Martin'],
       ['Alexander Albon', 23, 'Williams'], ['Nico Hülkenberg', 27, 'Audi'], ['Liam Lawson', 30, 'Racing Bulls'], ['Esteban Ocon', 31, 'Haas'], ['Arvid Lindblad', 41, 'Racing Bulls'],
       ['Franco Colapinto', 43, 'Alpine'], ['Lewis Hamilton', 44, 'Ferrari'], ['Carlos Sainz', 55, 'Williams'], ['George Russell', 63, 'Mercedes'], ['Valtteri Bottas', 77, 'Cadillac'],
-      ['Oscar Piastri', 81, 'McLaren'], ['Oliver Bearman', 87, 'Haas']],
-    'MotoGP': [['Johann Zarco', 5, 'Honda'], ['Toprak Razgatlioglu', 7, 'Yamaha'], ['Luca Marini', 10, 'Honda'], ['Diogo Moreira', 11, 'Honda'], ['Maverick Viñales', 12, 'KTM'],
-      ['Somkiat Chantra', 15, 'Honda'], ['Fabio Quartararo', 20, 'Yamaha'], ['Franco Morbidelli', 21, 'Ducati'], ['Enea Bastianini', 23, 'KTM'], ['Raúl Fernández', 25, 'Aprilia'],
-      ['Brad Binder', 33, 'KTM'], ['Pedro Acosta', 37, 'KTM'], ['Álex Rins', 42, 'Yamaha'], ['Jack Miller', 43, 'Yamaha'], ['Fabio Di Giannantonio', 49, 'Ducati'],
-      ['Fermín Aldeguer', 54, 'Ducati'], ['Francesco Bagnaia', 63, 'Ducati'], ['Marco Bezzecchi', 72, 'Aprilia'], ['Álex Márquez', 73, 'Ducati'], ['Ai Ogura', 79, 'Aprilia'],
-      ['Jorge Martín', 89, 'Aprilia'], ['Marc Márquez', 93, 'Ducati']]
+      ['Oscar Piastri', 81, 'McLaren'], ['Oliver Bearman', 87, 'Haas']]
   };
   /* endereço da página própria de cada notícia (o mesmo cálculo de .github/paginas-noticias.js) */
   window.linkNoticia = function (t) {
@@ -61,17 +54,15 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (m) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]; }); }
   window.esc = esc;
 
-  /* As 6 categorias organizadas em grupos (usado no painel, na página inicial e no rodapé) */
+  /* A categoria (só a Fórmula 1) (usado no painel, na página inicial e no rodapé) */
   var PORSLUG = {}; CATS.forEach(function (c) { PORSLUG[c.slug] = c; });
+  /* o automobilismo do site é só a Fórmula 1 */
   var GRUPOS = [
-    { nome: 'Monopostos', desc: 'Carros de fórmula, com rodas descobertas', slugs: ['formula-1', 'formula-2', 'formula-e'] },
-    { nome: 'Turismo', desc: 'Carros de carroceria fechada', slugs: ['porsche-cup'] },
-    { nome: 'Endurance', desc: 'Corridas longas, de 6 a 24 horas', slugs: ['endurance'] },
-    { nome: 'Motos', desc: 'Duas rodas', slugs: ['motogp'] }
+    { nome: 'Fórmula 1', desc: 'A principal categoria do automobilismo', slugs: ['formula-1'] }
   ].map(function (g) { g.cats = g.slugs.map(function (s) { return PORSLUG[s]; }).filter(Boolean); return g; });
   window.GRUPOS = GRUPOS;
   /* ordem das categorias quando aparecem todas juntas (painel do menu e página Automobilismo) */
-  var ORDEM_CATS = ['formula-1', 'formula-2', 'formula-e', 'motogp', 'porsche-cup', 'endurance'];
+  var ORDEM_CATS = ['formula-1'];
   window.ORDEM_CATS = ORDEM_CATS;
   /* Futebol e basquete: só os nomes, para o menu, o painel e o rodapé (os dados ficam em esportes-dados.js) */
   var ESPORTES_MENU = [
@@ -205,7 +196,7 @@
       document.documentElement.classList.add('com-cats');
     } else {
       var h7 = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10), hj = new Date().toISOString().slice(0, 10);
-      var ordemCats = ['formula-1', 'motogp', 'formula-2', 'formula-e', 'porsche-cup', 'endurance'];
+      var ordemCats = ['formula-1'];
       var faixa = document.createElement('nav');
       faixa.className = 'faixa-cats'; faixa.setAttribute('aria-label', 'Categorias');
       faixa.innerHTML = '<div class="moldura faixa-cats-in">' + pilulas + ordemCats.map(function (slug) {
@@ -379,10 +370,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=336'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=336'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=336'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=336'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=337'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=337'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=337'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=337'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

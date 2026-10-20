@@ -19,7 +19,7 @@
       '<ul class="jg-trava-lista"><li><b>Largada</b>As cinco luzes vermelhas apagam. Qual é o seu tempo de reação?</li>' +
       '<li><b>Adivinhe o circuito</b>Só o desenho da pista. Você reconhece?</li>' +
       '<li><b>Piloto misterioso</b>Dica por dica, descubra quem é. Menos dicas, mais pontos.</li>' +
-      '<li><b>Arena Racing</b>Pilote em 3D um F1, um Hypercar ou GT3 no WEC, ou um Porsche Cup, contra 11 adversários.</li></ul></div>';
+      '<li><b>Arena Racing</b>Pilote um F1 em 3D contra 11 adversários.</li></ul></div>';
   }
   window.NAVEIA_LIVRE.then(function (r) {
     if (r.semServidor) {
