@@ -112,19 +112,24 @@
     };
     function ic(n) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + IC[n] + '</svg>'; }
     var inicio = /(^|\/)inicio\.html$/.test(location.pathname); /* o portal; a raiz (index.html) é a entrada com o carrossel */
-    /* topo enxuto: quatro atalhos; o resto (categorias, jogos, guia, chat...) fica no Menu */
+    /* menu em pílula flutuante: os três esportes (com ícone), Notícias, Agenda e Menu (abre o painel com o resto);
+       à direita, tema claro/escuro, idioma e o botão Entrar */
+    IC.futebol = '<circle cx="12" cy="12" r="9"/><path d="M12 7.5l4 2.9-1.5 4.7h-5L8 10.4z"/>';
+    IC.basquete = '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6a9 9 0 0 1 0 12.8M18.4 5.6a9 9 0 0 0 0 12.8"/>';
+    IC.f1 = '<path d="M3 15.5l1.8-4.8A2 2 0 0 1 6.7 9.4h9.1a2 2 0 0 1 1.6.8l2.6 3.3H21v2H3z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/>';
     var itensMenu = [
-      ['inicio', 'inicio.html', 'Início', inicio],
+      ['futebol', 'futebol.html', 'Futebol', esporteAtual === 'futebol'],
+      ['basquete', 'basquete.html', 'Basquete', esporteAtual === 'basquete'],
+      ['f1', 'automobilismo.html', 'Fórmula 1', esporteAtual === 'automobilismo' && !inicio && paginaAtual !== 'noticias' && !/fim-de-semana|onde-assistir|jogos|guia|raiox|telemetria|simulador|horarios/.test(location.pathname)],
       ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
       ['agenda', 'fim-de-semana.html', 'Agenda', /fim-de-semana/.test(location.pathname)],
-      ['tv', 'onde-assistir.html', 'Onde assistir', /onde-assistir/.test(location.pathname)],
       ['categorias', '#categorias-menu', 'Menu', false] /* abre o painel com tudo (no celular é o botão de grade) */
     ];
     var menu = itensMenu.map(function (m) {
       return '<a class="nav-link nav-' + m[0] + '" href="' + m[1] + '"' + (m[3] ? ' aria-current="page"' : '') + '>' + ic(m[0]) + '<span>' + m[2] + '</span></a>';
     }).join('');
 
-    topo.className = 'topo';
+    topo.className = 'topo topo-pilula';
     topo.innerHTML =
       '<div class="moldura topo-in">' +
         '<a class="marca" href="inicio.html" aria-label="Arena Sports, início"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span>' +
@@ -197,7 +202,7 @@
        No celular ela desliza para o lado. Ponto vermelho = corre nos próximos 7 dias. */
     /* seletor de esporte (Automobilismo, Futebol, Basquete) no começo da faixa */
     var pilulas = '<span class="faixa-esportes">' + [['automobilismo', 'Fórmula 1', 'automobilismo.html'], ['futebol', 'Futebol', 'futebol.html'], ['basquete', 'Basquete', 'basquete.html']].map(function (x) {
-      return '<a class="faixa-esp" href="' + x[2] + '"' + (x[0] === esporteAtual ? ' aria-current="true"' : '') + '>' + x[1] + '</a>';
+      return '<a class="faixa-esp" href="' + x[2] + '"' + (x[0] === esporteAtual && !inicio && document.body.getAttribute('data-pagina') !== 'noticias' ? ' aria-current="true"' : '') + '>' + x[1] + '</a>';
     }).join('') + '</span>';
     if (esporteAtual !== 'automobilismo' && esporteAtual !== 'todos') {
       var compAtual = document.body.getAttribute('data-comp');
@@ -362,7 +367,7 @@
     else if (favLocal.equipe) window.NAVEIA_TEMA(favLocal.equipe);
     var l = document.getElementById('conta-link');
     if (!l) return;
-    if (r.semServidor) { l.remove(); var pc = document.querySelector('.painel-conta'); if (pc) pc.remove(); return; }
+    if (r.semServidor) return; /* sem o servidor das contas o botão Entrar continua no topo (leva para a página de entrar) */
     if (r.logado) {
       l.href = 'conta.html';
       window.NAVEIA_AVATAR = function (u) { l.innerHTML = avatar(u); l.classList.toggle('conta-avatar', /<(img|b)/.test(l.innerHTML)); };
@@ -391,11 +396,11 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=340'; document.head.appendChild(chatCss);
-    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=340'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=340'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=340'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=340'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=341'; document.head.appendChild(chatCss);
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=341'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=341'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=341'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=341'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

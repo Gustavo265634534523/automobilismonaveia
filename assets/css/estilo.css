@@ -1356,3 +1356,57 @@ button.painel-menu-it { display: none; }
 .fv-time i { width: 18px; height: 18px; border-radius: 50%; background: var(--c); flex: none; }
 .fv-time[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--c); background: color-mix(in srgb, var(--c) 14%, var(--carbono-2)); }
 @media (max-width: 520px) { .fv-esp { padding: 12px 4px; font-size: 13px; } .fv-esp svg { width: 28px; height: 28px; } }
+
+/* ---------- Menu em pílula flutuante (modelo 1) ----------
+   O topo vira uma pílula de vidro no meio da tela: logo, esportes, Notícias, Agenda, Menu, tema, idioma e Entrar.
+   A faixa com os campeonatos fica logo abaixo, sem fundo. */
+html.com-cats { --topo: 120px; }
+html.com-cats.com-aviso { --topo: 152px; }
+.topo.topo-pilula { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; pointer-events: none; }
+.topo.topo-pilula::after { display: none; }
+.topo-pilula .topo-in { pointer-events: auto; width: fit-content; max-width: calc(100% - 24px); height: 60px; margin: 10px auto 0; padding: 0 9px 0 18px; gap: 4px;
+  border-radius: 999px; background: color-mix(in srgb, var(--carbono) 82%, transparent); -webkit-backdrop-filter: blur(16px) saturate(1.3); backdrop-filter: blur(16px) saturate(1.3);
+  box-shadow: inset 0 0 0 1px var(--linha), 0 18px 44px -18px rgba(0, 0, 0, .55); }
+.topo-pilula .marca { margin-right: 10px; }
+.topo-pilula .nav { height: auto; margin: 0 6px 0 0; gap: 2px; }
+.topo.topo-pilula .nav-link { height: 42px; padding: 0 15px; border-radius: 999px; gap: 8px; font-size: 14px; font-weight: 700; color: var(--texto-2); transition: background .2s, color .2s; }
+.topo.topo-pilula .nav-link:hover { background: var(--sutil); color: var(--cromo); }
+.topo.topo-pilula .nav-link svg { display: block; width: 18px; height: 18px; }
+.topo.topo-pilula .nav-link[aria-current] { background: var(--cromo); color: var(--asfalto); }
+.topo.topo-pilula .nav-link[aria-current]::after, .topo.topo-pilula .nav-link::after { display: none; }
+.topo-pilula .tema-btn, .topo-pilula .idioma-btn { height: 40px; margin-left: 4px; border-radius: 999px; box-shadow: inset 0 0 0 1px var(--linha); background: transparent; }
+.topo-pilula .tema-btn { width: 40px; }
+/* Entrar: botão cheio na cor de destaque, sempre no fim da pílula */
+.topo.topo-pilula .conta-link { order: 10; margin-left: 8px; height: 44px; padding: 0 22px; border-radius: 999px; background: var(--sangue-vivo); color: #fff; font-size: 15px; font-weight: 800; letter-spacing: .02em; text-transform: none; box-shadow: 0 10px 24px -10px var(--sangue-vivo); }
+.topo.topo-pilula .conta-link:hover { background: var(--sangue); color: #fff; }
+.topo.topo-pilula .conta-link.conta-icone { padding: 0; width: 44px; justify-content: center; background: var(--carbono-2); box-shadow: inset 0 0 0 1px var(--linha); }
+.topo-pilula .todas { display: none; }
+/* faixa dos campeonatos: chips soltos, centralizados, logo abaixo da pílula */
+.topo-pilula .faixa-cats { pointer-events: auto; height: 44px; margin-top: 6px; background: transparent; border: 0; }
+.topo-pilula .faixa-cats-in { justify-content: center; }
+.topo-pilula .faixa-cat { border-radius: 999px; background: color-mix(in srgb, var(--carbono) 78%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); box-shadow: inset 0 0 0 1px var(--linha); }
+.topo-pilula .faixa-esportes { display: none; }
+@media (max-width: 1080px) {
+  html.com-cats, html.com-cats.com-aviso { --topo: 116px; }
+  .topo-pilula .topo-in { width: calc(100% - 20px); height: 56px; margin-top: 8px; padding: 0 6px 0 14px; }
+  .topo-pilula .marca { margin-right: auto; }
+  .topo-pilula .todas { display: inline-grid; order: 11; margin-left: 4px; border-radius: 50%; }
+  .topo.topo-pilula .conta-link { height: 40px; padding: 0 16px; font-size: 14px; }
+  .topo-pilula .faixa-esportes { display: inline-flex; }
+  .topo-pilula .faixa-cats-in { justify-content: flex-start; }
+}
+@media (max-width: 420px) {
+  .topo-pilula .idioma-btn { padding: 0 8px; }
+  .topo.topo-pilula .conta-link { padding: 0 12px; }
+}
+/* no celular o tema também fica na pílula (antes ficava só no menu) */
+@media (max-width: 620px) {
+  .topo-pilula .topo-in .tema-btn { display: inline-grid; width: 36px; height: 36px; margin-left: 2px; }
+  .topo-pilula .idioma-btn { height: 36px; margin-left: 2px; }
+  .topo-pilula .marca-nome { font-size: 11px; letter-spacing: .04em; }
+  .topo-pilula .marca { gap: 6px; }
+  .topo.topo-pilula .conta-link { height: 38px; padding: 0 12px; font-size: 13px; margin-left: 4px; }
+  .topo-pilula .todas { width: 36px; height: 36px; }
+  .topo-pilula .topo-in { gap: 2px; padding: 0 5px 0 10px; }
+}
+@media (max-width: 380px) { .topo-pilula .marca-nome { display: none; } }
