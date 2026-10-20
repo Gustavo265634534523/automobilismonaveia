@@ -5,7 +5,28 @@
     { n: 'Mercedes', c: 'Fórmula 1', cor: '#00A58E' }, { n: 'Ferrari', c: 'Fórmula 1', cor: '#ED1131' }, { n: 'McLaren', c: 'Fórmula 1', cor: '#F47600' },
     { n: 'Red Bull', c: 'Fórmula 1', cor: '#3671C6' }, { n: 'Racing Bulls', c: 'Fórmula 1', cor: '#4F6FE0' }, { n: 'Alpine', c: 'Fórmula 1', cor: '#0090D0' },
     { n: 'Haas', c: 'Fórmula 1', cor: '#8A8F94' }, { n: 'Audi', c: 'Fórmula 1', cor: '#F50537' }, { n: 'Williams', c: 'Fórmula 1', cor: '#1868DB' },
-    { n: 'Aston Martin', c: 'Fórmula 1', cor: '#1E8C64' }, { n: 'Cadillac', c: 'Fórmula 1', cor: '#9A9EA3' }
+    { n: 'Aston Martin', c: 'Fórmula 1', cor: '#1E8C64' }, { n: 'Cadillac', c: 'Fórmula 1', cor: '#9A9EA3' },
+    /* futebol e basquete: a cor principal de cada clube (preto ou branco viram cinza, para os botões continuarem legíveis) */
+    { n: 'Flamengo', c: 'Futebol', cor: '#C4161C' }, { n: 'Palmeiras', c: 'Futebol', cor: '#006437' }, { n: 'Corinthians', c: 'Futebol', cor: '#5B6270' }, { n: 'São Paulo', c: 'Futebol', cor: '#D6001C' },
+    { n: 'Santos', c: 'Futebol', cor: '#5B6270' }, { n: 'Vasco', c: 'Futebol', cor: '#5B6270' }, { n: 'Fluminense', c: 'Futebol', cor: '#8A1538' }, { n: 'Botafogo', c: 'Futebol', cor: '#5B6270' },
+    { n: 'Grêmio', c: 'Futebol', cor: '#0D80BF' }, { n: 'Internacional', c: 'Futebol', cor: '#E30613' }, { n: 'Atlético-MG', c: 'Futebol', cor: '#5B6270' }, { n: 'Cruzeiro', c: 'Futebol', cor: '#2A3C8F' },
+    { n: 'Bahia', c: 'Futebol', cor: '#0B5EA8' }, { n: 'Vitória', c: 'Futebol', cor: '#D0021B' }, { n: 'Athletico-PR', c: 'Futebol', cor: '#C8102E' }, { n: 'Red Bull Bragantino', c: 'Futebol', cor: '#D20A2E' },
+    { n: 'Fortaleza', c: 'Futebol', cor: '#0A50A1' }, { n: 'Coritiba', c: 'Futebol', cor: '#00663A' }, { n: 'Mirassol', c: 'Futebol', cor: '#E0B400' }, { n: 'Remo', c: 'Futebol', cor: '#003DA5' },
+    { n: 'Chapecoense', c: 'Futebol', cor: '#00863F' }, { n: 'Juventude', c: 'Futebol', cor: '#009A44' }, { n: 'Real Madrid', c: 'Futebol', cor: '#D4A20B' }, { n: 'Barcelona', c: 'Futebol', cor: '#A50044' },
+    { n: 'Paris Saint-Germain', c: 'Futebol', cor: '#004170' }, { n: 'Bayern de Munique', c: 'Futebol', cor: '#DC052D' }, { n: 'Liverpool', c: 'Futebol', cor: '#C8102E' }, { n: 'Manchester City', c: 'Futebol', cor: '#4A9FD8' },
+    { n: 'Arsenal', c: 'Futebol', cor: '#EF0107' }, { n: 'Chelsea', c: 'Futebol', cor: '#034694' }, { n: 'Manchester United', c: 'Futebol', cor: '#DA291C' }, { n: 'Juventus', c: 'Futebol', cor: '#5B6270' },
+    { n: 'Inter de Milão', c: 'Futebol', cor: '#0068A8' }, { n: 'Milan', c: 'Futebol', cor: '#E2001A' }, { n: 'Atlético de Madrid', c: 'Futebol', cor: '#CB3524' }, { n: 'Borussia Dortmund', c: 'Futebol', cor: '#E0C400' },
+    { n: 'Boca Juniors', c: 'Futebol', cor: '#103F79' }, { n: 'River Plate', c: 'Futebol', cor: '#E2001A' },
+    { n: 'Los Angeles Lakers', c: 'Basquete', cor: '#FDB927' }, { n: 'Boston Celtics', c: 'Basquete', cor: '#007A33' }, { n: 'Golden State Warriors', c: 'Basquete', cor: '#1D428A' }, { n: 'Chicago Bulls', c: 'Basquete', cor: '#CE1141' },
+    { n: 'Miami Heat', c: 'Basquete', cor: '#98002E' }, { n: 'New York Knicks', c: 'Basquete', cor: '#F58426' }, { n: 'Philadelphia 76ers', c: 'Basquete', cor: '#006BB6' }, { n: 'Milwaukee Bucks', c: 'Basquete', cor: '#00471B' },
+    { n: 'Denver Nuggets', c: 'Basquete', cor: '#E0A800' }, { n: 'Oklahoma City Thunder', c: 'Basquete', cor: '#007AC1' }, { n: 'San Antonio Spurs', c: 'Basquete', cor: '#7A7F86' }, { n: 'Dallas Mavericks', c: 'Basquete', cor: '#00538C' },
+    { n: 'Phoenix Suns', c: 'Basquete', cor: '#E56020' }, { n: 'LA Clippers', c: 'Basquete', cor: '#C8102E' }, { n: 'Cleveland Cavaliers', c: 'Basquete', cor: '#860038' }, { n: 'Houston Rockets', c: 'Basquete', cor: '#CE1141' },
+    { n: 'Minnesota Timberwolves', c: 'Basquete', cor: '#236192' }, { n: 'New Orleans Pelicans', c: 'Basquete', cor: '#B4975A' }, { n: 'Sacramento Kings', c: 'Basquete', cor: '#5A2D81' }, { n: 'Utah Jazz', c: 'Basquete', cor: '#E39A00' },
+    { n: 'Atlanta Hawks', c: 'Basquete', cor: '#E03A3E' }, { n: 'Charlotte Hornets', c: 'Basquete', cor: '#00788C' }, { n: 'Orlando Magic', c: 'Basquete', cor: '#0077C0' }, { n: 'Detroit Pistons', c: 'Basquete', cor: '#C8102E' },
+    { n: 'Indiana Pacers', c: 'Basquete', cor: '#E0A800' }, { n: 'Washington Wizards', c: 'Basquete', cor: '#E31837' }, { n: 'Toronto Raptors', c: 'Basquete', cor: '#CE1141' }, { n: 'Brooklyn Nets', c: 'Basquete', cor: '#5B6270' },
+    { n: 'Portland Trail Blazers', c: 'Basquete', cor: '#E03A3E' }, { n: 'Memphis Grizzlies', c: 'Basquete', cor: '#5D76A9' }, { n: 'Sesi Franca', c: 'Basquete', cor: '#0A4EA2' }, { n: 'Pinheiros', c: 'Basquete', cor: '#0B3D91' },
+    { n: 'Minas Storm', c: 'Basquete', cor: '#1F5FBF' }, { n: 'Bauru Basket', c: 'Basquete', cor: '#0072CE' }, { n: 'Paulistano', c: 'Basquete', cor: '#C8102E' }, { n: 'Olympiacos', c: 'Basquete', cor: '#E2001A' },
+    { n: 'Panathinaikos', c: 'Basquete', cor: '#007A33' }, { n: 'Fenerbahçe', c: 'Basquete', cor: '#E0B400' }
   ];
   /* pilotos da F1 (número e equipe): ícone do perfil no topo e na página da conta */
   window.NAVEIA_PILOTOS = {
@@ -370,10 +391,11 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=339'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=339'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=339'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=339'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=340'; document.head.appendChild(chatCss);
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=340'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=340'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=340'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=340'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -523,9 +545,8 @@
         setTimeout(function () { d.classList.add('ativo'); }, 30);
       });
     }
-    window.NAVEIA_BOAS_VINDAS = abrir;
-    /* quem já aceitou a privacidade antes vê as boas-vindas logo ao entrar */
-    try { if (localStorage.getItem('naveia-privacidade')) setTimeout(abrir, 1200); } catch (e) {}
+    /* desligado: agora a escolha de esporte e equipe aparece depois do login (assets/js/favorito.js) */
+    window.NAVEIA_BOAS_VINDAS = function () {};
   })();
 
   /* Copiar o e-mail do rodapé (funciona no celular, mesmo sem HTTPS) */
