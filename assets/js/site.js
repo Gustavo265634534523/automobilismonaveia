@@ -100,15 +100,13 @@
     };
     function ic(n) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + IC[n] + '</svg>'; }
     var inicio = /(^|\/)inicio\.html$/.test(location.pathname); /* o portal; a raiz (index.html) é a entrada com o carrossel */
+    /* topo enxuto: quatro atalhos; o resto (categorias, jogos, guia, chat...) fica no Menu */
     var itensMenu = [
       ['inicio', 'inicio.html', 'Início', inicio],
       ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
+      ['agenda', 'fim-de-semana.html', 'Agenda', /fim-de-semana/.test(location.pathname)],
       ['tv', 'onde-assistir.html', 'Onde assistir', /onde-assistir/.test(location.pathname)],
-      ['categorias', '#categorias-menu', 'Categorias', false],
-      ['agenda', 'fim-de-semana.html', 'Fim de semana', /fim-de-semana/.test(location.pathname)],
-      ['jogos', 'jogos.html', 'Jogos', /jogos/.test(location.pathname)],
-      ['chat', '#bate-papo', 'Chat', false],
-      ['guia', 'guia.html', 'Guia', /guia/.test(location.pathname)]
+      ['categorias', '#categorias-menu', 'Menu', false] /* abre o painel com tudo (no celular é o botão de grade) */
     ];
     var menu = itensMenu.map(function (m) {
       return '<a class="nav-link nav-' + m[0] + '" href="' + m[1] + '"' + (m[3] ? ' aria-current="page"' : '') + '>' + ic(m[0]) + '<span>' + m[2] + '</span></a>';
@@ -121,9 +119,8 @@
         '<span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
         '<nav class="nav" aria-label="Menu principal">' + menu + '</nav>' +
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
-        '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Todas as categorias</span><span class="todas-menu">Menu</span>' +
+        '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Menu</span><span class="todas-menu">Menu</span>' +
         '<span class="grade-ic" aria-hidden="true">' + new Array(10).join('<i></i>') + '</span><span class="sr">Abrir todas as categorias</span></button>' +
-        '<button type="button" class="compartilhar-bt" id="compartilhar-bt" aria-label="' + (window.LANG === 'en' ? 'Share this page' : 'Compartilhar esta página') + '" title="' + (window.LANG === 'en' ? 'Share' : 'Compartilhar') + '"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.6"/><circle cx="6" cy="12" r="2.6"/><circle cx="18" cy="19" r="2.6"/><path d="M8.3 10.8l7.4-4.4M8.3 13.2l7.4 4.4"/></svg></button>' +
         '<button type="button" class="tema-btn" id="tema-btn" aria-label="Trocar o fundo: cinza ou branco" title="Fundo cinza ou branco">' +
           '<svg class="tema-lua" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>' +
           '<svg class="tema-sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg></button>' +
@@ -156,8 +153,7 @@
         }).join('') }
     ].concat(ESPORTES_MENU.map(function (e) {
       return { slug: e.slug, nome: e.nome, icone: e.slug === 'futebol' ? 'bola' : 'cesta',
-        atalhos: tile(e.slug === 'futebol' ? 'bola' : 'cesta', e.slug + '.html', 'Tudo de ' + e.nome.toLowerCase()) + tile('relogio', e.slug + '.html#sec-aovivo', 'Ao vivo e hoje') +
-          tile('agenda', 'fim-de-semana.html#' + e.slug, 'Fim de semana') + tile('noticias', 'resumo.html#' + e.slug, 'Resumo da semana') + tile('troca', 'mercado.html#' + e.slug, 'Mercado') + tile('tv', 'onde-assistir.html', 'Onde assistir') +
+        atalhos: tile(e.slug === 'futebol' ? 'bola' : 'cesta', e.slug + '.html', 'Tudo de ' + e.nome.toLowerCase()) + tile('agenda', 'fim-de-semana.html#' + e.slug, 'Fim de semana') + tile('noticias', 'resumo.html#' + e.slug, 'Resumo da semana') + tile('troca', 'mercado.html#' + e.slug, 'Mercado') +
           tile(e.slug === 'futebol' ? 'bola' : 'cesta', 'time.html#' + e.slug, 'Times'),
         corpo: '<section class="painel-grupo"><h2>Campeonatos</h2><ul class="painel-lista">' + e.comps.map(function (c) {
           return '<li><a class="painel-cat" href="' + c[0] + '.html"' + (c[0] === atual || c[0] === document.body.getAttribute('data-comp') ? ' aria-current="page"' : '') + '><strong>' + esc(c[1]) + '</strong><span>' + esc(c[2]) + '</span></a></li>';
@@ -230,7 +226,7 @@
       else { var c = document.querySelector('.chat-bt'); if (c) c.click(); }
     });
     /* compartilhar: manda o link da página aberta (no celular, abre WhatsApp, Instagram...; no computador, copia o link) */
-    document.getElementById('compartilhar-bt').addEventListener('click', function () {
+    (document.getElementById('compartilhar-bt') || document.createElement('i')).addEventListener('click', function () {
       var url = location.href.split('#')[0] + (location.hash === '#telemetria' ? '#telemetria' : ''), bt = this;
       function aviso(t) { var a = document.createElement('div'); a.className = 'compartilhar-aviso'; a.setAttribute('role', 'status'); a.textContent = t; document.body.appendChild(a); setTimeout(function () { a.remove(); }, 2600); }
       function copiar() {
@@ -383,10 +379,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=333'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=333'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=333'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=333'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=334'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=334'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=334'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=334'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 

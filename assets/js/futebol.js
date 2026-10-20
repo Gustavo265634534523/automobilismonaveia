@@ -32,7 +32,7 @@
     g.innerHTML = '<a class="ft-grande" href="' + grande.c.slug + '.html#jogos"><span class="ft-grande-rot">Jogo da semana · ' + esc(grande.c.menu) + '</span>' +
       '<span class="ft-grande-times">' + escudo(j.casa) + '<b>' + esc(j.casa) + '</b><em>x</em><b>' + esc(j.fora) + '</b>' + escudo(j.fora) + '</span>' +
       '<span class="ft-grande-quando">' + diaSemana(j.d) + ', ' + window.dataCurta(j.d) + (j.h ? ' · ' + esc(j.h) : '') + (j.l ? ' · ' + esc(j.l) : '') + '</span></a>' +
-      '<a class="ft-btn" href="#ft-agenda">Ver a agenda</a>';
+      '<a class="ft-btn" href="#sec-aovivo">Jogos de hoje</a>';
   }
 
   /* 2. resultados recentes, num trilho que passa com as setas */
@@ -52,7 +52,8 @@
   /* 3. agenda: os próximos jogos, no máximo dois por campeonato para variar */
   var conta = {};
   var agenda = proximos.filter(function (x) { conta[x.c.slug] = (conta[x.c.slug] || 0) + 1; return conta[x.c.slug] <= 2 && x !== grande; }).slice(0, 6);
-  document.getElementById('ft-agenda').innerHTML = agenda.map(function (x) {
+  var caixaAg = document.getElementById('ft-agenda');
+  if (caixaAg) caixaAg.innerHTML = agenda.map(function (x) {
     var j = x.j;
     return '<a class="ft-jogo" href="' + x.c.slug + '.html#jogos" aria-label="' + esc(j.casa + ' x ' + j.fora + ', ' + x.c.menu) + '">' +
       '<span class="ft-jogo-escudos"><span title="' + esc(j.casa) + '">' + escudo(j.casa) + '</span><em>x</em><span title="' + esc(j.fora) + '">' + escudo(j.fora) + '</span></span>' +
@@ -114,10 +115,12 @@
   pintarNoticias();
 
   /* 6. campeonatos: cartões curtos com quem lidera */
-  document.getElementById('ft-camps').innerHTML = COMPS.map(function (c) {
+  var camps = document.getElementById('ft-camps');
+  if (camps) camps.innerHTML = COMPS.map(function (c) {
     return '<a class="ft-camp" href="' + c.slug + '.html"><small>' + esc(c.regiao) + '</small><b>' + esc(c.menu) + '</b><span>' + esc(c.lider ? c.lider.nome : c.fase) + '</span></a>';
   }).join('');
-  document.getElementById('ft-atualizado').textContent = 'Dados atualizados em ' + window.ESPORTES_ATUALIZADO + '. Fontes: sites oficiais das competições e imprensa esportiva.';
+  var atualiz = document.getElementById('ft-atualizado');
+  if (atualiz) atualiz.textContent = 'Dados atualizados em ' + window.ESPORTES_ATUALIZADO + '. Fontes: sites oficiais das competições e imprensa esportiva.';
 
   /* 7. ao vivo (placar sozinho) e o meu time (esportes-mais.js) */
   window.blocoAoVivo(document.getElementById('em-aovivo'), ESPORTE);
@@ -145,20 +148,9 @@
   var lid = document.getElementById('lid-caixa');
   if (lid) lid.innerHTML = window.lideresHTML() || '<p class="ft-vazio">Os líderes de pontos, rebotes e assistências aparecem aqui depois das primeiras rodadas.</p>';
 
-  /* 10. mercado: filtro por situação; mostra 9 */
-  var MK = (window.MERCADO || []).filter(function (m) { return m.esporte === ESPORTE; }).sort(function (a, b) { return a.d < b.d ? 1 : -1; });
-  var FMK = [['Todos', ''], ['Confirmados', 'confirmado'], ['Saídas', 'saida'], ['Rumores', 'especulacao']], fmk = 0;
-  var gradeMK = document.getElementById('mk-grade'), filtrosMK = document.getElementById('mk-filtros');
-  function pintarMK() {
-    var l = MK.filter(function (m) { return !FMK[fmk][1] || m.status === FMK[fmk][1]; });
-    gradeMK.innerHTML = l.slice(0, 9).map(window.mercadoHTML).join('') || '<p class="ft-vazio">Nada nesta lista por enquanto.</p>';
-    [].forEach.call(filtrosMK.children, function (b, k) { b.setAttribute('aria-pressed', k === fmk ? 'true' : 'false'); });
-  }
-  if (gradeMK) {
-    filtrosMK.innerHTML = FMK.map(function (f, i) { return '<button type="button" data-i="' + i + '">' + f[0] + '</button>'; }).join('');
-    filtrosMK.addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) { fmk = +b.getAttribute('data-i'); pintarMK(); } });
-    pintarMK();
-  }
+  /* 10. mercado: as 3 novidades mais recentes; o resto na página do mercado */
+  var gradeMK = document.getElementById('mk-grade');
+  if (gradeMK) gradeMK.innerHTML = (window.MERCADO || []).filter(function (m) { return m.esporte === ESPORTE; }).sort(function (a, b) { return a.d < b.d ? 1 : -1; }).slice(0, 3).map(window.mercadoHTML).join('');
 
   /* 11. times: os do campeonato principal; o resto na página de todos os times */
   var tm = document.getElementById('tm-grade');

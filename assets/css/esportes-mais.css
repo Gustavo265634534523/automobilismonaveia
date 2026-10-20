@@ -223,3 +223,8 @@ a.ch-nome:hover span { text-decoration: underline; }
 .hm-meus .mt-acoes { flex-direction: row; align-items: center; justify-content: flex-start; }
 .hm-meus .mt-vazio { flex-direction: column; align-items: flex-start; }
 .hm-meus .mt-vazio h2 { font-size: 26px !important; }
+
+/* convite do meu time: uma linha discreta, sem cara de botão grande */
+.mt-convite { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; padding: 6px 2px; border: 0; background: none; color: var(--texto-2); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
+.mt-convite span { color: var(--ft-cor, var(--sangue-vivo)); font-size: 17px; }
+.mt-convite:hover { color: var(--cromo); text-decoration: underline; }

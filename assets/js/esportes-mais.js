@@ -149,7 +149,7 @@
     var c = ((window.ONDE_ASSISTIR || {}).cats || {})[slug];
     if (!c) return '';
     var l = c.canais.map(function (x) { return x[0]; });
-    return l.slice(0, max || 3).join(', ') + (l.length > (max || 3) ? ' e +' + (l.length - (max || 3)) : '');
+    return l.slice(0, max || 3).join(', ') + ((max || 3) >= 3 && l.length > (max || 3) ? ' e +' + (l.length - (max || 3)) : ''); /* nas listas (2 canais), sem o "e +2" */
   };
   var TV = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="1.5"/><path d="M8 21h8M12 17v4"/></svg>';
   window.tvLinha = function (slug, max) { var t = window.canais(slug, max); return t ? '<span class="em-tv">' + TV + '<span>' + esc(t) + '</span></span>' : ''; };
@@ -188,8 +188,8 @@
       var dia = prox[0] && prox[0].j.d, doDia = prox.filter(function (x) { return x.j.d === dia; });
       el.innerHTML = '<div class="em-vivo-cab"><h2>' + (vivos ? '<span class="em-vivo"><i aria-hidden="true"></i>' + vivos + (vivos > 1 ? ' jogos' : ' jogo') + ' ao vivo</span>' : deHoje.length ? 'Jogos de hoje' : 'Próximos jogos') + '</h2>' +
         '<a class="em-mais" href="fim-de-semana.html">Agenda do fim de semana →</a></div>' +
-        (deHoje.length ? '<ul class="em-jogos">' + deHoje.slice(0, 12).map(function (x) { return window.linhaJogo(x, true); }).join('') + '</ul>'
-          : doDia.length ? '<p class="em-dia">' + esc(window.quando(dia)) + ', ' + window.dataCurta(dia) + '</p><ul class="em-jogos">' + doDia.slice(0, 8).map(function (x) { return window.linhaJogo(x, true); }).join('') + '</ul>'
+        (deHoje.length ? '<ul class="em-jogos">' + deHoje.slice(0, 6).map(function (x) { return window.linhaJogo(x, true); }).join('') + '</ul>'
+          : doDia.length ? '<p class="em-dia">' + esc(window.quando(dia)) + ', ' + window.dataCurta(dia) + '</p><ul class="em-jogos">' + doDia.slice(0, 6).map(function (x) { return window.linhaJogo(x, true); }).join('') + '</ul>'
             : '<p class="ft-vazio">Sem jogos marcados nos próximos dias.</p>') +
         '<p class="em-fonte">' + (AV ? 'Placar atualizado sozinho' + (vivos ? ' a cada minuto' : '') + '. Horários de Brasília.' : 'Horários de Brasília.') + '</p>';
     }
@@ -198,13 +198,14 @@
   };
 
   /* cartão do meu time (página do esporte e página inicial) */
-  window.blocoMeuTime = function (el, esporte) {
+  /* soQuemEscolheu: na página inicial, o cartão só aparece para quem já escolheu um time */
+  window.blocoMeuTime = function (el, esporte, soQuemEscolheu) {
     if (!el) return;
     function pintar() {
       var t = window.meuTime(esporte);
       if (!t) {
-        el.innerHTML = '<div class="mt-vazio"><div><p class="ft-rot">Meu time</p><h2>Escolha o seu time' + (esporte === 'basquete' ? ' de basquete' : ' de futebol') + '</h2><p>O próximo jogo, o último resultado, a posição na tabela e as notícias dele aparecem aqui primeiro.</p></div>' +
-          '<button type="button" class="ft-btn" data-mt-escolher>Escolher time</button></div>';
+        /* convite discreto, numa linha só */
+        el.innerHTML = soQuemEscolheu ? '' : '<button type="button" class="mt-convite" data-mt-escolher><span aria-hidden="true">☆</span> Escolha seu time ' + (esporte === 'basquete' ? 'de basquete' : 'de futebol') + ' para ver os jogos dele primeiro</button>';
       } else {
         var i = window.infoTime(t), px = i.proximos[0], ul = i.feitos[i.feitos.length - 1], p = i.pos[0];
         el.innerHTML = '<div class="mt-cartao">' +
