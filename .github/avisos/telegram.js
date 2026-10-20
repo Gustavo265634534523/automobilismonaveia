@@ -1,4 +1,4 @@
-// Avisos do canal do Telegram do Na Veia.
+// Avisos do canal do Telegram do Arena Sports.
 // Roda a cada 5 minutos (Agendador do Windows agora; GitHub Actions quando o site estiver no ar).
 // Uso: node .github/avisos/telegram.js
 // 1. Aviso antes de cada classificação, sprint e corrida (lê as sessões "s" de assets/js/dados.js).

@@ -88,7 +88,7 @@ todas.forEach(n => {
   /* foto real da categoria (licença livre, com crédito); sem ela, a imagem gerada */
   const fr = window.fotoNoticia ? window.fotoNoticia(n.cat, n.t) : (window.FOTOS_REAIS || {})[n.cat];
   const foto = fr ? (fr.jpg || fr.grande) : (c.foto || 'assets/img/compartilhar.jpg');
-  const legenda = fr && fr.autor ? `<a href="creditos-fotos.html">Foto: ${esc(fr.autor)} · ${esc(fr.lic)} · Wikimedia Commons</a>` : 'Imagem ilustrativa do Na Veia';
+  const legenda = fr && fr.autor ? `<a href="creditos-fotos.html">Foto: ${esc(fr.autor)} · ${esc(fr.lic)} · Wikimedia Commons</a>` : 'Imagem ilustrativa do Arena Sports';
   const desc = n.x.length > 158 ? n.x.slice(0, 155).replace(/\s+\S*$/, '') + '…' : n.x;
   const hp = horarioProx(c);
   const mais = todas.filter(o => o !== n && o.cat === n.cat).slice(0, 5);
@@ -96,8 +96,8 @@ todas.forEach(n => {
     '@context': 'https://schema.org', '@type': 'NewsArticle', headline: n.t.slice(0, 110), description: desc,
     datePublished: n.d + 'T08:00:00-03:00', dateModified: n.d + 'T08:00:00-03:00', inLanguage: 'pt-BR',
     image: [SITE + foto], articleSection: c.nome, mainEntityOfPage: SITE + arq,
-    author: { '@type': 'Organization', name: 'Automobilismo Na Veia', url: SITE },
-    publisher: { '@type': 'Organization', name: 'Automobilismo Na Veia', logo: { '@type': 'ImageObject', url: SITE + 'assets/app/icone-512.png' } }
+    author: { '@type': 'Organization', name: 'Arena Sports', url: SITE },
+    publisher: { '@type': 'Organization', name: 'Arena Sports', logo: { '@type': 'ImageObject', url: SITE + 'assets/app/icone-512.png' } }
   };
   const migalhas = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Início', item: SITE },
@@ -109,7 +109,7 @@ todas.forEach(n => {
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="assets/js/idioma.js?v=${V}"></script>
-<title>${esc(n.t)} | Na Veia</title>
+<title>${esc(n.t)} | Arena Sports</title>
 <meta name="description" content="${esc(desc)}">
 <meta name="theme-color" content="#141619">
 <link rel="manifest" href="manifest.webmanifest">
@@ -120,7 +120,7 @@ todas.forEach(n => {
 <meta property="og:image" content="${SITE}${esc(foto)}">
 <meta property="og:url" content="${SITE}${arq}">
 <meta property="og:type" content="article">
-<meta property="og:site_name" content="Automobilismo Na Veia">
+<meta property="og:site_name" content="Arena Sports">
 <meta property="og:locale" content="pt_BR">
 <meta property="article:published_time" content="${n.d}T08:00:00-03:00">
 <meta property="article:section" content="${esc(c.nome)}">

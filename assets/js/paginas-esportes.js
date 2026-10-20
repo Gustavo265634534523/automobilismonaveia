@@ -62,7 +62,7 @@
       if (location.hash) { var alvo = document.getElementById(location.hash.slice(1)); if (alvo) setTimeout(function () { alvo.scrollIntoView(); }, 50); }
       return;
     }
-    document.title = t.nome + ' | Automobilismo Na Veia';
+    document.title = t.nome + ' | Arena Sports';
     var link = document.querySelector('link[rel="canonical"]'); if (link) link.href = 'https://automobilismonaveia.com.br/time.html?t=' + t.slug;
     var meta = document.querySelector('meta[name="description"]'); if (meta) meta.content = t.nome + ': próximos jogos, resultados, posição na tabela, notícias e onde assistir.';
     document.documentElement.style.setProperty('--ft-cor', t.esporte === 'basquete' ? '#f07a2a' : 'var(--sangue-vivo)');

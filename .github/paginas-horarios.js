@@ -85,7 +85,7 @@ function pagina(o) {
 <link rel="canonical" href="${SITE}${o.arq}">
 <meta property="og:url" content="${SITE}${o.arq}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Automobilismo Na Veia">
+<meta property="og:site_name" content="Arena Sports">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -125,7 +125,7 @@ CATS.forEach(c => {
   c.calendario.forEach(e => {
     if (!e.d || e.d < DESDE) return;
     const arq = arquivo(c, e), ano = e.d.slice(0, 4), cc = curto(c), p = principal(e);
-    const titulo = `${e.n} ${ano} (${cc}): horário e onde assistir | Na Veia`;
+    const titulo = `${e.n} ${ano} (${cc}): horário e onde assistir | Arena Sports`;
     const quandoTxt = dataLonga(e.d) + (p && p.h ? ', às ' + hora(p.h) : '');
     const desc = e.venc
       ? `${e.n} ${ano} da ${c.nome}: vencedor ${e.venc}. Horários de todas as sessões (Brasília) e onde assistir no Brasil.`
@@ -186,7 +186,7 @@ const corpoCentral = `    <p class="hr-rot">Agenda · horário de Brasília</p>
     <div class="hr-links"><a href="onde-assistir.html">Onde assistir cada categoria</a><a href="noticias.html">Notícias</a><a href="guia.html">Guia para iniciantes</a></div>`;
 fs.writeFileSync(path.join(RAIZ, 'horarios.html'), pagina({
   arq: 'horarios.html',
-  titulo: 'Horário das corridas hoje: F1, MotoGP, WEC e mais | Na Veia',
+  titulo: 'Horário das corridas hoje: F1, MotoGP, WEC e mais | Arena Sports',
   desc: 'Que horas é a corrida hoje? Horários de Brasília de F1, MotoGP, WEC, Fórmula E e mais, com onde assistir no Brasil. Atualizado todo dia.',
   corpo: corpoCentral
 }));

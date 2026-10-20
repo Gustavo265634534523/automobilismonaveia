@@ -30,7 +30,7 @@ jobs:
         run: node .github/enquete.js || true
       - name: Salvar no site
         run: |
-          git config user.name "Robô Na Veia"
+          git config user.name "Robô Arena Sports"
           git config user.email "automobilismonaveiacontato@gmail.com"
           git add assets/dados/ao-vivo.js assets/dados/escudos.js assets/img/escudos .github/placar-relatorio.txt assets/dados/enquete.json
           git diff --cached --quiet && exit 0

@@ -1,9 +1,9 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Automobilismo Na Veia//Agenda//PT
+PRODID:-//Arena Sports//Agenda//PT
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Na Veia: Porsche Cup
+X-WR-CALNAME:Arena Sports: Porsche Cup
 X-WR-TIMEZONE:America/Sao_Paulo
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
@@ -16,7 +16,7 @@ SUMMARY:Porsche Cup: Corrida (Endurance)
 LOCATION:Brasília (DF)\, transferido de Goiânia para o Autódromo Nelson
   Piquet\, por causa das obras no circuito goiano\; 300 km em duplas\, na 
  chuva
-DESCRIPTION:Horário de Brasília: 13h00. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 13h00. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Porsche Cup: Corrida em 30 minutos
@@ -32,7 +32,7 @@ SUMMARY:Porsche Cup: Etapa 8\, Challenge e Trophy
 LOCATION:Interlagos (SP)\, não acontece mais em Goiânia\, porque o repar
  o do asfalto do autódromo não ficou pronto a tempo\; remarcada para Int
  erlagos\, nos dias 21 e 22 de novembro
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20261019T162000Z
@@ -41,7 +41,7 @@ DTSTART;VALUE=DATE:20261108
 DTEND;VALUE=DATE:20261109
 SUMMARY:Porsche Cup: Etapa 9
 LOCATION:Interlagos (SP)
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20261019T162000Z
@@ -50,6 +50,6 @@ DTSTART;VALUE=DATE:20261128
 DTEND;VALUE=DATE:20261129
 SUMMARY:Porsche Cup: Endurance final
 LOCATION:Interlagos (SP)
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 END:VCALENDAR

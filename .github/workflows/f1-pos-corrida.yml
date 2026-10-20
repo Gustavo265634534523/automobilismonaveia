@@ -41,7 +41,7 @@ jobs:
           node .github/raiox-motogp.js || true
       - name: Salvar no site
         run: |
-          git config user.name "Robô Na Veia"
+          git config user.name "Robô Arena Sports"
           git config user.email "automobilismonaveiacontato@gmail.com"
           git add assets/dados
           git diff --cached --quiet && exit 0

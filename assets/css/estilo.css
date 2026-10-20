@@ -1,4 +1,4 @@
-/* Automobilismo Na Veia */
+/* Arena Sports */
 
 :root {
   /* Fundo cinza (padrão): grafite neutro. A opção branca troca estes valores em html[data-tema="claro"] (fim do arquivo). */
@@ -724,7 +724,7 @@ html.com-aviso { --topo: 100px; }
 }
 @media (max-width: 380px) { .topo-in .idioma-btn i { display: none; } .topo-in .idioma-btn span:not(.ativo) { display: none; } }
 
-/* Marca: "AUTOMOBILISMO" em cima, "NA VEIA" embaixo */
+/* Marca: "ARENA" grande, "SPORTS" pequeno embaixo */
 .marca-nome small { margin-bottom: 3px; }
 
 /* Rodapé: e-mail de contato */
@@ -1328,3 +1328,9 @@ button.painel-menu-it { display: none; }
 .jogo-times b .escudo { margin: 0 10px; }
 .hm-jogo-linha b, .bq-jogo b { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
 .hm-jogo-linha b .escudo, .bq-jogo b .escudo { width: 22px; height: 22px; font-size: 7px; }
+
+/* marca Arena Sports: no celular, "SPORTS" fica ao lado de "ARENA" (em vez de sumir) */
+.marca-nome small { margin: 2px 0 0; }
+@media (max-width: 1200px) {
+  .topo-in .marca-nome small, .marca-nome small { display: inline; margin: 0 0 0 5px; font-family: var(--display); font-size: inherit; letter-spacing: inherit; color: inherit; font-weight: inherit; }
+}

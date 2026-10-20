@@ -115,8 +115,8 @@
     topo.className = 'topo';
     topo.innerHTML =
       '<div class="moldura topo-in">' +
-        '<a class="marca" href="inicio.html" aria-label="Automobilismo Na Veia, início"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span>' +
-        '<span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
+        '<a class="marca" href="inicio.html" aria-label="Arena Sports, início"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span>' +
+        '<span class="marca-nome">ARENA<small>SPORTS</small></span></a>' +
         '<nav class="nav" aria-label="Menu principal">' + menu + '</nav>' +
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
         '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Menu</span><span class="todas-menu">Menu</span>' +
@@ -233,7 +233,7 @@
         if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(function () { aviso('Link copiado! Cole no WhatsApp, no Instagram ou onde quiser.'); }, function () { aviso(url); });
         else aviso(url);
       }
-      if (navigator.share) navigator.share({ title: document.title, text: 'Olha isso no Automobilismo Na Veia', url: url }).catch(function (e) { if (!e || e.name !== 'AbortError') copiar(); });
+      if (navigator.share) navigator.share({ title: document.title, text: 'Olha isso no Arena Sports', url: url }).catch(function (e) { if (!e || e.name !== 'AbortError') copiar(); });
       else copiar();
       bt.blur();
     });
@@ -379,10 +379,10 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=334'; document.head.appendChild(chatCss);
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=334'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=334'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=334'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=335'; document.head.appendChild(chatCss);
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=335'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=335'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=335'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -439,7 +439,7 @@
     function li(href, txt, fora) { return '<li><a href="' + href + '"' + (fora ? ' target="_blank" rel="noopener"' : '') + '>' + txt + '</a></li>'; }
     var local = /^(localhost|127.0.0.1|)$/.test(location.hostname);
     rod.innerHTML = '<div class="moldura"><div class="rodape-grade"><div class="rodape-marca">' +
-      '<a class="marca" href="inicio.html"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span><span class="marca-nome"><small>AUTOMOBILISMO</small>NA VEIA</span></a>' +
+      '<a class="marca" href="inicio.html"><span class="marca-sinal" aria-hidden="true"><i></i><i></i></span><span class="marca-nome">ARENA<small>SPORTS</small></span></a>' +
       '<p>' + CATS.length + ' categorias acompanhadas de perto. Dados atualizados em ' + esc(window.ATUALIZADO) + '.</p>' +
       '<p class="rodape-contato"><span>Contato:</span> <a href="mailto:automobilismonaveiacontato@gmail.com">automobilismonaveiacontato@gmail.com</a>' +
         '<button type="button" class="copiar-email" data-email="automobilismonaveiacontato@gmail.com">' +
@@ -494,7 +494,7 @@
         var d = document.createElement('div');
         d.id = 'boas-vindas'; d.className = 'bv'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-modal', 'true'); d.setAttribute('aria-labelledby', 'bv-tit');
         d.innerHTML = '<div class="bv-caixa"><button type="button" class="bv-fechar" aria-label="Fechar">×</button>' +
-          '<p class="bv-rot">Bem-vindo ao Na Veia</p><h2 id="bv-tit">Qual é a sua equipe?</h2>' +
+          '<p class="bv-rot">Bem-vindo ao Arena Sports</p><h2 id="bv-tit">Qual é a sua equipe?</h2>' +
           '<p class="bv-sub">Escolha sua equipe e seu piloto favorito. O site inteiro fica com a cor da sua equipe.</p>' +
           Object.keys(grupos).map(function (g) {
             return '<p class="bv-grupo">' + esc(g) + '</p><div class="bv-equipes">' + grupos[g].map(function (e) {

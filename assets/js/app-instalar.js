@@ -1,4 +1,4 @@
-/* "App" do Na Veia: o site pode ser instalado no celular (ícone na tela, abre como app).
+/* "App" do Arena Sports: o site pode ser instalado no celular (ícone na tela, abre como app).
    Botão fixo "Instalar app" no canto de baixo, à esquerda (celular sempre, até instalar; computador só se o navegador souber instalar).
    Também abre pelo menu do topo e pelo rodapé (#instalar-app). No Android usa o botão do navegador;
    no iPhone mostra os 2 passos (Compartilhar → Adicionar à Tela de Início). */
@@ -19,12 +19,12 @@
     var j = document.createElement('div');
     j.className = 'app-janela'; j.setAttribute('role', 'dialog'); j.setAttribute('aria-modal', 'true'); j.setAttribute('aria-label', 'Instalar o app');
     j.innerHTML = '<div class="app-caixa"><button type="button" class="app-x" aria-label="Fechar">×</button>' +
-      '<img src="assets/app/icone-192.png" alt="" width="56" height="56"><h2>Instale o Na Veia</h2>' +
+      '<img src="assets/app/icone-192.png" alt="" width="56" height="56"><h2>Instale o Arena Sports</h2>' +
       (ios
         ? '<ol><li>Toque em <b>Compartilhar</b> <span class="app-ico" aria-hidden="true">⬆︎</span> na barra do Safari.</li><li>Escolha <b>Adicionar à Tela de Início</b> e toque em <b>Adicionar</b>.</li></ol>'
         : celular
           ? '<ol><li>Toque no menu <b>⋮</b> do navegador, no canto de cima.</li><li>Escolha <b>Instalar app</b> ou <b>Adicionar à tela inicial</b>.</li></ol>'
-          : '<ol><li>Clique no ícone de instalar, no lado direito da barra de endereço, ou abra o menu <b>⋮</b> do navegador.</li><li>Escolha <b>Instalar Automobilismo Na Veia</b>.</li></ol><p>Se já instalou, o app está no menu Iniciar do computador.</p>') +
+          : '<ol><li>Clique no ícone de instalar, no lado direito da barra de endereço, ou abra o menu <b>⋮</b> do navegador.</li><li>Escolha <b>Instalar Arena Sports</b>.</li></ol><p>Se já instalou, o app está no menu Iniciar do computador.</p>') +
       '<p>O ícone aparece na tela do celular e o site abre como um app. É grátis e não ocupa quase nada.</p></div>';
     document.body.appendChild(j);
     j.addEventListener('click', function (e) { if (e.target === j || e.target.closest('.app-x')) j.remove(); });

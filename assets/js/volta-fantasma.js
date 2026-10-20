@@ -50,9 +50,9 @@
 
   function marca(ctx, x, y, tam, alin) {
     fonte(ctx, tam, 800, 'exo');
-    var w1 = ctx.measureText('AUTOMOBILISMO ').width, w2 = ctx.measureText('NA VEIA').width, x0 = alin === 'center' ? x - (w1 + w2) / 2 : x;
-    txt(ctx, 'AUTOMOBILISMO ', x0, y, tam, 800, '#f1f3f5', 'left', 'exo');
-    txt(ctx, 'NA VEIA', x0 + w1, y, tam, 800, '#e3343c', 'left', 'exo');
+    var w1 = ctx.measureText('ARENA ').width, w2 = ctx.measureText('SPORTS').width, x0 = alin === 'center' ? x - (w1 + w2) / 2 : x;
+    txt(ctx, 'ARENA ', x0, y, tam, 800, '#f1f3f5', 'left', 'exo');
+    txt(ctx, 'SPORTS', x0 + w1, y, tam, 800, '#e3343c', 'left', 'exo');
   }
 
   function mapa(ctx, P, est, bx, by, larg, alt) {
@@ -267,7 +267,7 @@
     /* compartilhar: o link do site que abre esta mesma comparação */
     var bLink = alvo.querySelector('.vf-link');
     if (bLink) bLink.addEventListener('click', function () {
-      var dados = { title: 'Volta fantasma ' + P.nomes[0] + ' x ' + P.nomes[1], text: P.titulo + ': ' + P.nomes[0] + ' x ' + P.nomes[1] + ', volta a volta, no Automobilismo Na Veia', url: o.link };
+      var dados = { title: 'Volta fantasma ' + P.nomes[0] + ' x ' + P.nomes[1], text: P.titulo + ': ' + P.nomes[0] + ' x ' + P.nomes[1] + ', volta a volta, no Arena Sports', url: o.link };
       function copiar() {
         if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(o.link).then(function () { msg.textContent = 'Link copiado! Cole no WhatsApp, no Instagram ou onde quiser.'; }, function () { msg.textContent = o.link; });
         else msg.textContent = o.link;

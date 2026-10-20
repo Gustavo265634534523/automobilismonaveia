@@ -1,9 +1,9 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Automobilismo Na Veia//Agenda//PT
+PRODID:-//Arena Sports//Agenda//PT
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Na Veia: Endurance
+X-WR-CALNAME:Arena Sports: Endurance
 X-WR-TIMEZONE:America/Sao_Paulo
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
@@ -14,7 +14,7 @@ DTSTART:20261016T093000Z
 DTEND:20261016T103000Z
 SUMMARY:Endurance: Treino livre 1 (6 Horas de Barcelona)
 LOCATION:Montmeló
-DESCRIPTION:Horário de Brasília: 06h30. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 06h30. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Endurance: Treino livre 1 em 30 minutos
@@ -28,7 +28,7 @@ DTSTART:20261016T143000Z
 DTEND:20261016T153000Z
 SUMMARY:Endurance: Treino livre 2 (6 Horas de Barcelona)
 LOCATION:Montmeló
-DESCRIPTION:Horário de Brasília: 11h30. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 11h30. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Endurance: Treino livre 2 em 30 minutos
@@ -42,7 +42,7 @@ DTSTART:20261017T065000Z
 DTEND:20261017T075000Z
 SUMMARY:Endurance: Treino livre 3 (6 Horas de Barcelona)
 LOCATION:Montmeló
-DESCRIPTION:Horário de Brasília: 03h50. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 03h50. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Endurance: Treino livre 3 em 30 minutos
@@ -56,7 +56,7 @@ DTSTART:20261017T095000Z
 DTEND:20261017T110500Z
 SUMMARY:Endurance: Classificação LMGT3 (6 Horas de Barcelona)
 LOCATION:Montmeló
-DESCRIPTION:Horário de Brasília: 06h50. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 06h50. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Endurance: Classificação LMGT3 em 30 minutos
@@ -70,7 +70,7 @@ DTSTART:20261017T101000Z
 DTEND:20261017T112500Z
 SUMMARY:Endurance: Hyperpole LMGT3 (6 Horas de Barcelona)
 LOCATION:Montmeló
-DESCRIPTION:Horário de Brasília: 07h10. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 07h10. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Endurance: Hyperpole LMGT3 em 30 minutos
@@ -84,7 +84,7 @@ DTSTART:20261017T134000Z
 DTEND:20261017T145500Z
 SUMMARY:Endurance: Classificação Hypercar (6 Horas de Barcelona)
 LOCATION:Montmeló
-DESCRIPTION:Horário de Brasília: 10h40. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 10h40. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Endurance: Classificação Hypercar em 30 minutos
@@ -98,7 +98,7 @@ DTSTART:20261017T140000Z
 DTEND:20261017T151500Z
 SUMMARY:Endurance: Hyperpole Hypercar (6 Horas de Barcelona)
 LOCATION:Montmeló
-DESCRIPTION:Horário de Brasília: 11h00. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 11h00. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Endurance: Hyperpole Hypercar em 30 minutos
@@ -112,7 +112,7 @@ DTSTART:20261018T100000Z
 DTEND:20261018T120000Z
 SUMMARY:Endurance: Corrida (6 Horas de Barcelona)
 LOCATION:Montmeló
-DESCRIPTION:Horário de Brasília: 07h00. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 07h00. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:Endurance: Corrida em 30 minutos
@@ -126,6 +126,6 @@ DTSTART;VALUE=DATE:20261108
 DTEND;VALUE=DATE:20261109
 SUMMARY:Endurance: 6 Horas de Monza
 LOCATION:Monza
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 END:VCALENDAR

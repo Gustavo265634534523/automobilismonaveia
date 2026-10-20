@@ -24,7 +24,7 @@ jobs:
         run: node .github/escudos-wiki.js
       - name: Salvar no site
         run: |
-          git config user.name "Robô Na Veia"
+          git config user.name "Robô Arena Sports"
           git config user.email "automobilismonaveiacontato@gmail.com"
           git add assets/img/escudos/cand
           git diff --cached --quiet && exit 0

@@ -1,9 +1,9 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Automobilismo Na Veia//Agenda//PT
+PRODID:-//Arena Sports//Agenda//PT
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Na Veia: MotoGP
+X-WR-CALNAME:Arena Sports: MotoGP
 X-WR-TIMEZONE:America/Sao_Paulo
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
@@ -14,7 +14,7 @@ DTSTART:20261002T014500Z
 DTEND:20261002T024500Z
 SUMMARY:MotoGP: Treino livre 1 (GP do Japão)
 LOCATION:Motegi
-DESCRIPTION:Horário de Brasília: 22h45. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 22h45. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Treino livre 1 em 30 minutos
@@ -28,7 +28,7 @@ DTSTART:20261002T060000Z
 DTEND:20261002T070000Z
 SUMMARY:MotoGP: Treino (GP do Japão)
 LOCATION:Motegi
-DESCRIPTION:Horário de Brasília: 03h00. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 03h00. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Treino em 30 minutos
@@ -42,7 +42,7 @@ DTSTART:20261003T011000Z
 DTEND:20261003T021000Z
 SUMMARY:MotoGP: Treino livre 2 (GP do Japão)
 LOCATION:Motegi
-DESCRIPTION:Horário de Brasília: 22h10. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 22h10. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Treino livre 2 em 30 minutos
@@ -56,7 +56,7 @@ DTSTART:20261003T015000Z
 DTEND:20261003T030500Z
 SUMMARY:MotoGP: Classificação Q1 (GP do Japão)
 LOCATION:Motegi
-DESCRIPTION:Horário de Brasília: 22h50. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 22h50. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Classificação Q1 em 30 minutos
@@ -70,7 +70,7 @@ DTSTART:20261003T021500Z
 DTEND:20261003T033000Z
 SUMMARY:MotoGP: Classificação Q2 (GP do Japão)
 LOCATION:Motegi
-DESCRIPTION:Horário de Brasília: 23h15. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 23h15. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Classificação Q2 em 30 minutos
@@ -84,7 +84,7 @@ DTSTART:20261003T060000Z
 DTEND:20261003T071500Z
 SUMMARY:MotoGP: Sprint (GP do Japão)
 LOCATION:Motegi
-DESCRIPTION:Horário de Brasília: 03h00. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 03h00. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Sprint em 30 minutos
@@ -98,7 +98,7 @@ DTSTART:20261004T050000Z
 DTEND:20261004T070000Z
 SUMMARY:MotoGP: Corrida (GP do Japão)
 LOCATION:Motegi
-DESCRIPTION:Horário de Brasília: 02h00. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 02h00. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Corrida em 30 minutos
@@ -112,7 +112,7 @@ DTSTART:20261009T024500Z
 DTEND:20261009T034500Z
 SUMMARY:MotoGP: Treino livre 1 (GP da Indonésia)
 LOCATION:Mandalika
-DESCRIPTION:Horário de Brasília: 23h45. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 23h45. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Treino livre 1 em 30 minutos
@@ -126,7 +126,7 @@ DTSTART:20261009T070000Z
 DTEND:20261009T080000Z
 SUMMARY:MotoGP: Treino (GP da Indonésia)
 LOCATION:Mandalika
-DESCRIPTION:Horário de Brasília: 04h00. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 04h00. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Treino em 30 minutos
@@ -140,7 +140,7 @@ DTSTART:20261010T021000Z
 DTEND:20261010T031000Z
 SUMMARY:MotoGP: Treino livre 2 (GP da Indonésia)
 LOCATION:Mandalika
-DESCRIPTION:Horário de Brasília: 23h10. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 23h10. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Treino livre 2 em 30 minutos
@@ -154,7 +154,7 @@ DTSTART:20261010T025000Z
 DTEND:20261010T040500Z
 SUMMARY:MotoGP: Classificação Q1 (GP da Indonésia)
 LOCATION:Mandalika
-DESCRIPTION:Horário de Brasília: 23h50. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 23h50. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Classificação Q1 em 30 minutos
@@ -168,7 +168,7 @@ DTSTART:20261010T031500Z
 DTEND:20261010T043000Z
 SUMMARY:MotoGP: Classificação Q2 (GP da Indonésia)
 LOCATION:Mandalika
-DESCRIPTION:Horário de Brasília: 00h15. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 00h15. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Classificação Q2 em 30 minutos
@@ -182,7 +182,7 @@ DTSTART:20261010T070000Z
 DTEND:20261010T081500Z
 SUMMARY:MotoGP: Sprint (GP da Indonésia)
 LOCATION:Mandalika
-DESCRIPTION:Horário de Brasília: 04h00. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 04h00. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Sprint em 30 minutos
@@ -196,7 +196,7 @@ DTSTART:20261011T070000Z
 DTEND:20261011T090000Z
 SUMMARY:MotoGP: Corrida (GP da Indonésia)
 LOCATION:Mandalika
-DESCRIPTION:Horário de Brasília: 04h00. Automobilismo Na Veia.
+DESCRIPTION:Horário de Brasília: 04h00. Arena Sports.
 BEGIN:VALARM
 ACTION:DISPLAY
 DESCRIPTION:MotoGP: Corrida em 30 minutos
@@ -210,7 +210,7 @@ DTSTART;VALUE=DATE:20261025
 DTEND;VALUE=DATE:20261026
 SUMMARY:MotoGP: GP da Austrália
 LOCATION:Phillip Island
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20261019T162000Z
@@ -219,7 +219,7 @@ DTSTART;VALUE=DATE:20261101
 DTEND;VALUE=DATE:20261102
 SUMMARY:MotoGP: GP da Malásia
 LOCATION:Sepang
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20261019T162000Z
@@ -228,7 +228,7 @@ DTSTART;VALUE=DATE:20261108
 DTEND;VALUE=DATE:20261109
 SUMMARY:MotoGP: GP do Catar
 LOCATION:Lusail
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20261019T162000Z
@@ -237,7 +237,7 @@ DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261123
 SUMMARY:MotoGP: GP de Portugal
 LOCATION:Portimão
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20261019T162000Z
@@ -246,6 +246,6 @@ DTSTART;VALUE=DATE:20261129
 DTEND;VALUE=DATE:20261130
 SUMMARY:MotoGP: GP de Valência
 LOCATION:Ricardo Tormo
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 END:VCALENDAR

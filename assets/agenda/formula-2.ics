@@ -1,9 +1,9 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Automobilismo Na Veia//Agenda//PT
+PRODID:-//Arena Sports//Agenda//PT
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Na Veia: Fórmula 2
+X-WR-CALNAME:Arena Sports: Fórmula 2
 X-WR-TIMEZONE:America/Sao_Paulo
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
@@ -14,7 +14,7 @@ DTSTART;VALUE=DATE:20261129
 DTEND;VALUE=DATE:20261130
 SUMMARY:Fórmula 2: Catar
 LOCATION:Lusail
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 BEGIN:VEVENT
 DTSTAMP:20261019T162000Z
@@ -23,6 +23,6 @@ DTSTART;VALUE=DATE:20261206
 DTEND;VALUE=DATE:20261207
 SUMMARY:Fórmula 2: Abu Dhabi
 LOCATION:Yas Marina
-DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
+DESCRIPTION:Horários ainda não divulgados. Arena Sports.
 END:VEVENT
 END:VCALENDAR
