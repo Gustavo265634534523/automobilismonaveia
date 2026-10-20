@@ -335,7 +335,7 @@
     function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === -1 ? 'Ontem' : window.dataCurta(d); }
     return L.map(function (x) {
       var j = x.jogador, pl = String(x.p).split(' x ');
-      var rosto = j.foto ? '<img class="cq-foto" src="' + esc(j.foto) + '" alt="" loading="lazy">' : '<span class="cq-esc">' + window.escudoTime(j.time) + '</span>';
+      var rosto = '<span class="cq-esc">' + window.escudoTime(j.time) + (j.foto ? '<img class="cq-foto" src="' + esc(j.foto) + '" alt="" loading="lazy" onerror="this.remove()">' : '') + '</span>';
       return '<article class="cq">' +
         '<p class="cq-jogo"><small>' + esc(NOMES[x.comp] || '') + ' · ' + quando(x.d) + '</small>' +
           '<span class="cq-placar"><span class="cq-t cq-casa"><b>' + esc(x.casa) + '</b>' + window.escudoTime(x.casa) + '</span><em>' + esc(pl[0]) + ' – ' + esc(pl[1]) + '</em><span class="cq-t">' + window.escudoTime(x.fora) + '<b>' + esc(x.fora) + '</b></span></span></p>' +

@@ -60,7 +60,7 @@
     var corrida = (R.sessoes || []).filter(function (x) { return x.tipo === 'Race'; })[0];
     cq.innerHTML = '<article class="cq">' +
       '<p class="cq-jogo"><small>Fórmula 1 · ' + quando(corrida ? corrida.data : R.data) + '</small><span><b>GP de ' + esc(R.local || '') + '</b>' + (corrida ? '<em class="cq-f1-venc">Vencedor: ' + esc(corrida.top[0].nome) + '</em>' : '') + '</span></p>' +
-      '<div class="cq-jog">' + (d.foto ? '<img class="cq-foto" src="' + esc(d.foto) + '" alt="" loading="lazy">' : '<span class="cq-esc"><i class="f1-cor" style="background:' + esc(d.cor) + '"></i></span>') +
+      '<div class="cq-jog">' + '<span class="cq-esc"><i class="f1-cor" style="background:' + esc(d.cor) + '"></i>' + (d.foto ? '<img class="cq-foto" src="' + esc(d.foto) + '" alt="" loading="lazy" onerror="this.remove()">' : '') + '</span>' +
         '<div><span class="cq-rot">Destaque da corrida</span><h3>' + esc(d.nome) + '</h3><span class="cq-eq"><i class="f1-cor" style="background:' + esc(d.cor) + '" aria-hidden="true"></i>' + esc(d.equipe) + '</span></div></div>' +
       '<p class="cq-linha">' + esc(d.linha) + '</p></article>';
     document.getElementById('sec-craque').hidden = false;

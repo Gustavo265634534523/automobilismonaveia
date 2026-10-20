@@ -281,8 +281,8 @@ a.ch-nome:hover span { text-decoration: underline; }
 .cq-jogo em.cq-f1-venc { font-weight: 600; font-size: 13px; }
 .cq-jogo .escudo { width: 22px; height: 22px; font-size: 8px; }
 .cq-jog { display: flex; align-items: center; gap: 16px; }
-.cq-foto { width: 72px; height: 72px; flex: none; border-radius: 50%; object-fit: cover; object-position: top; background: var(--sutil); }
-.cq-esc { width: 72px; height: 72px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--sutil); }
+.cq-esc { position: relative; width: 72px; height: 72px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--sutil); overflow: hidden; }
+.cq-foto { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; background: var(--sutil); }
 .cq-esc .escudo { width: 46px; height: 46px; }
 .cq-esc .f1-cor { width: 28px; height: 28px; border-radius: 50%; }
 .cq-rot { display: block; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ft-cor, var(--sangue-vivo)); }
