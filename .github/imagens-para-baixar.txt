@@ -17,3 +17,4 @@ assets/img/escudos/espn-universidad-catolica https://a.espncdn.com/i/teamlogos/s
 assets/img/escudos/espn-independiente-rivadavia https://a.espncdn.com/i/teamlogos/soccer/500/9744.png
 assets/img/escudos/sofa-uniao-corinthians https://api.sofascore.app/api/v1/team/397207/image
 assets/img/escudos/sofa2-uniao-corinthians https://img.sofascore.com/api/v1/team/397207/image
+assets/img/entrada/formula-1 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261020_212906_a9ae823f-0382-4032-b544-ddfdb8478c70.png
