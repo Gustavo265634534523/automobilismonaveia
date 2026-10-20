@@ -116,12 +116,21 @@
         (m.link ? '<a class="mk-link" href="' + esc(m.link) + '">Ler a notícia →</a>' : '') + '</div>';
     }).join('');
 
-  /* 7. atalhos */
-  document.getElementById('ft-camps').innerHTML = [
-    ['formula-1.html', 'Temporada 2026', 'Calendário, pilotos e equipes'],
-    ['raiox.html', 'Pós-corrida', 'Raio-x e telemetria'],
-    ['simulador.html', 'Campeonato', 'Simulador do título'],
-    ['guia-formula-1.html', 'Para iniciantes', 'Como funciona a F1'],
-    ['jogos.html', 'Diversão', 'Jogos da F1']
-  ].map(function (a) { return '<a class="ft-camp" href="' + a[0] + '"><small>' + a[1] + '</small><b>' + a[2] + '</b></a>'; }).join('');
+  /* 7. ferramentas da F1, logo abaixo da abertura, em destaque */
+  var IC = {
+    raiox: '<path d="M3 13h4l2.5-6 4 11 2.5-5H21"/>',
+    cal: '<rect x="3.5" y="5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>',
+    sim: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
+    guia: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5"/>',
+    jogo: '<path d="M7 8h10a4 4 0 0 1 4 4v1.5a3.5 3.5 0 0 1-6.3 2.1L13.5 14h-3l-1.2 1.6A3.5 3.5 0 0 1 3 13.5V12a4 4 0 0 1 4-4z"/>'
+  };
+  document.getElementById('f1-atalhos').innerHTML = [
+    ['raiox.html', 'raiox', 'Raio-x e telemetria', 'Volta a volta, pneus, setores e telemetria do último GP', true],
+    ['formula-1.html', 'cal', 'Calendário, pilotos e equipes', 'A temporada 2026 completa'],
+    ['simulador.html', 'sim', 'Simulador do título', 'Escolha o pódio e veja quem é campeão'],
+    ['guia-formula-1.html', 'guia', 'Como funciona a F1', 'Regras e termos para iniciantes'],
+    ['jogos.html', 'jogo', 'Jogos da F1', 'Corrida 3D, largada e quiz']
+  ].map(function (a) {
+    return '<a class="f1-atalho' + (a[4] ? ' f1-atalho-dest' : '') + '" href="' + a[0] + '"><svg viewBox="0 0 24 24" aria-hidden="true">' + IC[a[1]] + '</svg><b>' + a[2] + '</b><small>' + a[3] + '</small></a>';
+  }).join('');
 })();

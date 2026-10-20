@@ -243,3 +243,17 @@ a.ch-nome:hover span { text-decoration: underline; }
 .f1-gp-etapa { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ft-cor); }
 .f1-gp b { font-size: 19px; }
 #f1-proxima { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+
+/* página da F1: ferramentas logo abaixo da abertura, em destaque (Raio-x em cor cheia) */
+.f1-atalhos { position: relative; z-index: 3; margin-top: -56px; display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 12px; }
+.f1-atalho { display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 14px; background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha), 0 14px 30px -18px rgba(0, 0, 0, .6); color: var(--cromo); text-decoration: none; transition: transform .2s ease, box-shadow .2s ease; }
+.f1-atalho:hover { transform: translateY(-3px); box-shadow: inset 0 0 0 1.5px var(--sangue-vivo), 0 18px 34px -18px rgba(0, 0, 0, .7); }
+.f1-atalho svg { width: 28px; height: 28px; margin-bottom: 4px; fill: none; stroke: var(--sangue-vivo); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.f1-atalho b { font-size: 17px; line-height: 1.25; }
+.f1-atalho small { font-size: 13px; line-height: 1.4; color: var(--texto-3); }
+.f1-atalho-dest { background: linear-gradient(135deg, var(--sangue-vivo), var(--sangue)); box-shadow: 0 16px 34px -14px color-mix(in srgb, var(--sangue-vivo) 70%, transparent); color: #fff; }
+.f1-atalho-dest svg { stroke: #fff; width: 34px; height: 34px; }
+.f1-atalho-dest b { font-size: 21px; }
+.f1-atalho-dest small { color: rgba(255, 255, 255, .85); }
+.f1-atalhos + .ft-recentes { margin-top: 28px; }
+@media (max-width: 1000px) { .f1-atalhos { grid-template-columns: repeat(2, 1fr); margin-top: -40px; } .f1-atalho-dest { grid-column: 1 / -1; } }
