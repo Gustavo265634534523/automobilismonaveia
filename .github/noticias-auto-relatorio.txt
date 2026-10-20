@@ -1,0 +1,24 @@
+ge https://ge.globo.com/rss/ge/futebol/: 100 itens
+ge https://ge.globo.com/rss/ge/futebol/futebol-internacional/: 100 itens
+ge https://ge.globo.com/rss/ge/basquete/: 100 itens
+ge https://ge.globo.com/rss/ge/basquete/nba/: 100 itens
+ge https://ge.globo.com/rss/ge/motor/formula-1/: 100 itens
+Grande Prêmio https://www.grandepremio.com.br/feed/: 0 itens
+ESPN https://www.espn.com.br/espn/rss/futebol/noticia: falhou
+ESPN https://www.espn.com.br/espn/rss/nba/noticia: falhou
+ESPN https://www.espn.com.br/espn/rss/f1/noticia: falhou
+Google Notícias brasileirao: 100 itens
+Google Notícias copa-do-brasil: 100 itens
+Google Notícias libertadores: 100 itens
+Google Notícias sul-americana: 100 itens
+Google Notícias champions-league: 100 itens
+Google Notícias premier-league: 100 itens
+Google Notícias la-liga: 52 itens
+Google Notícias bundesliga: 100 itens
+Google Notícias serie-a: 38 itens
+Google Notícias ligue-1: 51 itens
+Google Notícias nba: 100 itens
+Google Notícias euroleague: 7 itens
+Google Notícias nbb: 100 itens
+Google Notícias formula-1: 52 itens
+notícias gravadas: 160
