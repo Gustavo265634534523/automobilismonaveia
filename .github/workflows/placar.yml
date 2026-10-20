@@ -1,4 +1,4 @@
-# Placar automático (ESPN): jogos, placares, tabelas e líderes da NBA em assets/dados/ao-vivo.js, a cada 30 minutos.
+# Placar automático (ESPN): jogos, placares, tabelas e líderes da NBA em assets/dados/ao-vivo.js, a cada 10 minutos.
 # Também refaz as enquetes ("Quem vence?"), que usam o próximo jogo grande.
 # O agendamento só roda na branch principal; nas outras, roda quando o robô muda ou quando pedido à mão.
 name: Placar automático
@@ -8,7 +8,7 @@ on:
       - '.github/placar.js'
       - '.github/workflows/placar.yml'
   schedule:
-    - cron: '7,37 * * * *'
+    - cron: '*/10 * * * *'
   workflow_dispatch:
 permissions:
   contents: write

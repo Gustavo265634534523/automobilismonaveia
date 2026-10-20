@@ -1,0 +1,36 @@
+# Notícias automáticas dos três esportes (manchetes dos sites de esporte e do Google Notícias), a cada 5 horas.
+# O agendamento só roda na branch principal; nas outras, roda quando o robô muda ou quando pedido à mão.
+name: Notícias automáticas
+on:
+  push:
+    paths:
+      - '.github/noticias-auto.js'
+      - '.github/workflows/noticias-auto.yml'
+  schedule:
+    - cron: '23 */5 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: salvar-no-site
+  cancel-in-progress: false
+jobs:
+  noticias:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Buscar as notícias
+        run: node .github/noticias-auto.js
+      - name: Salvar no site
+        run: |
+          git config user.name "Robô Arena Sports"
+          git config user.email "automobilismonaveiacontato@gmail.com"
+          git add assets/dados/noticias-auto.js .github/noticias-auto-relatorio.txt
+          git diff --cached --quiet && exit 0
+          git commit -m "Robô: notícias automáticas"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1

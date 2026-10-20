@@ -1410,3 +1410,24 @@ html.com-cats.com-aviso { --topo: 152px; }
   .topo-pilula .topo-in { gap: 2px; padding: 0 5px 0 10px; }
 }
 @media (max-width: 380px) { .topo-pilula .marca-nome { display: none; } }
+
+/* ---------- Faixa de placar ao vivo (assets/js/placar-faixa.js), acima do menu ---------- */
+html.com-placar { --topo: 124px; }
+html.com-cats.com-placar { --topo: 162px; }
+.pf { pointer-events: auto; display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 12px; background: #070a12; border-bottom: 1px solid rgba(255, 255, 255, .08); color: #e6eaf2; }
+.pf[hidden] { display: none; }
+.pf-rot { flex: none; display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: rgba(255, 255, 255, .08); font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.pf-rot i, .pf-vivo small i { width: 7px; height: 7px; border-radius: 50%; background: #ef4444; animation: em-pulsa 1.4s ease-in-out infinite; }
+.pf-lista { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; scroll-snap-type: x proximity; }
+.pf-lista::-webkit-scrollbar { display: none; }
+.pf-j { flex: none; scroll-snap-align: start; display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; border-radius: 8px; background: #121a2b; color: #e6eaf2; font-size: 13px; text-decoration: none; white-space: nowrap; }
+.pf-j:hover { background: #1b2640; }
+.pf-j small { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; color: #8b93a3; }
+.pf-j img { width: 18px; height: 18px; object-fit: contain; }
+.pf-j b { font-weight: 700; }
+.pf-j em { font-style: normal; font-weight: 800; color: #fff; font-variant-numeric: tabular-nums; }
+.pf-j em.pf-x { color: #8b93a3; font-weight: 600; }
+.pf-vivo { box-shadow: inset 0 0 0 1px rgba(239, 68, 68, .55); }
+.pf-vivo small { color: #ef4444; }
+@media (prefers-reduced-motion: reduce) { .pf-rot i, .pf-vivo small i { animation: none; } }
+@media (max-width: 1080px) { html.com-cats.com-placar, html.com-cats.com-placar.com-aviso { --topo: 156px; } }

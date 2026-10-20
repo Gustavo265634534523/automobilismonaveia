@@ -13,7 +13,7 @@
   var todas = [], vistos = {};
   function add(n, esporte, comp, href) {
     var k = String(n.t).toLowerCase(); if (vistos[k] || !NOME[comp]) return; vistos[k] = 1;
-    todas.push({ d: n.d, esporte: esporte, comp: comp, t: (en && n.t_en) || n.t, x: (en && n.x_en) || n.x, href: href, ordem: todas.length });
+    todas.push({ d: n.d, esporte: esporte, comp: comp, t: (en && n.t_en) || n.t, x: (en && n.x_en) || n.x, href: n.link || href, ordem: todas.length });
   }
   (window.NOTICIAS_GERAIS || []).forEach(function (n) { add(n, 'automobilismo', n.cat, window.linkNoticia ? window.linkNoticia(n.t) : n.cat + '.html'); });
   CATS.forEach(function (c) { (c.noticias || []).forEach(function (n) { add(n, 'automobilismo', c.slug, window.linkNoticia ? window.linkNoticia(n.t) : c.slug + '.html'); }); });

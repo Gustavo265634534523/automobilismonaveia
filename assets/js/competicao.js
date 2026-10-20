@@ -75,7 +75,7 @@
     var ns = (window.NOTICIAS_ESPORTES || []).filter(filtro).sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; }).slice(0, max || 99);
     return ns.map(function (n) {
       var cc = PORSLUG[n.comp] || {};
-      return '<a class="bq-not bq-not-' + n.esporte + '" href="' + (n.comp || n.esporte) + '.html">' +
+      return '<a class="bq-not bq-not-' + n.esporte + '" href="' + (n.link || (n.comp || n.esporte) + '.html') + '">' +
         '<span class="bq-not-txt"><small>' + esc(cc.menu || cc.nome || '') + ' · ' + esc(quandoVideo(n.d)) + '</small><b>' + esc(n.t) + '</b><span>' + esc(n.x) + '</span></span></a>';
     }).join('');
   }

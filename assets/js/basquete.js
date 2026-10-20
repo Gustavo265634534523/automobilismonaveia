@@ -61,7 +61,7 @@
   var bn = document.getElementById('bq-noticias');
   if (bn) bn.innerHTML = nots.map(function (n) {
     var c = (window.COMPETICOES || []).filter(function (x) { return x.slug === n.comp; })[0] || {};
-    return '<a class="bq-not bq-not-basquete" href="' + (n.comp || 'basquete') + '.html"><span class="bq-not-txt"><small>' + esc(c.menu || 'Basquete') + ' · ' + quando(n.d) + '</small><b>' + esc(n.t) + '</b><span>' + esc(n.x) + '</span></span></a>';
+    return '<a class="bq-not bq-not-basquete" href="' + (n.link || (n.comp || 'basquete') + '.html') + '"><span class="bq-not-txt"><small>' + esc(c.menu || 'Basquete') + ' · ' + quando(n.d) + '</small><b>' + esc(n.t) + '</b><span>' + esc(n.x) + '</span></span></a>';
   }).join('');
 
   /* mercado do basquete */

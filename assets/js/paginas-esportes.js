@@ -15,7 +15,7 @@
   function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === -1 ? 'Ontem' : n === 1 ? 'Amanhã' : window.dataCurta(d); }
   function curta(x) { return String(x || '').split(/(?<=\.)\s/)[0]; }
   function noticia(n, href, tag) {
-    return '<a class="pg-not" href="' + href + '"><small>' + esc(tag) + ' · ' + quando(n.d) + '</small><b>' + esc(n.t) + '</b><span>' + esc(curta(n.x)) + '</span></a>';
+    return '<a class="pg-not" href="' + (n.link || href) + '"><small>' + esc(tag) + ' · ' + quando(n.d) + '</small><b>' + esc(n.t) + '</b><span>' + esc(curta(n.x)) + '</span></a>';
   }
   function porComp(slug) { return COMPS.filter(function (c) { return c.slug === slug; })[0] || {}; }
   function jogos(filtro) {
@@ -150,7 +150,7 @@
       return lista.slice().sort(function (a, b) { return (b.manchete ? 1 : 0) - (a.manchete ? 1 : 0) || (a.d < b.d ? 1 : -1); })
         .filter(function (n) { var k = n[chave] || '-'; conta[k] = (conta[k] || 0) + 1; return conta[k] <= 2; }).slice(0, 5);
     }
-    function fatos(l, href, tag) { return l.length ? '<ol class="pg-fatos">' + l.map(function (n) { return '<li><a href="' + href(n) + '"><b>' + esc(n.t) + '</b><span>' + esc(tag(n)) + ' · ' + quando(n.d) + ' · ' + esc(curta(n.x)) + '</span></a></li>'; }).join('') + '</ol>' : '<p class="pg-vazio">Sem notícias nesta semana.</p>'; }
+    function fatos(l, href, tag) { return l.length ? '<ol class="pg-fatos">' + l.map(function (n) { return '<li><a href="' + (n.link || href(n)) + '"><b>' + esc(n.t) + '</b><span>' + esc(tag(n)) + ' · ' + quando(n.d) + ' · ' + esc(curta(n.x)) + '</span></a></li>'; }).join('') + '</ol>' : '<p class="pg-vazio">Sem notícias nesta semana.</p>'; }
     function lideres(esp) {
       return '<div class="pg-times" style="margin-top:14px">' + COMPS.filter(function (c) { return c.esporte === esp && c.lider && c.lider.nome; }).map(function (c) {
         return '<a href="' + c.slug + '.html" title="' + esc(c.lider.info) + '">' + window.escudoTime(c.lider.nome) + '<span><small style="display:block;font-size:11px;color:var(--aco)">' + esc(c.menu) + '</small>' + esc(c.lider.nome) + '</span></a>';

@@ -104,7 +104,7 @@
     [].forEach.call(abasN.children, function (b, k) { b.setAttribute('aria-selected', k === filtro ? 'true' : 'false'); });
     caixaN.innerHTML = lista.slice(0, mostrar).map(function (n) {
       var c = PORSLUG[n.comp] || {};
-      return '<a class="ft-not" href="' + (n.comp || ESPORTE) + '.html"><span class="ft-not-tag">' + esc(c.menu || (BQ ? 'Basquete' : 'Futebol')) + '</span>' +
+      return '<a class="ft-not" href="' + (n.link || (n.comp || ESPORTE) + '.html') + '"><span class="ft-not-tag">' + esc(c.menu || (BQ ? 'Basquete' : 'Futebol')) + '</span>' +
         '<b>' + esc(n.t) + '</b><span>' + esc(String(n.x).split(/(?<=\.)\s/)[0]) + '</span><small>' + quando(n.d) + '</small></a>';
     }).join('');
     mais.hidden = lista.length <= mostrar;

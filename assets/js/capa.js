@@ -23,7 +23,7 @@
   });
   var outras = (window.NOTICIAS_ESPORTES || []).map(function (n) {
     var c = PCOMP[n.comp] || {};
-    return { d: n.d, esporte: n.esporte, rot: c.menu || c.nome || NOME_ESP[n.esporte], t: n.t, x: n.x, manchete: n.manchete, href: (n.comp || n.esporte) + '.html', foto: n.foto, comp: n.comp };
+    return { d: n.d, esporte: n.esporte, rot: c.menu || c.nome || NOME_ESP[n.esporte], t: n.t, x: n.x, manchete: n.manchete, href: n.link || (n.comp || n.esporte) + '.html', foto: n.foto, comp: n.comp };
   });
   function porData(a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; }
   var filas = { automobilismo: motor.sort(porData), futebol: outras.filter(function (n) { return n.esporte === 'futebol'; }).sort(porData), basquete: outras.filter(function (n) { return n.esporte === 'basquete'; }).sort(porData) };
@@ -155,7 +155,7 @@
   }
   function cartao(n, grande) {
     var c = P[n.comp] || {};
-    return '<a class="hm-card hm-card-' + n.esporte + (grande ? ' hm-card-alto' : '') + '" href="' + (n.comp || n.esporte) + '.html">' +
+    return '<a class="hm-card hm-card-' + n.esporte + (grande ? ' hm-card-alto' : '') + '" href="' + (n.link || (n.comp || n.esporte) + '.html') + '">' +
       '<span class="hm-card-txt"><span class="hm-tag hm-tag-' + n.esporte + '">' + esc(c.menu || c.nome || '') + '</span><b>' + esc(n.t) + '</b>' + (grande ? '<span class="hm-card-x">' + esc(n.x.split(/(?<=\.)\s/)[0]) + '</span>' : '') + '<small>' + quando(n.d) + '</small></span></a>';
   }
   function jogos(esporte, max) {
