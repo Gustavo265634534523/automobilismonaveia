@@ -353,13 +353,13 @@ html.com-aviso { --topo: 104px; }
 
 .botao {
   display: inline-flex; align-items: center; gap: 12px; margin-top: 34px;
-  padding: 7px 7px 7px 20px; border-radius: 999px; background: var(--carbono-2); color: var(--forte); text-decoration: none;
+  padding: 11px 22px; border-radius: 999px; background: var(--carbono-2); color: var(--forte); text-decoration: none;
   font-weight: 700; font-size: 15px; letter-spacing: .01em; cursor: pointer;
   box-shadow: inset 0 0 0 1px var(--linha), 0 6px 16px -8px rgba(0, 0, 0, .55);
   transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s var(--ease);
 }
-/* a seta num círculo vermelho deixa claro que é para clicar */
-.botao::after { content: '→'; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--sangue); color: #fff; font-weight: 800; font-size: 15px; transition: transform .2s var(--ease), background .2s var(--ease); }
+/* sem a seta no círculo (pedido): o botão em pílula já mostra que é clicável */
+.botao::after { content: none; display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--sangue); color: #fff; font-weight: 800; font-size: 15px; transition: transform .2s var(--ease), background .2s var(--ease); }
 .botao:has(svg)::after { content: none; }
 .botao:has(svg) { padding: 12px 20px; }
 .botao:hover { transform: translateY(-2px); background: var(--carbono); box-shadow: inset 0 0 0 1.5px var(--sangue-vivo), 0 10px 22px -10px rgba(0, 0, 0, .6); }
