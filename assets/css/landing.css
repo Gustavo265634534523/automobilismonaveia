@@ -85,7 +85,8 @@ body.ld { margin: 0; overflow: hidden; background: var(--fundo); color: var(--te
 .ld-cta:hover::after { transform: translateX(4px); }
 
 /* setas na lateral esquerda, contador vertical à direita e pontos embaixo (como na referência) */
-.ld-setas { position: fixed; z-index: 5; left: clamp(14px, 2.4vw, 34px); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; }
+/* setas logo abaixo do botão Entrar, lado a lado */
+.ld-setas { display: flex; gap: 14px; }
 .ld-seta { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; color: var(--texto); cursor: pointer; }
 .ld-seta svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; position: relative; z-index: 1; }
 .ld-seta:hover { background: rgba(255, 255, 255, .1); }
@@ -116,7 +117,6 @@ body.ld { margin: 0; overflow: hidden; background: var(--fundo); color: var(--te
   .ld-anel { --w: min(68vw, 40vh); --passo: calc(var(--w) * .95); }
   .ld-palavras { top: -22%; }
   .ld-anel { margin-top: 12vh; }
-  .ld-setas { top: auto; bottom: max(14px, env(safe-area-inset-bottom)); transform: none; flex-direction: row-reverse; }
   .ld-contador { display: none; }
   .ld-pontos { left: auto; right: 20px; transform: none; bottom: max(32px, env(safe-area-inset-bottom)); }
 }
@@ -124,3 +124,6 @@ body.ld { margin: 0; overflow: hidden; background: var(--fundo); color: var(--te
   .ld-amb, .ld-obj, .ld-aro { animation: none; }
   .ld-card, .ld-palavra { transition-duration: .01s !important; }
 }
+
+/* sem rolagem para o lado no celular (os cartões de trás passam da tela) */
+html:has(body.ld), body.ld { overflow-x: hidden; }
