@@ -228,3 +228,18 @@ a.ch-nome:hover span { text-decoration: underline; }
 .mt-convite { display: inline-flex; align-items: center; gap: 8px; margin-top: 14px; padding: 6px 2px; border: 0; background: none; color: var(--texto-2); font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; }
 .mt-convite span { color: var(--ft-cor, var(--sangue-vivo)); font-size: 17px; }
 .mt-convite:hover { color: var(--cromo); text-decoration: underline; }
+
+/* página da Fórmula 1 (automobilismo.html, mesmo modelo do futebol) */
+.f1-cor { display: inline-block; width: 4px; height: 18px; margin-right: 8px; border-radius: 2px; vertical-align: middle; flex: none; }
+.f1-grande .ft-grande-times b { font-size: clamp(22px, 2.6vw, 30px); }
+.f1-conta { font-size: 15px; color: rgba(255, 255, 255, .85); }
+.f1-conta b { font-size: 20px; color: #fff; font-variant-numeric: tabular-nums; }
+.f1-res { min-height: 150px; }
+.f1-res-gp { font-size: 18px; font-weight: 800; color: var(--cromo); line-height: 1.2; }
+.f1-res-venc { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.f1-res-venc b { display: block; font-size: 15px; color: var(--cromo); }
+.f1-res-venc small { display: flex; align-items: center; font-size: 12px; color: var(--aco); }
+.f1-trofeu { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; background: var(--ft-cor-2, var(--sangue)); color: #fff; font-size: 13px; font-weight: 800; flex: none; }
+.f1-gp-etapa { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ft-cor); }
+.f1-gp b { font-size: 19px; }
+#f1-proxima { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
