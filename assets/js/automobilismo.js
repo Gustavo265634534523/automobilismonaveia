@@ -16,7 +16,7 @@
   var nots = (window.NOTICIAS_GERAIS || []).filter(function (n) { return PORSLUG[n.cat]; })
     .sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; }).slice(0, 12);
   alvo.innerHTML =
-    '<p class="auto-atalhos"><a class="botao" href="horarios.html">Horários da semana</a> <a class="botao" href="raiox.html">Raio-x da F1</a> <a class="botao" href="noticias.html">Todas as notícias</a></p>' +
+    '<p class="auto-atalhos"><a class="botao" href="horarios.html">Horários da semana</a> <a class="botao" href="raiox.html">Raio-x da F1</a></p>' +
     (nots.length ? '<section class="vd-bloco"><h2>Notícias</h2><div class="bq-noticias">' + nots.map(function (n) {
       var c = PORSLUG[n.cat];
       return '<a class="bq-not bq-not-automobilismo" href="' + (window.linkNoticia ? window.linkNoticia(n.t) : c.slug + '.html') + '"><span class="bq-not-txt"><small>' +

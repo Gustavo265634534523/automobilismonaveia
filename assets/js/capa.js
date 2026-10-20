@@ -11,7 +11,7 @@
   COMPS.forEach(function (c) { PCOMP[c.slug] = c; });
   var ICONE = window.ESPORTES_ICONE || {};
   ICONE.automobilismo = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 15l2-5h11l3 3h2v3H3z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="17" cy="16.5" r="1.8"/></svg>';
-  var NOME_ESP = { automobilismo: 'Automobilismo', futebol: 'Futebol', basquete: 'Basquete' };
+  var NOME_ESP = { automobilismo: 'Fórmula 1', futebol: 'Futebol', basquete: 'Basquete' };
 
   function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === -1 ? 'Ontem' : window.dataCurta(d); }
 

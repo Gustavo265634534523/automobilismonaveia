@@ -127,3 +127,6 @@ body.ld { margin: 0; overflow: hidden; background: var(--fundo); color: var(--te
 
 /* sem rolagem para o lado no celular (os cartões de trás passam da tela) */
 html:has(body.ld), body.ld { overflow-x: hidden; }
+
+/* o carro de F1 é largo e baixo: um pouco maior para ocupar o lugar do capacete */
+.ld-card[data-esp="automobilismo"] .ld-obj { scale: 1.3; }

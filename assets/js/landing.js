@@ -3,7 +3,7 @@
    Clicar no objeto da frente ou em Entrar abre o esporte. Atrás, traços de luz na cor do esporte (canvas). */
 (function () {
   var CORES = { futebol: '#2ea062', basquete: '#f07a2a', automobilismo: '#e3343c' };
-  var NOMES = { futebol: 'Futebol', basquete: 'Basquete', automobilismo: 'Automobilismo' };
+  var NOMES = { futebol: 'Futebol', basquete: 'Basquete', automobilismo: 'Fórmula 1' };
   var FRASES = {
     futebol: '<b>Brasileirão, Libertadores e Champions</b> e as grandes ligas da Europa.',
     basquete: '<b>NBA, Euroleague e NBB</b>: jogos, tabelas e destaques.',
@@ -57,7 +57,7 @@
     raiz.style.setProperty('--cor', CORES[esp]);
     palavras.forEach(function (p) { p.classList.toggle('ativa', p.getAttribute('data-esp') === esp); });
     links.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('data-esp') === esp); });
-    if (cta) { cta.href = cards[atual].getAttribute('href'); cta.textContent = 'Entrar no ' + NOMES[esp].toLowerCase(); }
+    if (cta) { cta.href = cards[atual].getAttribute('href'); cta.textContent = esp === 'automobilismo' ? 'Entrar na Fórmula 1' : 'Entrar no ' + NOMES[esp].toLowerCase(); }
     if (frase) frase.innerHTML = FRASES[esp];
     if (num) num.textContent = '0' + (atual + 1);
     if (contador) contador.style.setProperty('--prog', Math.round((atual + 1) / n * 100) + '%');

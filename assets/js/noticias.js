@@ -5,7 +5,7 @@
   var esc = window.esc;
   var CATS = window.CATEGORIAS || [], COMPS = window.COMPETICOES || [];
   var NOME = {}; CATS.forEach(function (c) { NOME[c.slug] = c.menu || c.nome; }); COMPS.forEach(function (c) { NOME[c.slug] = c.menu || c.nome; });
-  var ESPORTES = [['', 'Todas'], ['automobilismo', 'Automobilismo'], ['futebol', 'Futebol'], ['basquete', 'Basquete']];
+  var ESPORTES = [['', 'Todas'], ['automobilismo', 'Fórmula 1'], ['futebol', 'Futebol'], ['basquete', 'Basquete']];
   function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === -1 ? 'Ontem' : window.dataCurta(d); }
   var en = window.LANG === 'en';
 

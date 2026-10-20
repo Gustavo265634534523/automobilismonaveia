@@ -8,7 +8,7 @@
   var pagina = document.body.getAttribute('data-pagina'), raiz = document.getElementById('pg');
   if (!raiz) return;
   var esc = window.esc, hoje = window.hojeISO(), COMPS = window.COMPETICOES || [], CATS = window.CATEGORIAS || [];
-  var NOMES = { futebol: 'Futebol', basquete: 'Basquete', automobilismo: 'Automobilismo' };
+  var NOMES = { futebol: 'Futebol', basquete: 'Basquete', automobilismo: 'Fórmula 1' };
   var SEMANA = ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'];
   function somaDias(iso, n) { var d = new Date(iso + 'T12:00:00'); d.setDate(d.getDate() + n); return d.toISOString().slice(0, 10); }
   function diaSemana(iso) { return SEMANA[new Date(iso + 'T12:00:00').getDay()]; }
@@ -123,7 +123,7 @@
         });
         if (filtro === 'todos' || filtro === 'automobilismo') {
           var s = sessoes(d, d).filter(function (x) { return /corrida|sprint|classifica|principal|final/i.test(x.s.t); });
-          if (s.length) blocos.push('<p class="pg-esp">Automobilismo</p><div class="pg-lista">' + s.map(linhaSessao).join('') + '</div>');
+          if (s.length) blocos.push('<p class="pg-esp">Fórmula 1</p><div class="pg-lista">' + s.map(linhaSessao).join('') + '</div>');
         }
         return '<h2 class="pg-dia">' + diaSemana(d) + ', ' + window.dataCurta(d) + (d === hoje ? '<small>Hoje</small>' : '') + '</h2>' + (blocos.join('') || '<p class="pg-vazio">Nada marcado neste dia (ainda).</p>');
       }).join('');
@@ -165,7 +165,7 @@
     var vencedores = [];
     CATS.forEach(function (c) { (c.calendario || []).forEach(function (e) { if (e.venc && e.d >= de7 && e.d <= hoje) vencedores.push({ c: c, e: e }); }); });
     raiz.innerHTML = '<div class="pg-topo"><div><p class="pg-rot">De ' + window.dataCurta(de7) + ' a ' + window.dataCurta(hoje) + '</p><h1>Resumo da semana</h1><p>Os cinco fatos mais importantes de cada esporte nos últimos 7 dias, os resultados que mais pesaram e quem lidera cada campeonato.</p></div></div>' +
-      '<div class="pg-filtros"><a class="ft-btn ft-btn-linha" href="#futebol">Futebol</a><a class="ft-btn ft-btn-linha" href="#basquete">Basquete</a><a class="ft-btn ft-btn-linha" href="#automobilismo">Automobilismo</a></div>' +
+      '<div class="pg-filtros"><a class="ft-btn ft-btn-linha" href="#futebol">Futebol</a><a class="ft-btn ft-btn-linha" href="#basquete">Basquete</a><a class="ft-btn ft-btn-linha" href="#automobilismo">Fórmula 1</a></div>' +
       ['futebol', 'basquete'].map(function (esp) {
         var rs = resultados(esp);
         return '<section class="pg-sec" id="' + esp + '"><h2>' + NOMES[esp] + '</h2>' +
@@ -173,8 +173,8 @@
           (rs ? '<p class="pg-esp" style="margin-top:22px">Resultados da semana</p>' + rs : '') +
           '<p class="pg-esp" style="margin-top:22px">Quem lidera</p>' + lideres(esp) + '</section>';
       }).join('') +
-      '<section class="pg-sec" id="automobilismo"><h2>Automobilismo</h2>' +
-        fatos(cinco(nAuto, 'cat'), function (n) { return (n.cat || 'automobilismo') + '.html'; }, function (n) { var c = CATS.filter(function (x) { return x.slug === n.cat; })[0]; return c ? c.menu || c.nome : 'Automobilismo'; }) +
+      '<section class="pg-sec" id="automobilismo"><h2>Fórmula 1</h2>' +
+        fatos(cinco(nAuto, 'cat'), function (n) { return (n.cat || 'automobilismo') + '.html'; }, function (n) { var c = CATS.filter(function (x) { return x.slug === n.cat; })[0]; return c ? c.menu || c.nome : 'Fórmula 1'; }) +
         (vencedores.length ? '<p class="pg-esp" style="margin-top:22px">Quem venceu</p><div class="pg-lista">' + vencedores.map(function (x) {
           return '<a class="pg-corrida" href="' + x.c.slug + '.html"><em>' + window.dataCurta(x.e.d) + '</em><span><b>' + esc(x.c.menu || x.c.nome) + ' · ' + esc(x.e.n) + '</b><small>' + esc(typeof x.e.venc === 'string' ? x.e.venc : (x.e.venc.nome || x.e.venc.p || '')) + '</small></span></a>';
         }).join('') + '</div>' : '') +
