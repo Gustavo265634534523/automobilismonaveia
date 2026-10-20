@@ -327,6 +327,24 @@
     return { fases: f };
   };
 
+  /* craque do jogo: o melhor do jogo principal de cada dia (robô do placar, números da ESPN) */
+  window.craqueHTML = function (esporte) {
+    var L = (AV && AV.craques && AV.craques[esporte]) || [];
+    if (!L.length) return '';
+    var NOMES = {}; (window.COMPETICOES || []).forEach(function (c) { NOMES[c.slug] = c.menu || c.nome; });
+    function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === -1 ? 'Ontem' : window.dataCurta(d); }
+    return L.map(function (x) {
+      var j = x.jogador, pl = String(x.p).split(' x ');
+      var rosto = j.foto ? '<img class="cq-foto" src="' + esc(j.foto) + '" alt="" loading="lazy">' : '<span class="cq-esc">' + window.escudoTime(j.time) + '</span>';
+      return '<article class="cq">' +
+        '<p class="cq-jogo"><small>' + esc(NOMES[x.comp] || '') + ' · ' + quando(x.d) + '</small>' +
+          '<span class="cq-placar"><span class="cq-t cq-casa"><b>' + esc(x.casa) + '</b>' + window.escudoTime(x.casa) + '</span><em>' + esc(pl[0]) + ' – ' + esc(pl[1]) + '</em><span class="cq-t">' + window.escudoTime(x.fora) + '<b>' + esc(x.fora) + '</b></span></span></p>' +
+        '<div class="cq-jog">' + rosto + '<div><span class="cq-rot">' + (esporte === 'basquete' ? 'Melhor em quadra' : 'Melhor em campo') + '</span>' +
+          '<h3>' + esc(j.nome) + '</h3><a href="' + window.linkTime(j.time) + '">' + esc(j.time) + '</a></div></div>' +
+        '<p class="cq-linha">' + esc(j.linha) + '</p></article>';
+    }).join('');
+  };
+
   /* líderes de estatística da NBA (robô) */
   window.lideresHTML = function () {
     var L = AV && AV.lideres && AV.lideres.nba;

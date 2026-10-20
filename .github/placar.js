@@ -1,5 +1,6 @@
 /* Placar automático do futebol e da NBA: busca na ESPN (API pública do site da ESPN, sem chave) os jogos dos últimos
-   10 dias e das próximas 3 semanas, as classificações das ligas e os líderes de estatística da NBA, e grava tudo em
+   10 dias e das próximas 3 semanas, as classificações das ligas, os líderes de estatística da NBA e o craque do jogo
+   principal de cada dia, e grava tudo em
    assets/dados/ao-vivo.js (window.AO_VIVO). O site junta esses dados aos de esportes-dados.js (assets/js/esportes-mais.js):
    o que vem daqui vale mais para placar, horário e tabela; o resto (textos, fases, notas) continua vindo de lá.
    Euroleague e NBB não estão na ESPN e continuam à mão.
@@ -236,6 +237,91 @@ function nomeTimeNBA(at) {
   return lista.find(n => cand.some(c => norm(n) === c || norm(n).endsWith(' ' + c))) || at.teamName || at.teamShortName || '';
 }
 
+/* craque do jogo: o jogo principal de cada dia (os dois últimos dias com jogo encerrado), por esporte, e o melhor em
+   quadra/campo pelos números da ESPN. Futebol: gols, assistências, chutes no gol e defesas. Basquete: pontos, rebotes,
+   assistências, roubos e tocos. Quem é do time que venceu leva um pequeno bônus. */
+const GRANDES = {
+  soccer: /Flamengo|Palmeiras|Corinthians|São Paulo|Santos|Vasco|Fluminense|Botafogo|Grêmio|Internacional|Atlético-MG|Cruzeiro|Real Madrid|Barcelona|Paris Saint-Germain|Bayern|Liverpool|Arsenal|Manchester City|Manchester United|Chelsea|Inter de Milão|Milan|Juventus|Atlético de Madrid|Borussia Dortmund|Boca Juniors|River Plate/,
+  basketball: /Lakers|Celtics|Knicks|Warriors|76ers|Heat|Thunder|Spurs|Nuggets|Bucks|Cavaliers|Mavericks|Timberwolves/
+};
+const PESO_COMP = { 'champions-league': 3, libertadores: 2.5, 'copa-do-brasil': 2.2, brasileirao: 2, 'sul-americana': 1.5, 'premier-league': 1.6, 'la-liga': 1.4, 'serie-a': 1.2, bundesliga: 1.2, 'ligue-1': 1, nba: 1 };
+const num = v => { const n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? 0 : n; };
+function plural(n, um, varios) { return n + ' ' + (n === 1 ? um : varios); }
+function lista(p) { return p.length > 1 ? p.slice(0, -1).join(', ') + ' e ' + p[p.length - 1] : p[0] || ''; }
+async function craqueFutebol(liga, j, vence) {
+  const r = await pedir(API + liga + '/summary?event=' + j.id);
+  if (!r || !r.rosters) return null;
+  let melhor = null;
+  for (const lado of r.rosters) {
+    const time = nomeSite(lado.team || {}, 'soccer');
+    for (const a of lado.roster || []) {
+      const st = {}; (a.stats || []).forEach(x => { st[x.name] = num(x.value); });
+      const g = st.totalGoals || 0, as = st.goalAssists || 0, cg = st.shotsOnTarget || 0, df = st.saves || 0;
+      const nota = g * 4 + as * 3 + cg * .5 + df * .5 + (time === vence ? .8 : 0);
+      if (!g && !as && df < 4) continue;
+      if (!melhor || nota > melhor.nota) {
+        const p = []; if (g) p.push(g === 1 ? '1 gol' : g + ' gols'); if (as) p.push(plural(as, 'assistência', 'assistências')); if (df >= 4 && !g) p.push(plural(df, 'defesa', 'defesas'));
+        if (cg > g && g + as < 3) p.push(plural(cg, 'chute no gol', 'chutes no gol'));
+        melhor = { nota, nome: (a.athlete || {}).displayName, time, linha: lista(p), pos: (a.position || {}).abbreviation || '' };
+      }
+    }
+  }
+  return melhor && melhor.nome ? melhor : null;
+}
+async function craqueBasquete(liga, j, vence) {
+  const r = await pedir(API + liga + '/summary?event=' + j.id);
+  const lados = r && r.boxscore && r.boxscore.players;
+  if (!lados) return null;
+  let melhor = null;
+  for (const lado of lados) {
+    const time = nomeSite(lado.team || {}, 'basketball');
+    const bloco = (lado.statistics || [])[0] || {}, rot = (bloco.labels || bloco.names || []).map(x => String(x).toUpperCase());
+    const ix = k => rot.indexOf(k);
+    for (const a of bloco.athletes || []) {
+      const v = a.stats || []; if (!v.length) continue;
+      const pts = num(v[ix('PTS')]), reb = num(v[ix('REB')]), ast = num(v[ix('AST')]), stl = num(v[ix('STL')]), blk = num(v[ix('BLK')]), to = num(v[ix('TO')]);
+      const nota = pts + reb * 1.2 + ast * 1.5 + stl * 2 + blk * 2 - to + (time === vence ? 3 : 0);
+      if (!melhor || nota > melhor.nota) {
+        const p = [plural(pts, 'ponto', 'pontos'), plural(reb, 'rebote', 'rebotes'), plural(ast, 'assistência', 'assistências')];
+        if (stl >= 3) p.push(plural(stl, 'roubo', 'roubos')); if (blk >= 3) p.push(plural(blk, 'toco', 'tocos'));
+        const ath = a.athlete || {};
+        melhor = { nota, nome: ath.displayName, time, linha: lista(p), foto: (ath.headshot || {}).href || '' };
+      }
+    }
+  }
+  return melhor && melhor.nome ? melhor : null;
+}
+async function craques(comps, antes) {
+  const out = {}, velho = (antes && antes.craques) || {};
+  for (const [esporte, chave] of [['soccer', 'futebol'], ['basketball', 'basquete']]) {
+    const porDia = {};
+    for (const l of LIGAS.filter(x => x.liga.startsWith(esporte))) {
+      for (const j of ((comps[l.slug] || {}).jogos || [])) {
+        if (!j.p || !j.id) continue;
+        const peso = (PESO_COMP[l.slug] || 1) + (GRANDES[esporte].test(j.casa) ? 2 : 0) + (GRANDES[esporte].test(j.fora) ? 2 : 0);
+        if (!porDia[j.d] || peso > porDia[j.d].peso) porDia[j.d] = { l, j, peso };
+      }
+    }
+    const dias = Object.keys(porDia).sort().reverse().slice(0, 2);
+    out[chave] = [];
+    for (const d of dias) {
+      const { l, j, peso } = porDia[d];
+      if (peso < 3) continue; /* dia sem jogo grande: fica de fora */
+      const guardado = (velho[chave] || []).find(x => x.id === j.id && x.jogador);
+      let jogador = guardado ? guardado.jogador : null;
+      if (!jogador) {
+        const [a, b] = j.p.split(' x ').map(Number), vence = a > b ? j.casa : b > a ? j.fora : '';
+        const c = esporte === 'soccer' ? await craqueFutebol(l.liga, j, vence) : await craqueBasquete(l.liga, j, vence);
+        if (c) { delete c.nota; jogador = c; }
+      }
+      console.log('craque', chave, d, j.casa, j.p, j.fora, '->', jogador ? jogador.nome + ' (' + jogador.linha + ')' : 'sem dados');
+      if (jogador) out[chave].push({ id: j.id, comp: l.slug, d: j.d, casa: j.casa, fora: j.fora, p: j.p, jogador });
+    }
+    if (!out[chave].length && velho[chave]) out[chave] = velho[chave];
+  }
+  return out;
+}
+
 (async () => {
   let antes = {};
   try { const w = {}; new Function('window', fs.readFileSync(ARQ, 'utf8'))(w); antes = w.AO_VIVO || {}; } catch (e) { /* primeira vez */ }
@@ -268,8 +354,9 @@ function nomeTimeNBA(at) {
     fs.writeFileSync(ARQ_ESC, cab + '\nwindow.ESCUDOS = ' + JSON.stringify(ord) + ';\n');
   }
 
-  const dados = { comps, lideres: lideres ? { nba: lideres } : (antes.lideres || {}), ids };
-  const igual = JSON.stringify(dados) === JSON.stringify({ comps: antes.comps, lideres: antes.lideres, ids: antes.ids });
+  const craque = await craques(comps, antes);
+  const dados = { comps, lideres: lideres ? { nba: lideres } : (antes.lideres || {}), craques: craque, ids };
+  const igual = JSON.stringify(dados) === JSON.stringify({ comps: antes.comps, lideres: antes.lideres, craques: antes.craques, ids: antes.ids });
   if (igual) { console.log('sem novidade'); return; }
   dados.atualizado = new Date().toISOString();
   fs.writeFileSync(ARQ, '/* Gerado por .github/placar.js (dados: ESPN). Não editar à mão. */\nwindow.AO_VIVO = ' + JSON.stringify(dados) + ';\n');

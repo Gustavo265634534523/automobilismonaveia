@@ -53,6 +53,19 @@
   document.getElementById('ft-rec-ant').addEventListener('click', function () { rolar(-1); });
   document.getElementById('ft-rec-prox').addEventListener('click', function () { rolar(1); });
 
+  /* 2b. piloto do GP: quem mais ganhou posições no último GP (ou o vencedor), do robô resultados-f1.js (OpenF1) */
+  var cq = document.getElementById('cq-grade');
+  if (cq) fetch('assets/dados/resultados-f1.json?t=' + Math.floor(Date.now() / 6e5)).then(function (r) { return r.json(); }).then(function (R) {
+    var d = R && R.destaque; if (!d) return;
+    var corrida = (R.sessoes || []).filter(function (x) { return x.tipo === 'Race'; })[0];
+    cq.innerHTML = '<article class="cq">' +
+      '<p class="cq-jogo"><small>Fórmula 1 · ' + quando(corrida ? corrida.data : R.data) + '</small><span><b>GP de ' + esc(R.local || '') + '</b>' + (corrida ? '<em class="cq-f1-venc">Vencedor: ' + esc(corrida.top[0].nome) + '</em>' : '') + '</span></p>' +
+      '<div class="cq-jog">' + (d.foto ? '<img class="cq-foto" src="' + esc(d.foto) + '" alt="" loading="lazy">' : '<span class="cq-esc"><i class="f1-cor" style="background:' + esc(d.cor) + '"></i></span>') +
+        '<div><span class="cq-rot">Destaque da corrida</span><h3>' + esc(d.nome) + '</h3><span class="cq-eq"><i class="f1-cor" style="background:' + esc(d.cor) + '" aria-hidden="true"></i>' + esc(d.equipe) + '</span></div></div>' +
+      '<p class="cq-linha">' + esc(d.linha) + '</p></article>';
+    document.getElementById('sec-craque').hidden = false;
+  }).catch(function () { /* sem resultado: a seção fica escondida */ });
+
   /* 3. próximas corridas (depois da que está no destaque) */
   document.getElementById('f1-agenda').innerHTML = proximas.slice(px ? 1 : 0, (px ? 1 : 0) + 6).map(function (e) {
     var corrida = sessao(e, /^Corrida/), quali = sessao(e, /^Classifica/), sprint = sessao(e, /^Sprint$/);

@@ -1,5 +1,5 @@
 /* Resultados do fim de semana da F1 (bloco ao lado de "Números da pista" na próxima etapa): pole da sprint, sprint,
-   pole e corrida do GP que está acontecendo, com os 3 primeiros de cada. Lê o OpenF1 e grava assets/dados/resultados-f1.json.
+   pole e corrida do GP que está acontecendo, com os 3 primeiros de cada, e o destaque do GP (quem mais ganhou posições). Lê o OpenF1 e grava assets/dados/resultados-f1.json.
    Roda no GitHub (f1-pos-corrida.yml, a cada 30 min) ou no PC. */
 const fs = require('fs');
 const path = require('path');
@@ -48,7 +48,30 @@ function tempoLongo(s) { const h = Math.floor(s / 3600), m = Math.floor((s % 360
       })
     });
   }
-  const novo = JSON.stringify({ meeting: ult.meeting_key, local: ult.location, pais: ult.country_name, data: ult.date_start.slice(0, 10), sessoes }, null, 1) + '\n';
+  /* destaque do GP: quem mais ganhou posições entre os 10 primeiros (5 ou mais); se ninguém, o vencedor */
+  let destaque = null;
+  const corrida = doGp.filter(s => s.session_name === 'Race').pop();
+  if (corrida) {
+    try {
+      const fim = (await get('session_result?session_key=' + corrida.session_key)).filter(x => x.position);
+      const pos = await get('position?session_key=' + corrida.session_key);
+      const largada = {};
+      pos.sort((a, b) => Date.parse(a.date) - Date.parse(b.date)).forEach(x => { if (!largada[x.driver_number]) largada[x.driver_number] = x.position; });
+      const cand = fim.filter(x => x.position <= 10 && largada[x.driver_number]).map(x => ({ x, ganho: largada[x.driver_number] - x.position }));
+      const subiu = cand.filter(c => c.ganho >= 5).sort((a, b) => b.ganho - a.ganho || a.x.position - b.x.position)[0];
+      const esc = subiu || cand.filter(c => c.x.position === 1)[0] || (fim.filter(x => x.position === 1)[0] ? { x: fim.filter(x => x.position === 1)[0], ganho: null } : null);
+      if (esc) {
+        const d = pilotos[esc.x.driver_number] || {}, l = largada[esc.x.driver_number];
+        destaque = {
+          nome: d.first_name ? d.first_name + ' ' + d.last_name : (d.full_name || '#' + esc.x.driver_number),
+          equipe: d.team_name || '', cor: d.team_colour ? '#' + d.team_colour : '#8e979f', foto: d.headshot_url || '',
+          largou: l || null, chegou: esc.x.position,
+          linha: l ? (esc.x.position === 1 ? 'Largou em ' + l + 'º e venceu' : 'Largou em ' + l + 'º e terminou em ' + esc.x.position + 'º (ganhou ' + (l - esc.x.position) + ' posições)') : 'Venceu a corrida'
+        };
+      }
+    } catch (e) { console.log('destaque do GP: sem dados (' + e.message + ')'); }
+  }
+  const novo = JSON.stringify({ meeting: ult.meeting_key, local: ult.location, pais: ult.country_name, data: ult.date_start.slice(0, 10), sessoes, destaque }, null, 1) + '\n';
   const antes = fs.existsSync(ARQ) ? fs.readFileSync(ARQ, 'utf8') : '';
   if (novo === antes) { console.log('resultados-f1: sem novidade'); return; }
   fs.writeFileSync(ARQ, novo);

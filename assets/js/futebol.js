@@ -126,6 +126,10 @@
   window.blocoAoVivo(document.getElementById('em-aovivo'), ESPORTE);
   window.blocoMeuTime(document.getElementById('em-meutime'), ESPORTE);
 
+  /* 7b. craque do jogo principal do dia (some quando o robô ainda não tem) */
+  var cq = document.getElementById('cq-grade');
+  if (cq) { var cqH = window.craqueHTML(ESPORTE); if (cqH) { cq.innerHTML = cqH; document.getElementById('sec-craque').hidden = false; } }
+
   /* 8. chaveamento: uma aba por campeonato com mata-mata (futebol) ou playoffs (basquete) */
   var CH = window.CHAVES || {}, abasC = document.getElementById('ch-abas'), caixaC = document.getElementById('ch-caixa');
   /* projeção só quando a tabela é da temporada que está rolando */

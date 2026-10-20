@@ -264,3 +264,30 @@ a.ch-nome:hover span { text-decoration: underline; }
 .f1-atalho-dest small { color: rgba(255, 255, 255, .85); }
 .f1-atalhos + .ft-recentes { margin-top: 28px; }
 @media (max-width: 1000px) { .f1-atalhos { grid-template-columns: repeat(2, 1fr); margin-top: -40px; } .f1-atalho-dest { grid-column: 1 / -1; } }
+
+/* craque do jogo / piloto do GP */
+.cq-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-top: 22px; }
+.cq { max-width: 640px; display: flex; flex-direction: column; gap: 16px; padding: 18px 20px 20px; border-radius: 16px; background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha); }
+.cq-jogo { margin: 0; display: flex; flex-direction: column; gap: 8px; padding-bottom: 14px; border-bottom: 1px solid var(--linha-2); }
+.cq-jogo small { font-size: 11.5px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--aco); }
+.cq-jogo span { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 14px; color: var(--texto-2); }
+.cq-jogo .cq-placar { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; }
+.cq-jogo .cq-placar .cq-t { display: flex; flex-wrap: nowrap; align-items: center; gap: 8px; min-width: 0; }
+.cq-placar .escudo { flex: none; }
+.cq-placar .cq-casa { justify-content: flex-end; }
+.cq-placar b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.cq-jogo b { font-weight: 700; color: var(--cromo); }
+.cq-jogo em { font-style: normal; font-weight: 800; font-variant-numeric: tabular-nums; padding: 2px 8px; border-radius: 6px; background: var(--sutil); color: var(--cromo); }
+.cq-jogo em.cq-f1-venc { font-weight: 600; font-size: 13px; }
+.cq-jogo .escudo { width: 22px; height: 22px; font-size: 8px; }
+.cq-jog { display: flex; align-items: center; gap: 16px; }
+.cq-foto { width: 72px; height: 72px; flex: none; border-radius: 50%; object-fit: cover; object-position: top; background: var(--sutil); }
+.cq-esc { width: 72px; height: 72px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--sutil); }
+.cq-esc .escudo { width: 46px; height: 46px; }
+.cq-esc .f1-cor { width: 28px; height: 28px; border-radius: 50%; }
+.cq-rot { display: block; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ft-cor, var(--sangue-vivo)); }
+.cq-jog h3 { margin: 2px 0 4px; font-size: 24px; line-height: 1.1; font-weight: 800; color: var(--cromo); }
+.cq-jog a, .cq-eq { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--texto-2); text-decoration: none; }
+.cq-jog a:hover { text-decoration: underline; }
+.cq-linha { margin: 0; padding: 10px 14px; border-radius: 10px; background: var(--sutil); font-size: 15px; font-weight: 700; color: var(--cromo); }
+@media (max-width: 720px) { .cq-grade { grid-template-columns: 1fr; } .cq-jog h3 { font-size: 21px; } }
