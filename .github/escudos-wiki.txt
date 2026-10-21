@@ -1,22 +1,70 @@
 # Escudos procurados na Wikipédia (imagem principal do artigo do clube). Uma linha por time:
 # Nome usado no site | título do artigo em inglês | título do artigo em português (opcional)
 # O robô (.github/escudos-wiki.js) baixa candidatos para assets/img/escudos/cand/; cada um é conferido à mão antes de entrar no site.
-Juventude | Esporte Clube Juventude | Esporte Clube Juventude
-Platense | Club Atlético Platense | Club Atlético Platense
-Coquimbo Unido | Coquimbo Unido | Coquimbo Unido
-Cerro Porteño | Club Cerro Porteño | Club Cerro Porteño
-Rosario Central | Rosario Central | Club Atlético Rosario Central
-Deportes Tolima | Deportes Tolima | Deportes Tolima
-Recoleta | Recoleta FC | Recoleta Fútbol Club
-Bolívar | Club Bolívar | Club Bolívar
-Independiente Santa Fe | Independiente Santa Fe | Independiente Santa Fe
-Olimpia | Club Olimpia | Club Olimpia
-Macará | C.S.D. Macará | Club Social y Deportivo Macará
-Cienciano | Cienciano | Club Cienciano
-Tigre | Club Atlético Tigre | Club Atlético Tigre
-Qarabag | Qarabağ FK | Qarabağ FK
-Benfica | S.L. Benfica | Sport Lisboa e Benfica
-Rio Claro | Rio Claro Basquete | Rio Claro Basquete
-Danubio | Danubio F.C. | Danubio Fútbol Club
-Zenit | FC Zenit Saint Petersburg | Football Club Zenit
-Criciúma | Criciúma Esporte Clube | Criciúma Esporte Clube
+# Rodada atual: clubes das trajetórias do jogo Adivinhe o jogador (assets/dados/adivinhe.js).
+Al-Hilal | Al Hilal SFC | Al-Hilal Saudi Football Club
+Inter Miami | Inter Miami CF | Inter Miami CF
+Al-Nassr | Al Nassr FC | Al-Nassr Football Club
+Bryne | Bryne FK | Bryne FK
+Molde | Molde FK | Molde FK
+RB Salzburg | FC Red Bull Salzburg | FC Red Bull Salzburg
+Leyton Orient | Leyton Orient F.C. | Leyton Orient Football Club
+Millwall | Millwall F.C. | Millwall Football Club
+Norwich City | Norwich City F.C. | Norwich City Football Club
+Leicester City | Leicester City F.C. | Leicester City Football Club
+Znicz Pruszków | Znicz Pruszków | Znicz Pruszków
+Lech Poznań | Lech Poznań | Lech Poznań
+Dinamo Zagreb | GNK Dinamo Zagreb | GNK Dinamo Zagreb
+Zrinjski Mostar | HŠK Zrinjski Mostar | HŠK Zrinjski Mostar
+Inter Zaprešić | NK Inter Zaprešić | NK Inter Zaprešić
+Genk | K.R.C. Genk | KRC Genk
+Wolfsburg | VfL Wolfsburg | VfL Wolfsburg
+Al Mokawloon | Al Mokawloon Al Arab SC | Al-Mokawloon Al-Arab Sporting Club
+Basel | FC Basel | FC Basel
+Groningen | FC Groningen | FC Groningen
+Ajax | AFC Ajax | AFC Ajax
+Malmö | Malmö FF | Malmö FF
+LA Galaxy | LA Galaxy | Los Angeles Galaxy
+Querétaro | Querétaro F.C. | Querétaro Fútbol Club
+Orlando City | Orlando City SC | Orlando City Soccer Club
+Al-Duhail | Al-Duhail SC | Al-Duhail Sports Club
+Dínamo de Moscou | FC Dynamo Moscow | Futbolny Klub Dínamo Moscovo
+Kawasaki Frontale | Kawasaki Frontale | Kawasaki Frontale
+Consadole Sapporo | Hokkaido Consadole Sapporo | Hokkaido Consadole Sapporo
+Tokyo Verdy | Tokyo Verdy | Tokyo Verdy
+Shanghai SIPG | Shanghai Port F.C. | Shanghai Port Football Club
+América-MG | América Futebol Clube (MG) | América Futebol Clube (Belo Horizonte)
+Watford | Watford F.C. | Watford Football Club
+Avaí | Avaí FC | Avaí Futebol Clube
+Vitória de Guimarães | Vitória S.C. | Vitória Sport Clube
+Audax | Grêmio Osasco Audax Esporte Clube | Grêmio Osasco Audax Esporte Clube
+West Ham | West Ham United F.C. | West Ham United Football Club
+Defensor | Defensor Sporting | Defensor Sporting Club
+Instituto | Instituto Atlético Central Córdoba | Instituto Atlético Central Córdoba
+Palermo | Palermo FC | Palermo Football Club
+Birmingham City | Birmingham City F.C. | Birmingham City Football Club
+Notts County | Notts County F.C. | Notts County Football Club
+Los Angeles FC | Los Angeles FC | Los Angeles Football Club
+Anderlecht | R.S.C. Anderlecht | Royal Sporting Club Anderlecht
+West Bromwich | West Bromwich Albion F.C. | West Bromwich Albion Football Club
+Independiente | Club Atlético Independiente | Club Atlético Independiente
+Pumas | Club Universidad Nacional | Club Universidad Nacional
+Vissel Kobe | Vissel Kobe | Vissel Kobe
+Emirates Club | Emirates Club | Emirates Club
+Charleroi | R. Charleroi S.C. | Royal Charleroi Sporting Club
+Dinamo Tbilisi | FC Dinamo Tbilisi | FC Dinamo Tbilisi
+Lokomotiv Moscou | FC Lokomotiv Moscow | Futbolniy Klub Lokomotiv Moskva
+Rubin Kazan | FC Rubin Kazan | FC Rubin Kazan
+Dinamo Batumi | FC Dinamo Batumi | FC Dinamo Batumi
+Dijon | Dijon FCO | Dijon Football Côte-d'Or
+Saint-Étienne | AS Saint-Étienne | Association Sportive de Saint-Étienne
+Al-Qadsiah | Al-Qadsiah FC | Al-Qadsiah Football Club
+Cobreloa | Cobreloa | Club de Deportes Cobreloa
+Colo-Colo | Colo-Colo | Colo-Colo
+Al-Ittihad | Al-Ittihad Club (Jeddah) | Al-Ittihad Club
+Seattle SuperSonics | Seattle SuperSonics | Seattle SuperSonics
+New Orleans Hornets | New Orleans Pelicans | New Orleans Pelicans
+Mega Basket | KK Mega Basket | KK Mega Basket
+Cholet | Cholet Basket | Cholet Basket
+New Jersey Nets | Brooklyn Nets | Brooklyn Nets
+Adelaide 36ers | Adelaide 36ers | Adelaide 36ers
