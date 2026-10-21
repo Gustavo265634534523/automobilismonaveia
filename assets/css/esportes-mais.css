@@ -451,3 +451,7 @@ a.em-placar:hover, .jogo-ver:hover em { background: var(--sutil); }
 .mn-chamada em { font-style: normal; font-size: 15px; color: rgba(255, 255, 255, .8); max-width: 54ch; }
 .mn-chamada i { flex: none; font-style: normal; padding: 12px 24px; border-radius: 999px; background: #fff; color: #0b1220; font-weight: 800; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; }
 @media (max-width: 640px) { .mn-chamada { flex-direction: column; align-items: flex-start; padding: 22px; } }
+/* lista de formações: fundo e letra legíveis no tema claro e no escuro (a lista aberta é desenhada pelo navegador) */
+.mn-linha select { color-scheme: dark; cursor: pointer; }
+html[data-tema="claro"] .mn-linha select { color-scheme: light; }
+.mn-linha select option { background: var(--carbono); color: var(--cromo); }
