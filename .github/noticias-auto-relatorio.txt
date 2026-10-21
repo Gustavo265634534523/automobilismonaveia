@@ -13,12 +13,12 @@ Google Notícias libertadores: 100 itens
 Google Notícias sul-americana: 100 itens
 Google Notícias champions-league: 100 itens
 Google Notícias premier-league: 100 itens
-Google Notícias la-liga: 52 itens
+Google Notícias la-liga: 55 itens
 Google Notícias bundesliga: 100 itens
-Google Notícias serie-a: 38 itens
-Google Notícias ligue-1: 51 itens
+Google Notícias serie-a: 36 itens
+Google Notícias ligue-1: 50 itens
 Google Notícias nba: 100 itens
-Google Notícias euroleague: 7 itens
+Google Notícias euroleague: 8 itens
 Google Notícias nbb: 100 itens
-Google Notícias formula-1: 52 itens
-notícias gravadas: 160
+Google Notícias formula-1: 56 itens
+notícias gravadas: 157
