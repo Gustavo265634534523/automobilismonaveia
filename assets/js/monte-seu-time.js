@@ -24,6 +24,9 @@
     MC: ['MC', 'VOL', 'MEI', 'PE', 'PD'], MEI: ['MEI', 'MC', 'PE', 'PD', 'CA'], PD: ['PD', 'PE', 'MEI', 'CA', 'MC'], PE: ['PE', 'PD', 'MEI', 'CA', 'MC'], CA: ['CA', 'PE', 'PD', 'MEI'] };
 
   function norm(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim(); }
+  /* foto do jogador: a guardada no site (craques, robô .github/fotos-jogadores.js) ou a que veio da busca */
+  function chave(n) { return String(n).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
+  function fotoDe(j) { var f = (window.FOTOS_JOGADORES || {})[chave(j.n)]; return f ? f.src : (j.foto || ''); }
   var CRAQUES = (window.JOGADORES_CRAQUES || []).map(function (x) { var p = x.split('|'); return { n: p[0], pos: p[1], k: norm(p[0]) }; });
 
   /* estado: dois times, cada um com nome, formação e os 11 lugares */
@@ -71,7 +74,7 @@
       return '<div class="pt-linha">' + ks.map(function (k) {
         var j = t.lugares[k], s = S[k], marcado = sel && sel.t === ti && sel.i === k;
         return '<button type="button" class="pt-jog mn-slot' + (j ? '' : ' mn-livre') + (marcado ? ' mn-sel' : '') + '" data-t="' + ti + '" data-i="' + k + '" title="' + (j ? esc(j.n) + ' · ' : '') + NOME_POS[s.pos] + '">' +
-          '<i>' + (j ? (j.foto ? '<img src="' + esc(j.foto) + '" alt="" loading="lazy" onerror="this.remove()">' : '') + esc(iniciais(j.n)) : '+') + '</i>' +
+          '<i' + (j && fotoDe(j) ? ' class="mn-com-foto"' : '') + '>' + (j ? (fotoDe(j) ? '<img src="' + esc(fotoDe(j)) + '" alt="" loading="lazy" onerror="this.parentNode.classList.remove(\'mn-com-foto\');this.remove()">' : '') + esc(iniciais(j.n)) : '+') + '</i>' +
           '<small>' + (j ? esc(sobrenome(j.n)) : s.pos) + '</small>' + (j ? '<span class="mn-x" data-tirar="1" aria-label="Tirar ' + esc(j.n) + '">×</span>' : '') + '</button>';
       }).join('') + '</div>';
     }).join('') + '</div>';
@@ -94,8 +97,19 @@
       '<div class="pt-rotulos"><span>' + esc(t0.nome) + ' · ' + t0.formacao + '</span><span>' + esc(t1.nome) + ' · ' + t1.formacao + '</span></div>' +
       '<div class="pt-gramado mn-gramado">' + metade(0) + metade(1) + '</div>' +
       '<p class="mn-dica">Toque num jogador e depois em outra posição do mesmo time para trocar os dois de lugar. O × tira do time.</p>' +
+      creditos() +
       '<div class="mn-acoes"><button type="button" class="ft-btn" id="mn-link">Copiar link dos times</button><button type="button" class="ft-btn ft-btn-linha" id="mn-limpar">Limpar ' + esc(E.times[E.ativo].nome) + '</button></div>';
     ligar();
+  }
+
+  function creditos() {
+    var F = window.FOTOS_JOGADORES || {}, usados = [];
+    E.times.forEach(function (t) { t.lugares.forEach(function (j) { var f = j && F[chave(j.n)]; if (f && f.arq && usados.indexOf(f) < 0) usados.push(f); }); });
+    var temOutras = E.times.some(function (t) { return t.lugares.some(function (j) { return j && j.foto && !F[chave(j.n)]; }); });
+    if (!usados.length && !temOutras) return '';
+    return '<details class="mn-creditos"><summary>Fotos dos jogadores: Wikipédia e Wikimedia Commons (licenças livres)</summary><p>' +
+      usados.map(function (f) { return '<a href="https://commons.wikimedia.org/wiki/File:' + encodeURIComponent(f.arq) + '" target="_blank" rel="noopener">' + esc(f.pagina || f.arq) + '</a>'; }).join(' · ') +
+      (temOutras ? (usados.length ? ' · ' : '') + 'as demais fotos vêm da página do jogador na Wikipédia.' : '') + '</p></details>';
   }
 
   /* ---------- busca ---------- */
@@ -162,9 +176,25 @@
     }).join('');
     [].forEach.call(ul.children, function (li) { li.addEventListener('mousedown', function (e) { e.preventDefault(); escolher(sugestoes[+li.getAttribute('data-i')]); }); });
   }
+  function fotoWikipedia(nome) {
+    var u = function (l) { return 'https://' + l + '.wikipedia.org/w/api.php?action=query&format=json&origin=*&generator=search&gsrlimit=3&gsrnamespace=0&prop=pageimages|description&piprop=thumbnail&pithumbsize=160&gsrsearch=' + encodeURIComponent(nome + (l === 'en' ? ' footballer' : ' futebolista')); };
+    function pega(l) {
+      return comTempo(fetch(u(l)).then(function (r) { return r.json(); }), 4000).then(function (r) {
+        var ps = r && r.query && r.query.pages ? Object.keys(r.query.pages).map(function (k) { return r.query.pages[k]; }).sort(function (a, b) { return a.index - b.index; }) : [];
+        var p = ps.filter(function (x) { return x.thumbnail && /futebol|football|soccer|goleiro|goalkeeper/i.test(x.description || ''); })[0];
+        return p ? p.thumbnail.source : '';
+      });
+    }
+    return pega('pt').then(function (f) { return f || pega('en'); }).catch(function () { return ''; });
+  }
   function escolher(j) {
     if (!j) return;
-    colocar(j, E.ativo); pintar();
+    var ti = E.ativo, ok = colocar(j, ti); pintar();
+    if (ok && !fotoDe(j)) fotoWikipedia(j.n).then(function (f) {
+      if (!f) return;
+      E.times[ti].lugares.forEach(function (x) { if (x && x.n === j.n && !x.foto) x.foto = f; });
+      salvar(); pintar();
+    });
     var q = document.getElementById('mn-q'); if (q) q.focus();
   }
   function buscar(q, entao) {

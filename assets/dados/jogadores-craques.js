@@ -20,16 +20,16 @@ window.JOGADORES_CRAQUES = [
   'Gabriel Magalhães|ZAG', 'Éder Militão|ZAG', 'William Saliba|ZAG', 'Rúben Dias|ZAG', 'Antonio Rüdiger|ZAG', 'Joško Gvardiol|ZAG',
   'Alessandro Bastoni|ZAG', 'Ronald Araújo|ZAG', 'Pau Cubarsí|ZAG', 'Leny Yoro|ZAG', 'Giorgio Chiellini|ZAG', 'Leonardo Bonucci|ZAG',
   'Mats Hummels|ZAG', 'Matthijs de Ligt|ZAG', 'Daniel Passarella|ZAG', 'Elías Figueroa|ZAG', 'Gamarra|ZAG', 'Miranda|ZAG',
-  'Léo Ortiz|ZAG', 'Gustavo Gómez|ZAG', 'Murilo|ZAG', 'Fabrício Bruno|ZAG',,
+  'Léo Ortiz|ZAG', 'Gustavo Gómez|ZAG', 'Murilo|ZAG', 'Fabrício Bruno|ZAG',
   /* laterais esquerdos */
   'Roberto Carlos|LE', 'Marcelo|LE', 'Nílton Santos|LE', 'Júnior|LE', 'Branco|LE', 'Leonardo|LE', 'Ashley Cole|LE', 'Jordi Alba|LE',
   'Alphonso Davies|LE', 'Theo Hernández|LE', 'Andrew Robertson|LE', 'Alex Sandro|LE', 'Filipe Luís|LE', 'Alex Telles|LE',
-  'Nuno Mendes|LE', 'Alejandro Balde|LE', 'Marc Cucurella|LE', 'Federico Dimarco|LE', 'Ayrton Lucas|LE', 'Piquerez|LE',,
+  'Nuno Mendes|LE', 'Alejandro Balde|LE', 'Marc Cucurella|LE', 'Federico Dimarco|LE', 'Ayrton Lucas|LE', 'Piquerez|LE',
   /* volantes */
   'Claude Makélélé|VOL', 'Sergio Busquets|VOL', 'Rodri|VOL', 'Casemiro|VOL', 'N\'Golo Kanté|VOL', 'Dunga|VOL', 'Mauro Silva|VOL',
   'Gilberto Silva|VOL', 'Fernandinho|VOL', 'Clodoaldo|VOL', 'Falcão|VOL', 'Cerezo|VOL', 'Declan Rice|VOL', 'Bruno Guimarães|VOL',
   'Aurélien Tchouaméni|VOL', 'Moisés Caicedo|VOL', 'João Neves|VOL', 'Joshua Kimmich|VOL', 'Fabinho|VOL', 'Roy Keane|VOL',
-  'Patrick Vieira|VOL', 'Gennaro Gattuso|VOL', 'Javier Mascherano|VOL', 'Erick Pulgar|VOL', 'Allan|VOL', 'André|VOL',,
+  'Patrick Vieira|VOL', 'Gennaro Gattuso|VOL', 'Javier Mascherano|VOL', 'Erick Pulgar|VOL', 'Allan|VOL', 'André|VOL',
   /* meio-campistas */
   'Xavi|MC', 'Andrés Iniesta|MC', 'Luka Modrić|MC', 'Toni Kroos|MC', 'Andrea Pirlo|MC', 'Steven Gerrard|MC', 'Frank Lampard|MC',
   'Paul Scholes|MC', 'Lothar Matthäus|MC', 'Johan Neeskens|MC', 'Gérson|MC', 'Didi|MC', 'Toninho Cerezo|MC', 'Jude Bellingham|MC',

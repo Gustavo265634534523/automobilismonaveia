@@ -455,3 +455,12 @@ a.em-placar:hover, .jogo-ver:hover em { background: var(--sutil); }
 .mn-linha select { color-scheme: dark; cursor: pointer; }
 html[data-tema="claro"] .mn-linha select { color-scheme: light; }
 .mn-linha select option { background: var(--carbono); color: var(--cromo); }
+
+/* fotos dos jogadores no Monte seu time */
+.mn-gramado .pt-jog i.mn-com-foto { width: 48px; height: 48px; color: transparent; background: #fff; }
+.mn-gramado .pt-meio-fora .pt-jog i.mn-com-foto { background: #0b1220; }
+.mn-creditos { margin-top: 14px; font-size: 12px; color: var(--aco); text-align: center; }
+.mn-creditos summary { cursor: pointer; }
+.mn-creditos p { margin: 8px 0 0; line-height: 1.6; }
+.mn-creditos a { color: var(--texto-2); }
+@media (max-width: 720px) { .mn-gramado .pt-jog i.mn-com-foto { width: 40px; height: 40px; } }
