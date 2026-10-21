@@ -75,7 +75,6 @@
   function gol(quem) {
     jogo[quem === 'voce' ? 'pv' : 'pc']++; atualizarPlacar();
     jogo.pausaAte = performance.now() + 1100; jogo.texto = quem === 'voce' ? 'GOOOL!' : 'GOL DO ' + RIVAL.toUpperCase(); jogo.textoAte = jogo.pausaAte;
-    ARTE.som('torcida'); ARTE.som('rede'); setTimeout(function () { ARTE.som('apito'); }, 500);
   }
 
   function passo(dt) {

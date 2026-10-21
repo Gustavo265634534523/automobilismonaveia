@@ -69,7 +69,6 @@
     jogo[quem === 'voce' ? 'pv' : 'pc'] += pts; atualizarPlacar();
     jogo.pausaAte = performance.now() + 900; jogo.proxima = quem === 'voce' ? 'cpu' : 'voce';
     jogo.texto = jogo.texto === 'ENTERRADA!' && performance.now() < jogo.textoAte ? 'ENTERRADA!' : pts === 3 ? 'CESTA DE 3!' : 'CESTA!'; jogo.textoAte = performance.now() + 900;
-    ARTE.som('rede'); ARTE.som('torcida');
   }
 
   function mover(p, dir, dt) {
