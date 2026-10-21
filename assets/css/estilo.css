@@ -1437,3 +1437,8 @@ html.com-cats.com-placar { --topo: 162px; }
   -webkit-mask: url(../img/logo/arena.png) center / contain no-repeat; mask: url(../img/logo/arena.png) center / contain no-repeat; }
 .marca-nome small { color: var(--sangue-vivo); }
 .topo-in .marca-nome small { color: var(--sangue-vivo); }
+
+/* notícia automática: sem clique (não leva para outro site) */
+.nt-sem-link { cursor: default; }
+.nt-sem-link:hover { transform: none !important; }
+.nt-sem-link:hover b, .nt-sem-link:hover span { text-decoration: none !important; }

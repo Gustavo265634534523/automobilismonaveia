@@ -1,7 +1,7 @@
 /* Service worker do app Arena Sports.
    Páginas e dados: busca sempre a versão nova na internet e guarda uma cópia para abrir sem conexão.
    Imagens e fontes: usa a cópia guardada e atualiza por trás. */
-var VERSAO = 'naveia-v357';
+var VERSAO = 'naveia-v358';
 
 self.addEventListener('install', function () { self.skipWaiting(); });
 self.addEventListener('activate', function (e) {

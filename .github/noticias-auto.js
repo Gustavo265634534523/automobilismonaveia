@@ -1,6 +1,6 @@
 /* Notícias automáticas dos três esportes: a cada 5 horas busca as manchetes nos feeds (RSS) de sites de esporte e no
    Google Notícias (uma busca por campeonato) e grava assets/dados/noticias-auto.js. No site entram só o título, um resumo
-   curto e o link para a matéria original (abre no site da fonte). As notícias escritas à mão continuam valendo.
+   curto e a fonte, sem clique (o link da matéria original fica guardado, mas o site não leva para fora). As notícias escritas à mão continuam valendo.
    Roda no GitHub (.github/workflows/noticias-auto.yml) ou no PC: node .github/noticias-auto.js */
 const fs = require('fs');
 const path = require('path');
@@ -108,7 +108,7 @@ function itens(xml) { return (xml.match(/<item[\s\S]*?<\/item>/gi) || []).map(it
     '  var tem = {}; (E || []).concat(G || []).forEach(function (n) { tem[k(n.t)] = 1; });\n' +
     '  A.forEach(function (n) {\n' +
     '    if (tem[k(n.t)]) return; tem[k(n.t)] = 1; L[n.t] = n.link;\n' +
-    '    var x = n.x || (n.fonte ? "Leia a matéria completa no " + n.fonte + "." : "Leia a matéria completa na fonte.");\n' +
+    '    var x = n.x ? n.x + (n.fonte ? " Fonte: " + n.fonte : "") : (n.fonte ? "Fonte: " + n.fonte : "");\n' +
     '    if (n.esporte === "automobilismo") { if (G) G.push({ d: n.d, cat: n.comp, t: n.t, x: x, link: n.link, fonte: n.fonte }); }\n' +
     '    else if (E) E.push({ d: n.d, esporte: n.esporte, comp: n.comp, t: n.t, x: x, link: n.link, fonte: n.fonte });\n' +
     '  });\n' +

@@ -7,7 +7,7 @@ window.NOTICIAS_AUTO = {"atualizado":"2026-10-21T02:19:41.165Z","itens":[{"d":"2
   var tem = {}; (E || []).concat(G || []).forEach(function (n) { tem[k(n.t)] = 1; });
   A.forEach(function (n) {
     if (tem[k(n.t)]) return; tem[k(n.t)] = 1; L[n.t] = n.link;
-    var x = n.x || (n.fonte ? "Leia a matéria completa no " + n.fonte + "." : "Leia a matéria completa na fonte.");
+    var x = n.x ? n.x + (n.fonte ? " Fonte: " + n.fonte : "") : (n.fonte ? "Fonte: " + n.fonte : "");
     if (n.esporte === "automobilismo") { if (G) G.push({ d: n.d, cat: n.comp, t: n.t, x: x, link: n.link, fonte: n.fonte }); }
     else if (E) E.push({ d: n.d, esporte: n.esporte, comp: n.comp, t: n.t, x: x, link: n.link, fonte: n.fonte });
   });

@@ -44,7 +44,7 @@
     var logado = r && r.logado;
     if (logado || (r && r.semServidor && !testar) || /entrar|conta|redefinir|privacidade|termos/.test(aqui)) return;
     document.addEventListener('click', function (ev) {
-      var el = ev.target.closest && ev.target.closest(TRAVA); if (!el) return;
+      var el = ev.target.closest && ev.target.closest(TRAVA); if (!el || el.classList.contains('nt-sem-link')) return; /* notícia sem clique: nada a abrir */
       ev.preventDefault(); ev.stopPropagation();
       avisoLogin(el.getAttribute('href') || aqui, el.matches('[data-mt-escolher], .mt-convite, #pg-meu'));
     }, true);

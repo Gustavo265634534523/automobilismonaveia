@@ -37,7 +37,7 @@
       ['Oscar Piastri', 81, 'McLaren'], ['Oliver Bearman', 87, 'Haas']]
   };
   /* endereço da página própria de cada notícia (o mesmo cálculo de .github/paginas-noticias.js) */
-  /* notícias automáticas (assets/dados/noticias-auto.js) levam para a matéria original */
+  /* notícias automáticas (assets/dados/noticias-auto.js): o link da matéria original fica guardado, mas o site não deixa clicar (veja mais abaixo) */
   window.LINK_EXTERNO = window.LINK_EXTERNO || {};
   window.linkNoticia = function (t) {
     if (window.LINK_EXTERNO[t]) return window.LINK_EXTERNO[t];
@@ -399,12 +399,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=357'; document.head.appendChild(chatCss);
-    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=357'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
-    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=357'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=357'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=357'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=357'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=358'; document.head.appendChild(chatCss);
+    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=358'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=358'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=358'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=358'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=358'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -558,7 +558,32 @@
     window.NAVEIA_BOAS_VINDAS = function () {};
   })();
 
-  /* links para fora do site (matérias originais das notícias automáticas) abrem em outra aba */
+  /* notícias automáticas (assets/dados/noticias-auto.js) aparecem no site sem clique: o cartão que levaria para a
+     matéria em outro site vira um bloco comum (mesma aparência, só com a fonte escrita). Vale para todas as listas,
+     inclusive as que a página desenha depois (MutationObserver). */
+  (function () {
+    var EXT = {};
+    function lerLinks() { var L = window.LINK_EXTERNO || {}; Object.keys(L).forEach(function (t) { EXT[L[t]] = 1; }); ((window.NOTICIAS_AUTO || {}).itens || []).forEach(function (n) { if (n.link) EXT[n.link] = 1; }); }
+    function desarmar(raiz) {
+      if (!raiz.querySelectorAll) return;
+      lerLinks();
+      [].forEach.call(raiz.querySelectorAll('a[href^="http"]'), function (a) {
+        if (!EXT[a.getAttribute('href')]) return;
+        var d = document.createElement('div');
+        [].forEach.call(a.attributes, function (at) { if (!/^(href|target|rel)$/.test(at.name)) d.setAttribute(at.name, at.value); });
+        d.classList.add('nt-sem-link');
+        while (a.firstChild) d.appendChild(a.firstChild);
+        a.parentNode.replaceChild(d, a);
+      });
+    }
+    function iniciar() {
+      desarmar(document.body);
+      new MutationObserver(function (ms) { ms.forEach(function (m) { [].forEach.call(m.addedNodes, function (no) { if (no.nodeType === 1) { if (no.matches && no.matches('a[href^="http"]')) desarmar(no.parentNode || document.body); else desarmar(no); } }); }); })
+        .observe(document.body, { childList: true, subtree: true });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
+  })();
+  /* os outros links para fora do site abrem em outra aba */
   document.addEventListener('click', function (ev) {
     var a = ev.target.closest && ev.target.closest('a[href^="http"]');
     if (a && a.host !== location.host && !a.target) { a.target = '_blank'; a.rel = 'noopener'; }
