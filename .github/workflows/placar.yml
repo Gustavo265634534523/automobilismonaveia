@@ -1,4 +1,5 @@
-# Placar automático (ESPN): jogos, placares, tabelas e líderes da NBA em assets/dados/ao-vivo.js, a cada 10 minutos.
+# Placar automático (ESPN): jogos, placares, tabelas e líderes da NBA em assets/dados/ao-vivo.js, a cada 10 minutos,
+# e o lance a lance e as escalações dos jogos de futebol em assets/dados/partidas/.
 # Também refaz as enquetes ("Quem vence?"), que usam o próximo jogo grande.
 # O agendamento só roda na branch principal; nas outras, roda quando o robô muda ou quando pedido à mão.
 name: Placar automático
@@ -7,6 +8,7 @@ on:
     paths:
       - '.github/placar.js'
       - '.github/workflows/placar.yml'
+      - '.github/partidas.js'
   schedule:
     - cron: '*/10 * * * *'
   workflow_dispatch:
@@ -26,13 +28,15 @@ jobs:
           node-version: 22
       - name: Buscar placares e tabelas
         run: node .github/placar.js
+      - name: Lance a lance e escalações do futebol
+        run: node .github/partidas.js || true
       - name: Enquetes
         run: node .github/enquete.js || true
       - name: Salvar no site
         run: |
           git config user.name "Robô Arena Sports"
           git config user.email "automobilismonaveiacontato@gmail.com"
-          git add assets/dados/ao-vivo.js assets/dados/escudos.js assets/img/escudos .github/placar-relatorio.txt assets/dados/enquete.json
+          git add assets/dados/ao-vivo.js assets/dados/partidas assets/dados/escudos.js assets/img/escudos .github/placar-relatorio.txt assets/dados/enquete.json
           git diff --cached --quiet && exit 0
           git commit -m "Robô: placares e tabelas atualizados"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
