@@ -1,129 +1,133 @@
-/* Entrada do site (index.html): hero escuro de arena. O nome do esporte em letra gigante "de time universitário"
-   (Alfa Slab One, com textura gasta) fica atrás do objeto do esporte, que gira num carrossel 3D com os outros dois.
-   Em volta do objeto da frente, um aro de texto girando; embaixo, a frase e o botão Entrar na cor do esporte. */
+/* Entrada do site (index.html): foto de arena em tela cheia, o nome do esporte em letras 3D (face clara com brilho
+   passando e profundidade na cor do esporte) e o objeto do esporte flutuando na frente das letras.
+   Embaixo, o botão Entrar com as setas e as abas dos três esportes com a barra de tempo da troca automática. */
 :root {
-  --fundo: #070708;
-  --texto: #f4f4f5;
-  --apagado: rgba(244, 244, 245, .6);
-  --futebol: #2ea062;
+  --fundo: #050608;
+  --texto: #f4f5f7;
+  --apagado: rgba(244, 245, 247, .62);
+  --futebol: #22a35a;
   --basquete: #f07a2a;
   --automobilismo: #e3343c;
-  --cor: var(--futebol); /* cor do esporte que está na frente (landing.js troca) */
-  --gigante: 'Alfa Slab One', 'Rockwell Extra Bold', Georgia, serif;
+  --cor: var(--futebol); /* cor do esporte da vez (landing.js troca) */
+  --display: 'Anton', 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
   --sans: 'Inter', Arial, sans-serif;
+  --tempo: 7s; /* troca automática */
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body.ld { margin: 0; overflow: hidden; background: var(--fundo); color: var(--texto); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+html:has(body.ld) { overflow: hidden; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 :focus-visible { outline: 2px solid var(--cor); outline-offset: 4px; }
 
-/* fundo: a imagem do esporte bem desfocada e escura (a "arena"), um holofote em cima, traços de luz e vinheta */
-.ld-fundo { position: fixed; inset: 0; overflow: hidden; }
-.ld-amb { position: absolute; inset: -8%; background-size: cover; background-position: center; filter: blur(46px) saturate(1.2) brightness(.32); opacity: 0; transform: scale(1.1); transition: opacity 1s ease; animation: ld-zoom 18s ease-in-out infinite alternate; }
-.ld-amb.ativo { opacity: 1; }
-@keyframes ld-zoom { from { transform: scale(1.1); } to { transform: scale(1.22) translate3d(-2%, -2%, 0); } }
-.ld-holofote { position: absolute; inset: 0; background: radial-gradient(ellipse 38% 46% at 50% 44%, color-mix(in srgb, var(--cor) 30%, transparent), transparent 70%), radial-gradient(ellipse 60% 30% at 50% 0%, rgba(255, 255, 255, .08), transparent 70%); transition: background 1s ease; }
-.ld-luzes { position: absolute; inset: 0; width: 100%; height: 100%; mix-blend-mode: screen; opacity: .7; }
-.ld-vinheta { position: absolute; inset: 0; background: radial-gradient(ellipse 75% 70% at 50% 48%, transparent 35%, rgba(7, 7, 8, .8) 82%, var(--fundo) 100%); }
+/* fundo: a foto do esporte (troca com fade e zoom lento), escurecida nas bordas para o texto aparecer */
+.ld-fundo { position: fixed; inset: 0; overflow: hidden; background: var(--fundo); }
+.ld-bg { position: absolute; inset: -3%; background-size: cover; background-position: center 60%; opacity: 0; transform: scale(1.08) translate3d(var(--px, 0), var(--py, 0), 0);
+  transition: opacity 1.2s ease, transform 8s cubic-bezier(.2, .7, .2, 1); filter: saturate(1.1) brightness(.78); }
+.ld-bg.ativo { opacity: 1; transform: scale(1) translate3d(var(--px, 0), var(--py, 0), 0); }
+/* foto nova da entrada e, por baixo, a antiga (se a nova ainda não tiver chegado) */
+.ld-bg[data-esp="futebol"] { background-image: url(../img/hero/futebol.webp), url(../img/esportes/futebol.webp); }
+.ld-bg[data-esp="basquete"] { background-image: url(../img/hero/basquete.webp), url(../img/esportes/basquete.webp); }
+.ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo.webp), url(../img/esportes/automobilismo.webp); }
+.ld-fundo::after { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(5, 6, 8, .78) 0%, rgba(5, 6, 8, .15) 22%, rgba(5, 6, 8, .1) 55%, rgba(5, 6, 8, .88) 88%, var(--fundo) 100%),
+              radial-gradient(ellipse 90% 70% at 50% 45%, transparent 40%, rgba(5, 6, 8, .7) 100%); }
+.ld-brilho { position: absolute; inset: 0; z-index: 1; mix-blend-mode: screen; opacity: .55; transition: background .9s ease;
+  background: radial-gradient(ellipse 42% 38% at 50% 58%, color-mix(in srgb, var(--cor) 40%, transparent), transparent 70%); }
+.ld-grao { position: absolute; inset: 0; z-index: 1; opacity: .07; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
-/* topo: marca à esquerda, esportes à direita (como "Products / About us" da referência) */
-.ld-topo { position: fixed; z-index: 5; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: max(18px, env(safe-area-inset-top)) clamp(18px, 4vw, 48px) 0; }
-.ld-marca { display: inline-flex; align-items: center; gap: 10px; color: var(--texto); text-decoration: none; font-weight: 800; letter-spacing: .14em; font-size: 14px; }
+/* topo */
+.ld-topo { position: fixed; z-index: 6; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: max(20px, env(safe-area-inset-top)) clamp(18px, 4vw, 56px) 0; }
+.ld-marca { display: inline-flex; align-items: center; gap: 10px; color: var(--texto); text-decoration: none; font-weight: 800; letter-spacing: .16em; font-size: 14px; }
 .ld-sinal { display: inline-flex; gap: 4px; }
-.ld-sinal i { display: block; width: 6px; height: 20px; background: var(--automobilismo); transform: skewX(-24deg); }
+.ld-sinal i { display: block; width: 6px; height: 20px; background: var(--cor); transform: skewX(-24deg); transition: background .8s ease; }
 .ld-sinal i + i { background: var(--texto); }
-.ld-nav { display: flex; gap: clamp(14px, 2.6vw, 34px); }
-.ld-nav a { position: relative; padding: 6px 0; color: var(--apagado); text-decoration: none; font-size: 14px; font-weight: 600; transition: color .3s ease; }
-.ld-nav a:hover, .ld-nav a.ativo { color: var(--texto); }
-.ld-nav a.ativo::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--cor); }
+.ld-nav { display: flex; gap: 6px; padding: 5px; border-radius: 999px; background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+.ld-nav a { padding: 8px 16px; border-radius: 999px; color: var(--apagado); text-decoration: none; font-size: 13.5px; font-weight: 600; transition: color .3s ease, background .3s ease; }
+.ld-nav a:hover { color: var(--texto); }
+.ld-nav a.ativo { color: #fff; background: rgba(255, 255, 255, .14); }
 
-/* palco */
-.ld-palco { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; perspective: 1400px; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+/* palco: as letras 3D e o objeto */
+.ld-palco { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.ld-cena { position: relative; width: 100%; display: grid; place-items: center; margin-top: -2vh; perspective: 1100px; }
 
-/* nome gigante atrás do objeto: letra de placa de time, com textura gasta e contorno. Fica dentro do anel 3D,
-   numa profundidade entre os objetos dos lados (mais fundo) e o da frente, e o scale compensa a perspectiva. */
-.ld-palavras { position: absolute; left: 50%; top: 50%; width: 0; height: 0; font-size: clamp(64px, 17vw, 260px); pointer-events: none; transform: translateZ(-200px) scale(1.143); }
-.ld-palavra { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%) scale(.96); white-space: nowrap; font-family: var(--gigante); font-weight: 400; line-height: 1; letter-spacing: .01em; text-transform: uppercase;
-  font-size: calc(min(1em, 92vw / (var(--letras, 7) * .82)));
-  color: transparent; -webkit-text-stroke: 1.5px rgba(255, 255, 255, .55);
-  background: repeating-linear-gradient(115deg, rgba(255,255,255,.08) 0 2px, transparent 2px 7px), linear-gradient(180deg, #f2f2f3 0%, #c9c9cc 46%, #8d8d92 100%);
-  -webkit-background-clip: text; background-clip: text;
-  filter: drop-shadow(0 18px 40px rgba(0, 0, 0, .65)); opacity: 0; transition: opacity .55s ease, transform .8s cubic-bezier(.22, .9, .25, 1), filter .55s ease; }
-.ld-palavra.ativa { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+/* letras 3D: cada letra tem a face (gradiente claro com um brilho que passa) e, atrás, a profundidade em camadas
+   na cor do esporte escurecida; o bloco inclina um pouco seguindo o mouse */
+.ld-titulo { --fs: min(19vw, 30vh, calc(94vw / (var(--letras, 8) * .5))); margin: 0; font-family: var(--display); font-weight: 400; font-size: var(--fs); line-height: .9; letter-spacing: .015em; text-transform: uppercase; white-space: nowrap;
+  transform: rotateX(calc(14deg + var(--ty, 0deg))) rotateY(var(--tx, 0deg)); transform-origin: 50% 70%; transition: transform .6s cubic-bezier(.2, .8, .2, 1); pointer-events: none; }
+.ld-l { --ex: color-mix(in srgb, var(--cor) 45%, #07080a); --ex2: color-mix(in srgb, var(--cor) 20%, #020203);
+  position: relative; display: inline-block; color: transparent;
+  animation: ld-letra .9s cubic-bezier(.2, .85, .25, 1) both; animation-delay: calc(var(--i) * 55ms); }
+.ld-l::before, .ld-l::after { content: attr(data-l); position: absolute; left: 0; top: 0; }
+/* profundidade: a letra repetida em camadas para baixo, na cor do esporte escurecida, e a sombra no chão */
+.ld-l::before { z-index: 0; color: var(--ex);
+  text-shadow: 0 1px 0 var(--ex), 0 2px 0 var(--ex), 0 3px 0 var(--ex), 0 4px 0 var(--ex), 0 5px 0 var(--ex), 0 6px 0 var(--ex2), 0 7px 0 var(--ex2), 0 8px 0 var(--ex2), 0 9px 0 var(--ex2), 0 10px 0 var(--ex2), 0 11px 0 var(--ex2), 0 12px 0 var(--ex2),
+    0 14px 6px rgba(0, 0, 0, .55), 0 30px 40px rgba(0, 0, 0, .6), 0 0 80px color-mix(in srgb, var(--cor) 30%, transparent); }
+/* face: metal claro com um brilho que passa */
+.ld-l::after { z-index: 1; color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, .5);
+  background: linear-gradient(100deg, #c9d0d8 0%, #ffffff 30%, #ffffff 36%, #aab3bd 46%, #eef1f4 62%, #c3cad2 100%) 0 0 / 260% 100%;
+  -webkit-background-clip: text; background-clip: text; animation: ld-brilho 5.5s ease-in-out 1.2s infinite; }
+.ld-l.sai { animation: ld-letra-sai .4s cubic-bezier(.5, 0, .75, 0) both; animation-delay: calc(var(--i) * 30ms); }
+.ld-esp { display: inline-block; width: .28em; }
+@keyframes ld-brilho { 0%, 30% { background-position: 100% 0; } 70%, 100% { background-position: 0 0; } }
+@keyframes ld-letra { from { opacity: 0; transform: translateY(.45em) rotateX(-70deg); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes ld-letra-sai { to { opacity: 0; transform: translateY(-.3em) rotateX(50deg); filter: blur(6px); } }
 
-/* carrossel: os três objetos num anel; o da frente grande e na frente do nome */
-.ld-anel { --w: min(46vh, 42vw, 440px); --passo: calc(var(--w) * 1.32); position: relative; width: var(--w); aspect-ratio: 1; margin-top: -4vh; transform-style: preserve-3d; }
-.ld-card { position: absolute; inset: 0; display: block; color: #fff; text-decoration: none; z-index: var(--zi, 1);
-  transform: translate3d(calc(var(--k, 0) * var(--passo)), 0, calc(var(--ak, 0) * -620px + var(--z, 0px))) rotateY(calc(var(--k, 0) * -28deg));
-  filter: brightness(.3) saturate(.5) blur(2px); opacity: .55; transition: transform 1.1s cubic-bezier(.22, .9, .25, 1), filter .6s ease, opacity .8s ease; }
-.ld-card:nth-child(2) { transition-delay: .06s, 0s, .06s; }
-.ld-card:nth-child(3) { transition-delay: .12s, 0s, .12s; }
-.ld-obj { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; pointer-events: none;
-  /* a imagem vem com fundo preto: a máscara redonda some com as bordas e o objeto "flutua" na arena */
-  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 71%); mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 71%);
-  animation: ld-flutua 6s ease-in-out infinite; }
-.ld-obj.recortado { -webkit-mask-image: none; mask-image: none; }
-@keyframes ld-flutua { 0%, 100% { translate: 0 0; } 50% { translate: 0 -10px; } }
-.ld-card.frente { opacity: 1; filter: drop-shadow(0 40px 60px rgba(0, 0, 0, .7)) drop-shadow(0 0 50px color-mix(in srgb, var(--cor) 35%, transparent)); }
-.ld-card.volta { opacity: 0; }
+/* objeto do esporte: na frente da parte de baixo das letras, flutuando */
+.ld-objetos { position: absolute; left: 50%; top: 50%; width: min(36vh, 34vw, 380px); aspect-ratio: 1; transform: translate(-50%, -18%); z-index: 2; }
+.ld-obj { position: absolute; inset: 0; display: block; opacity: 0; transform: translateY(40px) scale(.82) rotate(-8deg); filter: blur(6px); pointer-events: none;
+  transition: opacity .6s ease, transform .9s cubic-bezier(.2, .85, .25, 1), filter .6s ease; }
+.ld-obj.ativo { opacity: 1; transform: translate3d(var(--ox, 0), var(--oy, 0), 0); filter: drop-shadow(0 34px 40px rgba(0, 0, 0, .7)) drop-shadow(0 0 40px color-mix(in srgb, var(--cor) 35%, transparent)); pointer-events: auto; transition-delay: .15s; }
+.ld-obj img { width: 100%; height: 100%; object-fit: contain; animation: ld-flutua 6s ease-in-out infinite;
+  /* imagem com fundo preto: a máscara redonda some com as bordas; a recortada (fundo transparente) entra sem máscara */
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 71%); mask-image: radial-gradient(circle at 50% 50%, #000 52%, transparent 71%); }
+.ld-obj img.recortado { -webkit-mask-image: none; mask-image: none; }
+@keyframes ld-flutua { 0%, 100% { translate: 0 0; rotate: 0deg; } 50% { translate: 0 -12px; rotate: 2deg; } }
 
-/* aro de texto girando em volta do objeto da frente */
-.ld-aro { position: absolute; inset: -9%; width: 118%; height: 118%; z-index: 4; pointer-events: none; overflow: visible; animation: ld-gira 26s linear infinite; }
-.ld-aro text { fill: rgba(255, 255, 255, .78); font: 800 12px var(--sans); }
-@keyframes ld-gira { to { transform: rotate(360deg); } }
-
-/* frase e botão */
-.ld-info { position: relative; z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 18px; margin-top: clamp(10px, 3vh, 30px); text-align: center; }
-.ld-frase { margin: 0; max-width: 520px; padding: 0 20px; font-size: 15px; line-height: 1.5; color: var(--apagado); min-height: 1.5em; transition: opacity .4s ease; }
-.ld-frase b { color: var(--cor); font-weight: 800; }
-.ld-cta { display: inline-flex; align-items: center; gap: 12px; padding: 14px 38px; border-radius: 6px; background: var(--cor); color: #fff; text-decoration: none; font-weight: 800; font-size: 14px; letter-spacing: .14em; text-transform: uppercase;
-  box-shadow: 0 14px 34px -12px color-mix(in srgb, var(--cor) 80%, transparent); transition: background .6s ease, transform .2s ease, box-shadow .6s ease; }
-.ld-cta::after { content: none; transition: transform .2s ease; }
+/* Entrar e setas embaixo */
+.ld-info { position: absolute; z-index: 4; left: 0; right: 0; bottom: calc(max(24px, env(safe-area-inset-bottom)) + 84px); display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.ld-cta { display: inline-flex; align-items: center; gap: 12px; padding: 16px 40px; border-radius: 999px; background: var(--cor); color: #fff; text-decoration: none; font-weight: 800; font-size: 14px; letter-spacing: .14em; text-transform: uppercase;
+  box-shadow: 0 16px 40px -12px color-mix(in srgb, var(--cor) 85%, transparent), inset 0 1px 0 rgba(255, 255, 255, .25); transition: background .8s ease, transform .2s ease, box-shadow .8s ease; }
 .ld-cta:hover { transform: translateY(-2px); }
-.ld-cta:hover::after { transform: translateX(4px); }
+.ld-setas { display: flex; gap: 12px; }
+.ld-seta { width: 44px; height: 44px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 50%; background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14); color: var(--texto); cursor: pointer; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background .2s ease; }
+.ld-seta:hover { background: rgba(255, 255, 255, .16); }
+.ld-seta svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-/* setas na lateral esquerda, contador vertical à direita e pontos embaixo (como na referência) */
-/* setas logo abaixo do botão Entrar, lado a lado */
-.ld-setas { display: flex; gap: 14px; }
-.ld-seta { width: 46px; height: 46px; display: grid; place-items: center; border-radius: 50%; color: var(--texto); cursor: pointer; }
-.ld-seta svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; position: relative; z-index: 1; }
-.ld-seta:hover { background: rgba(255, 255, 255, .1); }
-.ld-contador { position: fixed; z-index: 5; right: clamp(14px, 2.4vw, 34px); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; font-size: 13px; font-weight: 700; color: var(--apagado); }
-.ld-contador b { color: var(--texto); font-size: 15px; }
-.ld-contador i { display: block; width: 2px; height: 90px; background: linear-gradient(var(--cor) var(--prog, 33%), rgba(255, 255, 255, .18) var(--prog, 33%)); transition: background .6s ease; }
-.ld-pontos { position: fixed; z-index: 5; left: 50%; bottom: max(22px, env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; gap: 8px; }
-.ld-ponto { width: 8px; height: 8px; padding: 0; border: 0; border-radius: 999px; background: rgba(255, 255, 255, .3); cursor: pointer; transition: width .4s ease, background .4s ease; }
-.ld-ponto[aria-selected="true"] { width: 26px; background: var(--cor); }
+/* abas dos esportes com a barra de tempo */
+.ld-abas { position: fixed; z-index: 5; left: 50%; bottom: max(22px, env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; gap: clamp(14px, 4vw, 48px); }
+.ld-abas button { position: relative; display: flex; white-space: nowrap; align-items: baseline; gap: 8px; padding: 10px 0 12px; border: 0; background: none; color: var(--apagado); font: 700 13px var(--sans); letter-spacing: .1em; text-transform: uppercase; cursor: pointer; transition: color .3s ease; }
+.ld-abas small { font-size: 11px; color: rgba(255, 255, 255, .35); }
+.ld-abas button:hover, .ld-abas button[aria-selected="true"] { color: #fff; }
+.ld-abas i { position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: rgba(255, 255, 255, .18); overflow: hidden; }
+.ld-abas i::after { content: ''; position: absolute; inset: 0; background: var(--cor); transform: scaleX(0); transform-origin: left; }
+.ld-abas button[aria-selected="true"] i::after { animation: ld-tempo var(--tempo) linear forwards; }
+.ld-parado .ld-abas button[aria-selected="true"] i::after { animation: none; transform: scaleX(1); }
+@keyframes ld-tempo { to { transform: scaleX(1); } }
 
-/* vidro translúcido nos botões redondos */
-.liquid-glass { background: rgba(255, 255, 255, .03); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: none; box-shadow: inset 0 1px 1px rgba(255, 255, 255, .12); position: relative; overflow: hidden; }
-.liquid-glass::before { content: ''; position: absolute; inset: 0; border-radius: inherit; padding: 1.4px; background: linear-gradient(180deg, rgba(255,255,255,.45) 0%, rgba(255,255,255,.15) 20%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,.15) 80%, rgba(255,255,255,.45) 100%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
-
-/* abertura: o nome sobe desfocado e os objetos chegam do fundo */
-.ld-intro .ld-card { --z: -900px; opacity: 0; }
-.ld-intro .ld-palavra.ativa { opacity: 0; transform: translate(-50%, -40%) scale(1.04); filter: blur(14px); }
-.ld-intro .ld-info, .ld-intro .ld-topo, .ld-intro .ld-setas, .ld-intro .ld-contador, .ld-intro .ld-pontos, .ld-intro .ld-aro { opacity: 0; }
-.ld-info, .ld-topo, .ld-setas, .ld-contador, .ld-pontos { transition: opacity .8s ease .6s; }
-.ld-aro { transition: opacity .8s ease .9s; }
-
-/* ao escolher: o objeto cresce, o resto some */
-.ld-saindo .ld-card.frente { --z: 320px; }
-.ld-saindo .ld-card:not(.frente), .ld-saindo .ld-palavras, .ld-saindo .ld-info, .ld-saindo .ld-aro, .ld-saindo .ld-fundo, .ld-saindo .ld-topo, .ld-saindo .ld-setas, .ld-saindo .ld-contador, .ld-saindo .ld-pontos { opacity: 0; transition: opacity .45s ease; }
+/* abertura e saída */
+.ld-intro .ld-topo, .ld-intro .ld-info, .ld-intro .ld-abas { opacity: 0; }
+.ld-topo, .ld-info, .ld-abas { transition: opacity .8s ease .5s; }
+.ld-saindo .ld-obj.ativo { transform: scale(1.5); opacity: 0; transition: transform .5s ease, opacity .5s ease; }
+.ld-saindo .ld-titulo, .ld-saindo .ld-info, .ld-saindo .ld-abas, .ld-saindo .ld-topo { opacity: 0; transition: opacity .4s ease; }
+.ld-saindo .ld-fundo { opacity: .3; transition: opacity .5s ease; }
 
 @media (max-width: 720px) {
-  .ld-nav a:not(.ativo):not([href="inicio.html"]) { display: none; }
-  .ld-anel { --w: min(68vw, 40vh); --passo: calc(var(--w) * .95); }
-  .ld-palavras { top: -22%; }
-  .ld-anel { margin-top: 12vh; }
-  .ld-contador { display: none; }
-  .ld-pontos { left: auto; right: 20px; transform: none; bottom: max(32px, env(safe-area-inset-bottom)); }
+  .ld-bg[data-esp="futebol"] { background-image: url(../img/hero/futebol-m.webp), url(../img/esportes/futebol-m.webp); }
+  .ld-bg[data-esp="basquete"] { background-image: url(../img/hero/basquete-m.webp), url(../img/esportes/basquete-m.webp); }
+  .ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo-m.webp), url(../img/esportes/automobilismo-m.webp); }
+  .ld-nav { display: none; }
+  .ld-cena { margin-top: -16vh; }
+  .ld-titulo { --fs: min(22vw, calc(94vw / (var(--letras, 8) * .5))); }
+  .ld-objetos { width: min(62vw, 34vh); transform: translate(-50%, 2%); }
+  .ld-info { bottom: calc(max(20px, env(safe-area-inset-bottom)) + 70px); }
+  .ld-abas { gap: 18px; }
+  .ld-abas small { display: none; }
+  .ld-abas button { font-size: 12px; letter-spacing: .06em; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ld-amb, .ld-obj, .ld-aro { animation: none; }
-  .ld-card, .ld-palavra { transition-duration: .01s !important; }
+  .ld-l, .ld-l::after, .ld-obj img { animation: none !important; }
+  .ld-bg, .ld-obj { transition-duration: .01s !important; }
 }
-
-/* sem rolagem para o lado no celular (os cartões de trás passam da tela) */
-html:has(body.ld), body.ld { overflow-x: hidden; }

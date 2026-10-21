@@ -22,20 +22,20 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Alfa+Slab+One&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/img/entrada/futebol.webp">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Anton&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/hero/futebol.webp" media="(min-width: 721px)">
+<link rel="preload" as="image" href="assets/img/hero/futebol-m.webp" media="(max-width: 720px)">
 <link rel="stylesheet" href="assets/css/landing.css?v=344">
 </head>
 <body class="ld">
-<!-- Entrada do site: hero escuro com o nome do esporte gigante atrás do objeto (bola, bola, capacete) e o carrossel 3D
-     dos três esportes (assets/js/landing.js). O portal com notícias e jogos fica em inicio.html. -->
+<!-- Entrada do site: foto de arena em tela cheia (uma por esporte), o nome do esporte em letras 3D e o objeto do esporte
+     (bola, bola, capacete) na frente. Troca sozinho, pelas abas, pelas setas, arrastando e pelo teclado (assets/js/landing.js). -->
 <div class="ld-fundo" aria-hidden="true">
-  <div class="ld-amb" data-esp="futebol" style="background-image:url(assets/img/esportes/futebol-m.webp)"></div>
-  <div class="ld-amb" data-esp="basquete" style="background-image:url(assets/img/esportes/basquete-m.webp)"></div>
-  <div class="ld-amb" data-esp="automobilismo" style="background-image:url(assets/img/esportes/automobilismo-m.webp)"></div>
-  <div class="ld-holofote"></div>
-  <canvas class="ld-luzes" id="ld-luzes"></canvas>
-  <div class="ld-vinheta"></div>
+  <div class="ld-bg" data-esp="futebol"></div>
+  <div class="ld-bg" data-esp="basquete"></div>
+  <div class="ld-bg" data-esp="automobilismo"></div>
+  <div class="ld-brilho"></div>
+  <div class="ld-grao"></div>
 </div>
 
 <header class="ld-topo">
@@ -45,35 +45,30 @@
   </nav>
 </header>
 
-<main class="ld-palco" id="ld-palco" aria-roledescription="carrossel" aria-label="Escolha o seu esporte">
+<main class="ld-palco" id="ld-palco" aria-label="Escolha o seu esporte">
   <h1 class="sr">Arena Sports: escolha o seu esporte</h1>
-  <div class="ld-anel" id="ld-anel">
-    <div class="ld-palavras" aria-hidden="true">
-      <span class="ld-palavra" data-esp="futebol">Futebol</span>
-      <span class="ld-palavra" data-esp="basquete">Basquete</span>
-      <span class="ld-palavra" data-esp="automobilismo">Fórmula 1</span>
+  <div class="ld-cena" id="ld-cena">
+    <p class="ld-titulo" id="ld-titulo" aria-hidden="true"></p>
+    <div class="ld-objetos">
+      <a class="ld-obj" data-esp="futebol" href="futebol.html" aria-label="Futebol"><img src="assets/img/entrada/futebol.webp" alt="" draggable="false"></a>
+      <a class="ld-obj" data-esp="basquete" href="basquete.html" aria-label="Basquete"><img src="assets/img/entrada/basquete.webp" alt="" draggable="false"></a>
+      <a class="ld-obj" data-esp="automobilismo" href="automobilismo.html" aria-label="Fórmula 1"><img src="assets/img/entrada/automobilismo.webp" alt="" draggable="false"></a>
     </div>
-    <a class="ld-card" data-esp="futebol" href="futebol.html" aria-label="Futebol">
-      <img class="ld-obj" src="assets/img/entrada/futebol.webp" alt="" draggable="false">
-    </a>
-    <a class="ld-card" data-esp="basquete" href="basquete.html" aria-label="Basquete">
-      <img class="ld-obj" src="assets/img/entrada/basquete.webp" alt="" draggable="false">
-    </a>
-    <a class="ld-card" data-esp="automobilismo" href="automobilismo.html" aria-label="Fórmula 1">
-      <img class="ld-obj" src="assets/img/entrada/automobilismo.webp" alt="" draggable="false">
-    </a>
   </div>
   <div class="ld-info">
     <a class="ld-cta" id="ld-cta" href="futebol.html">Entrar</a>
     <div class="ld-setas">
-      <button type="button" class="ld-seta liquid-glass" id="ld-ant" aria-label="Esporte anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-      <button type="button" class="ld-seta liquid-glass" id="ld-prox" aria-label="Próximo esporte"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      <button type="button" class="ld-seta" id="ld-ant" aria-label="Esporte anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button type="button" class="ld-seta" id="ld-prox" aria-label="Próximo esporte"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
     </div>
   </div>
 </main>
 
-<div class="ld-contador" aria-hidden="true"><b id="ld-num">01</b><i></i><span>03</span></div>
-<div class="ld-pontos" id="ld-pontos" role="tablist" aria-label="Esportes"></div>
+<nav class="ld-abas" id="ld-abas" role="tablist" aria-label="Esportes">
+  <button type="button" role="tab" data-i="0"><small>01</small>Futebol<i></i></button>
+  <button type="button" role="tab" data-i="1"><small>02</small>Basquete<i></i></button>
+  <button type="button" role="tab" data-i="2"><small>03</small>Fórmula 1<i></i></button>
+</nav>
 
 <script src="assets/js/landing.js?v=344"></script>
 <script>
