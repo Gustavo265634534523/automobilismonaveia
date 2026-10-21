@@ -61,6 +61,8 @@
     body.classList.add('ld-saindo');
     setTimeout(function () { location.href = LINKS[ESP[atual]]; }, calmo ? 0 : 450);
   }
+  /* se a pessoa voltar pelo botão do navegador, a página aparece de novo normal */
+  window.addEventListener('pageshow', function (e) { if (e.persisted) { saindo = false; body.classList.remove('ld-saindo'); } });
 
   abas.forEach(function (b, i) { b.addEventListener('click', function () { parar(); ir(i); }); });
   document.getElementById('ld-ant').addEventListener('click', function () { parar(); ir(atual - 1); });
