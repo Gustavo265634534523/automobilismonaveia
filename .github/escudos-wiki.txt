@@ -1,7 +1,7 @@
 # Escudos procurados na Wikipédia (imagem principal do artigo do clube). Uma linha por time:
 # Nome usado no site | título do artigo em inglês | título do artigo em português (opcional)
 # O robô (.github/escudos-wiki.js) baixa candidatos para assets/img/escudos/cand/; cada um é conferido à mão antes de entrar no site.
-# Rodada atual: clubes das trajetórias do jogo Adivinhe o jogador (assets/dados/adivinhe.js).
+# Última rodada: clubes das trajetórias do jogo Adivinhe o jogador (assets/dados/adivinhe.js), conferidos e já no site.
 Al-Hilal | Al Hilal SFC | Al-Hilal Saudi Football Club
 Inter Miami | Inter Miami CF | Inter Miami CF
 Al-Nassr | Al Nassr FC | Al-Nassr Football Club
