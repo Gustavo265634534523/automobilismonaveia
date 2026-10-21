@@ -1,7 +1,7 @@
 # Escudos procurados na Wikipédia (imagem principal do artigo do clube). Uma linha por time:
 # Nome usado no site | título do artigo em inglês | título do artigo em português (opcional)
 # O robô (.github/escudos-wiki.js) baixa candidatos para assets/img/escudos/cand/; cada um é conferido à mão antes de entrar no site.
-# Rodada atual: clubes novos das trajetórias dos jogos (Adivinhe o jogador e Grade), para conferir.
+# Última rodada: clubes novos das trajetórias dos jogos (Adivinhe o jogador e Grade), conferidos e já no site.
 Al-Ahli Dubai | Shabab Al Ahli Club | Shabab Al-Ahli Club
 Ituano | Ituano FC | Ituano Futebol Clube
 Rio Ave | Rio Ave F.C. | Rio Ave Futebol Clube
