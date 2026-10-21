@@ -1,5 +1,5 @@
-/* Entrada do site (index.html): foto de arena em tela cheia, o nome do esporte em letras 3D (face clara com brilho
-   passando e profundidade na cor do esporte) e o objeto do esporte flutuando na frente das letras.
+/* Entrada do site (index.html): foto de arena em tela cheia, o nome do esporte em letra alta na cor do esporte,
+   com brilho em volta, e o objeto do esporte flutuando na frente das letras.
    Embaixo, o botão Entrar com as setas e as abas dos três esportes com a barra de tempo da troca automática. */
 :root {
   --fundo: #050608;
@@ -9,7 +9,7 @@
   --basquete: #f07a2a;
   --automobilismo: #e3343c;
   --cor: var(--futebol); /* cor do esporte da vez (landing.js troca) */
-  --display: 'Montserrat', 'Arial Black', Arial, sans-serif;
+  --display: 'Bebas Neue', 'Oswald', Impact, 'Arial Narrow', sans-serif;
   --sans: 'Inter', Arial, sans-serif;
   --tempo: 7s; /* troca automática */
   color-scheme: dark;
@@ -53,25 +53,16 @@ html:has(body.ld) { overflow: hidden; }
 .ld-palco { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
 .ld-cena { position: relative; width: 100%; display: grid; place-items: center; margin-top: -2vh; perspective: 1100px; }
 
-/* letras 3D: cada letra tem a face (gradiente claro com um brilho que passa) e, atrás, a profundidade em camadas
-   na cor do esporte escurecida; o bloco inclina um pouco seguindo o mouse */
-.ld-titulo { --fs: min(15vw, 22vh, calc(92vw / (var(--letras, 8) * .74))); margin: 0; font-family: var(--display); font-weight: 900; font-style: italic; font-size: var(--fs); line-height: 1; letter-spacing: -.01em; text-transform: uppercase; white-space: nowrap;
-  transform: rotateX(calc(8deg + var(--ty, 0deg))) rotateY(var(--tx, 0deg)); transform-origin: 50% 70%; transition: transform .6s cubic-bezier(.2, .8, .2, 1); pointer-events: none; }
-.ld-l { --ex: color-mix(in srgb, var(--cor) 45%, #07080a); --ex2: color-mix(in srgb, var(--cor) 20%, #020203);
-  position: relative; display: inline-block; color: transparent;
-  animation: ld-letra .9s cubic-bezier(.2, .85, .25, 1) both; animation-delay: calc(var(--i) * 55ms); }
-.ld-l::before, .ld-l::after { content: attr(data-l); position: absolute; left: 0; top: 0; }
-/* profundidade: a letra repetida em camadas para baixo, na cor do esporte escurecida, e a sombra no chão */
-.ld-l::before { z-index: 0; color: var(--ex);
-  text-shadow: 1px 1px 0 var(--ex), 2px 2px 0 var(--ex), 3px 3px 0 var(--ex), 4px 4px 0 var(--ex), 5px 5px 0 var(--ex), 6px 6px 0 var(--ex2), 7px 7px 0 var(--ex2), 8px 8px 0 var(--ex2), 9px 9px 0 var(--ex2), 10px 10px 0 var(--ex2),
-    14px 18px 16px rgba(0, 0, 0, .6), 0 30px 60px rgba(0, 0, 0, .55), 0 0 90px color-mix(in srgb, var(--cor) 35%, transparent); }
-/* face: metal claro com um brilho que passa */
-.ld-l::after { z-index: 1; color: transparent;
-  background: linear-gradient(100deg, transparent 0%, transparent 38%, rgba(255, 255, 255, .95) 46%, transparent 54%, transparent 100%) 0 0 / 260% 100%, linear-gradient(180deg, #ffffff 0%, #f2f4f7 46%, #c3cbd5 54%, #eef1f4 100%);
-  -webkit-background-clip: text; background-clip: text; animation: ld-brilho 5.5s ease-in-out 1.2s infinite; }
+/* nome do esporte em letra alta e condensada; o bloco inclina um pouco seguindo o mouse */
+.ld-titulo { --fs: min(21vw, 30vh, calc(94vw / (var(--letras, 8) * .46))); margin: 0; font-family: var(--display); font-weight: 400; font-size: var(--fs); line-height: .9; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap;
+  transform: rotateX(calc(4deg + var(--ty, 0deg))) rotateY(var(--tx, 0deg)); transform-origin: 50% 70%; transition: transform .6s cubic-bezier(.2, .8, .2, 1); pointer-events: none; }
+/* letras na cor do esporte, com brilho em volta (como um letreiro aceso); entram uma por uma */
+.ld-l { display: inline-block; color: var(--cor); opacity: .94; transition: color .8s ease;
+  text-shadow: 0 0 18px color-mix(in srgb, var(--cor) 70%, transparent), 0 0 60px color-mix(in srgb, var(--cor) 50%, transparent), 0 18px 40px rgba(0, 0, 0, .55);
+  animation: ld-letra .9s cubic-bezier(.2, .85, .25, 1) both, ld-pulsa 4s ease-in-out 1.2s infinite; animation-delay: calc(var(--i) * 55ms), calc(1.2s + var(--i) * 80ms); }
 .ld-l.sai { animation: ld-letra-sai .4s cubic-bezier(.5, 0, .75, 0) both; animation-delay: calc(var(--i) * 30ms); }
-.ld-esp { display: inline-block; width: .24em; }
-@keyframes ld-brilho { 0%, 30% { background-position: 100% 0, 0 0; } 70%, 100% { background-position: 0 0, 0 0; } }
+.ld-esp { display: inline-block; width: .22em; }
+@keyframes ld-pulsa { 0%, 100% { opacity: .94; } 50% { opacity: .8; } }
 @keyframes ld-letra { from { opacity: 0; transform: translateY(.45em) rotateX(-70deg); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes ld-letra-sai { to { opacity: 0; transform: translateY(-.3em) rotateX(50deg); filter: blur(6px); } }
 
@@ -120,7 +111,7 @@ html:has(body.ld) { overflow: hidden; }
   .ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo2-m.webp), url(../img/fotos/automobilismo-m.webp); }
   .ld-nav { display: none; }
   .ld-cena { margin-top: -16vh; }
-  .ld-titulo { --fs: min(17vw, calc(92vw / (var(--letras, 8) * .74))); }
+  .ld-titulo { --fs: min(26vw, calc(94vw / (var(--letras, 8) * .46))); }
   .ld-objetos { width: min(62vw, 34vh); transform: translate(-50%, 2%); }
   .ld-info { bottom: calc(max(20px, env(safe-area-inset-bottom)) + 70px); }
   .ld-abas { gap: 18px; }
@@ -128,6 +119,6 @@ html:has(body.ld) { overflow: hidden; }
   .ld-abas button { font-size: 12px; letter-spacing: .06em; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ld-l, .ld-l::after, .ld-obj img { animation: none !important; }
+  .ld-l, .ld-obj img { animation: none !important; }
   .ld-bg, .ld-obj { transition-duration: .01s !important; }
 }
