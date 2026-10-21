@@ -1,0 +1,36 @@
+# Elencos atuais das principais ligas (ESPN) para o "Monte seu time", em assets/dados/jogadores-todos.js.
+# Toda segunda-feira (pega as contratações), quando o robô muda ou quando pedido à mão.
+name: Jogadores do Monte seu time
+on:
+  push:
+    paths:
+      - '.github/jogadores-espn.js'
+      - '.github/workflows/jogadores.yml'
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: salvar-no-site
+  cancel-in-progress: false
+jobs:
+  jogadores:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Buscar os elencos
+        run: node .github/jogadores-espn.js
+      - name: Salvar no site
+        run: |
+          git config user.name "Robô Arena Sports"
+          git config user.email "automobilismonaveiacontato@gmail.com"
+          git add assets/dados/jogadores-todos.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Robô: elencos do Monte seu time"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1
