@@ -1,6 +1,8 @@
 /* Página do jogo (partida.html?id=<id da ESPN>).
    Futebol: placar, lance a lance (gols, cartões, substituições), escalações desenhadas no campo e estatísticas.
    NBA: placar por quarto, placar completo de cada jogador e estatísticas dos times.
+   Pré-jogo (os dois esportes): chance de vitória, últimos jogos, confronto na temporada, posição na tabela, artilheiros
+   ou cestinhas e, na NBA, os desfalques. Dados: forma-futebol.js e nba-extras.js (robôs) e chances.js.
    Os dados vêm do robô .github/partidas.js (assets/dados/partidas/<id>.json, a cada 10 minutos); com o jogo rolando,
    a página busca o arquivo de novo a cada 2 minutos. */
 (function () {
@@ -13,7 +15,12 @@
   if (!id) { caixa.innerHTML = '<p class="pt-vazio">Jogo não encontrado. <a href="futebol.html">Voltar para o futebol</a>.</p>'; return; }
 
   var basq = achado ? achado.c.esporte === 'basquete' : false;
-  var ABAS = function () { return basq ? [['box', 'Placar completo'], ['estatisticas', 'Estatísticas']] : [['lances', 'Lance a lance'], ['escalacoes', 'Escalações'], ['estatisticas', 'Estatísticas']]; };
+  /* jogo que ainda não começou abre no pré-jogo; o que já começou deixa o pré-jogo por último */
+  var comecou = function () { return !!(achado && (achado.j.p || achado.j.vivo)); };
+  var ABAS = function () {
+    var A = basq ? [['box', 'Placar completo'], ['estatisticas', 'Estatísticas']] : [['lances', 'Lance a lance'], ['escalacoes', 'Escalações'], ['estatisticas', 'Estatísticas']];
+    return comecou() ? A.concat([['prejogo', 'Pré-jogo']]) : [['prejogo', 'Pré-jogo']].concat(A);
+  };
   var aba = (location.hash || '').slice(1), dados = null;
   function abaValida() { if (!ABAS().some(function (a) { return a[0] === aba; })) aba = ABAS()[0][0]; }
   function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === 1 ? 'Amanhã' : n === -1 ? 'Ontem' : window.dataCurta(d); }
@@ -142,6 +149,87 @@
       '<p class="pt-legenda">' + COLS.map(function (c) { return '<b>' + c[1] + '</b> ' + c[2].toLowerCase(); }).join(' · ') + '</p>';
   }
 
+  /* ---------- pré-jogo ---------- */
+  function pct(v) { return Math.round(v * 100) + '%'; }
+  function barraChance(ch, casa, fora) {
+    if (!ch) return '';
+    var rot = basq ? [casa, fora] : [casa, 'Empate', fora], val = basq ? [ch[0], ch[2]] : ch;
+    return '<section class="pj-bloco pj-chance"><h3>Chance de vitória</h3><div class="pj-barra">' + val.map(function (v, i) {
+      return '<span class="pj-b' + (basq ? (i ? 2 : 0) : i) + '" style="flex:' + Math.max(v, .04).toFixed(3) + '"><b>' + pct(v) + '</b></span>';
+    }).join('') + '</div><div class="pj-rotulos">' + rot.map(function (r) { return '<small>' + esc(r) + '</small>'; }).join('') + '</div>' +
+      '<p class="pj-nota">Estimativa do site pela campanha dos dois times' + (basq ? ' (vitórias e derrotas, com a vantagem de jogar em casa).' : ' (pontos e saldo de gols, com a vantagem de jogar em casa).') + '</p></section>';
+  }
+  function letra(a, b) { return a > b ? 'V' : a < b ? 'D' : 'E'; }
+  function formaTime(nome, L, comps) {
+    if (!L || !L.length) return '<div class="pj-forma"><h4>' + window.escudoTime(nome) + esc(nome) + '</h4><p class="pj-nota">Sem jogos recentes registrados.</p></div>';
+    var nomeComp = function (s) { var c = COMPS.filter(function (x) { return x.slug === s; })[0]; return c ? c.menu : s; };
+    return '<div class="pj-forma"><h4>' + window.escudoTime(nome) + esc(nome) + '</h4><div class="pj-letras">' + L.slice(0, 5).map(function (g) {
+      var r = letra(g[2], g[3]); return '<i class="pj-' + r + '" title="' + esc(g[1] + ' ' + g[2] + '–' + g[3]) + '">' + r + '</i>';
+    }).join('') + '</div><ul>' + L.slice(0, 5).map(function (g) {
+      return '<li><span>' + window.dataCurta(g[0]) + '</span><span>' + (g[5] ? 'x ' : '@ ') + esc(g[1]) + '</span><b class="pj-' + letra(g[2], g[3]) + '-t">' + g[2] + '–' + g[3] + '</b>' + (comps && g[4] ? '<small>' + esc(nomeComp(g[4])) + '</small>' : '') + '</li>';
+    }).join('') + '</ul></div>';
+  }
+  /* jogos de um time pelo placar automático (NBA e quem não está na forma do robô): [data, adversário, feitos, sofridos, campeonato, em casa] */
+  function jogosDoPlacar(nome) {
+    var L = [];
+    COMPS.forEach(function (c) { (c.jogos || []).forEach(function (j) {
+      if (!j.p || (j.casa !== nome && j.fora !== nome)) return;
+      var pl = j.p.split(/\s*x\s*/).map(Number), emCasa = j.casa === nome;
+      L.push([j.d, emCasa ? j.fora : j.casa, emCasa ? pl[0] : pl[1], emCasa ? pl[1] : pl[0], c.slug, emCasa ? 1 : 0]);
+    }); });
+    return L.sort(function (a, b) { return a[0] < b[0] ? 1 : -1; });
+  }
+  function naTabela(nome) {
+    var out = [];
+    COMPS.forEach(function (c) { [c.tabela, c.tabela2].forEach(function (t) {
+      if (!t || !t.linhas || /passada|final da temporada/i.test(t.titulo || '')) return;
+      var iT = t.colunas.indexOf('Time'), iP = t.colunas.indexOf('Pts'), iV = t.colunas.indexOf('V-D');
+      t.linhas.forEach(function (l, k) { if (l[iT] === nome) out.push([c.menu + (c.tabela2 ? ' · ' + t.titulo.replace('Conferência ', '') : ''), l[0] || String(k + 1), iP > -1 ? l[iP] + ' pts' : iV > -1 ? l[iV] : '']); });
+    }); });
+    return out;
+  }
+  function prejogo(D) {
+    var j = achado ? achado.j : {}, c = achado ? achado.c : null, casa = D.casa || j.casa, fora = D.fora || j.fora;
+    var FF = window.FORMA_FUTEBOL || {}, NB = window.NBA_EXTRAS || {};
+    var Lc = !basq && (FF.times || {})[casa] || jogosDoPlacar(casa), Lf = !basq && (FF.times || {})[fora] || jogosDoPlacar(fora);
+    /* chance */
+    var ch = null;
+    if (basq) {
+      var rec = function (n) { var t = naTabela(n)[0]; if (!t) return null; var m = String(t[2]).match(/(\d+)-(\d+)/); return m && (+m[1] + +m[2]) ? +m[1] / (+m[1] + +m[2]) : null; };
+      var a = rec(casa), b = rec(fora);
+      if (a != null && b != null) { a = Math.min(.95, Math.max(.05, a)); b = Math.min(.95, Math.max(.05, b)); var p = (a - a * b) / (a + b - 2 * a * b); p = Math.min(.97, p + .04); ch = [p, 0, 1 - p]; }
+    } else if (window.chancesPartida) ch = window.chancesPartida(c, casa, fora);
+    /* confronto na temporada */
+    var h2h = (Lc || []).filter(function (g) { return g[1] === fora; });
+    var tabC = naTabela(casa), tabF = naTabela(fora);
+    var tab = (tabC.length || tabF.length) ? '<section class="pj-bloco"><h3>Na tabela</h3><div class="pj-duas">' + [[casa, tabC], [fora, tabF]].map(function (x) {
+      return '<div><h4>' + window.escudoTime(x[0]) + esc(x[0]) + '</h4>' + (x[1].length ? '<ul class="pj-tab">' + x[1].map(function (t) { return '<li><span>' + esc(t[0]) + '</span><b>' + esc(t[1]) + 'º</b><small>' + esc(t[2]) + '</small></li>'; }).join('') + '</ul>' : '<p class="pj-nota">Fora das tabelas de pontos corridos.</p>') + '</div>';
+    }).join('') + '</div></section>' : '';
+    var destaque = '';
+    if (basq) {
+      var cs = NB.cestinhas || {};
+      if (cs[casa] || cs[fora]) destaque = '<section class="pj-bloco"><h3>Cestinhas' + (NB.temporadaCestinhas ? ' <small>' + esc(NB.temporadaCestinhas) + '</small>' : '') + '</h3><div class="pj-duas">' + [casa, fora].map(function (t) {
+        var x = cs[t]; return '<div><h4>' + window.escudoTime(t) + esc(t) + '</h4>' + (x ? '<p class="pj-craque"><b>' + esc(x[0]) + '</b><span>' + String(x[1]).replace('.', ',') + ' pts · ' + String(x[2]).replace('.', ',') + ' reb · ' + String(x[3]).replace('.', ',') + ' ast por jogo</span></p>' : '<p class="pj-nota">Sem números ainda.</p>') + '</div>';
+      }).join('') + '</div></section>';
+      var les = NB.lesoes || [], lt = function (t) { return (les.filter(function (x) { return x.time === t; })[0] || {}).jogadores || []; };
+      var LC = lt(casa), LF = lt(fora);
+      destaque += '<section class="pj-bloco"><h3>Desfalques</h3><div class="pj-duas">' + [[casa, LC], [fora, LF]].map(function (x) {
+        return '<div><h4>' + window.escudoTime(x[0]) + esc(x[0]) + '</h4>' + (x[1].length ? '<ul class="pj-des">' + x[1].map(function (p) { return '<li><b>' + esc(p[0]) + '</b><span>' + esc(p[2]) + '</span><small>' + esc(p[3]) + '</small></li>'; }).join('') + '</ul>' : '<p class="pj-nota">Ninguém no relatório de lesões.</p>') + '</div>';
+      }).join('') + '</div></section>';
+    } else {
+      var art = FF.artilheiros || {};
+      if (art[casa] || art[fora]) destaque = '<section class="pj-bloco"><h3>Artilheiros na temporada</h3><div class="pj-duas">' + [casa, fora].map(function (t) {
+        var x = art[t] || []; return '<div><h4>' + window.escudoTime(t) + esc(t) + '</h4>' + (x.length ? '<ol class="pj-art">' + x.map(function (p) { return '<li><b>' + esc(p[0]) + '</b><span>' + p[1] + (p[1] === 1 ? ' gol' : ' gols') + (p[2] ? ' · ' + p[2] + (p[2] === 1 ? ' assist.' : ' assists.') : '') + '</span></li>'; }).join('') + '</ol>' : '<p class="pj-nota">Sem gols registrados.</p>') + '</div>';
+      }).join('') + '</div></section>';
+    }
+    return barraChance(ch, casa, fora) +
+      '<section class="pj-bloco"><h3>Últimos jogos</h3><div class="pj-duas">' + formaTime(casa, Lc, true) + formaTime(fora, Lf, true) + '</div></section>' +
+      (h2h.length ? '<section class="pj-bloco"><h3>Confronto na temporada</h3><ul class="pj-h2h">' + h2h.map(function (g) {
+        var pc = g[5] ? [casa, g[2], g[3], fora] : [fora, g[3], g[2], casa];
+        return '<li><span>' + window.dataCurta(g[0]) + '</span><b>' + esc(pc[0]) + ' ' + pc[1] + ' x ' + pc[2] + ' ' + esc(pc[3]) + '</b></li>';
+      }).join('') + '</ul></section>' : '') + tab + destaque;
+  }
+
   function pintar() {
     var j = achado ? achado.j : {}, c = achado ? achado.c : {};
     var D = dados || { casa: j.casa, fora: j.fora, lances: [], escalacoes: null, fim: !!j.p };
@@ -162,7 +250,7 @@
         '<a class="pt-time" href="' + window.linkTime(fora) + '">' + window.escudoTime(fora, 'pt-escudo') + '<b>' + esc(fora) + '</b></a>' +
       '</section>' + (basq ? quartos(D) : '') +
       '<div class="ft-abas pt-abas" role="tablist">' + ABAS().map(function (a) { return '<button type="button" role="tab" data-aba="' + a[0] + '" aria-selected="' + (aba === a[0]) + '">' + a[1] + '</button>'; }).join('') + '</div>' +
-      '<div class="pt-corpo">' + (aba === 'lances' ? lances(D) : aba === 'escalacoes' ? escalacoes(D) : aba === 'box' ? box(D) : estatisticas(D)) + '</div>' +
+      '<div class="pt-corpo">' + (aba === 'prejogo' ? prejogo(D) : aba === 'lances' ? lances(D) : aba === 'escalacoes' ? escalacoes(D) : aba === 'box' ? box(D) : estatisticas(D)) + '</div>' +
       '<p class="pt-fonte">Dados: ESPN. Atualizado sozinho' + (j.vivo ? ' durante o jogo' : '') + '.</p>';
     [].forEach.call(caixa.querySelectorAll('.pt-abas button'), function (b) {
       b.addEventListener('click', function () { aba = b.getAttribute('data-aba'); history.replaceState(null, '', '#' + aba); pintar(); });

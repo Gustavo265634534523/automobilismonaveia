@@ -141,6 +141,7 @@
         '<a class="conta-link" id="conta-link" href="entrar.html">Entrar</a>' +
         '<button class="todas" aria-expanded="false" aria-controls="painel" title="Todas as categorias"><span class="todas-txt">Menu</span><span class="todas-menu">Menu</span>' +
         '<span class="grade-ic" aria-hidden="true">' + new Array(10).join('<i></i>') + '</span><span class="sr">Abrir todas as categorias</span></button>' +
+        '<a class="tema-btn busca-btn" href="busca.html" aria-label="Buscar time, jogador ou campeonato" title="Buscar"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></a>' +
         '<button type="button" class="tema-btn" id="tema-btn" aria-label="Trocar entre modo claro e modo escuro" title="Modo claro ou escuro">' +
           '<svg class="tema-lua" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>' +
           '<svg class="tema-sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg></button>' +
@@ -402,12 +403,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=366'; document.head.appendChild(chatCss);
-    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=366'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
-    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=366'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=366'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=366'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=366'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=367'; document.head.appendChild(chatCss);
+    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=367'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=367'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=367'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=367'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=367'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
