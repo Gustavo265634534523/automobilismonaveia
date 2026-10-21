@@ -943,3 +943,21 @@ a.bu-card:hover { box-shadow: inset 0 0 0 1.5px var(--sangue-vivo); }
 /* Grade: botão para trocar por outra grade quando a pessoa travar */
 .gr-atualizar { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 12px; margin-top: 18px; text-align: center; }
 .gr-atualizar small { color: var(--texto-3); font-size: 13px; }
+/* Basquete 1x1 */
+.b1-placar { display: flex; align-items: center; justify-content: space-between; gap: 10px; max-width: 800px; margin: 0 auto 10px; padding: 10px 16px; border-radius: 14px; background: #0b0d1a; border: 1px solid var(--linha); font: 700 15px var(--texto); color: #fff; }
+.b1-placar b { font: 400 30px 'Bebas Neue', var(--texto); color: #f87171; vertical-align: middle; }
+.b1-voce b { color: #60a5fa; margin-left: 6px; } .b1-cpu b { margin-right: 6px; }
+.b1-relogio { font: 400 30px 'Bebas Neue', var(--texto); color: #fde047; letter-spacing: .04em; }
+.b1-tela { position: relative; max-width: 800px; margin: 0 auto; border-radius: 14px; overflow: hidden; border: 1px solid var(--linha); }
+.b1-tela canvas { display: block; width: 100%; height: auto; touch-action: none; }
+.b1-aviso { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; padding: 16px; text-align: center; background: rgba(6, 7, 20, .72); color: #fff; }
+.b1-aviso[hidden] { display: none; }
+.b1-aviso b { font: 400 clamp(30px, 7vw, 48px) 'Bebas Neue', var(--texto); letter-spacing: .03em; }
+.b1-aviso span { max-width: 380px; font-size: 15px; color: #d1d5db; }
+.b1-botoes { display: grid; grid-template-columns: 1fr 1fr 1.2fr 1.6fr; gap: 8px; max-width: 800px; margin: 12px auto 0; }
+.b1-botoes button { height: 62px; border-radius: 14px; border: 1px solid var(--linha); background: var(--carbono); color: var(--cromo); font: 700 16px var(--texto); touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; cursor: pointer; }
+.b1-botoes button.ativo { background: var(--carbono-2, #222); transform: scale(.97); }
+.b1-botoes .b1-arr { background: #f97316; border-color: #f97316; color: #fff; }
+.b1-botoes .b1-arr.ativo { background: #ea580c; }
+@media (pointer: fine) { .b1-botoes { display: none; } }
+@media (pointer: coarse) { .b1-dica { display: none; } }

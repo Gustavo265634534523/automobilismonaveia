@@ -10,6 +10,7 @@
     grade: '<rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M9.2 3.5v17M14.8 3.5v17M3.5 9.2h17M3.5 14.8h17"/>',
     mais: '<path d="M7 14l5-5 5 5"/><path d="M7 20l5-5 5 5" opacity=".45"/><path d="M4 4h16"/>',
     escudo: '<path d="M12 3l8 3v6c0 4.5-3.3 8-8 9-4.7-1-8-4.5-8-9V6z"/><path d="M9 12h6M12 9v6"/>',
+    quadra: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6a9 9 0 0 1 0 12.8M18.4 5.6a9 9 0 0 0 0 12.8"/>',
     monte: '<path d="M8 3l-5 3 2 4 3-1v12h8V9l3 1 2-4-5-3a4 4 0 0 1-8 0z"/>',
     corrida: '<path d="M3 15.5l1.8-4.8A2 2 0 0 1 6.7 9.4h9.1a2 2 0 0 1 1.6.8l2.6 3.3H21v2H3z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/>',
     largada: '<circle cx="5" cy="12" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="20" cy="12" r="2"/>',
@@ -22,6 +23,7 @@
     ['grade', 'grade.html', 'Grade', 'Um quadro 3x3 de times. Em cada casa, um jogador que passou pelos dois.', 'arena-grade'],
     ['mais', 'mais-ou-menos.html', 'Mais ou menos', 'Quem tem mais gols, pontos ou assistências? Acerte o máximo em sequência.', ''],
     ['escudo', 'escudo-misterioso.html', 'Escudo misterioso', 'O escudo aparece borrado e vai ficando nítido. Que time é?', 'arena-escudo'],
+    ['quadra', 'basquete-1x1.html', 'Basquete 1x1', 'Você contra o computador em 2 minutos: arremesse, roube e dê o toco.', '', 'basquete'],
     ['monte', 'monte-seu-time.html', 'Monte seu time', 'Seu time dos sonhos contra o do adversário, com os jogadores de hoje.', '', 'futebol'],
     /* os da F1 (jogos.html) */
     ['corrida', 'jogos.html#corrida', 'Arena Racing', 'Pilote um F1 em 3D contra 11 adversários.', '', 'f1'],
