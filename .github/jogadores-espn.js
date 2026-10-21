@@ -1,6 +1,6 @@
 /* Todos os jogadores atuais para o "Monte seu time": pega na ESPN o elenco de cada time das ligas abaixo e grava
    assets/dados/jogadores-todos.js (nome, posição, time e o número da ESPN, que serve para a foto).
-   As lendas e os craques com posição exata continuam em assets/dados/jogadores-craques.js.
+   Só jogadores em atividade. A posição exata dos craques fica em assets/dados/jogadores-craques.js.
    Roda no GitHub toda semana (.github/workflows/jogadores.yml) ou no PC: node .github/jogadores-espn.js */
 const fs = require('fs');
 const path = require('path');
@@ -8,7 +8,8 @@ const RAIZ = path.join(__dirname, '..');
 const ARQ = path.join(RAIZ, 'assets/dados/jogadores-todos.js');
 const API = 'https://site.api.espn.com/apis/site/v2/sports/soccer/';
 const LIGAS = ['bra.1', 'bra.2', 'arg.1', 'eng.1', 'eng.2', 'esp.1', 'ita.1', 'ger.1', 'fra.1', 'por.1', 'ned.1', 'tur.1', 'bel.1', 'sco.1',
-  'ksa.1', 'usa.1', 'mex.1', 'col.1', 'uru.1', 'chi.1', 'ecu.1', 'par.1', 'gre.1', 'rus.1', 'jpn.1'];
+  'ksa.1', 'usa.1', 'mex.1', 'col.1', 'uru.1', 'chi.1', 'ecu.1', 'par.1', 'gre.1', 'rus.1', 'jpn.1',
+  'esp.2', 'ita.2', 'ger.2', 'fra.2', 'aut.1', 'sui.1', 'den.1', 'nor.1', 'swe.1', 'pol.1', 'bra.3'];
 
 /* o nome que o site usa para o time (o mesmo do placar) */
 const w = {};

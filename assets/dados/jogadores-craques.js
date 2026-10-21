@@ -1,7 +1,7 @@
-/* Craques para o "Monte seu time" (monte-seu-time.html): aparecem na hora, sem esperar a busca na internet.
-   Formato "Nome|POSIÇÃO". Posições: GOL, LD (lateral direito), ZAG, LE (lateral esquerdo), VOL (volante),
-   MC (meio-campo), MEI (meia-armador), PD (ponta direita), PE (ponta esquerda), CA (centroavante).
-   Quem não está aqui é buscado no Wikidata (qualquer jogador que já jogou). */
+/* Posição exata dos craques no "Monte seu time" (monte-seu-time.html). A busca usa os elencos atuais
+   (assets/dados/jogadores-todos.js), que só dizem defensor, meio-campista ou atacante; quem está aqui entra na
+   posição certa. Nomes de jogadores aposentados não aparecem (não estão em nenhum elenco).
+   Formato "Nome|POSIÇÃO". Posições: GOL, LD, ZAG, LE, VOL, MC, MEI, PD, PE, CA. */
 window.JOGADORES_CRAQUES = [
   /* goleiros */
   'Gianluigi Buffon|GOL', 'Lev Yashin|GOL', 'Manuel Neuer|GOL', 'Iker Casillas|GOL', 'Oliver Kahn|GOL', 'Peter Schmeichel|GOL',
@@ -60,6 +60,18 @@ window.JOGADORES_CRAQUES = [
   'Raúl|CA', 'David Villa|CA', 'Fernando Torres|CA', 'Miroslav Klose|CA', 'Thomas Müller|MEI', 'Lautaro Martínez|CA',
   'Julián Álvarez|CA', 'Victor Osimhen|CA', 'Darwin Núñez|CA', 'Alexander Isak|CA', 'Viktor Gyökeres|CA', 'Ollie Watkins|CA',
   'Dušan Vlahović|CA', 'Romelu Lukaku|CA', 'Olivier Giroud|CA', 'Edinson Cavani|CA', 'Radamel Falcao|CA', 'Hugo Sánchez|CA',
+  'Jonathan Tah|ZAG', 'Dayot Upamecano|ZAG', 'João Cancelo|LD', 'Kim Min-jae|ZAG', 'Ibrahima Konaté|ZAG', 'Cristian Romero|ZAG', 'Micky van de Ven|ZAG',
+  'Nathan Aké|ZAG', 'John Stones|ZAG', 'Manuel Akanji|ZAG', 'Willian Pacho|ZAG', 'Dean Huijsen|ZAG', 'Castello Lukeba|ZAG', 'Lisandro Martínez|ZAG',
+  'Pedro Porro|LD', 'Diogo Dalot|LD', 'Ben White|LD', 'Jeremie Frimpong|LD', 'Denzel Dumfries|LD', 'Giovanni Di Lorenzo|LD', 'Josko Gvardiol|LE',
+  'Luke Shaw|LE', 'Raphaël Guerreiro|LE', 'Ferland Mendy|LE', 'Miguel Gutiérrez|LE', 'Destiny Udogie|LE', 'Milos Kerkez|LE', 'Álex Grimaldo|LE',
+  'Martín Zubimendi|VOL', 'Manuel Ugarte|VOL', 'Ryan Gravenberch|VOL', 'Joelinton|MC', 'Eduardo Camavinga|MC', 'Mikel Merino|MC',
+  'Arthur Melo|MC', 'Kobbie Mainoo|MC', 'Leon Goretzka|MC', 'Warren Zaïre-Emery|MC', 'Fabián Ruiz|MC', 'Scott McTominay|MC',
+  'Teun Koopmeiners|MC', 'Joan García|GOL', 'Robert Sánchez|GOL', 'André Onana|GOL', 'Guglielmo Vicario|GOL', 'Gregor Kobel|GOL', 'Lucas Chevalier|GOL',
+  'Bradley Barcola|PE', 'Jérémy Doku|PE', 'Anthony Gordon|PE', 'Marcus Rashford|PE', 'Ademola Lookman|PE',
+  'Mohammed Kudus|PD', 'Jarrod Bowen|PD', 'Brahim Díaz|MEI', 'Morgan Rogers|MEI',
+  'Eberechi Eze|MEI', 'Hugo Ekitiké|CA', 'Benjamin Šeško|CA', 'Jonathan David|CA', 'Randal Kolo Muani|CA', 'Gonçalo Ramos|CA', 'Mateo Retegui|CA',
+  'Victor Boniface|CA', 'Serhou Guirassy|CA', 'Nicolas Jackson|CA', 'Dominic Solanke|CA', 'Alexander Sørloth|CA', 'Ferran Torres|CA', 'João Pedro|CA',
+  'Alexandre Pato|CA', 'Lucas Moura|MEI', 'Everton Ribeiro|MEI', 'Gerson Santos|MC', 'Matheus Pereira|MEI',
   'Arda Güler|MEI', 'Kenan Yıldız|PE', 'Xavi Simons|MEI', 'Hakan Çalhanoğlu|VOL', 'Granit Xhaka|MC', 'Federico Chiesa|PD', 'Son Heung-min|PE',
   'Christian Pulisic|PD', 'Takefusa Kubo|PD', 'Dominik Szoboszlai|MC', 'Matheus Cunha|CA', 'Igor Jesus|CA',
   'Diego Forlán|CA', 'Kevin Viveros|CA', 'Flaco López|CA', 'Vitinho|PD', 'Tiquinho Soares|CA', 'Calleri|CA', 'Deyverson|CA'
