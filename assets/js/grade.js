@@ -1,14 +1,15 @@
 /* Grade (grade.html): um quadro 3x3 com um time (ou um país) em cada linha e em cada coluna. Em cada casa, a pessoa
    diz um jogador que passou pelos dois. São 9 chutes para as 9 casas e cada jogador só vale uma vez.
    As grades são montadas com as trajetórias de jogos-base.js: só entra grade em que toda casa tem resposta.
-   Desafio do dia (a mesma grade para todo mundo) e treino (grade nova a cada vez). */
+   Começa no desafio do dia (a mesma grade para todo mundo); o botão Atualizar troca por outra grade (fica guardada no aparelho). */
 (function () {
   var caixa = document.getElementById('gr'), JB = window.JOGOS_BASE;
   if (!caixa || !JB) return;
   var esc = window.esc, norm = JB.norm, CHUTES = 9;
   var BANDEIRA = { Brasil: '🇧🇷', Argentina: '🇦🇷', França: '🇫🇷', Portugal: '🇵🇹', Espanha: '🇪🇸', Inglaterra: '🏴', Alemanha: '🇩🇪', Uruguai: '🇺🇾', Bélgica: '🇧🇪',
     'Estados Unidos': '🇺🇸', Canadá: '🇨🇦', Austrália: '🇦🇺', Itália: '🇮🇹', Holanda: '🇳🇱', Colômbia: '🇨🇴', Sérvia: '🇷🇸', 'República Dominicana': '🇩🇴' };
-  var esporte = JB.esporteDaPagina(), modo = 'dia', semTreino = {}, G = JB.ler('arena-grade', null) || { dia: {}, placar: {} };
+  var esporte = JB.esporteDaPagina(), G = JB.ler('arena-grade', null) || { dia: {}, placar: {} };
+  G.n = G.n || {}; /* quantas vezes a pessoa atualizou a grade hoje, por esporte (0 = desafio do dia) */
   var grade = null, estado = null, casa = null, aviso = '';
 
   /* critérios: clube com 3 ou mais jogadores, ou país com 3 ou mais */
@@ -39,15 +40,16 @@
     return null;
   }
   function carregar() {
-    if (modo === 'dia') {
-      grade = montar(JB.aleatorio(JB.hoje + ':grade:' + esporte));
-      var d = G.dia[JB.hoje + ':' + esporte];
-      estado = d || { casas: {}, chutes: 0 };
-    } else {
-      if (!semTreino[esporte]) semTreino[esporte] = { seed: Math.floor(Math.random() * 1e9), estado: { casas: {}, chutes: 0 } };
-      grade = montar(JB.aleatorio(semTreino[esporte].seed));
-      estado = semTreino[esporte].estado;
-    }
+    var n = numero();
+    grade = montar(JB.aleatorio(JB.hoje + ':grade:' + esporte + (n ? ':' + n : '')));
+    estado = G.dia[chave()] || { casas: {}, chutes: 0 };
+  }
+  function numero() { return G.n[JB.hoje + ':' + esporte] || 0; }
+  function chave() { var n = numero(); return JB.hoje + ':' + esporte + (n ? ':' + n : ''); }
+  function atualizar() {
+    G.n[JB.hoje + ':' + esporte] = numero() + 1;
+    Object.keys(G.n).forEach(function (k) { if (k.slice(0, 10) !== JB.hoje) delete G.n[k]; });
+    casa = null; aviso = ''; salvar(); pintar();
   }
   function acabou() { return estado.chutes >= CHUTES || Object.keys(estado.casas).length >= 9; }
   function rotulo(k) {
@@ -55,11 +57,9 @@
     return k.charAt(0) === 'c' ? window.escudoTime(n, 'gr-escudo') + '<b>' + esc(n) + '</b>' : '<span class="gr-bandeira">' + (BANDEIRA[n] || '🌍') + '</span><b>' + esc(n) + '</b><small>país</small>';
   }
   function salvar() {
-    if (modo === 'dia') {
-      G.dia[JB.hoje + ':' + esporte] = estado;
-      var limite = new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
-      Object.keys(G.dia).forEach(function (k) { if (k.slice(0, 10) < limite) delete G.dia[k]; });
-    }
+    G.dia[chave()] = estado;
+    var limite = new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
+    Object.keys(G.dia).forEach(function (k) { if (k.slice(0, 10) < limite) delete G.dia[k]; });
     JB.guardar('arena-grade', G);
   }
   function chutar(nome) {
@@ -82,7 +82,7 @@
   }
   function pintar() {
     carregar();
-    if (!grade) { caixa.innerHTML = JB.topo(esporte, modo, true, '') + '<p class="pt-vazio">Não deu para montar uma grade agora.</p>'; ligar(); return; }
+    if (!grade) { caixa.innerHTML = JB.topo(esporte, '', false, '') + '<p class="pt-vazio">Não deu para montar uma grade agora.</p>'; ligar(); return; }
     var fim = acabou(), certos = Object.keys(estado.casas).length;
     var cel = '<div class="gr-quadro"><div class="gr-canto"><b>' + (CHUTES - estado.chutes) + '</b><small>chutes</small></div>' +
       grade.colunas.map(function (k) { return '<div class="gr-cab">' + rotulo(k) + '</div>'; }).join('');
@@ -96,30 +96,32 @@
       });
     });
     cel += '</div>';
-    var compart = 'Arena Sports · Grade' + (modo === 'dia' ? ' do dia' : '') + (esporte === 'basquete' ? ' (NBA)' : '') + ': ' + certos + '/9\n' +
+    var compart = 'Arena Sports · Grade' + (numero() ? '' : ' do dia') + (esporte === 'basquete' ? ' (NBA)' : '') + ': ' + certos + '/9\n' +
       [0, 1, 2].map(function (i) { return [0, 1, 2].map(function (j) { return estado.casas['' + i + j] ? '🟩' : '⬜'; }).join(''); }).join('\n');
     var P = G.placar[esporte] || { jogos: 0, casas: 0, completas: 0 };
-    caixa.innerHTML = JB.topo(esporte, modo, true, '') +
-      '<section class="av-jogo gr-jogo"><header><h2>Grade</h2><p>Em cada casa, um jogador que passou pelo time da linha e pelo da coluna (ou que é do país). Toque na casa e digite. São 9 chutes.</p></header>' +
+    caixa.innerHTML = JB.topo(esporte, '', false, '') +
+      '<section class="av-jogo gr-jogo"><header><h2>Grade' + (numero() ? '' : ' do dia') + '</h2><p>Em cada casa, um jogador que passou pelo time da linha e pelo da coluna (ou que é do país). Toque na casa e digite. São 9 chutes.</p></header>' +
       cel +
       (fim ? '<div class="av-fim' + (certos >= 6 ? ' av-ganhou' : '') + '"><p>' + (certos === 9 ? 'Grade completa! ' : '') + 'Você acertou <b>' + certos + ' de 9</b>.' + (certos < 9 ? ' Nas casas vazias aparece uma resposta possível.' : '') + '</p>' +
           '<div class="av-placar"><span><b>' + P.jogos + '</b>grades</span><span><b>' + P.completas + '</b>completas</span><span><b>' + (P.jogos ? (P.casas / P.jogos).toFixed(1).replace('.', ',') : '0') + '</b>média de acertos</span><span><b>' + certos + '</b>nesta</span></div>' +
-          '<div class="av-botoes">' + (modo === 'dia' ? '<button type="button" class="ft-btn" data-acao="treino">Jogar outra (treino)</button>' : '<button type="button" class="ft-btn" data-acao="nova">Nova grade</button>') +
+          '<div class="av-botoes">' + '<button type="button" class="ft-btn" data-acao="nova">↻ Nova grade</button>' +
           '<button type="button" class="ft-btn ft-btn-linha" data-acao="compartilhar" data-txt="' + esc(compart) + '">Compartilhar resultado</button></div></div>'
         : casa ? '<div class="gr-palpite"><p>' + esc(grade.linhas[casa[0]].slice(2)) + ' × ' + esc(grade.colunas[casa[1]].slice(2)) + '</p><div class="av-form"><div class="cp-busca"><input id="gr-q" type="search" autocomplete="off" placeholder="Digite o jogador" aria-label="Jogador"><ul class="mn-sug" hidden role="listbox"></ul></div><button type="button" class="ft-btn" id="gr-ok">Chutar</button></div></div>'
         : '<p class="av-resta">Toque numa casa vazia para chutar.</p>') +
-      (aviso ? '<p class="gr-aviso">' + aviso + '</p>' : '') + '</section>';
+      (aviso ? '<p class="gr-aviso">' + aviso + '</p>' : '') +
+      (fim ? '' : '<div class="gr-atualizar"><button type="button" class="ft-btn ft-btn-linha" id="gr-atualizar">↻ Atualizar grade</button><small>Travou? Troque por outra grade.</small></div>') + '</section>';
     ligar();
   }
   function ligar() {
-    JB.ligarTopo(caixa, function (e) { esporte = e; casa = null; aviso = ''; pintar(); }, function (m) { modo = m; casa = null; aviso = ''; pintar(); });
+    JB.ligarTopo(caixa, function (e) { esporte = e; casa = null; aviso = ''; pintar(); }, function () {});
+    var at = document.getElementById('gr-atualizar'); if (at) at.addEventListener('click', atualizar);
     [].forEach.call(caixa.querySelectorAll('.gr-casa:not([disabled])'), function (b) {
       b.addEventListener('click', function () { casa = [+b.getAttribute('data-i'), +b.getAttribute('data-j')]; aviso = ''; pintar(); var q = document.getElementById('gr-q'); if (q) q.focus(); });
     });
     [].forEach.call(caixa.querySelectorAll('.av-botoes button'), function (b) {
       b.addEventListener('click', function () {
         var a = b.getAttribute('data-acao');
-        if (a === 'treino' || a === 'nova') { modo = 'treino'; semTreino[esporte] = null; aviso = ''; pintar(); }
+        if (a === 'nova') atualizar();
         if (a === 'compartilhar') JB.compartilhar(b, b.getAttribute('data-txt') + '\n' + location.origin + location.pathname + '#' + esporte);
       });
     });
