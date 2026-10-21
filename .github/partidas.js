@@ -43,6 +43,7 @@ function lance(k) {
   else if (/end|full ?time|final/.test(t + txt) && /end|final|full/.test(txt)) { tipo = 'fim'; }
   else if (/kickoff|start/.test(t + txt)) { tipo = 'inicio'; }
   if (!tipo) { tiposDesconhecidos.add(t + ' / ' + txt); return null; }
+  if ((tipo === 'inicio' || tipo === 'fim') && k.team) return null; /* paradas (VAR, atendimento) vêm com o time: ficam de fora */
   return { min: (k.clock && k.clock.displayValue) || '', tipo, time: k.team ? nomeTime(k.team) : '', quem, extra };
 }
 

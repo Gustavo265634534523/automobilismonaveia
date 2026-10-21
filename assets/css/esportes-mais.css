@@ -294,3 +294,100 @@ a.ch-nome:hover span { text-decoration: underline; }
 
 /* artilharia: nome do jogador inteiro numa linha e em destaque */
 .tabela-comp .td-jogador { white-space: nowrap; font-weight: 700; color: var(--cromo); }
+
+/* página do jogo (partida.html): placar, lance a lance e escalações no campo */
+.pt .em-caixa { padding-bottom: 60px; max-width: 1040px; }
+.pt-voltar { display: inline-block; margin-bottom: 18px; color: var(--texto-2); text-decoration: none; font-size: 14px; font-weight: 600; }
+.pt-voltar:hover { color: var(--cromo); }
+.pt-vazio { padding: 28px 0; color: var(--texto-2); }
+.pt-placar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 28px 24px; border-radius: 18px; background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha); }
+.pt-time { display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--cromo); text-decoration: none; text-align: center; font-size: 18px; }
+.pt-time .escudo, .pt-escudo { width: 64px; height: 64px; font-size: 18px; }
+.pt-meio-placar { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.pt-meio-placar small { color: var(--aco); font-size: 12px; max-width: 220px; }
+.pt-gols { font-family: var(--display, 'Bebas Neue'), sans-serif; font-size: 64px; line-height: 1; color: var(--cromo); font-variant-numeric: tabular-nums; }
+.pt-gols i { font-style: normal; margin: 0 12px; color: var(--aco); }
+.pt-status { font-size: 13px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--texto-2); }
+.pt-aovivo { display: inline-flex; align-items: center; gap: 6px; color: #e3343c; }
+.pt-aovivo i { width: 8px; height: 8px; border-radius: 50%; background: #e3343c; animation: pf-pisca 1.2s ease-in-out infinite; }
+@keyframes pf-pisca { 50% { opacity: .3; } }
+.pt-abas { justify-content: center; margin: 26px 0 18px; }
+.pt-fonte { margin-top: 26px; font-size: 12.5px; color: var(--aco); text-align: center; }
+
+/* lance a lance: linha do tempo no meio; lances do mandante à esquerda, do visitante à direita */
+.pt-lances { position: relative; list-style: none; margin: 0; padding: 6px 0; }
+.pt-lances::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: var(--linha); transform: translateX(-50%); }
+.pt-l { position: relative; display: grid; grid-template-columns: 1fr 56px 1fr; align-items: center; min-height: 52px; }
+.pt-min { grid-column: 2; grid-row: 1; justify-self: center; z-index: 1; min-width: 44px; padding: 4px 8px; border-radius: 999px; background: var(--asfalto); box-shadow: inset 0 0 0 1px var(--linha); font-size: 12px; font-weight: 800; text-align: center; color: var(--cromo); }
+.pt-ic, .pt-txt { grid-row: 1; }
+.pt-casa .pt-txt { grid-column: 1; justify-self: end; text-align: right; padding-right: 40px; }
+.pt-casa .pt-ic { grid-column: 1; justify-self: end; }
+.pt-fora .pt-txt { grid-column: 3; justify-self: start; padding-left: 40px; }
+.pt-fora .pt-ic { grid-column: 3; justify-self: start; }
+.pt-centro .pt-min { grid-row: 1; }
+.pt-centro .pt-txt { grid-column: 1 / -1; grid-row: 2; justify-self: center; margin: 6px 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--aco); }
+.pt-centro .pt-ic { display: none; }
+.pt-centro .pt-ic:first-child + .pt-txt { grid-row: 1; }
+.pt-txt { font-size: 15px; color: var(--texto-2); line-height: 1.35; }
+.pt-txt b { color: var(--cromo); }
+.pt-txt small { display: block; font-size: 12.5px; color: var(--aco); }
+.pt-ic { display: grid; place-items: center; width: 30px; height: 30px; font-size: 18px; }
+.pt-ic svg { width: 20px; height: 20px; fill: none; stroke: #22a35a; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.pt-cartao { display: block; width: 13px; height: 18px; border-radius: 2px; background: #f5c518; transform: rotate(8deg); }
+.pt-cartao.pt-verm { background: #e3343c; }
+.pt-gol .pt-txt { padding-top: 10px; padding-bottom: 10px; }
+.pt-gol .pt-txt b { font-size: 16px; }
+.pt-gol .pt-min { background: #22a35a; color: #fff; box-shadow: none; }
+
+/* escalações: campo na horizontal (mandante à esquerda), na vertical no celular */
+.pt-rotulos { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; font-weight: 800; color: var(--cromo); }
+.pt-gramado { position: relative; display: flex; aspect-ratio: 105 / 62; border-radius: 14px; overflow: hidden;
+  background: repeating-linear-gradient(90deg, #1f7a43 0 9.09%, #237f48 9.09% 18.18%); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .55); }
+.pt-gramado::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: rgba(255, 255, 255, .55); }
+.pt-gramado::after { content: ''; position: absolute; left: 50%; top: 50%; width: 17%; aspect-ratio: 1; border-radius: 50%; border: 2px solid rgba(255, 255, 255, .55); transform: translate(-50%, -50%); }
+.pt-meio { position: relative; z-index: 1; flex: 1; display: flex; padding: 2% 1%; }
+.pt-meio-fora { flex-direction: row-reverse; }
+.pt-linha { flex: 1; display: flex; flex-direction: column; justify-content: space-around; align-items: center; }
+.pt-jog { display: flex; flex-direction: column; align-items: center; gap: 3px; width: 84px; text-align: center; }
+.pt-jog i { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; font-style: normal; font-size: 13px; font-weight: 800; box-shadow: 0 3px 8px rgba(0, 0, 0, .35); }
+.pt-meio-casa .pt-jog i { background: #fff; color: #0b1220; }
+.pt-meio-fora .pt-jog i { background: #0b1220; color: #fff; box-shadow: 0 3px 8px rgba(0, 0, 0, .35), inset 0 0 0 2px rgba(255, 255, 255, .7); }
+.pt-jog small { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 11.5px; font-weight: 700; color: #fff; text-shadow: 0 1px 2px rgba(0, 0, 0, .7); }
+.pt-saiu i { opacity: .75; }
+.pt-listas { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 22px; }
+.pt-lista { padding: 18px 20px; border-radius: 14px; background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha); }
+.pt-lista h3 { display: flex; align-items: center; gap: 10px; margin: 0 0 6px; font-size: 16px; color: var(--cromo); }
+.pt-lista h3 .escudo { width: 26px; height: 26px; }
+.pt-lista h3 small { font-weight: 600; color: var(--aco); }
+.pt-rot { margin: 14px 0 6px; font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--aco); }
+.pt-lista ul { list-style: none; margin: 0; padding: 0; }
+.pt-lista li { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--linha-2); font-size: 14px; color: var(--texto-2); }
+.pt-lista li i { width: 24px; font-style: normal; font-weight: 800; color: var(--aco); text-align: right; }
+.pt-lista li span { flex: 1; color: var(--cromo); }
+.pt-lista li small { font-size: 11px; color: var(--aco); }
+.pt-sai { font-style: normal; font-size: 10px; color: #e3343c; }
+.pt-entra { font-style: normal; font-size: 10px; color: #22a35a; }
+/* placar das listas leva para o jogo */
+a.em-placar, .jogo-ver { color: inherit; text-decoration: none; border-radius: 8px; transition: background .2s ease; }
+a.em-placar:hover, .jogo-ver:hover em { background: var(--sutil); }
+@media (max-width: 720px) {
+  .pt-placar { padding: 20px 12px; gap: 8px; }
+  .pt-time { font-size: 14px; }
+  .pt-time .escudo, .pt-escudo { width: 44px; height: 44px; }
+  .pt-gols { font-size: 46px; }
+  .pt-l { grid-template-columns: 44px 1fr; min-height: 0; padding: 8px 0; }
+  .pt-lances::before { left: 22px; }
+  .pt-min { grid-column: 1; }
+  .pt-casa .pt-txt, .pt-fora .pt-txt { grid-column: 2; justify-self: start; text-align: left; padding: 0 0 0 44px; }
+  .pt-casa .pt-ic, .pt-fora .pt-ic { grid-column: 2; justify-self: start; margin-left: 8px; }
+  .pt-centro .pt-txt { grid-column: 2; grid-row: 1; justify-self: start; margin: 0; padding-left: 8px; }
+  .pt-gramado { flex-direction: column-reverse; aspect-ratio: 62 / 100; background: repeating-linear-gradient(180deg, #1f7a43 0 9.09%, #237f48 9.09% 18.18%); }
+  .pt-gramado::before { left: 0; right: 0; top: 50%; bottom: auto; width: auto; height: 2px; }
+  .pt-gramado::after { width: 30%; }
+  .pt-meio { flex-direction: column-reverse; padding: 1% 2%; }
+  .pt-meio-fora { flex-direction: column; }
+  .pt-linha { flex-direction: row; }
+  .pt-jog { width: 62px; }
+  .pt-jog small { font-size: 10.5px; }
+  .pt-listas { grid-template-columns: 1fr; }
+}

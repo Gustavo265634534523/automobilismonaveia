@@ -156,12 +156,18 @@
   window.placarJogo = function (j) { return j.vivo ? j.vivo.p : j.p || ''; };
 
   /* linha de jogo usada no ao vivo, no fim de semana e na página do time */
+  /* página do jogo (partida.html: lance a lance e escalações), só para jogo de futebol que veio do robô */
+  window.linkPartida = function (j, esporte) {
+    if (!j || !j.id || !/^\d+$/.test(j.id)) return '';
+    if (!esporte) COMPS.some(function (c) { if ((c.jogos || []).indexOf(j) > -1) { esporte = c.esporte; return true; } });
+    return esporte === 'futebol' ? 'partida.html?id=' + j.id : '';
+  };
   window.linhaJogo = function (x, mostrarComp) {
     var j = x.j, pl = String(window.placarJogo(j)).split(/\s*x\s*/), tem = !!window.placarJogo(j);
     return '<li class="em-jogo' + (j.vivo ? ' vivo' : '') + '">' +
       (mostrarComp ? '<a class="em-comp" href="' + x.c.slug + '.html#jogos">' + esc(x.c.menu) + (j.fase ? ' · ' + esc(j.fase) : '') + '</a>' : '') +
       '<a class="em-time em-casa" href="' + window.linkTime(j.casa) + '">' + esc(j.casa) + window.escudoTime(j.casa) + '</a>' +
-      '<span class="em-placar">' + (tem ? esc(pl[0]) + '<i>–</i>' + esc(pl[1] || '') : '<i>x</i>') + '</span>' +
+      (window.linkPartida(j, x.c.esporte) ? '<a class="em-placar" href="' + window.linkPartida(j, x.c.esporte) + '" title="Lance a lance e escalações">' : '<span class="em-placar">') + (tem ? esc(pl[0]) + '<i>–</i>' + esc(pl[1] || '') : '<i>x</i>') + (window.linkPartida(j, x.c.esporte) ? '</a>' : '</span>') +
       '<a class="em-time" href="' + window.linkTime(j.fora) + '">' + window.escudoTime(j.fora) + esc(j.fora) + '</a>' +
       '<span class="em-st">' + window.statusJogo(j) + '</span></li>';
   };

@@ -36,7 +36,7 @@
         jogosDe(c).forEach(function (j) {
           if (j.d !== hoje || !j.casa || !j.fora || /a definir/i.test(j.casa)) return;
           var vivo = rolando(j), pl = j.vivo ? j.vivo.p : j.p;
-          itens.push({ ordem: vivo ? 0 : !j.p ? 1 : 2, t: hora(j), html: '<a class="pf-j' + (vivo ? ' pf-vivo' : '') + '" href="' + c.slug + '.html#jogos" title="' + esc(c.menu) + '">' +
+          itens.push({ ordem: vivo ? 0 : !j.p ? 1 : 2, t: hora(j), html: '<a class="pf-j' + (vivo ? ' pf-vivo' : '') + '" href="' + ((window.linkPartida && window.linkPartida(j, c.esporte)) || c.slug + '.html#jogos') + '" title="' + esc(c.menu) + '">' +
             '<small>' + (vivo ? '<i></i>' + (j.vivo && j.vivo.min ? esc(j.vivo.min) : 'Ao vivo') : j.p ? 'Fim' : esc(j.h || '--:--')) + '</small>' +
             escudo(j.casa) + '<b>' + esc(j.casa) + '</b>' + (pl ? '<em>' + esc(String(pl).replace(' x ', ' – ')) + '</em>' : '<em class="pf-x">x</em>') + '<b>' + esc(j.fora) + '</b>' + escudo(j.fora) + '</a>' });
         });

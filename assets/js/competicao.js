@@ -44,7 +44,7 @@
     function nome(n, antes) { var e = window.escudoTime(n); return e && window.linkTime ? '<a href="' + window.linkTime(n) + '">' + (antes ? e + esc(n) : esc(n) + e) + '</a>' : (antes ? e + esc(n) : esc(n) + e); }
     var pl = j.vivo ? j.vivo.p : j.p;
     return '<li class="jogo' + (j.p ? ' feito' : '') + (vivo ? ' vivo' : '') + '"><span class="jogo-fase">' + esc(j.fase || '') + (j.l ? '<small>' + esc(j.l) + '</small>' : '') + '</span>' +
-      '<span class="jogo-times"><b>' + nome(j.casa) + '</b><em>' + (pl ? esc(pl) : 'x') + '</em><b>' + nome(j.fora, true) + '</b></span>' +
+      '<span class="jogo-times"><b>' + nome(j.casa) + '</b>' + (window.linkPartida && window.linkPartida(j) ? '<a class="jogo-ver" href="' + window.linkPartida(j) + '" title="Lance a lance e escalações"><em>' + (pl ? esc(pl) : 'x') + '</em></a>' : '<em>' + (pl ? esc(pl) : 'x') + '</em>') + '<b>' + nome(j.fora, true) + '</b></span>' +
       '<span class="jogo-data">' + (j.d ? window.dataCurta(j.d) + (j.h ? ' · ' + esc(j.h) : '') : '') + '<small>' + status + '</small></span></li>';
   }
   function cartao(c) {
