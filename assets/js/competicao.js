@@ -33,7 +33,7 @@
 
   function tabela(t) {
     return '<div class="tabela-wrap"><table class="tabela tabela-comp"><thead><tr>' + t.colunas.map(function (h) { return '<th scope="col">' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
-      t.linhas.map(function (l) { return '<tr class="p' + esc(l[0]) + '">' + l.map(function (v, i) { return /^(Time|Campeão|Vice)$/.test(t.colunas[i]) ? '<td class="td-time">' + (window.linkTime && window.escudoTime(v) ? '<a href="' + window.linkTime(v) + '">' + window.escudoTime(v) + esc(v) + '</a>' : window.escudoTime(v) + esc(v)) + '</td>' : '<td>' + esc(v) + '</td>'; }).join('') + '</tr>'; }).join('') +
+      t.linhas.map(function (l) { return '<tr class="p' + esc(l[0]) + '">' + l.map(function (v, i) { if (/^(Jogador|Piloto)$/.test(t.colunas[i])) return '<td class="td-jogador">' + esc(v) + '</td>'; return /^(Time|Campeão|Vice)$/.test(t.colunas[i]) ? '<td class="td-time">' + (window.linkTime && window.escudoTime(v) ? '<a href="' + window.linkTime(v) + '">' + window.escudoTime(v) + esc(v) + '</a>' : window.escudoTime(v) + esc(v)) + '</td>' : '<td>' + esc(v) + '</td>'; }).join('') + '</tr>'; }).join('') +
       '</tbody></table></div>';
   }
   /* próximo jogo: o primeiro sem placar, de hoje em diante */

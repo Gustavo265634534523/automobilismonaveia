@@ -291,3 +291,6 @@ a.ch-nome:hover span { text-decoration: underline; }
 .cq-jog a:hover { text-decoration: underline; }
 .cq-linha { margin: 0; padding: 10px 14px; border-radius: 10px; background: var(--sutil); font-size: 15px; font-weight: 700; color: var(--cromo); }
 @media (max-width: 720px) { .cq-grade { grid-template-columns: 1fr; } .cq-jog h3 { font-size: 21px; } }
+
+/* artilharia: nome do jogador inteiro numa linha e em destaque */
+.tabela-comp .td-jogador { white-space: nowrap; font-weight: 700; color: var(--cromo); }
