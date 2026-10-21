@@ -1,0 +1,37 @@
+# Fotos dos craques do "Monte seu time" (Wikipédia / Wikimedia Commons), em assets/img/jogadores.
+# Roda quando a lista de craques ou o robô mudam, ou quando pedido à mão.
+name: Fotos dos jogadores
+on:
+  push:
+    paths:
+      - 'assets/dados/jogadores-craques.js'
+      - '.github/fotos-jogadores.js'
+      - '.github/workflows/fotos-jogadores.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: salvar-no-site
+  cancel-in-progress: false
+jobs:
+  fotos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Instalar o ImageMagick
+        run: command -v convert || (sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick)
+      - name: Buscar as fotos
+        run: node .github/fotos-jogadores.js
+      - name: Salvar no site
+        run: |
+          git config user.name "Robô Arena Sports"
+          git config user.email "automobilismonaveiacontato@gmail.com"
+          git add assets/img/jogadores assets/dados/fotos-jogadores.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Robô: fotos dos jogadores do Monte seu time"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
+          exit 1
