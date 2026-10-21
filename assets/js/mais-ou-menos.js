@@ -1,7 +1,7 @@
 /* Mais ou menos (mais-ou-menos.html): dois jogadores e um número da temporada. O da esquerda mostra o dele; a
    pessoa diz se o da direita tem mais ou menos. Acertou, o da direita passa para a esquerda e vem outro. Errou,
    acaba; conta quantos acertou em sequência (o recorde fica guardado no aparelho).
-   Futebol: gols, assistências e participações em gol na temporada (temporada-futebol.js, somando os campeonatos).
+   Futebol: gols, assistências e participações em gol na temporada (mais-ou-menos-futebol.js, resumo do robô que soma os campeonatos).
    NBA: pontos, rebotes e assistências por jogo (temporada-nba.js; a temporada atual, ou a anterior no começo). */
 (function () {
   var caixa = document.getElementById('mm'), JB = window.JOGOS_BASE;
@@ -17,7 +17,9 @@
   function montarPool(esp) {
     if (pool[esp]) return pool[esp];
     var L = [];
-    if (esp === 'futebol') {
+    if (esp === 'futebol' && window.MAIS_OU_MENOS_FUTEBOL) { /* resumo do robô: [nome, time, gols, assistências] */
+      L = window.MAIS_OU_MENOS_FUTEBOL.map(function (l) { return { nome: l[0], time: l[1], g: l[2], a: l[3], ga: l[2] + l[3] }; });
+    } else if (esp === 'futebol') {
       var TF = window.TEMPORADA_FUTEBOL, por = {};
       ((TF && TF.jogadores) || []).forEach(function (l) {
         var x = por[l[0]] = por[l[0]] || { nome: l[1], time: l[2], j: 0, g: 0, a: 0 };

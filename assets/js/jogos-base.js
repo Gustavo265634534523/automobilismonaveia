@@ -14,6 +14,8 @@
   function montarTimeAtual() {
     timeAtual = {};
     var TF = window.TEMPORADA_FUTEBOL, TN = window.TEMPORADA_NBA, ultimo = {};
+    /* futebol: o resumo pequeno times-atuais.js (do robô) e, sem ele, a temporada inteira */
+    if (window.TIMES_ATUAIS) Object.keys(window.TIMES_ATUAIS).forEach(function (k) { timeAtual['futebol:' + k] = window.TIMES_ATUAIS[k]; });
     ((TF && TF.jogadores) || []).forEach(function (l) { var k = norm(l[1]); if (!ultimo[k] || l[5] > ultimo[k][1]) ultimo[k] = [l[2], l[5]]; });
     Object.keys(ultimo).forEach(function (k) { timeAtual['futebol:' + k] = ultimo[k][0]; });
     Object.keys((TN && TN.temporadas) || {}).sort().forEach(function (t) { TN.temporadas[t].forEach(function (l) { timeAtual['basquete:' + norm(l[1])] = l[2]; }); });
