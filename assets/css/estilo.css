@@ -1443,11 +1443,14 @@ html.com-cats.com-placar { --topo: 162px; }
 .nt-sem-link:hover { transform: none !important; }
 .nt-sem-link:hover b, .nt-sem-link:hover span { text-decoration: none !important; }
 
-/* barra de rolagem do site: fina, arredondada e na cor do tema (no lugar da barra cinza do navegador) */
-html { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--aco) 55%, transparent) transparent; }
-::-webkit-scrollbar { width: 8px; height: 8px; }
+/* barra de rolagem do site: fina, arredondada e na cor de destaque (no lugar da barra cinza do navegador).
+   Chrome/Edge/Safari usam ::-webkit-scrollbar; as propriedades padrão ficam só para o Firefox, porque no Chrome
+   elas anulam o ::-webkit-scrollbar e voltam a desenhar a barra do sistema. */
+html { background: var(--asfalto); }
+@supports (-moz-appearance: none) { html { scrollbar-width: thin; scrollbar-color: var(--sangue-vivo) transparent; } }
+::-webkit-scrollbar { width: 8px; height: 8px; background: transparent; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { border-radius: 999px; background: color-mix(in srgb, var(--aco) 45%, transparent); border: 2px solid transparent; background-clip: padding-box; }
-::-webkit-scrollbar-thumb:hover { background: var(--sangue-vivo); background-clip: padding-box; }
-::-webkit-scrollbar-button, ::-webkit-scrollbar-corner { display: none; width: 0; height: 0; }
-@media (max-width: 720px) { ::-webkit-scrollbar { width: 4px; height: 4px; } ::-webkit-scrollbar-thumb { border-width: 0; } }
+::-webkit-scrollbar-thumb { border-radius: 999px; background: color-mix(in srgb, var(--sangue-vivo) 70%, transparent); border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active { background: var(--sangue-vivo); background-clip: padding-box; }
+::-webkit-scrollbar-button, ::-webkit-scrollbar-corner { display: none; width: 0; height: 0; background: transparent; }
+@media (max-width: 720px) { ::-webkit-scrollbar { width: 5px; height: 5px; } ::-webkit-scrollbar-thumb { border-width: 1px; } }
