@@ -60,5 +60,7 @@ window.JOGADORES_CRAQUES = [
   'Raúl|CA', 'David Villa|CA', 'Fernando Torres|CA', 'Miroslav Klose|CA', 'Thomas Müller|MEI', 'Lautaro Martínez|CA',
   'Julián Álvarez|CA', 'Victor Osimhen|CA', 'Darwin Núñez|CA', 'Alexander Isak|CA', 'Viktor Gyökeres|CA', 'Ollie Watkins|CA',
   'Dušan Vlahović|CA', 'Romelu Lukaku|CA', 'Olivier Giroud|CA', 'Edinson Cavani|CA', 'Radamel Falcao|CA', 'Hugo Sánchez|CA',
+  'Arda Güler|MEI', 'Kenan Yıldız|PE', 'Xavi Simons|MEI', 'Hakan Çalhanoğlu|VOL', 'Granit Xhaka|MC', 'Federico Chiesa|PD', 'Son Heung-min|PE',
+  'Christian Pulisic|PD', 'Takefusa Kubo|PD', 'Dominik Szoboszlai|MC', 'Matheus Cunha|CA', 'Igor Jesus|CA',
   'Diego Forlán|CA', 'Kevin Viveros|CA', 'Flaco López|CA', 'Vitinho|PD', 'Tiquinho Soares|CA', 'Calleri|CA', 'Deyverson|CA'
 ];

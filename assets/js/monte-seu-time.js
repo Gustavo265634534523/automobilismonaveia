@@ -1,7 +1,8 @@
 /* Monte seu time (monte-seu-time.html): a pessoa monta o time dela e o do adversário no mesmo campo.
    Digita o nome de qualquer jogador e aperta Enter: ele vai sozinho para a posição dele na formação escolhida.
    Os craques da lista (assets/dados/jogadores-craques.js) aparecem na hora; qualquer outro jogador que já jogou
-   é buscado no Wikidata (posição e foto). Clicar num jogador do campo seleciona; clicar em outra posição troca os dois
+   é buscado no Wikidata (posição e foto); se nem lá aparecer, entra o nome digitado numa vaga livre do meio-campo
+   (ou na vaga que a pessoa tocou). Clicar num jogador do campo seleciona; clicar em outra posição troca os dois
    de lugar; o "x" tira do time. Os times ficam salvos neste aparelho e podem ser enviados por link. */
 (function () {
   var raiz = document.getElementById('mn');
@@ -38,16 +39,23 @@
   function salvar() { try { localStorage.setItem('arena-monte-seu-time', JSON.stringify(E)); } catch (e) { /* modo privado */ } }
   function slots(t) { var out = []; FORMACOES[t.formacao].forEach(function (ln, li) { ln.forEach(function (pos) { out.push({ pos: pos, linha: li }); }); }); return out; }
 
-  var aviso = '';
+  var aviso = '', alvo = null; /* vaga vazia que a pessoa tocou: o próximo jogador vai para ela */
   function colocar(j, ti) {
     var t = E.times[ti], S = slots(t);
+    if (alvo && alvo.t === ti && !t.lugares[alvo.i] && !t.lugares.some(function (x) { return x && norm(x.n) === norm(j.n); })) {
+      var a = alvo.i; alvo = null;
+      t.lugares[a] = { n: j.n, pos: j.pos || S[a].pos, foto: j.foto || '' };
+      aviso = esc(j.n) + ' entrou como ' + NOME_POS[S[a].pos].toLowerCase() + ' no ' + esc(t.nome) + '.'; salvar(); return true;
+    }
     if (t.lugares.some(function (x) { return x && norm(x.n) === norm(j.n); })) { aviso = esc(j.n) + ' já está no ' + esc(t.nome) + '.'; return false; }
-    var ordem = PARECIDAS[j.pos] || ['CA', 'MEI', 'MC'], i = -1;
+    var ordem = PARECIDAS[j.pos] || [], i = -1;
     ordem.some(function (p) { i = S.findIndex(function (s, k) { return s.pos === p && !t.lugares[k]; }); return i > -1; });
+    /* nome desconhecido: entra pelo meio, deixando goleiro e centroavante por último (para quem tem posição certa) */
+    if (i < 0 && !j.pos) ['MC', 'MEI', 'VOL', 'ZAG', 'LE', 'LD', 'PE', 'PD', 'CA', 'GOL'].some(function (p) { i = S.findIndex(function (s, k) { return s.pos === p && !t.lugares[k]; }); return i > -1; });
     if (i < 0 && j.pos !== 'GOL') i = S.findIndex(function (s, k) { return s.pos !== 'GOL' && !t.lugares[k]; });
     if (i < 0) { aviso = j.pos === 'GOL' ? 'O ' + esc(t.nome) + ' já tem goleiro. Tire o atual para trocar.' : 'O ' + esc(t.nome) + ' já está completo. Tire alguém para colocar ' + esc(j.n) + '.'; return false; }
-    t.lugares[i] = { n: j.n, pos: j.pos, foto: j.foto || '' };
-    aviso = esc(j.n) + ' entrou como ' + NOME_POS[S[i].pos].toLowerCase() + ' no ' + esc(t.nome) + '.';
+    t.lugares[i] = { n: j.n, pos: j.pos || S[i].pos, foto: j.foto || '' };
+    aviso = esc(j.n) + ' entrou como ' + NOME_POS[S[i].pos].toLowerCase() + ' no ' + esc(t.nome) + '.' + (j.pos ? '' : ' Para mudar de posição, toque nele e depois na vaga certa.');
     salvar(); return true;
   }
 
@@ -114,7 +122,11 @@
     if (/forward|striker|centre[- ]?forward|atacante|centroavante/.test(r)) return 'CA';
     return null;
   }
+  function comTempo(p, ms) { return Promise.race([p, new Promise(function (ok, erro) { setTimeout(function () { erro(new Error('tempo')); }, ms); })]); }
   function wiki(q) {
+    return comTempo(wikiBusca(q), 3500);
+  }
+  function wikiBusca(q) {
     var api = 'https://www.wikidata.org/w/api.php?format=json&origin=*';
     return fetch(api + '&action=wbsearchentities&type=item&limit=12&language=pt&uselang=pt&search=' + encodeURIComponent(q)).then(function (r) { return r.json(); })
       .then(function (r) {
@@ -182,11 +194,13 @@
     raiz.querySelector('.mn-busca').addEventListener('submit', function (e) {
       e.preventDefault();
       var v = q.value.trim(); if (!v) return;
-      if (sugestoes.length && marc > -1) { escolher(sugestoes[marc]); return; }
+      var bate = function (s) { return s && norm(s.n).indexOf(norm(v)) > -1; };
+      if (marc > -1 && bate(sugestoes[marc])) { escolher(sugestoes[marc]); return; }
       document.getElementById('mn-aviso').textContent = 'Procurando ' + v + '…';
       buscar(v, function (lista) {
-        if (lista.length) escolher(lista[0]);
-        else { aviso = 'Não achei "' + esc(v) + '". Confira o nome e tente de novo.'; pintar(); }
+        var achou = lista.filter(bate)[0];
+        /* não achou ninguém com esse nome: entra o nome do jeito que foi digitado */
+        escolher(achou || { n: v.replace(/\s+/g, ' ').replace(/(^|\s)\S/g, function (x) { return x.toUpperCase(); }) });
       });
     });
     [].forEach.call(raiz.querySelectorAll('[data-ativo]'), function (b) { b.addEventListener('click', function () { E.ativo = +b.getAttribute('data-ativo'); salvar(); aviso = ''; pintar(); document.getElementById('mn-q').focus(); }); });
@@ -210,7 +224,8 @@
         if (sel && sel.t === ti && sel.i !== i) {
           var x = t.lugares[sel.i]; t.lugares[sel.i] = t.lugares[i]; t.lugares[i] = x; sel = null; aviso = 'Trocados de lugar.'; salvar(); pintar(); return;
         }
-        if (!t.lugares[i]) { E.ativo = ti; sel = null; aviso = 'Digite o jogador para essa posição (' + NOME_POS[slots(t)[i].pos].toLowerCase() + ').'; pintar(); document.getElementById('mn-q').focus(); return; }
+        if (sel && sel.t === ti && !t.lugares[i]) { t.lugares[i] = t.lugares[sel.i]; t.lugares[sel.i] = null; sel = null; aviso = 'Mudou de posição.'; salvar(); pintar(); return; }
+        if (!t.lugares[i]) { E.ativo = ti; sel = null; alvo = { t: ti, i: i }; aviso = 'Digite o jogador para essa posição (' + NOME_POS[slots(t)[i].pos].toLowerCase() + ').'; pintar(); document.getElementById('mn-q').focus(); return; }
         sel = sel && sel.t === ti && sel.i === i ? null : { t: ti, i: i };
         aviso = sel ? 'Agora toque na posição para onde ' + esc(t.lugares[i].n) + ' vai.' : ''; pintar();
       });
