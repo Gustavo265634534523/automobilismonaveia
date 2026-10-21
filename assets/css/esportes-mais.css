@@ -423,7 +423,6 @@ a.em-placar:hover, .jogo-ver:hover em { background: var(--sutil); }
 .mn-aviso { min-height: 1.4em; margin: 10px 0 14px; font-size: 14px; font-weight: 600; color: var(--texto-2); }
 .mn-gramado .pt-jog { position: relative; border: 0; background: none; padding: 0; cursor: pointer; font: inherit; }
 .mn-gramado .pt-jog i { position: relative; overflow: hidden; width: 40px; height: 40px; font-size: 13px; }
-.mn-gramado .pt-jog i img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .mn-livre i { background: rgba(255, 255, 255, .12) !important; color: rgba(255, 255, 255, .8) !important; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .45) !important; border: 0; font-size: 20px !important; font-weight: 400 !important; }
 .mn-livre small { opacity: .75; }
 .mn-livre:hover i { background: rgba(255, 255, 255, .25) !important; }
@@ -456,12 +455,3 @@ a.em-placar:hover, .jogo-ver:hover em { background: var(--sutil); }
 html[data-tema="claro"] .mn-linha select { color-scheme: light; }
 .mn-linha select option { background: var(--carbono); color: var(--cromo); }
 
-/* fotos dos jogadores no Monte seu time */
-.mn-gramado .pt-jog i.mn-com-foto { width: 48px; height: 48px; color: transparent; background: #fff; }
-.mn-gramado .pt-meio-fora .pt-jog i.mn-com-foto { background: #0b1220; }
-.mn-creditos { margin-top: 14px; font-size: 12px; color: var(--aco); text-align: center; }
-.mn-creditos summary { cursor: pointer; }
-.mn-creditos p { margin: 8px 0 0; line-height: 1.6; }
-.mn-creditos a { color: var(--texto-2); }
-@media (max-width: 720px) { .mn-gramado .pt-jog i.mn-com-foto { width: 40px; height: 40px; } }
-.mn-foto { position: absolute; inset: 0; background-repeat: no-repeat; }
