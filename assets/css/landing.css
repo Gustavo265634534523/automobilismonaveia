@@ -9,7 +9,7 @@
   --basquete: #f07a2a;
   --automobilismo: #e3343c;
   --cor: var(--futebol); /* cor do esporte da vez (landing.js troca) */
-  --display: 'Anton', 'Bebas Neue', Impact, 'Arial Narrow', sans-serif;
+  --display: 'Montserrat', 'Arial Black', Arial, sans-serif;
   --sans: 'Inter', Arial, sans-serif;
   --tempo: 7s; /* troca automática */
   color-scheme: dark;
@@ -27,9 +27,9 @@ html:has(body.ld) { overflow: hidden; }
   transition: opacity 1.2s ease, transform 8s cubic-bezier(.2, .7, .2, 1); filter: saturate(1.1) brightness(.78); }
 .ld-bg.ativo { opacity: 1; transform: scale(1) translate3d(var(--px, 0), var(--py, 0), 0); }
 /* foto nova da entrada e, por baixo, a antiga (se a nova ainda não tiver chegado) */
-.ld-bg[data-esp="futebol"] { background-image: url(../img/hero/futebol.webp), url(../img/esportes/futebol.webp); }
+.ld-bg[data-esp="futebol"] { background-image: url(../img/hero/futebol2.webp), url(../img/esportes/futebol.webp); }
 .ld-bg[data-esp="basquete"] { background-image: url(../img/hero/basquete.webp), url(../img/esportes/basquete.webp); }
-.ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo.webp), url(../img/esportes/automobilismo.webp); }
+.ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo2.webp), url(../img/esportes/automobilismo.webp); }
 .ld-fundo::after { content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(5, 6, 8, .78) 0%, rgba(5, 6, 8, .15) 22%, rgba(5, 6, 8, .1) 55%, rgba(5, 6, 8, .88) 88%, var(--fundo) 100%),
               radial-gradient(ellipse 90% 70% at 50% 45%, transparent 40%, rgba(5, 6, 8, .7) 100%); }
@@ -55,23 +55,23 @@ html:has(body.ld) { overflow: hidden; }
 
 /* letras 3D: cada letra tem a face (gradiente claro com um brilho que passa) e, atrás, a profundidade em camadas
    na cor do esporte escurecida; o bloco inclina um pouco seguindo o mouse */
-.ld-titulo { --fs: min(19vw, 30vh, calc(94vw / (var(--letras, 8) * .5))); margin: 0; font-family: var(--display); font-weight: 400; font-size: var(--fs); line-height: .9; letter-spacing: .015em; text-transform: uppercase; white-space: nowrap;
-  transform: rotateX(calc(14deg + var(--ty, 0deg))) rotateY(var(--tx, 0deg)); transform-origin: 50% 70%; transition: transform .6s cubic-bezier(.2, .8, .2, 1); pointer-events: none; }
+.ld-titulo { --fs: min(15vw, 22vh, calc(92vw / (var(--letras, 8) * .74))); margin: 0; font-family: var(--display); font-weight: 900; font-style: italic; font-size: var(--fs); line-height: 1; letter-spacing: -.01em; text-transform: uppercase; white-space: nowrap;
+  transform: rotateX(calc(8deg + var(--ty, 0deg))) rotateY(var(--tx, 0deg)); transform-origin: 50% 70%; transition: transform .6s cubic-bezier(.2, .8, .2, 1); pointer-events: none; }
 .ld-l { --ex: color-mix(in srgb, var(--cor) 45%, #07080a); --ex2: color-mix(in srgb, var(--cor) 20%, #020203);
   position: relative; display: inline-block; color: transparent;
   animation: ld-letra .9s cubic-bezier(.2, .85, .25, 1) both; animation-delay: calc(var(--i) * 55ms); }
 .ld-l::before, .ld-l::after { content: attr(data-l); position: absolute; left: 0; top: 0; }
 /* profundidade: a letra repetida em camadas para baixo, na cor do esporte escurecida, e a sombra no chão */
 .ld-l::before { z-index: 0; color: var(--ex);
-  text-shadow: 0 1px 0 var(--ex), 0 2px 0 var(--ex), 0 3px 0 var(--ex), 0 4px 0 var(--ex), 0 5px 0 var(--ex), 0 6px 0 var(--ex2), 0 7px 0 var(--ex2), 0 8px 0 var(--ex2), 0 9px 0 var(--ex2), 0 10px 0 var(--ex2), 0 11px 0 var(--ex2), 0 12px 0 var(--ex2),
-    0 14px 6px rgba(0, 0, 0, .55), 0 30px 40px rgba(0, 0, 0, .6), 0 0 80px color-mix(in srgb, var(--cor) 30%, transparent); }
+  text-shadow: 1px 1px 0 var(--ex), 2px 2px 0 var(--ex), 3px 3px 0 var(--ex), 4px 4px 0 var(--ex), 5px 5px 0 var(--ex), 6px 6px 0 var(--ex2), 7px 7px 0 var(--ex2), 8px 8px 0 var(--ex2), 9px 9px 0 var(--ex2), 10px 10px 0 var(--ex2),
+    14px 18px 16px rgba(0, 0, 0, .6), 0 30px 60px rgba(0, 0, 0, .55), 0 0 90px color-mix(in srgb, var(--cor) 35%, transparent); }
 /* face: metal claro com um brilho que passa */
-.ld-l::after { z-index: 1; color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, .5);
-  background: linear-gradient(100deg, #c9d0d8 0%, #ffffff 30%, #ffffff 36%, #aab3bd 46%, #eef1f4 62%, #c3cad2 100%) 0 0 / 260% 100%;
+.ld-l::after { z-index: 1; color: transparent;
+  background: linear-gradient(100deg, transparent 0%, transparent 38%, rgba(255, 255, 255, .95) 46%, transparent 54%, transparent 100%) 0 0 / 260% 100%, linear-gradient(180deg, #ffffff 0%, #f2f4f7 46%, #c3cbd5 54%, #eef1f4 100%);
   -webkit-background-clip: text; background-clip: text; animation: ld-brilho 5.5s ease-in-out 1.2s infinite; }
 .ld-l.sai { animation: ld-letra-sai .4s cubic-bezier(.5, 0, .75, 0) both; animation-delay: calc(var(--i) * 30ms); }
-.ld-esp { display: inline-block; width: .28em; }
-@keyframes ld-brilho { 0%, 30% { background-position: 100% 0; } 70%, 100% { background-position: 0 0; } }
+.ld-esp { display: inline-block; width: .24em; }
+@keyframes ld-brilho { 0%, 30% { background-position: 100% 0, 0 0; } 70%, 100% { background-position: 0 0, 0 0; } }
 @keyframes ld-letra { from { opacity: 0; transform: translateY(.45em) rotateX(-70deg); filter: blur(8px); } to { opacity: 1; transform: none; filter: none; } }
 @keyframes ld-letra-sai { to { opacity: 0; transform: translateY(-.3em) rotateX(50deg); filter: blur(6px); } }
 
@@ -115,12 +115,12 @@ html:has(body.ld) { overflow: hidden; }
 .ld-saindo .ld-fundo { opacity: .3; transition: opacity .5s ease; }
 
 @media (max-width: 720px) {
-  .ld-bg[data-esp="futebol"] { background-image: url(../img/hero/futebol-m.webp), url(../img/esportes/futebol-m.webp); }
+  .ld-bg[data-esp="futebol"] { background-image: url(../img/hero/futebol2-m.webp), url(../img/esportes/futebol-m.webp); }
   .ld-bg[data-esp="basquete"] { background-image: url(../img/hero/basquete-m.webp), url(../img/esportes/basquete-m.webp); }
-  .ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo-m.webp), url(../img/esportes/automobilismo-m.webp); }
+  .ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo2-m.webp), url(../img/esportes/automobilismo-m.webp); }
   .ld-nav { display: none; }
   .ld-cena { margin-top: -16vh; }
-  .ld-titulo { --fs: min(22vw, calc(94vw / (var(--letras, 8) * .5))); }
+  .ld-titulo { --fs: min(17vw, calc(92vw / (var(--letras, 8) * .74))); }
   .ld-objetos { width: min(62vw, 34vh); transform: translate(-50%, 2%); }
   .ld-info { bottom: calc(max(20px, env(safe-area-inset-bottom)) + 70px); }
   .ld-abas { gap: 18px; }

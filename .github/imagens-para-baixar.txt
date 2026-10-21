@@ -20,3 +20,5 @@ assets/img/escudos/sofa2-uniao-corinthians https://img.sofascore.com/api/v1/team
 assets/img/hero/futebol https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_005846_3a991c5d-40ff-401e-9494-3194a3b7f102.png
 assets/img/hero/basquete https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_005847_1a8e6cbe-de9b-4466-a4b1-de48e9fe09c2.png
 assets/img/hero/automobilismo https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_005848_d2eb5621-adda-4c28-aa39-26ea0be44fde.png
+assets/img/hero/futebol2 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_011027_4b7c54ee-6416-436a-8f92-75860e5cb8e4.png
+assets/img/hero/automobilismo2 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_011028_574d1895-b85b-4fc3-96de-c3018cc7fb95.png
