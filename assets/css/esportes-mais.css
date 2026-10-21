@@ -954,10 +954,35 @@ a.bu-card:hover { box-shadow: inset 0 0 0 1.5px var(--sangue-vivo); }
 .b1-aviso[hidden] { display: none; }
 .b1-aviso b { font: 400 clamp(30px, 7vw, 48px) 'Bebas Neue', var(--texto); letter-spacing: .03em; }
 .b1-aviso span { max-width: 380px; font-size: 15px; color: #d1d5db; }
-.b1-botoes { display: grid; grid-template-columns: 1fr 1fr 1.2fr 1.6fr; gap: 8px; max-width: 800px; margin: 12px auto 0; }
-.b1-botoes button { height: 62px; border-radius: 14px; border: 1px solid var(--linha); background: var(--carbono); color: var(--cromo); font: 700 16px var(--texto); touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; cursor: pointer; }
+@media (pointer: fine) { .b1-botoes { display: none; } }
+@media (pointer: coarse) { .b1-dica { display: none; } }
+/* Jogos 1x1: barra de volume, dificuldade e tela cheia; botões em dois grupos (andar | pular, especial, ação) */
+.b1-barra { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; max-width: 800px; margin: 0 auto 8px; }
+.b1-barra button, .b1-barra select { height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--linha); background: var(--carbono); color: var(--cromo); font: 600 13px var(--texto); cursor: pointer; }
+.b1-barra .b1-som { width: 40px; padding: 0; font-size: 17px; }
+.b1-vol { width: 100px; accent-color: var(--sangue-vivo); }
+.b1-botoes { display: flex; gap: 8px; max-width: 800px; margin: 12px auto 0; }
+.b1-grupo { display: flex; gap: 8px; flex: 1; }
+.b1-grupo:last-child { flex: 1.6; }
+.b1-botoes button { flex: 1; height: 62px; padding: 0 4px; border-radius: 14px; border: 1px solid var(--linha); background: var(--carbono); color: var(--cromo); font: 700 15px var(--texto); touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; cursor: pointer; }
 .b1-botoes button.ativo { background: var(--carbono-2, #222); transform: scale(.97); }
 .b1-botoes .b1-arr { background: #f97316; border-color: #f97316; color: #fff; }
 .b1-botoes .b1-arr.ativo { background: #ea580c; }
-@media (pointer: fine) { .b1-botoes { display: none; } }
-@media (pointer: coarse) { .b1-dica { display: none; } }
+.b1-botoes .b1-esp { font-size: 13px; opacity: .55; }
+.b1-botoes .b1-esp.pronto { opacity: 1; background: #facc15; border-color: #facc15; color: #111; animation: b1-pisca .6s ease-in-out infinite alternate; }
+@keyframes b1-pisca { to { box-shadow: 0 0 18px rgba(250, 204, 21, .8); } }
+/* tela cheia: o jogo cobre a tela, o placar e a barra ficam em cima e os botões por cima do campo */
+html.b1-travado, html.b1-travado body { overflow: hidden; }
+.b1-cheio { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; margin: 0; padding: 0; background: #000; }
+.b1-cheio .b1-tela { width: min(100vw, calc(100vh * 16 / 9)); width: min(100vw, calc(100dvh * 16 / 9)); max-width: none; border: 0; border-radius: 0; }
+.b1-cheio .b1-placar { position: absolute; top: max(6px, env(safe-area-inset-top)); left: 50%; transform: translateX(-50%); z-index: 3; margin: 0; padding: 4px 14px; gap: 18px; background: rgba(5, 7, 15, .7); width: auto; }
+.b1-cheio .b1-placar b, .b1-cheio .b1-relogio { font-size: 24px; }
+.b1-cheio .b1-barra { position: absolute; top: max(6px, env(safe-area-inset-top)); right: max(8px, env(safe-area-inset-right)); z-index: 3; margin: 0; }
+.b1-cheio .b1-barra .b1-vol, .b1-cheio .b1-barra .b1-dif { display: none; }
+.b1-cheio .b1-botoes { position: absolute; left: max(10px, env(safe-area-inset-left)); right: max(10px, env(safe-area-inset-right)); bottom: max(10px, env(safe-area-inset-bottom)); z-index: 3; max-width: none; margin: 0; justify-content: space-between; pointer-events: none; }
+.b1-cheio .b1-grupo { flex: 0 0 auto; pointer-events: auto; }
+.b1-cheio .b1-botoes button { flex: 0 0 auto; width: 70px; height: 70px; border-radius: 50%; background: rgba(15, 18, 30, .55); border-color: rgba(255, 255, 255, .25); font-size: 13px; color: #fff; backdrop-filter: blur(4px); }
+.b1-cheio .b1-botoes .b1-arr { width: 84px; height: 84px; background: rgba(249, 115, 22, .85); }
+.b1-cheio .b1-botoes .b1-esp.pronto { background: rgba(250, 204, 21, .95); color: #111; }
+.b1-cheio .dq-nota { display: none; }
+@media (pointer: fine) { .b1-cheio .b1-botoes { display: none; } }

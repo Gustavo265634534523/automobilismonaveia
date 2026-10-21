@@ -110,3 +110,95 @@
   }
   window.ARTE_1X1 = { rr: rr, torcida: torcida, refletores: refletores, placas: placas, boneco: boneco, sombra: sombra };
 })();
+
+/* Som, tela cheia, volume, dificuldade e botões de toque dos jogos 1x1 (os sons são gerados na hora, sem arquivos) */
+(function () {
+  var A = window.ARTE_1X1; if (!A) return;
+  var ac = null, mestre = null, torcidaGanho = null, cfg = { vol: 0.7, mudo: false };
+  try { var c = JSON.parse(localStorage.getItem('arena-1x1-som') || 'null'); if (c) cfg = c; } catch (e) {}
+  function salvar() { try { localStorage.setItem('arena-1x1-som', JSON.stringify(cfg)); } catch (e) {} }
+  function ganhoMestre() { return cfg.mudo ? 0 : cfg.vol; }
+  function iniciar() {
+    if (ac) { if (ac.state === 'suspended') ac.resume(); return; }
+    var AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    ac = new AC(); mestre = ac.createGain(); mestre.gain.value = ganhoMestre(); mestre.connect(ac.destination);
+    /* torcida de fundo: ruído filtrado em laço, que sobe no gol */
+    var buf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate), d = buf.getChannelData(0);
+    for (var i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (0.6 + 0.4 * Math.sin(i / 2200));
+    var src = ac.createBufferSource(); src.buffer = buf; src.loop = true;
+    var f = ac.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 700; f.Q.value = 0.6;
+    torcidaGanho = ac.createGain(); torcidaGanho.gain.value = 0.07;
+    src.connect(f); f.connect(torcidaGanho); torcidaGanho.connect(mestre); src.start();
+  }
+  function ruido(dur, freq, q, vol, tipo) {
+    var n = Math.floor(ac.sampleRate * dur), buf = ac.createBuffer(1, n, ac.sampleRate), d = buf.getChannelData(0);
+    for (var i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+    var s = ac.createBufferSource(); s.buffer = buf;
+    var f = ac.createBiquadFilter(); f.type = tipo || 'bandpass'; f.frequency.value = freq; f.Q.value = q;
+    var g = ac.createGain(), t = ac.currentTime; g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    s.connect(f); f.connect(g); g.connect(mestre); s.start(); return f;
+  }
+  function tom(freq, dur, vol, tipo, ate) {
+    var o = ac.createOscillator(), g = ac.createGain(), t = ac.currentTime;
+    o.type = tipo || 'sine'; o.frequency.setValueAtTime(freq, t); if (ate) o.frequency.exponentialRampToValueAtTime(ate, t + dur);
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(g); g.connect(mestre); o.start(t); o.stop(t + dur + 0.05); return o;
+  }
+  var SONS = {
+    apito: function () { var o = tom(2900, 0.45, 0.16, 'sine'); var l = ac.createOscillator(), lg = ac.createGain(); l.frequency.value = 32; lg.gain.value = 120; l.connect(lg); lg.connect(o.frequency); l.start(); l.stop(ac.currentTime + 0.5); },
+    buzina: function () { tom(220, 0.8, 0.12, 'square'); tom(225, 0.8, 0.08, 'sawtooth'); },
+    chute: function () { tom(150, 0.16, 0.5, 'sine', 45); ruido(0.05, 2000, 1, 0.25); },
+    quique: function () { tom(110, 0.1, 0.35, 'sine', 50); },
+    trave: function () { tom(620, 0.5, 0.14, 'triangle'); tom(1480, 0.35, 0.06, 'triangle'); },
+    aro: function () { tom(520, 0.4, 0.12, 'triangle'); tom(1310, 0.25, 0.05, 'triangle'); },
+    rede: function () { var f = ruido(0.35, 3000, 0.8, 0.22, 'bandpass'); f.frequency.exponentialRampToValueAtTime(900, ac.currentTime + 0.35); },
+    roubo: function () { tom(900, 0.08, 0.12, 'square', 400); },
+    toco: function () { tom(90, 0.2, 0.5, 'sine', 40); ruido(0.08, 1200, 1, 0.3); },
+    especial: function () { tom(220, 0.6, 0.14, 'sawtooth', 1400); tom(330, 0.6, 0.08, 'square', 1800); },
+    torcida: function () {
+      if (!torcidaGanho) return; var t = ac.currentTime;
+      torcidaGanho.gain.cancelScheduledValues(t); torcidaGanho.gain.setValueAtTime(torcidaGanho.gain.value, t);
+      torcidaGanho.gain.linearRampToValueAtTime(0.5, t + 0.25); torcidaGanho.gain.linearRampToValueAtTime(0.07, t + 2.6);
+    }
+  };
+  A.som = function (nome) { if (!ac || cfg.mudo || !cfg.vol) return; try { SONS[nome](); } catch (e) {} };
+  A.iniciarSom = iniciar;
+  A.pausarSom = function (sim) { if (ac) { if (sim) ac.suspend(); else ac.resume(); } };
+
+  var DIF = 'medio'; try { DIF = localStorage.getItem('arena-1x1-dif') || 'medio'; } catch (e) {}
+  A.dificuldade = function () { return DIF; };
+
+  /* barra de cima (volume, dificuldade, tela cheia) e botões de toque: [esquerda, direita] e [pular, especial, ação] */
+  A.barraHTML = function () {
+    return '<div class="b1-barra"><button type="button" class="b1-som" aria-label="Ligar ou desligar o som">' + (cfg.mudo ? '🔇' : '🔊') + '</button>' +
+      '<input type="range" class="b1-vol" min="0" max="100" value="' + Math.round(cfg.vol * 100) + '" aria-label="Volume">' +
+      '<select class="b1-dif" aria-label="Dificuldade"><option value="facil">Fácil</option><option value="medio">Médio</option><option value="dificil">Difícil</option></select>' +
+      '<button type="button" class="b1-cheia">⛶ Tela cheia</button></div>';
+  };
+  A.botoesHTML = function (acao, especial) {
+    return '<div class="b1-botoes"><div class="b1-grupo"><button type="button" data-k="esq" aria-label="Andar para a esquerda">◀</button><button type="button" data-k="dir" aria-label="Andar para a direita">▶</button></div>' +
+      '<div class="b1-grupo"><button type="button" data-k="pulo">Pular</button><button type="button" data-k="esp" class="b1-esp">' + especial + '</button><button type="button" data-k="' + (acao === 'Chutar' ? 'chute' : 'arr') + '" class="b1-arr">' + acao + '</button></div></div>';
+  };
+  A.ligarUI = function (caixa, tecla, aoPausar) {
+    [].forEach.call(caixa.querySelectorAll('.b1-botoes button'), function (bt) {
+      var k = bt.getAttribute('data-k');
+      bt.addEventListener('pointerdown', function (e) { e.preventDefault(); tecla[k] = true; bt.classList.add('ativo'); try { bt.setPointerCapture(e.pointerId); } catch (er) {} });
+      ['pointerup', 'pointercancel', 'lostpointercapture'].forEach(function (ev) { bt.addEventListener(ev, function () { tecla[k] = false; bt.classList.remove('ativo'); }); });
+      bt.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+    });
+    var bs = caixa.querySelector('.b1-som'), vol = caixa.querySelector('.b1-vol'), dif = caixa.querySelector('.b1-dif'), cheia = caixa.querySelector('.b1-cheia');
+    bs.addEventListener('click', function () { cfg.mudo = !cfg.mudo; bs.textContent = cfg.mudo ? '🔇' : '🔊'; if (mestre) mestre.gain.value = ganhoMestre(); salvar(); iniciar(); });
+    vol.addEventListener('input', function () { cfg.vol = vol.value / 100; if (cfg.vol > 0 && cfg.mudo) { cfg.mudo = false; bs.textContent = '🔊'; } if (mestre) mestre.gain.value = ganhoMestre(); salvar(); });
+    dif.value = DIF;
+    dif.addEventListener('change', function () { DIF = dif.value; try { localStorage.setItem('arena-1x1-dif', DIF); } catch (e) {} dif.blur(); });
+    /* tela cheia: usa a do navegador quando dá e, de qualquer jeito, cobre a tela (no iPhone só a segunda funciona) */
+    function sair() { caixa.classList.remove('b1-cheio'); document.documentElement.classList.remove('b1-travado'); cheia.textContent = '⛶ Tela cheia'; }
+    cheia.addEventListener('click', function () {
+      if (caixa.classList.contains('b1-cheio')) { if (document.fullscreenElement) document.exitFullscreen(); sair(); return; }
+      caixa.classList.add('b1-cheio'); document.documentElement.classList.add('b1-travado'); cheia.textContent = '✕ Sair';
+      var pedido = caixa.requestFullscreen ? caixa.requestFullscreen() : caixa.webkitRequestFullscreen ? caixa.webkitRequestFullscreen() : null;
+      if (pedido && pedido.then) pedido.then(function () { if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(function () {}); }).catch(function () {});
+    });
+    document.addEventListener('fullscreenchange', function () { if (!document.fullscreenElement && caixa.classList.contains('b1-cheio')) sair(); });
+  };
+})();
