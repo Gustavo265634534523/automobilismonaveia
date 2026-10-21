@@ -6,6 +6,7 @@
   trilho.className = 'rolador'; trilho.setAttribute('aria-hidden', 'true');
   trilho.innerHTML = '<i class="rolador-polegar"></i>';
   document.body.appendChild(trilho);
+  document.documentElement.classList.add('com-rolador'); /* esconde a barra do sistema: fica só esta */
   var polegar = trilho.firstChild, arrastando = false, inicioY = 0, inicioScroll = 0, altPolegar = 0, timer = 0;
 
   function medidas() {

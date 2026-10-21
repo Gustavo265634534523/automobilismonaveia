@@ -1454,3 +1454,47 @@ html { background: var(--asfalto); }
 ::-webkit-scrollbar-thumb:hover, ::-webkit-scrollbar-thumb:active { background: var(--sangue-vivo); background-clip: padding-box; }
 ::-webkit-scrollbar-button, ::-webkit-scrollbar-corner { display: none; width: 0; height: 0; background: transparent; }
 @media (max-width: 720px) { ::-webkit-scrollbar { width: 5px; height: 5px; } ::-webkit-scrollbar-thumb { border-width: 1px; } }
+
+/* ---------- Barra de baixo no celular (como nos apps) ----------
+   Início, Agenda, Buscar (no meio, em destaque), Menu e Perfil. O topo fica só com a marca e o tema;
+   busca, menu, idioma e conta saem de lá. Some no computador. */
+.barra-baixo { display: none; }
+@media (max-width: 720px) {
+  html.com-barra-baixo { --bb-h: calc(62px + env(safe-area-inset-bottom, 0px)); }
+  .barra-baixo {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 52;
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); align-items: end;
+    height: var(--bb-h); padding: 0 6px env(safe-area-inset-bottom, 0px);
+    background: var(--barra-fundo); border-top: 1px solid var(--linha);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  }
+  .barra-baixo > a, .barra-baixo > button {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+    height: 62px; padding: 0; background: none; border: 0; cursor: pointer; text-decoration: none;
+    color: var(--texto-3, var(--aco)); font: 600 11px var(--texto); letter-spacing: .02em; -webkit-tap-highlight-color: transparent;
+  }
+  .barra-baixo svg { width: 23px; height: 23px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .barra-baixo > [aria-current], .barra-baixo > [aria-expanded="true"] { color: var(--sangue-vivo); }
+  .barra-baixo > a:active, .barra-baixo > button:active { transform: scale(.94); }
+  .barra-baixo .bb-meio { justify-content: flex-end; padding-bottom: 7px; }
+  .barra-baixo .bb-meio b { display: grid; place-items: center; width: 48px; height: 48px; margin-top: -22px; border-radius: 50%; background: var(--sangue-vivo); color: #fff; box-shadow: 0 6px 18px rgba(59, 130, 246, .45), 0 0 0 4px var(--asfalto); }
+  .barra-baixo .bb-meio b svg { width: 22px; height: 22px; stroke-width: 2.2; }
+  .barra-baixo .bb-meio[aria-current] span { color: var(--sangue-vivo); }
+
+  /* topo enxuto: só a marca e o tema */
+  html.com-barra-baixo .topo-in .busca-btn, html.com-barra-baixo .topo-in .conta-link,
+  html.com-barra-baixo .topo-in .todas, html.com-barra-baixo .topo-in .idioma-btn { display: none !important; }
+  html.com-barra-baixo .topo-in #tema-btn { margin-left: auto; }
+
+  /* o conteúdo e o que flutua embaixo sobem para não ficar atrás da barra */
+  html.com-barra-baixo body { padding-bottom: var(--bb-h); }
+  html.com-barra-baixo .painel { bottom: 0 !important; padding-bottom: calc(var(--bb-h) + 24px) !important; }
+  html.com-barra-baixo .app-bt { bottom: calc(var(--bb-h) + 12px); }
+  html.com-barra-baixo .app-aviso { bottom: calc(var(--bb-h) + 68px); }
+  html.com-barra-baixo .aviso-priv { bottom: var(--bb-h); }
+  html.com-barra-baixo .compartilhar-aviso, html.com-barra-baixo .nt-aviso { bottom: calc(var(--bb-h) + 16px); }
+  html.com-barra-baixo .rolador { bottom: var(--bb-h); }
+  html.chat-aberto .barra-baixo, html.nv-jogando .barra-baixo { display: none; }
+}
+.pm-idioma { display: none; }
+@media (max-width: 720px) { html.com-barra-baixo .pm-idioma { display: inline-flex; } }

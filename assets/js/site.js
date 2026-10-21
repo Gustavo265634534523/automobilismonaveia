@@ -186,7 +186,8 @@
     var abaPainel = esporteAtual === 'todos' ? 'futebol' : esporteAtual;
     var rapido = '<div class="pm-rapido"><a class="pm-chip" href="inicio.html"' + (inicio ? ' aria-current="page"' : '') + '>' + ic('inicio') + 'Início</a>' +
       '<a class="pm-chip" href="#bate-papo">' + ic('chat') + 'Chat</a>' +
-      '<button type="button" class="pm-chip" onclick="window.NAVEIA_TROCAR_TEMA()">' + ic('tema') + 'Modo claro/escuro</button></div>';
+      '<button type="button" class="pm-chip" onclick="window.NAVEIA_TROCAR_TEMA()">' + ic('tema') + 'Modo claro/escuro</button>' +
+      '<button type="button" class="pm-chip pm-idioma" data-sem-traducao onclick="window.trocarIdioma(window.LANG === \'en\' ? \'pt\' : \'en\')">' + ic('troca') + (window.LANG === 'en' ? 'Português' : 'English') + '</button></div>';
     painel.innerHTML = '<div class="moldura painel-in">' + rapido +
       '<div class="pm-esportes" role="tablist" aria-label="Esporte">' + ESP_PAINEL.map(function (e) {
         var sim = e.slug === abaPainel;
@@ -204,6 +205,27 @@
       });
     });
     topo.after(painel);
+
+    /* Barra de baixo (só no celular, como nos apps): Início, Agenda, Buscar no meio, Menu e Perfil.
+       No celular o topo fica só com a marca e o tema; busca, menu, idioma e conta passam para cá. */
+    IC.busca = '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>';
+    IC.perfil = '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>';
+    var espAgenda = esporteAtual === 'futebol' || esporteAtual === 'basquete' ? '#' + esporteAtual : '';
+    var naConta = /conta|entrar|painel/.test(location.pathname);
+    var bb = document.createElement('nav');
+    bb.className = 'barra-baixo'; bb.setAttribute('aria-label', 'Atalhos');
+    bb.innerHTML =
+      '<a href="inicio.html"' + (inicio ? ' aria-current="page"' : '') + '>' + ic('inicio') + '<span>Início</span></a>' +
+      '<a href="fim-de-semana.html' + espAgenda + '"' + (/fim-de-semana/.test(location.pathname) ? ' aria-current="page"' : '') + '>' + ic('agenda') + '<span>Agenda</span></a>' +
+      '<a class="bb-meio" href="busca.html"' + (/busca/.test(location.pathname) ? ' aria-current="page"' : '') + '><b>' + ic('busca') + '</b><span>Buscar</span></a>' +
+      '<button type="button" class="bb-menu" aria-controls="painel" aria-expanded="false">' + ic('categorias') + '<span>Menu</span></button>' +
+      '<a id="bb-perfil" href="entrar.html"' + (naConta ? ' aria-current="page"' : '') + '>' + ic('perfil') + '<span>Entrar</span></a>';
+    document.body.appendChild(bb);
+    document.documentElement.classList.add('com-barra-baixo');
+    var bbMenu = bb.querySelector('.bb-menu');
+    bbMenu.addEventListener('click', function () { var t = topo.querySelector('.todas'); if (t) t.click(); });
+    new MutationObserver(function () { var t = topo.querySelector('.todas'); if (t) bbMenu.setAttribute('aria-expanded', t.getAttribute('aria-expanded')); })
+      .observe(topo, { attributes: true, subtree: true, attributeFilter: ['aria-expanded'] });
 
     /* Faixa fina com as categorias, logo abaixo do menu (menos na página inicial, que já mostra as categorias na entrada).
        No celular ela desliza para o lado. Ponto vermelho = corre nos próximos 7 dias. */
@@ -380,6 +402,8 @@
       window.NAVEIA_AVATAR = function (u) { l.innerHTML = avatar(u); l.classList.toggle('conta-avatar', /<(img|b)/.test(l.innerHTML)); };
       window.NAVEIA_AVATAR(r.usuario || {});
       l.classList.add('conta-icone'); l.setAttribute('aria-label', 'Meu perfil'); l.title = 'Meu perfil';
+      var bp = document.getElementById('bb-perfil');
+      if (bp) { bp.href = 'conta.html'; bp.querySelector('span').textContent = 'Perfil'; }
     }
     if (/conta|entrar|painel/.test(location.pathname)) l.setAttribute('aria-current', 'page');
     /* faixa de cima conforme a conta: sem conta = convite para o teste grátis; no teste = dias que faltam; assinante = some */
@@ -403,12 +427,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=372'; document.head.appendChild(chatCss);
-    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=372'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
-    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=372'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=372'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=372'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=372'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=373'; document.head.appendChild(chatCss);
+    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=373'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=373'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=373'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=373'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=373'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
