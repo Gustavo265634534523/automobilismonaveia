@@ -1,4 +1,5 @@
-# Elencos atuais das principais ligas (ESPN) para o "Monte seu time", em assets/dados/jogadores-todos.js.
+# Elencos atuais das principais ligas (ESPN) para o "Monte seu time", em assets/dados/jogadores-todos.js, e os brasileiros
+# da Europa e da NBA em assets/dados/brasileiros.js.
 # Toda segunda-feira (pega as contratações), quando o robô muda ou quando pedido à mão.
 name: Jogadores do Monte seu time
 on:
@@ -29,7 +30,7 @@ jobs:
         run: |
           git config user.name "Robô Arena Sports"
           git config user.email "automobilismonaveiacontato@gmail.com"
-          git add assets/dados/jogadores-todos.js
+          git add assets/dados/jogadores-todos.js assets/dados/brasileiros.js
           git diff --cached --quiet && exit 0
           git commit -m "Robô: elencos do Monte seu time"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
