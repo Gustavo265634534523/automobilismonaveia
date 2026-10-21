@@ -7,7 +7,7 @@
   /* imagem do esporte (IMG_ESPORTE, em assets/dados/fotos-reais.js): bola de futebol ou cesta de basquete;
      sem ela, a arte do esporte (gramado ou quadra). Usado também por capa.js e basquete.js. */
   window.fotoEsporte = function (n, grande, classe) {
-    var f = (window.IMG_ESPORTE || {})[n.esporte || 'futebol'];
+    var f = window.fotoDoTitulo ? window.fotoDoTitulo(n.esporte || 'futebol', n.t) : (window.IMG_ESPORTE || {})[n.esporte || 'futebol'];
     if (f) return '<img' + (classe ? ' class="' + classe + '"' : '') + ' src="' + (grande ? f.grande : f.src) + '" alt="" loading="' + (grande ? 'eager' : 'lazy') + '">';
     return '<span class="hm-arte hm-' + (n.esporte || 'futebol') + (classe ? ' ' + classe : '') + '" aria-hidden="true">' + ((window.ESPORTES_ICONE || {})[n.esporte] || '') + '</span>';
   };

@@ -94,7 +94,7 @@
         '<div class="rs-nome">' + esc(v.nome).replace(' ', '<br>') + '</div><div class="rs-equipe">' + esc(v.equipe) + '</div><div class="rs-num">#' + v.n + '</div>' +
         '<dl class="rs-info">' + info.map(function (i) { return '<div><dt>' + esc(i[0]) + '</dt><dd>' + esc(i[1]) + '</dd></div>'; }).join('') + '</dl></div>' +
       '<div class="rs-card rs-foto' + (foto ? ' rs-real' : '') + '"><i class="rs-faixa"></i>' + (foto ? '' : '<span class="rs-n">' + v.n + '</span>') +
-        '<img src="' + (foto ? foto.src : 'assets/img/esportes/automobilismo-m.webp') + '" alt="" loading="lazy">' + (foto ? '<small class="rs-cred">' + esc(foto.cred) + '</small>' : '') +
+        '<img src="' + (foto ? foto.src : 'assets/img/fotos/automobilismo-m.webp') + '" alt="" loading="lazy">' + (foto ? '<small class="rs-cred">' + esc(foto.cred) + '</small>' : '') +
         '<div class="rs-legenda"><b>P1</b><span>' + esc(frase) + '</span></div></div>' +
       '<div class="rs-dir"><div class="rs-card rs-bloco"><h4>Pódio · ' + esc(ref.titulo.replace(/^Vencedor d[ao] /, '').replace(/^Pole para a /, 'grid da ').replace(/^Pole d[ao] /, 'grid da ')) + '</h4><div class="rs-podio">' + ref.top.map(function (p) {
           return '<div><i>P' + p.pos + '</i><em style="background:' + p.cor + '"></em><span>' + esc(p.nome) + '<br><small>' + esc(p.equipe) + '</small></span><small>' + esc(p.tempo) + '</small></div>'; }).join('') + '</div></div>' +

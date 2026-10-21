@@ -1,11 +1,21 @@
-/* Imagens do site: uma por esporte (assets/img/esportes). Todo o automobilismo usa a imagem da bandeirada.
+/* Imagens do site (assets/img/fotos, feitas no Higgsfield): a principal de cada esporte e, para variar nas notícias,
+   outras do mesmo esporte (VARIACOES); cada notícia fica sempre com a mesma, escolhida pelo título.
    fotoNoticia continua existindo para quem já chamava (entrada.js, capa.js, noticias.js, .github/paginas-noticias.js). */
 window.IMG_ESPORTE = {
-  automobilismo: { src: 'assets/img/esportes/automobilismo-m.webp', grande: 'assets/img/esportes/automobilismo.webp', jpg: 'assets/img/esportes/automobilismo.jpg' },
-  futebol: { src: 'assets/img/esportes/futebol-m.webp', grande: 'assets/img/esportes/futebol.webp', jpg: 'assets/img/esportes/futebol.jpg' },
-  basquete: { src: 'assets/img/esportes/basquete-m.webp', grande: 'assets/img/esportes/basquete.webp', jpg: 'assets/img/esportes/basquete.jpg' }
+  automobilismo: { src: 'assets/img/fotos/automobilismo-m.webp', grande: 'assets/img/fotos/automobilismo.webp', jpg: 'assets/img/fotos/automobilismo.jpg' },
+  futebol: { src: 'assets/img/fotos/futebol-m.webp', grande: 'assets/img/fotos/futebol.webp', jpg: 'assets/img/fotos/futebol.jpg' },
+  basquete: { src: 'assets/img/fotos/basquete-m.webp', grande: 'assets/img/fotos/basquete.webp', jpg: 'assets/img/fotos/basquete.jpg' }
 };
-window.fotoNoticia = function () { return window.IMG_ESPORTE.automobilismo; };
+function fotoEsp(n) { return { src: 'assets/img/fotos/' + n + '-m.webp', grande: 'assets/img/fotos/' + n + '.webp', jpg: 'assets/img/fotos/' + n + '.jpg' }; }
+window.FOTOS_VARIACOES = { automobilismo: [window.IMG_ESPORTE.automobilismo, fotoEsp('automobilismo-2')], futebol: [window.IMG_ESPORTE.futebol, fotoEsp('futebol-2')], basquete: [window.IMG_ESPORTE.basquete] };
+/* foto de uma notícia do esporte: sempre a mesma para o mesmo título */
+window.fotoDoTitulo = function (esporte, titulo) {
+  var L = window.FOTOS_VARIACOES[esporte] || [window.IMG_ESPORTE[esporte] || window.IMG_ESPORTE.futebol], h = 0, t = String(titulo || '');
+  for (var i = 0; i < t.length; i++) h = (h * 31 + t.charCodeAt(i)) | 0;
+  return L[Math.abs(h) % L.length];
+};
+window.fotoNoticia = function (cat, titulo) { return window.fotoDoTitulo('automobilismo', titulo); };
+
 /* capa de vídeo do YouTube; se a capa não carregar (vídeo sem capa grande ou YouTube bloqueado), tenta a média e depois usa a imagem do esporte */
 window.capaVideo = function (id, q, esporte, extra) {
   var f = (window.IMG_ESPORTE[esporte] || window.IMG_ESPORTE.automobilismo).src, y = 'https://i.ytimg.com/vi/' + encodeURIComponent(id) + '/';

@@ -27,9 +27,9 @@ html:has(body.ld) { overflow: hidden; }
   transition: opacity 1.2s ease, transform 8s cubic-bezier(.2, .7, .2, 1); filter: saturate(1.1) brightness(.78); }
 .ld-bg.ativo { opacity: 1; transform: scale(1) translate3d(var(--px, 0), var(--py, 0), 0); }
 /* foto nova da entrada e, por baixo, a antiga (se a nova ainda não tiver chegado) */
-.ld-bg[data-esp="futebol"] { background-image: url(../img/hero/futebol2.webp), url(../img/esportes/futebol.webp); }
-.ld-bg[data-esp="basquete"] { background-image: url(../img/hero/basquete.webp), url(../img/esportes/basquete.webp); }
-.ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo2.webp), url(../img/esportes/automobilismo.webp); }
+.ld-bg[data-esp="futebol"] { background-image: url(../img/hero/futebol2.webp), url(../img/fotos/futebol.webp); }
+.ld-bg[data-esp="basquete"] { background-image: url(../img/hero/basquete.webp), url(../img/fotos/basquete.webp); }
+.ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo2.webp), url(../img/fotos/automobilismo.webp); }
 .ld-fundo::after { content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(5, 6, 8, .78) 0%, rgba(5, 6, 8, .15) 22%, rgba(5, 6, 8, .1) 55%, rgba(5, 6, 8, .88) 88%, var(--fundo) 100%),
               radial-gradient(ellipse 90% 70% at 50% 45%, transparent 40%, rgba(5, 6, 8, .7) 100%); }
@@ -115,9 +115,9 @@ html:has(body.ld) { overflow: hidden; }
 .ld-saindo .ld-fundo { opacity: .3; transition: opacity .5s ease; }
 
 @media (max-width: 720px) {
-  .ld-bg[data-esp="futebol"] { background-image: url(../img/hero/futebol2-m.webp), url(../img/esportes/futebol-m.webp); }
-  .ld-bg[data-esp="basquete"] { background-image: url(../img/hero/basquete-m.webp), url(../img/esportes/basquete-m.webp); }
-  .ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo2-m.webp), url(../img/esportes/automobilismo-m.webp); }
+  .ld-bg[data-esp="futebol"] { background-image: url(../img/hero/futebol2-m.webp), url(../img/fotos/futebol-m.webp); }
+  .ld-bg[data-esp="basquete"] { background-image: url(../img/hero/basquete-m.webp), url(../img/fotos/basquete-m.webp); }
+  .ld-bg[data-esp="automobilismo"] { background-image: url(../img/hero/automobilismo2-m.webp), url(../img/fotos/automobilismo-m.webp); }
   .ld-nav { display: none; }
   .ld-cena { margin-top: -16vh; }
   .ld-titulo { --fs: min(17vw, calc(92vw / (var(--letras, 8) * .74))); }

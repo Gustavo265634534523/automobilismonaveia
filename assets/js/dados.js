@@ -9,7 +9,7 @@ window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 window.CATEGORIAS = [
 {
   slug: 'formula-1', nome: 'Fórmula 1', menu: 'Fórmula 1', principal: true,
-  foto: 'assets/img/esportes/automobilismo.webp',
+  foto: 'assets/img/fotos/automobilismo.webp',
   frase: 'O piloto encontra o limite a 340 km/h.',
   intro: 'Vinte e dois carros, mil cavalos em cada um. Na freada do fim da reta, o corpo pesa cinco vezes mais e o pé direito ainda espera o último metro. A Fórmula 1 decide campeonatos em milésimos.',
   lider: { nome: 'Kimi Antonelli', info: 'Mercedes, 340 pontos' },
