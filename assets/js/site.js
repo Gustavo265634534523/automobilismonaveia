@@ -399,12 +399,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=355'; document.head.appendChild(chatCss);
-    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=355'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
-    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=355'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=355'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=355'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=355'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=356'; document.head.appendChild(chatCss);
+    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=356'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=356'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=356'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=356'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=356'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
