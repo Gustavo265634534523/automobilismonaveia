@@ -1,2 +1,5 @@
-/* Gerado por .github/estatisticas-futebol.js. */
-window.DESTAQUES_FUTEBOL = null;
+/* Seleção da rodada do Brasileirão e brasileiros na Europa (ESPN). Gerado por .github/estatisticas-futebol.js.
+   selecao.linhas: do ataque para o gol, [posição, nome, time, nota, o que fez]. brasileiros.semana: [nome, time, campeonato, data,
+   adversário, placar, gols, assistências, titular, amarelos, vermelhos, defesas, gols sofridos (goleiro) ou -1].
+   brasileiros.temporada: [nome, time, liga, jogos, gols, assistências]. */
+window.DESTAQUES_FUTEBOL = {"selecao":{"comp":"brasileirao","de":"2026-10-16","ate":"2026-10-19","jogos":10,"formacao":"4-3-3","linhas":[[["ATA","Kaio Jorge","Cruzeiro",17.1,"3 gols"],["ATA","Tiquinho Soares","Botafogo",7.4,"1 gol"],["ATA","Gabriel Barbosa","Santos",6.7,"1 gol"]],[["MEI","Gonzalo Plata","Flamengo",8.8,"1 gol"],["MEI","Igor Gomes","Atlético-MG",8.2,"1 gol"],["MEI","Matheus Martins","Botafogo",7.8,"1 assistência"]],[["LE","Reinaldo","Mirassol",4.3,"sem sofrer gol"],["ZAG","João Marcelo","Cruzeiro",6.7,"1 gol"],["ZAG","Léo Duarte","Atlético-MG",4.6,"sem sofrer gol"],["LD","Guillermo Varela","Flamengo",8,"1 assistência, sem sofrer gol"]],[["GOL","Carlos Miguel","Palmeiras",8.7,"6 defesas, sem sofrer gol"]]],"craque":["ATA","Kaio Jorge","Cruzeiro",17.1,"3 gols"]},"brasileiros":{"semana":[],"temporada":[],"total":0},"atualizado":"2026-10-21"};
