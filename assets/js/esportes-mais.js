@@ -3,8 +3,7 @@
    1. junta o placar automático (assets/dados/ao-vivo.js, robô .github/placar.js) aos dados escritos à mão;
    2. placar ao vivo no navegador: enquanto há jogo rolando, pergunta à ESPN a cada minuto;
    3. página de cada time (time.html?t=...) e o "meu time" (fica guardado neste aparelho);
-   4. onde assistir (assets/js/onde-assistir-dados.js);
-   5. chaveamento do mata-mata e dos playoffs, líderes de estatística e cartões do mercado. */
+   4. chaveamento do mata-mata e dos playoffs, líderes de estatística e cartões do mercado. */
 (function () {
   var COMPS = window.COMPETICOES || [], esc = window.esc;
   var PORSLUG = {}; COMPS.forEach(function (c) { PORSLUG[c.slug] = c; });
@@ -144,15 +143,6 @@
     document.dispatchEvent(new CustomEvent('naveia:meu-time'));
   };
 
-  /* 4. onde assistir */
-  window.canais = function (slug, max) {
-    var c = ((window.ONDE_ASSISTIR || {}).cats || {})[slug];
-    if (!c) return '';
-    var l = c.canais.map(function (x) { return x[0]; });
-    return l.slice(0, max || 3).join(', ') + ((max || 3) >= 3 && l.length > (max || 3) ? ' e +' + (l.length - (max || 3)) : ''); /* nas listas (2 canais), sem o "e +2" */
-  };
-  var TV = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="12" rx="1.5"/><path d="M8 21h8M12 17v4"/></svg>';
-  window.tvLinha = function (slug, max) { var t = window.canais(slug, max); return t ? '<span class="em-tv">' + TV + '<span>' + esc(t) + '</span></span>' : ''; };
 
   /* status curto de um jogo (ao vivo, encerrado, horário) */
   window.statusJogo = function (j) {
@@ -171,7 +161,7 @@
       '<a class="em-time em-casa" href="' + window.linkTime(j.casa) + '">' + esc(j.casa) + window.escudoTime(j.casa) + '</a>' +
       '<span class="em-placar">' + (tem ? esc(pl[0]) + '<i>–</i>' + esc(pl[1] || '') : '<i>x</i>') + '</span>' +
       '<a class="em-time" href="' + window.linkTime(j.fora) + '">' + window.escudoTime(j.fora) + esc(j.fora) + '</a>' +
-      '<span class="em-st">' + window.statusJogo(j) + (!j.p && !j.vivo ? window.tvLinha(x.c.slug, 2) : '') + '</span></li>';
+      '<span class="em-st">' + window.statusJogo(j) + '</span></li>';
   };
 
   /* bloco "ao vivo e hoje" de um esporte (ou dos dois): jogos de hoje; sem jogo hoje, os próximos */
@@ -212,7 +202,7 @@
           '<a class="mt-id" href="' + window.linkTime(t.nome) + '">' + window.escudoTime(t.nome, 'mt-escudo') + '<span><small>Meu time</small><b>' + esc(t.nome) + '</b>' +
             (p ? '<em>' + esc(p.linha[0]) + 'º ' + (p.c.tabela2 ? 'na conferência' : 'no ' + esc(p.c.menu)) + '</em>' : '') + '</span></a>' +
           '<div class="mt-info">' +
-            '<div><small>Próximo jogo</small>' + (px ? '<b>' + esc(px.j.casa) + ' x ' + esc(px.j.fora) + '</b><span>' + esc(window.quando(px.j.d)) + ', ' + window.dataCurta(px.j.d) + (px.j.h ? ' · ' + esc(px.j.h) : '') + ' · ' + esc(px.c.menu) + '</span>' + window.tvLinha(px.c.slug, 3) : '<b>A confirmar</b>') + '</div>' +
+            '<div><small>Próximo jogo</small>' + (px ? '<b>' + esc(px.j.casa) + ' x ' + esc(px.j.fora) + '</b><span>' + esc(window.quando(px.j.d)) + ', ' + window.dataCurta(px.j.d) + (px.j.h ? ' · ' + esc(px.j.h) : '') + ' · ' + esc(px.c.menu) + '</span>' : '<b>A confirmar</b>') + '</div>' +
             '<div><small>Último resultado</small>' + (ul ? '<b>' + esc(ul.j.casa) + ' ' + esc(ul.j.p) + ' ' + esc(ul.j.fora) + '</b><span>' + esc(ul.c.menu) + (ul.j.d ? ', ' + window.dataCurta(ul.j.d) : '') + '</span>' : '<b>—</b>') + '</div>' +
             (i.nots[0] ? '<div class="mt-not"><small>Última notícia</small><a href="' + window.linkTime(t.nome) + '#noticias">' + esc(i.nots[0].t) + '</a></div>' : '') +
           '</div><div class="mt-acoes"><a class="ft-btn" href="' + window.linkTime(t.nome) + '">Página do time</a><button type="button" class="mt-trocar" data-mt-escolher>Trocar</button></div></div>';

@@ -1,6 +1,6 @@
-/* Páginas para o Google: "horário e onde assistir" de cada corrida, mais a página central horarios.html.
+/* Páginas para o Google: "horário" de cada corrida, mais a página central horarios.html.
    O texto vai pronto dentro do HTML (o Google lê sem esperar o JavaScript).
-   Lê assets/js/dados.js e assets/js/onde-assistir-dados.js. Roda no GitHub junto com a agenda (.github/workflows/agenda.yml)
+   Lê assets/js/dados.js. Roda no GitHub junto com a agenda (.github/workflows/agenda.yml)
    e também no PC: node .github/paginas-horarios.js
    Páginas de corridas antigas não são apagadas: continuam no ar mostrando o resultado. */
 const fs = require('fs');
@@ -9,10 +9,9 @@ const RAIZ = path.join(__dirname, '..');
 const SITE = 'https://automobilismonaveia.com.br/';
 global.window = {};
 eval(fs.readFileSync(path.join(RAIZ, 'assets/js/dados.js'), 'utf8'));
-eval(fs.readFileSync(path.join(RAIZ, 'assets/js/onde-assistir-dados.js'), 'utf8'));
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[m]));
 window.esc = esc;
-const O = window.ONDE_ASSISTIR, CATS = window.CATEGORIAS;
+const CATS = window.CATEGORIAS;
 /* mesma versão (?v=) das outras páginas, lida do sw.js */
 const V = (fs.readFileSync(path.join(RAIZ, 'sw.js'), 'utf8').match(/naveia-v(\d+)/) || [])[1] || '1';
 const hoje = new Date(Date.now() - 3 * 36e5).toISOString().slice(0, 10);
@@ -112,12 +111,6 @@ ${o.corpo}
 `;
 }
 
-function canais(slug) {
-  const d = O.cats[slug];
-  if (!d) return '<p>Ainda sem transmissão confirmada no Brasil.</p>';
-  return O.quadro(slug) || '';
-}
-
 /* ---------- página de cada corrida ---------- */
 const feitas = [];
 CATS.forEach(c => {
@@ -125,11 +118,11 @@ CATS.forEach(c => {
   c.calendario.forEach(e => {
     if (!e.d || e.d < DESDE) return;
     const arq = arquivo(c, e), ano = e.d.slice(0, 4), cc = curto(c), p = principal(e);
-    const titulo = `${e.n} ${ano} (${cc}): horário e onde assistir | Arena Sports`;
+    const titulo = `${e.n} ${ano} (${cc}): horário de Brasília | Arena Sports`;
     const quandoTxt = dataLonga(e.d) + (p && p.h ? ', às ' + hora(p.h) : '');
     const desc = e.venc
-      ? `${e.n} ${ano} da ${c.nome}: vencedor ${e.venc}. Horários de todas as sessões (Brasília) e onde assistir no Brasil.`
-      : `Que horas é o ${e.n} ${ano} da ${c.nome}? ${p && p.h ? 'Corrida ' + quandoTxt + ' (Brasília)' : 'Data: ' + dataLonga(e.d)}. Horários de todas as sessões e onde assistir: ${(O.cats[c.slug] || { canais: [] }).canais.slice(0, 3).map(x => x[0]).join(', ')}.`;
+      ? `${e.n} ${ano} da ${c.nome}: vencedor ${e.venc}. Horários de todas as sessões no horário de Brasília.`
+      : `Que horas é o ${e.n} ${ano} da ${c.nome}? ${p && p.h ? 'Corrida ' + quandoTxt + ' (Brasília)' : 'Data: ' + dataLonga(e.d)}. Horários de todas as sessões no horário de Brasília.`;
     const sessoes = (e.s || []).length
       ? '<table class="hr-tab"><thead><tr><th scope="col">Dia</th><th scope="col">Sessão</th><th scope="col">Horário (Brasília)</th></tr></thead><tbody>' +
         e.s.map(s => `<tr${s === p ? ' class="hr-corrida"' : ''}><td>${esc(dataCurta(s.d))}</td><td>${esc(s.t)}</td><td>${esc(hora(s.h))}</td></tr>`).join('') + '</tbody></table>'
@@ -149,15 +142,14 @@ CATS.forEach(c => {
         { '@type': 'ListItem', position: 3, name: e.n, item: SITE + arq }] }] };
     const corpo = `    <nav class="hr-trilha" aria-label="Você está em"><a href="horarios.html">Horários das corridas</a> / <a href="${c.slug}.html">${esc(c.nome)}</a> / ${esc(e.n)}</nav>
     <p class="hr-rot">${esc(c.nome)} · etapa ${e.e} de ${total}${e.l ? ' · ' + esc(e.l) : ''}</p>
-    <h1>${esc(e.n)} ${ano}: horário e onde assistir</h1>
-    <p class="hr-lead">${e.venc ? `O ${esc(e.n)} ${ano} já aconteceu. Veja o resultado, os horários que foram usados e onde passou no Brasil.` : p && p.h ? `A corrida é ${esc(quandoTxt)}, no horário de Brasília. Abaixo, todas as sessões do fim de semana e os canais que transmitem no Brasil.` : `A etapa está marcada para ${esc(dataLonga(e.d))}. Abaixo, onde assistir no Brasil.`}${e.nota ? ' ' + esc(e.nota.charAt(0).toUpperCase() + e.nota.slice(1)) + '.' : ''}</p>
+    <h1>${esc(e.n)} ${ano}: horário de Brasília</h1>
+    <p class="hr-lead">${e.venc ? `O ${esc(e.n)} ${ano} já aconteceu. Veja o resultado e os horários que foram usados.` : p && p.h ? `A corrida é ${esc(quandoTxt)}, no horário de Brasília. Abaixo, todas as sessões do fim de semana.` : `A etapa está marcada para ${esc(dataLonga(e.d))}. Os horários das sessões entram assim que forem divulgados.`}${e.nota ? ' ' + esc(e.nota.charAt(0).toUpperCase() + e.nota.slice(1)) + '.' : ''}</p>
     ${status}
     <h2>Horários de todas as sessões</h2>
     ${sessoes}
     <p class="hr-nota">Horários de Brasília. Podem mudar por decisão da organização; esta página é atualizada todo dia.</p>
-    <section class="oa-bloco" style="margin-top:30px"><h2 style="margin-top:0">Onde assistir no Brasil</h2>${canais(c.slug)}</section>
     ${camp}
-    <div class="hr-links"><a href="${c.slug}.html#calendario">Calendário completo da ${esc(cc)}</a><a href="horarios.html">Horários de todas as categorias</a><a href="onde-assistir.html">Onde assistir cada categoria</a></div>`;
+    <div class="hr-links"><a href="${c.slug}.html#calendario">Calendário completo da ${esc(cc)}</a><a href="horarios.html">Horários de todas as categorias</a></div>`;
     fs.writeFileSync(path.join(RAIZ, arq), pagina({ arq, titulo, desc, corpo, ld, foto: c.foto }));
     feitas.push({ arq, c, e, p });
   });
@@ -168,10 +160,9 @@ const limite = new Date(Date.parse(hoje + 'T12:00:00Z') + 14 * 864e5).toISOStrin
 const proximas = feitas.filter(f => !f.e.venc && f.e.d >= hoje).sort((a, b) => a.e.d < b.e.d ? -1 : a.e.d > b.e.d ? 1 : 0);
 const cartao = f => {
   const ss = (f.e.s || []).filter(s => /Corrida|Sprint|Principal|Classifica/i.test(s.t));
-  const can = (O.cats[f.c.slug] || { canais: [] }).canais.slice(0, 3).map(x => x[0]).join(', ');
   return `<a class="hr-card" href="${f.arq}"><small>${esc(f.c.nome)}</small><b>${esc(f.e.n)}</b>` +
     (ss.length ? ss.map(s => `<p>${esc(s.t)}: <em>${esc(dataCurta(s.d))}, ${esc(hora(s.h))}</em></p>`).join('') : `<p>${esc(dataLonga(f.e.d))} · horários a confirmar</p>`) +
-    (can ? `<p>📺 ${esc(can)}</p>` : '') + '</a>';
+    '</a>';
 };
 const porDia = {};
 proximas.filter(f => f.e.d <= limite).forEach(f => { (porDia[f.e.d] = porDia[f.e.d] || []).push(f); });
@@ -183,11 +174,11 @@ const corpoCentral = `    <p class="hr-rot">Agenda · horário de Brasília</p>
     ${semana || '<p>Sem corridas nos próximos 14 dias.</p>'}
     ${depois.length ? `<h2 class="hr-dia">Próximas etapas</h2><div class="hr-cards">${depois.slice(0, 30).map(cartao).join('')}</div>` : ''}
     <p class="hr-nota" style="margin-top:24px">Atualizado em ${esc(dataLonga(hoje))} de ${hoje.slice(0, 4)}. Os horários podem mudar por decisão da organização.</p>
-    <div class="hr-links"><a href="onde-assistir.html">Onde assistir cada categoria</a><a href="noticias.html">Notícias</a><a href="guia.html">Guia para iniciantes</a></div>`;
+    <div class="hr-links"><a href="noticias.html">Notícias</a><a href="guia.html">Guia para iniciantes</a></div>`;
 fs.writeFileSync(path.join(RAIZ, 'horarios.html'), pagina({
   arq: 'horarios.html',
   titulo: 'Horário da Fórmula 1 hoje: treinos, classificação e corrida | Arena Sports',
-  desc: 'Que horas é a corrida hoje? Horários de Brasília da Fórmula 1 (treinos, classificação, sprint e corrida), com onde assistir no Brasil. Atualizado todo dia.',
+  desc: 'Que horas é a corrida hoje? Horários de Brasília da Fórmula 1 (treinos, classificação, sprint e corrida). Atualizado todo dia.',
   corpo: corpoCentral
 }));
 

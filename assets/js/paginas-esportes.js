@@ -35,7 +35,7 @@
     return l.sort(function (a, b) { return (a.s.d + (a.s.h || '99')) < (b.s.d + (b.s.h || '99')) ? -1 : 1; });
   }
   function linhaSessao(x) {
-    return '<a class="pg-corrida" href="' + x.c.slug + '.html"><em>' + esc(x.s.h || '--:--') + '</em><span><b>' + esc(x.c.menu || x.c.nome) + ' · ' + esc(x.s.t) + '</b><small>' + esc(x.e.n) + (x.e.l ? ', ' + esc(x.e.l) : '') + '</small></span>' + window.tvLinha(x.c.slug, 2) + '</a>';
+    return '<a class="pg-corrida" href="' + x.c.slug + '.html"><em>' + esc(x.s.h || '--:--') + '</em><span><b>' + esc(x.c.menu || x.c.nome) + ' · ' + esc(x.s.t) + '</b><small>' + esc(x.e.n) + (x.e.l ? ', ' + esc(x.e.l) : '') + '</small></span>' + '</a>';
   }
 
   /* ---------- página do time ---------- */
@@ -89,7 +89,6 @@
           (i.pos[0] ? '<div><small>Posição</small><b>' + esc(i.pos[0].linha[0]) + 'º</b><span>' + esc(i.pos[0].c.menu) + (i.pos[0].c.tabela2 ? ' (conferência)' : '') + '</span></div>' : '') +
           '<div><small>Próximo jogo</small><b>' + (px ? esc(quando(px.j.d)) : '—') + '</b><span>' + (px ? esc(px.j.casa === t.nome ? 'x ' + px.j.fora : 'x ' + px.j.casa) + (px.j.h ? ', ' + esc(px.j.h) : '') : 'A confirmar') + '</span></div>' +
           (i.feitos.length ? '<div><small>Últimos jogos no site</small><b>' + v + 'V ' + (t.esporte === 'futebol' ? e + 'E ' : '') + dd + 'D</b><span>' + i.feitos.length + ' jogos</span></div>' : '') +
-          (px ? '<div><small>Onde assistir</small><b style="font-size:16px">' + esc(window.canais(px.c.slug, 2) || 'A confirmar') + '</b><span>' + esc(px.c.menu) + '</span></div>' : '') +
         '</div>' +
         '<div class="pg-grade2">' +
           '<section class="pg-sec"><h2>Próximos jogos</h2>' + (listaJogos(i.proximos.slice(0, 6)) || '<p class="pg-vazio">Os próximos jogos aparecem aqui assim que forem marcados.</p>') + '</section>' +
@@ -130,7 +129,7 @@
       raiz.innerHTML = '<div class="pg-topo"><div><p class="pg-rot">Futebol, basquete e automobilismo</p><h1>Fim de semana</h1><p>Tudo o que tem de sexta (' + window.dataCurta(dias[0]) + ') a domingo (' + window.dataCurta(dias[2]) + '), no horário de Brasília e com o canal para assistir. No automobilismo, só classificações e corridas.</p></div></div>' +
         '<div class="pg-filtros" role="group" aria-label="Esporte">' + ['todos', 'futebol', 'basquete', 'automobilismo'].map(function (f) {
           return '<button type="button" data-f="' + f + '" aria-pressed="' + (f === filtro) + '">' + (f === 'todos' ? 'Todos' : NOMES[f]) + '</button>';
-        }).join('') + '</div>' + corpo + '<p class="nota">Placar e horários do futebol e da NBA atualizados sozinhos. <a href="onde-assistir.html">Onde assistir cada campeonato</a>.</p>';
+        }).join('') + '</div>' + corpo + '<p class="nota">Placar e horários do futebol e da NBA atualizados sozinhos.</p>';
     }
     raiz.addEventListener('click', function (e) { var b = e.target.closest('[data-f]'); if (!b) return; filtro = b.getAttribute('data-f'); history.replaceState(null, '', '#' + filtro); pintarFds(); });
     pintarFds();

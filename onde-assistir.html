@@ -3,90 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=346"></script>
-<title>Onde assistir futebol, basquete e Fórmula 1 no Brasil | Arena Sports</title>
-<meta name="description" content="Onde assistir Brasileirão, Copa do Brasil, Libertadores, Champions, NBA, NBB e Fórmula 1 no Brasil: TV aberta, TV por assinatura, streaming e transmissões grátis.">
-<meta name="theme-color" content="#141619">
-<link rel="manifest" href="manifest.webmanifest">
-<link rel="apple-touch-icon" href="assets/app/apple-touch-icon.png">
-<meta property="og:title" content="Onde assistir futebol, basquete e Fórmula 1 no Brasil | Arena Sports">
-<meta property="og:description" content="Os canais de TV e streaming de cada campeonato e categoria, num lugar só.">
-<link rel="canonical" href="https://automobilismonaveia.com.br/onde-assistir.html">
-<meta property="og:image" content="https://automobilismonaveia.com.br/assets/img/compartilhar.jpg">
-<meta property="og:url" content="https://automobilismonaveia.com.br/onde-assistir.html">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Arena Sports">
-<meta property="og:locale" content="pt_BR">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=346">
-<style>
-.oa-pagina { padding: calc(var(--topo) + 40px) 0 70px; }
-.oa-pagina h1 { margin: 0 0 10px; font-family: var(--display); font-weight: 400; font-size: clamp(34px, 5vw, 60px); line-height: 1.05; }
-.oa-lead { max-width: 820px; margin: 0 0 18px; font-size: 18px; color: #c3c8cd; }
-.oa-legenda { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0 0 28px; font-size: 14px; color: var(--aco); }
-.oa-legenda span { display: inline-flex; align-items: center; gap: 7px; }
-.oa-legenda i { width: 14px; height: 14px; }
-.oa-grupo-tit { margin: 30px 0 12px; font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--sangue-vivo); }
-.oa-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 14px; }
-.oa-card { display: flex; flex-direction: column; background: var(--carbono); border: 1px solid var(--linha); border-bottom: 3px solid var(--sangue-vivo); }
-.oa-foto { position: relative; display: block; height: 120px; overflow: hidden; background: #000; }
-.oa-foto img { width: 100%; height: 100%; object-fit: cover; opacity: .55; transition: opacity .2s; }
-.oa-foto:hover img { opacity: .75; }
-.oa-foto b { position: absolute; left: 14px; bottom: 10px; font-family: var(--display); font-weight: 400; font-size: 22px; color: #fff; text-shadow: 0 2px 8px rgba(0, 0, 0, .8); }
-.oa-foto-futebol, .oa-foto-basquete { height: 84px; background: linear-gradient(120deg, #14532d, #0b0f14 70%); }
-.oa-foto-basquete { background: linear-gradient(120deg, #9a3f0c, #0b0f14 70%); }
-.oa-esporte-tit { margin-top: 48px; }
-.oa-card .oa-canais { padding: 12px; }
-.oa-card .oa-nota { margin: 0; padding: 0 12px 12px; font-size: 13px; }
-.oa-rodape { margin-top: 30px; font-size: 14px; color: var(--aco); }
-</style>
+<title>Página movida | Arena Sports</title>
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://automobilismonaveia.com.br/jogos.html">
+<meta http-equiv="refresh" content="0; url=jogos.html">
+<script>location.replace('jogos.html' + location.hash);</script>
 </head>
-<body data-pagina="onde-assistir">
-<a class="pular" href="#oa">Pular para o conteúdo</a>
-<header id="topo"></header>
-
-<main class="oa-pagina" id="oa">
-  <div class="moldura">
-    <h1>Onde assistir em 2026.</h1>
-    <p class="oa-lead">Os canais de TV e de streaming de cada campeonato de futebol e basquete e da Fórmula 1 no Brasil, num lugar só. Toque em um canal para abrir. Para o horário de cada corrida, veja os <a href="horarios.html">horários das corridas</a>.</p>
-    <p class="oa-legenda"><span><i class="oa-aberta"></i>TV aberta</span><span><i class="oa-paga"></i>TV por assinatura</span><span><i class="oa-stream"></i>Streaming</span><span><i class="oa-gratis"></i>Grátis na internet</span></p>
-    <div id="oa-lista"></div>
-    <p class="oa-rodape" id="oa-rodape"></p>
-  </div>
-</main>
-
-<footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=346"></script>
-<script src="assets/js/site.js?v=346"></script>
-<script src="assets/js/esportes-dados.js?v=346"></script>
-<script src="assets/js/onde-assistir-dados.js?v=346"></script>
-<script>
-  /* Cartões por grupo de categorias (os grupos vêm de site.js) */
-  (function () {
-    var O = window.ONDE_ASSISTIR, esc = window.esc;
-    /* futebol e basquete primeiro (um cartão por campeonato), depois a Fórmula 1 */
-    var esportes = (window.ESPORTES || []).map(function (e) {
-      var slugs = [].concat.apply([], e.grupos.map(function (g) { return g.slugs; }));
-      return '<h2 class="oa-grupo-tit">' + esc(e.nome) + '</h2><div class="oa-grade">' + slugs.map(function (s) {
-        var c = (window.COMPETICOES || []).filter(function (x) { return x.slug === s; })[0];
-        if (!c || !O.cats[s]) return '';
-        return '<article class="oa-card"><a class="oa-foto oa-foto-' + c.esporte + '" href="' + s + '.html"><b>' + esc(c.nome) + '</b></a>' +
-          O.quadro(s, true) + (O.cats[s].nota ? '<p class="oa-nota">' + esc(O.cats[s].nota) + '</p>' : '') + '</article>';
-      }).join('') + '</div>';
-    }).join('');
-    document.getElementById('oa-lista').innerHTML = esportes + '<h2 class="oa-grupo-tit oa-esporte-tit">Fórmula 1</h2>' + (window.GRUPOS || []).map(function (g) {
-      return '<h2 class="oa-grupo-tit">' + esc(g.nome) + '</h2><div class="oa-grade">' + g.cats.map(function (c) {
-        if (!O.cats[c.slug]) return '';
-        return '<article class="oa-card"><a class="oa-foto" href="' + c.slug + '.html"><img src="' + c.foto + '" alt="" loading="lazy"><b>' + esc(c.menu || c.nome) + '</b></a>' +
-          O.quadro(c.slug, true) + (O.cats[c.slug].nota ? '<p class="oa-nota">' + esc(O.cats[c.slug].nota) + '</p>' : '') + '</article>';
-      }).join('') + '</div>';
-    }).join('');
-    document.getElementById('oa-rodape').textContent = 'Informações conferidas em ' + O.atualizado + ', com base nos anúncios das emissoras e na imprensa especializada. Os canais podem mudar de uma etapa para outra; na dúvida, confira a programação do canal no dia.';
-  })();
-</script>
+<body style="font-family:Arial,sans-serif;background:#f4f6f9;color:#121826;padding:40px">
+<!-- A página Onde assistir saiu do site; o endereço antigo leva para a página mais próxima. -->
+<p>Esta página saiu do site. <a href="jogos.html" style="color:#1d4ed8">Ver os jogos</a>.</p>
 </body>
 </html>

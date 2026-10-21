@@ -148,7 +148,7 @@ ${CSS}
       ${paragrafos(n.x)}
       </div>
     </article>
-    <div class="nw-acoes"><a href="${c.slug}.html">Tudo sobre ${esc(c.nome)}</a>${hp ? `<a href="${hp.a}">Horário: ${esc(hp.n)}</a>` : ''}<a href="noticias.html">Todas as notícias</a><a href="onde-assistir.html">Onde assistir</a></div>
+    <div class="nw-acoes"><a href="${c.slug}.html">Tudo sobre ${esc(c.nome)}</a>${hp ? `<a href="${hp.a}">Horário: ${esc(hp.n)}</a>` : ''}<a href="noticias.html">Todas as notícias</a></div>
     ${mais.length ? `<section class="nw-mais"><h2>Mais notícias de ${esc(c.nome)}</h2><ul>${mais.map(o => `<li><a href="${arquivo(o.t)}"><small>${esc(dataLonga(o.d))}</small>${esc(o.t)}</a></li>`).join('')}</ul></section>` : ''}
   </div>
 </main>

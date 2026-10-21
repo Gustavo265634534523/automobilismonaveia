@@ -162,7 +162,7 @@
     function tile(icone, href, txt) { return '<a class="pm-tile" href="' + href + '">' + ic(icone) + '<span>' + txt + '</span></a>'; }
     var ESP_PAINEL = [
       { slug: 'automobilismo', nome: 'Fórmula 1', icone: 'carro',
-        atalhos: tile('noticias', 'noticias.html', 'Notícias') + tile('tv', 'onde-assistir.html', 'Onde assistir') + tile('raiox', 'raiox.html', 'Raio-x e telemetria') +
+        atalhos: tile('noticias', 'noticias.html', 'Notícias') + tile('raiox', 'raiox.html', 'Raio-x e telemetria') +
           tile('guia', 'guia.html', 'Guia') + tile('jogos', 'jogos.html', 'Jogos') + tile('relogio', 'horarios.html', 'Horários'),
         /* todas as categorias juntas, uma do lado da outra, sem separar por grupo */
         corpo: [{ nome: 'Fórmula 1', cats: ORDEM_CATS.map(function (sl) { return PORSLUG[sl]; }).filter(Boolean) }].map(function (g) {
@@ -399,12 +399,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=346'; document.head.appendChild(chatCss);
-    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=346'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
-    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=346'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=346'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=346'; appJs.defer = true; document.body.appendChild(appJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=346'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=347'; document.head.appendChild(chatCss);
+    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=347'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=347'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=347'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var appJs = document.createElement('script'); appJs.src = 'assets/js/app-instalar.js?v=347'; appJs.defer = true; document.body.appendChild(appJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=347'; alertaJs.defer = true; document.body.appendChild(alertaJs);
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -472,7 +472,7 @@
       ESPORTES_MENU.map(function (e) {
         return coluna(e.nome, [li(e.slug + '.html', '<b>' + e.nome + '</b>')].concat(e.comps.map(function (c) { return li(c[0] + '.html', esc(c[1])); })));
       }).join('') +
-      coluna('O site', [li('noticias.html', 'Notícias'), li('fim-de-semana.html', 'Agenda do fim de semana'), li('resumo.html', 'Resumo da semana'), li('mercado.html', 'Mercado'), li('time.html', 'Times'), li('guia.html', 'Guia para iniciantes'), li('onde-assistir.html', 'Onde assistir'), li('horarios.html', 'Horários das corridas'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
+      coluna('O site', [li('noticias.html', 'Notícias'), li('fim-de-semana.html', 'Agenda do fim de semana'), li('resumo.html', 'Resumo da semana'), li('mercado.html', 'Mercado'), li('time.html', 'Times'), li('guia.html', 'Guia para iniciantes'), li('horarios.html', 'Horários das corridas'), li('conta.html', 'Minha conta'), li('#instalar-app', 'Instalar o app'), li('privacidade.html', 'Política de privacidade'), li('termos.html', 'Termos de uso')]) +
       '</div>' +
       '<div class="rodape-base"><span>Imagens do site geradas por inteligência artificial, sem equipe, marca ou patrocinador real.</span>' +
         '<span class="rodape-responsavel">Responsável: Gustavo Teixeira · Estrada Doutor Manoel Reis, Rio de Janeiro, Brasil</span></div></div>';

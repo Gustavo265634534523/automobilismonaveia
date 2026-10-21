@@ -39,7 +39,7 @@ const FEEDS = [
   ['ESPN', 'https://www.espn.com.br/espn/rss/f1/noticia', 'automobilismo']
 ];
 /* fora do site: outras categorias do automobilismo e outros esportes que aparecem nos feeds */
-const FORA = /f[óo]rmula 2|\bf2\b|f[óo]rmula e\b|motogp|moto2|stock car|indy|nascar|wec|le mans|porsche|rally|dakar|v[ôo]lei|t[êe]nis|ufc|mma|boxe|futsal|feminin|sub-\d\d|apostas?|palpite|odds|bet\b/i;
+const FORA = /onde assistir|assistir ao vivo|^ao vivo|que horas (é|e) o jogo|transmiss[ãa]o|transmite|\bnfl\b|futebol americano|super bowl|s[ée]rie [bcd]\b|f[óo]rmula 2|\bf2\b|f[óo]rmula e\b|motogp|moto2|stock car|indy|nascar|wec|le mans|porsche|rally|dakar|v[ôo]lei|t[êe]nis|ufc|mma|boxe|futsal|feminin|sub-\d\d|apostas?|palpite|odds|bet\b/i;
 
 const limpar = s => String(s || '').replace(/<!\[CDATA\[|\]\]>/g, '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#(\d+);/g, (m, n) => String.fromCharCode(+n)).replace(/\s+/g, ' ').trim();
 const chave = t => String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().slice(0, 70);

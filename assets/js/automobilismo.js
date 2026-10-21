@@ -1,8 +1,7 @@
 /* Página da Fórmula 1 (automobilismo.html), no mesmo modelo das páginas de Futebol e Basquete (futebol.css):
    destaque com a próxima corrida e a contagem regressiva, pódio das últimas corridas, próximas corridas,
    classificação de pilotos e de construtores (e o resultado do último GP), notícias, mercado e atalhos.
-   Dados: dados.js (CATEGORIAS: calendário, classificação, notícias), noticias-gerais.js, noticias-esportes.js (MERCADO)
-   e onde-assistir-dados.js. */
+   Dados: dados.js (CATEGORIAS: calendário, classificação, notícias), noticias-gerais.js, noticias-esportes.js (MERCADO) */
 (function () {
   var raiz = document.getElementById('ft');
   var F1 = (window.CATEGORIAS || []).filter(function (c) { return c.slug === 'formula-1'; })[0];
@@ -14,7 +13,6 @@
   var COR = {}; (window.NAVEIA_EQUIPES || []).forEach(function (e) { COR[e.n] = e.cor; });
   function equipe(n) { return '<i class="f1-cor" style="background:' + (COR[n] || '#8a8f94') + '" aria-hidden="true"></i>'; }
   function sessao(e, re) { return (e.s || []).filter(function (s) { return re.test(s.t); }).pop(); }
-  var TV = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.cats['formula-1'] ? window.ONDE_ASSISTIR.cats['formula-1'].canais.map(function (c) { return c[0]; }).slice(0, 2).join(', ') : '';
 
   var cal = F1.calendario || [];
   var feitas = cal.filter(function (e) { return e.venc; });
@@ -29,7 +27,7 @@
       '<span class="ft-grande-times"><b>' + esc(px.n) + '</b></span>' +
       '<span class="ft-grande-quando">' + esc(px.l) + ' · ' + (corrida ? diaSemana(corrida.d) + ', ' + window.dataCurta(corrida.d) + (corrida.h ? ' · largada ' + esc(corrida.h) : '') : window.dataCurta(px.d)) +
         (quali && quali.h ? ' · classificação ' + diaSemana(quali.d) + ', ' + esc(quali.h) : '') + '</span>' +
-      (alvo ? '<span class="f1-conta" id="f1-conta"></span>' : '') + (TV ? '<span class="ft-grande-quando">' + esc(TV) + '</span>' : '') + '</div>' +
+      (alvo ? '<span class="f1-conta" id="f1-conta"></span>' : '') + '</div>' +
       '<a class="ft-btn" href="horarios.html">Todos os horários</a>';
     var conta = document.getElementById('f1-conta');
     var tick = function () {
@@ -73,7 +71,7 @@
       '<b>' + esc(e.n) + '</b><small>' + esc(e.l) + (sprint ? ' · fim de semana com sprint' : '') + '</small>' +
       '<span class="ft-jogo-quando"><strong>' + (corrida ? diaSemana(corrida.d) + ', ' + window.dataCurta(corrida.d) : window.dataCurta(e.d)) + '</strong>' +
         (corrida && corrida.h ? 'Corrida às ' + esc(corrida.h) : 'Horário a confirmar') + (quali && quali.h ? ' · classificação ' + diaSemana(quali.d) + ' ' + esc(quali.h) : '') + '</span>' +
-      (TV ? '<span class="ft-jogo-local">' + esc(TV) + '</span>' : '') + '<span class="ft-jogo-mais">Detalhes →</span></a>';
+      '<span class="ft-jogo-mais">Detalhes →</span></a>';
   }).join('') || '<p class="ft-vazio">O calendário da próxima temporada aparece aqui assim que sair.</p>';
 
   /* 4. classificação: pilotos, construtores (soma dos pontos dos pilotos de cada equipe) e o último GP */

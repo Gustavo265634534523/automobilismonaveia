@@ -120,16 +120,6 @@
   var P = [];
   var futuros = (c.jogos || []).filter(function (j) { return !j.p; }), feitos = (c.jogos || []).filter(function (j) { return j.p; }).reverse();
   var meus = VIDS.filter(function (v) { return v.comp === c.slug; });
-  /* Resumo: o essencial de cada aba, para a página não abrir vazia */
-  function mini(t, n) { return { titulo: t.titulo, colunas: t.colunas, linhas: t.linhas.slice(0, n) }; }
-  var resumo = [];
-  if (futuros.length || feitos.length) resumo.push('<div class="cr-bloco"><h3>' + (futuros.length ? 'Próximos jogos' : 'Últimos resultados') + '</h3><ul class="jogos">' + (futuros.length ? futuros : feitos).slice(0, 4).map(jogo).join('') + '</ul><button type="button" class="cr-mais" data-aba="jogos">Todos os jogos →</button></div>');
-  if (c.tabela) resumo.push('<div class="cr-bloco"><h3>' + esc(c.tabela.titulo) + '</h3>' + tabela(mini(c.tabela, 6)) + '<button type="button" class="cr-mais" data-aba="classificacao">Classificação completa →</button></div>');
-  else if (c.confrontos) resumo.push('<div class="cr-bloco"><h3>Confrontos</h3><ul class="confrontos">' + c.confrontos.slice(0, 2).map(confronto).join('') + '</ul></div>');
-  if (c.destaques) resumo.push('<div class="cr-bloco"><h3>' + esc(c.destaques.titulo) + '</h3>' + tabela(mini(c.destaques, 3)) + '<button type="button" class="cr-mais" data-aba="destaques">Ver todos →</button></div>');
-  var nres = listaNoticias(function (n) { return n.comp === c.slug; }, 3);
-  if (nres) resumo.push('<div class="cr-bloco cr-largo"><h3>Últimas notícias</h3><div class="bq-noticias">' + nres + '</div></div>');
-  if (resumo.length > 1) P.push(['resumo', 'Resumo', '<h2>Resumo</h2><div class="cr-grade">' + resumo.join('') + '</div>']);
 
   var nots = listaNoticias(function (n) { return n.comp === c.slug; });
   if (nots) P.push(['noticias', 'Notícias', '<h2>Notícias</h2><div class="bq-noticias">' + nots + '</div>']);
@@ -153,12 +143,14 @@
     (CH ? (CH.campeao ? '<p class="ch-campeao">' + window.escudoTime(CH.campeao) + 'Campeão: ' + esc(CH.campeao) + '</p>' : '') + '<h3' + (proj ? '' : ' style="margin-top:0"') + '>' + esc(CH.titulo) + '</h3>' + window.chaveHTML(CH) : '')]);
   var lid = c.slug === 'nba' && window.lideresHTML ? window.lideresHTML() : '';
   if (lid) P.push(['lideres', 'Líderes', '<h2>Líderes de estatística</h2>' + lid]);
-  var tv = window.ONDE_ASSISTIR && window.ONDE_ASSISTIR.quadro(c.slug);
-  if (tv) P.push(['onde-assistir', 'Onde assistir', '<h2>Onde assistir no Brasil</h2>' + tv + '<p class="nota">A divisão dos jogos entre os canais muda a cada rodada: na dúvida, confira a grade do canal no dia. <a href="onde-assistir.html">Todos os canais</a>.</p>']);
   if (c.sobre || c.campeoes) P.push(['sobre', 'Sobre', '<h2>Sobre ' + (/^(Copa|Champions|Premier|La |Bundesliga|Serie|Ligue|Euroleague)/.test(c.nome) ? 'a ' : 'o ') + esc(c.nome) + '</h2>' +
     (c.sobre ? '<dl class="cr-fatos">' + c.sobre.map(function (f) { return '<div><dt>' + esc(f[0]) + '</dt><dd>' + esc(f[1]) + '</dd></div>'; }).join('') + '</dl>' : '') +
     (c.campeoes ? '<h3>Últimos campeões</h3>' + tabela({ colunas: c.campeoes[0].length > 2 ? ['Temporada', 'Campeão', 'Vice'] : ['Temporada', 'Campeão'], linhas: c.campeoes }) : '')]);
 
+  /* abas na ordem do que a pessoa mais procura; com chaveamento, os confrontos já estão nele */
+  var ORDEM = ['jogos', 'classificacao', 'chave', 'confrontos', 'destaques', 'lideres', 'noticias', 'videos', 'sobre'];
+  if (P.some(function (s) { return s[0] === 'chave'; })) P = P.filter(function (s) { return s[0] !== 'confrontos'; });
+  P.sort(function (a, b) { return ORDEM.indexOf(a[0]) - ORDEM.indexOf(b[0]); });
   var abas = document.getElementById('abas'), paineis = document.getElementById('paineis');
   abas.innerHTML = P.map(function (s) {
     return '<li role="presentation"><button class="aba" role="tab" id="aba-' + s[0] + '" aria-controls="p-' + s[0] + '" aria-selected="false" tabindex="-1">' + s[1] + '</button></li>';
