@@ -56,7 +56,7 @@
   function pintar() {
     carregar();
     var fim = acabou();
-    caixa.innerHTML = JB.topo(esporte, modo) +
+    caixa.innerHTML = JB.topo(esporte, modo, true, 'piloto') +
       '<section class="av-jogo"><header><h2>Quem é?</h2><p>Todos os clubes por onde ele passou, do primeiro ao atual.</p></header>' +
       trajetoria() + dicas() +
       (tentativas.length ? '<ul class="av-tentativas">' + tentativas.map(function (t) { return '<li class="' + (certo(t) ? 'av-certo' : 'av-errado') + '">' + (certo(t) ? '✓ ' : '✕ ') + esc(t) + '</li>'; }).join('') + '</ul>' : '') +

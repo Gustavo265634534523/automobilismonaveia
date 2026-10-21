@@ -171,7 +171,7 @@
     var corpo = aba === 'futebol' ? futebol() : aba === 'basquete' ? basquete() : aba === 'f1' ? f1() : aba === 'pontos' ? pontos() : ranking();
     caixa.innerHTML = aviso() + '<div class="ft-abas bl-abas" role="tablist">' + ABAS.map(function (a) { return '<button type="button" role="tab" data-aba="' + a[0] + '" aria-selected="' + (aba === a[0]) + '">' + a[1] + '</button>'; }).join('') + '</div>' +
       '<div class="bl-corpo">' + corpo + '</div>';
-    document.body.setAttribute('data-esporte', aba === 'basquete' ? 'basquete' : 'futebol');
+    document.body.setAttribute('data-esporte', aba === 'basquete' ? 'basquete' : aba === 'f1' ? 'automobilismo' : 'futebol');
     ligar();
   }
   function ligar() {

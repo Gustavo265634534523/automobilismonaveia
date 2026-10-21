@@ -82,7 +82,7 @@
   }
   function pintar() {
     carregar();
-    if (!grade) { caixa.innerHTML = JB.topo(esporte, modo) + '<p class="pt-vazio">Não deu para montar uma grade agora.</p>'; ligar(); return; }
+    if (!grade) { caixa.innerHTML = JB.topo(esporte, modo, true, '') + '<p class="pt-vazio">Não deu para montar uma grade agora.</p>'; ligar(); return; }
     var fim = acabou(), certos = Object.keys(estado.casas).length;
     var cel = '<div class="gr-quadro"><div class="gr-canto"><b>' + (CHUTES - estado.chutes) + '</b><small>chutes</small></div>' +
       grade.colunas.map(function (k) { return '<div class="gr-cab">' + rotulo(k) + '</div>'; }).join('');
@@ -99,7 +99,7 @@
     var compart = 'Arena Sports · Grade' + (modo === 'dia' ? ' do dia' : '') + (esporte === 'basquete' ? ' (NBA)' : '') + ': ' + certos + '/9\n' +
       [0, 1, 2].map(function (i) { return [0, 1, 2].map(function (j) { return estado.casas['' + i + j] ? '🟩' : '⬜'; }).join(''); }).join('\n');
     var P = G.placar[esporte] || { jogos: 0, casas: 0, completas: 0 };
-    caixa.innerHTML = JB.topo(esporte, modo) +
+    caixa.innerHTML = JB.topo(esporte, modo, true, '') +
       '<section class="av-jogo gr-jogo"><header><h2>Grade</h2><p>Em cada casa, um jogador que passou pelo time da linha e pelo da coluna (ou que é do país). Toque na casa e digite. São 9 chutes.</p></header>' +
       cel +
       (fim ? '<div class="av-fim' + (certos >= 6 ? ' av-ganhou' : '') + '"><p>' + (certos === 9 ? 'Grade completa! ' : '') + 'Você acertou <b>' + certos + ' de 9</b>.' + (certos < 9 ? ' Nas casas vazias aparece uma resposta possível.' : '') + '</p>' +

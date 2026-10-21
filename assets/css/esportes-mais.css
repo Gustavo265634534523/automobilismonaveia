@@ -513,6 +513,8 @@ html[data-tema="claro"] .mn-linha select { color-scheme: light; }
 .dq-abas { display: flex; gap: 4px; width: max-content; max-width: 100%; margin: 6px 0 18px; padding: 4px; border-radius: 999px; background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha); }
 .dq-abas button { padding: 8px 18px; border: 0; border-radius: 999px; background: none; color: var(--texto-2); font: inherit; font-size: 13.5px; font-weight: 700; cursor: pointer; }
 .dq-abas button[aria-selected="true"] { background: var(--ft-cor, var(--sangue-vivo)); color: #fff; }
+.dq-abas a { padding: 8px 18px; border-radius: 999px; color: var(--texto-2); font-size: 13.5px; font-weight: 700; text-decoration: none; }
+.dq-abas a:hover { color: var(--cromo); }
 /* seleção da rodada: campo em pé, do ataque (em cima) para o gol */
 .sr-grade { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
 .sr-campo { position: relative; display: flex; flex-direction: column; justify-content: space-around; gap: 6px; aspect-ratio: 68 / 80; padding: 4% 3%; border-radius: 16px; overflow: hidden;

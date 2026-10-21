@@ -53,10 +53,10 @@
   }
   function pintar() {
     var L = montarPool(esporte);
-    if (L.length < 10) { caixa.innerHTML = JB.topo(esporte, '', false) + '<p class="pt-vazio">Os números da temporada ainda estão chegando. Volte em algumas horas.</p>'; ligar(); return; }
+    if (L.length < 10) { caixa.innerHTML = JB.topo(esporte, '', false, 'largada') + '<p class="pt-vazio">Os números da temporada ainda estão chegando. Volte em algumas horas.</p>'; ligar(); return; }
     if (!esq) novo();
     var rec = recorde[esporte] || 0;
-    caixa.innerHTML = JB.topo(esporte, '', false) +
+    caixa.innerHTML = JB.topo(esporte, '', false, 'largada') +
       '<section class="av-jogo mm-jogo"><header><h2>Mais ou menos</h2><p>' + esc(dir.nome) + ' tem mais ou menos ' + esc(stat[1]) + ' que ' + esc(esq.nome) + '?' +
         (esporte === 'basquete' && esq.temp ? ' Temporada ' + esc(esq.temp) + ' da NBA.' : ' Somando todos os campeonatos da temporada.') + '</p></header>' +
       '<div class="mm-placar"><span>Sequência <b>' + pontos + '</b></span><span>Recorde <b>' + rec + '</b></span></div>' +

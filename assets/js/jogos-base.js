@@ -60,16 +60,21 @@
     inp.addEventListener('blur', function () { setTimeout(function () { ul.hidden = true; }, 150); });
   }
 
-  /* topo comum: volta para os jogos, abas do esporte e modo (dia ou treino) */
-  function topo(esporte, modo, comModo) {
-    return '<a class="pt-voltar" href="jogos-esportes.html#' + esporte + '">‹ Todos os jogos</a>' +
-      '<div class="dq-abas jb-esportes" role="tablist"><button type="button" role="tab" data-e="futebol" aria-selected="' + (esporte === 'futebol') + '">Futebol</button>' +
-      '<button type="button" role="tab" data-e="basquete" aria-selected="' + (esporte === 'basquete') + '">NBA</button></div>' +
+  /* topo comum: volta para os jogos, abas do esporte e modo (dia ou treino). A aba Fórmula 1 leva para os jogos
+     da F1 (jogos.html); f1: o jogo da F1 mais parecido com este (ex.: 'piloto' abre o Piloto misterioso) */
+  function abasEsporte(esporte, f1) {
+    return '<div class="dq-abas jb-esportes" role="tablist"><button type="button" role="tab" data-e="futebol" aria-selected="' + (esporte === 'futebol') + '">Futebol</button>' +
+      '<button type="button" role="tab" data-e="basquete" aria-selected="' + (esporte === 'basquete') + '">NBA</button>' +
+      (f1 === false ? '' : f1 === 'aqui' ? '<button type="button" role="tab" data-e="f1" aria-selected="' + (esporte === 'f1') + '">Fórmula 1</button>' : '<a role="tab" aria-selected="false" href="jogos.html' + (f1 ? '#' + f1 : '') + '">Fórmula 1</a>') + '</div>';
+  }
+  function topo(esporte, modo, comModo, f1) {
+    return '<a class="pt-voltar" href="jogos-esportes.html#' + esporte + '">‹ Todos os jogos</a>' + abasEsporte(esporte, f1) +
       (comModo === false ? '' : '<div class="av-modos" role="group" aria-label="Modo"><button type="button" data-m="dia" aria-pressed="' + (modo === 'dia') + '">Desafio do dia</button><button type="button" data-m="treino" aria-pressed="' + (modo === 'treino') + '">Treino</button></div>');
   }
   function ligarTopo(caixa, aoTrocarEsporte, aoTrocarModo) {
     [].forEach.call(caixa.querySelectorAll('.jb-esportes button'), function (b) {
-      b.addEventListener('click', function () { var e = b.getAttribute('data-e'); history.replaceState(null, '', '#' + e); document.body.setAttribute('data-esporte', e); aoTrocarEsporte(e); });
+      /* troca de esporte recarrega a página, para o menu de cima mostrar o esporte certo */
+      b.addEventListener('click', function () { var e = b.getAttribute('data-e'); history.replaceState(null, '', '#' + e); location.reload(); });
     });
     [].forEach.call(caixa.querySelectorAll('.av-modos button'), function (b) { b.addEventListener('click', function () { aoTrocarModo(b.getAttribute('data-m')); }); });
   }
@@ -80,5 +85,5 @@
   }
 
   window.JOGOS_BASE = { norm: norm, hoje: hoje, trajetorias: trajetorias, aleatorio: aleatorio, semente: semente, embaralhar: embaralhar, ler: ler, guardar: guardar,
-    autocompletar: autocompletar, topo: topo, ligarTopo: ligarTopo, esporteDaPagina: esporteDaPagina, compartilhar: compartilhar };
+    autocompletar: autocompletar, topo: topo, abasEsporte: abasEsporte, ligarTopo: ligarTopo, esporteDaPagina: esporteDaPagina, compartilhar: compartilhar };
 })();

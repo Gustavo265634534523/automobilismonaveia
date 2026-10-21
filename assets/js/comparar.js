@@ -1,6 +1,7 @@
-/* Comparar jogadores (comparar.html): dois jogadores lado a lado, com a vantagem de cada um em destaque.
+/* Comparar jogadores (comparar.html): dois jogadores (ou pilotos) lado a lado, com a vantagem de cada um em destaque.
    Futebol: números da temporada por campeonato (assets/dados/temporada-futebol.js, robô .github/estatisticas-futebol.js).
    NBA: médias por temporada (assets/dados/temporada-nba.js, robô .github/nba-extras.js).
+   Fórmula 1: campeonato de pilotos da temporada (dados.js): posição, pontos, vitórias e pontos por corrida.
    O endereço guarda a escolha (comparar.html#futebol:id1,id2) para mandar a comparação para alguém. */
 (function () {
   var caixa = document.getElementById('cp');
@@ -50,23 +51,39 @@
     });
   }
 
+  /* ---------- Fórmula 1 ---------- */
+  function f1() {
+    var F = (window.CATEGORIAS || []).filter(function (c) { return c.slug === 'formula-1'; })[0];
+    if (!F || !F.classificacao) return [];
+    var T = F.classificacao, ip = T.colunas.indexOf('Piloto'), ie = T.colunas.indexOf('Equipe'), ipt = T.colunas.indexOf('Pts'), ipo = T.colunas.indexOf('Pos');
+    var feitas = (F.calendario || []).filter(function (e) { return e.venc; });
+    return T.linhas.map(function (l) {
+      var nome = l[ip], v = feitas.filter(function (e) { return e.venc.indexOf(nome) === 0; }).length, pts = +l[ipt] || 0;
+      return { id: norm(nome).replace(/ /g, '-'), nome: nome, time: l[ie], pos: '', v: [+l[ipo] || 0, pts, v, feitas.length ? pts / feitas.length : 0] };
+    });
+  }
+  function linhasF1() {
+    return [['Posição no campeonato', function (x) { return x.v[0]; }, true, 0, 'º'], ['Pontos', function (x) { return x.v[1]; }],
+      ['Vitórias', function (x) { return x.v[2]; }], ['Pontos por corrida', function (x) { return x.v[3]; }, false, 1]];
+  }
+
   /* ---------- estado ---------- */
-  var esporte = /basquete|nba/.test(location.hash) ? 'basquete' : 'futebol';
+  var esporte = /basquete|nba/.test(location.hash) ? 'basquete' : /f1/.test(location.hash) ? 'f1' : 'futebol';
   var comp = '', temp = '', lista = [], escolha = [null, null];
   var temps = Object.keys((TN && TN.temporadas) || {}).sort().reverse();
   /* temporada atual só quando já tem jogos de verdade; senão, a anterior */
   temp = temps.filter(function (t) { return (TN.temporadas[t] || []).some(function (l) { return l[4] >= 5; }); })[0] || temps[0] || '';
   function carregar() {
-    lista = esporte === 'futebol' ? futebol(comp) : nba(temp);
+    lista = esporte === 'futebol' ? futebol(comp) : esporte === 'f1' ? f1() : nba(temp);
     lista.forEach(function (x) { x.busca = norm(x.nome + ' ' + x.time); });
   }
   function porId(id) { for (var i = 0; i < lista.length; i++) if (String(lista[i].id) === String(id)) return lista[i]; return null; }
   function padrao() {
-    var ord = lista.slice().sort(esporte === 'futebol' ? function (a, b) { return (b.v[2] + b.v[3]) - (a.v[2] + a.v[3]); } : function (a, b) { return b.v[2] - a.v[2]; });
+    var ord = lista.slice().sort(esporte === 'futebol' ? function (a, b) { return (b.v[2] + b.v[3]) - (a.v[2] + a.v[3]); } : esporte === 'f1' ? function (a, b) { return b.v[1] - a.v[1]; } : function (a, b) { return b.v[2] - a.v[2]; });
     return [ord[0] || null, ord[1] || null];
   }
   function lerHash() {
-    var m = location.hash.match(/^#(futebol|basquete):([^,]*),(.*)$/);
+    var m = location.hash.match(/^#(futebol|basquete|f1):([^,]*),(.*)$/);
     if (!m) return;
     esporte = m[1];
     carregar();
@@ -84,21 +101,21 @@
       var n = norm(x.nome), k = n.indexOf(q);
       if (k === 0 || n.indexOf(' ' + q) > -1) comeco.push(x); else if (x.busca.indexOf(q) > -1) meio.push(x);
     });
-    var peso = esporte === 'futebol' ? function (x) { return x.v[0]; } : function (x) { return x.v[0] * x.v[1]; };
+    var peso = esporte === 'futebol' ? function (x) { return x.v[0]; } : esporte === 'f1' ? function (x) { return x.v[1]; } : function (x) { return x.v[0] * x.v[1]; };
     var ord = function (a, b) { return peso(b) - peso(a); };
     return comeco.sort(ord).concat(meio.sort(ord)).slice(0, 8);
   }
   function campo(i) {
     var x = escolha[i];
     return '<div class="cp-lado cp-lado-' + i + '"><label class="sr" for="cp-b' + i + '">Jogador ' + (i + 1) + '</label>' +
-      '<div class="cp-busca"><input id="cp-b' + i + '" type="search" autocomplete="off" placeholder="Digite o nome do jogador ' + (i + 1) + '" value="' + (x ? esc(x.nome) : '') + '"><ul class="mn-sug" hidden role="listbox"></ul></div>' +
-      (x ? '<div class="cp-quem"><b>' + esc(x.nome) + '</b><span>' + window.escudoTime(x.time) + esc(x.time) + (x.pos ? ' · ' + esc(POS[x.pos] || x.pos) : '') + '</span>' +
-        (x.comps && !comp ? '<small>' + esc(x.comps.filter(function (c, k, a) { return a.indexOf(c) === k; }).join(', ')) + '</small>' : '') + '</div>' : '<div class="cp-quem cp-vazio">Escolha um jogador</div>') + '</div>';
+      '<div class="cp-busca"><input id="cp-b' + i + '" type="search" autocomplete="off" placeholder="Digite o nome do ' + (esporte === 'f1' ? 'piloto ' : 'jogador ') + (i + 1) + '" value="' + (x ? esc(x.nome) : '') + '"><ul class="mn-sug" hidden role="listbox"></ul></div>' +
+      (x ? '<div class="cp-quem"><b>' + esc(x.nome) + '</b><span>' + (esporte === 'f1' ? '' : window.escudoTime(x.time)) + esc(x.time) + (x.pos ? ' · ' + esc(POS[x.pos] || x.pos) : '') + '</span>' +
+        (x.comps && !comp ? '<small>' + esc(x.comps.filter(function (c, k, a) { return a.indexOf(c) === k; }).join(', ')) + '</small>' : '') + '</div>' : '<div class="cp-quem cp-vazio">Escolha ' + (esporte === 'f1' ? 'um piloto' : 'um jogador') + '</div>') + '</div>';
   }
   function tabela() {
     var a = escolha[0], b = escolha[1];
-    if (!a || !b) return '<p class="pt-vazio">Escolha os dois jogadores para comparar.</p>';
-    var L = esporte === 'futebol' ? linhasFutebol(a, b) : linhasNba();
+    if (!a || !b) return '<p class="pt-vazio">Escolha os dois ' + (esporte === 'f1' ? 'pilotos' : 'jogadores') + ' para comparar.</p>';
+    var L = esporte === 'futebol' ? linhasFutebol(a, b) : esporte === 'f1' ? linhasF1() : linhasNba();
     var pa = 0, pb = 0;
     var linhas = L.map(function (l) {
       var va = l[1](a), vb = l[1](b), menos = l[2], casas = l[3] || 0, suf = l[4] || '';
@@ -112,19 +129,19 @@
       '<div class="pt-est cp-est">' + linhas + '</div>';
   }
   function pintar() {
-    var filtro = esporte === 'futebol'
+    var filtro = esporte === 'f1' ? '<span class="cp-temp">Campeonato de pilotos de ' + esc(String(new Date().getFullYear())) + '</span>' : esporte === 'futebol'
       ? '<label for="cp-filtro">Campeonato</label><select id="cp-filtro"><option value="">Todos os campeonatos</option>' + Object.keys((TF && TF.comps) || {}).map(function (k) { return '<option value="' + k + '"' + (k === comp ? ' selected' : '') + '>' + esc(TF.comps[k]) + '</option>'; }).join('') + '</select>'
       : '<label for="cp-filtro">Temporada</label><select id="cp-filtro">' + temps.map(function (t) { return '<option' + (t === temp ? ' selected' : '') + '>' + esc(t) + '</option>'; }).join('') + '</select>';
-    var semDados = esporte === 'futebol' ? !(TF && TF.jogadores && TF.jogadores.length) : !temps.length;
-    caixa.innerHTML = '<div class="dq-abas cp-esportes" role="tablist"><button type="button" role="tab" data-e="futebol" aria-selected="' + (esporte === 'futebol') + '">Futebol</button><button type="button" role="tab" data-e="basquete" aria-selected="' + (esporte === 'basquete') + '">NBA</button></div>' +
+    var semDados = esporte === 'futebol' ? !(TF && TF.jogadores && TF.jogadores.length) : esporte === 'f1' ? !lista.length : !temps.length;
+    caixa.innerHTML = '<div class="dq-abas cp-esportes" role="tablist"><button type="button" role="tab" data-e="futebol" aria-selected="' + (esporte === 'futebol') + '">Futebol</button><button type="button" role="tab" data-e="basquete" aria-selected="' + (esporte === 'basquete') + '">NBA</button><button type="button" role="tab" data-e="f1" aria-selected="' + (esporte === 'f1') + '">Fórmula 1</button></div>' +
       (semDados ? '<p class="pt-vazio">Os números da temporada estão sendo preparados. Volte em algumas horas.</p>' :
       '<div class="cp-filtro ls-filtro">' + filtro + '</div><div class="cp-lados">' + campo(0) + '<span class="cp-vs">x</span>' + campo(1) + '</div>' + tabela() +
-      '<p class="dq-nota">' + (esporte === 'futebol' ? 'Números da ESPN na temporada ' + (comp ? 'do campeonato escolhido' : 'somando Brasileirão, Copa do Brasil, Libertadores, Sul-Americana, Champions, Liga Europa e as ligas da Europa') + '. Atualizado em ' + window.dataCurta(TF.atualizado) + '.'
+      '<p class="dq-nota">' + (esporte === 'f1' ? 'Pontos e posição do campeonato de pilotos; vitórias contadas no calendário da temporada.' : esporte === 'futebol' ? 'Números da ESPN na temporada ' + (comp ? 'do campeonato escolhido' : 'somando Brasileirão, Copa do Brasil, Libertadores, Sul-Americana, Champions, Liga Europa e as ligas da Europa') + '. Atualizado em ' + window.dataCurta(TF.atualizado) + '.'
         : 'Média por jogo na temporada regular da NBA (ESPN). Atualizado em ' + window.dataCurta(TN.atualizado) + '.') + '</p>');
-    document.body.setAttribute('data-esporte', esporte);
+    document.body.setAttribute('data-esporte', esporte === 'f1' ? 'automobilismo' : esporte);
     document.getElementById('pg-main').setAttribute('data-esporte', esporte);
     [].forEach.call(caixa.querySelectorAll('.cp-esportes button'), function (b) {
-      b.addEventListener('click', function () { if (esporte === b.getAttribute('data-e')) return; esporte = b.getAttribute('data-e'); comp = ''; carregar(); escolha = padrao(); gravarHash(); pintar(); });
+      b.addEventListener('click', function () { if (esporte === b.getAttribute('data-e')) return; history.replaceState(null, '', '#' + b.getAttribute('data-e')); location.reload(); });
     });
     var f = document.getElementById('cp-filtro');
     if (f) f.addEventListener('change', function () {
@@ -141,7 +158,7 @@
       function abrir() {
         atual = sugestoes(inp.value); sel = 0;
         ul.hidden = !atual.length;
-        ul.innerHTML = atual.map(function (x, k) { return '<li role="option" aria-selected="' + (k === sel) + '" data-k="' + k + '"><b>' + esc(x.nome) + '</b><span>' + esc(x.time) + '</span><em>' + esc(esporte === 'futebol' ? x.v[2] + ' gols' : num(x.v[2]) + ' pts') + '</em></li>'; }).join('');
+        ul.innerHTML = atual.map(function (x, k) { return '<li role="option" aria-selected="' + (k === sel) + '" data-k="' + k + '"><b>' + esc(x.nome) + '</b><span>' + esc(x.time) + '</span><em>' + esc(esporte === 'futebol' ? x.v[2] + ' gols' : esporte === 'f1' ? x.v[1] + ' pts' : num(x.v[2]) + ' pts') + '</em></li>'; }).join('');
       }
       function escolher(x) { escolha[i] = x; gravarHash(); pintar(); }
       inp.addEventListener('input', abrir);
@@ -162,7 +179,7 @@
   if (!escolha[0] || !escolha[1]) { var p = padrao(); escolha = [escolha[0] || p[0], escolha[1] || p[1]]; }
   pintar();
   window.addEventListener('hashchange', function () {
-    var e = /basquete|nba/.test(location.hash) ? 'basquete' : 'futebol';
+    var e = /basquete|nba/.test(location.hash) ? 'basquete' : /f1/.test(location.hash) ? 'f1' : 'futebol';
     if (e !== esporte) { esporte = e; comp = ''; carregar(); escolha = padrao(); lerHash(); pintar(); }
   });
 })();
