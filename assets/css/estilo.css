@@ -1457,7 +1457,7 @@ html { background: var(--asfalto); }
 
 /* ---------- Barra de baixo no celular (como nos apps) ----------
    Início, Agenda, Buscar (no meio, em destaque), Menu e Perfil. O topo fica só com a marca e o tema;
-   busca, menu, idioma e conta saem de lá. Some no computador. */
+   busca, menu e conta saem de lá. Some no computador. */
 .barra-baixo { display: none; }
 @media (max-width: 720px) {
   html.com-barra-baixo { --bb-h: calc(62px + env(safe-area-inset-bottom, 0px)); }
@@ -1481,9 +1481,9 @@ html { background: var(--asfalto); }
   .barra-baixo .bb-meio b svg { width: 22px; height: 22px; stroke-width: 2.2; }
   .barra-baixo .bb-meio[aria-current] span { color: var(--sangue-vivo); }
 
-  /* topo enxuto: só a marca e o tema */
+  /* topo enxuto: só a marca, o tema e o idioma */
   html.com-barra-baixo .topo-in .busca-btn, html.com-barra-baixo .topo-in .conta-link,
-  html.com-barra-baixo .topo-in .todas, html.com-barra-baixo .topo-in .idioma-btn { display: none !important; }
+  html.com-barra-baixo .topo-in .todas { display: none !important; }
   html.com-barra-baixo .topo-in #tema-btn { margin-left: auto; }
 
   /* o conteúdo e o que flutua embaixo sobem para não ficar atrás da barra */
@@ -1496,5 +1496,3 @@ html { background: var(--asfalto); }
   html.com-barra-baixo .rolador { bottom: var(--bb-h); }
   html.chat-aberto .barra-baixo, html.nv-jogando .barra-baixo { display: none; }
 }
-.pm-idioma { display: none; }
-@media (max-width: 720px) { html.com-barra-baixo .pm-idioma { display: inline-flex; } }
