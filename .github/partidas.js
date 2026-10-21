@@ -9,7 +9,7 @@ const path = require('path');
 const RAIZ = path.join(__dirname, '..');
 const PASTA = path.join(RAIZ, 'assets/dados/partidas');
 const API = 'https://site.api.espn.com/apis/site/v2/sports/';
-const VERSAO = 2; /* sobe quando o arquivo ganha coisa nova: os jogos já encerrados são buscados de novo */
+const VERSAO = 3; /* sobe quando o arquivo ganha coisa nova: os jogos já encerrados são buscados de novo */
 
 const w = {};
 new Function('window', fs.readFileSync(path.join(RAIZ, 'assets/dados/ao-vivo.js'), 'utf8'))(w);
@@ -26,7 +26,7 @@ async function pedir(u) {
   }
   return null;
 }
-const nomeTime = t => (t && (IDS['s' + t.id] || t.displayName || t.name)) || '';
+const nomeTime = (t, nba) => (t && (IDS[(nba ? 'b' : 's') + t.id] || t.displayName || t.name)) || '';
 const pessoa = a => (a && (a.displayName || a.shortName || a.fullName)) || '';
 
 const tiposDesconhecidos = new Set();
@@ -120,7 +120,7 @@ function basquete(r) {
       n: pessoa(a.athlete), pos: ((a.athlete || {}).position || {}).abbreviation || '', titular: !!a.starter,
       fora: !!a.didNotPlay || !(a.stats || []).length, motivo: a.reason || '', s: (a.stats || []).map(String)
     })).filter(a => a.n);
-    return { time: nomeTime(t.team), colunas: col, atletas, totais: (b.totals || []).map(String) };
+    return { time: nomeTime(t.team, true), colunas: col, atletas, totais: (b.totals || []).map(String) };
   };
   const bc = bloco('casa'), bf = bloco('fora');
   if (bc && bf && (bc.atletas.length || bf.atletas.length)) out.box = { casa: bc, fora: bf };

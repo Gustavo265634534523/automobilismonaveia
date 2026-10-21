@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=358"></script>
+<script src="assets/js/idioma.js?v=359"></script>
 <title>Futebol | Arena Sports</title>
 <meta name="description" content="Futebol: Brasileirão, Libertadores, Sul-Americana e as cinco grandes ligas da Europa. Classificação, jogos e horários no horário de Brasília.">
 <meta name="theme-color" content="#f4f6f9">
@@ -23,9 +23,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=358">
-<link rel="stylesheet" href="assets/css/futebol.css?v=358">
-<link rel="stylesheet" href="assets/css/esportes-mais.css?v=358">
+<link rel="stylesheet" href="assets/css/estilo.css?v=359">
+<link rel="stylesheet" href="assets/css/futebol.css?v=359">
+<link rel="stylesheet" href="assets/css/esportes-mais.css?v=359">
 </head>
 <body data-esporte="futebol">
 <a class="pular" href="#ft">Pular para o conteúdo</a>
@@ -63,8 +63,21 @@
     <div class="ft-abas" id="ch-abas" role="tablist" aria-label="Campeonato"></div>
     <div id="ch-caixa"></div>
   </section>
-  <section class="ft-caixa ft-sec" aria-label="Monte seu time">
-    <a class="mn-chamada" href="monte-seu-time.html"><span><small>Jogo</small><b>Monte seu time</b><em>Seu time dos sonhos contra o do adversário, com os jogadores de hoje: Haaland, Vini Jr., Yamal, Arrascaeta…</em></span><i>Montar</i></a>
+  <section class="ft-caixa ft-sec" id="sec-selecao" hidden aria-labelledby="sec-selecao-t">
+    <p class="ft-rot">Os melhores da última rodada</p><h2 id="sec-selecao-t">Seleção da rodada</h2>
+    <div class="dq-corpo"></div>
+  </section>
+  <section class="ft-caixa ft-sec" id="sec-brasileiros" hidden aria-labelledby="sec-brasileiros-t">
+    <p class="ft-rot">Como foram os brasileiros lá fora</p><h2 id="sec-brasileiros-t">Brasileiros na Europa</h2>
+    <div class="dq-corpo"></div>
+  </section>
+  <section class="ft-caixa ft-sec" id="sec-ferramentas" aria-labelledby="fr-t">
+    <p class="ft-rot">Para jogar e comparar</p><h2 id="fr-t">Ferramentas</h2>
+    <div class="fr-grade">
+      <a class="fr-card fr-monte" href="monte-seu-time.html"><small>Jogo</small><b>Monte seu time</b><span>Seu time dos sonhos contra o do adversário, com os jogadores de hoje.</span><i>Montar</i></a>
+      <a class="fr-card fr-comparar" href="comparar.html#futebol"><small>Estatísticas</small><b>Comparar jogadores</b><span>Gols, assistências e chutes de dois jogadores lado a lado.</span><i>Comparar</i></a>
+      <a class="fr-card fr-bolao" href="bolao.html#futebol"><small>Palpites</small><b>Bolão</b><span>Palpite o placar dos jogos e dispute o ranking.</span><i>Palpitar</i></a>
+    </div>
   </section>
   <section class="ft-caixa ft-sec" id="sec-noticias" aria-labelledby="ft-not-t">
     <div class="ft-not-cab"><h2 id="ft-not-t">Últimas notícias</h2><div class="ft-abas ft-abas-pq" id="ft-not-abas" role="tablist" aria-label="Filtrar notícias"></div></div>
@@ -77,18 +90,21 @@
   </section>
 </main>
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=358"></script>
-<script src="assets/js/site.js?v=358"></script>
-<script src="assets/dados/videos-esportes.js?v=358"></script>
-<script src="assets/dados/fotos-reais.js?v=358"></script>
-<script src="assets/js/esportes-dados.js?v=358"></script>
-<script src="assets/js/noticias-esportes.js?v=358"></script>
-<script src="assets/dados/noticias-auto.js?v=358"></script>
-<script src="assets/dados/escudos.js?v=358"></script>
-<script src="assets/dados/ao-vivo.js?v=358"></script>
+<script src="assets/js/dados.js?v=359"></script>
+<script src="assets/js/site.js?v=359"></script>
+<script src="assets/dados/videos-esportes.js?v=359"></script>
+<script src="assets/dados/fotos-reais.js?v=359"></script>
+<script src="assets/js/esportes-dados.js?v=359"></script>
+<script src="assets/js/noticias-esportes.js?v=359"></script>
+<script src="assets/dados/noticias-auto.js?v=359"></script>
+<script src="assets/dados/escudos.js?v=359"></script>
+<script src="assets/dados/ao-vivo.js?v=359"></script>
+<script src="assets/dados/destaques-futebol.js?v=359"></script>
 
-<script src="assets/js/esportes-mais.js?v=358"></script>
-<script src="assets/js/competicao.js?v=358"></script>
-<script src="assets/js/futebol.js?v=358"></script>
+<script src="assets/js/esportes-mais.js?v=359"></script>
+<script src="assets/js/chances.js?v=359"></script>
+<script src="assets/js/competicao.js?v=359"></script>
+<script src="assets/js/destaques.js?v=359"></script>
+<script src="assets/js/futebol.js?v=359"></script>
 </body>
 </html>

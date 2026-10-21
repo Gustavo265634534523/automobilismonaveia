@@ -44,7 +44,7 @@
     function nome(n, antes) { var e = window.escudoTime(n); return e && window.linkTime ? '<a href="' + window.linkTime(n) + '">' + (antes ? e + esc(n) : esc(n) + e) + '</a>' : (antes ? e + esc(n) : esc(n) + e); }
     var pl = j.vivo ? j.vivo.p : j.p;
     return '<li class="jogo' + (j.p ? ' feito' : '') + (vivo ? ' vivo' : '') + '"><span class="jogo-fase">' + esc(j.fase || '') + (j.l ? '<small>' + esc(j.l) + '</small>' : '') + '</span>' +
-      '<span class="jogo-times"><b>' + nome(j.casa) + '</b>' + (window.linkPartida && window.linkPartida(j) ? '<a class="jogo-ver" href="' + window.linkPartida(j) + '" title="Lance a lance e escalações"><em>' + (pl ? esc(pl) : 'x') + '</em></a>' : '<em>' + (pl ? esc(pl) : 'x') + '</em>') + '<b>' + nome(j.fora, true) + '</b></span>' +
+      '<span class="jogo-times"><b>' + nome(j.casa) + '</b>' + (window.linkPartida && window.linkPartida(j) ? '<a class="jogo-ver" href="' + window.linkPartida(j) + '" title="Detalhes do jogo"><em>' + (pl ? esc(pl) : 'x') + '</em></a>' : '<em>' + (pl ? esc(pl) : 'x') + '</em>') + '<b>' + nome(j.fora, true) + '</b></span>' +
       '<span class="jogo-data">' + (j.d ? window.dataCurta(j.d) + (j.h ? ' · ' + esc(j.h) : '') : '') + '<small>' + status + '</small></span></li>';
   }
   function cartao(c) {
@@ -135,6 +135,8 @@
   if (c.confrontos) P.push(['confrontos', 'Confrontos', '<h2>Confrontos</h2><ul class="confrontos">' + c.confrontos.map(confronto).join('') + '</ul>']);
   function blocoTabela(t, primeiro) { return '<h3' + (primeiro ? ' style="margin-top:0"' : '') + '>' + esc(t.titulo) + '</h3>' + tabela(t) + (t.nota ? '<p class="nota">' + esc(t.nota) + '</p>' : ''); }
   if (c.tabela) P.push(['classificacao', 'Classificação', '<h2>Classificação</h2>' + blocoTabela(c.tabela, true) + (c.tabela2 ? blocoTabela(c.tabela2) : '')]);
+  var chs = c.esporte === 'futebol' && window.chancesHTML ? window.chancesHTML(c) : '';
+  if (chs) P.push(['chances', 'Chances', '<h2>Chances</h2>' + chs]);
   if (c.destaques) P.push(['destaques', c.destaques.aba || (c.esporte === 'futebol' ? 'Artilharia' : 'Destaques'), '<h2>' + esc(c.destaques.titulo) + '</h2>' + tabela(c.destaques) + (c.destaques.nota ? '<p class="nota">' + esc(c.destaques.nota) + '</p>' : '')]);
   /* chaveamento do mata-mata ou dos playoffs (CHAVES em esportes-dados.js) e, no basquete, a projeção pela tabela atual */
   var CH = (window.CHAVES || {})[c.slug], proj = c.esporte === 'basquete' && c.tabela && !/passada|final da temporada/i.test(c.tabela.titulo) && window.chaveProjetada ? window.chaveProjetada(c) : null;
@@ -148,7 +150,7 @@
     (c.campeoes ? '<h3>Últimos campeões</h3>' + tabela({ colunas: c.campeoes[0].length > 2 ? ['Temporada', 'Campeão', 'Vice'] : ['Temporada', 'Campeão'], linhas: c.campeoes }) : '')]);
 
   /* abas na ordem do que a pessoa mais procura; com chaveamento, os confrontos já estão nele */
-  var ORDEM = ['jogos', 'classificacao', 'chave', 'confrontos', 'destaques', 'lideres', 'noticias', 'videos', 'sobre'];
+  var ORDEM = ['jogos', 'classificacao', 'chances', 'chave', 'confrontos', 'destaques', 'lideres', 'noticias', 'videos', 'sobre'];
   if (P.some(function (s) { return s[0] === 'chave'; })) P = P.filter(function (s) { return s[0] !== 'confrontos'; });
   P.sort(function (a, b) { return ORDEM.indexOf(a[0]) - ORDEM.indexOf(b[0]); });
   var abas = document.getElementById('abas'), paineis = document.getElementById('paineis');

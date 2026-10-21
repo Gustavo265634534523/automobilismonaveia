@@ -1,6 +1,8 @@
-/* Página do jogo de futebol (partida.html?id=<id da ESPN>): placar, lance a lance (gols, cartões, substituições)
-   e escalações desenhadas no campo. Os dados vêm do robô .github/partidas.js (assets/dados/partidas/<id>.json,
-   a cada 10 minutos); com o jogo rolando, a página busca o arquivo de novo a cada 2 minutos. */
+/* Página do jogo (partida.html?id=<id da ESPN>).
+   Futebol: placar, lance a lance (gols, cartões, substituições), escalações desenhadas no campo e estatísticas.
+   NBA: placar por quarto, placar completo de cada jogador e estatísticas dos times.
+   Os dados vêm do robô .github/partidas.js (assets/dados/partidas/<id>.json, a cada 10 minutos); com o jogo rolando,
+   a página busca o arquivo de novo a cada 2 minutos. */
 (function () {
   var caixa = document.getElementById('pg');
   if (!caixa || document.body.getAttribute('data-pagina') !== 'partida') return;
@@ -10,7 +12,10 @@
   COMPS.forEach(function (c) { (c.jogos || []).forEach(function (j) { if (id && j.id === id) achado = { c: c, j: j }; }); });
   if (!id) { caixa.innerHTML = '<p class="pt-vazio">Jogo não encontrado. <a href="futebol.html">Voltar para o futebol</a>.</p>'; return; }
 
-  var aba = /escalacoes/.test(location.hash) ? 'escalacoes' : 'lances', dados = null;
+  var basq = achado ? achado.c.esporte === 'basquete' : false;
+  var ABAS = function () { return basq ? [['box', 'Placar completo'], ['estatisticas', 'Estatísticas']] : [['lances', 'Lance a lance'], ['escalacoes', 'Escalações'], ['estatisticas', 'Estatísticas']]; };
+  var aba = (location.hash || '').slice(1), dados = null;
+  function abaValida() { if (!ABAS().some(function (a) { return a[0] === aba; })) aba = ABAS()[0][0]; }
   function quando(d) { var n = window.diasAte(d); return n === 0 ? 'Hoje' : n === 1 ? 'Amanhã' : n === -1 ? 'Ontem' : window.dataCurta(d); }
   function sobrenome(n) { var p = String(n).trim().split(/\s+/); return p.length > 1 && p[p.length - 1].length > 2 ? p[p.length - 1] : n; }
 
@@ -91,24 +96,73 @@
       '<div class="pt-listas">' + lista(E.casa) + lista(E.fora) + '</div>';
   }
 
+  /* estatísticas lado a lado, com a barra de quem foi melhor */
+  function valor(v) { var m = String(v).match(/-?[\d.]+/); return m ? parseFloat(m[0]) : 0; }
+  var MENOS_E_MELHOR = /Faltas|Impedimentos|Cartões|Erros/;
+  function estatisticas(D) {
+    var E = D.estatisticas;
+    if (!E || !E.length) return '<p class="pt-vazio">' + (D.fim || D.p ? 'A ESPN não publicou as estatísticas deste jogo.' : 'As estatísticas aparecem aqui quando o jogo começar.') + '</p>';
+    return '<div class="pt-est"><div class="pt-est-cab"><span>' + window.escudoTime(D.casa) + esc(D.casa) + '</span><span>' + esc(D.fora) + window.escudoTime(D.fora) + '</span></div>' + E.map(function (e) {
+      var a = valor(e[1]), b = valor(e[2]), t = a + b, pa = t ? a / t * 100 : 50;
+      var ganha = a === b ? '' : (a > b) !== MENOS_E_MELHOR.test(e[0]) ? 'casa' : 'fora';
+      return '<div class="pt-est-l' + (ganha ? ' pt-ganha-' + ganha : '') + '"><b>' + esc(e[1]) + '</b><span>' + esc(e[0]) + '</span><b>' + esc(e[2]) + '</b>' +
+        '<i class="pt-est-barra" aria-hidden="true"><em style="width:' + pa.toFixed(1) + '%"></em><em style="width:' + (100 - pa).toFixed(1) + '%"></em></i></div>';
+    }).join('') + '</div>';
+  }
+
+  /* NBA: placar por quarto e placar completo */
+  function quartos(D) {
+    var Q = D.quartos; if (!Q || !Q.casa.length) return '';
+    var n = Q.casa.length, rot = function (i) { return i < 4 ? i + 1 + 'º' : 'P' + (i - 3); };
+    var pl = String(D.p || '').split(/\s*x\s*/);
+    function linha(time, q, total) { return '<tr><th>' + window.escudoTime(time) + esc(time) + '</th>' + q.map(function (x) { return '<td>' + esc(x) + '</td>'; }).join('') + '<td class="pt-q-total">' + esc(total || '') + '</td></tr>'; }
+    return '<table class="pt-quartos"><thead><tr><th>Time</th>' + Array.apply(null, Array(n)).map(function (x, i) { return '<td>' + rot(i) + '</td>'; }).join('') + '<td>Total</td></tr></thead><tbody>' +
+      linha(D.casa, Q.casa, pl[0]) + linha(D.fora, Q.fora, pl[1]) + '</tbody></table>';
+  }
+  /* colunas mostradas (na ordem) e o nome em português; as marcadas com 1 somem no celular */
+  var COLS = [['MIN', 'Min', 'Minutos'], ['PTS', 'Pts', 'Pontos'], ['REB', 'Reb', 'Rebotes'], ['AST', 'Ast', 'Assistências'], ['STL', 'Rou', 'Roubos de bola', 1], ['BLK', 'Toc', 'Tocos', 1],
+    ['FG', 'Arr', 'Arremessos (cestas-tentativas)'], ['3PT', '3P', 'Bolas de 3 (cestas-tentativas)', 1], ['FT', 'LL', 'Lances livres (cestas-tentativas)', 1], ['TO', 'Err', 'Erros (turnovers)', 1],
+    ['PF', 'Flt', 'Faltas', 1], ['+/-', '+/-', 'Saldo de pontos com ele em quadra', 1]];
+  function boxTime(B) {
+    var ix = COLS.map(function (c) { return B.colunas.indexOf(c[0]); });
+    function celulas(v) { return COLS.map(function (c, k) { return '<td' + (c[3] ? ' class="pt-cel-extra"' : '') + '>' + esc(ix[k] > -1 ? v[ix[k]] || '' : '') + '</td>'; }).join(''); }
+    var jogou = B.atletas.filter(function (a) { return !a.fora; }), nao = B.atletas.filter(function (a) { return a.fora; });
+    var tit = jogou.filter(function (a) { return a.titular; }), banco = jogou.filter(function (a) { return !a.titular; });
+    function linhas(l) { return l.map(function (a) { return '<tr><th><b>' + esc(a.n) + '</b><small>' + esc(a.pos) + '</small></th>' + celulas(a.s) + '</tr>'; }).join(''); }
+    return '<div class="pt-box"><h3>' + window.escudoTime(B.time) + esc(B.time) + '</h3><table class="pt-box-t"><thead><tr><th>Titulares</th>' +
+      COLS.map(function (c) { return '<td' + (c[3] ? ' class="pt-cel-extra"' : '') + ' title="' + c[2] + '">' + c[1] + '</td>'; }).join('') + '</tr></thead><tbody>' + linhas(tit) +
+      (banco.length ? '<tr class="pt-box-sep"><th colspan="' + (COLS.length + 1) + '">Banco</th></tr>' + linhas(banco) : '') +
+      (B.totais && B.totais.length ? '<tr class="pt-box-tot"><th>Total</th>' + celulas(B.totais) + '</tr>' : '') + '</tbody></table>' +
+      (nao.length ? '<p class="pt-box-nao">Não jogaram: ' + nao.map(function (a) { return esc(a.n); }).join(', ') + '</p>' : '') + '</div>';
+  }
+  function box(D) {
+    if (!D.box) return '<p class="pt-vazio">' + (D.fim || D.p ? 'A ESPN ainda não publicou o placar completo deste jogo.' : 'O placar completo aparece aqui quando o jogo começar.') + '</p>';
+    D.box.casa.time = D.casa; D.box.fora.time = D.fora;
+    return boxTime(D.box.casa) + boxTime(D.box.fora) +
+      '<p class="pt-legenda">' + COLS.map(function (c) { return '<b>' + c[1] + '</b> ' + c[2].toLowerCase(); }).join(' · ') + '</p>';
+  }
+
   function pintar() {
     var j = achado ? achado.j : {}, c = achado ? achado.c : {};
     var D = dados || { casa: j.casa, fora: j.fora, lances: [], escalacoes: null, fim: !!j.p };
+    if (D.esporte === 'basquete') basq = true;
+    abaValida();
+    document.body.setAttribute('data-esporte', basq ? 'basquete' : 'futebol'); document.getElementById('pg-main').setAttribute('data-esporte', basq ? 'basquete' : 'futebol');
     var casa = D.casa || j.casa || '', fora = D.fora || j.fora || '';
     var pl = String((j.vivo && j.vivo.p) || j.p || D.p || '').split(/\s*x\s*/), tem = pl[0] !== '';
+    if (!D.p && (j.p || (j.vivo && j.vivo.p))) D.p = j.p || j.vivo.p;
     var status = j.vivo ? '<span class="pt-aovivo"><i></i>' + esc(j.vivo.min || 'Ao vivo') + '</span>' : j.p ? 'Encerrado' + (j.pen ? ' · pênaltis ' + esc(j.pen) : '') : (j.d ? quando(j.d) + (j.h ? ', ' + esc(j.h) : '') : '');
     document.title = casa + ' x ' + fora + ' | Arena Sports';
     caixa.innerHTML =
-      '<a class="pt-voltar" href="' + (c.slug ? c.slug + '.html#jogos' : 'futebol.html') + '">‹ ' + esc(c.menu || 'Futebol') + (j.fase ? ' · ' + esc(j.fase) : '') + '</a>' +
+      '<a class="pt-voltar" href="' + (c.slug ? c.slug + '.html#jogos' : basq ? 'basquete.html' : 'futebol.html') + '">‹ ' + esc(c.menu || (basq ? 'Basquete' : 'Futebol')) + (j.fase ? ' · ' + esc(j.fase) : '') + '</a>' +
       '<section class="pt-placar">' +
         '<a class="pt-time" href="' + window.linkTime(casa) + '">' + window.escudoTime(casa, 'pt-escudo') + '<b>' + esc(casa) + '</b></a>' +
         '<div class="pt-meio-placar"><div class="pt-gols">' + (tem ? esc(pl[0]) + '<i>–</i>' + esc(pl[1] || '') : '<i>x</i>') + '</div><div class="pt-status">' + status + '</div>' +
           (j.l ? '<small>' + esc(j.l) + '</small>' : '') + '</div>' +
         '<a class="pt-time" href="' + window.linkTime(fora) + '">' + window.escudoTime(fora, 'pt-escudo') + '<b>' + esc(fora) + '</b></a>' +
-      '</section>' +
-      '<div class="ft-abas pt-abas" role="tablist"><button type="button" role="tab" data-aba="lances" aria-selected="' + (aba === 'lances') + '">Lance a lance</button>' +
-        '<button type="button" role="tab" data-aba="escalacoes" aria-selected="' + (aba === 'escalacoes') + '">Escalações</button></div>' +
-      '<div class="pt-corpo">' + (aba === 'lances' ? lances(D) : escalacoes(D)) + '</div>' +
+      '</section>' + (basq ? quartos(D) : '') +
+      '<div class="ft-abas pt-abas" role="tablist">' + ABAS().map(function (a) { return '<button type="button" role="tab" data-aba="' + a[0] + '" aria-selected="' + (aba === a[0]) + '">' + a[1] + '</button>'; }).join('') + '</div>' +
+      '<div class="pt-corpo">' + (aba === 'lances' ? lances(D) : aba === 'escalacoes' ? escalacoes(D) : aba === 'box' ? box(D) : estatisticas(D)) + '</div>' +
       '<p class="pt-fonte">Dados: ESPN. Atualizado sozinho' + (j.vivo ? ' durante o jogo' : '') + '.</p>';
     [].forEach.call(caixa.querySelectorAll('.pt-abas button'), function (b) {
       b.addEventListener('click', function () { aba = b.getAttribute('data-aba'); history.replaceState(null, '', '#' + aba); pintar(); });

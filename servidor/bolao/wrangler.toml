@@ -1,0 +1,8 @@
+# Servidor do bolão. O id do KV é preenchido pelo GitHub na hora de publicar (.github/workflows/bolao-servidor.yml).
+name = "arena-bolao"
+main = "worker.js"
+compatibility_date = "2026-01-01"
+
+[[kv_namespaces]]
+binding = "PALPITES"
+id = "ID_DO_KV"

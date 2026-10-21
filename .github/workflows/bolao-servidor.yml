@@ -1,0 +1,41 @@
+# Publica o servidor do bolão (servidor/bolao) na Cloudflare, na mesma conta do servidor de contas.
+# Precisa de três segredos no GitHub (Settings > Secrets and variables > Actions):
+#   CLOUDFLARE_API_TOKEN (token com permissão de Workers e Workers KV), CLOUDFLARE_ACCOUNT_ID e BOLAO_CHAVE (uma senha
+#   qualquer, longa, que o robô do ranking usa para ler os palpites). Sem eles, não faz nada.
+name: Servidor do bolão
+on:
+  push:
+    paths:
+      - 'servidor/bolao/**'
+      - '.github/workflows/bolao-servidor.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      BOLAO_CHAVE: ${{ secrets.BOLAO_CHAVE }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Publicar
+        working-directory: servidor/bolao
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ] || [ -z "$BOLAO_CHAVE" ]; then
+            echo "Faltam os segredos CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID e BOLAO_CHAVE: o bolão continua só no aparelho de cada um."; exit 0
+          fi
+          API="https://api.cloudflare.com/client/v4/accounts/$CLOUDFLARE_ACCOUNT_ID/storage/kv/namespaces"
+          ID=$(curl -s -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" "$API?per_page=100" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>{const r=JSON.parse(s);const n=(r.result||[]).find(x=>x.title==='arena-bolao-palpites');console.log(n?n.id:'')})")
+          if [ -z "$ID" ]; then
+            ID=$(curl -s -X POST -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN" -H "Content-Type: application/json" -d '{"title":"arena-bolao-palpites"}' "$API" | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>console.log((JSON.parse(s).result||{}).id||''))")
+          fi
+          [ -n "$ID" ] || { echo "Não deu para criar o KV"; exit 1; }
+          sed -i "s/ID_DO_KV/$ID/" wrangler.toml
+          npx -y wrangler@4 deploy
+          echo "$BOLAO_CHAVE" | npx -y wrangler@4 secret put BOLAO_CHAVE

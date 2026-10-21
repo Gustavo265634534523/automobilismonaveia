@@ -66,7 +66,7 @@
   var comTabela = [];
   COMPS.forEach(function (c) {
     [c.tabela, c.tabela2].forEach(function (t, k) {
-      if (t && t.linhas && t.linhas.length) comTabela.push({ slug: c.slug, menu: c.menu + (c.tabela2 ? (k ? ' Oeste' : ' Leste') : ''), tabela: t });
+      if (t && t.linhas && t.linhas.length) comTabela.push({ slug: c.slug, menu: c.menu + (c.tabela2 ? (k ? ' Oeste' : ' Leste') : ''), tabela: t, comp: k ? null : c });
     });
   });
   var abasT = document.getElementById('ft-tab-abas'), caixaT = document.getElementById('ft-tabela');
@@ -76,9 +76,15 @@
       t.linhas.slice(0, 10).map(function (l) { return '<tr>' + l.map(function (v, i) { return (t.colunas[i] === 'Time' ? '<td class="ft-tab-time"><a href="' + window.linkTime(v) + '">' + escudo(v) + esc(v) + '</a></td>' : '<td>' + esc(v) + '</td>'); }).join('') + '</tr>'; }).join('') +
       '</tbody></table></div><p class="ft-centro"><a class="ft-btn" href="' + c.slug + '.html#classificacao">' + (ver ? 'Tabela completa' : 'Ver o campeonato') + '</a></p>';
   }
+  /* futebol: a tabela ou as chances (título, vaga, rebaixamento), em chances.js */
+  var modoT = 'tabela';
   function abrirTabela(i) {
     [].forEach.call(abasT.children, function (b, k) { b.setAttribute('aria-selected', k === i ? 'true' : 'false'); });
-    caixaT.innerHTML = tabela(comTabela[i]);
+    var c = comTabela[i], temCh = !BQ && c.comp && window.chancesDe && window.chancesDe(c.comp);
+    caixaT.innerHTML = (temCh ? '<div class="ch-modo" role="group" aria-label="Ver"><button type="button" data-m="tabela" aria-pressed="' + (modoT === 'tabela') + '">Classificação</button>' +
+      '<button type="button" data-m="chances" aria-pressed="' + (modoT === 'chances') + '">Chances</button></div>' : '') +
+      (temCh && modoT === 'chances' ? window.chancesHTML(c.comp) + '<p class="ft-centro"><a class="ft-btn" href="' + c.slug + '.html#chances">Ver o campeonato</a></p>' : tabela(c));
+    [].forEach.call(caixaT.querySelectorAll('.ch-modo button'), function (b) { b.addEventListener('click', function () { modoT = b.getAttribute('data-m'); abrirTabela(i); }); });
   }
   abasT.innerHTML = comTabela.map(function (c, i) { return '<button type="button" role="tab" data-i="' + i + '">' + esc(c.menu) + '</button>'; }).join('');
   [].forEach.call(abasT.children, function (b) { b.addEventListener('click', function () { abrirTabela(+b.getAttribute('data-i')); }); });
