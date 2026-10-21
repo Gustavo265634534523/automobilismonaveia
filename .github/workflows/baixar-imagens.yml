@@ -24,7 +24,13 @@ jobs:
             if [ -f "$destino.png" ] || [ -f "$destino.webp" ]; then continue; fi
             mkdir -p "$(dirname "$destino")"
             curl -sSfL --retry 3 -m 120 -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36" -H "Referer: https://www.sofascore.com/" -o "$destino.png" "$url" || { echo "falhou: $url"; continue; }
-            convert "$destino.png" -resize '900x900>' -quality 82 "$destino.webp" || true
+            case "$destino" in
+              */hero/*) # fundo grande da entrada: versão larga, versão de celular e sem o PNG pesado
+                convert "$destino.png" -resize '2400x2400>' -quality 78 "$destino.webp" || true
+                convert "$destino.png" -resize '1100x1100>' -quality 74 "$destino-m.webp" || true
+                rm -f "$destino.png" ;;
+              *) convert "$destino.png" -resize '900x900>' -quality 82 "$destino.webp" || true ;;
+            esac
             ls -la "$destino".*
           done
       - name: Salvar no site
