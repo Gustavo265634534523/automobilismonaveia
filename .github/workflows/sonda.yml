@@ -1,0 +1,15 @@
+# temporário: olha o formato dos dados da ESPN (apagar depois)
+name: Sonda ESPN
+on:
+  push:
+    paths:
+      - '.github/sonda/sonda.js'
+jobs:
+  sonda:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node .github/sonda/sonda.js
