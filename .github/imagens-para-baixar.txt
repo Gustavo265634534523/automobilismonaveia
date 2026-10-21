@@ -26,3 +26,4 @@ assets/img/fotos/futebol https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxU
 assets/img/fotos/futebol-2 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_012015_e2321adb-f923-4425-b482-7d3e9eb2b337.png
 assets/img/fotos/automobilismo https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_012016_3a4ffb61-8e3b-420c-9a97-eac1452c4e76.png
 assets/img/fotos/automobilismo-2 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_012132_f16e219a-5bb7-48b2-8e49-74f35a021cf5.png
+assets/img/fotos/basquete https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_012015_02b6188a-452c-428d-be7b-653e0dad4767.png
