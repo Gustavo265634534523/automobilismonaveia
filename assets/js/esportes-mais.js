@@ -29,6 +29,8 @@
       return !a.d || a.d < v.de || a.d > v.ate || indef.test(a.casa) || indef.test(a.fora);
     });
     c.jogos = fica.concat(novos).sort(ordem);
+    /* artilharia do robô (ESPN): vale mais que a escrita à mão */
+    if (v.artilharia && v.artilharia.length) c.destaques = { titulo: 'Artilheiros', colunas: ['Jogador', 'Time', 'Gols'], linhas: v.artilharia, nota: 'Atualizado sozinho. Fonte: ESPN.', aba: 'Artilharia' };
     if (v.tabela) {
       var hora = AV.atualizado ? new Date(AV.atualizado) : null;
       var nota = 'Atualizada automaticamente' + (hora ? ' em ' + hora.toLocaleDateString('pt-BR') + ', ' + hora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) : '') + '. Fonte: ESPN.';

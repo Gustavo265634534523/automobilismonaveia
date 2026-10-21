@@ -1,5 +1,5 @@
 /* Placar automático do futebol e da NBA: busca na ESPN (API pública do site da ESPN, sem chave) os jogos dos últimos
-   10 dias e das próximas 3 semanas, as classificações das ligas, os líderes de estatística da NBA e o craque do jogo
+   10 dias e das próximas 3 semanas, as classificações das ligas, a artilharia do futebol, os líderes de estatística da NBA e o craque do jogo
    principal de cada dia, e grava tudo em
    assets/dados/ao-vivo.js (window.AO_VIVO). O site junta esses dados aos de esportes-dados.js (assets/js/esportes-mais.js):
    o que vem daqui vale mais para placar, horário e tabela; o resto (textos, fases, notas) continua vindo de lá.
@@ -191,6 +191,21 @@ async function tabelaDa(l) {
   };
 }
 
+/* artilharia (futebol): os 10 que mais fizeram gol no campeonato, pela página de estatísticas da ESPN */
+const relArt = [];
+async function artilhariaDa(l) {
+  const j = await pedir(API + l.liga + '/statistics');
+  const g = j && (j.stats || []).find(s => /goals/i.test(s.name || '') || /scor/i.test(s.displayName || ''));
+  if (!g || !g.leaders || !g.leaders.length) { relArt.push(l.slug + ': sem artilharia na ESPN'); return null; }
+  const linhas = g.leaders.slice(0, 10).map(x => {
+    const a = x.athlete || {}, t = a.team || x.team || {};
+    const gols = Math.round(x.value || parseFloat(String(x.displayValue || '').replace(/.*Goals?:\s*/i, '')) || 0);
+    return [a.displayName || a.shortName || '', t.displayName || t.name ? nomeSite(t, 'soccer') : '', String(gols)];
+  }).filter(x => x[0] && +x[2] > 0);
+  relArt.push(l.slug + ': ' + linhas.length + ' artilheiros' + (linhas[0] ? ' (1º ' + linhas[0].join(' / ') + ')' : ''));
+  return linhas.length ? linhas : null;
+}
+
 /* dias desde o começo da temporada regular da NBA (por volta de 20 de outubro) */
 function diasDeTemporada() {
   const h = new Date(), ano = h.getUTCMonth() >= 8 ? h.getUTCFullYear() : h.getUTCFullYear() - 1;
@@ -329,9 +344,10 @@ async function craques(comps, antes) {
   for (const l of LIGAS) {
     const jogos = await jogosDa(l);
     const t = l.tabela ? await tabelaDa(l) : null;
+    const art = l.liga.startsWith('soccer') ? await artilhariaDa(l) : null;
     if (!jogos.length && !t) { if (antes.comps && antes.comps[l.slug]) comps[l.slug] = antes.comps[l.slug]; console.log(l.slug + ': sem resposta, mantém o anterior'); continue; }
     const hoje = new Date();
-    comps[l.slug] = Object.assign({ liga: l.liga, de: brasilia(new Date(hoje - DIAS_ANTES * 864e5).toISOString()).d, ate: brasilia(new Date(+hoje + DIAS_DEPOIS * 864e5).toISOString()).d, jogos }, t || {});
+    comps[l.slug] = Object.assign({ liga: l.liga, de: brasilia(new Date(hoje - DIAS_ANTES * 864e5).toISOString()).d, ate: brasilia(new Date(+hoje + DIAS_DEPOIS * 864e5).toISOString()).d, jogos }, t || {}, art ? { artilharia: art } : (antes.comps && antes.comps[l.slug] && antes.comps[l.slug].artilharia ? { artilharia: antes.comps[l.slug].artilharia } : {}));
     console.log(l.slug + ':', jogos.length, 'jogos', t ? '+ tabela' : '');
   }
   if (!Object.keys(comps).length) { console.log('a ESPN não respondeu; nada muda'); return; }
@@ -360,6 +376,6 @@ async function craques(comps, antes) {
   if (igual) { console.log('sem novidade'); return; }
   dados.atualizado = new Date().toISOString();
   fs.writeFileSync(ARQ, '/* Gerado por .github/placar.js (dados: ESPN). Não editar à mão. */\nwindow.AO_VIVO = ' + JSON.stringify(dados) + ';\n');
-  fs.writeFileSync(RELATORIO, 'Times da ESPN que não casaram com um nome do site (entram com o nome da ESPN; acrescente em APELIDO no placar.js se for o mesmo time):\n' + [...naoCasou].sort().join('\n') + '\n');
+  fs.writeFileSync(RELATORIO, 'Artilharia:\n' + relArt.join('\n') + '\n\nTimes da ESPN que não casaram com um nome do site (entram com o nome da ESPN; acrescente em APELIDO no placar.js se for o mesmo time):\n' + [...naoCasou].sort().join('\n') + '\n');
   console.log('gravado. não casaram:', naoCasou.size);
 })();
