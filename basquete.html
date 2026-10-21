@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=359"></script>
+<script src="assets/js/idioma.js?v=360"></script>
 <title>Basquete | Arena Sports</title>
 <meta name="description" content="Basquete: NBA, Euroleague e o NBB, o campeonato brasileiro. Classificação, jogos e horários no horário de Brasília.">
 <meta name="theme-color" content="#f4f6f9">
@@ -23,9 +23,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=359">
-<link rel="stylesheet" href="assets/css/futebol.css?v=359">
-<link rel="stylesheet" href="assets/css/esportes-mais.css?v=359">
+<link rel="stylesheet" href="assets/css/estilo.css?v=360">
+<link rel="stylesheet" href="assets/css/futebol.css?v=360">
+<link rel="stylesheet" href="assets/css/esportes-mais.css?v=360">
 </head>
 <body data-esporte="basquete">
 <a class="pular" href="#ft">Pular para o conteúdo</a>
@@ -40,6 +40,14 @@
       <div id="ft-grande"></div>
     </div>
   </section>
+  <nav class="ft-caixa f1-atalhos" aria-label="Atalhos do basquete">
+    <a class="f1-atalho f1-atalho-dest" href="#sec-noite"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><b>Noite da NBA</b><small>Os jogos de ontem, os cestinhas e o jogador da noite</small></a>
+    <a class="f1-atalho" href="#ft-tabelas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 10h16M4 15h16M9 5v14"/></svg><b>Tabelas e playoffs</b><small>Classificação do Leste e do Oeste</small></a>
+    <a class="f1-atalho" href="#sec-lesoes"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg><b>Lesões</b><small>Quem está fora e quem é dúvida</small></a>
+    <a class="f1-atalho" href="#sec-br-nba"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><b>Brasileiros na NBA</b><small>Médias e últimos jogos</small></a>
+    <a class="f1-atalho" href="comparar.html#basquete"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M10 20V4M14 20v-7M19 20V8"/></svg><b>Comparar jogadores</b><small>Pontos, rebotes e assistências lado a lado</small></a>
+    <a class="f1-atalho" href="bolao.html#basquete"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><b>Bolão</b><small>Palpite quem vence e dispute o ranking</small></a>
+  </nav>
   <section class="ft-caixa ft-recentes" aria-labelledby="ft-rec-t">
     <div class="ft-rec-cab"><div><p class="ft-rot">Placar</p><h2 id="ft-rec-t">Jogos recentes</h2></div>
       <div class="ft-setas"><button type="button" id="ft-rec-ant" aria-label="Anteriores">‹</button><button type="button" id="ft-rec-prox" aria-label="Próximos">›</button></div></div>
@@ -75,13 +83,6 @@
     <p class="ft-rot">Quem está fora e quem é dúvida</p><h2 id="sec-lesoes-t">Lesões na NBA</h2>
     <div class="dq-corpo"></div>
   </section>
-  <section class="ft-caixa ft-sec" id="sec-ferramentas" aria-labelledby="fr-t">
-    <p class="ft-rot">Para jogar e comparar</p><h2 id="fr-t">Ferramentas</h2>
-    <div class="fr-grade">
-      <a class="fr-card fr-comparar" href="comparar.html#basquete"><small>Estatísticas</small><b>Comparar jogadores</b><span>Pontos, rebotes e assistências de dois jogadores lado a lado.</span><i>Comparar</i></a>
-      <a class="fr-card fr-bolao" href="bolao.html#basquete"><small>Palpites</small><b>Bolão</b><span>Palpite quem vence os jogos da NBA e dispute o ranking.</span><i>Palpitar</i></a>
-    </div>
-  </section>
   <section class="ft-caixa ft-sec" id="sec-noticias" aria-labelledby="ft-not-t">
     <div class="ft-not-cab"><h2 id="ft-not-t">Últimas notícias</h2><div class="ft-abas ft-abas-pq" id="ft-not-abas" role="tablist" aria-label="Filtrar notícias"></div></div>
     <div class="ft-noticias" id="ft-noticias"></div>
@@ -93,21 +94,21 @@
   </section>
 </main>
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=359"></script>
-<script src="assets/js/site.js?v=359"></script>
-<script src="assets/dados/videos-esportes.js?v=359"></script>
-<script src="assets/dados/fotos-reais.js?v=359"></script>
-<script src="assets/js/esportes-dados.js?v=359"></script>
-<script src="assets/js/noticias-esportes.js?v=359"></script>
-<script src="assets/dados/noticias-auto.js?v=359"></script>
-<script src="assets/dados/escudos.js?v=359"></script>
-<script src="assets/dados/ao-vivo.js?v=359"></script>
-<script src="assets/dados/nba-extras.js?v=359"></script>
+<script src="assets/js/dados.js?v=360"></script>
+<script src="assets/js/site.js?v=360"></script>
+<script src="assets/dados/videos-esportes.js?v=360"></script>
+<script src="assets/dados/fotos-reais.js?v=360"></script>
+<script src="assets/js/esportes-dados.js?v=360"></script>
+<script src="assets/js/noticias-esportes.js?v=360"></script>
+<script src="assets/dados/noticias-auto.js?v=360"></script>
+<script src="assets/dados/escudos.js?v=360"></script>
+<script src="assets/dados/ao-vivo.js?v=360"></script>
+<script src="assets/dados/nba-extras.js?v=360"></script>
 
-<script src="assets/js/esportes-mais.js?v=359"></script>
-<script src="assets/js/competicao.js?v=359"></script>
-<script src="assets/js/basquete.js?v=359"></script>
-<script src="assets/js/destaques.js?v=359"></script>
-<script src="assets/js/futebol.js?v=359"></script>
+<script src="assets/js/esportes-mais.js?v=360"></script>
+<script src="assets/js/competicao.js?v=360"></script>
+<script src="assets/js/basquete.js?v=360"></script>
+<script src="assets/js/destaques.js?v=360"></script>
+<script src="assets/js/futebol.js?v=360"></script>
 </body>
 </html>

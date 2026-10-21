@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="assets/js/idioma.js?v=359"></script>
+<script src="assets/js/idioma.js?v=360"></script>
 <title>Futebol | Arena Sports</title>
 <meta name="description" content="Futebol: Brasileirão, Libertadores, Sul-Americana e as cinco grandes ligas da Europa. Classificação, jogos e horários no horário de Brasília.">
 <meta name="theme-color" content="#f4f6f9">
@@ -23,9 +23,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/estilo.css?v=359">
-<link rel="stylesheet" href="assets/css/futebol.css?v=359">
-<link rel="stylesheet" href="assets/css/esportes-mais.css?v=359">
+<link rel="stylesheet" href="assets/css/estilo.css?v=360">
+<link rel="stylesheet" href="assets/css/futebol.css?v=360">
+<link rel="stylesheet" href="assets/css/esportes-mais.css?v=360">
 </head>
 <body data-esporte="futebol">
 <a class="pular" href="#ft">Pular para o conteúdo</a>
@@ -40,6 +40,14 @@
       <div id="ft-grande"></div>
     </div>
   </section>
+  <nav class="ft-caixa f1-atalhos" aria-label="Atalhos do futebol">
+    <a class="f1-atalho f1-atalho-dest" href="#ft-tabelas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 10h16M4 15h16M9 5v14"/></svg><b>Tabelas e chances</b><small>Classificação e a chance de cada time ser campeão ou cair</small></a>
+    <a class="f1-atalho" href="#sec-selecao"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1.5"/><path d="M3 12h18"/><circle cx="12" cy="12" r="3"/></svg><b>Seleção da rodada</b><small>Os 11 melhores da rodada do Brasileirão</small></a>
+    <a class="f1-atalho" href="#sec-brasileiros"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21V4M5 4h11l-2 4 2 4H5"/></svg><b>Brasileiros na Europa</b><small>Quem fez gol e deu assistência</small></a>
+    <a class="f1-atalho" href="comparar.html#futebol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V10M10 20V4M14 20v-7M19 20V8"/></svg><b>Comparar jogadores</b><small>Dois jogadores lado a lado</small></a>
+    <a class="f1-atalho" href="monte-seu-time.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3l-5 3 2 4 3-1v12h8V9l3 1 2-4-5-3a4 4 0 0 1-8 0z"/></svg><b>Monte seu time</b><small>Seu time dos sonhos com os craques de hoje</small></a>
+    <a class="f1-atalho" href="bolao.html#futebol"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg><b>Bolão</b><small>Palpite o placar e dispute o ranking</small></a>
+  </nav>
   <section class="ft-caixa ft-recentes" aria-labelledby="ft-rec-t">
     <div class="ft-rec-cab"><div><p class="ft-rot">Placar</p><h2 id="ft-rec-t">Jogos recentes</h2></div>
       <div class="ft-setas"><button type="button" id="ft-rec-ant" aria-label="Anteriores">‹</button><button type="button" id="ft-rec-prox" aria-label="Próximos">›</button></div></div>
@@ -71,14 +79,6 @@
     <p class="ft-rot">Como foram os brasileiros lá fora</p><h2 id="sec-brasileiros-t">Brasileiros na Europa</h2>
     <div class="dq-corpo"></div>
   </section>
-  <section class="ft-caixa ft-sec" id="sec-ferramentas" aria-labelledby="fr-t">
-    <p class="ft-rot">Para jogar e comparar</p><h2 id="fr-t">Ferramentas</h2>
-    <div class="fr-grade">
-      <a class="fr-card fr-monte" href="monte-seu-time.html"><small>Jogo</small><b>Monte seu time</b><span>Seu time dos sonhos contra o do adversário, com os jogadores de hoje.</span><i>Montar</i></a>
-      <a class="fr-card fr-comparar" href="comparar.html#futebol"><small>Estatísticas</small><b>Comparar jogadores</b><span>Gols, assistências e chutes de dois jogadores lado a lado.</span><i>Comparar</i></a>
-      <a class="fr-card fr-bolao" href="bolao.html#futebol"><small>Palpites</small><b>Bolão</b><span>Palpite o placar dos jogos e dispute o ranking.</span><i>Palpitar</i></a>
-    </div>
-  </section>
   <section class="ft-caixa ft-sec" id="sec-noticias" aria-labelledby="ft-not-t">
     <div class="ft-not-cab"><h2 id="ft-not-t">Últimas notícias</h2><div class="ft-abas ft-abas-pq" id="ft-not-abas" role="tablist" aria-label="Filtrar notícias"></div></div>
     <div class="ft-noticias" id="ft-noticias"></div>
@@ -90,21 +90,21 @@
   </section>
 </main>
 <footer id="rodape"></footer>
-<script src="assets/js/dados.js?v=359"></script>
-<script src="assets/js/site.js?v=359"></script>
-<script src="assets/dados/videos-esportes.js?v=359"></script>
-<script src="assets/dados/fotos-reais.js?v=359"></script>
-<script src="assets/js/esportes-dados.js?v=359"></script>
-<script src="assets/js/noticias-esportes.js?v=359"></script>
-<script src="assets/dados/noticias-auto.js?v=359"></script>
-<script src="assets/dados/escudos.js?v=359"></script>
-<script src="assets/dados/ao-vivo.js?v=359"></script>
-<script src="assets/dados/destaques-futebol.js?v=359"></script>
+<script src="assets/js/dados.js?v=360"></script>
+<script src="assets/js/site.js?v=360"></script>
+<script src="assets/dados/videos-esportes.js?v=360"></script>
+<script src="assets/dados/fotos-reais.js?v=360"></script>
+<script src="assets/js/esportes-dados.js?v=360"></script>
+<script src="assets/js/noticias-esportes.js?v=360"></script>
+<script src="assets/dados/noticias-auto.js?v=360"></script>
+<script src="assets/dados/escudos.js?v=360"></script>
+<script src="assets/dados/ao-vivo.js?v=360"></script>
+<script src="assets/dados/destaques-futebol.js?v=360"></script>
 
-<script src="assets/js/esportes-mais.js?v=359"></script>
-<script src="assets/js/chances.js?v=359"></script>
-<script src="assets/js/competicao.js?v=359"></script>
-<script src="assets/js/destaques.js?v=359"></script>
-<script src="assets/js/futebol.js?v=359"></script>
+<script src="assets/js/esportes-mais.js?v=360"></script>
+<script src="assets/js/chances.js?v=360"></script>
+<script src="assets/js/competicao.js?v=360"></script>
+<script src="assets/js/destaques.js?v=360"></script>
+<script src="assets/js/futebol.js?v=360"></script>
 </body>
 </html>

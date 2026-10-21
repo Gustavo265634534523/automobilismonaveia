@@ -121,4 +121,10 @@
       });
     }
   } else mostrar('sec-lesoes', '');
+
+  /* atalho para uma seção que ficou escondida (sem dados) some da faixa */
+  [].forEach.call(document.querySelectorAll('.f1-atalhos a[href^="#"]'), function (a) {
+    var alvo = document.getElementById(a.getAttribute('href').slice(1));
+    if (!alvo || alvo.hidden) a.hidden = true;
+  });
 })();
