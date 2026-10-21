@@ -235,7 +235,7 @@
   var faltam = 0;
   ['assets/dados/temporada-futebol.js', 'assets/dados/temporada-nba.js'].forEach(function (src) {
     faltam++;
-    var s = document.createElement('script'); s.src = src + '?v=368';
+    var s = document.createElement('script'); s.src = src + '?v=369';
     s.onload = s.onerror = function () { if (--faltam === 0) { montarJogadores(); if (!JOG) JOG = []; pintar(); } };
     document.body.appendChild(s);
   });
