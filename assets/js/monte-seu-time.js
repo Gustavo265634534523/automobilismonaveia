@@ -56,7 +56,11 @@
     if (h) { var d = JSON.parse(decodeURIComponent(escape(atob(h[1].replace(/-/g, '+').replace(/_/g, '/'))))); if (d && d.times && d.times.length === 2) E = d; }
   } catch (e) { /* link estragado: fica o salvo */ }
   E.ativo = E.ativo === 1 ? 1 : 0;
-  function salvar() { try { localStorage.setItem('arena-monte-seu-time', JSON.stringify(E)); } catch (e) { /* modo privado */ } }
+  function salvar() {
+    try { localStorage.setItem('arena-monte-seu-time', JSON.stringify(E)); } catch (e) { /* modo privado */ }
+    /* mexeu nos times: o link compartilhado sai do endereço, senão ele volta ao recarregar */
+    if (/#t=/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
+  }
   function slots(t) { var out = []; FORMACOES[t.formacao].forEach(function (ln, li) { ln.forEach(function (pos) { out.push({ pos: pos, linha: li }); }); }); return out; }
 
   var aviso = '', alvo = null; /* vaga vazia que a pessoa tocou: o próximo jogador vai para ela */
@@ -201,9 +205,17 @@
         aviso = sel ? 'Agora toque na posição para onde ' + esc(t.lugares[i].n) + ' vai.' : ''; pintar();
       });
     });
-    document.getElementById('mn-limpar').addEventListener('click', function () {
-      var t = E.times[E.ativo]; if (!t.lugares.some(Boolean) || !confirm('Tirar todos os jogadores do ' + t.nome + '?')) return;
-      t.lugares = new Array(11).fill(null); aviso = esc(t.nome) + ' zerado.'; salvar(); pintar();
+    /* limpar: confirma no próprio botão (a janela de confirmação do navegador é bloqueada em alguns aparelhos e apps) */
+    var btLimpar = document.getElementById('mn-limpar');
+    btLimpar.addEventListener('click', function () {
+      var t = E.times[E.ativo];
+      if (!t.lugares.some(Boolean)) { aviso = esc(t.nome) + ' já está vazio.'; pintar(); return; }
+      if (!btLimpar.classList.contains('mn-confirma')) {
+        btLimpar.classList.add('mn-confirma'); btLimpar.textContent = 'Tocar de novo para limpar';
+        setTimeout(function () { if (document.body.contains(btLimpar)) { btLimpar.classList.remove('mn-confirma'); btLimpar.textContent = 'Limpar ' + t.nome; } }, 4000);
+        return;
+      }
+      t.lugares = new Array(11).fill(null); sel = null; alvo = null; aviso = esc(t.nome) + ' zerado.'; salvar(); pintar();
     });
     document.getElementById('mn-link').addEventListener('click', function () {
       var cod = btoa(unescape(encodeURIComponent(JSON.stringify({ times: E.times, ativo: 0 })))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');

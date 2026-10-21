@@ -713,3 +713,4 @@ html[data-tema="claro"] .bl-f1-l select { color-scheme: light; }
   .bl-resumo { grid-template-columns: 1fr 1fr; }
 }
 .f1-atalho[hidden] { display: none; }
+.mn-acoes .mn-confirma { background: #e3343c; border-color: #e3343c; color: #fff; }
