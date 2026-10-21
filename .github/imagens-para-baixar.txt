@@ -22,7 +22,3 @@ assets/img/hero/basquete https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxU
 assets/img/hero/automobilismo https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_005848_d2eb5621-adda-4c28-aa39-26ea0be44fde.png
 assets/img/hero/futebol2 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_011027_4b7c54ee-6416-436a-8f92-75860e5cb8e4.png
 assets/img/hero/automobilismo2 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_011028_574d1895-b85b-4fc3-96de-c3018cc7fb95.png
-assets/img/logo/opcao-1 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_011456_bd53cb1f-7b41-40da-9985-2d0ede8f9f3a.png
-assets/img/logo/opcao-2 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_011457_f4787123-6c6f-495b-9f1e-9dde5cb601af.png
-assets/img/logo/opcao-3 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_011457_416eb006-06a1-4f98-a6d5-505dc6a07855.png
-assets/img/logo/opcao-4 https://d8j0ntlcm91z4.cloudfront.net/user_3JVP9ZnvoklxUKcBGVJiDy8NprX/hf_20261021_011458_291fe947-e42d-465d-b4cc-49869a63d6a6.png

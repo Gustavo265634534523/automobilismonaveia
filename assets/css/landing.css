@@ -41,9 +41,9 @@ html:has(body.ld) { overflow: hidden; }
 /* topo */
 .ld-topo { position: fixed; z-index: 6; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: max(20px, env(safe-area-inset-top)) clamp(18px, 4vw, 56px) 0; }
 .ld-marca { display: inline-flex; align-items: center; gap: 10px; color: var(--texto); text-decoration: none; font-weight: 800; letter-spacing: .16em; font-size: 14px; }
-.ld-sinal { display: inline-flex; gap: 4px; }
-.ld-sinal i { display: block; width: 6px; height: 20px; background: var(--cor); transform: skewX(-24deg); transition: background .8s ease; }
-.ld-sinal i + i { background: var(--texto); }
+.ld-logo { display: block; width: 38px; height: 28px; background: var(--cor); transition: background .8s ease;
+  -webkit-mask: url(../img/logo/arena.png) center / contain no-repeat; mask: url(../img/logo/arena.png) center / contain no-repeat; }
+.ld-marca b { color: var(--cor); font-weight: 800; transition: color .8s ease; }
 .ld-nav { display: flex; gap: 6px; padding: 5px; border-radius: 999px; background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .ld-nav a { padding: 8px 16px; border-radius: 999px; color: var(--apagado); text-decoration: none; font-size: 13.5px; font-weight: 600; transition: color .3s ease, background .3s ease; }
 .ld-nav a:hover { color: var(--texto); }

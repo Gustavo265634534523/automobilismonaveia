@@ -1431,3 +1431,9 @@ html.com-cats.com-placar { --topo: 162px; }
 .pf-vivo small { color: #ef4444; }
 @media (prefers-reduced-motion: reduce) { .pf-rot i, .pf-vivo small i { animation: none; } }
 @media (max-width: 1080px) { html.com-cats.com-placar, html.com-cats.com-placar.com-aviso { --topo: 156px; } }
+
+/* logo: o "A" com o estádio (assets/img/logo/arena.png, feito no Higgsfield) usado como máscara, na cor do tema */
+.marca-logo { display: block; width: 34px; height: 25px; flex: none; background: var(--sangue-vivo); transition: background .4s ease;
+  -webkit-mask: url(../img/logo/arena.png) center / contain no-repeat; mask: url(../img/logo/arena.png) center / contain no-repeat; }
+.marca-nome small { color: var(--sangue-vivo); }
+.topo-in .marca-nome small { color: var(--sangue-vivo); }
