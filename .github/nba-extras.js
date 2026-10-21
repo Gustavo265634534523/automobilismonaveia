@@ -1,6 +1,7 @@
 /* NBA além do placar, pela ESPN:
    - assets/dados/nba-extras.js: a noite da NBA (os jogos da última rodada, o cestinha de cada time e o jogador da
-     noite), as lesões de cada time e os brasileiros na NBA (média na temporada e os últimos jogos);
+     noite), as lesões de cada time, os brasileiros na NBA (média na temporada e os últimos jogos) e o cestinha de cada
+     time na temporada (pré-jogo da página do jogo);
    - assets/dados/temporada-nba.js: a média de cada jogador na temporada atual e na anterior (página Comparar jogadores).
    Os jogos já lidos ficam em .github/cache/nba.json (só os dos últimos 8 dias).
    Roda no GitHub (.github/workflows/estatisticas.yml) ou no PC: node .github/nba-extras.js */
@@ -184,13 +185,23 @@ async function temporada(ano) {
     return { nome: b[0], pos: b[1], time: b[2], cidade: b[4], temporada: tempo, media, ultimos };
   });
 
+  /* cestinha de cada time (temporada atual com jogos, senão a anterior): [nome, pontos, rebotes, assistências por jogo] */
+  const cestinhas = {};
+  const tAtual = chaves.find(k => (temps[k] || []).some(l => l[4] >= 3)) || chaves[0];
+  for (const l of temps[tAtual] || []) {
+    if (!l[2] || l[4] < 1) continue;
+    const c = cestinhas[l[2]];
+    if (!c || l[6] > c[1]) cestinhas[l[2]] = [l[1], l[6], l[7], l[8]];
+  }
+
   const les = await lesoes();
   let velho = {};
   try { const x = {}; new Function('window', fs.readFileSync(ARQ, 'utf8'))(x); velho = x.NBA_EXTRAS || {}; } catch (e) { /* primeira vez */ }
-  const dados = { noite: noite || velho.noite || null, lesoes: les || velho.lesoes || [], brasileiros, atualizado: new Date().toISOString() };
+  const dados = { noite: noite || velho.noite || null, lesoes: les || velho.lesoes || [], brasileiros, cestinhas, temporadaCestinhas: tAtual || '', atualizado: new Date().toISOString() };
   fs.writeFileSync(ARQ, '/* Noite da NBA, lesões e brasileiros na NBA (ESPN). Gerado por .github/nba-extras.js.\n' +
     '   noite.jogos[].cestinhas: [nome, time, pontos, rebotes, assistências]. lesoes[].jogadores: [nome, posição, situação, lesão, volta prevista, data].\n' +
-    '   brasileiros[].media: [jogos, minutos, pontos, rebotes, assistências, roubos, tocos]; ultimos: [data, adversário, placar, minutos, pontos, rebotes, assistências, titular]. */\n' +
+    '   brasileiros[].media: [jogos, minutos, pontos, rebotes, assistências, roubos, tocos]; ultimos: [data, adversário, placar, minutos, pontos, rebotes, assistências, titular].\n' +
+    '   cestinhas[time]: [nome, pontos, rebotes, assistências por jogo]. */\n' +
     'window.NBA_EXTRAS = ' + JSON.stringify(dados) + ';\n');
   console.log('noite', noite ? noite.d + ' ' + noite.jogos.length + ' jogos' : 'sem', '| lesões', (les || []).length, 'times | brasileiros', brasileiros.length);
 })();

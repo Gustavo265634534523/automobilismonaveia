@@ -2,7 +2,9 @@
    - assets/dados/temporada-futebol.js: cada jogador com jogos, gols, assistências, chutes, cartões e defesas, por
      campeonato (página Comparar jogadores);
    - assets/dados/destaques-futebol.js: a seleção da rodada do Brasileirão e os brasileiros na Europa (a semana de cada
-     um e os que mais fizeram gol e assistência na temporada).
+     um e os que mais fizeram gol e assistência na temporada);
+   - assets/dados/forma-futebol.js: os últimos jogos de cada time (em todos os campeonatos) e os artilheiros de cada
+     time, para o pré-jogo da página do jogo.
    Na primeira vez varre a temporada inteira (um pedido por dia e por campeonato); depois só os últimos dias. O que já
    foi contado fica em .github/cache/futebol-temporada.json, para não contar o mesmo jogo duas vezes.
    Roda no GitHub (.github/workflows/estatisticas.yml) ou no PC: node .github/estatisticas-futebol.js */
@@ -12,6 +14,8 @@ const RAIZ = path.join(__dirname, '..');
 const CACHE = path.join(__dirname, 'cache/futebol-temporada.json');
 const ARQ_TEMP = path.join(RAIZ, 'assets/dados/temporada-futebol.js');
 const ARQ_DEST = path.join(RAIZ, 'assets/dados/destaques-futebol.js');
+const ARQ_FORMA = path.join(RAIZ, 'assets/dados/forma-futebol.js');
+const VERSAO_CACHE = 2; /* sobe quando o cache guarda coisa nova: a temporada é varrida de novo */
 const API = 'https://site.api.espn.com/apis/site/v2/sports/soccer/';
 
 /* campeonatos contados. desde: começo da temporada; europa: entra na conta dos brasileiros na Europa */
@@ -71,8 +75,8 @@ function grupo(p) {
   return 'MEI';
 }
 
-let cache = { feitos: {}, varrido: {}, jogadores: {}, recentes: [] };
-try { cache = Object.assign(cache, JSON.parse(fs.readFileSync(CACHE, 'utf8'))); } catch (e) { /* primeira vez */ }
+let cache = { v: VERSAO_CACHE, feitos: {}, varrido: {}, jogadores: {}, recentes: [], times: {} };
+try { const c = JSON.parse(fs.readFileSync(CACHE, 'utf8')); if (c.v === VERSAO_CACHE) cache = Object.assign(cache, c); } catch (e) { /* primeira vez */ }
 
 /* conta um jogo encerrado */
 function contar(l, ev, r) {
@@ -101,6 +105,15 @@ function contar(l, ev, r) {
     }
   }
   if (jogo.linhas.length) cache.recentes.push(jogo);
+  /* últimos jogos de cada time: [data, adversário, gols feitos, gols sofridos, campeonato, 1 se em casa] */
+  const gc = num(casaC.score), gf = num(foraC.score);
+  [[jogo.casa, jogo.fora, gc, gf, 1], [jogo.fora, jogo.casa, gf, gc, 0]].forEach(([t, adv, a, b, mando]) => {
+    if (!t) return;
+    const L = cache.times[t] = (cache.times[t] || []).filter(x => !(x[0] === d && x[1] === adv));
+    L.push([d, adv, a, b, l.slug, mando]);
+    L.sort((x, y) => x[0] < y[0] ? 1 : -1);
+    cache.times[t] = L.slice(0, 10);
+  });
 }
 
 /* ---------- seleção da rodada (Brasileirão) ---------- */
@@ -219,6 +232,20 @@ function brasileiros() {
   const txtTemp = '/* Números da temporada de cada jogador (ESPN), por campeonato. Gerado por .github/estatisticas-futebol.js.\n' +
     '   jogadores: [id, nome, time, posição, campeonato, ...colunas]. */\nwindow.TEMPORADA_FUTEBOL = ' + JSON.stringify(temp) + ';\n';
   if (linhas.length > 100) fs.writeFileSync(ARQ_TEMP, txtTemp);
+
+  /* forma e artilheiros de cada time (pelo time atual do jogador, somando os campeonatos) */
+  const art = {};
+  for (const j of Object.values(cache.jogadores)) {
+    if (!j.t) continue;
+    let G = 0, A = 0; for (const c of Object.values(j.c)) { G += c[2]; A += c[3]; }
+    if (G) (art[j.t] = art[j.t] || []).push([j.n, G, A]);
+  }
+  for (const t of Object.keys(art)) art[t] = art[t].sort((a, b) => b[1] - a[1] || b[2] - a[2]).slice(0, 3);
+  const forma = {}; for (const [t, L] of Object.entries(cache.times)) forma[t] = L.slice(0, 6);
+  fs.writeFileSync(ARQ_FORMA, '/* Últimos jogos e artilheiros de cada time (ESPN). Gerado por .github/estatisticas-futebol.js.\n' +
+    '   times[time]: [data, adversário, gols feitos, gols sofridos, campeonato, 1 se em casa], do mais novo ao mais velho.\n' +
+    '   artilheiros[time]: [nome, gols, assistências], os 3 que mais fizeram gol na temporada. */\nwindow.FORMA_FUTEBOL = ' +
+    JSON.stringify({ times: forma, artilheiros: art, atualizado: hoje }) + ';\n');
 
   const dest = { selecao: selecao(), brasileiros: brasileiros(), atualizado: hoje };
   fs.writeFileSync(ARQ_DEST, '/* Seleção da rodada do Brasileirão e brasileiros na Europa (ESPN). Gerado por .github/estatisticas-futebol.js.\n' +

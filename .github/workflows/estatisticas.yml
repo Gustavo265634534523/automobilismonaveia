@@ -34,7 +34,7 @@ jobs:
         run: |
           git config user.name "Robô Arena Sports"
           git config user.email "automobilismonaveiacontato@gmail.com"
-          git add assets/dados/temporada-futebol.js assets/dados/destaques-futebol.js assets/dados/nba-extras.js assets/dados/temporada-nba.js .github/cache
+          git add assets/dados/temporada-futebol.js assets/dados/destaques-futebol.js assets/dados/forma-futebol.js assets/dados/nba-extras.js assets/dados/temporada-nba.js .github/cache
           git diff --cached --quiet && exit 0
           git commit -m "Robô: estatísticas do futebol e da NBA"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done
