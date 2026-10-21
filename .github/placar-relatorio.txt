@@ -11,6 +11,4 @@ serie-a: 10 artilheiros (1º Antonio Raimondo / Frosinone / 7)
 ligue-1: 10 artilheiros (1º Esteban Lepaul / Rennes / 7)
 
 Times da ESPN que não casaram com um nome do site (entram com o nome da ESPN; acrescente em APELIDO no placar.js se for o mesmo time):
-soccer: AJ Auxerre (id 172)
-soccer: Cienciano del Cusco (id 3372)
-soccer: Nacional (id 2684)
+
