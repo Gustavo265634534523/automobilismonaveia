@@ -31,6 +31,11 @@ jobs:
                 convert "$destino.png" -resize '2400x2400>' -quality 78 "$destino.webp" || true
                 convert "$destino.png" -resize '1100x1100>' -quality 74 "$destino-m.webp" || true
                 [ -s "$destino.webp" ] && rm -f "$destino.png" ;;
+              */fotos/*) # fotos dos esportes: grande (webp e jpg para compartilhar) e pequena
+                convert "$destino.png" -resize '1254x1254>' -quality 80 "$destino.webp" || true
+                convert "$destino.png" -resize '1200x1200>' -quality 82 "$destino.jpg" || true
+                convert "$destino.png" -resize '600x600>' -quality 76 "$destino-m.webp" || true
+                [ -s "$destino.webp" ] && rm -f "$destino.png" ;;
               *) convert "$destino.png" -resize '900x900>' -quality 82 "$destino.webp" || true ;;
             esac
             ls -la "$destino".*
