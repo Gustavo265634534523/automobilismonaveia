@@ -4,7 +4,8 @@
      no último jogo, próximo jogo do time e notícias que falam dele); os outros, uma linha com os números.
      Números: temporada-futebol.js e temporada-nba.js (carregados depois que a página abre); último jogo: o arquivo
      do jogo (assets/dados/partidas/<id>.json) e, para os brasileiros da NBA, nba-extras.js;
-   - Pilotos da F1: posição, equipe e pontos no campeonato;
+   - Pilotos da F1: o procurado vira um cartão completo (campeonato, vitórias, a última corrida pelo Raio-x,
+     próxima corrida e notícias);
    - Campeonatos e notícias.
    A lupa do topo do site (site.js) traz para cá. */
 (function () {
@@ -171,6 +172,39 @@
       : String(x.v[6]).replace('.', ',') + ' pts · ' + String(x.v[7]).replace('.', ',') + ' reb · ' + String(x.v[8]).replace('.', ',') + ' ast por jogo (' + esc(x.temp) + ')';
     return '<a class="bu-card bu-linha" href="comparar.html#' + x.esp + ':' + esc(x.id) + ',">' + window.escudoTime(x.time, 'bu-escudo-p') + '<div><b>' + esc(x.nome) + '</b><small>' + esc(x.time) + ' · ' + (x.esp === 'futebol' ? 'Futebol' : 'NBA') + '</small><span>' + nums + '</span></div><i>Comparar →</i></a>';
   }
+  /* ---------- piloto em destaque ---------- */
+  function seg(v) { if (!v) return ''; var m = Math.floor(v / 60), r = (v - m * 60).toFixed(3); return m + ':' + (r < 10 ? '0' : '') + r.replace('.', ','); }
+  function cartaoPilotoDestaque(x) {
+    var cal = (F1 && F1.calendario) || [], feitas = cal.filter(function (e) { return e.venc; });
+    var vitorias = feitas.filter(function (e) { return e.venc.indexOf(x.nome) === 0; });
+    var lider = PILOTOS[0], frente = PILOTOS[PILOTOS.indexOf(x) - 1];
+    var gap = x === lider ? (PILOTOS[1] ? '+' + (x.pts - PILOTOS[1].pts) + ' pts sobre o 2º' : '') : (+lider.pts - +x.pts) + ' pts atrás do líder' + (frente && frente !== lider ? ' · ' + (+frente.pts - +x.pts) + ' do ' + frente.pos + 'º' : '');
+    /* última corrida: resultado completo do Raio-x */
+    var RX = window.RAIOX, ultima = '';
+    if (RX && RX.pilotos) {
+      var p = RX.pilotos.filter(function (y) { return norm(y.nome) === norm(x.nome); })[0];
+      if (p) {
+        var ganhou = p.grid && p.final ? p.grid - p.final : 0;
+        ultima = '<li><span>Última corrida · ' + esc(RX.titulo) + '</span><b>' + (p.abandono ? 'Abandonou' : 'Chegou em ' + p.final + 'º') + '</b><small>Largou em ' + p.grid + 'º' +
+          (!p.abandono && ganhou ? (ganhou > 0 ? ' · ganhou ' + ganhou : ' · perdeu ' + (-ganhou)) + (Math.abs(ganhou) === 1 ? ' posição' : ' posições') : '') +
+          ' · ' + (p.paradas || []).length + ((p.paradas || []).length === 1 ? ' parada' : ' paradas') + (p.melhor ? ' · melhor volta ' + seg(p.melhor) : '') + '</small></li>';
+      }
+    }
+    var prox = cal.filter(function (e) { return !e.venc && e.d && e.d >= hoje; })[0], corrida = prox && (prox.s || []).filter(function (s) { return /^Corrida/.test(s.t); })[0];
+    var nots = NOTS.filter(function (y) { return y.esp === 'automobilismo' && y.busca.indexOf(norm(x.nome)) > -1; }).sort(function (a, b) { return a.n.d < b.n.d ? 1 : -1; }).slice(0, 4);
+    if (nots.length < 2) {
+      var sob = norm(x.nome).split(' ').pop();
+      NOTS.forEach(function (y) { if (nots.length < 4 && y.esp === 'automobilismo' && nots.indexOf(y) < 0 && (' ' + y.busca + ' ').indexOf(' ' + sob + ' ') > -1) nots.push(y); });
+    }
+    x.nots = nots;
+    return '<article class="bu-card bu-time bu-jog"><header><span class="bu-pos bu-pos-g">' + esc(x.pos) + 'º</span><div><b>' + esc(x.nome) + '</b><small>' + esc(x.equipe) + ' · Fórmula 1</small></div></header>' +
+      '<ul class="bu-info"><li><span>Campeonato</span><b>' + esc(x.pos) + 'º lugar · ' + esc(x.pts) + ' pts</b><small>' + esc(gap) + '</small></li>' +
+      '<li><span>Vitórias na temporada</span><b>' + vitorias.length + (vitorias.length === 1 ? ' vitória' : ' vitórias') + ' em ' + feitas.length + ' corridas</b><small>' + (vitorias.length ? vitorias.map(function (e) { return esc(e.n.replace(/^GP d[aoe]s? /, '')); }).join(', ') : 'Ainda sem vitória') + '</small></li>' +
+      ultima +
+      (prox ? '<li><span>Próxima corrida</span><b>' + esc(prox.n) + '</b><small>' + (corrida ? dia(corrida.d) + (corrida.h ? ', largada ' + esc(corrida.h) : '') : dia(prox.d)) + ' · ' + esc(prox.l) + '</small></li>' : '') + '</ul>' +
+      (nots.length ? '<div class="bu-jnots"><span>Notícias sobre ele</span>' + nots.map(cartaoNot).join('') + '</div>' : '') +
+      '<nav class="bu-links"><a href="comparar.html#f1:' + norm(x.nome).replace(/ /g, '-') + ',">Comparar com outro piloto</a><a href="raiox.html">Raio-x da última corrida</a><a href="formula-1.html">Classificação e calendário</a></nav></article>';
+  }
   function cartaoPiloto(x) {
     return '<a class="bu-card bu-linha" href="comparar.html#f1:' + norm(x.nome).replace(/ /g, '-') + ',"><span class="bu-pos">' + esc(x.pos) + 'º</span><div><b>' + esc(x.nome) + '</b><small>' + esc(x.equipe) + ' · Fórmula 1</small><span>' + esc(x.pts) + ' pontos no campeonato</span></div><i>Comparar →</i></a>';
   }
@@ -195,7 +229,9 @@
     var nots = NOTS.filter(function (x) { return termos.every(function (t) { return x.busca.indexOf(t) > -1; }); }).sort(function (a, b) { return a.n.d < b.n.d ? 1 : -1; }).slice(0, 6);
     var h = '';
     if (times.length) h += '<section class="bu-sec"><h2>Times</h2><div class="bu-times">' + times.map(cartaoTime).join('') + '</div></section>';
-    if (pil.length) h += '<section class="bu-sec"><h2>Pilotos</h2>' + pil.map(cartaoPiloto).join('') + '</section>';
+    /* o piloto que bate pelo nome vira o cartão completo */
+    var pDest = pil.length && nota(pil[0], nq, termos) >= 60 ? pil[0] : null;
+    if (pil.length) h += '<section class="bu-sec"><h2>' + (pDest ? 'Piloto' : 'Pilotos') + '</h2>' + (pDest ? cartaoPilotoDestaque(pDest) : '') + pil.slice(pDest ? 1 : 0).map(cartaoPiloto).join('') + '</section>';
     /* o jogador que bate pelo nome vira o cartão completo; os outros ficam numa linha */
     var dest = jog && jog.length && nota(jog[0], nq, termos) >= 60 ? jog[0] : null;
     destaque = dest;
@@ -204,12 +240,14 @@
       (jog.length > (dest ? 1 : 0) ? (dest ? '<h3 class="bu-outros">Outros com esse nome</h3>' : '') + jog.slice(dest ? 1 : 0).map(cartaoJogador).join('') : '') + '</section>';
     /* digitou o nome do jogador (ex.: "Gui Santos"): ele vem antes dos times que só batem num pedaço ("Santos") */
     var timeExato = times.length && norm(times[0].nome) === nq;
-    if (dest && nota(dest, nq, termos) >= 80 && !timeExato) h = hJog + h; else h += hJog;
+    if (pDest && !dest) hJog = ''; /* procurou um piloto: jogador com pedaço do nome parecido não aparece */
+    if (dest && nota(dest, nq, termos) >= 80 && !timeExato && !pDest) h = hJog + h; else h += hJog;
     if (!jog) h += '<p class="bu-carrega">Procurando jogadores…</p>';
     if (camps.length) h += '<section class="bu-sec"><h2>Campeonatos</h2>' + camps.map(cartaoCamp).join('') + '</section>';
+    if (pDest && pDest.nots) nots = nots.filter(function (x) { return pDest.nots.indexOf(x) < 0; });
     /* as notícias que já estão no cartão do jogador não se repetem embaixo */
     if (dest) { var noCartao = noticiasDe(dest.nome, dest.esp, dest.time); nots = nots.filter(function (x) { return noCartao.indexOf(x) < 0; }); }
-    if (nots.length) h += '<section class="bu-sec"><h2>' + (dest ? 'Outras notícias' : 'Notícias') + '</h2>' + nots.map(cartaoNot).join('') + '</section>';
+    if (nots.length) h += '<section class="bu-sec"><h2>' + (dest || pDest ? 'Outras notícias' : 'Notícias') + '</h2>' + nots.map(cartaoNot).join('') + '</section>';
     return h || '<p class="pt-vazio">Nada encontrado para “' + esc(q) + '”. Tente só o nome do time, do jogador ou do campeonato.</p>';
   }
   var q0 = decodeURIComponent((location.search.match(/[?&]q=([^&]*)/) || [])[1] || '').replace(/\+/g, ' ');
@@ -235,7 +273,7 @@
   var faltam = 0;
   ['assets/dados/temporada-futebol.js', 'assets/dados/temporada-nba.js'].forEach(function (src) {
     faltam++;
-    var s = document.createElement('script'); s.src = src + '?v=369';
+    var s = document.createElement('script'); s.src = src + '?v=370';
     s.onload = s.onerror = function () { if (--faltam === 0) { montarJogadores(); if (!JOG) JOG = []; pintar(); } };
     document.body.appendChild(s);
   });
