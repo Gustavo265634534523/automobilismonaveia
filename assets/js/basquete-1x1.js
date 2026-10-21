@@ -56,6 +56,12 @@
     var f = 1 + erro;
     b.x = mao.x; b.y = mao.y; b.vx = dx / T * f; b.vy = (dy - 0.5 * G * T * T) / T * (1 + erro * 0.6);
     b.dono = null; b.livre = false; b.chutador = p; b.pontuou = false; b.tres = Math.abs(c.x - p.x) > 250; jogo.cpuPlano = null;
+    b.tocoCpu = p.nome === 'voce' && Math.random() < 0.18; /* o computador só consegue o toco em parte dos arremessos */
+  }
+  /* o computador erra cerca de metade dos arremessos (mais de longe) */
+  function erroCpu(longe) {
+    if (Math.random() < (longe ? 0.62 : 0.5)) return (Math.random() < 0.5 ? -1 : 1) * (0.05 + Math.random() * 0.06);
+    return (Math.random() - 0.5) * 0.03;
   }
   function maoDe(p) { return { x: p.x + p.olha * 6, y: p.y - 92 }; }
 
@@ -76,7 +82,7 @@
   function tentarRoubo(p, outro) {
     var b = jogo.bola;
     if (p.rouboEspera > 0) return; p.rouboEspera = 0.6;
-    if (b.dono === outro && Math.abs(p.x - outro.x) < 52 && Math.random() < 0.4) { b.dono = p; jogo.carregando = false; jogo.texto = p.nome === 'voce' ? 'ROUBOU!' : 'PERDEU A BOLA'; jogo.textoAte = performance.now() + 700; }
+    if (b.dono === outro && Math.abs(p.x - outro.x) < 52 && Math.random() < (p.nome === 'cpu' ? 0.2 : 0.4)) { b.dono = p; jogo.carregando = false; jogo.texto = p.nome === 'voce' ? 'ROUBOU!' : 'PERDEU A BOLA'; jogo.textoAte = performance.now() + 700; }
   }
 
   function passo(dt) {
@@ -149,16 +155,16 @@
       if (Math.abs(C.x - alvo) > 8) dir = C.x > alvo ? -1 : 1;
       else if ((jogo.cpuPlano.espera -= dt) <= 0) {
         if (C.chao && !jogo.cpuPlano.pulou) { pular(C); jogo.cpuPlano.pulou = true; }
-        else if (C.vy > -80 && jogo.cpuPlano.pulou) { C.olha = -1; arremessar(C, (Math.random() - 0.5) * (Math.abs(C.x - CESTA.cpu.x) > 250 ? 0.15 : 0.11)); }
+        else if (C.vy > -80 && jogo.cpuPlano.pulou) { C.olha = -1; arremessar(C, erroCpu(Math.abs(C.x - CESTA.cpu.x) > 250)); }
       }
     } else if (b.dono === V) {
       var marca = V.x - 46; dir = Math.abs(C.x - marca) > 10 ? (C.x > marca ? -1 : 1) : 0; C.olha = 1;
-      if (Math.abs(C.x - V.x) < 50 && Math.random() < dt * 1.2) tentarRoubo(C, V);
+      if (Math.abs(C.x - V.x) < 50 && Math.random() < dt * 0.7) tentarRoubo(C, V);
       if (jogo.carregando && C.chao && Math.abs(C.x - V.x) < 70 && Math.random() < 0.06) pular(C);
     } else {
       dir = Math.abs(C.x - b.x) > 10 ? (C.x > b.x ? -1 : 1) : 0;
       if (b.chutador === V && !b.livre && C.chao && Math.abs(C.x - b.x) < 60 && b.y < CHAO - 160 && Math.random() < 0.04) pular(C);
-      if (b.chutador === V && !C.chao && Math.hypot(b.x - C.x, b.y - (C.y - 96)) < 40 && Math.random() < 0.35) { b.vx = -b.vx * 0.4 - 120; b.vy = -100; b.livre = true; b.chutador = null; jogo.texto = 'TOCO DO CPU'; jogo.textoAte = performance.now() + 700; }
+      if (b.chutador === V && !C.chao && Math.hypot(b.x - C.x, b.y - (C.y - 96)) < 40 && b.tocoCpu) { b.vx = -b.vx * 0.4 - 120; b.vy = -100; b.livre = true; b.chutador = null; jogo.texto = 'TOCO DO CPU'; jogo.textoAte = performance.now() + 700; }
     }
     mover(C, dir, dt);
   }
