@@ -30,7 +30,7 @@ jobs:
         run: |
           git config user.name "Robô Arena Sports"
           git config user.email "automobilismonaveiacontato@gmail.com"
-          git add assets/img/jogadores assets/dados/fotos-jogadores.js
+          git add assets/img/jogadores assets/img/jogadores-mosaico.webp assets/dados/fotos-jogadores.js
           git diff --cached --quiet && exit 0
           git commit -m "Robô: fotos dos jogadores do Monte seu time"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done

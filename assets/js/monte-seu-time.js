@@ -26,7 +26,17 @@
   function norm(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim(); }
   /* foto do jogador: a guardada no site (craques, robô .github/fotos-jogadores.js) ou a que veio da busca */
   function chave(n) { return String(n).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''); }
-  function fotoDe(j) { var f = (window.FOTOS_JOGADORES || {})[chave(j.n)]; return f ? f.src : (j.foto || ''); }
+  function fotoDe(j) { var f = (window.FOTOS_JOGADORES || {})[chave(j.n)]; return f ? 'mosaico' : (j.foto || ''); }
+  /* a foto: recorte do mosaico (craques) ou imagem da busca */
+  function fotoHTML(j) {
+    var f = (window.FOTOS_JOGADORES || {})[chave(j.n)], M = window.FOTOS_MOSAICO;
+    if (f && M && f.i != null) {
+      var c = f.i % M.colunas, l = Math.floor(f.i / M.colunas);
+      return '<span class="mn-foto" style="background-image:url(' + M.src + ');background-size:' + (M.colunas * 100) + '% ' + (M.linhas * 100) + '%;background-position:' +
+        (M.colunas > 1 ? c / (M.colunas - 1) * 100 : 0) + '% ' + (M.linhas > 1 ? l / (M.linhas - 1) * 100 : 0) + '%"></span>';
+    }
+    return j.foto ? '<img src="' + esc(j.foto) + '" alt="" loading="lazy" onerror="this.parentNode.classList.remove(\'mn-com-foto\');this.remove()">' : '';
+  }
   var CRAQUES = (window.JOGADORES_CRAQUES || []).map(function (x) { var p = x.split('|'); return { n: p[0], pos: p[1], k: norm(p[0]) }; });
 
   /* estado: dois times, cada um com nome, formação e os 11 lugares */
@@ -74,7 +84,7 @@
       return '<div class="pt-linha">' + ks.map(function (k) {
         var j = t.lugares[k], s = S[k], marcado = sel && sel.t === ti && sel.i === k;
         return '<button type="button" class="pt-jog mn-slot' + (j ? '' : ' mn-livre') + (marcado ? ' mn-sel' : '') + '" data-t="' + ti + '" data-i="' + k + '" title="' + (j ? esc(j.n) + ' · ' : '') + NOME_POS[s.pos] + '">' +
-          '<i' + (j && fotoDe(j) ? ' class="mn-com-foto"' : '') + '>' + (j ? (fotoDe(j) ? '<img src="' + esc(fotoDe(j)) + '" alt="" loading="lazy" onerror="this.parentNode.classList.remove(\'mn-com-foto\');this.remove()">' : '') + esc(iniciais(j.n)) : '+') + '</i>' +
+          '<i' + (j && fotoDe(j) ? ' class="mn-com-foto"' : '') + '>' + (j ? fotoHTML(j) + esc(iniciais(j.n)) : '+') + '</i>' +
           '<small>' + (j ? esc(sobrenome(j.n)) : s.pos) + '</small>' + (j ? '<span class="mn-x" data-tirar="1" aria-label="Tirar ' + esc(j.n) + '">×</span>' : '') + '</button>';
       }).join('') + '</div>';
     }).join('') + '</div>';

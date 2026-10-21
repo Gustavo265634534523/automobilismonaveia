@@ -1,7 +1,8 @@
 /* Fotos dos craques do "Monte seu time": para cada nome de assets/dados/jogadores-craques.js, procura na Wikipédia
    em inglês a página do jogador ("<nome> footballer") e pega a foto principal dela (Wikimedia Commons, licença livre).
    Baixa uma miniatura, recorta quadrada (rosto em cima) e grava em assets/img/jogadores/<nome>.webp; a lista com os
-   arquivos e o crédito (nome do arquivo no Commons) vai para assets/dados/fotos-jogadores.js.
+   arquivos e o crédito (nome do arquivo no Commons) vai para assets/dados/fotos-jogadores.js. Junta tudo num mosaico
+   (assets/img/jogadores-mosaico.webp), que é o que o site carrega.
    Só busca quem ainda não tem foto. Roda no GitHub (.github/workflows/fotos-jogadores.yml). */
 const fs = require('fs');
 const path = require('path');
@@ -75,7 +76,13 @@ async function foto(nome) {
     if (f) { fotos[k] = f; console.log('foto:', n, '<-', f.pagina); } else falta.push(n);
     await espera(250);
   }
-  fs.writeFileSync(ARQ, '/* Fotos dos craques do Monte seu time (Wikimedia Commons, licenças livres). Gerado por .github/fotos-jogadores.js. */\n' +
-    'window.FOTOS_JOGADORES = ' + JSON.stringify(fotos) + ';\n');
+  /* mosaico: todas as fotos numa imagem só (1 download no site); cada jogador guarda a posição dele (i) */
+  const COLS = 20, TAM = 80, chaves = Object.keys(fotos).sort();
+  chaves.forEach((k, i) => { fotos[k].i = i; });
+  execFileSync('montage', chaves.map(k => path.join(RAIZ, fotos[k].src)).concat(['-tile', COLS + 'x', '-geometry', TAM + 'x' + TAM + '+0+0', '-background', '#0b1220', '-quality', '74', path.join(RAIZ, 'assets/img/jogadores-mosaico.webp')]));
+  const mosaico = { src: 'assets/img/jogadores-mosaico.webp', colunas: COLS, linhas: Math.ceil(chaves.length / COLS) };
+  fs.writeFileSync(ARQ, '/* Fotos dos craques do Monte seu time (Wikimedia Commons, licenças livres). Gerado por .github/fotos-jogadores.js.\n' +
+    '   As fotos ficam todas em assets/img/jogadores-mosaico.webp; "i" é a posição de cada uma (linha a linha, ' + COLS + ' por linha). */\n' +
+    'window.FOTOS_MOSAICO = ' + JSON.stringify(mosaico) + ';\nwindow.FOTOS_JOGADORES = ' + JSON.stringify(fotos) + ';\n');
   console.log('com foto:', Object.keys(fotos).length, '| sem foto:', falta.length, falta.join(', '));
 })();
