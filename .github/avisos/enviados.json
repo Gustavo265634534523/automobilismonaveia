@@ -287,6 +287,11 @@
   "motogp:18:Classificação Q1": "2026-10-23 20:50",
   "motogp:18:Classificação Q2": "2026-10-23 21:15",
   "motogp:18:Sprint": "2026-10-24 01:00",
-  "motogp:18:Corrida": "2026-10-25 00:00"
+  "motogp:18:Corrida": "2026-10-25 00:00",
+  "formula-1:19:Classificação": "2026-10-31 18:00",
+  "formula-1:19:Corrida": "2026-11-01 17:00",
+  "nascar:35:Corrida": "2026-11-01 16:00",
+  "motogp:19:Sprint": "2026-10-31 04:00",
+  "motogp:19:Corrida": "2026-11-01 04:00"
  }
 }
