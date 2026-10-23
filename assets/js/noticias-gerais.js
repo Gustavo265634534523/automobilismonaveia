@@ -4,7 +4,7 @@
    "manchete: true" coloca a notícia no destaque do topo. As notícias de cada categoria em dados.js também entram sozinhas na página. */
 
 /* Data e hora da última atualização (horário de Brasília). */
-window.NOTICIAS_ATUALIZADO = '2026-10-22T08:05:00-03:00';
+window.NOTICIAS_ATUALIZADO = '2026-10-23T08:09:00-03:00';
 
 window.NOTICIAS_GERAIS = [
   { d: '2026-10-20', cat: 'motogp', manchete: true, t: 'Toprak Razgatlioglu vai operar o ombro e fica fora do resto da temporada de MotoGP', x: 'A Pramac confirmou que Toprak Razgatlioglu vai passar por cirurgia no ombro direito, em Milão, no dia 26 de outubro, e não corre mais em 2026. O turco se machucou numa queda no treino livre de Mandalika e piorou a lesão ao terminar a corrida da Indonésia. Ele vai perder o GP da Austrália, em Phillip Island, e as outras quatro etapas finais, com o piloto de testes da Yamaha, Augusto Fernández, assumindo a moto.', t_en: 'Toprak Razgatlioglu to have shoulder surgery, out for rest of MotoGP season', x_en: 'Pramac confirmed that Toprak Razgatlioglu will undergo surgery on his right shoulder in Milan on October 26 and will not race again in 2026. The Turkish rider was hurt in a practice crash at Mandalika and made the injury worse by finishing the Indonesian GP. He will miss the Australian GP at Phillip Island and the other four remaining rounds, with Yamaha test rider Augusto Fernández taking over his bike.' },
