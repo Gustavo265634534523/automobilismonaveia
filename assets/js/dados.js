@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '23 de outubro de 2026';
+window.ATUALIZADO = '24 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -247,7 +247,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/stock.jpg',
   frase: 'Porta com porta, até a tinta sair.',
   intro: 'A Stock Car transforma o autódromo brasileiro em briga de rua com regulamento. Toque na traseira, pressão na curva, pit stop no grito. Felipe Fraga chega a Brasília com 141 pontos de vantagem.',
-  lider: { nome: 'Felipe Fraga', info: 'Eurofarma RC, 746 pontos' },
+  lider: { nome: 'Felipe Fraga', info: 'Eurofarma RC, 884 pontos' },
   noticias: [
     { d: '2026-09-25', t: 'Brasília recebe a etapa de endurance', x: 'A 9ª etapa roda no Autódromo Nelson Piquet de 25 a 27 de setembro, em formato longo, junto com Stock Light, F4 e Turismo Nacional.' },
     { d: '2026-09-06', t: 'Léo Reis e César Ramos vencem em Curvelo', x: 'Na volta ao circuito mineiro, Léo Reis levou a primeira corrida e César Ramos a segunda. Fraga manteve a ponta.' },
@@ -268,9 +268,10 @@ window.CATEGORIAS = [
     { e: 12, n: 'Final', l: 'Interlagos (SP)', d: '2026-12-13' }
   ],
   classificacao: {
-    titulo: 'Pilotos (após 8 etapas)',
+    titulo: 'Pilotos (após 10 etapas)',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
-    linhas: [['1', 'Felipe Fraga', 'Eurofarma RC', '746'], ['2', 'Gabriel Casagrande', 'AMattheis Vogel', '605'], ['3', 'Gaetano di Mauro', 'Eurofarma RC', '594'], ['4', 'Felipe Massa', 'TMG Racing', '532'], ['5', 'Rafael Suzuki', 'Scuderia Bandeiras', '524'], ['6', 'Guilherme Salas', 'Cavaleiro Sports', '518'], ['7', 'Sérgio Sette Câmara', 'RCM Motorsport', '515'], ['8', 'Enzo Elias', 'AMattheis TMG', '506'], ['9', 'Felipe Baptista', 'Sterling Racing', '499'], ['10', 'Arthur Leist', 'Crown Racing', '483'], ['11', 'César Ramos', 'Mercado Livre Racing', '471'], ['12', 'Júlio Campos', 'TMG Racing', '462'], ['13', 'Thiago Camilo', '—', '445'], ['14', 'Léo Reis', '—', '442'], ['15', 'Zezinho Muggiati', '—', '393']]
+    linhas: [['1', 'Felipe Fraga', 'Eurofarma RC', '884'], ['2', 'Gabriel Casagrande', 'AMattheis Vogel', '759'], ['3', 'Guilherme Salas', 'Cavaleiro Sports', '743'], ['4', 'Gaetano di Mauro', 'Eurofarma RC', '721'], ['5', 'Rafael Suzuki', 'Scuderia Bandeiras', '674'], ['6', 'Enzo Elias', 'AMattheis TMG', '647'], ['7', 'Sérgio Sette Câmara', 'RCM Motorsport', '641'], ['8', 'Arthur Leist', 'Crown Racing', '605'], ['9', 'Júlio Campos', 'TMG Racing', '573'], ['10', 'Felipe Massa', 'TMG Racing', '570']],
+    nota: 'Classificação após a etapa de Cascavel, vencida por Gabriel Casagrande. Fraga mantém a liderança com 125 pontos de vantagem.'
   },
   equipes: [
     { n: 'Eurofarma RC', p: ['Felipe Fraga', 'Gaetano di Mauro'] },
@@ -334,7 +335,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/endurance.jpg',
   frase: 'Seis horas, vinte e quatro horas. O relógio também corre.',
   intro: 'Três pilotos dividem o mesmo carro e trocam de lugar no escuro. Farol cortando a neblina de Le Mans, disco de freio em brasa às quatro da manhã. No Mundial de Endurance, terminar já é metade da vitória.',
-  lider: { nome: 'Buemi, Hartley e Hirakawa', info: 'Toyota #8, 89 pontos' },
+  lider: { nome: 'Buemi, Hartley e Hirakawa', info: 'Toyota #8, 114 pontos' },
   noticias: [
     { d: '2026-09-27', t: 'Toyota #8 vence em casa e assume a liderança', x: 'Ryo Hirakawa, Sébastien Buemi e Brendon Hartley saíram de oitavo e venceram as 6 Horas de Fuji. O Alpine #36, que largou na pole, ficou em segundo e o BMW #15 completou o pódio.' },
     { d: '2026-09-06', t: 'Ferrari vence a Lone Star Le Mans', x: 'A Ferrari 499P #50 ganhou em Austin, no Circuito das Américas, e voltou ao topo do pódio depois de uma primeira metade de ano dominada por Toyota e BMW.' },
@@ -354,8 +355,8 @@ window.CATEGORIAS = [
   classificacao: {
     titulo: 'Hypercar, pilotos',
     colunas: ['Pos', 'Pilotos', 'Carro', 'Pts'],
-    linhas: [['1', 'Buemi, Hartley e Hirakawa', 'Toyota #8', '89'], ['2', 'Conway, Kobayashi e De Vries', 'Toyota #7', '79'], ['3', 'Rast e Frijns', 'BMW #20', '75'], ['4', 'Magnussen e Marciello', 'BMW #15', '69'], ['5', 'Pier Guidi, Calado e Giovinazzi', 'Ferrari #51', '59'], ['6', 'Milesi e Habsburg', 'Alpine #35', '56'], ['7', 'Fuoco, Molina e Nielsen', 'Ferrari #50', '54'], ['8', 'Nato e Stevens', 'Cadillac #12', '50']],
-    nota: 'Após Fuji (etapa 6 de 8). Sheldon van der Linde (BMW #20) tem 65 pontos e Dries Vanthoor (BMW #15) tem 63, porque não fizeram todas as etapas.'
+    linhas: [['1', 'Buemi, Hartley e Hirakawa', 'Toyota #8', '114'], ['2', 'Conway, Kobayashi e De Vries', 'Toyota #7', '97'], ['3', 'Rast e Frijns', 'BMW #20', '75'], ['4', 'Magnussen e Marciello', 'BMW #15', '75'], ['5', 'Fuoco, Molina e Nielsen', 'Ferrari #50', '69'], ['6', 'Pier Guidi, Calado e Giovinazzi', 'Ferrari #51', '59'], ['7', 'Milesi e Habsburg', 'Alpine #35', '56'], ['8', 'Nato e Stevens', 'Cadillac #12', '50']],
+    nota: 'Após Barcelona (etapa 7 de 8). Toyota #8 lidera por 17 pontos sobre o #7, faltando Monza. Sheldon van der Linde (BMW #20) tem 65 pontos e Dries Vanthoor (BMW #15) tem 69, porque não fizeram todas as etapas.'
   },
   equipes: [
     { n: 'BMW M Team WRT', i: 'BMW M Hybrid V8', p: ['Robin Frijns', 'René Rast', 'Kevin Magnussen', 'Raffaele Marciello'] },
@@ -576,7 +577,7 @@ window.CATEGORIAS = [
     { e: 15, n: 'GP da Áustria', l: 'Spielberg', d: '2026-09-20', venc: 'Pedro Acosta (KTM)' },
     { e: 16, n: 'GP do Japão', l: 'Motegi', d: '2026-10-04', s: [{ t: 'Treino livre 1', d: '2026-10-01', h: '22:45' }, { t: 'Treino', d: '2026-10-02', h: '03:00' }, { t: 'Treino livre 2', d: '2026-10-02', h: '22:10' }, { t: 'Classificação Q1', d: '2026-10-02', h: '22:50' }, { t: 'Classificação Q2', d: '2026-10-02', h: '23:15' }, { t: 'Sprint', d: '2026-10-03', h: '03:00' }, { t: 'Corrida', d: '2026-10-04', h: '02:00' }], venc: 'Marc Márquez (Ducati)' },
     { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-08', h: '23:45' }, { t: 'Treino', d: '2026-10-09', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-09', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-09', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-10', h: '00:15' }, { t: 'Sprint', d: '2026-10-10', h: '04:00' }, { t: 'Corrida', d: '2026-10-11', h: '04:00' }], venc: 'Marco Bezzecchi (Aprilia)' },
-    { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-22', h: '20:45' }, { t: 'Treino', d: '2026-10-23', h: '01:00' }, { t: 'Treino livre 2', d: '2026-10-23', h: '20:10' }, { t: 'Classificação Q1', d: '2026-10-23', h: '20:50' }, { t: 'Classificação Q2', d: '2026-10-23', h: '21:15' }, { t: 'Sprint', d: '2026-10-24', h: '01:00' }, { t: 'Corrida', d: '2026-10-25', h: '00:00' }] },
+    { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-22', h: '20:45' }, { t: 'Treino', d: '2026-10-23', h: '01:00' }, { t: 'Treino livre 2', d: '2026-10-23', h: '20:10' }, { t: 'Classificação Q1', d: '2026-10-23', h: '20:50' }, { t: 'Classificação Q2', d: '2026-10-23', h: '21:15' }, { t: 'Sprint', d: '2026-10-24', h: '01:00' }, { t: 'Corrida', d: '2026-10-25', h: '00:00' }], parcial: 'Sprint: Marc Márquez (Ducati)' },
     { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01', s: [{ t: 'Sprint', d: '2026-10-31', h: '04:00' }, { t: 'Corrida', d: '2026-11-01', h: '04:00' }] },
     { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08' },
     { e: 21, n: 'GP de Portugal', l: 'Portimão', d: '2026-11-22' },
