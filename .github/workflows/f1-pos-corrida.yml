@@ -2,8 +2,9 @@
 # Roda a cada 30 minutos; só faz algo quando sai resultado novo.
 name: F1 pos-corrida
 on:
-  schedule:
-    - cron: '*/30 * * * *'
+  # DESLIGADO enquanto o site está fora do ar. No lançamento, volte as duas linhas abaixo:
+  # schedule:
+  #   - cron: '*/30 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
