@@ -39,11 +39,13 @@
   var trilho = document.getElementById('ft-recentes');
   trilho.innerHTML = feitos.slice(0, 16).map(function (x) {
     var j = x.j, pl = String(j.p).split(/\s*x\s*/);
+    var lk = window.linkPartida(j, x.c.esporte); /* com página do jogo: botão "Ver jogo" com o que tem lá dentro */
     /* só os escudos: o nome fica no title (ao passar o mouse) e no aria-label (leitor de tela) */
-    return '<a class="ft-res" href="' + (window.linkPartida(j, x.c.esporte) || x.c.slug + '.html#jogos') + '" aria-label="' + esc(j.casa + ' ' + pl[0] + ' x ' + (pl[1] || '') + ' ' + j.fora + ', ' + x.c.menu) + '"><span class="ft-res-topo"><b>' + esc(x.c.menu) + '</b><span>' + (j.d ? quando(j.d) : esc(j.fase || '')) + '</span></span>' +
+    return '<a class="ft-res" href="' + (lk || x.c.slug + '.html#jogos') + '" aria-label="' + esc(j.casa + ' ' + pl[0] + ' x ' + (pl[1] || '') + ' ' + j.fora + ', ' + x.c.menu) + '"><span class="ft-res-topo"><b>' + esc(x.c.menu) + '</b><span>' + (j.d ? quando(j.d) : esc(j.fase || '')) + '</span></span>' +
       '<span class="ft-res-meio"><span class="ft-res-time" title="' + esc(j.casa) + '">' + escudo(j.casa) + '</span>' +
       '<span class="ft-placar">' + esc(pl[0]) + '<i>–</i>' + esc(pl[1] || '') + '</span>' +
-      '<span class="ft-res-time" title="' + esc(j.fora) + '">' + escudo(j.fora) + '</span></span></a>';
+      '<span class="ft-res-time" title="' + esc(j.fora) + '">' + escudo(j.fora) + '</span></span>' +
+      (lk ? '<span class="ft-res-ver"><small>' + (x.c.esporte === 'basquete' ? 'Placar completo e estatísticas' : 'Lances, escalações e estatísticas') + '</small><b>Ver jogo ›</b></span>' : '') + '</a>';
   }).join('');
   function rolar(d) { trilho.scrollBy({ left: d * trilho.clientWidth * .8, behavior: 'smooth' }); }
   document.getElementById('ft-rec-ant').addEventListener('click', function () { rolar(-1); });
