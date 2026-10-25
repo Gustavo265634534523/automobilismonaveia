@@ -4,7 +4,7 @@
    "manchete: true" coloca a notícia no destaque do topo. As notícias de cada categoria em dados.js também entram sozinhas na página. */
 
 /* Data e hora da última atualização (horário de Brasília). */
-window.NOTICIAS_ATUALIZADO = '2026-10-24T08:06:00-03:00';
+window.NOTICIAS_ATUALIZADO = '2026-10-25T08:04:00-03:00';
 
 window.NOTICIAS_GERAIS = [
   { d: '2026-10-24', cat: 'motogp', manchete: true, t: 'Márquez vence o sprint na Austrália e assume a liderança; Martín quebra o pulso', x: 'Marc Márquez venceu o sprint do GP da Austrália, em Phillip Island, com o irmão Álex Márquez em segundo e Fabio Di Giannantonio em terceiro, numa dobradinha da Ducati. Jorge Martín caiu na volta 8 ao tentar acompanhar o rival, fraturou o pulso e foi vetado da corrida principal de domingo. Márquez assume a liderança do Mundial com 365 pontos contra 355 de Martín, com quatro etapas restantes na temporada.', t_en: 'Márquez wins Australian sprint and takes championship lead as Martín breaks his wrist', x_en: 'Marc Márquez won the Australian GP sprint at Phillip Island, with brother Álex Márquez second and Fabio Di Giannantonio third in a Ducati one-two-three. Jorge Martín crashed on lap 8 while trying to match his rival’s pace, fractured his wrist and was ruled out of Sunday’s main race. Márquez now leads the championship with 365 points to Martín’s 355, with four rounds left in the season.' },
