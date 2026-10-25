@@ -3,11 +3,11 @@ brasileirao: 10 artilheiros (1º Kevin Viveros / Athletico-PR / 21)
 copa-do-brasil: 10 artilheiros (1º José Manuel López / Palmeiras / 4)
 libertadores: 10 artilheiros (1º Alex Arce / Independiente Rivadavia / 8)
 sul-americana: 10 artilheiros (1º Salomón Rodríguez / Montevideo City Torque / 7)
-champions-league: 10 artilheiros (1º Serhou Guirassy / Borussia Dortmund / 4)
+champions-league: 10 artilheiros (1º Harry Kane / Bayern de Munique / 4)
 premier-league: 10 artilheiros (1º Erling Haaland / Manchester City / 8)
 la-liga: 10 artilheiros (1º Raphinha / Barcelona / 12)
 bundesliga: 10 artilheiros (1º Niclas Füllkrug / Werder Bremen / 6)
-serie-a: 10 artilheiros (1º Antonio Raimondo / Frosinone / 7)
+serie-a: 10 artilheiros (1º Gustavo Varela / Monza / 7)
 ligue-1: 10 artilheiros (1º Esteban Lepaul / Rennes / 7)
 
 Times da ESPN que não casaram com um nome do site (entram com o nome da ESPN; acrescente em APELIDO no placar.js se for o mesmo time):
