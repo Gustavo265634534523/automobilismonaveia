@@ -151,5 +151,5 @@
 /* botão "Ver jogo" no fim de cada resultado: leva para a página do jogo (lance a lance, escalações, estatísticas, pré-jogo) */
 .ft-res-ver { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 12px; border-top: 1px solid var(--linha); }
 .ft-res-ver small { color: var(--texto-3, var(--aco)); font-size: 11px; line-height: 1.3; }
-.ft-res-ver b { flex-shrink: 0; padding: 6px 12px; border-radius: 999px; background: var(--sangue-vivo); color: #fff; font-size: 12px; font-weight: 700; white-space: nowrap; transition: background .2s; }
+.ft-res-ver b { flex: 1; text-align: center; padding: 8px 12px; border-radius: 999px; background: var(--sangue-vivo); color: #fff; font-size: 12px; font-weight: 700; white-space: nowrap; transition: background .2s; }
 .ft-res:hover .ft-res-ver b { background: var(--sangue); }

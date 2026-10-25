@@ -45,7 +45,7 @@
       '<span class="ft-res-meio"><span class="ft-res-time" title="' + esc(j.casa) + '">' + escudo(j.casa) + '</span>' +
       '<span class="ft-placar">' + esc(pl[0]) + '<i>–</i>' + esc(pl[1] || '') + '</span>' +
       '<span class="ft-res-time" title="' + esc(j.fora) + '">' + escudo(j.fora) + '</span></span>' +
-      (lk ? '<span class="ft-res-ver"><small>' + (x.c.esporte === 'basquete' ? 'Placar completo e estatísticas' : 'Lances, escalações e estatísticas') + '</small><b>Ver jogo ›</b></span>' : '') + '</a>';
+      (lk ? '<span class="ft-res-ver"><b>' + (x.c.esporte === 'basquete' ? 'Ver placar e estatísticas' : 'Ver lances e estatísticas') + ' ›</b></span>' : '') + '</a>';
   }).join('');
   function rolar(d) { trilho.scrollBy({ left: d * trilho.clientWidth * .8, behavior: 'smooth' }); }
   document.getElementById('ft-rec-ant').addEventListener('click', function () { rolar(-1); });
