@@ -1,141 +1,40 @@
 {
- "meeting": 1296,
- "local": "Marina Bay",
- "pais": "Singapore",
- "data": "2026-10-11",
+ "meeting": 1297,
+ "local": "Austin",
+ "pais": "United States",
+ "data": "2026-10-24",
  "sessoes": [
-  {
-   "tipo": "Sprint Qualifying",
-   "titulo": "Pole da sprint",
-   "data": "2026-10-09",
-   "top": [
-    {
-     "pos": 1,
-     "n": 3,
-     "nome": "Max Verstappen",
-     "equipe": "Red Bull Racing",
-     "cor": "#4781D7",
-     "tempo": "1:31.156"
-    },
-    {
-     "pos": 2,
-     "n": 63,
-     "nome": "George Russell",
-     "equipe": "Mercedes",
-     "cor": "#00D7B6",
-     "tempo": "+0.120s"
-    },
-    {
-     "pos": 3,
-     "n": 16,
-     "nome": "Charles Leclerc",
-     "equipe": "Ferrari",
-     "cor": "#ED1131",
-     "tempo": "+0.243s"
-    }
-   ]
-  },
-  {
-   "tipo": "Sprint",
-   "titulo": "Vencedor da sprint",
-   "data": "2026-10-10",
-   "top": [
-    {
-     "pos": 1,
-     "n": 3,
-     "nome": "Max Verstappen",
-     "equipe": "Red Bull Racing",
-     "cor": "#4781D7",
-     "tempo": "39:48.162"
-    },
-    {
-     "pos": 2,
-     "n": 44,
-     "nome": "Lewis Hamilton",
-     "equipe": "Ferrari",
-     "cor": "#ED1131",
-     "tempo": "+2.591s"
-    },
-    {
-     "pos": 3,
-     "n": 16,
-     "nome": "Charles Leclerc",
-     "equipe": "Ferrari",
-     "cor": "#ED1131",
-     "tempo": "+16.871s"
-    }
-   ]
-  },
   {
    "tipo": "Qualifying",
    "titulo": "Pole para a corrida",
-   "data": "2026-10-10",
+   "data": "2026-10-24",
    "top": [
     {
      "pos": 1,
-     "n": 3,
-     "nome": "Max Verstappen",
-     "equipe": "Red Bull Racing",
-     "cor": "#4781D7",
-     "tempo": "1:31.373"
-    },
-    {
-     "pos": 2,
-     "n": 16,
-     "nome": "Charles Leclerc",
-     "equipe": "Ferrari",
-     "cor": "#ED1131",
-     "tempo": "+0.054s"
-    },
-    {
-     "pos": 3,
-     "n": 44,
-     "nome": "Lewis Hamilton",
-     "equipe": "Ferrari",
-     "cor": "#ED1131",
-     "tempo": "+0.123s"
-    }
-   ]
-  },
-  {
-   "tipo": "Race",
-   "titulo": "Vencedor da corrida",
-   "data": "2026-10-11",
-   "top": [
-    {
-     "pos": 1,
-     "n": 3,
-     "nome": "Max Verstappen",
-     "equipe": "Red Bull Racing",
-     "cor": "#4781D7",
-     "tempo": "1:42:00.785"
-    },
-    {
-     "pos": 2,
-     "n": 16,
-     "nome": "Charles Leclerc",
-     "equipe": "Ferrari",
-     "cor": "#ED1131",
-     "tempo": "+7.335s"
-    },
-    {
-     "pos": 3,
      "n": 12,
      "nome": "Kimi Antonelli",
      "equipe": "Mercedes",
      "cor": "#00D7B6",
-     "tempo": "+24.573s"
+     "tempo": "1:34.035"
+    },
+    {
+     "pos": 2,
+     "n": 3,
+     "nome": "Max Verstappen",
+     "equipe": "Red Bull Racing",
+     "cor": "#4781D7",
+     "tempo": "+0.179s"
+    },
+    {
+     "pos": 3,
+     "n": 6,
+     "nome": "Isack Hadjar",
+     "equipe": "Red Bull Racing",
+     "cor": "#4781D7",
+     "tempo": "+0.215s"
     }
    ]
   }
  ],
- "destaque": {
-  "nome": "Isack Hadjar",
-  "equipe": "Red Bull Racing",
-  "cor": "#4781D7",
-  "foto": "https://media.formula1.com/d_driver_fallback_image.png/content/dam/fom-website/drivers/I/ISAHAD01_Isack_Hadjar/isahad01.png.transform/1col/image.png",
-  "largou": 22,
-  "chegou": 10,
-  "linha": "Largou em 22º e terminou em 10º (ganhou 12 posições)"
- }
+ "destaque": null
 }
