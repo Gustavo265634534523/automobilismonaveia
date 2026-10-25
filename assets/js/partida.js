@@ -12,6 +12,10 @@
   var COMPS = window.COMPETICOES || [];
   var achado = null;
   COMPS.forEach(function (c) { (c.jogos || []).forEach(function (j) { if (id && j.id === id) achado = { c: c, j: j }; }); });
+  /* a página do jogo sempre abre no topo (o navegador às vezes mantinha a rolagem da página anterior e abria no rodapé) */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+  var jaNoTopo = false;
   if (!id) { caixa.innerHTML = '<p class="pt-vazio">Jogo não encontrado. <a href="futebol.html">Voltar para o futebol</a>.</p>'; return; }
 
   var basq = achado ? achado.c.esporte === 'basquete' : false;
@@ -233,6 +237,7 @@
   function pintar() {
     var j = achado ? achado.j : {}, c = achado ? achado.c : {};
     var D = dados || { casa: j.casa, fora: j.fora, lances: [], escalacoes: null, fim: !!j.p };
+    if (dados && !jaNoTopo && !location.hash) { jaNoTopo = true; setTimeout(function () { window.scrollTo(0, 0); }, 0); }
     if (D.esporte === 'basquete') basq = true;
     abaValida();
     document.body.setAttribute('data-esporte', basq ? 'basquete' : 'futebol'); document.getElementById('pg-main').setAttribute('data-esporte', basq ? 'basquete' : 'futebol');
