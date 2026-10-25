@@ -1496,3 +1496,10 @@ html { background: var(--asfalto); }
   html.com-barra-baixo .rolador { bottom: var(--bb-h); }
   html.chat-aberto .barra-baixo, html.nv-jogando .barra-baixo { display: none; }
 }
+
+/* faixa embaixo do menu de cima (esportes e campeonatos): fundo sólido, para não sumir em cima das fotos */
+.topo-pilula .faixa-cat { background: var(--carbono); -webkit-backdrop-filter: none; backdrop-filter: none; box-shadow: inset 0 0 0 1px var(--linha), 0 2px 8px rgba(0, 0, 0, .35); }
+.topo-pilula .faixa-esportes { background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha), 0 2px 8px rgba(0, 0, 0, .35); }
+.topo-pilula .faixa-esp { color: var(--texto-2, var(--cromo)); }
+.topo-pilula .faixa-cat { color: var(--texto-2, var(--cromo)); }
+.topo-pilula .faixa-cat[aria-current] { color: #fff; background: var(--sangue); box-shadow: 0 2px 8px rgba(0, 0, 0, .35); }
