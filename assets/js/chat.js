@@ -222,6 +222,7 @@
     });
     if (!tem) return;
     bt.classList.add('chat-vivo');
+    bt.setAttribute('aria-label', 'Chat da corrida ao vivo'); bt.title = 'Chat da corrida';
     bt.querySelector('span').innerHTML = '<i class="chat-vivo-ponto" aria-hidden="true"></i>Chat da corrida';
     bt.setAttribute('aria-label', 'Abrir o chat da corrida, ao vivo');
   })();

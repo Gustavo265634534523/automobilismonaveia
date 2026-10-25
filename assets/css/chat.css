@@ -150,3 +150,10 @@ html.chat-aberto .box-bt { display: none; }
 .reacoes { min-height: 30px; }
 .enq-home { min-height: 470px; }
 .enq-home:empty::before { content: 'Carregando a enquete…'; display: block; color: var(--aco); font-size: 14px; }
+/* celular: o botão do chat da corrida vira só o ícone redondo (com o ponto "ao vivo" no canto) e fica acima da barra de baixo */
+@media (max-width: 720px) {
+  .chat-bt.chat-vivo { width: 52px; height: 52px; padding: 0; justify-content: center; border-radius: 50%; right: 12px; bottom: calc(var(--bb-h, 0px) + 14px); }
+  .chat-bt.chat-vivo svg { width: 24px; height: 24px; }
+  .chat-bt.chat-vivo span { position: absolute; top: 5px; right: 5px; width: 9px; height: 9px; overflow: hidden; font-size: 0; }
+  .chat-bt.chat-vivo .chat-vivo-ponto { margin: 0; vertical-align: top; }
+}
