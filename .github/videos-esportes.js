@@ -33,7 +33,7 @@ function nomeTime(s) {
 }
 /* tira o confronto do título: "Real Madrid 4-3 Roma", "Barcelona vs Real Madrid (2-1)", "CELTICS at PISTONS" */
 function confronto(t) {
-  const partes = t.split(/\s[|•–—]\s|\s\|\s|\|/).map(x => x.replace(/highlights|melhores momentos|resumen|resumo|r[ée]sum[ée]|sintesi|zusammenfassung|full game|extended/ig, '').replace(/[:\-–]\s*$/, '').trim()).filter(Boolean);
+  const partes = t.split(/\s[|•–—]\s|\s\|\s|\|/).map(x => x.replace(/\bmaxi\b|highlights|melhores momentos|resumen|resumo|r[ée]sum[ée]|sintesi|zusammenfassung|full game|extended/ig, '').replace(/[:\-–]\s*$/, '').trim()).filter(Boolean);
   for (let p of partes) {
     p = p.replace(/(\d{1,3})\s*\(\d{1,2}\)/g, '$1'); /* pênaltis: "2(2) X 2(3)" vira "2 X 2" */
     let m;
@@ -85,6 +85,9 @@ async function feed(id) {
       if (!bons.length) continue;
       bons.forEach(v => {
         const jogo = confronto(v.original);
+        if (!jogo) return; /* sem confronto no título (ex.: vídeo de um jogador só) não é melhores momentos de jogo */
+        const tit = 'Melhores momentos: ' + jogo;
+        if (res.some(x => x.titulo === tit)) return; /* o mesmo jogo em duas versões (curta e longa): fica a primeira */
         res.push({ comp: c.comp, esporte: c.esporte, nome: c.nome, id: v.id, titulo: jogo ? 'Melhores momentos: ' + jogo : v.original.replace(/#\S+/g, '').trim(), original: v.original, publicado: v.publicado });
       });
       achou = true;
