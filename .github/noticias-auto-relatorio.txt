@@ -8,17 +8,17 @@ ESPN https://www.espn.com.br/espn/rss/futebol/noticia: falhou
 ESPN https://www.espn.com.br/espn/rss/nba/noticia: falhou
 ESPN https://www.espn.com.br/espn/rss/f1/noticia: falhou
 Google Notícias brasileirao: 100 itens
-Google Notícias copa-do-brasil: 97 itens
+Google Notícias copa-do-brasil: 100 itens
 Google Notícias libertadores: 100 itens
 Google Notícias sul-americana: 100 itens
 Google Notícias champions-league: 100 itens
 Google Notícias premier-league: 100 itens
-Google Notícias la-liga: 66 itens
+Google Notícias la-liga: 36 itens
 Google Notícias bundesliga: 100 itens
 Google Notícias serie-a: 100 itens
-Google Notícias ligue-1: 28 itens
-Google Notícias nba: 100 itens
-Google Notícias euroleague: 3 itens
-Google Notícias nbb: 55 itens
+Google Notícias ligue-1: 55 itens
+Google Notícias nba: 54 itens
+Google Notícias euroleague: 2 itens
+Google Notícias nbb: 49 itens
 Google Notícias formula-1: 100 itens
-notícias gravadas: 153
+notícias gravadas: 156
