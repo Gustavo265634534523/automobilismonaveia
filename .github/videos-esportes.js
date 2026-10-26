@@ -34,7 +34,8 @@ function nomeTime(s) {
 /* tira o confronto do título: "Real Madrid 4-3 Roma", "Barcelona vs Real Madrid (2-1)", "CELTICS at PISTONS" */
 function confronto(t) {
   const partes = t.split(/\s[|•–—]\s|\s\|\s|\|/).map(x => x.replace(/highlights|melhores momentos|resumen|resumo|r[ée]sum[ée]|sintesi|zusammenfassung|full game|extended/ig, '').replace(/[:\-–]\s*$/, '').trim()).filter(Boolean);
-  for (const p of partes) {
+  for (let p of partes) {
+    p = p.replace(/(\d{1,3})\s*\(\d{1,2}\)/g, '$1'); /* pênaltis: "2(2) X 2(3)" vira "2 X 2" */
     let m;
     if ((m = p.match(/^(.+?)\s+(\d{1,3})\s*[-–x:]\s*(\d{1,3})\s+(.+)$/i))) return nomeTime(m[1]) + ' ' + m[2] + ' x ' + m[3] + ' ' + nomeTime(m[4]);
     if ((m = p.match(/^(.+?)\s+(?:vs\.?|v\.?|x)\s+(.+?)(?:\s*\(?(\d{1,3})\s*[-–]\s*(\d{1,3})\)?)?$/i)))

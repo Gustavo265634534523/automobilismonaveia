@@ -68,7 +68,7 @@
     return lista.filter(function (v) { conta[v.comp] = (conta[v.comp] || 0) + 1; return conta[v.comp] <= por; }).slice(0, max);
   }
   function vitrine(lista, titulo) {
-    return lista.length ? '<section class="vd-bloco"><h2>' + titulo + '</h2><div class="vd-grade">' + lista.map(videoCartao).join('') + '</div><p class="vd-nota">Vídeos dos canais oficiais dos campeonatos. Toque para assistir no YouTube.</p></section>' : '';
+    return lista.length ? '<section class="vd-bloco"><h2>' + titulo + '</h2><div class="vd-grade">' + lista.map(videoCartao).join('') + '</div><p class="vd-nota">Vídeos dos canais oficiais dos campeonatos. Toque para assistir no YouTube.</p><a class="vd-ver-todos" href="melhores-momentos.html#' + (lista[0].esporte || 'futebol') + '">Ver todos os melhores momentos →</a></section>' : '';
   }
   /* notícias de futebol e basquete (noticias-esportes.js), da mais nova para a mais antiga */
   function listaNoticias(filtro, max) {
