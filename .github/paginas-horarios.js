@@ -84,7 +84,7 @@ function pagina(o) {
 <link rel="canonical" href="${SITE}${o.arq}">
 <meta property="og:url" content="${SITE}${o.arq}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Arena Sports">
+<meta property="og:site_name" content="Fan Zone">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -118,7 +118,7 @@ CATS.forEach(c => {
   c.calendario.forEach(e => {
     if (!e.d || e.d < DESDE) return;
     const arq = arquivo(c, e), ano = e.d.slice(0, 4), cc = curto(c), p = principal(e);
-    const titulo = `${e.n} ${ano} (${cc}): horário de Brasília | Arena Sports`;
+    const titulo = `${e.n} ${ano} (${cc}): horário de Brasília | Fan Zone`;
     const quandoTxt = dataLonga(e.d) + (p && p.h ? ', às ' + hora(p.h) : '');
     const desc = e.venc
       ? `${e.n} ${ano} da ${c.nome}: vencedor ${e.venc}. Horários de todas as sessões no horário de Brasília.`
@@ -177,7 +177,7 @@ const corpoCentral = `    <p class="hr-rot">Agenda · horário de Brasília</p>
     <div class="hr-links"><a href="noticias.html">Notícias</a><a href="guia.html">Guia para iniciantes</a></div>`;
 fs.writeFileSync(path.join(RAIZ, 'horarios.html'), pagina({
   arq: 'horarios.html',
-  titulo: 'Horário da Fórmula 1 hoje: treinos, classificação e corrida | Arena Sports',
+  titulo: 'Horário da Fórmula 1 hoje: treinos, classificação e corrida | Fan Zone',
   desc: 'Que horas é a corrida hoje? Horários de Brasília da Fórmula 1 (treinos, classificação, sprint e corrida). Atualizado todo dia.',
   corpo: corpoCentral
 }));

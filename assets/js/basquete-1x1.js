@@ -213,7 +213,7 @@
     });
     c.beginPath(); c.moveTo(L / 2, py + 10); c.lineTo(L / 2, A); c.stroke();
     c.beginPath(); c.ellipse(L / 2, CHAO + 8, 70, 18, 0, 0, 7); c.stroke();
-    c.fillStyle = 'rgba(255,255,255,.12)'; c.font = '800 28px Inter, sans-serif'; c.textAlign = 'center'; c.fillText('ARENA', L / 2, A - 12);
+    c.fillStyle = 'rgba(255,255,255,.12)'; c.font = '800 28px Inter, sans-serif'; c.textAlign = 'center'; c.fillText('FAN ZONE', L / 2, A - 12);
     /* tabelas: poste com proteção, vidro e quadrado */
     [CESTA.voce, CESTA.cpu].forEach(function (k) {
       var lado = k.tabela > 400 ? 1 : -1, px = k.tabela + lado * 22;

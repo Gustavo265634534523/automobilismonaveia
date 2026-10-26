@@ -27,7 +27,7 @@ jobs:
         run: node .github/avisos/telegram.js
       - name: Guardar o que já foi avisado
         run: |
-          git config user.name "Robô Arena Sports"
+          git config user.name "Robô Fan Zone"
           git config user.email "automobilismonaveiacontato@gmail.com"
           git add .github/avisos/enviados.json
           git diff --cached --quiet && exit 0

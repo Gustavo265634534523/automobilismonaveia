@@ -9,7 +9,7 @@
       ? 'Ligados. Com o site aberto (pode ser em outra aba), avisamos quando o jogo do seu time começar, a cada gol e no fim do jogo.'
       : 'Receba um aviso quando o jogo do seu time começar, a cada gol e no fim do jogo.') + '</span>' +
       (ligado && bloqueado ? '<small>As notificações estão bloqueadas no navegador: os avisos aparecem só na tela do site.</small>' : '') +
-      '<small>Por enquanto funciona com o site aberto. No app do Arena Sports, que vai chegar às lojas, os avisos vão chegar mesmo com ele fechado.</small></div>' +
+      '<small>Por enquanto funciona com o site aberto. No app do Fan Zone, que vai chegar às lojas, os avisos vão chegar mesmo com ele fechado.</small></div>' +
       '<div class="mtp-av-bt"><button type="button" class="ft-btn' + (ligado ? ' ft-btn-linha' : '') + '" data-av="ligar">' + (ligado ? 'Desligar avisos' : 'Ligar avisos') + '</button>' +
       (ligado ? '<button type="button" class="ft-btn ft-btn-linha" data-av="testar">Ver um aviso de teste</button>' : '') + '</div>';
   }

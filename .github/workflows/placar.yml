@@ -40,7 +40,7 @@ jobs:
           BOLAO_URL: ${{ secrets.BOLAO_CHAVE && 'https://arena-bolao.naveia-contas.workers.dev/' || '' }}
       - name: Salvar no site
         run: |
-          git config user.name "Robô Arena Sports"
+          git config user.name "Robô Fan Zone"
           git config user.email "automobilismonaveiacontato@gmail.com"
           git add assets/dados/ao-vivo.js assets/dados/partidas assets/dados/escudos.js assets/img/escudos .github/placar-relatorio.txt assets/dados/enquete.json assets/dados/bolao.json
           git diff --cached --quiet && exit 0

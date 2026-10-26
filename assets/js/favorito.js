@@ -35,7 +35,7 @@
   function avisoLogin(destino, meuTime, travada) {
     if (!/^[a-z0-9-]+\.html(#[a-z0-9-]*)?$/i.test(destino)) destino = aqui;
     var v = encodeURIComponent(destino);
-    janela('fv-login', '<p class="bv-rot">Arena Sports</p><h2>Entre para continuar</h2>' +
+    janela('fv-login', '<p class="bv-rot">Fan Zone</p><h2>Entre para continuar</h2>' +
       '<p class="bv-sub">' + (meuTime ? 'Entre na sua conta para escolher o seu time e ver os jogos dele primeiro.' : 'Crie sua conta grátis ou entre para ler as notícias. É rápido e não custa nada.') + '</p>' +
       '<div class="bv-acoes"><a class="bv-conta" href="entrar.html?volta=' + v + '#criar">Criar conta grátis</a><a class="bv-salvar" href="entrar.html?volta=' + v + '">Já tenho conta: entrar</a></div>' +
       (travada ? '<p class="bv-nota"><a href="inicio.html">Voltar para o início</a></p>' : '<p class="bv-nota">Depois de entrar você escolhe seu esporte e sua equipe, e o site fica com as cores dela.</p>'), travada);

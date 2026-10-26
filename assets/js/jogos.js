@@ -19,7 +19,7 @@
       '<ul class="jg-trava-lista"><li><b>Largada</b>As cinco luzes vermelhas apagam. Qual é o seu tempo de reação?</li>' +
       '<li><b>Adivinhe o circuito</b>Só o desenho da pista. Você reconhece?</li>' +
       '<li><b>Piloto misterioso</b>Dica por dica, descubra quem é. Menos dicas, mais pontos.</li>' +
-      '<li><b>Arena Racing</b>Pilote um F1 em 3D contra 11 adversários.</li></ul></div>';
+      '<li><b>Fan Zone Racing</b>Pilote um F1 em 3D contra 11 adversários.</li></ul></div>';
   }
   window.NAVEIA_LIVRE.then(function (r) {
     if (r.semServidor) {
@@ -35,7 +35,7 @@
 
   /* ---------- Página dos jogos ---------- */
   var JOGOS = [
-    ['corrida', 'Arena Racing', 'Pilote em 3D'],
+    ['corrida', 'Fan Zone Racing', 'Pilote em 3D'],
     ['largada', 'Largada', 'Reflexo'],
     ['circuito', 'Adivinhe o circuito', 'Traçados'],
     ['piloto', 'Piloto misterioso', 'Dicas']

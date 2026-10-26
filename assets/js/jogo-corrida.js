@@ -1,4 +1,4 @@
-/* Arena Racing: corrida arcade em 3D, você pilota (substitui o Chefe de Equipe).
+/* Fan Zone Racing: corrida arcade em 3D, você pilota (substitui o Chefe de Equipe).
    Câmera atrás do carro, 11 adversários do computador, nas pistas reais do site (circuitos.js, OpenStreetMap).
    Categoria: Fórmula 1 (os outros carros continuam no código, ocultos), com carros desenhados no próprio jogo, sem marca.
    Three.js r128 é carregado do cdnjs só quando a pessoa entra na corrida. Chamado por jogos.js: window.JOGO_CORRIDA(elemento). */
@@ -136,7 +136,7 @@
     var t = srgb(new THREE.CanvasTexture(c)); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
   }
   /* placas de patrocínio (marcas inventadas) */
-  var PLACAS = [['ARENA', '#c2185b', '#fff'], ['TURBO COLA', '#1565c0', '#fff'], ['ARENA SPORTS', '#111418', '#e3343c'], ['PNEUS BRAVO', '#f9a825', '#111'],
+  var PLACAS = [['ARENA', '#c2185b', '#fff'], ['TURBO COLA', '#1565c0', '#fff'], ['FAN ZONE', '#111418', '#e3343c'], ['PNEUS BRAVO', '#f9a825', '#111'],
     ['SOLARIS', '#00838f', '#fff'], ['VELOX', '#c62828', '#fff'], ['GRID 22', '#2e7d32', '#fff'], ['MOTORLAB', '#f2f2f2', '#c2185b']];
   function texturaPlacas() {
     var c = canvas(2048, 128), g = c.getContext('2d');
@@ -383,15 +383,15 @@
      Se o modelo não carregar, o jogo usa o carro desenhado (montarCarro). */
   var URL_GLTF = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';
   var MODELOS = {
-    f1: { esc: 0.94 /* 2026: 3,40 m entre eixos, ~1,95 m de largura */, url: 'assets/modelos/jogo-f1.glb?v=394', painel: 'f1w', volante: 'assets/modelos/jogo-volante-f1.glb?v=394', cabine: 'assets/modelos/jogo-f1-cabine.glb?v=394', espelhos: [], olho: [-0.34, 1.08, 0], olharDesce: 1.05, capaceteCab: [-0.06, 0.84, 0.135], olhoPiloto: [0.44, -0.2, -0.1] /* Cockpit: frente, altura, olhar menos para baixo */, capacete: [-0.12, 0.79, 0.135], numeros: [[1.35, 3, 0, 0, -1, 0, 0.3], [-0.85, 0.72, 3, 0, 0, -1, 0.3], [-0.85, 0.72, -3, 0, 0, 1, 0.3]] },
-    peugeot: { url: 'assets/modelos/jogo-peugeot.glb?v=394', painel: 'peugeot', cabine: 'assets/modelos/jogo-peugeot-cabine.glb?v=394', olhoAj: [0.15, -0.06], tomTex: 0.45, tomInt: 0.5, espelhos: [[0.6, 0.915, 0.06, 0.26, 0.045, 'C']], numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [-0.3, 0.6, 3, 0, 0, -1, 0.46], [-0.3, 0.6, -3, 0, 0, 1, 0.46]] },
-    gt3: { url: 'assets/modelos/jogo-gt3.glb?v=394', cabine: 'assets/modelos/jogo-gt3-cabine.glb?v=394', espelhos: [[0.55, 0.86, -0.95, 0.15, 0.085, 'E'], [0.24, 0.945, -0.03, 0.2, 0.05, 'C']], numeros: [[1.45, 3, 0, 0, -1, 0, 0.42], [0.05, 0.55, 3, 0, 0, -1, 0.46], [0.05, 0.55, -3, 0, 0, 1, 0.46]] },
-    mercedes: { url: 'assets/modelos/jogo-mercedes.glb?v=394', cabine: 'assets/modelos/jogo-mercedes-cabine.glb?v=394', painel: 'mercedes-gt3', espelhos: [[0.22, 1.06, 0.12, 0.22, 0.055, 'C'], [0.1, 0.88, -1.0, 0.15, 0.085, 'E'], [0.032, 0.826, -0.108, 0.15, 0.088, 'C', [-0.94, 0.21, -0.27]]] /* o último é o monitor da câmera de ré */, numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [0.05, 0.6, 3, 0, 0, -1, 0.46], [0.05, 0.6, -3, 0, 0, 1, 0.46]] },
-    porsche: { url: 'assets/modelos/jogo-porsche.glb?v=394', painel: 'porsche', cabine: 'assets/modelos/jogo-porsche-cabine.glb?v=394', espelhos: [[0.40, 0.84, -0.82, 0.15, 0.085, 'E'], [0.25, 0.985, -0.025, 0.25, 0.065, 'C']], numeros: [[1.5, 3, 0, 0, -1, 0, 0.42], [0.15, 0.55, 3, 0, 0, -1, 0.46], [0.15, 0.55, -3, 0, 0, 1, 0.46]] }
+    f1: { esc: 0.94 /* 2026: 3,40 m entre eixos, ~1,95 m de largura */, url: 'assets/modelos/jogo-f1.glb?v=395', painel: 'f1w', volante: 'assets/modelos/jogo-volante-f1.glb?v=395', cabine: 'assets/modelos/jogo-f1-cabine.glb?v=395', espelhos: [], olho: [-0.34, 1.08, 0], olharDesce: 1.05, capaceteCab: [-0.06, 0.84, 0.135], olhoPiloto: [0.44, -0.2, -0.1] /* Cockpit: frente, altura, olhar menos para baixo */, capacete: [-0.12, 0.79, 0.135], numeros: [[1.35, 3, 0, 0, -1, 0, 0.3], [-0.85, 0.72, 3, 0, 0, -1, 0.3], [-0.85, 0.72, -3, 0, 0, 1, 0.3]] },
+    peugeot: { url: 'assets/modelos/jogo-peugeot.glb?v=395', painel: 'peugeot', cabine: 'assets/modelos/jogo-peugeot-cabine.glb?v=395', olhoAj: [0.15, -0.06], tomTex: 0.45, tomInt: 0.5, espelhos: [[0.6, 0.915, 0.06, 0.26, 0.045, 'C']], numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [-0.3, 0.6, 3, 0, 0, -1, 0.46], [-0.3, 0.6, -3, 0, 0, 1, 0.46]] },
+    gt3: { url: 'assets/modelos/jogo-gt3.glb?v=395', cabine: 'assets/modelos/jogo-gt3-cabine.glb?v=395', espelhos: [[0.55, 0.86, -0.95, 0.15, 0.085, 'E'], [0.24, 0.945, -0.03, 0.2, 0.05, 'C']], numeros: [[1.45, 3, 0, 0, -1, 0, 0.42], [0.05, 0.55, 3, 0, 0, -1, 0.46], [0.05, 0.55, -3, 0, 0, 1, 0.46]] },
+    mercedes: { url: 'assets/modelos/jogo-mercedes.glb?v=395', cabine: 'assets/modelos/jogo-mercedes-cabine.glb?v=395', painel: 'mercedes-gt3', espelhos: [[0.22, 1.06, 0.12, 0.22, 0.055, 'C'], [0.1, 0.88, -1.0, 0.15, 0.085, 'E'], [0.032, 0.826, -0.108, 0.15, 0.088, 'C', [-0.94, 0.21, -0.27]]] /* o último é o monitor da câmera de ré */, numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [0.05, 0.6, 3, 0, 0, -1, 0.46], [0.05, 0.6, -3, 0, 0, 1, 0.46]] },
+    porsche: { url: 'assets/modelos/jogo-porsche.glb?v=395', painel: 'porsche', cabine: 'assets/modelos/jogo-porsche-cabine.glb?v=395', espelhos: [[0.40, 0.84, -0.82, 0.15, 0.085, 'E'], [0.25, 0.985, -0.025, 0.25, 0.065, 'C']], numeros: [[1.5, 3, 0, 0, -1, 0, 0.42], [0.15, 0.55, 3, 0, 0, -1, 0.46], [0.15, 0.55, -3, 0, 0, 1, 0.46]] }
   };
   /* carros de cada classe (os adversários se revezam; quem joga escolhe no menu) */
   var VARIANTES = { f1: ['f1'], hyper: ['peugeot'], gt3: ['mercedes', 'gt3'], porsche: ['porsche'] };
-  MODELOS.sc = { url: 'assets/modelos/jogo-safety-car.glb?v=394' }; /* safety car */
+  MODELOS.sc = { url: 'assets/modelos/jogo-safety-car.glb?v=395' }; /* safety car */
   var NOME_CARRO = { f1: 'F1 2026', peugeot: 'Peugeot 9X8', gt3: 'McLaren 720S', mercedes: 'Mercedes-AMG', porsche: 'Porsche 911' };
   var MOLDES = {}; /* modelo -> molde pronto, ou 'falhou' */
   function carregarModelos(classes, pronto, progresso) {
@@ -944,7 +944,7 @@
   var DADOS_PISTA = {};
   function carregarPista(id, pronto, falha) {
     if (DADOS_PISTA[id]) return pronto();
-    fetch('assets/dados/pistas/' + id + '.json?v=394').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    fetch('assets/dados/pistas/' + id + '.json?v=395').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) { DADOS_PISTA[id] = d; pronto(); }).catch(falha);
   }
 
@@ -1603,7 +1603,7 @@
       if (!CLASSES[cfg.classe] || CLASSES[cfg.classe].oculta) cfg.classe = 'f1'; /* F2, F3, WEC e Porsche Cup saíram do jogo */
       if (pistasDaClasse().indexOf(cfg.pista) < 0) cfg.pista = pistasDaClasse()[0]; /* cada categoria tem as suas pistas */
       var chave = chaveRec(), rec = recordes[chave];
-      el.innerHTML = '<div class="jg-cab-jogo"><h2>Arena Racing</h2><p>Você pilota. Escolha a categoria e a pista, largue no meio do pelotão e tente vencer. ' +
+      el.innerHTML = '<div class="jg-cab-jogo"><h2>Fan Zone Racing</h2><p>Você pilota. Escolha a categoria e a pista, largue no meio do pelotão e tente vencer. ' +
         (toque ? 'Use os botões na tela; com "Acelerar sozinho" você só vira e freia. BOX, no alto, chama o pit stop.' + (cfg.classe === 'f1' ? ' ⚡ usa a bateria.' : '') : 'Setas ou W A S D para pilotar, Q sobe e E desce a marcha (câmbio manual), C troca a câmera, B chama o box' + (cfg.classe === 'f1' ? ', espaço usa a bateria (⚡).' : '.')) + ' Pneus gastam e a gasolina acaba (o tanque dura umas 3 voltas): nas corridas longas, pare no box.' + '</p></div>' +
         '<div class="nv-menu">' +
           chips('Categoria', Object.keys(CLASSES).filter(function (k) { return !CLASSES[k].oculta; }).map(function (k) { return ['classe', k, CLASSES[k].nome]; }), cfg.classe) +
@@ -2346,8 +2346,8 @@
         p.querySelector('[data-p="de-novo"]').onclick = iniciar;
         p.querySelector('[data-p="menu"]').onclick = menu;
         p.querySelector('[data-p="comp"]').onclick = function () {
-          var txt = 'Terminei em ' + pos + 'º' + (multi ? ' na ' + C.nome : '') + ' com volta de ' + tempo(est.melhor) + ' de ' + nomeJog() + ' em ' + T.nome + ' no Arena Racing. Duvido você bater!', url = 'https://automobilismonaveia.com.br/jogos.html#corrida';
-          if (navigator.share) navigator.share({ title: 'Arena Racing', text: txt, url: url }).catch(function () {});
+          var txt = 'Terminei em ' + pos + 'º' + (multi ? ' na ' + C.nome : '') + ' com volta de ' + tempo(est.melhor) + ' de ' + nomeJog() + ' em ' + T.nome + ' no Fan Zone Racing. Duvido você bater!', url = 'https://automobilismonaveia.com.br/jogos.html#corrida';
+          if (navigator.share) navigator.share({ title: 'Fan Zone Racing', text: txt, url: url }).catch(function () {});
           else if (navigator.clipboard) navigator.clipboard.writeText(txt + ' ' + url).then(function () { aviso('Link copiado'); });
         };
       }

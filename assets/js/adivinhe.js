@@ -45,7 +45,7 @@
   function resultado() {
     var ganhou = tentativas.some(certo), n = tentativas.length, P = placar(esporte);
     var txt = ganhou ? (n === 1 ? 'De primeira! ' : 'Acertou em ' + n + ' tentativas! ') : 'Não foi dessa vez. ';
-    var compart = 'Arena Sports · Adivinhe o jogador' + (modo === 'dia' ? ' do dia' : '') + (esporte === 'basquete' ? ' (NBA)' : '') + ': ' + (ganhou ? n : 'X') + '/' + TENTATIVAS + ' ' +
+    var compart = 'Fan Zone · Adivinhe o jogador' + (modo === 'dia' ? ' do dia' : '') + (esporte === 'basquete' ? ' (NBA)' : '') + ': ' + (ganhou ? n : 'X') + '/' + TENTATIVAS + ' ' +
       tentativas.map(function (t) { return certo(t) ? '🟩' : '🟥'; }).join('');
     return '<div class="av-fim' + (ganhou ? ' av-ganhou' : '') + '"><p>' + txt + 'Era <b>' + esc(atual.nome) + '</b>.</p>' +
       '<div class="av-placar"><span><b>' + P.acertos + '</b>acertos</span><span><b>' + P.jogos + '</b>jogos</span><span><b>' + P.seq + '</b>seguidos</span><span><b>' + P.melhor + '</b>melhor sequência</span></div>' +

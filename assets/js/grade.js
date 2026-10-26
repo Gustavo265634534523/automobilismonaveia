@@ -96,7 +96,7 @@
       });
     });
     cel += '</div>';
-    var compart = 'Arena Sports · Grade' + (numero() ? '' : ' do dia') + (esporte === 'basquete' ? ' (NBA)' : '') + ': ' + certos + '/9\n' +
+    var compart = 'Fan Zone · Grade' + (numero() ? '' : ' do dia') + (esporte === 'basquete' ? ' (NBA)' : '') + ': ' + certos + '/9\n' +
       [0, 1, 2].map(function (i) { return [0, 1, 2].map(function (j) { return estado.casas['' + i + j] ? '🟩' : '⬜'; }).join(''); }).join('\n');
     var P = G.placar[esporte] || { jogos: 0, casas: 0, completas: 0 };
     caixa.innerHTML = JB.topo(esporte, '', false, '') +

@@ -212,7 +212,7 @@
         'DTSTART:' + ics(t.ini), 'DTEND:' + ics(t.fim), 'SUMMARY:' + t.cat.nome + ', ' + t.x.t + ' (' + t.e.n + ')',
         'LOCATION:' + t.e.l, 'BEGIN:VALARM', 'TRIGGER:-PT30M', 'ACTION:DISPLAY', 'DESCRIPTION:Largada em 30 minutos', 'END:VALARM', 'END:VEVENT'].join('\r\n');
     });
-    var txt = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Arena Sports//Maratona//PT', 'CALSCALE:GREGORIAN'].concat(ev, ['END:VCALENDAR']).join('\r\n');
+    var txt = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Fan Zone//Maratona//PT', 'CALSCALE:GREGORIAN'].concat(ev, ['END:VCALENDAR']).join('\r\n');
     var a = document.createElement('a');
     a.href = URL.createObjectURL(new Blob([txt], { type: 'text/calendar' }));
     a.download = 'maratona-na-veia.ics';

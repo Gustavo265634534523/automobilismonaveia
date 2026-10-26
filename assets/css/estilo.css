@@ -1,4 +1,4 @@
-/* Arena Sports */
+/* Fan Zone */
 
 :root {
   /* Modo escuro: preto de verdade com azul. O padrão do site é o claro (branco clean), em html[data-tema="claro"]
@@ -725,7 +725,7 @@ html.com-aviso { --topo: 100px; }
 }
 @media (max-width: 380px) { .topo-in .idioma-btn i { display: none; } .topo-in .idioma-btn span:not(.ativo) { display: none; } }
 
-/* Marca: "ARENA" grande, "SPORTS" pequeno embaixo */
+/* Marca: "FAN" grande, "ZONE" pequeno embaixo */
 .marca-nome small { margin-bottom: 3px; }
 
 /* Rodapé: e-mail de contato */
@@ -1333,7 +1333,7 @@ button.painel-menu-it { display: none; }
 .hm-jogo-linha b, .bq-jogo b { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
 .hm-jogo-linha b .escudo, .bq-jogo b .escudo { width: 22px; height: 22px; font-size: 7px; }
 
-/* marca Arena Sports: no celular, "SPORTS" fica ao lado de "ARENA" (em vez de sumir) */
+/* marca Fan Zone: no celular, "ZONE" fica ao lado de "FAN" (em vez de sumir) */
 .marca-nome small { margin: 2px 0 0; }
 @media (max-width: 1200px) {
   .topo-in .marca-nome small, .marca-nome small { display: inline; margin: 0 0 0 5px; font-family: var(--display); font-size: inherit; letter-spacing: inherit; color: inherit; font-weight: inherit; }
@@ -1432,9 +1432,9 @@ html.com-cats.com-placar { --topo: 162px; }
 @media (prefers-reduced-motion: reduce) { .pf-rot i, .pf-vivo small i { animation: none; } }
 @media (max-width: 1080px) { html.com-cats.com-placar, html.com-cats.com-placar.com-aviso { --topo: 156px; } }
 
-/* logo: o "A" com o estádio (assets/img/logo/arena.png, feito no Higgsfield) usado como máscara, na cor do tema */
+/* logo: o "A" com o estádio (assets/img/logo/fanzone.png, feito no Higgsfield) usado como máscara, na cor do tema */
 .marca-logo { display: block; width: 34px; height: 25px; flex: none; background: var(--sangue-vivo); transition: background .4s ease;
-  -webkit-mask: url(../img/logo/arena.png) center / contain no-repeat; mask: url(../img/logo/arena.png) center / contain no-repeat; }
+  -webkit-mask: url(../img/logo/fanzone.png) center / contain no-repeat; mask: url(../img/logo/fanzone.png) center / contain no-repeat; }
 .marca-nome small { color: var(--sangue-vivo); }
 .topo-in .marca-nome small { color: var(--sangue-vivo); }
 

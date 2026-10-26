@@ -67,7 +67,7 @@
         '<button type="button" class="pl-botao" id="as-copiar">Copiar código Pix</button></div>' +
       '</div>' +
       '<p class="as-pix-status" id="as-pix-status" role="status"><i></i>Esperando o pagamento… o plano libera sozinho assim que o Pix for pago.</p>' +
-      '<p class="as-legal">O código vale por 30 minutos. O pagamento vai para o Mercado Pago do Arena Sports.</p>';
+      '<p class="as-legal">O código vale por 30 minutos. O pagamento vai para o Mercado Pago do Fan Zone.</p>';
     var btn = cont.querySelector('#as-copiar'), txt = cont.querySelector('textarea');
     btn.addEventListener('click', function () {
       var ok = function () { btn.textContent = 'Código copiado!'; setTimeout(function () { btn.textContent = 'Copiar código Pix'; }, 2500); };

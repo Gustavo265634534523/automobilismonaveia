@@ -30,7 +30,7 @@
     carregar();
     var fim = acabou(), ganhou = tentativas.some(certo), n = fim ? NIVEL.length - 1 : Math.min(tentativas.length, NIVEL.length - 1), v = NIVEL[n];
     var P = G.placar[esporte] || { jogos: 0, acertos: 0, seq: 0, melhor: 0 };
-    var compart = 'Arena Sports · Escudo misterioso' + (modo === 'dia' ? ' do dia' : '') + (esporte === 'basquete' ? ' (basquete)' : '') + ': ' + (ganhou ? tentativas.length : 'X') + '/' + TENTATIVAS + ' ' +
+    var compart = 'Fan Zone · Escudo misterioso' + (modo === 'dia' ? ' do dia' : '') + (esporte === 'basquete' ? ' (basquete)' : '') + ': ' + (ganhou ? tentativas.length : 'X') + '/' + TENTATIVAS + ' ' +
       tentativas.map(function (t) { return certo(t) ? '🟩' : '🟥'; }).join('');
     caixa.innerHTML = JB.topo(esporte, modo, true, 'circuito') +
       '<section class="av-jogo es-jogo"><header><h2>De quem é esse escudo?</h2><p>A cada erro, o escudo fica mais nítido. ' + TENTATIVAS + ' tentativas.</p></header>' +

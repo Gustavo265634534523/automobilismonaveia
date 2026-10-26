@@ -1,4 +1,4 @@
-/* ---------- Arena Racing (assets/js/jogo-corrida.js) ---------- */
+/* ---------- Fan Zone Racing (assets/js/jogo-corrida.js) ---------- */
 .nv-menu { display: grid; gap: 16px; max-width: 760px; padding: 22px; background: var(--carbono); border: 1px solid var(--linha); border-top: 3px solid var(--sangue-vivo); }
 .nv-op { display: grid; grid-template-columns: 150px 1fr; align-items: center; gap: 12px; }
 .nv-op > span { font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--aco); }

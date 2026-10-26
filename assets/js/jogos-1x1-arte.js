@@ -39,7 +39,7 @@
     var g = ctx.createLinearGradient(0, y, 0, y + h); g.addColorStop(0, '#0d1b3d'); g.addColorStop(1, '#091228');
     ctx.fillStyle = g; ctx.fillRect(0, y, L, h);
     ctx.font = '700 ' + Math.round(h * 0.55) + 'px Inter, sans-serif'; ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
-    var txt = ['ARENA SPORTS', 'AO VIVO', 'ARENA SPORTS', 'JOGOS GRÁTIS'];
+    var txt = ['FAN ZONE', 'AO VIVO', 'FAN ZONE', 'JOGOS GRÁTIS'];
     for (var i = 0; i < 4; i++) { ctx.fillStyle = i % 2 ? '#fbbf24' : '#60a5fa'; ctx.fillText(txt[i], L / 8 + i * L / 4, y + h / 2 + 1); }
     ctx.fillStyle = 'rgba(255,255,255,.18)'; ctx.fillRect(0, y, L, 1.5);
     ctx.textBaseline = 'alphabetic';

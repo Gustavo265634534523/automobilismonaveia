@@ -647,7 +647,7 @@
         var tetoOff = W2 + 26, teto = add(new T.BoxGeometry(comp * 0.82, 0.4, 24), new T.MeshLambertMaterial({ color: 0xe4e7ea }));
         teto.position.set(mx + nx * tetoOff, 13 + h0, mz + nz * tetoOff); teto.rotation.y = -ang;
         [-0.38, 0, 0.38].forEach(function (t) { var col = add(new T.BoxGeometry(0.4, 13, 0.4), new T.MeshLambertMaterial({ color: 0x9aa0a6 })); col.position.set(mx + nx * (W2 + 37) + dx * t * 2, 6.5 + h0, mz + nz * (W2 + 37) + dz * t * 2); });
-        var texFaixa = texturaCanvas(512, 48, function (x, w, h) { x.fillStyle = '#b0121b'; x.fillRect(0, 0, w, h); x.fillStyle = '#ffffff'; x.font = 'bold 30px Arial'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('ARENA SPORTS', w / 2, h / 2 + 1); });
+        var texFaixa = texturaCanvas(512, 48, function (x, w, h) { x.fillStyle = '#b0121b'; x.fillRect(0, 0, w, h); x.fillStyle = '#ffffff'; x.font = 'bold 30px Arial'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('FAN ZONE', w / 2, h / 2 + 1); });
         var faixaNome = add(new T.PlaneGeometry(Math.min(comp * 0.6, 90), 2.2), new T.MeshBasicMaterial({ map: texFaixa, side: T.DoubleSide }));
         faixaNome.position.set(mx + nx * (W2 + 13.4), 3.2 + h0, mz + nz * (W2 + 13.4)); faixaNome.rotation.y = -ang + Math.PI;
       }
@@ -713,8 +713,8 @@
     /* 2) placas de propaganda em cima dos muros das retas (o nome do site, sem marcas) */
     if (!baixo) {
       var texPlacas = [
-        texturaCanvas(256, 32, function (x, w, h) { x.fillStyle = '#b0121b'; x.fillRect(0, 0, w, h); x.fillStyle = '#fff'; x.font = 'bold 20px Arial'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('ARENA SPORTS', w / 2, h / 2 + 1); }),
-        texturaCanvas(256, 32, function (x, w, h) { x.fillStyle = '#141619'; x.fillRect(0, 0, w, h); x.fillStyle = '#e3343c'; x.font = 'bold 22px Arial'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('ARENA SPORTS', w / 2, h / 2 + 1); })
+        texturaCanvas(256, 32, function (x, w, h) { x.fillStyle = '#b0121b'; x.fillRect(0, 0, w, h); x.fillStyle = '#fff'; x.font = 'bold 20px Arial'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('FAN ZONE', w / 2, h / 2 + 1); }),
+        texturaCanvas(256, 32, function (x, w, h) { x.fillStyle = '#141619'; x.fillRect(0, 0, w, h); x.fillStyle = '#e3343c'; x.font = 'bold 22px Arial'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText('FAN ZONE', w / 2, h / 2 + 1); })
       ];
       var geoPlaca = new T.PlaneGeometry(10, 1.25), passoP = Math.max(2, Math.round(14 / ds)), qPl = new T.Quaternion(), mPl = new T.Matrix4(), sPl = new T.Vector3(1, 1, 1), pPl = new T.Vector3();
       var inst = texPlacas.map(function (tx) { return new T.InstancedMesh(geoPlaca, new T.MeshLambertMaterial({ map: tx, side: T.DoubleSide }), Math.ceil(N / passoP) * 2); }), cont = [0, 0];

@@ -26,18 +26,18 @@ for (const c of window.CATEGORIAS) {
         const ini = new Date(x.d + 'T' + x.h + ':00-03:00'), fim = new Date(ini.getTime() + duracao(x.t) * 60000);
         ev.push(['UID:' + c.slug + '-' + e.e + '-' + x.d + '-' + x.t.replace(/\W+/g, '') + '@naveia', 'DTSTART:' + utc(ini), 'DTEND:' + utc(fim),
           'SUMMARY:' + txt(c.nome + ': ' + x.t + ' (' + e.n + ')'), 'LOCATION:' + txt(onde),
-          'DESCRIPTION:' + txt('Horário de Brasília: ' + x.h.replace(':', 'h') + '. Arena Sports.'),
+          'DESCRIPTION:' + txt('Horário de Brasília: ' + x.h.replace(':', 'h') + '. Fan Zone.'),
           'BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + txt(c.nome + ': ' + x.t + ' em 30 minutos'), 'TRIGGER:-PT30M', 'END:VALARM']);
       }
     } else if (e.d && !e.venc) {
       /* etapa sem horários ainda: evento do dia inteiro, que vira sessões quando os horários saírem */
       const d = e.d.replace(/-/g, ''), dia2 = new Date(e.d + 'T12:00:00Z'); dia2.setUTCDate(dia2.getUTCDate() + 1);
       ev.push(['UID:' + c.slug + '-' + e.e + '-dia@naveia', 'DTSTART;VALUE=DATE:' + d, 'DTEND;VALUE=DATE:' + dia2.toISOString().slice(0, 10).replace(/-/g, ''),
-        'SUMMARY:' + txt(c.nome + ': ' + e.n), 'LOCATION:' + txt(onde), 'DESCRIPTION:' + txt('Horários ainda não divulgados. Arena Sports.')]);
+        'SUMMARY:' + txt(c.nome + ': ' + e.n), 'LOCATION:' + txt(onde), 'DESCRIPTION:' + txt('Horários ainda não divulgados. Fan Zone.')]);
     }
   }
-  const linhas = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Arena Sports//Agenda//PT', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
-    'X-WR-CALNAME:' + txt('Arena Sports: ' + c.nome), 'X-WR-TIMEZONE:America/Sao_Paulo', 'REFRESH-INTERVAL;VALUE=DURATION:PT6H', 'X-PUBLISHED-TTL:PT6H'];
+  const linhas = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Fan Zone//Agenda//PT', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'X-WR-CALNAME:' + txt('Fan Zone: ' + c.nome), 'X-WR-TIMEZONE:America/Sao_Paulo', 'REFRESH-INTERVAL;VALUE=DURATION:PT6H', 'X-PUBLISHED-TTL:PT6H'];
   for (const e of ev) linhas.push('BEGIN:VEVENT', 'DTSTAMP:' + agora, ...e, 'END:VEVENT');
   linhas.push('END:VCALENDAR');
   fs.writeFileSync(path.join(PASTA, c.slug + '.ics'), linhas.map(dobrar).join('\r\n') + '\r\n');

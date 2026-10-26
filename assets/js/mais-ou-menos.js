@@ -65,7 +65,7 @@
       '<div class="mm-duelo">' + cartao(esq, true, 'esq') + '<span class="mm-vs">x</span>' + cartao(dir, revela || fim, 'dir') + '</div>' +
       (fim ? '<div class="av-fim"><p>Errou! ' + esc(dir.nome) + ' tem <b>' + fmt(valor(dir)) + '</b>. Sua sequência: <b>' + pontos + '</b>' + (pontos > 0 && pontos >= rec ? ' (recorde!)' : '') + '.</p>' +
           '<div class="av-botoes"><button type="button" class="ft-btn" data-acao="de-novo">Jogar de novo</button><button type="button" class="ft-btn ft-btn-linha" data-acao="compartilhar" data-txt="' +
-          esc('Arena Sports · Mais ou menos' + (esporte === 'basquete' ? ' (NBA)' : '') + ': acertei ' + pontos + ' seguidos') + '">Compartilhar</button></div></div>'
+          esc('Fan Zone · Mais ou menos' + (esporte === 'basquete' ? ' (NBA)' : '') + ': acertei ' + pontos + ' seguidos') + '">Compartilhar</button></div></div>'
         : '<div class="mm-botoes"><button type="button" class="mm-mais" data-r="mais" ' + (revela ? 'disabled' : '') + '>▲ Mais</button><button type="button" class="mm-menos" data-r="menos" ' + (revela ? 'disabled' : '') + '>▼ Menos</button></div>') +
       '</section>';
     ligar();

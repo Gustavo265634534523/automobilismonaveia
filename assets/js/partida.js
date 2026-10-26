@@ -245,7 +245,7 @@
     var pl = String((j.vivo && j.vivo.p) || j.p || D.p || '').split(/\s*x\s*/), tem = pl[0] !== '';
     if (!D.p && (j.p || (j.vivo && j.vivo.p))) D.p = j.p || j.vivo.p;
     var status = j.vivo ? '<span class="pt-aovivo"><i></i>' + esc(j.vivo.min || 'Ao vivo') + '</span>' : j.p ? 'Encerrado' + (j.pen ? ' · pênaltis ' + esc(j.pen) : '') : (j.d ? quando(j.d) + (j.h ? ', ' + esc(j.h) : '') : '');
-    document.title = casa + ' x ' + fora + ' | Arena Sports';
+    document.title = casa + ' x ' + fora + ' | Fan Zone';
     caixa.innerHTML =
       '<a class="pt-voltar" href="' + (c.slug ? c.slug + '.html#jogos' : basq ? 'basquete.html' : 'futebol.html') + '">‹ ' + esc(c.menu || (basq ? 'Basquete' : 'Futebol')) + (j.fase ? ' · ' + esc(j.fase) : '') + '</a>' +
       '<section class="pt-placar">' +

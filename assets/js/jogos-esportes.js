@@ -28,7 +28,7 @@
     ['quadra', 'basquete-1x1.html', 'Basquete 1x1', 'Você contra o computador em 2 minutos: arremesse, roube e dê o toco.', '', 'basquete'],
     ['monte', 'monte-seu-time.html', 'Monte seu time', 'Seu time dos sonhos contra o do adversário, com os jogadores de hoje.', '', 'futebol'],
     /* os da F1 (jogos.html) */
-    ['corrida', 'jogos.html#corrida', 'Arena Racing', 'Pilote um F1 em 3D contra 11 adversários.', '', 'f1'],
+    ['corrida', 'jogos.html#corrida', 'Fan Zone Racing', 'Pilote um F1 em 3D contra 11 adversários.', '', 'f1'],
     ['largada', 'jogos.html#largada', 'Largada', 'As cinco luzes apagam. Qual é o seu tempo de reação?', '', 'f1'],
     ['circuito', 'jogos.html#circuito', 'Adivinhe o circuito', 'Só o desenho da pista. Você reconhece?', '', 'f1'],
     ['piloto', 'jogos.html#piloto', 'Piloto misterioso', 'Dica por dica, descubra quem é o piloto.', '', 'f1']
