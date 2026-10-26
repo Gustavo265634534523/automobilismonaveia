@@ -7,6 +7,9 @@ const path = require('path');
 const ARQ = path.join(__dirname, '..', 'assets/dados/videos-esportes.js');
 const UA = { headers: { 'User-Agent': 'NaVeia/1.0 (automobilismonaveia.com.br)', 'Accept-Language': 'pt-BR,pt;q=0.9' } };
 
+/* vídeos tirados à mão (.github/videos-bloqueados.txt): não voltam */
+const BLOQ = new Set((() => { try { return require('fs').readFileSync(require('path').join(__dirname, 'videos-bloqueados.txt'), 'utf8'); } catch (e) { return ''; } })()
+  .split('\n').map(l => l.trim().split(/\s+/)[0]).filter(x => x && x[0] !== '#'));
 const COMPS = [
   { comp: 'brasileirao', esporte: 'futebol', nome: 'Brasileirão', canais: ['@CazeTV', '@Brasileirao'], tem: /brasileir/i },
   { comp: 'libertadores', esporte: 'futebol', nome: 'Libertadores', canais: ['@CONMEBOLLibertadores', '@CazeTV', '@CONMEBOL'], tem: /libertadores/i },
@@ -23,7 +26,7 @@ const COMPS = [
 ];
 /* só melhores momentos e gols; entrevistas, coletivas, prévias e transmissões ao vivo ficam de fora */
 const LANCE = /highlights|melhores momentos|resumen|resumo|r[ée]sum[ée]|sintesi|zusammenfassung|\bgols\b|\bgoles\b|\bgoals\b|full game/i;
-const NAO = /#shorts|\bshorts?\b|press|interview|entrevista|coletiva|podcast|trailer|preview|pr[eé]via|ao vivo|en vivo|\blive\b|reaction|react|behind|bastidores|draw|sorteio|mic'?d|top \d+|best of/i;
+const NAO = /\bU1[6-9]\b|\bU2[01]\b|#shorts|\bshorts?\b|press|interview|entrevista|coletiva|podcast|trailer|preview|pr[eé]via|ao vivo|en vivo|\blive\b|reaction|react|behind|bastidores|draw|sorteio|mic'?d|top \d+|best of/i;
 
 const html = s => s.replace(/&amp;/g, '&').replace(/&#39;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 /* "REAL MADRID" -> "Real Madrid" (nomes que vêm todos em maiúsculas) */
@@ -99,6 +102,7 @@ async function feed(id) {
       console.log('videos-esportes:', c.nome, '- nenhum vídeo novo');
     }
   }
+  for (let i = res.length - 1; i >= 0; i--) if (BLOQ.has(res[i].id)) res.splice(i, 1);
   res.sort((a, b) => Date.parse(b.publicado) - Date.parse(a.publicado));
   const novo = '/* Gerado por .github/videos-esportes.js. Não editar à mão. */\nwindow.VIDEOS_ESPORTES = ' + JSON.stringify(res) + ';\nwindow.VIDEOS_ESPORTES_CANAIS = ' + JSON.stringify(ids) + ';\n';
   if (novo === antes) { console.log('videos-esportes: sem novidade'); return; }

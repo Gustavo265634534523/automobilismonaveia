@@ -1,0 +1,13 @@
+# Vídeos do YouTube que não devem aparecer no site (um id por linha; o resto da linha é só lembrete).
+# Lido por .github/videos-esportes.js e .github/video-capa.js.
+YCnxRNmwr-s  Inter 2 x 1 Fiorentina (tirado em 26/10/2026)
+srLm23RUAH0  F1: melhores momentos da corrida, GP dos Estados Unidos
+kxDTghRx_VA  F1: pole de Antonelli, GP dos Estados Unidos
+EQ74or790IM  F1: melhores momentos da classificação, GP dos Estados Unidos
+K7AjpmStxyU  NBA: Kings x Grizzlies
+GZzCjdjsTAo  NBA: 76ers x Pistons
+7BGoRcTXud8  NBA: Thunder x Clippers
+mcXdA_8LaUs  NBA: Timberwolves x Raptors
+sGQDAnXghUE  Euroleague sub-18: Tofas Bursa x Split
+HJqy11R510w  Euroleague sub-18: Kvarner x FMP Belgrade
+X8YCEIMRTuE  Euroleague sub-18: Zentro Basket Madrid x Split

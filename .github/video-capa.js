@@ -62,6 +62,9 @@ function tituloOutro(t) {
 /* além de corrida e classificação, valem lances da pista (batida, ultrapassagem, largada...); bastidores e entrevistas não */
 const LANCE = /Highlights|Full Race|Qualifying|QUALI|CORRIDA|Pole|crash|hit|incident|clash|contact|spin|lock-?up|chaos|mayhem|drama|overtake|move|battle|fight|duel|race start|\bstart\b|lap 1|turn 1|onboard|wins?\b|victory|Race \d|Sprint/i;
 const NAO = /Press|Practice|Behind|Interview|Podcast|Workout|Kids|Answer|Celebration of Life|Build ?Up|Teaser|reveals|Inside|Film Room|Sounds|Memories|Reacts?|Reaction|drummer|photoshop|Merch|Trailer|Preview|Live Stream|ENGLISH|Season(?! Finale)/i;
+/* vídeos tirados à mão (.github/videos-bloqueados.txt): não voltam */
+const BLOQ = new Set((() => { try { return require('fs').readFileSync(require('path').join(__dirname, 'videos-bloqueados.txt'), 'utf8'); } catch (e) { return ''; } })()
+  .split('\n').map(l => l.trim().split(/\s+/)[0]).filter(x => x && x[0] !== '#'));
 async function outros() {
   const res = [];
   for (const c of OUTROS) {
@@ -73,7 +76,7 @@ async function outros() {
       id: (e.match(/<yt:videoId>([^<]+)/) || [])[1],
       original: html((e.match(/<title>([^<]+)/) || [])[1] || ''),
       publicado: (e.match(/<published>([^<]+)/) || [])[1]
-    })).filter(x => x.id && x.publicado && (c.ok.test(x.original) || LANCE.test(x.original)) && !c.fora.test(x.original) && !NAO.test(x.original) && Date.now() - Date.parse(x.publicado) < 7 * 864e5)
+    })).filter(x => x.id && x.publicado && !BLOQ.has(x.id) && (c.ok.test(x.original) || LANCE.test(x.original)) && !c.fora.test(x.original) && !NAO.test(x.original) && Date.now() - Date.parse(x.publicado) < 7 * 864e5)
       .sort((a, b) => (c.ok.test(b.original) - c.ok.test(a.original)) || Date.parse(b.publicado) - Date.parse(a.publicado)).slice(0, 2);
     vs.forEach(v => res.push({ cat: c.cat, nome: c.nome, id: v.id, titulo: tituloOutro(v.original), texto: 'No canal oficial ' + (c.art || 'da') + ' ' + c.nome + '.', original: v.original, publicado: v.publicado }));
   }
@@ -88,10 +91,10 @@ async function outros() {
     id: (e.match(/<yt:videoId>([^<]+)/) || [])[1],
     original: html((e.match(/<title>([^<]+)/) || [])[1] || ''),
     publicado: (e.match(/<published>([^<]+)/) || [])[1]
-  })).filter(v => v.id && v.publicado).map(x => Object.assign(x, traduz(x.original) || {})).filter(x => x.titulo);
+  })).filter(v => v.id && v.publicado && !BLOQ.has(v.id)).map(x => Object.assign(x, traduz(x.original) || {})).filter(x => x.titulo);
   /* lista dos últimos vídeos de classificação e corrida (Central da F1 na página inicial): junta com os que já estavam salvos */
   let antigos = [];
-  try { const w = {}; new Function('window', fs.readFileSync(ARQ, 'utf8'))(w); antigos = w.VIDEOS_F1 || []; } catch (e) {}
+  try { const w = {}; new Function('window', fs.readFileSync(ARQ, 'utf8'))(w); antigos = (w.VIDEOS_F1 || []).filter(x => !BLOQ.has(x.id)); } catch (e) {}
   const vistos = new Set(), lista = videos.map(x => ({ id: x.id, titulo: x.titulo + (gp(x.publicado) ? ' · ' + gp(x.publicado) : ''), texto: x.texto, publicado: x.publicado })).concat(antigos)
     .filter(x => !vistos.has(x.id) && vistos.add(x.id)).sort((a, b) => Date.parse(b.publicado) - Date.parse(a.publicado)).slice(0, 6);
   /* capa: o mais recente dos últimos 3 dias */
