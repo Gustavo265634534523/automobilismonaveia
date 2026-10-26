@@ -163,6 +163,7 @@
     IC.adivinhe = '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"/>';
     IC.comparar = '<path d="M5 20V10M10 20V4M14 20v-7M19 20V8"/>';
     IC.bolao = '<path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 13v4M8 20h8"/>';
+    IC.estrela = '<path d="M12 3.5l2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8-4.2-4.1 5.8-.8z"/>';
     function tile(icone, href, txt) { return '<a class="pm-tile" href="' + href + '">' + ic(icone) + '<span>' + txt + '</span></a>'; }
     var ESP_PAINEL = [
       { slug: 'automobilismo', nome: 'Fórmula 1', icone: 'carro',
@@ -178,13 +179,14 @@
     ].concat(ESPORTES_MENU.map(function (e) {
       return { slug: e.slug, nome: e.nome, icone: e.slug === 'futebol' ? 'bola' : 'cesta',
         atalhos: tile(e.slug === 'futebol' ? 'bola' : 'cesta', e.slug + '.html', 'Tudo de ' + e.nome.toLowerCase()) + tile('agenda', 'fim-de-semana.html#' + e.slug, 'Fim de semana') + tile('noticias', 'resumo.html#' + e.slug, 'Resumo da semana') + tile('troca', 'mercado.html#' + e.slug, 'Mercado') +
-          tile(e.slug === 'futebol' ? 'bola' : 'cesta', 'time.html#' + e.slug, 'Times') +           tile('comparar', 'comparar.html#' + e.slug, 'Comparar jogadores') + tile('bolao', 'bolao.html#' + e.slug, 'Bolão') + tile('jogos', 'jogos-esportes.html#' + e.slug, 'Jogos'),
+          tile(e.slug === 'futebol' ? 'bola' : 'cesta', 'time.html#' + e.slug, 'Times') +           tile('comparar', 'comparar.html#' + e.slug, 'Comparar jogadores') + tile('bolao', 'bolao.html#' + e.slug, 'Bolão') + tile('jogos', 'jogos-esportes.html#' + e.slug, 'Jogos') + tile('estrela', 'meu-time.html', 'Meu time'),
         corpo: '<section class="painel-grupo"><h2>Campeonatos</h2><ul class="painel-lista">' + e.comps.map(function (c) {
           return '<li><a class="painel-cat" href="' + c[0] + '.html"' + (c[0] === atual || c[0] === document.body.getAttribute('data-comp') ? ' aria-current="page"' : '') + '><strong>' + esc(c[1]) + '</strong><span>' + esc(c[2]) + '</span></a></li>';
         }).join('') + '</ul></section>' };
     }));
     var abaPainel = esporteAtual === 'todos' ? 'futebol' : esporteAtual;
     var rapido = '<div class="pm-rapido"><a class="pm-chip" href="inicio.html"' + (inicio ? ' aria-current="page"' : '') + '>' + ic('inicio') + 'Início</a>' +
+      '<a class="pm-chip" href="meu-time.html">' + ic('estrela') + 'Meu time</a>' +
       '<a class="pm-chip" href="#bate-papo">' + ic('chat') + 'Chat</a>' +
       '<button type="button" class="pm-chip" onclick="window.NAVEIA_TROCAR_TEMA()">' + ic('tema') + 'Modo claro/escuro</button></div>';
     painel.innerHTML = '<div class="moldura painel-in">' + rapido +
@@ -205,17 +207,16 @@
     });
     topo.after(painel);
 
-    /* Barra de baixo (só no celular, como nos apps): Início, Agenda, Buscar no meio, Menu e Perfil.
+    /* Barra de baixo (só no celular, como nos apps): Início, Meu time, Buscar no meio, Menu e Perfil.
        No celular o topo fica só com a marca, o tema e o idioma; busca, menu e conta passam para cá. */
     IC.busca = '<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>';
     IC.perfil = '<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/>';
-    var espAgenda = esporteAtual === 'futebol' || esporteAtual === 'basquete' ? '#' + esporteAtual : '';
     var naConta = /conta|entrar|painel/.test(location.pathname);
     var bb = document.createElement('nav');
     bb.className = 'barra-baixo'; bb.setAttribute('aria-label', 'Atalhos');
     bb.innerHTML =
       '<a href="inicio.html"' + (inicio ? ' aria-current="page"' : '') + '>' + ic('inicio') + '<span>Início</span></a>' +
-      '<a href="fim-de-semana.html' + espAgenda + '"' + (/fim-de-semana/.test(location.pathname) ? ' aria-current="page"' : '') + '>' + ic('agenda') + '<span>Agenda</span></a>' +
+      '<a href="meu-time.html"' + (/meu-time/.test(location.pathname) ? ' aria-current="page"' : '') + '>' + ic('estrela') + '<span>Meu time</span></a>' +
       '<a class="bb-meio" href="busca.html"' + (/busca/.test(location.pathname) ? ' aria-current="page"' : '') + '><b>' + ic('busca') + '</b><span>Buscar</span></a>' +
       '<button type="button" class="bb-menu" aria-controls="painel" aria-expanded="false">' + ic('categorias') + '<span>Menu</span></button>' +
       '<a id="bb-perfil" href="entrar.html"' + (naConta ? ' aria-current="page"' : '') + '>' + ic('perfil') + '<span>Entrar</span></a>';
@@ -426,11 +427,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=388'; document.head.appendChild(chatCss);
-    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=388'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
-    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=388'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=388'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=388'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=389'; document.head.appendChild(chatCss);
+    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=389'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=389'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=389'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=389'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var agJs = document.createElement('script'); agJs.src = 'assets/js/avisos-gol.js?v=389'; agJs.defer = true; document.body.appendChild(agJs); /* avisos de gol do meu time (só se ligados) */
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
