@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '25 de outubro de 2026';
+window.ATUALIZADO = '26 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -12,7 +12,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/f1.jpg',
   frase: 'O piloto encontra o limite a 340 km/h.',
   intro: 'Vinte e dois carros, mil cavalos em cada um. Na freada do fim da reta, o corpo pesa cinco vezes mais e o pé direito ainda espera o último metro. A Fórmula 1 decide campeonatos em milésimos.',
-  lider: { nome: 'Kimi Antonelli', info: 'Mercedes, 340 pontos' },
+  lider: { nome: 'Kimi Antonelli', info: 'Mercedes, 365 pontos' },
   noticias: [
     { d: '2026-09-26', t: 'Russell segura Verstappen e vence em Baku', x: 'George Russell ganhou o GP do Azerbaijão com 0s196 de vantagem sobre Max Verstappen, numa corrida com dois safety cars e seis abandonos. Antonelli saiu de 16º, chegou em quinto e ainda lidera por 66 pontos.' },
     { d: '2026-09-26', t: 'Colapinto causa batida tripla na relargada', x: 'O argentino errou a freada na curva 1 e acertou Pierre Gasly, que levou junto Lando Norris. Norris pediu gancho de uma corrida para o piloto da Alpine.' },
@@ -48,7 +48,7 @@ window.CATEGORIAS = [
     { e: 15, n: 'GP do Azerbaijão', l: 'Baku', d: '2026-09-26', s: [{ t: 'Treino livre 1', d: '2026-09-24', h: '05:30' }, { t: 'Treino livre 2', d: '2026-09-24', h: '09:00' }, { t: 'Treino livre 3', d: '2026-09-25', h: '05:30' }, { t: 'Classificação', d: '2026-09-25', h: '09:00' }, { t: 'Corrida', d: '2026-09-26', h: '08:00' }], venc: 'George Russell (Mercedes)' },
     { e: 16, n: 'GP do Bahrein', l: 'Sepang (Malásia)', d: '2026-10-04', nota: 'transferido do Bahrein para a Malásia', s: [{ t: 'Treino livre 1', d: '2026-10-02', h: '01:30' }, { t: 'Treino livre 2', d: '2026-10-02', h: '05:00' }, { t: 'Treino livre 3', d: '2026-10-03', h: '01:30' }, { t: 'Classificação', d: '2026-10-03', h: '05:00' }, { t: 'Corrida', d: '2026-10-04', h: '04:00' }], venc: 'Max Verstappen (Red Bull)' },
     { e: 17, n: 'GP de Singapura', l: 'Marina Bay', d: '2026-10-11', nota: 'primeiro fim de semana de sprint em Singapura', s: [{ t: 'Treino livre 1', d: '2026-10-09', h: '05:30' }, { t: 'Classificação sprint', d: '2026-10-09', h: '09:30' }, { t: 'Sprint', d: '2026-10-10', h: '06:00' }, { t: 'Classificação', d: '2026-10-10', h: '10:00' }, { t: 'Corrida', d: '2026-10-11', h: '09:00' }], venc: 'Max Verstappen (Red Bull)' },
-    { e: 18, n: 'GP dos Estados Unidos', l: 'Austin', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-23', h: '14:30' }, { t: 'Treino livre 2', d: '2026-10-23', h: '18:00' }, { t: 'Treino livre 3', d: '2026-10-24', h: '14:30' }, { t: 'Classificação', d: '2026-10-24', h: '18:00' }, { t: 'Corrida', d: '2026-10-25', h: '17:00' }] },
+    { e: 18, n: 'GP dos Estados Unidos', l: 'Austin', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-23', h: '14:30' }, { t: 'Treino livre 2', d: '2026-10-23', h: '18:00' }, { t: 'Treino livre 3', d: '2026-10-24', h: '14:30' }, { t: 'Classificação', d: '2026-10-24', h: '18:00' }, { t: 'Corrida', d: '2026-10-25', h: '17:00' }], venc: 'Kimi Antonelli (Mercedes)' },
     { e: 19, n: 'GP da Cidade do México', l: 'Hermanos Rodríguez', d: '2026-11-01', s: [{ t: 'Treino livre 1', d: '2026-10-30', h: '15:30' }, { t: 'Treino livre 2', d: '2026-10-30', h: '19:00' }, { t: 'Treino livre 3', d: '2026-10-31', h: '14:30' }, { t: 'Classificação', d: '2026-10-31', h: '18:00' }, { t: 'Corrida', d: '2026-11-01', h: '17:00' }] },
     { e: 20, n: 'GP de São Paulo', l: 'Interlagos', d: '2026-11-08' },
     { e: 21, n: 'GP de Las Vegas', l: 'Las Vegas', d: '2026-11-21' },
@@ -56,12 +56,12 @@ window.CATEGORIAS = [
     { e: 23, n: 'GP de Abu Dhabi', l: 'Yas Marina', d: '2026-12-06' }
   ],
   classificacao: {
-    titulo: 'Pilotos',
+    titulo: 'Pilotos (após o GP dos Estados Unidos)',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
     linhas: [
-      ['1', 'Kimi Antonelli', 'Mercedes', '340'], ['2', 'George Russell', 'Mercedes', '238'],
-      ['3', 'Lewis Hamilton', 'Ferrari', '229'], ['4', 'Max Verstappen', 'Red Bull', '221'],
-      ['5', 'Charles Leclerc', 'Ferrari', '215'], ['6', 'Lando Norris', 'McLaren', '201'],
+      ['1', 'Kimi Antonelli', 'Mercedes', '365'], ['2', 'George Russell', 'Mercedes', '242'],
+      ['3', 'Lewis Hamilton', 'Ferrari', '241'], ['4', 'Max Verstappen', 'Red Bull', '236'],
+      ['5', 'Charles Leclerc', 'Ferrari', '233'], ['6', 'Lando Norris', 'McLaren', '211'],
       ['7', 'Oscar Piastri', 'McLaren', '138'], ['8', 'Isack Hadjar', 'Red Bull', '97'],
       ['9', 'Liam Lawson', 'Racing Bulls', '75'], ['10', 'Pierre Gasly', 'Alpine', '41'],
       ['11', 'Arvid Lindblad', 'Racing Bulls', '38'], ['12', 'Franco Colapinto', 'Alpine', '27'],
@@ -76,7 +76,8 @@ window.CATEGORIAS = [
       titulo: 'Construtores',
       colunas: ['Pos', 'Equipe', 'Pts'],
       linhas: [['1', 'Mercedes', '556'], ['2', 'Ferrari', '405'], ['3', 'McLaren', '316'], ['4', 'Red Bull', '257'], ['5', 'Racing Bulls', '92'], ['6', 'Alpine', '68'], ['7', 'Haas', '27'], ['8', 'Audi', '17'], ['9', 'Williams', '12'], ['10', 'Aston Martin', '7'], ['11', 'Cadillac', '0']]
-    }
+    },
+    nota: 'Antonelli venceu em Austin e chegou a 365 pontos, mas não fechou o título: para ser campeão ali dependia de Russell terminar em 9º ou pior e Hamilton em 5º ou pior, e os dois ficaram na frente disso. A decisão pode ficar para o GP da Cidade do México.'
   },
   equipes: [
     { n: 'Mercedes', i: 'Motor Mercedes', p: ['Kimi Antonelli', 'George Russell'] },
@@ -480,7 +481,7 @@ window.CATEGORIAS = [
     { e: 31, n: 'South Point 400', l: 'Las Vegas', d: '2026-10-04', s: [{ t: 'Treino', d: '2026-10-03', h: '17:30' }, { t: 'Classificação', d: '2026-10-03', h: '18:35' }, { t: 'Corrida', d: '2026-10-04', h: '18:30' }], venc: 'Chase Briscoe' },
     { e: 32, n: 'Bank of America 400', l: 'Charlotte', d: '2026-10-11', s: [{ t: 'Treino', d: '2026-10-10', h: '14:00' }, { t: 'Classificação', d: '2026-10-10', h: '15:05' }, { t: 'Corrida', d: '2026-10-11', h: '16:00' }], venc: 'Chase Briscoe' },
     { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18', s: [{ t: 'Treino e classificação', d: '2026-10-17', h: '17:30' }, { t: 'Corrida', d: '2026-10-18', h: '16:00' }], venc: 'Tyler Reddick' },
-    { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25', s: [{ t: 'Classificação', d: '2026-10-24', h: '14:00' }, { t: 'Corrida', d: '2026-10-25', h: '15:00' }] },
+    { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25', s: [{ t: 'Classificação', d: '2026-10-24', h: '14:00' }, { t: 'Corrida', d: '2026-10-25', h: '15:00' }], venc: 'Kyle Larson' },
     { e: 35, n: 'Xfinity 500', l: 'Martinsville', d: '2026-11-01', s: [{ t: 'Corrida', d: '2026-11-01', h: '16:00' }] },
     { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08' }
   ],
@@ -488,7 +489,7 @@ window.CATEGORIAS = [
     titulo: 'Round of 8, após Phoenix',
     colunas: ['Pos', 'Piloto', 'Equipe'],
     linhas: [['1', 'Kyle Larson', 'Hendrick (Chevrolet)'], ['2', 'Christopher Bell', 'Joe Gibbs (Toyota)'], ['3', 'Chase Briscoe', 'Joe Gibbs (Toyota)'], ['4', 'Denny Hamlin', 'Joe Gibbs (Toyota)'], ['5', 'Ryan Blaney', 'Penske (Ford)'], ['6', 'Joey Logano', 'Penske (Ford)'], ['7', 'Tyler Reddick', '23XI (Toyota)'], ['8', 'Austin Cindric', 'Penske (Ford)']],
-    nota: 'Tyler Reddick venceu o Freeway Insurance 500 em Phoenix. Kyle Larson sofreu um problema no final e caiu para 34º, mas segue na liderança do Round of 8, agora por poucos pontos sobre Christopher Bell. O corte para o Championship 4 só ocorre depois de Martinsville; Phoenix e Talladega não eliminam ninguém.'
+    nota: 'Tyler Reddick venceu o Freeway Insurance 500 em Phoenix. Kyle Larson sofreu um problema no final e caiu para 34º, mas seguiu na liderança do Round of 8. Em Talladega, Larson venceu a corrida e ampliou a vantagem na ponta. O corte para o Championship 4 só ocorre depois de Martinsville; Phoenix e Talladega não eliminam ninguém.'
   },
   equipes: [
     { n: 'Hendrick Motorsports', i: 'Chevrolet', p: ['Kyle Larson', 'Chase Elliott', 'William Byron', 'Alex Bowman'] },
@@ -553,7 +554,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/motogp.jpg',
   frase: 'Cotovelo no asfalto a 60 graus de inclinação.',
   intro: 'Na MotoGP, o piloto pendura o corpo para fora da moto e arrasta o cotovelo na zebra. São 300 cavalos em duas rodas e 360 km/h na reta. Jorge Martín lidera com 12 pontos sobre Marc Márquez, faltando sete etapas.',
-  lider: { nome: 'Jorge Martín', info: 'Aprilia, 355 pontos' },
+  lider: { nome: 'Marc Márquez', info: 'Ducati, 365 pontos' },
   noticias: [
     { d: '2026-09-20', t: 'Acosta vence na Áustria', x: 'Pedro Acosta deu à KTM a primeira vitória do ano em casa, no Red Bull Ring. Cinco pilotos seguem separados por 24 pontos.' },
     { d: '2026-09-13', t: 'Márquez vence em Misano', x: 'Marc Márquez emendou Aragão e San Marino e chegou a 190 pontos, 18 atrás do líder.' },
@@ -577,7 +578,7 @@ window.CATEGORIAS = [
     { e: 15, n: 'GP da Áustria', l: 'Spielberg', d: '2026-09-20', venc: 'Pedro Acosta (KTM)' },
     { e: 16, n: 'GP do Japão', l: 'Motegi', d: '2026-10-04', s: [{ t: 'Treino livre 1', d: '2026-10-01', h: '22:45' }, { t: 'Treino', d: '2026-10-02', h: '03:00' }, { t: 'Treino livre 2', d: '2026-10-02', h: '22:10' }, { t: 'Classificação Q1', d: '2026-10-02', h: '22:50' }, { t: 'Classificação Q2', d: '2026-10-02', h: '23:15' }, { t: 'Sprint', d: '2026-10-03', h: '03:00' }, { t: 'Corrida', d: '2026-10-04', h: '02:00' }], venc: 'Marc Márquez (Ducati)' },
     { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-08', h: '23:45' }, { t: 'Treino', d: '2026-10-09', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-09', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-09', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-10', h: '00:15' }, { t: 'Sprint', d: '2026-10-10', h: '04:00' }, { t: 'Corrida', d: '2026-10-11', h: '04:00' }], venc: 'Marco Bezzecchi (Aprilia)' },
-    { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-22', h: '20:45' }, { t: 'Treino', d: '2026-10-23', h: '01:00' }, { t: 'Treino livre 2', d: '2026-10-23', h: '20:10' }, { t: 'Classificação Q1', d: '2026-10-23', h: '20:50' }, { t: 'Classificação Q2', d: '2026-10-23', h: '21:15' }, { t: 'Sprint', d: '2026-10-24', h: '01:00' }, { t: 'Corrida', d: '2026-10-25', h: '00:00' }], parcial: 'Sprint: Marc Márquez (Ducati)' },
+    { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-22', h: '20:45' }, { t: 'Treino', d: '2026-10-23', h: '01:00' }, { t: 'Treino livre 2', d: '2026-10-23', h: '20:10' }, { t: 'Classificação Q1', d: '2026-10-23', h: '20:50' }, { t: 'Classificação Q2', d: '2026-10-23', h: '21:15' }, { t: 'Sprint', d: '2026-10-24', h: '01:00' }, { t: 'Corrida', d: '2026-10-25', h: '00:00' }], parcial: 'Sprint: Marc Márquez (Ducati)', nota: 'A corrida principal de domingo foi cancelada por causa da chuva forte e da falta de visibilidade para o helicóptero médico decolar; só a Sprint valeu pontos. Jorge Martín caiu na Sprint, fraturou o pulso direito e ficou fora do fim de semana. Foi a despedida de Phillip Island do calendário, que passa a receber a MotoGP em Adelaide a partir de 2027.' },
     { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01', s: [{ t: 'Sprint', d: '2026-10-31', h: '04:00' }, { t: 'Corrida', d: '2026-11-01', h: '04:00' }] },
     { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08' },
     { e: 21, n: 'GP de Portugal', l: 'Portimão', d: '2026-11-22' },
@@ -586,8 +587,8 @@ window.CATEGORIAS = [
   classificacao: {
     titulo: 'Pilotos',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
-    linhas: [['1', 'Jorge Martín', 'Aprilia Racing', '355'], ['2', 'Marc Márquez', 'Ducati Lenovo', '353'], ['3', 'Marco Bezzecchi', 'Aprilia Racing', '309'], ['4', 'Ai Ogura', 'Trackhouse', '259'], ['5', 'Pedro Acosta', 'Red Bull KTM', '258'], ['6', 'Fabio Di Giannantonio', 'VR46', '245'], ['7', 'Raúl Fernández', 'Trackhouse', '236'], ['8', 'Álex Márquez', 'Gresini', '172'], ['9', 'Francesco Bagnaia', 'Ducati Lenovo', '166'], ['10', 'Fermín Aldeguer', 'Gresini', '125'], ['11', 'Enea Bastianini', 'KTM Tech3', '116'], ['12', 'Luca Marini', 'Honda HRC', '104'], ['13', 'Brad Binder', 'Red Bull KTM', '99'], ['14', 'Diogo Moreira', 'LCR Honda', '74'], ['15', 'Fabio Quartararo', 'Yamaha', '66'], ['16', 'Franco Morbidelli', 'VR46', '56'], ['17', 'Johann Zarco', 'LCR Honda', '45'], ['18', 'Joan Mir', 'Honda HRC', '33'], ['19', 'Jack Miller', 'Pramac Yamaha', '28'], ['20', 'Álex Rins', 'Yamaha', '24'], ['21', 'Toprak Razgatlıoğlu', 'Pramac Yamaha', '18'], ['22', 'Maverick Viñales', 'KTM Tech3', '10']],
-    nota: 'Classificação após o GP da Indonésia (etapa 17 de 22). Martín lidera por 2 pontos sobre Márquez.'
+    linhas: [['1', 'Marc Márquez', 'Ducati Lenovo', '365'], ['2', 'Jorge Martín', 'Aprilia Racing', '355'], ['3', 'Marco Bezzecchi', 'Aprilia Racing', '315'], ['4', 'Pedro Acosta', 'Red Bull KTM', '263'], ['5', 'Ai Ogura', 'Trackhouse', '259'], ['6', 'Fabio Di Giannantonio', 'VR46', '252'], ['7', 'Raúl Fernández', 'Trackhouse', '236'], ['8', 'Álex Márquez', 'Gresini', '181'], ['9', 'Francesco Bagnaia', 'Ducati Lenovo', '166'], ['10', 'Fermín Aldeguer', 'Gresini', '125'], ['11', 'Enea Bastianini', 'KTM Tech3', '116'], ['12', 'Luca Marini', 'Honda HRC', '104'], ['13', 'Brad Binder', 'Red Bull KTM', '99'], ['14', 'Diogo Moreira', 'LCR Honda', '74'], ['15', 'Fabio Quartararo', 'Yamaha', '66'], ['16', 'Franco Morbidelli', 'VR46', '56'], ['17', 'Johann Zarco', 'LCR Honda', '45'], ['18', 'Joan Mir', 'Honda HRC', '33'], ['19', 'Jack Miller', 'Pramac Yamaha', '28'], ['20', 'Álex Rins', 'Yamaha', '24'], ['21', 'Toprak Razgatlıoğlu', 'Pramac Yamaha', '18'], ['22', 'Maverick Viñales', 'KTM Tech3', '10']],
+    nota: 'Classificação após a Sprint do GP da Austrália (etapa 18 de 22); a corrida principal foi cancelada por chuva e não valeu pontos. Márquez venceu a Sprint e assumiu a liderança por 10 pontos sobre Martín, que caiu e fraturou o pulso direito.'
   },
   equipes: [
     { n: 'Aprilia Racing', i: 'Aprilia', p: ['Jorge Martín', 'Marco Bezzecchi'] },
