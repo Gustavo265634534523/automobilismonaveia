@@ -9,7 +9,7 @@ const path = require('path');
 const RAIZ = path.join(__dirname, '..');
 const PASTA = path.join(RAIZ, 'assets/dados/partidas');
 const API = 'https://site.api.espn.com/apis/site/v2/sports/';
-const VERSAO = 3; /* sobe quando o arquivo ganha coisa nova: os jogos já encerrados são buscados de novo */
+const VERSAO = 4; /* sobe quando o arquivo ganha coisa nova: os jogos já encerrados são buscados de novo */
 
 const w = {};
 new Function('window', fs.readFileSync(path.join(RAIZ, 'assets/dados/ao-vivo.js'), 'utf8'))(w);
@@ -127,6 +127,27 @@ function basquete(r) {
   return out;
 }
 
+/* mapa de chutes: lances com posição no campo (fieldPositionX/Y da ESPN, de 0 a 1), quando a ESPN manda.
+   Procura nos lances principais e no lance a lance (commentary). x = 0 no próprio gol, 1 no gol do adversário. */
+let comPosicao = 0, semPosicao = 0;
+function chutes(r, casaId) {
+  const vistos = new Set(), out = [];
+  const fontes = [].concat(r.keyEvents || [], (r.commentary || []).map(c => Object.assign({ clock: c.time }, c.play || {})), r.plays || []);
+  for (const k of fontes) {
+    const tipo = String((k.type && (k.type.text || k.type.type)) || k.text || '').toLowerCase();
+    if (!/shot|attempt|goal|header|penalty/.test(tipo) || /goal kick|substitution/.test(tipo)) continue;
+    const x = +k.fieldPositionX, y = +k.fieldPositionY;
+    if (!(x >= 0 && x <= 1 && y >= 0 && y <= 1) || (!x && !y)) { semPosicao++; continue; }
+    comPosicao++;
+    const min = String(((k.clock || {}).displayValue) || ''), chave = min + tipo + x + y;
+    if (vistos.has(chave)) continue; vistos.add(chave);
+    const teamId = (k.team || {}).id, p = (k.participants || []).map(z => pessoa(z.athlete)).filter(Boolean);
+    const res = k.scoringPlay || /goal/.test(tipo) && !/attempt|saved|miss/.test(tipo) ? 'gol' : /saved/.test(tipo) ? 'defendido' : /block/.test(tipo) ? 'bloqueado' : 'fora';
+    out.push({ min, lado: teamId && casaId ? (teamId === casaId ? 'casa' : 'fora') : '', quem: p[0] || '', x: +x.toFixed(3), y: +y.toFixed(3), r: res });
+  }
+  return out;
+}
+
 function gravar(arq, dados) {
   const novo = JSON.stringify(dados);
   if (fs.existsSync(arq) && fs.readFileSync(arq, 'utf8') === novo) return false;
@@ -161,8 +182,9 @@ function gravar(arq, dados) {
     const lances = (r.keyEvents || []).map(lance).filter(Boolean);
     const esc = (r.rosters || []).filter(x => (x.roster || []).length);
     const casa = esc.find(x => x.homeAway === 'home'), fora = esc.find(x => x.homeAway === 'away');
+    const casaId = ((((r.header || {}).competitions || [])[0] || {}).competitors || []).filter(x => x.homeAway === 'home').map(x => x.id)[0];
     const dados = Object.assign(base, {
-      lances, escalacoes: casa && fora ? { casa: escalacao(casa), fora: escalacao(fora) } : null, estatisticas: estatFutebol(r)
+      lances, escalacoes: casa && fora ? { casa: escalacao(casa), fora: escalacao(fora) } : null, estatisticas: estatFutebol(r), chutes: chutes(r, casaId)
     });
     if (!gravar(a.arq, dados)) continue;
     feitos++;
@@ -175,5 +197,6 @@ function gravar(arq, dados) {
     if (!d || Date.now() - Date.parse(d + 'T12:00:00-03:00') > 10 * 864e5) fs.unlinkSync(p);
   }
   if (tiposDesconhecidos.size) console.log('lances ignorados:', [...tiposDesconhecidos].join(' | '));
+  console.log('mapa de chutes: ' + comPosicao + ' lances com posição no campo, ' + semPosicao + ' sem');
   console.log('partidas: ' + alvo.length + ' jogos na janela, ' + feitos + ' arquivos novos ou mudados');
 })();
