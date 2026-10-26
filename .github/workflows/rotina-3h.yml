@@ -1,0 +1,38 @@
+# Rotina de 3 em 3 horas: manda os robôs do site rodarem no ramo de trabalho (claude/brave-cori-ro0omk), um de cada vez.
+# O GitHub só roda horário marcado no ramo principal; este arquivo fica aqui só para isso e não muda o site do main.
+# Um de cada vez porque os robôs dividem a fila "salvar-no-site" (dois pedidos esperando ao mesmo tempo, o mais velho é cancelado).
+name: Rotina 3h (ramo de trabalho)
+on:
+  schedule:
+    - cron: '41 */3 * * *'
+  workflow_dispatch:
+permissions:
+  actions: write
+  contents: read
+concurrency:
+  group: rotina-3h
+  cancel-in-progress: false
+jobs:
+  rodar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 170
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      RAMO: claude/brave-cori-ro0omk
+    steps:
+      - name: Placar, estatísticas, notícias, F1 pós-corrida, elencos e escudos
+        run: |
+          for wf in placar.yml estatisticas.yml noticias-auto.yml f1-pos-corrida.yml jogadores.yml escudos.yml; do
+            antes=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+            echo "::group::$wf"
+            if ! gh workflow run "$wf" --ref "$RAMO"; then echo "Não deu para rodar $wf"; echo "::endgroup::"; continue; fi
+            id=""
+            for i in $(seq 1 18); do
+              sleep 10
+              id=$(gh run list --workflow "$wf" --branch "$RAMO" --event workflow_dispatch --limit 5 --json databaseId,createdAt --jq "[.[] | select(.createdAt >= \"$antes\")][0].databaseId // empty")
+              [ -n "$id" ] && break
+            done
+            if [ -n "$id" ]; then gh run watch "$id" --interval 30 > /dev/null || echo "$wf terminou com erro (segue para o próximo)"; fi
+            echo "::endgroup::"
+          done

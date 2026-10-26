@@ -3,9 +3,8 @@
 # Segredo necessário: TELEGRAM_CHAVE (Settings → Secrets and variables → Actions).
 name: Telegram avisos
 on:
-  # DESLIGADO enquanto o site está fora do ar. No lançamento, volte as duas linhas abaixo:
-  # schedule:
-  #   - cron: '*/5 * * * *'
+  schedule:
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
