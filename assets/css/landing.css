@@ -41,7 +41,7 @@ html:has(body.ld) { overflow: hidden; }
 /* topo */
 .ld-topo { position: fixed; z-index: 6; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: max(20px, env(safe-area-inset-top)) clamp(18px, 4vw, 56px) 0; }
 .ld-marca { display: inline-flex; align-items: center; gap: 10px; color: var(--texto); text-decoration: none; font-weight: 800; letter-spacing: .16em; font-size: 14px; }
-.ld-logo { display: block; width: 38px; height: 28px; background: var(--cor); transition: background .8s ease;
+.ld-logo { display: block; width: 50px; height: 29px; background: var(--cor); transition: background .8s ease;
   -webkit-mask: url(../img/logo/fanzone.png) center / contain no-repeat; mask: url(../img/logo/fanzone.png) center / contain no-repeat; }
 .ld-marca b { color: var(--cor); font-weight: 800; transition: color .8s ease; }
 .ld-nav { display: flex; gap: 6px; padding: 5px; border-radius: 999px; background: rgba(255, 255, 255, .06); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
@@ -122,3 +122,6 @@ html:has(body.ld) { overflow: hidden; }
   .ld-l, .ld-obj img { animation: none !important; }
   .ld-bg, .ld-obj { transition-duration: .01s !important; }
 }
+/* nome Fan Zone: Inter preta e inclinada, como no topo do site */
+.ld-marca { font-weight: 900; font-style: italic; letter-spacing: -.01em; font-size: 19px; }
+.ld-marca b { font-weight: 900; }

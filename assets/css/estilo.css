@@ -1432,8 +1432,8 @@ html.com-cats.com-placar { --topo: 162px; }
 @media (prefers-reduced-motion: reduce) { .pf-rot i, .pf-vivo small i { animation: none; } }
 @media (max-width: 1080px) { html.com-cats.com-placar, html.com-cats.com-placar.com-aviso { --topo: 156px; } }
 
-/* logo: o "A" com o estádio (assets/img/logo/fanzone.png, feito no Higgsfield) usado como máscara, na cor do tema */
-.marca-logo { display: block; width: 34px; height: 25px; flex: none; background: var(--sangue-vivo); transition: background .4s ease;
+/* logo: o ingresso com FZ vazado (assets/img/logo/fanzone.png) usado como máscara, na cor do tema */
+.marca-logo { display: block; width: 46px; height: 27px; flex: none; background: var(--sangue-vivo); transition: background .4s ease;
   -webkit-mask: url(../img/logo/fanzone.png) center / contain no-repeat; mask: url(../img/logo/fanzone.png) center / contain no-repeat; }
 .marca-nome small { color: var(--sangue-vivo); }
 .topo-in .marca-nome small { color: var(--sangue-vivo); }
@@ -1503,3 +1503,8 @@ html { background: var(--asfalto); }
 .topo-pilula .faixa-esp { color: var(--texto-2, var(--cromo)); }
 .topo-pilula .faixa-cat { color: var(--texto-2, var(--cromo)); }
 .topo-pilula .faixa-cat[aria-current] { color: #fff; background: var(--sangue); box-shadow: 0 2px 8px rgba(0, 0, 0, .35); }
+
+/* Nome "FAN ZONE": Inter preta e inclinada, como as letras do logo de ingresso */
+.marca-nome, .topo-pilula .marca-nome, .topo-in .marca-nome { font-family: 'Inter', Arial, sans-serif; font-weight: 900; font-style: italic; font-size: 18px; letter-spacing: -.01em; text-transform: uppercase; }
+.marca-nome small, .topo-in .marca-nome small { display: inline; margin: 0 0 0 4px; font: inherit; letter-spacing: inherit; }
+@media (max-width: 620px) { .marca-nome, .topo-pilula .marca-nome, .topo-in .marca-nome { font-size: 16px; } }
