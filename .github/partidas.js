@@ -9,7 +9,7 @@ const path = require('path');
 const RAIZ = path.join(__dirname, '..');
 const PASTA = path.join(RAIZ, 'assets/dados/partidas');
 const API = 'https://site.api.espn.com/apis/site/v2/sports/';
-const VERSAO = 4; /* sobe quando o arquivo ganha coisa nova: os jogos já encerrados são buscados de novo */
+const VERSAO = 3; /* sobe quando o arquivo ganha coisa nova: os jogos já encerrados são buscados de novo */
 
 const w = {};
 new Function('window', fs.readFileSync(path.join(RAIZ, 'assets/dados/ao-vivo.js'), 'utf8'))(w);

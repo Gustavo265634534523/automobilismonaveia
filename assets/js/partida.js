@@ -22,7 +22,7 @@
   /* jogo que ainda não começou abre no pré-jogo; o que já começou deixa o pré-jogo por último */
   var comecou = function () { return !!(achado && (achado.j.p || achado.j.vivo)); };
   var ABAS = function () {
-    var A = basq ? [['box', 'Placar completo'], ['estatisticas', 'Estatísticas']] : [['campo', achado && achado.j.vivo ? 'Ao vivo' : 'Campo'], ['lances', 'Lance a lance'], ['escalacoes', 'Escalações'], ['estatisticas', 'Estatísticas']];
+    var A = basq ? [['box', 'Placar completo'], ['estatisticas', 'Estatísticas']] : [['lances', 'Lance a lance'], ['escalacoes', 'Escalações'], ['estatisticas', 'Estatísticas']];
     return comecou() ? A.concat([['prejogo', 'Pré-jogo']]) : [['prejogo', 'Pré-jogo']].concat(A);
   };
   var aba = (location.hash || '').slice(1), dados = null;
@@ -255,9 +255,8 @@
         '<a class="pt-time" href="' + window.linkTime(fora) + '">' + window.escudoTime(fora, 'pt-escudo') + '<b>' + esc(fora) + '</b></a>' +
       '</section>' + (basq ? quartos(D) : '') +
       '<div class="ft-abas pt-abas" role="tablist">' + ABAS().map(function (a) { return '<button type="button" role="tab" data-aba="' + a[0] + '" aria-selected="' + (aba === a[0]) + '">' + a[1] + '</button>'; }).join('') + '</div>' +
-      '<div class="pt-corpo">' + (aba === 'prejogo' ? prejogo(D) : aba === 'campo' && window.PARTIDA_CAMPO ? window.PARTIDA_CAMPO.html(D, j) : aba === 'lances' ? lances(D) : aba === 'escalacoes' ? escalacoes(D) : aba === 'box' ? box(D) : estatisticas(D)) + '</div>' +
+      '<div class="pt-corpo">' + (aba === 'prejogo' ? prejogo(D) : aba === 'lances' ? lances(D) : aba === 'escalacoes' ? escalacoes(D) : aba === 'box' ? box(D) : estatisticas(D)) + '</div>' +
       '<p class="pt-fonte">Dados: ESPN. Atualizado sozinho' + (j.vivo ? ' durante o jogo' : '') + '.</p>';
-    if (aba === 'campo' && window.PARTIDA_CAMPO) window.PARTIDA_CAMPO.iniciar(caixa, D, j, linhas);
     [].forEach.call(caixa.querySelectorAll('.pt-abas button'), function (b) {
       b.addEventListener('click', function () { aba = b.getAttribute('data-aba'); history.replaceState(null, '', '#' + aba); pintar(); });
     });
@@ -270,6 +269,4 @@
   buscar();
   /* jogo rolando ou para começar: busca de novo a cada 2 minutos */
   setInterval(function () { if (!document.hidden && achado && !achado.j.p) buscar(); }, 120e3);
-  /* placar e minuto do jogo rolando (esportes-mais.js busca na ESPN a cada minuto) */
-  if (window.aoMudarPlacar) window.aoMudarPlacar(function () { if (achado && achado.j.vivo) pintar(); });
 })();
