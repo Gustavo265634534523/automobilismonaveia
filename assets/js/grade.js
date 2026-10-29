@@ -49,7 +49,9 @@
   function atualizar() {
     G.n[JB.hoje + ':' + esporte] = numero() + 1;
     Object.keys(G.n).forEach(function (k) { if (k.slice(0, 10) !== JB.hoje) delete G.n[k]; });
-    casa = null; aviso = ''; salvar(); pintar();
+    /* a grade nova começa vazia: não pode herdar os chutes da anterior (antes salvar() gravava a grade velha com o nome da nova) */
+    delete G.dia[chave()];
+    casa = null; aviso = ''; JB.guardar('arena-grade', G); pintar();
   }
   function acabou() { return estado.chutes >= CHUTES || Object.keys(estado.casas).length >= 9; }
   function rotulo(k) {
