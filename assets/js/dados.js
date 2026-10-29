@@ -1,8 +1,8 @@
-/* Dados das categorias. Atualizado em 28/10/2026.
+/* Dados das categorias. Atualizado em 29/10/2026.
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '28 de outubro de 2026';
+window.ATUALIZADO = '29 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -50,7 +50,7 @@ window.CATEGORIAS = [
     { e: 17, n: 'GP de Singapura', l: 'Marina Bay', d: '2026-10-11', nota: 'primeiro fim de semana de sprint em Singapura', s: [{ t: 'Treino livre 1', d: '2026-10-09', h: '05:30' }, { t: 'Classificação sprint', d: '2026-10-09', h: '09:30' }, { t: 'Sprint', d: '2026-10-10', h: '06:00' }, { t: 'Classificação', d: '2026-10-10', h: '10:00' }, { t: 'Corrida', d: '2026-10-11', h: '09:00' }], venc: 'Max Verstappen (Red Bull)' },
     { e: 18, n: 'GP dos Estados Unidos', l: 'Austin', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-23', h: '14:30' }, { t: 'Treino livre 2', d: '2026-10-23', h: '18:00' }, { t: 'Treino livre 3', d: '2026-10-24', h: '14:30' }, { t: 'Classificação', d: '2026-10-24', h: '18:00' }, { t: 'Corrida', d: '2026-10-25', h: '17:00' }], venc: 'Kimi Antonelli (Mercedes)' },
     { e: 19, n: 'GP da Cidade do México', l: 'Hermanos Rodríguez', d: '2026-11-01', s: [{ t: 'Treino livre 1', d: '2026-10-30', h: '15:30' }, { t: 'Treino livre 2', d: '2026-10-30', h: '19:00' }, { t: 'Treino livre 3', d: '2026-10-31', h: '14:30' }, { t: 'Classificação', d: '2026-10-31', h: '18:00' }, { t: 'Corrida', d: '2026-11-01', h: '17:00' }] },
-    { e: 20, n: 'GP de São Paulo', l: 'Interlagos', d: '2026-11-08' },
+    { e: 20, n: 'GP de São Paulo', l: 'Interlagos', d: '2026-11-08', nota: 'pela primeira vez desde 2021, o GP de São Paulo não faz parte do calendário de sprints da F1 em 2026; o fim de semana volta ao formato tradicional', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '12:30' }, { t: 'Treino livre 2', d: '2026-11-06', h: '16:00' }, { t: 'Treino livre 3', d: '2026-11-07', h: '11:30' }, { t: 'Classificação', d: '2026-11-07', h: '15:00' }, { t: 'Corrida', d: '2026-11-08', h: '14:00' }] },
     { e: 21, n: 'GP de Las Vegas', l: 'Las Vegas', d: '2026-11-21' },
     { e: 22, n: 'GP do Catar', l: 'Lusail', d: '2026-11-29' },
     { e: 23, n: 'GP de Abu Dhabi', l: 'Yas Marina', d: '2026-12-06' }
@@ -351,7 +351,7 @@ window.CATEGORIAS = [
     { e: 5, n: 'Lone Star Le Mans', l: 'Austin', d: '2026-09-06', venc: 'Ferrari #50' },
     { e: 6, n: '6 Horas de Fuji', l: 'Fuji', d: '2026-09-27', venc: 'Toyota #8' },
     { e: 7, n: '6 Horas de Barcelona', l: 'Montmeló', d: '2026-10-18', s: [{ t: 'Treino livre 1', d: '2026-10-16', h: '06:30' }, { t: 'Treino livre 2', d: '2026-10-16', h: '11:30' }, { t: 'Treino livre 3', d: '2026-10-17', h: '03:50' }, { t: 'Classificação LMGT3', d: '2026-10-17', h: '06:50' }, { t: 'Hyperpole LMGT3', d: '2026-10-17', h: '07:10' }, { t: 'Classificação Hypercar', d: '2026-10-17', h: '10:40' }, { t: 'Hyperpole Hypercar', d: '2026-10-17', h: '11:00' }, { t: 'Corrida', d: '2026-10-18', h: '07:00' }], nota: 'Toyota venceu com um 1-2 (#8 e #7) e fechou o título de construtores antes da última etapa, em Monza.', venc: 'Toyota #8' },
-    { e: 8, n: '6 Horas de Monza', l: 'Monza', d: '2026-11-08' }
+    { e: 8, n: '6 Horas de Monza', l: 'Monza', d: '2026-11-08', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '06:30' }, { t: 'Treino livre 2', d: '2026-11-06', h: '10:30' }, { t: 'Treino livre 3', d: '2026-11-07', h: '06:30' }, { t: 'Classificação LMGT3', d: '2026-11-07', h: '10:20' }, { t: 'Hyperpole LMGT3', d: '2026-11-07', h: '10:40' }, { t: 'Classificação Hypercar', d: '2026-11-07', h: '11:00' }, { t: 'Hyperpole Hypercar', d: '2026-11-07', h: '11:20' }, { t: 'Corrida', d: '2026-11-08', h: '07:00' }] }
   ],
   classificacao: {
     titulo: 'Hypercar, pilotos',
@@ -482,8 +482,8 @@ window.CATEGORIAS = [
     { e: 32, n: 'Bank of America 400', l: 'Charlotte', d: '2026-10-11', s: [{ t: 'Treino', d: '2026-10-10', h: '14:00' }, { t: 'Classificação', d: '2026-10-10', h: '15:05' }, { t: 'Corrida', d: '2026-10-11', h: '16:00' }], venc: 'Chase Briscoe' },
     { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18', s: [{ t: 'Treino e classificação', d: '2026-10-17', h: '17:30' }, { t: 'Corrida', d: '2026-10-18', h: '16:00' }], venc: 'Tyler Reddick' },
     { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25', s: [{ t: 'Classificação', d: '2026-10-24', h: '14:00' }, { t: 'Corrida', d: '2026-10-25', h: '15:00' }], venc: 'Kyle Larson' },
-    { e: 35, n: 'Xfinity 500', l: 'Martinsville', d: '2026-11-01', s: [{ t: 'Corrida', d: '2026-11-01', h: '16:00' }] },
-    { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08' }
+    { e: 35, n: 'Xfinity 500', l: 'Martinsville', d: '2026-11-01', s: [{ t: 'Classificação', d: '2026-10-31', h: '15:05' }, { t: 'Corrida', d: '2026-11-01', h: '16:00' }] },
+    { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08', s: [{ t: 'Corrida', d: '2026-11-08', h: '17:00' }] }
   ],
   classificacao: {
     titulo: 'Round of 8, após Phoenix',
@@ -579,7 +579,7 @@ window.CATEGORIAS = [
     { e: 16, n: 'GP do Japão', l: 'Motegi', d: '2026-10-04', s: [{ t: 'Treino livre 1', d: '2026-10-01', h: '22:45' }, { t: 'Treino', d: '2026-10-02', h: '03:00' }, { t: 'Treino livre 2', d: '2026-10-02', h: '22:10' }, { t: 'Classificação Q1', d: '2026-10-02', h: '22:50' }, { t: 'Classificação Q2', d: '2026-10-02', h: '23:15' }, { t: 'Sprint', d: '2026-10-03', h: '03:00' }, { t: 'Corrida', d: '2026-10-04', h: '02:00' }], venc: 'Marc Márquez (Ducati)' },
     { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-08', h: '23:45' }, { t: 'Treino', d: '2026-10-09', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-09', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-09', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-10', h: '00:15' }, { t: 'Sprint', d: '2026-10-10', h: '04:00' }, { t: 'Corrida', d: '2026-10-11', h: '04:00' }], venc: 'Marco Bezzecchi (Aprilia)' },
     { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-22', h: '20:45' }, { t: 'Treino', d: '2026-10-23', h: '01:00' }, { t: 'Treino livre 2', d: '2026-10-23', h: '20:10' }, { t: 'Classificação Q1', d: '2026-10-23', h: '20:50' }, { t: 'Classificação Q2', d: '2026-10-23', h: '21:15' }, { t: 'Sprint', d: '2026-10-24', h: '01:00' }, { t: 'Corrida', d: '2026-10-25', h: '00:00' }], parcial: 'Sprint: Marc Márquez (Ducati)', nota: 'A corrida principal de domingo foi cancelada por causa da chuva forte e da falta de visibilidade para o helicóptero médico decolar; só a Sprint valeu pontos. Jorge Martín caiu na Sprint, fraturou o pulso direito e ficou fora do fim de semana. Foi a despedida de Phillip Island do calendário, que passa a receber a MotoGP em Adelaide a partir de 2027.' },
-    { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01', s: [{ t: 'Sprint', d: '2026-10-31', h: '04:00' }, { t: 'Corrida', d: '2026-11-01', h: '04:00' }] },
+    { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01', s: [{ t: 'Treino livre 1', d: '2026-10-29', h: '23:45' }, { t: 'Treino', d: '2026-10-30', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-30', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-30', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-31', h: '00:15' }, { t: 'Sprint', d: '2026-10-31', h: '04:00' }, { t: 'Corrida', d: '2026-11-01', h: '04:00' }] },
     { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08' },
     { e: 21, n: 'GP de Portugal', l: 'Portimão', d: '2026-11-22' },
     { e: 22, n: 'GP de Valência', l: 'Ricardo Tormo', d: '2026-11-29' }
