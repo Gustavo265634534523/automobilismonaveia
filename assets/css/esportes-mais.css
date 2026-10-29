@@ -999,3 +999,6 @@ html.b1-travado, html.b1-travado body { overflow: hidden; }
 .ag-aviso b { font-size: 17px; }
 .ag-aviso span { font-size: 15px; color: #d1d5db; }
 .ag-aviso small { font-size: 12px; color: #93c5fd; }
+/* Escudo misterioso: dica do campeonato e da primeira letra */
+.es-dica { margin: 4px 0 12px; text-align: center; font-size: 15px; color: var(--texto-2, var(--cromo)); }
+.es-dica b { color: var(--sangue-vivo); }
