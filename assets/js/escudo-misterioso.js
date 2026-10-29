@@ -1,13 +1,14 @@
 /* Escudo misterioso (escudo-misterioso.html): o escudo aparece borrado, em preto e branco e de perto. A cada erro ele
    fica mais nítido. São 5 tentativas para acertar o time. Futebol (times dos campeonatos do site) e basquete
    (NBA, NBB e Euroleague), só os que têm escudo. Começa no escudo do dia (o mesmo para todo mundo); "Próximo escudo"
-   sorteia outro. Dicas: o campeonato desde o começo e, depois do 2º erro, a primeira letra. */
+   sorteia outro. Dicas: o campeonato desde o começo e, depois do 2º erro, a primeira letra.
+   Às vezes o escudo vem pela metade ou de cabeça para baixo (até o 3º erro; depois aparece inteiro). */
 (function () {
   var caixa = document.getElementById('em'), JB = window.JOGOS_BASE;
   if (!caixa || !JB || !window.todosTimes) return;
   var esc = window.esc, norm = JB.norm, TENTATIVAS = 5;
   /* do mais difícil ao mais fácil: borrão, zoom e cor */
-  var NIVEL = [[6, 1.45, .3], [4, 1.3, .1], [2.5, 1.15, 0], [1.2, 1.05, 0], [.5, 1, 0], [0, 1, 0]];
+  var NIVEL = [[10, 1.7, .6], [7.5, 1.5, .4], [5, 1.3, .2], [2.5, 1.12, 0], [1, 1, 0], [0, 1, 0]];
   var esporte = JB.esporteDaPagina(), G = JB.ler('arena-escudo', null) || { dia: {}, placar: {} };
   G.n = G.n || {}; /* quantos "Próximo escudo" a pessoa pediu hoje, por esporte (0 = o escudo do dia) */
   var atual = null, tentativas = [];
@@ -39,13 +40,17 @@
     if (!L.length) { caixa.innerHTML = JB.topo(esporte, '', false, 'circuito') + '<p class="pt-vazio">Sem escudos para jogar agora.</p>'; ligar(); return; }
     carregar();
     var fim = acabou(), ganhou = tentativas.some(certo), n = fim ? NIVEL.length - 1 : Math.min(tentativas.length, NIVEL.length - 1), v = NIVEL[n];
+    /* truque do escudo (sempre o mesmo para o mesmo escudo): 0 normal, 1 metade, 2 de cabeça para baixo */
+    var sorte = JB.semente(chave() + ':truque'), truque = fim || tentativas.length >= 3 ? 0 : [0, 0, 1, 1, 2, 2, 2][sorte % 7];
+    var metade = ['inset(0 50% 0 0)', 'inset(0 0 0 50%)', 'inset(0 0 50% 0)', 'inset(50% 0 0 0)'][Math.floor(sorte / 7) % 4];
+    var estilo = 'filter:blur(' + v[0] + 'px) grayscale(' + v[2] + ');transform:scale(' + v[1] + ')' + (truque === 2 ? ' rotate(180deg)' : '') + ';' + (truque === 1 ? 'clip-path:' + metade + ';' : '');
     var P = G.placar[esporte] || { jogos: 0, acertos: 0, seq: 0, melhor: 0 };
     var compart = 'Fan Zone · Escudo misterioso' + (numero() ? '' : ' do dia') + (esporte === 'basquete' ? ' (basquete)' : '') + ': ' + (ganhou ? tentativas.length : 'X') + '/' + TENTATIVAS + ' ' +
       tentativas.map(function (t) { return certo(t) ? '🟩' : '🟥'; }).join('');
     caixa.innerHTML = JB.topo(esporte, '', false, 'circuito') +
       '<section class="av-jogo es-jogo"><header><h2>De quem é esse escudo?</h2><p>A cada erro, o escudo fica mais nítido. ' + TENTATIVAS + ' tentativas.</p></header>' +
       (fim ? '' : '<p class="es-dica">' + (atual.comp ? 'Campeonato: <b>' + esc(atual.comp) + '</b>' : '') + (tentativas.length >= 2 ? (atual.comp ? ' · ' : '') + 'Começa com <b>' + esc(atual.nome.charAt(0)) + '</b>' : '') + '</p>') +
-      '<div class="es-moldura"><div class="es-img" role="img" aria-label="Escudo escondido" style="background-image:url(\'' + atual.img + '\');filter:blur(' + v[0] + 'px) grayscale(' + v[2] + ');transform:scale(' + v[1] + ')"></div></div>' +
+      '<div class="es-moldura"><div class="es-img" role="img" aria-label="Escudo escondido" style="background-image:url(\'' + atual.img + '\');' + estilo + '"></div></div>' + (truque ? '<p class="es-truque">' + (truque === 1 ? 'Só metade do escudo aparece' : 'O escudo está de cabeça para baixo') + ' (até o 3º erro).</p>' : '') +
       (tentativas.length ? '<ul class="av-tentativas">' + tentativas.map(function (t) { return '<li class="' + (certo(t) ? 'av-certo' : 'av-errado') + '">' + (certo(t) ? '✓ ' : '✕ ') + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
       (fim ? '<div class="av-fim' + (ganhou ? ' av-ganhou' : '') + '"><p>' + (ganhou ? (tentativas.length === 1 ? 'De primeira! ' : 'Acertou em ' + tentativas.length + '! ') : 'Não foi dessa vez. ') + 'É o <b>' + esc(atual.nome) + '</b>.</p>' +
           '<div class="av-placar"><span><b>' + P.acertos + '</b>acertos</span><span><b>' + P.jogos + '</b>jogos</span><span><b>' + P.seq + '</b>seguidos</span><span><b>' + P.melhor + '</b>melhor sequência</span></div>' +
