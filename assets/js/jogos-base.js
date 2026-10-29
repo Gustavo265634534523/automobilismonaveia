@@ -26,7 +26,9 @@
     if (!timeAtual) montarTimeAtual();
     return cache[esp] = ((window.ADIVINHE || {})[esp] || []).map(function (x) {
       /* só nome com sobrenome e sem xará conhecido: "Marcelo" sozinho casaria com outro jogador */
-      var clubes = x[3].slice(), agora = /\s/.test(x[0]) && x[5] !== 'xará' ? timeAtual[esp + ':' + norm(x[0])] : '';
+      var k = norm(x[0]), clubes = x[3].slice();
+      /* time atual: nome de uma palavra só vale quando veio do resumo do robô (times-atuais.js já confere que é um jogador só) */
+      var agora = x[5] === 'xará' ? '' : /\s/.test(x[0]) ? timeAtual[esp + ':' + k] : (esp === 'futebol' && window.TIMES_ATUAIS && window.TIMES_ATUAIS[k]) || '';
       if (agora && norm(agora) !== norm(clubes[clubes.length - 1])) clubes.push(agora);
       return { nome: x[0], pais: x[1], pos: x[2], clubes: clubes, aceitos: [x[0]].concat(x[4] || []).map(norm) };
     });
