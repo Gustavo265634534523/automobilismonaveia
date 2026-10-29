@@ -98,9 +98,9 @@
     var fx = x + ol * o.cabeca * 0.32;
     ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.ellipse(fx - 7, cy - 2, 5, 6, 0, 0, 7); ctx.ellipse(fx + 7, cy - 2, 5, 6, 0, 0, 7); ctx.fill();
     ctx.fillStyle = '#1b1b1b'; ctx.beginPath(); ctx.arc(fx - 7 + ol * 2, cy - 1, 2.6, 0, 7); ctx.arc(fx + 7 + ol * 2, cy - 1, 2.6, 0, 7); ctx.fill();
-    ctx.strokeStyle = o.sobrancelha || '#2b1a10'; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(fx - 12, cy - 11 + (o.bravo ? 2 : 0)); ctx.lineTo(fx - 3, cy - 10); ctx.moveTo(fx + 3, cy - 10); ctx.lineTo(fx + 12, cy - 11 + (o.bravo ? 2 : 0)); ctx.stroke();
-    ctx.strokeStyle = 'rgba(80,40,20,.55)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(fx + ol * 2, cy + 5, 3, -0.3, Math.PI * 0.6); ctx.stroke();
-    ctx.strokeStyle = '#6b2b1a'; ctx.lineWidth = 2.2; ctx.beginPath();
+    ctx.strokeStyle = o.sobrancelha || '#120a06'; ctx.lineWidth = 2.4; ctx.beginPath(); ctx.moveTo(fx - 12, cy - 11 + (o.bravo ? 2 : 0)); ctx.lineTo(fx - 3, cy - 10); ctx.moveTo(fx + 3, cy - 10); ctx.lineTo(fx + 12, cy - 11 + (o.bravo ? 2 : 0)); ctx.stroke();
+    ctx.strokeStyle = 'rgba(25,12,6,.65)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(fx + ol * 2, cy + 5, 3, -0.3, Math.PI * 0.6); ctx.stroke();
+    ctx.strokeStyle = '#2a110a'; ctx.lineWidth = 2.2; ctx.beginPath();
     if (o.boca === 'grita') { ctx.fillStyle = '#5a1a12'; ctx.ellipse(fx, cy + 13, 5, 4, 0, 0, 7); ctx.fill(); } else { ctx.arc(fx, cy + 9, 6, 0.25, Math.PI - 0.25); ctx.stroke(); }
     if (o.barba) { ctx.fillStyle = 'rgba(30,20,10,.35)'; ctx.beginPath(); ctx.arc(x, cy + 4, o.cabeca - 3, 0.15, Math.PI - 0.15); ctx.fill(); }
   }

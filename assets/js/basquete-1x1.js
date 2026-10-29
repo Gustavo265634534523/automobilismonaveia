@@ -235,9 +235,9 @@
     ctx.strokeStyle = '#fb923c'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(k.x - 24, ARO_Y - 1.5); ctx.lineTo(k.tabela, ARO_Y - 1.5); ctx.stroke();
   }
   var VISUAL = {
-    voce: { pernas: 36, tronco: 36, cabeca: 24, pele: '#d9a27a', peleClara: '#f0c49e', cabelo: '#2b1a10', estilo: 'curto',
+    voce: { pernas: 36, tronco: 36, cabeca: 24, pele: '#6b4226', peleClara: '#8d5a36', cabelo: '#0f0a07', estilo: 'curto',
       kit: { camisa: '#3b82f6', camisaSombra: '#1d4ed8', calcao: '#3b82f6', meiao: '#f8fafc', chuteira: '#f8fafc', numero: '10', manga: false } },
-    cpu: { pernas: 36, tronco: 36, cabeca: 24, pele: '#8d5524', peleClara: '#b0703c', cabelo: '#111', estilo: 'black', bravo: true,
+    cpu: { pernas: 36, tronco: 36, cabeca: 24, pele: '#4f2f1c', peleClara: '#6e4428', cabelo: '#0f0a07', estilo: 'black', bravo: true,
       kit: { camisa: '#ef4444', camisaSombra: '#b91c1c', calcao: '#ef4444', meiao: '#111827', chuteira: '#111827', numero: '23', manga: false } }
   };
   /* barra do especial no canto da quadra; pisca quando está cheia */
