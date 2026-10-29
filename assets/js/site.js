@@ -428,12 +428,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=399'; document.head.appendChild(chatCss);
-    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=399'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
-    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=399'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=399'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=399'; alertaJs.defer = true; document.body.appendChild(alertaJs);
-    var agJs = document.createElement('script'); agJs.src = 'assets/js/avisos-gol.js?v=399'; agJs.defer = true; document.body.appendChild(agJs); /* avisos de gol do meu time (só se ligados) */
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=400'; document.head.appendChild(chatCss);
+    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=400'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=400'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=400'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=400'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var agJs = document.createElement('script'); agJs.src = 'assets/js/avisos-gol.js?v=400'; agJs.defer = true; document.body.appendChild(agJs); /* avisos de gol do meu time (só se ligados) */
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
