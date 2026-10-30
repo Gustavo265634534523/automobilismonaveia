@@ -1,8 +1,8 @@
-/* Dados das categorias. Atualizado em 29/10/2026.
+/* Dados das categorias. Atualizado em 30/10/2026.
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '29 de outubro de 2026';
+window.ATUALIZADO = '30 de outubro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
