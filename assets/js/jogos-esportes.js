@@ -13,6 +13,7 @@
     quadra: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6a9 9 0 0 1 0 12.8M18.4 5.6a9 9 0 0 0 0 12.8"/>',
     campo: '<rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M12 5v14"/><circle cx="12" cy="12" r="2.5"/><path d="M3 9.5h2.5v5H3M21 9.5h-2.5v5H21"/>',
     monte: '<path d="M8 3l-5 3 2 4 3-1v12h8V9l3 1 2-4-5-3a4 4 0 0 1-8 0z"/>',
+    equipe: '<path d="M4 20v-2a4 4 0 0 1 4-4h2a4 4 0 0 1 4 4v2"/><circle cx="9" cy="8" r="3.2"/><path d="M16 11.5a3 3 0 1 0 0-6M20 20v-2a4 4 0 0 0-3-3.9"/>',
     corrida: '<path d="M3 15.5l1.8-4.8A2 2 0 0 1 6.7 9.4h9.1a2 2 0 0 1 1.6.8l2.6 3.3H21v2H3z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/>',
     largada: '<circle cx="5" cy="12" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="15" cy="12" r="2"/><circle cx="20" cy="12" r="2"/>',
     circuito: '<path d="M5 18c-2-3 0-7 3-7h4c2 0 2-3 0-4s-1-3 2-3 6 2 5 6-3 4-5 5-1 3 1 4-1 3-4 2-4-1-6-3z"/>',
@@ -28,6 +29,7 @@
     ['quadra', 'basquete-1x1.html', 'Basquete 1x1', 'Você contra o computador em 2 minutos: arremesse, roube e dê o toco.', '', 'basquete'],
     ['monte', 'monte-seu-time.html', 'Monte seu time', 'Seu time dos sonhos contra o do adversário, com os jogadores de hoje.', '', 'futebol'],
     /* os da F1 (jogos.html) */
+    ['equipe', 'equipe-f1.html', 'Monte sua equipe', 'Seja dono de uma equipe: contrate pilotos e engenheiros dentro do orçamento.', '', 'f1'],
     ['corrida', 'jogos.html#corrida', 'Fan Zone Racing', 'Pilote um F1 em 3D contra 11 adversários.', '', 'f1'],
     ['largada', 'jogos.html#largada', 'Largada', 'As cinco luzes apagam. Qual é o seu tempo de reação?', '', 'f1'],
     ['circuito', 'jogos.html#circuito', 'Adivinhe o circuito', 'Só o desenho da pista. Você reconhece?', '', 'f1'],
