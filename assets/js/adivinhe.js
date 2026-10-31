@@ -1,25 +1,30 @@
 /* Adivinhe o jogador (adivinhe.html): aparecem todos os clubes por onde ele passou, em ordem, e a pessoa tem 5
    tentativas para acertar quem é. A cada erro, uma dica nova (país, posição, iniciais, tamanho do nome).
-   Futebol e NBA, no desafio do dia (o mesmo para todo mundo) ou no treino (um atrás do outro).
+   Futebol e NBA. Começa no jogador do dia (o mesmo para todo mundo); "Próximo jogador" sorteia outro.
    Trajetórias: jogos-base.js (assets/dados/adivinhe.js com o time atual conferido nos dados da temporada). */
 (function () {
   var caixa = document.getElementById('av'), JB = window.JOGOS_BASE;
   if (!caixa || !JB || !window.ADIVINHE) return;
   var esc = window.esc, norm = JB.norm, TENTATIVAS = 5;
-  var esporte = JB.esporteDaPagina(), modo = 'dia', treino = {}, tentativas = [], atual = null;
+  var esporte = JB.esporteDaPagina(), tentativas = [], atual = null;
 
   var CHAVE = 'arena-adivinhe', G = JB.ler(CHAVE, null) || { dia: {}, placar: {} };
   function guardar() { JB.guardar(CHAVE, G); }
   function doDia(esp) { var L = JB.trajetorias(esp); return L[JB.semente(JB.hoje + esp) % L.length]; }
   function placar(esp) { return G.placar[esp] = G.placar[esp] || { jogos: 0, acertos: 0, seq: 0, melhor: 0 }; }
-  function sortear() {
-    var L = JB.trajetorias(esporte), ant = treino[esporte], x;
-    do { x = L[Math.floor(Math.random() * L.length)]; } while (L.length > 1 && x === ant);
-    treino[esporte] = x; tentativas = [];
-  }
+  G.n = G.n || {}; /* quantos "Próximo jogador" a pessoa pediu hoje, por esporte (0 = o jogador do dia) */
+  function numero() { return G.n[JB.hoje + ':' + esporte] || 0; }
+  function chave() { var n = numero(); return JB.hoje + ':' + esporte + (n ? ':' + n : ''); }
   function carregar() {
-    if (modo === 'dia') { atual = doDia(esporte); var d = G.dia[JB.hoje + ':' + esporte]; tentativas = d ? d.t.slice() : []; }
-    else { if (!treino[esporte]) sortear(); atual = treino[esporte]; }
+    var n = numero(), L = JB.trajetorias(esporte);
+    atual = n ? L[JB.semente(JB.hoje + esporte + ':' + n) % L.length] : doDia(esporte);
+    var d = G.dia[chave()]; tentativas = d ? d.t.slice() : [];
+  }
+  function proximo() {
+    G.n[JB.hoje + ':' + esporte] = numero() + 1;
+    Object.keys(G.n).forEach(function (k) { if (k.slice(0, 10) !== JB.hoje) delete G.n[k]; });
+    delete G.dia[chave()]; guardar(); pintar();
+    var q = document.getElementById('av-q'); if (q) q.focus();
   }
   /* certo: o nome dele ou de outro com a mesma trajetória */
   function certo(palpite) {
@@ -45,18 +50,18 @@
   function resultado() {
     var ganhou = tentativas.some(certo), n = tentativas.length, P = placar(esporte);
     var txt = ganhou ? (n === 1 ? 'De primeira! ' : 'Acertou em ' + n + ' tentativas! ') : 'Não foi dessa vez. ';
-    var compart = 'Fan Zone · Adivinhe o jogador' + (modo === 'dia' ? ' do dia' : '') + (esporte === 'basquete' ? ' (NBA)' : '') + ': ' + (ganhou ? n : 'X') + '/' + TENTATIVAS + ' ' +
+    var compart = 'Fan Zone · Adivinhe o jogador' + (numero() ? '' : ' do dia') + (esporte === 'basquete' ? ' (NBA)' : '') + ': ' + (ganhou ? n : 'X') + '/' + TENTATIVAS + ' ' +
       tentativas.map(function (t) { return certo(t) ? '🟩' : '🟥'; }).join('');
     return '<div class="av-fim' + (ganhou ? ' av-ganhou' : '') + '"><p>' + txt + 'Era <b>' + esc(atual.nome) + '</b>.</p>' +
       '<div class="av-placar"><span><b>' + P.acertos + '</b>acertos</span><span><b>' + P.jogos + '</b>jogos</span><span><b>' + P.seq + '</b>seguidos</span><span><b>' + P.melhor + '</b>melhor sequência</span></div>' +
-      '<div class="av-botoes">' + (modo === 'dia' ? '<button type="button" class="ft-btn" data-acao="treino">Jogar mais (treino)</button>' : '<button type="button" class="ft-btn" data-acao="proximo">Próximo jogador</button>') +
+      '<div class="av-botoes">' + '<button type="button" class="ft-btn" data-acao="proximo">Próximo jogador</button>' +
       '<button type="button" class="ft-btn ft-btn-linha" data-acao="compartilhar" data-txt="' + esc(compart) + '">Compartilhar resultado</button></div>' +
-      (modo === 'dia' ? '<p class="av-volta">Amanhã tem outro desafio.</p>' : '') + '</div>';
+      '</div>';
   }
   function pintar() {
     carregar();
     var fim = acabou();
-    caixa.innerHTML = JB.topo(esporte, modo, true, 'piloto') +
+    caixa.innerHTML = JB.topo(esporte, '', false, 'piloto') +
       '<section class="av-jogo"><header><h2>Quem é?</h2><p>Todos os clubes por onde ele passou, do primeiro ao atual.</p></header>' +
       trajetoria() + dicas() +
       (tentativas.length ? '<ul class="av-tentativas">' + tentativas.map(function (t) { return '<li class="' + (certo(t) ? 'av-certo' : 'av-errado') + '">' + (certo(t) ? '✓ ' : '✕ ') + esc(t) + '</li>'; }).join('') + '</ul>' : '') +
@@ -73,7 +78,7 @@
       var P = placar(esporte), ganhou = tentativas.some(certo);
       P.jogos++; if (ganhou) { P.acertos++; P.seq++; P.melhor = Math.max(P.melhor, P.seq); } else P.seq = 0;
     }
-    if (modo === 'dia') G.dia[JB.hoje + ':' + esporte] = { t: tentativas.slice() };
+    G.dia[chave()] = { t: tentativas.slice() };
     /* guarda só os desafios da última semana */
     var limite = new Date(Date.now() - 7 * 864e5).toISOString().slice(0, 10);
     Object.keys(G.dia).forEach(function (k) { if (k.slice(0, 10) < limite) delete G.dia[k]; });
@@ -81,12 +86,11 @@
     var q = document.getElementById('av-q'); if (q) q.focus();
   }
   function ligar() {
-    JB.ligarTopo(caixa, function (e) { esporte = e; pintar(); }, function (m) { modo = m; if (modo === 'treino' && !treino[esporte]) sortear(); pintar(); });
+    JB.ligarTopo(caixa, function (e) { esporte = e; pintar(); }, function () {});
     [].forEach.call(caixa.querySelectorAll('.av-botoes button'), function (b) {
       b.addEventListener('click', function () {
         var a = b.getAttribute('data-acao');
-        if (a === 'treino') { modo = 'treino'; sortear(); pintar(); }
-        if (a === 'proximo') { sortear(); pintar(); var q = document.getElementById('av-q'); if (q) q.focus(); }
+        if (a === 'proximo') proximo();
         if (a === 'compartilhar') JB.compartilhar(b, b.getAttribute('data-txt') + ' ' + location.origin + location.pathname + '#' + esporte);
       });
     });
