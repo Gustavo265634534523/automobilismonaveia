@@ -25,14 +25,15 @@
 
   /* vídeo de fundo (assets/video/entrada/<esporte>.mp4, curto, sem som, em repetição): só os que existem estão aqui.
      Com vídeo, o objeto do esporte (bola, capacete) sai da frente. Quem pediu menos movimento fica com a foto. */
-  var VIDEOS = {};
+  var VIDEOS = { automobilismo: { d: 'assets/video/entrada/automobilismo.mp4', m: 'assets/video/entrada/automobilismo-m.mp4' } };
+  var celular = window.matchMedia && matchMedia('(max-width: 720px), (orientation: portrait)').matches;
   function video(esp) {
     var b = bgs.filter(function (x) { return x.getAttribute('data-esp') === esp; })[0];
     if (!b || calmo || !VIDEOS[esp] || b.querySelector('video')) return;
     var v = document.createElement('video');
     v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true; v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
     v.addEventListener('loadeddata', function () { b.classList.add('tem-video'); body.classList.toggle('ld-video', b.classList.contains('ativo')); });
-    v.src = VIDEOS[esp]; b.appendChild(v);
+    v.src = celular ? VIDEOS[esp].m : VIDEOS[esp].d; b.appendChild(v);
   }
   function letras(nome) {
     titulo.style.setProperty('--letras', nome.length);

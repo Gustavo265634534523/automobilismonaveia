@@ -1,7 +1,7 @@
 /* Service worker do app Fan Zone.
    Páginas e dados: busca sempre a versão nova na internet e guarda uma cópia para abrir sem conexão.
    Imagens e fontes: usa a cópia guardada e atualiza por trás. */
-var VERSAO = 'naveia-v421';
+var VERSAO = 'naveia-v422';
 
 self.addEventListener('install', function () { self.skipWaiting(); });
 self.addEventListener('activate', function (e) {
@@ -36,6 +36,7 @@ self.addEventListener('fetch', function (e) {
   if (req.method !== 'GET') return;
   var url = new URL(req.url);
   if (url.pathname.indexOf('/api/') > -1) return;               /* conta e avisos: nunca guardar */
+  if (/\.(mp4|webm)$/.test(url.pathname)) return;               /* vídeos: o navegador pede em pedaços; vai direto para a rede */
   /* imagens e fontes: cópia guardada primeiro. Estilos (css), scripts e páginas: sempre a versão nova (com cópia para usar sem internet) */
   var estatico = /\.(webp|png|jpg|svg|woff2?)$/.test(url.pathname) || url.host.indexOf('fonts.') === 0;
   if (estatico) {
