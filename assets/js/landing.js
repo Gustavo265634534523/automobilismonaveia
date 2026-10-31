@@ -27,14 +27,28 @@
      Com vídeo, o objeto do esporte (bola, capacete) sai da frente. Quem pediu menos movimento fica com a foto. */
   var VIDEOS = { futebol: { d: 'assets/video/entrada/futebol.mp4?v=1', m: 'assets/video/entrada/futebol-m.mp4?v=1' }, basquete: { d: 'assets/video/entrada/basquete.mp4?v=1', m: 'assets/video/entrada/basquete-m.mp4?v=1' },
     automobilismo: { d: 'assets/video/entrada/automobilismo.mp4?v=3', m: 'assets/video/entrada/automobilismo-m.mp4?v=3' } };
-  var celular = window.matchMedia && matchMedia('(max-width: 720px), (orientation: portrait)').matches;
+  /* versão em pé (celular) só quando a tela está mesmo em pé; confere de novo se a janela mudar de tamanho
+     (a página pode abrir numa moldura que ainda nem tem o tamanho final) */
+  function emPe() { return innerWidth > 0 && innerHeight > 0 && innerWidth / innerHeight < 0.85; }
+  function fonte(esp) { return emPe() ? VIDEOS[esp].m : VIDEOS[esp].d; }
+  var trocaT = null;
+  window.addEventListener('resize', function () {
+    clearTimeout(trocaT);
+    trocaT = setTimeout(function () {
+      bgs.forEach(function (b) {
+        var v = b.querySelector('video'), esp = b.getAttribute('data-esp'); if (!v || !VIDEOS[esp]) return;
+        var certo = fonte(esp); if (v.getAttribute('src') === certo) return;
+        v.src = certo; if (b.classList.contains('ativo')) v.play().catch(function () {});
+      });
+    }, 250);
+  });
   function video(esp) {
     var b = bgs.filter(function (x) { return x.getAttribute('data-esp') === esp; })[0];
     if (!b || calmo || !VIDEOS[esp] || b.querySelector('video')) return;
     var v = document.createElement('video');
     v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true; v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
     v.addEventListener('loadeddata', function () { b.classList.add('tem-video'); body.classList.toggle('ld-video', b.classList.contains('ativo')); });
-    v.src = celular ? VIDEOS[esp].m : VIDEOS[esp].d; b.appendChild(v);
+    v.src = fonte(esp); b.appendChild(v);
   }
   function letras(nome) {
     titulo.style.setProperty('--letras', nome.length);
