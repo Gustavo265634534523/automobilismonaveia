@@ -383,15 +383,15 @@
      Se o modelo não carregar, o jogo usa o carro desenhado (montarCarro). */
   var URL_GLTF = 'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js';
   var MODELOS = {
-    f1: { esc: 0.94 /* 2026: 3,40 m entre eixos, ~1,95 m de largura */, url: 'assets/modelos/jogo-f1.glb?v=405', painel: 'f1w', volante: 'assets/modelos/jogo-volante-f1.glb?v=405', cabine: 'assets/modelos/jogo-f1-cabine.glb?v=405', espelhos: [], olho: [-0.34, 1.08, 0], olharDesce: 1.05, capaceteCab: [-0.06, 0.84, 0.135], olhoPiloto: [0.44, -0.2, -0.1] /* Cockpit: frente, altura, olhar menos para baixo */, capacete: [-0.12, 0.79, 0.135], numeros: [[1.35, 3, 0, 0, -1, 0, 0.3], [-0.85, 0.72, 3, 0, 0, -1, 0.3], [-0.85, 0.72, -3, 0, 0, 1, 0.3]] },
-    peugeot: { url: 'assets/modelos/jogo-peugeot.glb?v=405', painel: 'peugeot', cabine: 'assets/modelos/jogo-peugeot-cabine.glb?v=405', olhoAj: [0.15, -0.06], tomTex: 0.45, tomInt: 0.5, espelhos: [[0.6, 0.915, 0.06, 0.26, 0.045, 'C']], numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [-0.3, 0.6, 3, 0, 0, -1, 0.46], [-0.3, 0.6, -3, 0, 0, 1, 0.46]] },
-    gt3: { url: 'assets/modelos/jogo-gt3.glb?v=405', cabine: 'assets/modelos/jogo-gt3-cabine.glb?v=405', espelhos: [[0.55, 0.86, -0.95, 0.15, 0.085, 'E'], [0.24, 0.945, -0.03, 0.2, 0.05, 'C']], numeros: [[1.45, 3, 0, 0, -1, 0, 0.42], [0.05, 0.55, 3, 0, 0, -1, 0.46], [0.05, 0.55, -3, 0, 0, 1, 0.46]] },
-    mercedes: { url: 'assets/modelos/jogo-mercedes.glb?v=405', cabine: 'assets/modelos/jogo-mercedes-cabine.glb?v=405', painel: 'mercedes-gt3', espelhos: [[0.22, 1.06, 0.12, 0.22, 0.055, 'C'], [0.1, 0.88, -1.0, 0.15, 0.085, 'E'], [0.032, 0.826, -0.108, 0.15, 0.088, 'C', [-0.94, 0.21, -0.27]]] /* o último é o monitor da câmera de ré */, numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [0.05, 0.6, 3, 0, 0, -1, 0.46], [0.05, 0.6, -3, 0, 0, 1, 0.46]] },
-    porsche: { url: 'assets/modelos/jogo-porsche.glb?v=405', painel: 'porsche', cabine: 'assets/modelos/jogo-porsche-cabine.glb?v=405', espelhos: [[0.40, 0.84, -0.82, 0.15, 0.085, 'E'], [0.25, 0.985, -0.025, 0.25, 0.065, 'C']], numeros: [[1.5, 3, 0, 0, -1, 0, 0.42], [0.15, 0.55, 3, 0, 0, -1, 0.46], [0.15, 0.55, -3, 0, 0, 1, 0.46]] }
+    f1: { esc: 0.94 /* 2026: 3,40 m entre eixos, ~1,95 m de largura */, url: 'assets/modelos/jogo-f1.glb?v=406', painel: 'f1w', volante: 'assets/modelos/jogo-volante-f1.glb?v=406', cabine: 'assets/modelos/jogo-f1-cabine.glb?v=406', espelhos: [], olho: [-0.34, 1.08, 0], olharDesce: 1.05, capaceteCab: [-0.06, 0.84, 0.135], olhoPiloto: [0.44, -0.2, -0.1] /* Cockpit: frente, altura, olhar menos para baixo */, capacete: [-0.12, 0.79, 0.135], numeros: [[1.35, 3, 0, 0, -1, 0, 0.3], [-0.85, 0.72, 3, 0, 0, -1, 0.3], [-0.85, 0.72, -3, 0, 0, 1, 0.3]] },
+    peugeot: { url: 'assets/modelos/jogo-peugeot.glb?v=406', painel: 'peugeot', cabine: 'assets/modelos/jogo-peugeot-cabine.glb?v=406', olhoAj: [0.15, -0.06], tomTex: 0.45, tomInt: 0.5, espelhos: [[0.6, 0.915, 0.06, 0.26, 0.045, 'C']], numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [-0.3, 0.6, 3, 0, 0, -1, 0.46], [-0.3, 0.6, -3, 0, 0, 1, 0.46]] },
+    gt3: { url: 'assets/modelos/jogo-gt3.glb?v=406', cabine: 'assets/modelos/jogo-gt3-cabine.glb?v=406', espelhos: [[0.55, 0.86, -0.95, 0.15, 0.085, 'E'], [0.24, 0.945, -0.03, 0.2, 0.05, 'C']], numeros: [[1.45, 3, 0, 0, -1, 0, 0.42], [0.05, 0.55, 3, 0, 0, -1, 0.46], [0.05, 0.55, -3, 0, 0, 1, 0.46]] },
+    mercedes: { url: 'assets/modelos/jogo-mercedes.glb?v=406', cabine: 'assets/modelos/jogo-mercedes-cabine.glb?v=406', painel: 'mercedes-gt3', espelhos: [[0.22, 1.06, 0.12, 0.22, 0.055, 'C'], [0.1, 0.88, -1.0, 0.15, 0.085, 'E'], [0.032, 0.826, -0.108, 0.15, 0.088, 'C', [-0.94, 0.21, -0.27]]] /* o último é o monitor da câmera de ré */, numeros: [[1.6, 3, 0, 0, -1, 0, 0.42], [0.05, 0.6, 3, 0, 0, -1, 0.46], [0.05, 0.6, -3, 0, 0, 1, 0.46]] },
+    porsche: { url: 'assets/modelos/jogo-porsche.glb?v=406', painel: 'porsche', cabine: 'assets/modelos/jogo-porsche-cabine.glb?v=406', espelhos: [[0.40, 0.84, -0.82, 0.15, 0.085, 'E'], [0.25, 0.985, -0.025, 0.25, 0.065, 'C']], numeros: [[1.5, 3, 0, 0, -1, 0, 0.42], [0.15, 0.55, 3, 0, 0, -1, 0.46], [0.15, 0.55, -3, 0, 0, 1, 0.46]] }
   };
   /* carros de cada classe (os adversários se revezam; quem joga escolhe no menu) */
   var VARIANTES = { f1: ['f1'], hyper: ['peugeot'], gt3: ['mercedes', 'gt3'], porsche: ['porsche'] };
-  MODELOS.sc = { url: 'assets/modelos/jogo-safety-car.glb?v=405' }; /* safety car */
+  MODELOS.sc = { url: 'assets/modelos/jogo-safety-car.glb?v=406' }; /* safety car */
   var NOME_CARRO = { f1: 'F1 2026', peugeot: 'Peugeot 9X8', gt3: 'McLaren 720S', mercedes: 'Mercedes-AMG', porsche: 'Porsche 911' };
   var MOLDES = {}; /* modelo -> molde pronto, ou 'falhou' */
   function carregarModelos(classes, pronto, progresso) {
@@ -944,7 +944,7 @@
   var DADOS_PISTA = {};
   function carregarPista(id, pronto, falha) {
     if (DADOS_PISTA[id]) return pronto();
-    fetch('assets/dados/pistas/' + id + '.json?v=405').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    fetch('assets/dados/pistas/' + id + '.json?v=406').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
       .then(function (d) { DADOS_PISTA[id] = d; pronto(); }).catch(falha);
   }
 
@@ -1587,6 +1587,15 @@
         return '<button type="button" class="nv-chip" data-k="' + o[0] + '" data-v="' + o[1] + '" aria-pressed="' + (String(atual) === String(o[1])) + '">' + esc(o[2]) + '</button>';
       }).join('') + '</div></div>';
     }
+    /* cor do carro: bolinhas coloridas (o nome aparece ao passar o mouse e para o leitor de tela) */
+    var maisAberto = false; /* "Mais opções" continua aberto depois de trocar uma opção (o painel é desenhado de novo) */
+    function coresCarro() {
+      var atual = CORES_CARRO[cfg.cor] ? cfg.cor : 'preto';
+      return '<div class="nv-op"><span>Cor</span><div class="nv-chips">' + Object.keys(CORES_CARRO).map(function (k) {
+        var c = CORES_CARRO[k], fundo = c[0] == null ? 'linear-gradient(135deg,#f7d774,#b8862b)' : '#' + ('00000' + c[0].toString(16)).slice(-6);
+        return '<button type="button" class="nv-chip nv-cor" data-k="cor" data-v="' + k + '" aria-pressed="' + (atual === k) + '" aria-label="' + esc(c[2]) + '" title="' + esc(c[2]) + '" style="background:' + fundo + '"></button>';
+      }).join('') + '</div></div>';
+    }
     /* no WEC a pessoa escolhe a classe; nas outras categorias a classe é a própria categoria */
     function classeJog() { return cfg.classe === 'wec' ? (cfg.wecCls === 'gt3' ? 'gt3' : 'hyper') : CLASSES[cfg.classe] ? cfg.classe : 'f1'; }
     function nomeJog() { return cfg.classe === 'wec' ? 'WEC ' + CLASSES[classeJog()].nome : CLASSES[classeJog()].nome; }
@@ -1606,7 +1615,8 @@
       el.innerHTML = '<div class="jg-cab-jogo"><h2>Fan Zone Racing</h2><p>Você pilota. Escolha a categoria e a pista, largue no meio do pelotão e tente vencer. ' +
         (toque ? 'Use os botões na tela; com "Acelerar sozinho" você só vira e freia. BOX, no alto, chama o pit stop.' + (cfg.classe === 'f1' ? ' ⚡ usa a bateria.' : '') : 'Setas ou W A S D para pilotar, Q sobe e E desce a marcha (câmbio manual), C troca a câmera, B chama o box' + (cfg.classe === 'f1' ? ', espaço usa a bateria (⚡).' : '.')) + ' Pneus gastam e a gasolina acaba (o tanque dura umas 3 voltas): nas corridas longas, pare no box.' + '</p></div>' +
         '<div class="nv-menu">' +
-          chips('Categoria', Object.keys(CLASSES).filter(function (k) { return !CLASSES[k].oculta; }).map(function (k) { return ['classe', k, CLASSES[k].nome]; }), cfg.classe) +
+          /* categoria: só aparece se houver mais de uma (hoje só a Fórmula 1) */
+          (Object.keys(CLASSES).filter(function (k) { return !CLASSES[k].oculta; }).length > 1 ? chips('Categoria', Object.keys(CLASSES).filter(function (k) { return !CLASSES[k].oculta; }).map(function (k) { return ['classe', k, CLASSES[k].nome]; }), cfg.classe) : '') +
           (function () { var Cc = CLASSES[classeJog()]; return '<p class="nv-rec">' + esc(Cc.nome) + ': ' + Cc.massa + ' kg · ' + Math.round(Cc.kw * 1.36).toLocaleString('pt-BR') + ' cv · máx. ' + Math.round(Cc.vmax * 3.6) + ' km/h · freia de 200 a 0 em ' + Math.round(distFreio(Cc)) + ' m</p>'; })() +
           (cfg.classe === 'wec' ? chips('Sua classe', [['wecCls', 'hyper', 'Hypercar'], ['wecCls', 'gt3', 'GT3']], classeJog()) +
             '<p class="nv-rec">No WEC, 6 Hypercars e 6 GT3 correm juntos. O Hypercar é mais rápido; no GT3 você é ultrapassado e briga dentro da sua classe.</p>' : '') +
@@ -1614,12 +1624,14 @@
           chips('Voltas', [['voltas', 1, '1'], ['voltas', 2, '2'], ['voltas', 3, '3'], ['voltas', 5, '5'], ['voltas', 8, '8']], cfg.voltas) +
           chips('Adversários', Object.keys(NIVEIS).map(function (k) { return ['nivel', k, NIVEIS[k].nome]; }), cfg.nivel) +
           ((VARIANTES[classeJog()] || []).length > 1 ? chips('Seu carro', VARIANTES[classeJog()].map(function (m) { return ['carro', m, NOME_CARRO[m]]; }), carroJog()) : '') +
-          chips('Cor', Object.keys(CORES_CARRO).map(function (k) { return ['cor', k, CORES_CARRO[k][2]]; }), CORES_CARRO[cfg.cor] ? cfg.cor : 'preto') +
+          coresCarro() +
+          '<details class="nv-mais"' + (maisAberto ? ' open' : '') + '><summary>Mais opções</summary><div class="nv-mais-in">' +
           chips('Acelerar sozinho', [['auto', true, 'Sim'], ['auto', false, 'Não']], cfg.auto) +
           chips('Câmbio', [['cambio', 'auto', 'Automático'], ['cambio', 'manual', toque ? 'Manual (− e +)' : 'Manual (Q e E)']], cfg.cambio === 'manual' ? 'manual' : 'auto') +
           chips('Câmera', [['cam', 0, 'Atrás'], ['cam', 1, 'Alta'], ['cam', 2, cfg.classe === 'f1' ? 'Atrás do capacete' : 'Primeira pessoa']].concat(cfg.classe === 'f1' ? [['cam', 3, 'Cockpit']] : []), cfg.classe === 'f1' ? ler('corrida-cam', 0) : Math.min(2, ler('corrida-cam', 0))) +
           chips('Horário', [['hora', 'tarde', 'Fim de tarde'], ['hora', 'dia', 'Dia']], cfg.hora || 'tarde') +
           chips('Gráfico', [['grafico', 'alto', 'Bonito'], ['grafico', 'medio', 'Médio'], ['grafico', 'leve', 'Leve (celular fraco)']], cfg.grafico || (toque ? 'medio' : 'alto')) +
+          '</div></details>' +
           '<div class="nv-acoes"><button type="button" class="nv-correr" id="nv-correr">Correr</button>' +
           '<p class="nv-rec">Seu recorde: <b>' + (rec ? tempo(rec) : 'sem volta ainda') + '</b> · ' + esc(nomeJog()) + ' em ' + esc(PISTAS[cfg.pista]) + '</p></div>' +
         '</div>' + CREDITOS;
@@ -1631,6 +1643,7 @@
           cfg[k] = k === 'voltas' ? +v : k === 'auto' ? v === 'true' : v; guardar('corrida-cfg', cfg); menu();
         });
       });
+      el.querySelector('.nv-mais').addEventListener('toggle', function () { maisAberto = this.open; });
       el.querySelector('#nv-pista').addEventListener('change', function (e) { cfg.pista = e.target.value; guardar('corrida-cfg', cfg); menu(); });
       el.querySelector('#nv-correr').addEventListener('click', function () {
         if (toque) pedirTelaCheia(); /* no celular a corrida já abre em tela cheia (tem que ser aqui, no clique) */

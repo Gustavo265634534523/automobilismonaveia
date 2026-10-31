@@ -313,3 +313,26 @@ html.nv-jogando .chat-bt, html.nv-jogando .app-bt, html.nv-jogando .app-aviso, h
 /* setas de direção (no lugar do volante) */
 .nv-lado { display: flex; gap: 12px; align-items: flex-end; }
 .nv-toque .nv-seta { width: clamp(74px, 22vh, 92px); height: clamp(74px, 22vh, 92px); }
+
+/* Painel da corrida mais limpo: botões arredondados, cor em bolinhas e opções extras dentro de "Mais opções" */
+.nv-menu { gap: 18px; padding: 24px; border: 1px solid var(--linha); border-top: 1px solid var(--linha); border-radius: 18px; background: var(--carbono); }
+.nv-op { grid-template-columns: 130px 1fr; }
+.nv-op > span { font-size: 12px; letter-spacing: .1em; color: var(--texto-3, var(--aco)); }
+.nv-chip { min-height: 38px; padding: 0 16px; border-radius: 999px; background: transparent; font-size: 14px; font-weight: 600; transition: border-color .15s, background .15s; }
+.nv-chip[aria-pressed="true"] { background: var(--sangue-vivo); border-color: var(--sangue-vivo); }
+.nv-sel { min-height: 40px; padding: 0 14px; border-radius: 12px; background: transparent; }
+.nv-chip.nv-cor { width: 34px; min-height: 34px; height: 34px; padding: 0; border: 2px solid rgba(255, 255, 255, .18); box-shadow: inset 0 0 0 2px rgba(0, 0, 0, .25); }
+.nv-chip.nv-cor[aria-pressed="true"] { border-color: #fff; box-shadow: 0 0 0 3px var(--sangue-vivo); }
+.nv-mais { border-top: 1px solid var(--linha); padding-top: 14px; }
+.nv-mais summary { cursor: pointer; list-style: none; font-size: 14px; font-weight: 700; color: var(--texto-2, var(--cromo)); }
+.nv-mais summary::-webkit-details-marker { display: none; }
+.nv-mais summary::before { content: '+'; display: inline-block; width: 18px; color: var(--sangue-vivo); font-weight: 800; }
+.nv-mais[open] summary::before { content: '−'; }
+.nv-mais-in { display: grid; gap: 16px; margin-top: 16px; }
+.nv-correr { border-radius: 999px; clip-path: none; padding: 0 40px; background: var(--sangue-vivo); }
+.nv-correr:hover { background: var(--sangue); }
+@media (max-width: 620px) {
+  .nv-menu { padding: 18px; }
+  .nv-op { grid-template-columns: 1fr; gap: 8px; }
+  .nv-correr { width: 100%; }
+}
