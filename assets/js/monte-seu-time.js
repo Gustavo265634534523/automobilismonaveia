@@ -1,228 +1,161 @@
-/* Monte seu time (monte-seu-time.html): a pessoa monta o time dela e o do adversário no mesmo campo, só com jogadores
-   em atividade. Digita o nome e aperta Enter: o jogador vai sozinho para a posição dele na formação escolhida.
-   A busca usa os elencos atuais das principais ligas (assets/dados/jogadores-todos.js, robô .github/jogadores-espn.js);
-   a lista de craques (assets/dados/jogadores-craques.js) só acerta a posição exata. Nome que não está nos elencos
-   entra do jeito que foi digitado, numa vaga do meio-campo (ou na vaga que a pessoa tocou).
-   Clicar num jogador do campo seleciona; clicar em outra posição troca os dois de lugar; o "x" tira do time.
-   Os times ficam salvos neste aparelho e podem ser enviados por link. */
+/* Monte seu time (monte-seu-time.html): no mesmo estilo do "Monte sua equipe" da F1. A pessoa é dona de um clube
+   novo e tem um orçamento sorteado para contratar o técnico e os 11 titulares na formação que escolher.
+   Com o time completo e dentro do orçamento, simula o Brasileirão (38 rodadas, no lugar do lanterna da tabela de
+   verdade) e mostra a posição final. Jogadores e técnicos são reais; a nota (estrelas) e o preço são do jogo.
+   Times adversários: força pela pontuação na tabela atual (COMPETICOES em esportes-dados.js). */
 (function () {
-  var raiz = document.getElementById('mn');
-  if (!raiz) return;
-  var esc = window.esc;
+  var caixa = document.getElementById('mn'); if (!caixa) return;
+  var esc = window.esc, B = window.BANDEIRAS || {};
+  var ORCAMENTOS = [400, 500, 600, 700], RECORDE = 'arena-time-futebol';
 
-  /* formações: linhas do goleiro para o ataque; em cada linha, do lado esquerdo para o direito do time */
   var FORMACOES = {
-    '4-3-3': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['MC', 'VOL', 'MC'], ['PE', 'CA', 'PD']],
-    '4-4-2': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['PE', 'MC', 'VOL', 'PD'], ['CA', 'CA']],
-    '4-2-3-1': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['VOL', 'VOL'], ['PE', 'MEI', 'PD'], ['CA']],
-    '3-5-2': [['GOL'], ['ZAG', 'ZAG', 'ZAG'], ['LE', 'MC', 'VOL', 'MC', 'LD'], ['CA', 'CA']],
-    '3-4-3': [['GOL'], ['ZAG', 'ZAG', 'ZAG'], ['LE', 'MC', 'MC', 'LD'], ['PE', 'CA', 'PD']],
-    '4-1-2-1-2': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['VOL'], ['MC', 'MC'], ['MEI'], ['CA', 'CA']]
+    '4-3-3': ['GOL', 'LD', 'ZAG', 'ZAG', 'LE', 'VOL', 'MC', 'MC', 'PD', 'CA', 'PE'],
+    '4-4-2': ['GOL', 'LD', 'ZAG', 'ZAG', 'LE', 'VOL', 'MC', 'PD', 'PE', 'CA', 'CA'],
+    '4-2-3-1': ['GOL', 'LD', 'ZAG', 'ZAG', 'LE', 'VOL', 'VOL', 'PD', 'MEI', 'PE', 'CA'],
+    '3-5-2': ['GOL', 'ZAG', 'ZAG', 'ZAG', 'LD', 'VOL', 'MC', 'MC', 'LE', 'CA', 'CA'],
+    '3-4-3': ['GOL', 'ZAG', 'ZAG', 'ZAG', 'LD', 'MC', 'MC', 'LE', 'PD', 'CA', 'PE']
   };
-  var NOME_POS = { DEF: 'Defensor', MEIO: 'Meio-campista', ATA: 'Atacante', GOL: 'Goleiro', LD: 'Lateral direito', ZAG: 'Zagueiro', LE: 'Lateral esquerdo', VOL: 'Volante', MC: 'Meio-campo', MEI: 'Meia', PD: 'Ponta direita', PE: 'Ponta esquerda', CA: 'Centroavante' };
-  /* se a posição do jogador já estiver ocupada, tenta as parecidas, nesta ordem */
-  var PARECIDAS = { GOL: ['GOL'], LD: ['LD', 'ZAG', 'LE', 'VOL'], LE: ['LE', 'ZAG', 'LD', 'VOL'], ZAG: ['ZAG', 'VOL', 'LD', 'LE'], VOL: ['VOL', 'MC', 'ZAG', 'MEI'],
-    MC: ['MC', 'VOL', 'MEI', 'PE', 'PD'], MEI: ['MEI', 'MC', 'PE', 'PD', 'CA'], PD: ['PD', 'PE', 'MEI', 'CA', 'MC'], PE: ['PE', 'PD', 'MEI', 'CA', 'MC'], CA: ['CA', 'PE', 'PD', 'MEI'],
-    /* elencos da ESPN só dizem defensor, meio-campista ou atacante */
-    DEF: ['ZAG', 'LD', 'LE', 'VOL'], MEIO: ['MC', 'VOL', 'MEI', 'PE', 'PD'], ATA: ['CA', 'PE', 'PD', 'MEI'] };
+  var NOME_POS = { GOL: 'Goleiro', LD: 'Lateral direito', ZAG: 'Zagueiro', LE: 'Lateral esquerdo', VOL: 'Volante', MC: 'Meio-campo', MEI: 'Meia', PD: 'Ponta direita', PE: 'Ponta esquerda', CA: 'Centroavante' };
+  var SETOR = { GOL: 'Defesa', LD: 'Defesa', ZAG: 'Defesa', LE: 'Defesa', VOL: 'Meio-campo', MC: 'Meio-campo', MEI: 'Meio-campo', PD: 'Ataque', PE: 'Ataque', CA: 'Ataque' };
 
-  function norm(s) { return String(s).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim(); }
-  /* só jogadores em atividade: a busca usa os elencos atuais (JOGADORES_TODOS); a lista de craques só acerta a
-     posição exata de quem está nela (os elencos da ESPN dizem só defensor, meio-campista ou atacante) */
-  var POS_EXATA = {}; (window.JOGADORES_CRAQUES || []).forEach(function (x) { var p = x.split('|'); POS_EXATA[norm(p[0])] = p[1]; });
-  var CRAQUES = [], pronto = false;
-  /* todos os jogadores atuais (elencos da ESPN, assets/dados/jogadores-todos.js): carregam depois da página */
-  (function () {
-    var tag = document.querySelector('script[src*="monte-seu-time.js"]'), v = tag ? (tag.src.split('?v=')[1] || '') : '';
-    var sc = document.createElement('script'); sc.src = 'assets/dados/jogadores-todos.js' + (v ? '?v=' + v : '');
-    sc.onload = function () {
-      (window.JOGADORES_TODOS || []).forEach(function (x) {
-        var p = x.split('|'), k = norm(p[0]);
-        CRAQUES.push({ n: p[0], pos: POS_EXATA[k] || p[1], time: p[2], id: p[3], k: k, cr: POS_EXATA[k] ? 1 : 0 });
-      });
-      pronto = true;
-    };
-    sc.onerror = function () { pronto = true; };
-    document.body.appendChild(sc);
-  })();
+  /* [nome, país, nota] por posição */
+  var JOG = {
+    GOL: [['Thibaut Courtois', 'Bélgica', 91], ['Alisson', 'Brasil', 90], ['Gianluigi Donnarumma', 'Itália', 89], ['Mike Maignan', 'França', 87], ['Jan Oblak', 'Eslovênia', 86], ['Ederson', 'Brasil', 84], ['Agustín Rossi', 'Argentina', 80], ['Hugo Souza', 'Brasil', 78], ['Léo Jardim', 'Brasil', 77], ['Weverton', 'Brasil', 73]],
+    LD: [['Achraf Hakimi', 'Marrocos', 90], ['Trent Alexander-Arnold', 'Inglaterra', 86], ['Jules Koundé', 'França', 85], ['Jeremie Frimpong', 'Holanda', 84], ['Dani Carvajal', 'Espanha', 83], ['Wesley', 'Brasil', 80], ['Vanderson', 'Brasil', 79], ['Guillermo Varela', 'Uruguai', 76], ['Danilo', 'Brasil', 74]],
+    ZAG: [['Virgil van Dijk', 'Holanda', 90], ['William Saliba', 'França', 89], ['Gabriel Magalhães', 'Brasil', 88], ['Rúben Dias', 'Portugal', 87], ['Marquinhos', 'Brasil', 86], ['Éder Militão', 'Brasil', 85], ['Pau Cubarsí', 'Espanha', 84], ['Gustavo Gómez', 'Paraguai', 79], ['Léo Ortiz', 'Brasil', 79], ['Fabrício Bruno', 'Brasil', 77], ['Murilo', 'Brasil', 76], ['Lucas Veríssimo', 'Brasil', 74]],
+    LE: [['Nuno Mendes', 'Portugal', 89], ['Alejandro Grimaldo', 'Espanha', 85], ['Theo Hernández', 'França', 84], ['Alphonso Davies', 'Canadá', 84], ['Alejandro Balde', 'Espanha', 83], ['Alex Sandro', 'Brasil', 77], ['Ayrton Lucas', 'Brasil', 76], ['Piquerez', 'Uruguai', 76], ['Renan Lodi', 'Brasil', 74]],
+    VOL: [['Rodri', 'Espanha', 91], ['Declan Rice', 'Inglaterra', 89], ['Moisés Caicedo', 'Equador', 87], ['Bruno Guimarães', 'Brasil', 87], ['Aurélien Tchouaméni', 'França', 85], ['Casemiro', 'Brasil', 80], ['André', 'Brasil', 79], ['Erick Pulgar', 'Chile', 77], ['Aníbal Moreno', 'Argentina', 76], ['Allan', 'Brasil', 72]],
+    MC: [['Pedri', 'Espanha', 90], ['Vitinha', 'Portugal', 89], ['Federico Valverde', 'Uruguai', 88], ['João Neves', 'Portugal', 87], ['Nicolò Barella', 'Itália', 86], ['Frenkie de Jong', 'Holanda', 85], ['Gerson', 'Brasil', 80], ['Andreas Pereira', 'Brasil', 78], ['Jorginho', 'Itália', 77], ['Matheus Henrique', 'Brasil', 75]],
+    MEI: [['Jude Bellingham', 'Inglaterra', 90], ['Jamal Musiala', 'Alemanha', 89], ['Florian Wirtz', 'Alemanha', 88], ['Cole Palmer', 'Inglaterra', 88], ['Martin Ødegaard', 'Noruega', 86], ['Bruno Fernandes', 'Portugal', 86], ['Giorgian de Arrascaeta', 'Uruguai', 84], ['Lucas Paquetá', 'Brasil', 83], ['Raphael Veiga', 'Brasil', 79], ['Matheus Pereira', 'Brasil', 78]],
+    PD: [['Lamine Yamal', 'Espanha', 92], ['Ousmane Dembélé', 'França', 91], ['Mohamed Salah', 'Egito', 89], ['Raphinha', 'Brasil', 88], ['Bukayo Saka', 'Inglaterra', 88], ['Michael Olise', 'França', 87], ['Estêvão', 'Brasil', 83], ['Savinho', 'Brasil', 82], ['Luiz Henrique', 'Brasil', 80], ['Gabriel Veron', 'Brasil', 72]],
+    PE: [['Vinícius Júnior', 'Brasil', 91], ['Khvicha Kvaratskhelia', 'Geórgia', 88], ['Luis Díaz', 'Colômbia', 86], ['Rafael Leão', 'Portugal', 85], ['Nico Williams', 'Espanha', 85], ['Gabriel Martinelli', 'Brasil', 83], ['Samuel Lino', 'Brasil', 79], ['Bruno Henrique', 'Brasil', 77], ['Everton Cebolinha', 'Brasil', 75]],
+    CA: [['Kylian Mbappé', 'França', 93], ['Erling Haaland', 'Noruega', 92], ['Harry Kane', 'Inglaterra', 91], ['Lautaro Martínez', 'Argentina', 88], ['Julián Álvarez', 'Argentina', 87], ['Victor Osimhen', 'Nigéria', 86], ['Viktor Gyökeres', 'Suécia', 85], ['Pedro', 'Brasil', 80], ['Kaio Jorge', 'Brasil', 79], ['Vitor Roque', 'Brasil', 79], ['Germán Cano', 'Argentina', 73]]
+  };
+  var TECNICOS = [['Pep Guardiola', 'Espanha', 94], ['Carlo Ancelotti', 'Itália', 93], ['Luis Enrique', 'Espanha', 92], ['Xabi Alonso', 'Espanha', 90], ['Mikel Arteta', 'Espanha', 89], ['Abel Ferreira', 'Portugal', 88], ['Filipe Luís', 'Brasil', 86], ['Jorge Jesus', 'Portugal', 84], ['Leonardo Jardim', 'Portugal', 82], ['Fernando Diniz', 'Brasil', 79], ['Dorival Júnior', 'Brasil', 77]];
 
-  /* estado: dois times, cada um com nome, formação e os 11 lugares */
-  function vazio(nome) { return { nome: nome, formacao: '4-3-3', lugares: new Array(11).fill(null) }; }
-  var E = { times: [vazio('Meu time'), vazio('Adversário')], ativo: 0 };
-  try { var salvo = JSON.parse(localStorage.getItem('arena-monte-seu-time') || 'null'); if (salvo && salvo.times && salvo.times.length === 2) E = salvo; } catch (e) { /* sem armazenamento */ }
-  /* link compartilhado (#t=...) tem preferência */
-  try {
-    var h = location.hash.match(/#t=([^&]+)/);
-    if (h) { var d = JSON.parse(decodeURIComponent(escape(atob(h[1].replace(/-/g, '+').replace(/_/g, '/'))))); if (d && d.times && d.times.length === 2) E = d; }
-  } catch (e) { /* link estragado: fica o salvo */ }
-  E.ativo = E.ativo === 1 ? 1 : 0;
-  function salvar() {
-    try { localStorage.setItem('arena-monte-seu-time', JSON.stringify(E)); } catch (e) { /* modo privado */ }
-    /* mexeu nos times: o link compartilhado sai do endereço, senão ele volta ao recarregar */
-    if (/#t=/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search);
-  }
-  function slots(t) { var out = []; FORMACOES[t.formacao].forEach(function (ln, li) { ln.forEach(function (pos) { out.push({ pos: pos, linha: li }); }); }); return out; }
+  function preco(n) { var f = Math.max(0, (n - 66) / 28); return Math.round(3 + 117 * f * f); }
+  function op(x, pos) { return { id: x[0], nome: x[0], pais: x[1], nota: x[2], pos: pos, preco: pos === 'TEC' ? Math.max(2, Math.round(preco(x[2]) / 4)) : preco(x[2]) }; }
+  var OPC = {}; Object.keys(JOG).forEach(function (p) { OPC[p] = JOG[p].map(function (x) { return op(x, p); }); });
+  OPC.TEC = TECNICOS.map(function (x) { return op(x, 'TEC'); });
 
-  var aviso = '', alvo = null; /* vaga vazia que a pessoa tocou: o próximo jogador vai para ela */
-  function colocar(j, ti) {
-    var t = E.times[ti], S = slots(t);
-    if (alvo && alvo.t === ti && !t.lugares[alvo.i] && !t.lugares.some(function (x) { return x && norm(x.n) === norm(j.n); })) {
-      var a = alvo.i; alvo = null;
-      t.lugares[a] = { n: j.n, pos: j.pos || S[a].pos };
-      aviso = esc(j.n) + ' entrou como ' + NOME_POS[S[a].pos].toLowerCase() + ' no ' + esc(t.nome) + '.'; salvar(); return true;
-    }
-    if (t.lugares.some(function (x) { return x && norm(x.n) === norm(j.n); })) { aviso = esc(j.n) + ' já está no ' + esc(t.nome) + '.'; return false; }
-    var ordem = PARECIDAS[j.pos] || [], i = -1;
-    ordem.some(function (p) { i = S.findIndex(function (s, k) { return s.pos === p && !t.lugares[k]; }); return i > -1; });
-    /* nome desconhecido: entra pelo meio, deixando goleiro e centroavante por último (para quem tem posição certa) */
-    if (i < 0 && !j.pos) ['MC', 'MEI', 'VOL', 'ZAG', 'LE', 'LD', 'PE', 'PD', 'CA', 'GOL'].some(function (p) { i = S.findIndex(function (s, k) { return s.pos === p && !t.lugares[k]; }); return i > -1; });
-    if (i < 0 && j.pos !== 'GOL') i = S.findIndex(function (s, k) { return s.pos !== 'GOL' && !t.lugares[k]; });
-    if (i < 0) { aviso = j.pos === 'GOL' ? 'O ' + esc(t.nome) + ' já tem goleiro. Tire o atual para trocar.' : 'O ' + esc(t.nome) + ' já está completo. Tire alguém para colocar ' + esc(j.n) + '.'; return false; }
-    t.lugares[i] = { n: j.n, pos: j.pos || S[i].pos };
-    aviso = esc(j.n) + ' entrou como ' + NOME_POS[S[i].pos].toLowerCase() + ' no ' + esc(t.nome) + '.' + (j.pos ? '' : ' Para mudar de posição, toque nele e depois na vaga certa.');
-    salvar(); return true;
+  function vagas() {
+    var conta = {}, f = FORMACOES[est.form];
+    return [{ k: 'tec', pos: 'TEC', t: 'Técnico', d: 'Monta o esquema e tira o melhor dos jogadores. Um bom técnico faz o time render acima da soma das notas.' }]
+      .concat(f.map(function (p, i) {
+        conta[p] = (conta[p] || 0) + 1;
+        var n = f.filter(function (x) { return x === p; }).length;
+        return { k: 's' + i, pos: p, t: NOME_POS[p] + (n > 1 ? ' ' + conta[p] : ''), d: '' };
+      }));
   }
+  function novo(nome, form) { return { orc: ORCAMENTOS[Math.floor(Math.random() * ORCAMENTOS.length)], form: form || '4-3-3', esc: {}, nome: nome || 'Fan Zone FC', aberta: 'tec', resultado: null }; }
+  var est = novo();
+  function achar(v) { return OPC[v.pos].filter(function (o) { return o.id === est.esc[v.k]; })[0]; }
+  function gasto() { return vagas().reduce(function (s, v) { var o = achar(v); return s + (o ? o.preco : 0); }, 0); }
+  function completo() { return vagas().every(function (v) { return achar(v); }); }
+  function estrelas(n) { var e = Math.max(1, Math.min(5, Math.round((n - 66) / 6))); return '★★★★★'.slice(0, e) + '<i>' + '★★★★★'.slice(e) + '</i>'; }
+  function bandeira(p) { return B[p] ? '<img class="av-bandeira" src="' + B[p] + '" alt="">' : ''; }
+  function ocupados(v) { return vagas().filter(function (x) { return x.k !== v.k && x.pos === v.pos; }).map(function (x) { return est.esc[x.k]; }); }
 
-  /* ---------- desenho ---------- */
-  var sel = null; /* { t, i } jogador selecionado para trocar de lugar */
-  function sobrenome(n) { var p = String(n).replace(/\s*\(.*\)$/, '').trim().split(/\s+/); return p.length > 1 && p[p.length - 1].length > 2 ? p[p.length - 1] : p.join(' '); }
-  function iniciais(n) { var p = String(n).trim().split(/\s+/); return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : '')).toUpperCase(); }
-  function metade(ti) {
-    var t = E.times[ti], S = slots(t), linhas = [];
-    S.forEach(function (s, k) { (linhas[s.linha] = linhas[s.linha] || []).push(k); });
-    return '<div class="pt-meio pt-meio-' + (ti ? 'fora' : 'casa') + '">' + linhas.map(function (ln) {
-      var ks = ti ? ln.slice().reverse() : ln; /* o adversário ataca para o outro lado: o lado esquerdo dele fica embaixo */
-      return '<div class="pt-linha">' + ks.map(function (k) {
-        var j = t.lugares[k], s = S[k], marcado = sel && sel.t === ti && sel.i === k;
-        return '<button type="button" class="pt-jog mn-slot' + (j ? '' : ' mn-livre') + (marcado ? ' mn-sel' : '') + '" data-t="' + ti + '" data-i="' + k + '" title="' + (j ? esc(j.n) + ' · ' : '') + NOME_POS[s.pos] + '">' +
-          '<i>' + (j ? esc(iniciais(j.n)) : '+') + '</i>' +
-          '<small>' + (j ? esc(sobrenome(j.n)) : s.pos) + '</small>' + (j ? '<span class="mn-x" data-tirar="1" aria-label="Tirar ' + esc(j.n) + '">×</span>' : '') + '</button>';
-      }).join('') + '</div>';
-    }).join('') + '</div>';
-  }
-  function pintar() {
-    var t0 = E.times[0], t1 = E.times[1], cheio = function (t) { return t.lugares.filter(Boolean).length; };
-    raiz.innerHTML =
-      '<div class="mn-cab">' + [0, 1].map(function (ti) {
-        var t = E.times[ti];
-        return '<div class="mn-time mn-time-' + ti + (E.ativo === ti ? ' mn-ativo' : '') + '">' +
-          '<input class="mn-nome" data-t="' + ti + '" value="' + esc(t.nome) + '" maxlength="24" aria-label="Nome do time">' +
-          '<div class="mn-linha"><select data-t="' + ti + '" aria-label="Formação">' + Object.keys(FORMACOES).map(function (f) { return '<option' + (f === t.formacao ? ' selected' : '') + '>' + f + '</option>'; }).join('') + '</select>' +
-          '<span class="mn-conta">' + cheio(t) + '/11</span></div></div>';
-      }).join('<span class="mn-vs">x</span>') + '</div>' +
-      '<form class="mn-busca" autocomplete="off"><div class="mn-para" role="group" aria-label="Colocar no">' +
-        '<button type="button" data-ativo="0" aria-pressed="' + (E.ativo === 0) + '">' + esc(t0.nome) + '</button><button type="button" data-ativo="1" aria-pressed="' + (E.ativo === 1) + '">' + esc(t1.nome) + '</button></div>' +
-        '<div class="mn-campo-busca"><input id="mn-q" type="search" placeholder="Digite um jogador e aperte Enter (ex.: Haaland, Vini Jr., Yamal)" aria-label="Buscar jogador"><button type="submit">Colocar</button>' +
-        '<ul class="mn-sug" id="mn-sug" hidden></ul></div></form>' +
-      '<p class="mn-aviso" id="mn-aviso" role="status">' + aviso + '</p>' +
-      '<div class="pt-rotulos"><span>' + esc(t0.nome) + ' · ' + t0.formacao + '</span><span>' + esc(t1.nome) + ' · ' + t1.formacao + '</span></div>' +
-      '<div class="pt-gramado mn-gramado">' + metade(0) + metade(1) + '</div>' +
-      '<p class="mn-dica">Toque num jogador e depois em outra posição do mesmo time para trocar os dois de lugar. O × tira do time.</p>' +
-      '<div class="mn-acoes"><button type="button" class="ft-btn" id="mn-link">Copiar link dos times</button><button type="button" class="ft-btn ft-btn-linha" id="mn-limpar">Limpar ' + esc(E.times[E.ativo].nome) + '</button></div>';
-    ligar();
-  }
-
-  /* ---------- busca ---------- */
-  var sugestoes = [], marc = -1, pedido = 0;
-  function locais(q) {
-    var k = norm(q); if (k.length < 2) return [];
-    return CRAQUES.filter(function (c) { return c.k.indexOf(k) > -1 || c.k.split(' ').some(function (w) { return w.indexOf(k) === 0; }); })
-      .map(function (c) { return { c: c, nota: c.k === k ? 0 : (' ' + c.k + ' ').indexOf(' ' + k + ' ') > -1 ? 1 : c.k.indexOf(k) === 0 ? 2 : (' ' + c.k).indexOf(' ' + k) > -1 ? 3 : 4 }; })
-      .sort(function (a, b) { return (a.nota > 3) - (b.nota > 3) || (b.c.cr || 0) - (a.c.cr || 0) || a.nota - b.nota || a.c.n.length - b.c.n.length; }).slice(0, 8)
-      .map(function (x) { var c = x.c; return { n: c.n, pos: c.pos, desc: (c.time ? c.time + ' · ' : '') + NOME_POS[c.pos] }; });
-  }
-  function mostrar(lista) {
-    var ul = document.getElementById('mn-sug'); if (!ul) return;
-    sugestoes = lista; marc = lista.length ? 0 : -1;
-    ul.hidden = !lista.length;
-    ul.innerHTML = lista.map(function (s, i) {
-      return '<li role="option" data-i="' + i + '" aria-selected="' + (i === marc) + '"><b>' + esc(s.n) + '</b><span>' + esc(s.desc || '') + '</span><em>' + esc(({ DEF: 'DEF', MEIO: 'MEI', ATA: 'ATA' })[s.pos] || s.pos || '') + '</em></li>';
-    }).join('');
-    [].forEach.call(ul.children, function (li) { li.addEventListener('mousedown', function (e) { e.preventDefault(); escolher(sugestoes[+li.getAttribute('data-i')]); }); });
-  }
-  function escolher(j) {
-    if (!j) return;
-    colocar(j, E.ativo); pintar();
-    var q = document.getElementById('mn-q'); if (q) q.focus();
-  }
-  function buscar(q, entao) {
-    var lista = locais(q);
-    mostrar(lista);
-    if (entao) {
-      if (pronto) entao(lista);
-      else setTimeout(function () { buscar(q, entao); }, 300); /* os elencos ainda estão chegando */
-    }
-  }
-
-  /* ---------- eventos ---------- */
-  function ligar() {
-    var q = document.getElementById('mn-q'), t = null;
-    q.addEventListener('input', function () { clearTimeout(t); var v = q.value; t = setTimeout(function () { buscar(v); }, 280); });
-    q.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        e.preventDefault(); if (!sugestoes.length) return;
-        marc = (marc + (e.key === 'ArrowDown' ? 1 : -1) + sugestoes.length) % sugestoes.length;
-        [].forEach.call(document.querySelectorAll('#mn-sug li'), function (li, i) { li.setAttribute('aria-selected', i === marc); });
-      } else if (e.key === 'Escape') { mostrar([]); }
-    });
-    q.addEventListener('blur', function () { setTimeout(function () { mostrar([]); }, 150); });
-    raiz.querySelector('.mn-busca').addEventListener('submit', function (e) {
-      e.preventDefault();
-      var v = q.value.trim(); if (!v) return;
-      var bate = function (s) { return s && norm(s.n).indexOf(norm(v)) > -1; };
-      if (marc > -1 && bate(sugestoes[marc])) { escolher(sugestoes[marc]); return; }
-      document.getElementById('mn-aviso').textContent = 'Procurando ' + v + '…';
-      buscar(v, function (lista) {
-        var achou = lista.filter(bate)[0];
-        /* não achou ninguém com esse nome: entra o nome do jeito que foi digitado */
-        escolher(achou || { n: v.replace(/\s+/g, ' ').replace(/(^|\s)\S/g, function (x) { return x.toUpperCase(); }) });
-      });
-    });
-    [].forEach.call(raiz.querySelectorAll('[data-ativo]'), function (b) { b.addEventListener('click', function () { E.ativo = +b.getAttribute('data-ativo'); salvar(); aviso = ''; pintar(); document.getElementById('mn-q').focus(); }); });
-    [].forEach.call(raiz.querySelectorAll('.mn-time'), function (d, ti) { d.addEventListener('click', function (e) { if (e.target.tagName === 'DIV' || e.target === d) { E.ativo = ti; salvar(); pintar(); } }); });
-    [].forEach.call(raiz.querySelectorAll('.mn-nome'), function (inp) {
-      inp.addEventListener('change', function () { E.times[+inp.getAttribute('data-t')].nome = inp.value.trim() || (inp.getAttribute('data-t') === '0' ? 'Meu time' : 'Adversário'); salvar(); pintar(); });
-    });
-    [].forEach.call(raiz.querySelectorAll('.mn-cab select'), function (s) {
-      s.addEventListener('change', function () {
-        /* troca a formação e recoloca todo mundo pelas posições de cada um */
-        var t = E.times[+s.getAttribute('data-t')], antes = t.lugares.filter(Boolean);
-        t.formacao = s.value; t.lugares = new Array(11).fill(null);
-        antes.sort(function (a, b) { return a.pos === 'GOL' ? -1 : b.pos === 'GOL' ? 1 : 0; }).forEach(function (j) { colocar(j, +s.getAttribute('data-t')); });
-        aviso = 'Formação ' + s.value + ' no ' + esc(t.nome) + '.'; salvar(); pintar();
-      });
-    });
-    [].forEach.call(raiz.querySelectorAll('.mn-slot'), function (b) {
-      b.addEventListener('click', function (e) {
-        var ti = +b.getAttribute('data-t'), i = +b.getAttribute('data-i'), t = E.times[ti];
-        if (e.target.getAttribute('data-tirar')) { aviso = esc(t.lugares[i].n) + ' saiu do ' + esc(t.nome) + '.'; t.lugares[i] = null; sel = null; salvar(); pintar(); return; }
-        if (sel && sel.t === ti && sel.i !== i) {
-          var x = t.lugares[sel.i]; t.lugares[sel.i] = t.lugares[i]; t.lugares[i] = x; sel = null; aviso = 'Trocados de lugar.'; salvar(); pintar(); return;
+  /* ---------- simulação do Brasileirão ---------- */
+  function poisson(l) { var L = Math.exp(-l), k = 0, p = 1; do { k++; p *= Math.random(); } while (p > L); return k - 1; }
+  function simular() {
+    var V = vagas(), jog = V.slice(1).map(function (v) { return achar(v); }), tec = achar(V[0]);
+    var setores = {}; jog.forEach(function (j) { var s = SETOR[j.pos]; (setores[s] = setores[s] || []).push(j.nota); });
+    var media = function (a) { return a.reduce(function (x, y) { return x + y; }, 0) / a.length; };
+    var forca = media(jog.map(function (j) { return j.nota; })) + (tec.nota - 82) * 0.18;
+    var comp = (window.COMPETICOES || []).filter(function (c) { return c.slug === 'brasileirao'; })[0] || {};
+    var linhas = ((comp.tabela || {}).linhas || []).slice();
+    var maxP = Math.max.apply(null, [1].concat(linhas.map(function (l) { return +l[2] || 0; })));
+    linhas.pop(); /* o seu clube entra no lugar do lanterna */
+    var T = linhas.map(function (l) { return { nome: l[1], r: 74 + 12 * (+l[2] || 0) / maxP }; });
+    var eu = { nome: est.nome, r: forca, minha: true }; T.push(eu);
+    T.forEach(function (t) { t.pts = t.v = t.e = t.d = t.gp = t.gc = 0; });
+    var gols = {};
+    function jogo(a, b) {
+      var ga = poisson(Math.max(.15, 1.35 * Math.exp((a.r - b.r) / 9) + .2)), gb = poisson(Math.max(.15, 1.1 * Math.exp((b.r - a.r) / 9)));
+      a.gp += ga; a.gc += gb; b.gp += gb; b.gc += ga;
+      if (ga > gb) { a.pts += 3; a.v++; b.d++; } else if (ga < gb) { b.pts += 3; b.v++; a.d++; } else { a.pts++; b.pts++; a.e++; b.e++; }
+      [[a, ga], [b, gb]].forEach(function (x) {
+        if (!x[0].minha) return;
+        for (var g = 0; g < x[1]; g++) { /* quem fez o gol: atacantes têm mais chance */
+          var peso = jog.map(function (j) { return ({ CA: 6, PD: 3.5, PE: 3.5, MEI: 3, MC: 1.5, VOL: .7, LD: .5, LE: .5, ZAG: .5, GOL: 0 })[j.pos] * (j.nota / 80); });
+          var s = peso.reduce(function (x, y) { return x + y; }, 0), r = Math.random() * s, i = 0;
+          while ((r -= peso[i]) > 0) i++;
+          gols[jog[i].nome] = (gols[jog[i].nome] || 0) + 1;
         }
-        if (sel && sel.t === ti && !t.lugares[i]) { t.lugares[i] = t.lugares[sel.i]; t.lugares[sel.i] = null; sel = null; aviso = 'Mudou de posição.'; salvar(); pintar(); return; }
-        if (!t.lugares[i]) { E.ativo = ti; sel = null; alvo = { t: ti, i: i }; aviso = 'Digite o jogador para essa posição (' + NOME_POS[slots(t)[i].pos].toLowerCase() + ').'; pintar(); document.getElementById('mn-q').focus(); return; }
-        sel = sel && sel.t === ti && sel.i === i ? null : { t: ti, i: i };
-        aviso = sel ? 'Agora toque na posição para onde ' + esc(t.lugares[i].n) + ' vai.' : ''; pintar();
       });
-    });
-    /* limpar: confirma no próprio botão (a janela de confirmação do navegador é bloqueada em alguns aparelhos e apps) */
-    var btLimpar = document.getElementById('mn-limpar');
-    btLimpar.addEventListener('click', function () {
-      var t = E.times[E.ativo];
-      if (!t.lugares.some(Boolean)) { aviso = esc(t.nome) + ' já está vazio.'; pintar(); return; }
-      if (!btLimpar.classList.contains('mn-confirma')) {
-        btLimpar.classList.add('mn-confirma'); btLimpar.textContent = 'Tocar de novo para limpar';
-        setTimeout(function () { if (document.body.contains(btLimpar)) { btLimpar.classList.remove('mn-confirma'); btLimpar.textContent = 'Limpar ' + t.nome; } }, 4000);
-        return;
-      }
-      t.lugares = new Array(11).fill(null); sel = null; alvo = null; aviso = esc(t.nome) + ' zerado.'; salvar(); pintar();
-    });
-    document.getElementById('mn-link').addEventListener('click', function () {
-      var cod = btoa(unescape(encodeURIComponent(JSON.stringify({ times: E.times, ativo: 0 })))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-      var url = location.origin + location.pathname + '#t=' + cod;
-      (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(function () { aviso = 'Link copiado. Mande para o seu amigo ver os dois times.'; pintar(); })
-        .catch(function () { prompt('Copie o link:', url); });
-    });
+    }
+    T.forEach(function (a) { T.forEach(function (b) { if (a !== b) jogo(a, b); }); });
+    T.sort(function (a, b) { return b.pts - a.pts || b.v - a.v || (b.gp - b.gc) - (a.gp - a.gc) || b.gp - a.gp; });
+    var pos = T.indexOf(eu) + 1, art = Object.keys(gols).sort(function (a, b) { return gols[b] - gols[a]; })[0];
+    var areas = Object.keys(setores).map(function (s) { return [s, media(setores[s])]; }).sort(function (a, b) { return b[1] - a[1]; });
+    est.resultado = { tabela: T, pos: pos, eu: eu, art: art, artGols: art ? gols[art] : 0, forte: areas[0][0], fraco: areas[areas.length - 1][0] };
+    var rec = 99; try { rec = +localStorage.getItem(RECORDE) || 99; } catch (e) {}
+    if (pos < rec) { try { localStorage.setItem(RECORDE, pos); } catch (e) {} est.resultado.recorde = true; }
   }
+  function destino(p) { return p === 1 ? 'Campeão brasileiro!' : p <= 6 ? 'Vaga na Libertadores' : p <= 12 ? 'Vaga na Sul-Americana' : p >= 17 ? 'Rebaixado para a Série B' : 'Meio da tabela'; }
+
+  /* ---------- tela ---------- */
+  function pintar() {
+    if (est.resultado) return pintarResultado();
+    var V = vagas(), g = gasto(), resta = est.orc - g, pct = Math.min(100, g / est.orc * 100);
+    var rec = 0; try { rec = +localStorage.getItem(RECORDE) || 0; } catch (e) {}
+    caixa.innerHTML =
+      '<section class="ef-orc"><div><small>Orçamento</small><b>€ ' + est.orc + ' mi</b></div>' +
+        '<div><small>Gasto</small><b>€ ' + g + ' mi</b></div><div class="' + (resta < 0 ? 'ef-neg' : '') + '"><small>Sobra</small><b>€ ' + resta + ' mi</b></div>' +
+        '<button type="button" class="ft-btn ft-btn-linha" data-acao="orc">Sortear outro orçamento</button>' +
+        '<div class="ef-barra"><i style="width:' + pct.toFixed(1) + '%" class="' + (resta < 0 ? 'ef-neg' : '') + '"></i></div></section>' +
+      '<div class="ef-nome"><label>Nome do clube <input id="ef-nome" maxlength="28" value="' + esc(est.nome) + '"></label>' +
+        '<label>Formação <select id="ef-form">' + Object.keys(FORMACOES).map(function (f) { return '<option' + (f === est.form ? ' selected' : '') + '>' + f + '</option>'; }).join('') + '</select></label></div>' +
+      V.map(function (v) {
+        var sel = achar(v), aberta = est.aberta === v.k, ocup = ocupados(v);
+        return '<section class="ef-vaga' + (sel ? ' ef-ok' : '') + (aberta ? ' ef-aberta' : '') + '">' +
+          '<button type="button" class="ef-cab" data-abrir="' + v.k + '"><span><b>' + esc(v.t) + '</b><small>' + (sel ? esc(sel.nome) + ' · € ' + sel.preco + ' mi' : 'A contratar') + '</small></span><em>' + (sel ? '✓' : aberta ? '−' : '+') + '</em></button>' +
+          (aberta ? (v.d ? '<p class="ef-desc">' + esc(v.d) + '</p>' : '') + '<div class="ef-ops">' + OPC[v.pos].map(function (o) {
+            var ja = sel && sel.id === o.id, caro = !ja && o.preco - (sel ? sel.preco : 0) > resta, ocupado = ocup.indexOf(o.id) > -1;
+            return '<button type="button" class="ef-op' + (ja ? ' ef-sel' : '') + '" data-vaga="' + v.k + '" data-id="' + esc(o.id) + '"' + (ocupado ? ' disabled' : '') + '>' +
+              '<b>' + esc(o.nome) + '</b><small>' + bandeira(o.pais) + esc(o.pais) + (ocupado ? ' · já contratado' : '') + '</small><span class="ef-nota">' + estrelas(o.nota) + '</span>' +
+              '<span class="ef-preco' + (caro ? ' ef-caro' : '') + '">€ ' + o.preco + ' mi</span></button>';
+          }).join('') + '</div>' : '') + '</section>';
+      }).join('') +
+      '<div class="ef-fim">' + (completo() && resta >= 0 ? '<button type="button" class="ft-btn" data-acao="simular">⚽ Simular o Brasileirão</button>'
+        : '<p>' + (resta < 0 ? 'Passou do orçamento em € ' + (-resta) + ' mi. Troque alguém por uma opção mais barata.' : 'Faltam ' + V.filter(function (v) { return !achar(v); }).length + ' contratações para completar o time.') + '</p>') +
+      (rec ? '<small>Seu recorde: ' + rec + 'º lugar no Brasileirão.</small>' : '') + '</div>';
+  }
+  function pintarResultado() {
+    var R = est.resultado, eu = R.eu;
+    caixa.innerHTML = '<section class="ef-res">' +
+      '<p class="ef-pos"><b>' + R.pos + 'º</b><span>' + destino(R.pos) + (R.recorde ? ' · seu melhor resultado!' : '') + '</span></p>' +
+      '<div class="av-placar"><span><b>' + eu.pts + '</b>pontos</span><span><b>' + eu.v + '</b>vitórias</span><span><b>' + eu.e + '</b>empates</span><span><b>' + eu.d + '</b>derrotas</span><span><b>' + eu.gp + ':' + eu.gc + '</b>gols</span></div>' +
+      '<p class="ef-analise">Ponto forte: <b>' + esc(R.forte) + '</b> · Ponto fraco: <b>' + esc(R.fraco) + '</b>' + (R.art ? ' · Artilheiro: <b>' + esc(R.art) + '</b> (' + R.artGols + ' gols)' : '') + '</p>' +
+      '<h3>Brasileirão</h3><ol class="ef-tab">' + R.tabela.map(function (t) { return '<li' + (t === eu ? ' class="ef-eu"' : '') + '><span>' + esc(t.nome) + '</span><b>' + t.pts + '</b></li>'; }).join('') + '</ol>' +
+      '<div class="av-botoes"><button type="button" class="ft-btn" data-acao="de-novo">Simular de novo</button><button type="button" class="ft-btn ft-btn-linha" data-acao="editar">Mexer no time</button>' +
+      '<button type="button" class="ft-btn ft-btn-linha" data-acao="nova">Novo time (outro orçamento)</button></div></section>';
+  }
+  caixa.addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    var a = b.getAttribute('data-acao');
+    if (b.hasAttribute('data-abrir')) { var k = b.getAttribute('data-abrir'); est.aberta = est.aberta === k ? '' : k; pintar(); return; }
+    if (b.hasAttribute('data-vaga')) {
+      var vk = b.getAttribute('data-vaga'), id = b.getAttribute('data-id');
+      est.esc[vk] = est.esc[vk] === id ? undefined : id;
+      if (est.esc[vk]) { var prox = vagas().filter(function (v) { return !achar(v); })[0]; est.aberta = prox ? prox.k : ''; }
+      pintar(); return;
+    }
+    if (a === 'orc') { var o; do { o = ORCAMENTOS[Math.floor(Math.random() * ORCAMENTOS.length)]; } while (o === est.orc); est.orc = o; pintar(); }
+    if (a === 'simular' || a === 'de-novo') { simular(); pintar(); window.scrollTo({ top: caixa.getBoundingClientRect().top + scrollY - 120, behavior: 'smooth' }); }
+    if (a === 'editar') { est.resultado = null; pintar(); }
+    if (a === 'nova') { est = novo(est.nome, est.form); pintar(); }
+  });
+  caixa.addEventListener('input', function (e) { if (e.target.id === 'ef-nome') est.nome = e.target.value.trim() || 'Fan Zone FC'; });
+  caixa.addEventListener('change', function (e) {
+    if (e.target.id !== 'ef-form') return;
+    /* troca a formação: quem tem posição na formação nova continua contratado */
+    var antes = vagas().map(function (v) { return { pos: v.pos, id: est.esc[v.k] }; }).filter(function (x) { return x.id; });
+    est.form = e.target.value; est.esc = {};
+    vagas().forEach(function (v) { var i = antes.findIndex(function (x) { return x.pos === v.pos; }); if (i > -1) { est.esc[v.k] = antes[i].id; antes.splice(i, 1); } });
+    var prox = vagas().filter(function (v) { return !achar(v); })[0]; est.aberta = prox ? prox.k : '';
+    pintar();
+  });
   pintar();
 })();

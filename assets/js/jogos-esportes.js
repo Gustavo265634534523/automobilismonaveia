@@ -25,7 +25,7 @@
     ['escudo', 'escudo-misterioso.html', 'Escudo misterioso', 'O escudo aparece borrado e vai ficando nítido. Que time é?', 'arena-escudo'],
     ['campo', 'futebol-1x1.html', 'Futebol 1x1', 'Cabeção contra o computador em 2 minutos: chute, cabeceie e faça gols.', '', 'futebol'],
     ['quadra', 'basquete-1x1.html', 'Basquete 1x1', 'Você contra o computador em 2 minutos: arremesse, roube e dê o toco.', '', 'basquete'],
-    ['monte', 'monte-seu-time.html', 'Monte seu time', 'Seu time dos sonhos contra o do adversário, com os jogadores de hoje.', '', 'futebol'],
+    ['monte', 'monte-seu-time.html', 'Monte seu time', 'Com um orçamento, contrate técnico e jogadores e dispute o Brasileirão.', '', 'futebol'],
     /* os da F1 (jogos.html) */
     ['equipe', 'equipe-f1.html', 'Monte sua equipe', 'Seja dono de uma equipe: contrate pilotos e engenheiros dentro do orçamento.', '', 'f1'],
     ['corrida', 'jogos.html#corrida', 'Fan Zone Racing', 'Pilote um F1 em 3D contra 11 adversários.', '', 'f1'],

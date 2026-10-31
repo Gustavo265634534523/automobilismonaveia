@@ -1031,3 +1031,6 @@ html.b1-travado, html.b1-travado body { overflow: hidden; }
 .gr-bandeira img { display: block; width: 40px; height: 30px; border-radius: 4px; object-fit: cover; box-shadow: 0 0 0 1px rgba(255, 255, 255, .15); }
 @media (max-width: 620px) { .gr-bandeira img { width: 30px; height: 22px; } }
 .av-bandeira { display: inline-block; vertical-align: -3px; width: 22px; height: 16px; margin-right: 6px; border-radius: 3px; object-fit: cover; box-shadow: 0 0 0 1px rgba(255, 255, 255, .15); }
+.ef-nome label { display: flex; flex: 1 1 220px; align-items: center; gap: 10px; }
+.ef-nome select { height: 40px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--linha); background: var(--carbono); color: var(--cromo); font: inherit; font-weight: 700; }
+.ef-nome label:last-child { flex: 0 0 auto; }
