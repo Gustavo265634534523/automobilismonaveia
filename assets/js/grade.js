@@ -60,7 +60,7 @@
   function acabou() { return estado.chutes >= CHUTES || Object.keys(estado.casas).length >= 9; }
   function rotulo(k) {
     var n = k.slice(2);
-    return k.charAt(0) === 'c' ? window.escudoTime(n, 'gr-escudo') + '<b>' + esc(n) + '</b>' : '<span class="gr-bandeira">' + (BANDEIRA[n] || '🌍') + '</span><b>' + esc(n) + '</b><small>país</small>';
+    return k.charAt(0) === 'c' ? window.escudoTime(n, 'gr-escudo') + '<b>' + esc(n) + '</b>' : '<span class="gr-bandeira">' + ((window.BANDEIRAS || {})[n] ? '<img src="' + window.BANDEIRAS[n] + '" alt="">' : BANDEIRA[n] || '🌍') + '</span><b>' + esc(n) + '</b><small>país</small>';
   }
   function salvar() {
     G.dia[chave()] = estado;
