@@ -7,7 +7,10 @@
   if (!caixa || !JB) return;
   var esc = window.esc, norm = JB.norm, CHUTES = 9;
   var BANDEIRA = { Brasil: '🇧🇷', Argentina: '🇦🇷', França: '🇫🇷', Portugal: '🇵🇹', Espanha: '🇪🇸', Inglaterra: '🏴', Alemanha: '🇩🇪', Uruguai: '🇺🇾', Bélgica: '🇧🇪',
-    'Estados Unidos': '🇺🇸', Canadá: '🇨🇦', Austrália: '🇦🇺', Itália: '🇮🇹', Holanda: '🇳🇱', Colômbia: '🇨🇴', Sérvia: '🇷🇸', 'República Dominicana': '🇩🇴' };
+    'Estados Unidos': '🇺🇸', Canadá: '🇨🇦', Austrália: '🇦🇺', Itália: '🇮🇹', Holanda: '🇳🇱', Colômbia: '🇨🇴', Sérvia: '🇷🇸', 'República Dominicana': '🇩🇴',
+    Croácia: '🇭🇷', Noruega: '🇳🇴', Suécia: '🇸🇪', Senegal: '🇸🇳', Marrocos: '🇲🇦', Nigéria: '🇳🇬', Camarões: '🇨🇲', Japão: '🇯🇵', 'Coreia do Sul': '🇰🇷', Escócia: '🏴',
+    'País de Gales': '🏴', Turquia: '🇹🇷', Suíça: '🇨🇭', Dinamarca: '🇩🇰', Equador: '🇪🇨', México: '🇲🇽', Polônia: '🇵🇱', Egito: '🇪🇬', Gana: '🇬🇭', 'Costa do Marfim': '🇨🇮',
+    Hungria: '🇭🇺', Eslovênia: '🇸🇮', Grécia: '🇬🇷', Geórgia: '🇬🇪', Chile: '🇨🇱', Argélia: '🇩🇿', Guiné: '🇬🇳', Paraguai: '🇵🇾', Áustria: '🇦🇹' };
   var esporte = JB.esporteDaPagina(), G = JB.ler('arena-grade', null) || { dia: {}, placar: {} };
   G.n = G.n || {}; /* quantas vezes a pessoa atualizou a grade hoje, por esporte (0 = desafio do dia) */
   var grade = null, estado = null, casa = null, aviso = '';
@@ -23,7 +26,8 @@
     return C;
   }
   function vale(x, k) { return k.charAt(0) === 'c' ? x.clubes.indexOf(k.slice(2)) > -1 : x.pais === k.slice(2); }
-  function respostas(r, c) { return JB.trajetorias(esporte).filter(function (x) { return vale(x, r) && vale(x, c); }); }
+  /* respostas para mostrar no fim: primeiro as das trajetórias (mais conhecidas), depois as da lista do robô */
+  function respostas(r, c) { return JB.jogadoresGrade(esporte).filter(function (x) { return vale(x, r) && vale(x, c); }); }
   function montar(rng) {
     var C = criterios(esporte), K = Object.keys(C);
     for (var t = 0; t < 4000; t++) {
@@ -66,7 +70,7 @@
   }
   function chutar(nome) {
     if (!casa || acabou()) return;
-    var p = norm(nome), x = JB.trajetorias(esporte).filter(function (j) { return j.aceitos.indexOf(p) > -1; })[0];
+    var x = JB.acharJogador(esporte, nome);
     if (!x) { aviso = 'Não achei “' + esc(nome) + '” na nossa lista de jogadores. Escolha um nome das sugestões; esse chute não conta.'; pintar(); return; }
     var usados = Object.keys(estado.casas).map(function (k) { return estado.casas[k]; });
     if (usados.indexOf(x.nome) > -1) { aviso = esc(x.nome) + ' já está em outra casa. Cada jogador vale uma vez.'; pintar(); return; }
@@ -128,7 +132,7 @@
       });
     });
     var inp = document.getElementById('gr-q'); if (!inp) return;
-    var nomes = JB.trajetorias(esporte).map(function (x) { return x.nome; }).sort(function (a, b) { return a.localeCompare(b); });
+    var nomes = JB.jogadoresGrade(esporte).map(function (x) { return x.nome; }).sort(function (a, b) { return a.localeCompare(b); });
     JB.autocompletar(inp, inp.nextSibling, nomes, chutar);
     document.getElementById('gr-ok').addEventListener('click', function () { chutar(inp.value); });
   }

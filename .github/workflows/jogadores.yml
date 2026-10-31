@@ -30,7 +30,7 @@ jobs:
         run: |
           git config user.name "Robô Fan Zone"
           git config user.email "automobilismonaveiacontato@gmail.com"
-          git add assets/dados/jogadores-todos.js assets/dados/brasileiros.js
+          git add assets/dados/jogadores-todos.js assets/dados/brasileiros.js assets/dados/grade-jogadores.js
           git diff --cached --quiet && exit 0
           git commit -m "Robô: elencos do Monte seu time"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done

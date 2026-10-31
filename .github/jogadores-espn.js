@@ -9,6 +9,23 @@ const path = require('path');
 const RAIZ = path.join(__dirname, '..');
 const ARQ = path.join(RAIZ, 'assets/dados/jogadores-todos.js');
 const ARQ_BR = path.join(RAIZ, 'assets/dados/brasileiros.js');
+const ARQ_GRADE = path.join(RAIZ, 'assets/dados/grade-jogadores.js');
+/* país em português (a ESPN manda em inglês); o que não está aqui fica como veio */
+const PAIS = { England: 'Inglaterra', France: 'França', Spain: 'Espanha', Germany: 'Alemanha', Brazil: 'Brasil', Argentina: 'Argentina', Portugal: 'Portugal',
+  Netherlands: 'Holanda', Holland: 'Holanda', Belgium: 'Bélgica', Uruguay: 'Uruguai', Italy: 'Itália', Colombia: 'Colômbia', Serbia: 'Sérvia', USA: 'Estados Unidos',
+  'United States': 'Estados Unidos', Canada: 'Canadá', Australia: 'Austrália', Croatia: 'Croácia', Norway: 'Noruega', Denmark: 'Dinamarca', Switzerland: 'Suíça',
+  Morocco: 'Marrocos', Senegal: 'Senegal', Nigeria: 'Nigéria', Ghana: 'Gana', Japan: 'Japão', 'South Korea': 'Coreia do Sul', 'Korea Republic': 'Coreia do Sul',
+  Mexico: 'México', Chile: 'Chile', Ecuador: 'Equador', Paraguay: 'Paraguai', Scotland: 'Escócia', Wales: 'País de Gales', Poland: 'Polônia', Sweden: 'Suécia',
+  Austria: 'Áustria', Turkey: 'Turquia', 'Türkiye': 'Turquia', Egypt: 'Egito', "Côte d'Ivoire": 'Costa do Marfim', 'Ivory Coast': 'Costa do Marfim', Cameroon: 'Camarões',
+  Ukraine: 'Ucrânia', 'Czech Republic': 'Tchéquia', Czechia: 'Tchéquia', Hungary: 'Hungria', Slovenia: 'Eslovênia', Georgia: 'Geórgia', Algeria: 'Argélia',
+  Gabon: 'Gabão', Guinea: 'Guiné', Greece: 'Grécia', Peru: 'Peru', Venezuela: 'Venezuela', 'Republic of Ireland': 'Irlanda', Ireland: 'Irlanda', Mali: 'Mali',
+  'Dominican Republic': 'República Dominicana', Lithuania: 'Lituânia', Latvia: 'Letônia', Finland: 'Finlândia', Slovakia: 'Eslováquia', Bosnia: 'Bósnia',
+  'Bosnia and Herzegovina': 'Bósnia', Montenegro: 'Montenegro', Russia: 'Rússia', Israel: 'Israel', Bahamas: 'Bahamas', Jamaica: 'Jamaica', 'New Zealand': 'Nova Zelândia' };
+const pt = x => PAIS[String(x || '').trim()] || String(x || '').trim();
+/* para a Grade: só os clubes que aparecem nas trajetórias do jogo (assets/dados/adivinhe.js) */
+const clubesGrade = new Set();
+try { const a = {}; new Function('window', fs.readFileSync(path.join(RAIZ, 'assets/dados/adivinhe.js'), 'utf8'))(a); (a.ADIVINHE.futebol || []).forEach(x => x[3].forEach(c => clubesGrade.add(c))); } catch (e) { /* sem lista */ }
+const grade = { futebol: [], basquete: [] };
 /* ligas da Europa (para os brasileiros) e o nome curto de cada uma */
 const EUROPA = { 'eng.1': 'Premier League', 'eng.2': 'Championship', 'esp.1': 'La Liga', 'esp.2': 'Segunda da Espanha', 'ita.1': 'Serie A', 'ita.2': 'Serie B da Itália',
   'ger.1': 'Bundesliga', 'ger.2': '2. Bundesliga', 'fra.1': 'Ligue 1', 'fra.2': 'Ligue 2', 'por.1': 'Liga Portugal', 'ned.1': 'Eredivisie', 'tur.1': 'Turquia',
@@ -68,6 +85,7 @@ function pos(p) {
         if (!todos.has(a.id)) { todos.set(a.id, [nome, p, nomeTime, a.id].join('|')); n++; }
         const pais = String(a.citizenship || ((a.citizenshipCountry || {}).abbreviation === 'BRA' ? 'Brazil' : '') || ((a.birthPlace || {}).country || ''));
         if (EUROPA[liga] && /^(brazil|brasil)$/i.test(pais) && !europa.has(a.id)) europa.set(a.id, [nome, p, nomeTime, EUROPA[liga], a.id]);
+        if (clubesGrade.has(nomeTime) && a.citizenship) grade.futebol.push([nome, nomeTime, pt(a.citizenship)]);
       }
       times++;
       await espera(120);
@@ -82,6 +100,7 @@ function pos(p) {
     const r = await pedir('https://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams/' + tm.id + '/roster');
     for (const a of (r && r.athletes) || []) {
       const pais = ((a.birthPlace || {}).country || '') + ' ' + (a.citizenship || '');
+      if (a.displayName || a.fullName) grade.basquete.push([a.displayName || a.fullName, IDS['b' + tm.id] || tm.displayName || '', pt(a.citizenship || (a.birthPlace || {}).country || '')]);
       if (/brazil|brasil/i.test(pais)) nba.push([a.displayName || a.fullName, ((a.position || {}).abbreviation) || '', IDS['b' + tm.id] || tm.displayName || '', a.id, ((a.birthPlace || {}).city) || '']);
     }
     await espera(120);
@@ -91,6 +110,12 @@ function pos(p) {
     fs.writeFileSync(ARQ_BR, '/* Brasileiros nos elencos da Europa e da NBA (ESPN). Gerado por .github/jogadores-espn.js.\n' +
       '   europa: "Nome|POSIÇÃO|Time|Liga|id da ESPN"; nba: [nome, posição, time, id da ESPN, cidade onde nasceu]. */\n' +
       'window.BRASILEIROS = ' + JSON.stringify({ europa: [...europa.values()].map(x => x.join('|')).sort((a, b) => a.localeCompare(b)), nba, atualizado: new Date().toISOString().slice(0, 10) }) + ';\n');
+  }
+  /* Grade: clube atual e país de quem joga nos clubes do jogo e na NBA (aceitos como resposta, além das trajetórias) */
+  if (grade.futebol.length > 200) {
+    fs.writeFileSync(ARQ_GRADE, '/* Jogadores aceitos na Grade além das trajetórias: [nome, clube atual, país]. Gerado por .github/jogadores-espn.js. */\n' +
+      'window.GRADE_JOGADORES = ' + JSON.stringify(grade) + ';\n');
+    console.log('grade:', grade.futebol.length, 'no futebol,', grade.basquete.length, 'na NBA');
   }
   if (todos.size < 1000) { console.log('poucos jogadores (' + todos.size + '); mantém o arquivo anterior'); return; }
   const linhas = [...todos.values()].sort((a, b) => a.localeCompare(b));

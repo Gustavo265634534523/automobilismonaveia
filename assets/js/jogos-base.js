@@ -33,6 +33,29 @@
       return { nome: x[0], pais: x[1], pos: x[2], clubes: clubes, aceitos: [x[0]].concat(x[4] || []).map(norm) };
     });
   }
+  /* Grade: as trajetórias mais os jogadores de grade-jogadores.js (robô: clube atual e país de quem joga nos clubes do jogo
+     e na NBA). Quem já está nas trajetórias só ganha o clube atual; os outros entram com um clube só. */
+  var cacheGrade = {};
+  function jogadoresGrade(esp) {
+    if (cacheGrade[esp]) return cacheGrade[esp];
+    var L = trajetorias(esp).map(function (x) { return { nome: x.nome, pais: x.pais, pos: x.pos, clubes: x.clubes.slice(), aceitos: x.aceitos }; });
+    var porNome = {}; L.forEach(function (x) { x.aceitos.forEach(function (a) { porNome[a] = x; }); });
+    (((window.GRADE_JOGADORES || {})[esp]) || []).forEach(function (g) {
+      var k = norm(g[0]), x = porNome[k];
+      if (x) { if (g[1] && x.clubes.indexOf(g[1]) < 0) x.clubes.push(g[1]); return; }
+      x = porNome[k] = { nome: g[0], pais: g[2] || '', pos: '', clubes: g[1] ? [g[1]] : [], aceitos: [k] };
+      L.push(x);
+    });
+    return cacheGrade[esp] = L;
+  }
+  /* acha o jogador pelo nome digitado; sem achar, aceita só o sobrenome quando um único jogador tem esse sobrenome ("Rice") */
+  function acharJogador(esp, texto) {
+    var p = norm(texto), L = jogadoresGrade(esp);
+    var x = L.filter(function (j) { return j.aceitos.indexOf(p) > -1; })[0];
+    if (x || !p) return x || null;
+    var s = L.filter(function (j) { var n = norm(j.nome).split(' '); return n.length > 1 && n[n.length - 1] === p; });
+    return s.length === 1 ? s[0] : null;
+  }
 
   /* sorteio com semente: mulberry32 */
   function semente(s) { var h = 1779033703; for (var i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 3432918353), h = h << 13 | h >>> 19; return h >>> 0; }
@@ -88,6 +111,6 @@
     (navigator.clipboard ? navigator.clipboard.writeText(texto) : Promise.reject()).then(function () { botao.textContent = 'Copiado!'; }).catch(function () { prompt('Copie:', texto); });
   }
 
-  window.JOGOS_BASE = { norm: norm, hoje: hoje, trajetorias: trajetorias, aleatorio: aleatorio, semente: semente, embaralhar: embaralhar, ler: ler, guardar: guardar,
+  window.JOGOS_BASE = { norm: norm, hoje: hoje, trajetorias: trajetorias, jogadoresGrade: jogadoresGrade, acharJogador: acharJogador, aleatorio: aleatorio, semente: semente, embaralhar: embaralhar, ler: ler, guardar: guardar,
     autocompletar: autocompletar, topo: topo, abasEsporte: abasEsporte, ligarTopo: ligarTopo, esporteDaPagina: esporteDaPagina, compartilhar: compartilhar };
 })();
