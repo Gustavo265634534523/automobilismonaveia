@@ -8,13 +8,16 @@
   var esc = window.esc, B = window.BANDEIRAS || {};
   var ORCAMENTOS = [400, 500, 600, 700], RECORDE = 'arena-time-futebol';
 
-  var FORMACOES = {
-    '4-3-3': ['GOL', 'LD', 'ZAG', 'ZAG', 'LE', 'VOL', 'MC', 'MC', 'PD', 'CA', 'PE'],
-    '4-4-2': ['GOL', 'LD', 'ZAG', 'ZAG', 'LE', 'VOL', 'MC', 'PD', 'PE', 'CA', 'CA'],
-    '4-2-3-1': ['GOL', 'LD', 'ZAG', 'ZAG', 'LE', 'VOL', 'VOL', 'PD', 'MEI', 'PE', 'CA'],
-    '3-5-2': ['GOL', 'ZAG', 'ZAG', 'ZAG', 'LD', 'VOL', 'MC', 'MC', 'LE', 'CA', 'CA'],
-    '3-4-3': ['GOL', 'ZAG', 'ZAG', 'ZAG', 'LD', 'MC', 'MC', 'LE', 'PD', 'CA', 'PE']
+  /* formações: linhas do goleiro para o ataque; em cada linha, do lado esquerdo para o direito do time */
+  var LINHAS = {
+    '4-3-3': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['MC', 'VOL', 'MC'], ['PE', 'CA', 'PD']],
+    '4-4-2': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['PE', 'MC', 'VOL', 'PD'], ['CA', 'CA']],
+    '4-2-3-1': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['VOL', 'VOL'], ['PE', 'MEI', 'PD'], ['CA']],
+    '3-5-2': [['GOL'], ['ZAG', 'ZAG', 'ZAG'], ['LE', 'MC', 'VOL', 'MC', 'LD'], ['CA', 'CA']],
+    '3-4-3': [['GOL'], ['ZAG', 'ZAG', 'ZAG'], ['LE', 'MC', 'MC', 'LD'], ['PE', 'CA', 'PD']],
+    '4-1-2-1-2': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['VOL'], ['MC', 'MC'], ['MEI'], ['CA', 'CA']]
   };
+  var FORMACOES = {}; Object.keys(LINHAS).forEach(function (f) { FORMACOES[f] = [].concat.apply([], LINHAS[f]); });
   var NOME_POS = { GOL: 'Goleiro', LD: 'Lateral direito', ZAG: 'Zagueiro', LE: 'Lateral esquerdo', VOL: 'Volante', MC: 'Meio-campo', MEI: 'Meia', PD: 'Ponta direita', PE: 'Ponta esquerda', CA: 'Centroavante' };
   var SETOR = { GOL: 'Defesa', LD: 'Defesa', ZAG: 'Defesa', LE: 'Defesa', VOL: 'Meio-campo', MC: 'Meio-campo', MEI: 'Meio-campo', PD: 'Ataque', PE: 'Ataque', CA: 'Ataque' };
 
@@ -96,6 +99,30 @@
   function destino(p) { return p === 1 ? 'Campeão brasileiro!' : p <= 6 ? 'Vaga na Libertadores' : p <= 12 ? 'Vaga na Sul-Americana' : p >= 17 ? 'Rebaixado para a Série B' : 'Meio da tabela'; }
 
   /* ---------- tela ---------- */
+  function sobrenome(n) { var p = String(n).trim().split(/\s+/); return p.length > 1 && p[p.length - 1].length > 2 ? p[p.length - 1] : p.join(' '); }
+  function iniciais(n) { var p = String(n).trim().split(/\s+/); return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : '')).toUpperCase(); }
+  function campo(V) {
+    var k = 0;
+    return '<div class="pt-meio pt-meio-casa">' + LINHAS[est.form].map(function (ln) {
+      return '<div class="pt-linha">' + ln.map(function () {
+        var v = V[++k], j = achar(v);
+        return '<button type="button" class="pt-jog mn-slot' + (j ? '' : ' mn-livre') + (est.aberta === v.k ? ' mn-sel' : '') + '" data-abrir="' + v.k + '" title="' + esc(v.t) + (j ? ' · ' + esc(j.nome) : '') + '">' +
+          '<i>' + (j ? esc(iniciais(j.nome)) : '+') + '</i><small>' + (j ? esc(sobrenome(j.nome)) : v.pos) + '</small>' +
+          (j ? '<span class="mn-x" data-tirar="' + v.k + '" aria-label="Dispensar ' + esc(j.nome) + '">×</span>' : '') + '</button>';
+      }).join('') + '</div>';
+    }).join('') + '</div>';
+  }
+  function painel(V, resta) {
+    var v = V.filter(function (x) { return x.k === est.aberta; })[0]; if (!v) return '';
+    var sel = achar(v), ocup = ocupados(v);
+    return '<section class="ef-vaga ef-aberta mn-painel" id="mn-painel"><div class="ef-cab"><span><b>Contratar: ' + esc(v.t) + '</b><small>' + (sel ? 'Contratado: ' + esc(sel.nome) + ' · € ' + sel.preco + ' mi' : 'Escolha um nome') + '</small></span></div>' +
+      (v.d ? '<p class="ef-desc">' + esc(v.d) + '</p>' : '') + '<div class="ef-ops">' + OPC[v.pos].map(function (o) {
+        var ja = sel && sel.id === o.id, caro = !ja && o.preco - (sel ? sel.preco : 0) > resta, ocupado = ocup.indexOf(o.id) > -1;
+        return '<button type="button" class="ef-op' + (ja ? ' ef-sel' : '') + '" data-vaga="' + v.k + '" data-id="' + esc(o.id) + '"' + (ocupado ? ' disabled' : '') + '>' +
+          '<b>' + esc(o.nome) + '</b><small>' + bandeira(o.pais) + esc(o.pais) + (ocupado ? ' · já contratado' : '') + '</small><span class="ef-nota">' + estrelas(o.nota) + '</span>' +
+          '<span class="ef-preco' + (caro ? ' ef-caro' : '') + '">€ ' + o.preco + ' mi</span></button>';
+      }).join('') + '</div></section>';
+  }
   function pintar() {
     if (est.resultado) return pintarResultado();
     var V = vagas(), g = gasto(), resta = est.orc - g, pct = Math.min(100, g / est.orc * 100);
@@ -107,17 +134,11 @@
         '<div class="ef-barra"><i style="width:' + pct.toFixed(1) + '%" class="' + (resta < 0 ? 'ef-neg' : '') + '"></i></div></section>' +
       '<div class="ef-nome"><label>Nome do clube <input id="ef-nome" maxlength="28" value="' + esc(est.nome) + '"></label>' +
         '<label>Formação <select id="ef-form">' + Object.keys(FORMACOES).map(function (f) { return '<option' + (f === est.form ? ' selected' : '') + '>' + f + '</option>'; }).join('') + '</select></label></div>' +
-      V.map(function (v) {
-        var sel = achar(v), aberta = est.aberta === v.k, ocup = ocupados(v);
-        return '<section class="ef-vaga' + (sel ? ' ef-ok' : '') + (aberta ? ' ef-aberta' : '') + '">' +
-          '<button type="button" class="ef-cab" data-abrir="' + v.k + '"><span><b>' + esc(v.t) + '</b><small>' + (sel ? esc(sel.nome) + ' · € ' + sel.preco + ' mi' : 'A contratar') + '</small></span><em>' + (sel ? '✓' : aberta ? '−' : '+') + '</em></button>' +
-          (aberta ? (v.d ? '<p class="ef-desc">' + esc(v.d) + '</p>' : '') + '<div class="ef-ops">' + OPC[v.pos].map(function (o) {
-            var ja = sel && sel.id === o.id, caro = !ja && o.preco - (sel ? sel.preco : 0) > resta, ocupado = ocup.indexOf(o.id) > -1;
-            return '<button type="button" class="ef-op' + (ja ? ' ef-sel' : '') + '" data-vaga="' + v.k + '" data-id="' + esc(o.id) + '"' + (ocupado ? ' disabled' : '') + '>' +
-              '<b>' + esc(o.nome) + '</b><small>' + bandeira(o.pais) + esc(o.pais) + (ocupado ? ' · já contratado' : '') + '</small><span class="ef-nota">' + estrelas(o.nota) + '</span>' +
-              '<span class="ef-preco' + (caro ? ' ef-caro' : '') + '">€ ' + o.preco + ' mi</span></button>';
-          }).join('') + '</div>' : '') + '</section>';
-      }).join('') +
+      '<button type="button" class="mn-tec' + (achar(V[0]) ? ' ef-ok' : '') + (est.aberta === 'tec' ? ' mn-sel' : '') + '" data-abrir="tec"><small>Técnico</small><b>' + (achar(V[0]) ? esc(achar(V[0]).nome) : 'A contratar') + '</b><em>' + (achar(V[0]) ? '✓' : '+') + '</em></button>' +
+      '<div class="pt-rotulos"><span>' + esc(est.nome) + ' · ' + est.form + '</span><span>' + V.slice(1).filter(achar).length + '/11</span></div>' +
+      '<div class="pt-gramado mn-gramado">' + campo(V) + '</div>' +
+      '<p class="mn-dica">Toque numa posição do campo para contratar. O × dispensa o jogador.</p>' +
+      painel(V, resta) +
       '<div class="ef-fim">' + (completo() && resta >= 0 ? '<button type="button" class="ft-btn" data-acao="simular">⚽ Simular o Brasileirão</button>'
         : '<p>' + (resta < 0 ? 'Passou do orçamento em € ' + (-resta) + ' mi. Troque alguém por uma opção mais barata.' : 'Faltam ' + V.filter(function (v) { return !achar(v); }).length + ' contratações para completar o time.') + '</p>') +
       (rec ? '<small>Seu recorde: ' + rec + 'º lugar no Brasileirão.</small>' : '') + '</div>';
@@ -133,9 +154,11 @@
       '<button type="button" class="ft-btn ft-btn-linha" data-acao="nova">Novo time (outro orçamento)</button></div></section>';
   }
   caixa.addEventListener('click', function (e) {
+    var x = e.target.closest('[data-tirar]');
+    if (x) { var vt = x.getAttribute('data-tirar'); est.esc[vt] = undefined; est.aberta = vt; pintar(); return; }
     var b = e.target.closest('button'); if (!b) return;
     var a = b.getAttribute('data-acao');
-    if (b.hasAttribute('data-abrir')) { var k = b.getAttribute('data-abrir'); est.aberta = est.aberta === k ? '' : k; pintar(); return; }
+    if (b.hasAttribute('data-abrir')) { est.aberta = b.getAttribute('data-abrir'); pintar(); var pn = document.getElementById('mn-painel'); if (pn) pn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); return; }
     if (b.hasAttribute('data-vaga')) {
       var vk = b.getAttribute('data-vaga'), id = b.getAttribute('data-id');
       est.esc[vk] = est.esc[vk] === id ? undefined : id;

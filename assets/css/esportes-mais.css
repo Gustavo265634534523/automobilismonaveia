@@ -1034,3 +1034,10 @@ html.b1-travado, html.b1-travado body { overflow: hidden; }
 .ef-nome label { display: flex; flex: 1 1 220px; align-items: center; gap: 10px; }
 .ef-nome select { height: 40px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--linha); background: var(--carbono); color: var(--cromo); font: inherit; font-weight: 700; }
 .ef-nome label:last-child { flex: 0 0 auto; }
+.mn-tec { display: flex; align-items: center; gap: 12px; width: 100%; margin: 0 0 14px; padding: 12px 18px; border: 0; border-radius: 14px; background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha); color: var(--cromo); font: inherit; text-align: left; cursor: pointer; }
+.mn-tec small { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--texto-3, var(--aco)); }
+.mn-tec b { flex: 1; font-size: 15px; }
+.mn-tec em { font-style: normal; font-size: 20px; font-weight: 800; color: var(--sangue-vivo); }
+.mn-tec.ef-ok { box-shadow: inset 0 0 0 1px rgba(34, 197, 94, .45); } .mn-tec.ef-ok em { color: #22c55e; }
+.mn-tec.mn-sel { box-shadow: inset 0 0 0 2px var(--sangue-vivo); }
+.mn-painel { margin-top: 14px; } .mn-painel .ef-cab { cursor: default; }
