@@ -29,7 +29,7 @@ jobs:
           node-version: 22
       - name: Futebol (temporada, seleção da rodada, brasileiros na Europa)
         run: node .github/estatisticas-futebol.js || true
-      - name: Resumos pequenos para os jogos (time atual e Mais ou menos)
+      - name: Resumo pequeno para os jogos (time atual)
         run: node .github/derivados-futebol.js || true
       - name: NBA (noite, lesões, brasileiros, médias)
         run: node .github/nba-extras.js || true
@@ -37,7 +37,7 @@ jobs:
         run: |
           git config user.name "Robô Fan Zone"
           git config user.email "automobilismonaveiacontato@gmail.com"
-          git add assets/dados/temporada-futebol.js assets/dados/destaques-futebol.js assets/dados/forma-futebol.js assets/dados/times-atuais.js assets/dados/mais-ou-menos-futebol.js assets/dados/nba-extras.js assets/dados/temporada-nba.js .github/cache
+          git add assets/dados/temporada-futebol.js assets/dados/destaques-futebol.js assets/dados/forma-futebol.js assets/dados/times-atuais.js assets/dados/nba-extras.js assets/dados/temporada-nba.js .github/cache
           git diff --cached --quiet && exit 0
           git commit -m "Robô: estatísticas do futebol e da NBA"
           for i in 1 2 3; do git pull --rebase -q && git push -q && exit 0; sleep 5; done

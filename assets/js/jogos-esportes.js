@@ -8,7 +8,6 @@
   var IC = {
     adivinhe: '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"/>',
     grade: '<rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M9.2 3.5v17M14.8 3.5v17M3.5 9.2h17M3.5 14.8h17"/>',
-    mais: '<path d="M7 14l5-5 5 5"/><path d="M7 20l5-5 5 5" opacity=".45"/><path d="M4 4h16"/>',
     escudo: '<path d="M12 3l8 3v6c0 4.5-3.3 8-8 9-4.7-1-8-4.5-8-9V6z"/><path d="M9 12h6M12 9v6"/>',
     quadra: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6a9 9 0 0 1 0 12.8M18.4 5.6a9 9 0 0 0 0 12.8"/>',
     campo: '<rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M12 5v14"/><circle cx="12" cy="12" r="2.5"/><path d="M3 9.5h2.5v5H3M21 9.5h-2.5v5H21"/>',
@@ -23,7 +22,6 @@
   var JOGOS = [
     ['adivinhe', 'adivinhe.html', 'Adivinhe o jogador', 'Aparecem todos os clubes por onde ele passou. Em 5 tentativas, quem é?', 'arena-adivinhe'],
     ['grade', 'grade.html', 'Grade', 'Um quadro 3x3 de times. Em cada casa, um jogador que passou pelos dois.', 'arena-grade'],
-    ['mais', 'mais-ou-menos.html', 'Mais ou menos', 'Quem tem mais gols, pontos ou assistências? Acerte o máximo em sequência.', ''],
     ['escudo', 'escudo-misterioso.html', 'Escudo misterioso', 'O escudo aparece borrado e vai ficando nítido. Que time é?', 'arena-escudo'],
     ['campo', 'futebol-1x1.html', 'Futebol 1x1', 'Cabeção contra o computador em 2 minutos: chute, cabeceie e faça gols.', '', 'futebol'],
     ['quadra', 'basquete-1x1.html', 'Basquete 1x1', 'Você contra o computador em 2 minutos: arremesse, roube e dê o toco.', '', 'basquete'],

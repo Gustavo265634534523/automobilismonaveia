@@ -1,7 +1,5 @@
 /* Resumos pequenos tirados de assets/dados/temporada-futebol.js (que é grande, ~600 KB), para os jogos não precisarem dele:
    - assets/dados/times-atuais.js: time atual de cada jogador do Adivinhe/Grade (pelo nome), para pôr o clube de hoje no fim da trajetória;
-   - assets/dados/mais-ou-menos-futebol.js: jogos, gols e assistências na temporada (somando os campeonatos) de quem tem pelo menos
-     4 jogos e 2 participações em gol, para o Mais ou menos.
    Roda depois de .github/estatisticas-futebol.js (workflow estatisticas.yml). */
 const fs = require('fs'), vm = require('vm'), path = require('path');
 const raiz = path.join(__dirname, '..'), dados = f => path.join(raiz, 'assets/dados', f);
@@ -29,8 +27,4 @@ const atuais = {};
 });
 fs.writeFileSync(dados('times-atuais.js'), '/* Time atual dos jogadores do Adivinhe e da Grade (futebol). Gerado por .github/derivados-futebol.js. */\nwindow.TIMES_ATUAIS = ' + JSON.stringify(atuais) + ';\n');
 
-const por = {};
-TF.jogadores.forEach(l => { const x = por[l[0]] = por[l[0]] || [l[1], l[2], 0, 0, 0]; x[2] += l[5]; x[3] += l[7]; x[4] += l[8]; });
-const mm = Object.keys(por).map(k => por[k]).filter(x => x[2] >= 4 && x[3] + x[4] >= 2).map(x => [x[0], x[1], x[3], x[4]]);
-fs.writeFileSync(dados('mais-ou-menos-futebol.js'), '/* Mais ou menos (futebol): [nome, time, gols, assistências] na temporada. Gerado por .github/derivados-futebol.js. */\nwindow.MAIS_OU_MENOS_FUTEBOL = ' + JSON.stringify(mm) + ';\n');
-console.log('times-atuais:', Object.keys(atuais).length, '· mais-ou-menos:', mm.length);
+console.log('times-atuais:', Object.keys(atuais).length);

@@ -803,23 +803,6 @@ html[data-tema="claro"] .bl-f1-l select { color-scheme: light; }
 .gr-revela b { font-size: 12px; line-height: 1.2; text-align: center; color: var(--texto-2); }
 .gr-palpite p { margin: 0 0 8px; font-size: 14px; font-weight: 700; color: var(--cromo); text-align: center; }
 .gr-aviso { margin: 12px 0 0; font-size: 14px; color: var(--texto-2); text-align: center; }
-/* mais ou menos */
-.mm-placar { display: flex; justify-content: center; gap: 22px; margin-bottom: 14px; font-size: 13px; color: var(--aco); }
-.mm-placar b { margin-left: 4px; font-size: 20px; color: var(--cromo); }
-.mm-duelo { display: grid; grid-template-columns: 1fr auto 1fr; align-items: stretch; gap: 12px; margin-bottom: 16px; }
-.mm-vs { align-self: center; font-family: 'Bebas Neue', sans-serif; font-size: 30px; color: var(--aco); }
-.mm-cartao { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 22px 14px; border-radius: 16px; background: var(--asfalto); box-shadow: inset 0 0 0 1px var(--linha); text-align: center; }
-.mm-cartao .escudo, .mm-escudo { width: 52px; height: 52px; margin-bottom: 6px; }
-.mm-cartao b { font-size: 18px; color: var(--cromo); }
-.mm-cartao small { font-size: 12.5px; color: var(--aco); }
-.mm-cartao strong { margin-top: 10px; font-family: 'Bebas Neue', sans-serif; font-weight: 400; font-size: 56px; line-height: 1; color: var(--ft-cor, var(--sangue-vivo)); }
-.mm-cartao em { font-style: normal; font-size: 12.5px; color: var(--texto-2); }
-.mm-oculto { color: var(--aco) !important; }
-.mm-botoes { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 420px; margin: 0 auto; }
-.mm-botoes button { padding: 14px; border: 0; border-radius: 12px; font: inherit; font-size: 16px; font-weight: 800; color: #fff; cursor: pointer; }
-.mm-mais { background: #22a35a; }
-.mm-menos { background: #e3343c; }
-.mm-botoes button:disabled { opacity: .5; cursor: default; }
 /* escudo misterioso */
 .es-moldura { width: 220px; height: 220px; margin: 0 auto 16px; border-radius: 22px; overflow: hidden; background: #fff; box-shadow: inset 0 0 0 1px var(--linha); }
 .es-img { width: 100%; height: 100%; background: center / 70% no-repeat; transition: filter .5s ease, transform .5s ease; }
@@ -829,8 +812,6 @@ html[data-tema="claro"] .bl-f1-l select { color-scheme: light; }
   .gr-quadro { grid-template-columns: .8fr repeat(3, 1fr); gap: 5px; }
   .gr-cab .escudo, .gr-escudo { width: 30px; height: 30px; } .gr-cab b { font-size: 10.5px; } .gr-bandeira { font-size: 24px; }
   .gr-casa { border-radius: 10px; } .gr-feita b, .gr-revela b { font-size: 10.5px; }
-  .mm-duelo { grid-template-columns: 1fr 1fr; gap: 8px; } .mm-vs { display: none; }
-  .mm-cartao { padding: 16px 8px; } .mm-cartao b { font-size: 15px; } .mm-cartao strong { font-size: 44px; }
 }
 
 /* pré-jogo da página do jogo (partida.js) */
