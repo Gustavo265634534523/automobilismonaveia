@@ -155,7 +155,7 @@
       document.getElementById('ct-numeros').innerHTML = itens.length
         ? '<ul class="ct-numeros">' + itens.map(function (i) { return '<li><span>' + esc(i[0]) + '</span><b>' + i[2] + '</b><small>' + esc(i[1]) + '</small></li>'; }).join('') + '</ul>' +
           '<p class="ct-sub ct-nota">Os recordes ficam guardados neste aparelho.</p>'
-        : '<p class="ct-sub">Você ainda não tem recordes. Jogue na página <a href="jogos.html">Jogos</a> e eles aparecem aqui.</p>';
+        : '<p class="ct-sub">Você ainda não tem recordes. Jogue na página <a href="jogos-esportes.html#f1">Jogos</a> e eles aparecem aqui.</p>';
     })();
 
     /* Histórico de pagamentos */
