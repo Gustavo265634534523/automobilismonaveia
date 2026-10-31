@@ -39,7 +39,7 @@
     var erros = tentativas.filter(function (t) { return !certo(t); }).length, fim = acabou();
     return '<div class="av-dicas">' + D.map(function (d, i) {
       var aberta = fim || i < erros;
-      return '<div class="av-dica' + (aberta ? '' : ' av-fechada') + '"><small>' + d[0] + '</small><b>' + (aberta ? esc(d[1]) : 'Dica ' + (i + 1) + ': aparece no ' + (i + 1) + 'º erro') + '</b></div>';
+      return '<div class="av-dica' + (aberta ? '' : ' av-fechada') + '"><small>' + d[0] + '</small><b>' + (aberta ? (i === 0 && (window.BANDEIRAS || {})[d[1]] ? '<img class="av-bandeira" src="' + window.BANDEIRAS[d[1]] + '" alt="">' : '') + esc(d[1]) : 'Dica ' + (i + 1) + ': aparece no ' + (i + 1) + 'º erro') + '</b></div>';
     }).join('') + '</div>';
   }
   function trajetoria() {
