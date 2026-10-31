@@ -36,6 +36,8 @@
   /* Grade: as trajetórias mais os jogadores de grade-jogadores.js (robô: clube atual e país de quem joga nos clubes do jogo
      e na NBA). Quem já está nas trajetórias só ganha o clube atual; os outros entram com um clube só. */
   var cacheGrade = {};
+  /* países que vêm em inglês no elenco da NBA */
+  var PAIS_PT = { Estonia: 'Estônia', 'Bosnia & Herzegovina': 'Bósnia', 'Bosnia and Herzegovina': 'Bósnia', Congo: 'Congo', 'Democratic Republic of Congo': 'RD Congo', 'DR Congo': 'RD Congo', 'South Sudan': 'Sudão do Sul', China: 'China' };
   function jogadoresGrade(esp) {
     if (cacheGrade[esp]) return cacheGrade[esp];
     var L = trajetorias(esp).map(function (x) { return { nome: x.nome, pais: x.pais, pos: x.pos, clubes: x.clubes.slice(), aceitos: x.aceitos }; });
@@ -44,7 +46,7 @@
       /* xará de um jogador das trajetórias (ex.: o João Pedro do Corinthians x o do Chelsea): fica de fora, para não misturar.
          Xarás entre os jogadores do robô viram entradas separadas (cada um com o seu clube e o seu país). */
       var k = norm(g[0]); if (porNome[k]) return;
-      L.push({ nome: g[0], pais: g[2] || '', pos: '', clubes: g[1] ? [g[1]] : [], aceitos: [k], robo: true });
+      L.push({ nome: g[0], pais: PAIS_PT[g[2]] || g[2] || '', pos: '', clubes: g[1] ? [g[1]] : [], aceitos: [k], robo: true });
     });
     return cacheGrade[esp] = L;
   }
