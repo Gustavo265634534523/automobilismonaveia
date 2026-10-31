@@ -22,10 +22,10 @@
 <link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Bebas+Neue&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,700;0,900;1,600&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/hero/futebol2.webp" media="(min-width: 721px)">
 <link rel="preload" as="image" href="assets/img/hero/futebol2-m.webp" media="(max-width: 720px)">
-<link rel="stylesheet" href="assets/css/landing.css?v=428">
+<link rel="stylesheet" href="assets/css/landing.css?v=429">
 </head>
 <body class="ld">
 <!-- Entrada do site: foto de arena em tela cheia (uma por esporte), o nome do esporte em letras 3D e o objeto do esporte
@@ -45,6 +45,11 @@
   </nav>
 </header>
 
+<!-- capa de jornal: linha da edição, colunas de manchetes com frases (computador) e a faixa de últimas -->
+<div class="ld-edicao" id="ld-edicao"></div>
+<aside class="ld-col ld-col-e" id="ld-col-e" aria-label="Manchetes"></aside>
+<aside class="ld-col ld-col-d" id="ld-col-d" aria-label="Mais manchetes"></aside>
+<div class="ld-ticker" aria-label="Últimas notícias"><b class="ld-ticker-rot">Últimas</b><div class="ld-ticker-janela"><div class="ld-ticker-faixa" id="ld-ticker"></div></div></div>
 <main class="ld-palco" id="ld-palco" aria-label="Escolha o seu esporte">
   <h1 class="sr">Fan Zone: escolha o seu esporte</h1>
   <div class="ld-cena" id="ld-cena">
@@ -71,7 +76,7 @@
   <button type="button" role="tab" data-i="2"><small>03</small>Fórmula 1<i></i></button>
 </nav>
 
-<script src="assets/js/landing.js?v=428"></script>
+<script src="assets/js/landing.js?v=429"></script>
 <script>
   /* contador de visitas (Cloudflare Web Analytics, sem cookies), igual ao resto do site */
   if (/automobilismonaveia.com.br$/.test(location.hostname)) {
