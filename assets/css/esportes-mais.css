@@ -1041,3 +1041,20 @@ html.b1-travado, html.b1-travado body { overflow: hidden; }
 .mn-tec.ef-ok { box-shadow: inset 0 0 0 1px rgba(34, 197, 94, .45); } .mn-tec.ef-ok em { color: #22c55e; }
 .mn-tec.mn-sel { box-shadow: inset 0 0 0 2px var(--sangue-vivo); }
 .mn-painel { margin-top: 14px; } .mn-painel .ef-cab { cursor: default; }
+/* Monte seu time da NBA: quadra (meia quadra, cesta à esquerda) e banco */
+.bq-quadra { position: relative; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: repeating-linear-gradient(90deg, #c8894f 0 6%, #c18149 6% 12%); box-shadow: inset 0 0 0 3px rgba(255, 255, 255, .8); }
+.bq-quadra > span { position: absolute; border: 3px solid rgba(255, 255, 255, .85); pointer-events: none; }
+.bq-garrafao { left: -3px; top: 33%; width: 30%; height: 34%; background: rgba(15, 23, 42, .28); }
+.bq-lance { left: calc(30% - 9%); top: 33%; width: 18%; height: 34%; border-radius: 50%; border-left-color: transparent !important; }
+.bq-tres { left: -46%; top: 6%; width: 98%; height: 88%; border-radius: 50%; }
+.bq-aro { left: 4%; top: calc(50% - 12px); width: 24px; height: 24px; border-radius: 50%; border-color: #f97316 !important; }
+.bq-quadra .pt-jog { position: absolute; transform: translate(-50%, -50%); z-index: 1; }
+.bq-banco { display: flex; align-items: center; justify-content: center; gap: 18px; margin-top: 10px; padding: 12px; border-radius: 14px; background: var(--carbono); box-shadow: inset 0 0 0 1px var(--linha); }
+.bq-banco > small { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--texto-3, var(--aco)); }
+.bq-banco .pt-jog small { color: var(--cromo); text-shadow: none; }
+.bq-banco .mn-livre i { background: transparent !important; color: var(--texto-3, var(--aco)) !important; box-shadow: inset 0 0 0 2px var(--linha) !important; }
+.bq-banco .pt-jog i { background: #0b1220; color: #fff; }
+@media (max-width: 620px) { .bq-quadra { aspect-ratio: 4 / 3; } .bq-banco { gap: 8px; } }
+.bq-quadra .pt-jog i { background: #fff; color: #0b1220; }
+.ef-nome input { min-width: 0; width: 100%; }
+.ef-nome label { min-width: 0; } .ef-nome label input { flex: 1 1 auto; }

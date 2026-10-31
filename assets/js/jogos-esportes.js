@@ -26,6 +26,7 @@
     ['campo', 'futebol-1x1.html', 'Futebol 1x1', 'Cabeção contra o computador em 2 minutos: chute, cabeceie e faça gols.', '', 'futebol'],
     ['quadra', 'basquete-1x1.html', 'Basquete 1x1', 'Você contra o computador em 2 minutos: arremesse, roube e dê o toco.', '', 'basquete'],
     ['monte', 'monte-seu-time.html', 'Monte seu time', 'Com um orçamento, contrate técnico e jogadores e dispute o Brasileirão.', '', 'futebol'],
+    ['monte', 'monte-seu-time-basquete.html', 'Monte seu time', 'Com um teto de salários, contrate técnico e jogadores e dispute a NBA.', '', 'basquete'],
     /* os da F1 (jogos.html) */
     ['equipe', 'equipe-f1.html', 'Monte sua equipe', 'Seja dono de uma equipe: contrate pilotos e engenheiros dentro do orçamento.', '', 'f1'],
     ['corrida', 'jogos.html#corrida', 'Fan Zone Racing', 'Pilote um F1 em 3D contra 11 adversários.', '', 'f1'],
