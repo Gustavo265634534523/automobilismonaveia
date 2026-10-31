@@ -6,7 +6,7 @@
 (function () {
   var caixa = document.getElementById('mn'); if (!caixa) return;
   var esc = window.esc, B = window.BANDEIRAS || {};
-  var ORCAMENTOS = [400, 500, 600, 700], RECORDE = 'arena-time-futebol';
+  var ORCAMENTOS = [450, 550, 650, 750], MOEDA = '€', RECORDE = 'arena-time-futebol';
 
   /* formações: linhas do goleiro para o ataque; em cada linha, do lado esquerdo para o direito do time */
   var LINHAS = {
@@ -18,7 +18,7 @@
     '4-1-2-1-2': [['GOL'], ['LE', 'ZAG', 'ZAG', 'LD'], ['VOL'], ['MC', 'MC'], ['MEI'], ['CA', 'CA']]
   };
   var FORMACOES = {}; Object.keys(LINHAS).forEach(function (f) { FORMACOES[f] = [].concat.apply([], LINHAS[f]); });
-  var NOME_POS = { GOL: 'Goleiro', LD: 'Lateral direito', ZAG: 'Zagueiro', LE: 'Lateral esquerdo', VOL: 'Volante', MC: 'Meio-campo', MEI: 'Meia', PD: 'Ponta direita', PE: 'Ponta esquerda', CA: 'Centroavante' };
+  var NOME_POS = { RD: 'Defensor', RM: 'Meio-campista', RA: 'Atacante', RQ: 'Qualquer posição', GOL: 'Goleiro', LD: 'Lateral direito', ZAG: 'Zagueiro', LE: 'Lateral esquerdo', VOL: 'Volante', MC: 'Meio-campo', MEI: 'Meia', PD: 'Ponta direita', PE: 'Ponta esquerda', CA: 'Centroavante' };
   var SETOR = { GOL: 'Defesa', LD: 'Defesa', ZAG: 'Defesa', LE: 'Defesa', VOL: 'Meio-campo', MC: 'Meio-campo', MEI: 'Meio-campo', PD: 'Ataque', PE: 'Ataque', CA: 'Ataque' };
 
   /* [nome, país, nota] por posição */
@@ -57,6 +57,12 @@
   function op(x, pos) { return { id: x[0], nome: x[0], pais: x[1], nota: x[2], pos: pos, preco: pos === 'TEC' ? Math.max(2, Math.round(preco(x[2]) / 4)) : preco(x[2]) }; }
   var OPC = {}; Object.keys(JOG).forEach(function (p) { OPC[p] = JOG[p].map(function (x) { return op(x, p); }); });
   OPC.TEC = TECNICOS.map(function (x) { return op(x, 'TEC'); });
+  var junta = function (ps) { return [].concat.apply([], ps.map(function (p) { return OPC[p]; })).sort(function (a, b) { return b.nota - a.nota; }); };
+  OPC.RD = junta(['LD', 'ZAG', 'LE']); OPC.RM = junta(['VOL', 'MC', 'MEI']); OPC.RA = junta(['PD', 'PE', 'CA']); OPC.TODOS = OPC.RQ = junta(Object.keys(JOG));
+  /* banco de reservas: entra um pouco na força do time (lesões, cansaço, suspensões) */
+  var BANCO = [{ k: 'b1', pos: 'GOL', t: 'Reserva: goleiro', rot: 'GOL' }, { k: 'b2', pos: 'RD', t: 'Reserva: defensor', rot: 'DEF' }, { k: 'b3', pos: 'RM', t: 'Reserva: meio-campista', rot: 'MEI' },
+    { k: 'b4', pos: 'RA', t: 'Reserva: atacante', rot: 'ATA' }, { k: 'b5', pos: 'RQ', t: 'Reserva: qualquer posição', rot: 'RES' }];
+  BANCO.forEach(function (b) { b.banco = true; b.d = 'Entra quando um titular se machuca, cansa ou é suspenso.'; });
 
   function vagas() {
     var conta = {}, f = FORMACOES[est.form];
@@ -65,7 +71,7 @@
         conta[p] = (conta[p] || 0) + 1;
         var n = f.filter(function (x) { return x === p; }).length;
         return { k: 's' + i, pos: p, t: NOME_POS[p] + (n > 1 ? ' ' + conta[p] : ''), d: '' };
-      }));
+      })).concat(BANCO);
   }
   function novo(nome, form) { return { orc: ORCAMENTOS[Math.floor(Math.random() * ORCAMENTOS.length)], form: form || '4-3-3', esc: {}, nome: nome || 'Fan Zone FC', aberta: 'tec', resultado: null }; }
   var est = novo();
@@ -74,15 +80,16 @@
   function completo() { return vagas().every(function (v) { return achar(v); }); }
   function estrelas(n) { var e = Math.max(1, Math.min(5, Math.round((n - 66) / 6))); return '★★★★★'.slice(0, e) + '<i>' + '★★★★★'.slice(e) + '</i>'; }
   function bandeira(p) { return B[p] ? '<img class="av-bandeira" src="' + B[p] + '" alt="">' : ''; }
-  function ocupados(v) { return vagas().filter(function (x) { return x.k !== v.k && x.pos === v.pos; }).map(function (x) { return est.esc[x.k]; }); }
+  function ocupados(v) { return vagas().filter(function (x) { return x.k !== v.k && x.pos !== 'TEC'; }).map(function (x) { return est.esc[x.k]; }); }
+  function vagaAberta() { return vagas().filter(function (x) { return x.k === est.aberta; })[0]; }
 
   /* ---------- simulação do Brasileirão ---------- */
   function poisson(l) { var L = Math.exp(-l), k = 0, p = 1; do { k++; p *= Math.random(); } while (p > L); return k - 1; }
   function simular() {
-    var V = vagas(), jog = V.slice(1).map(function (v) { return achar(v); }), tec = achar(V[0]);
+    var V = vagas(), jog = V.slice(1, 12).map(function (v) { return achar(v); }), banco = V.slice(12).map(function (v) { return achar(v); }), tec = achar(V[0]);
     var setores = {}; jog.forEach(function (j) { var s = SETOR[j.pos]; (setores[s] = setores[s] || []).push(j.nota); });
     var media = function (a) { return a.reduce(function (x, y) { return x + y; }, 0) / a.length; };
-    var forca = media(jog.map(function (j) { return j.nota; })) + (tec.nota - 82) * 0.18;
+    var forca = media(jog.map(function (j) { return j.nota; })) * 0.88 + media(banco.map(function (j) { return j.nota; })) * 0.12 + (tec.nota - 82) * 0.18;
     var comp = (window.COMPETICOES || []).filter(function (c) { return c.slug === 'brasileirao'; })[0] || {};
     var linhas = ((comp.tabela || {}).linhas || []).slice();
     var maxP = Math.max.apply(null, [1].concat(linhas.map(function (l) { return +l[2] || 0; })));
@@ -129,16 +136,39 @@
       }).join('') + '</div>';
     }).join('') + '</div>';
   }
+  function normal(t) { return String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+  function resultados(v, q, resta) {
+    var sel = achar(v), ocup = ocupados(v), k = normal(q).trim();
+    if (k.length < 2) return '<p class="mn-res-dica">Digite pelo menos 2 letras do nome. Há ' + OPC[v.pos].length + ' opções para essa vaga' + (v.pos === 'TEC' ? '' : '; se o jogador for de outra posição, ele vai direto para a vaga dele') + '.</p>';
+    var acha = function (o) { return normal(o.nome).indexOf(k) > -1; };
+    /* acha em qualquer posição: quem não serve para esta vaga vai para a primeira vaga livre da posição dele */
+    var lista = (v.pos === 'TEC' ? OPC.TEC : OPC.TODOS).filter(acha).map(function (o) {
+      var alvo = OPC[v.pos].indexOf(o) > -1 ? v : vagas().filter(function (x) { return x.pos !== 'TEC' && !achar(x) && OPC[x.pos].indexOf(o) > -1; })[0];
+      return { o: o, alvo: alvo };
+    }).sort(function (a, b) { return (b.alvo === v) - (a.alvo === v) || !!b.alvo - !!a.alvo; }).slice(0, 12);
+    if (!lista.length) return '<p class="mn-res-dica">Nenhum nome encontrado.</p>';
+    return lista.map(function (x) {
+      var o = x.o, ja = sel && sel.id === o.id, ocupado = ocup.indexOf(o.id) > -1 && x.alvo === v, sem = !x.alvo;
+      var caro = !ja && o.preco - (x.alvo === v && sel ? sel.preco : 0) > resta;
+      return '<button type="button" class="ef-op' + (ja ? ' ef-sel' : '') + '" data-vaga="' + (x.alvo ? x.alvo.k : '') + '" data-id="' + esc(o.id) + '"' + (ocupado || sem ? ' disabled' : '') + '>' +
+        '<b>' + esc(o.nome) + '</b><small>' + bandeira(o.pais) + esc(o.pais) + (o.pos !== 'TEC' && o.pos !== v.pos ? ' · ' + NOME_POS[o.pos] : '') +
+        (ocupado ? ' · já contratado' : sem ? ' · posição dele já está ocupada' : x.alvo !== v ? ' · vai para ' + esc(x.alvo.t.toLowerCase()) : '') + '</small><span class="ef-nota">' + estrelas(o.nota) + '</span>' +
+        '<span class="ef-preco' + (caro ? ' ef-caro' : '') + '">' + MOEDA + ' ' + o.preco + ' mi</span></button>';
+    }).join('');
+  }
   function painel(V, resta) {
-    var v = V.filter(function (x) { return x.k === est.aberta; })[0]; if (!v) return '';
-    var sel = achar(v), ocup = ocupados(v);
-    return '<section class="ef-vaga ef-aberta mn-painel" id="mn-painel"><div class="ef-cab"><span><b>Contratar: ' + esc(v.t) + '</b><small>' + (sel ? 'Contratado: ' + esc(sel.nome) + ' · € ' + sel.preco + ' mi' : 'Escolha um nome') + '</small></span></div>' +
-      (v.d ? '<p class="ef-desc">' + esc(v.d) + '</p>' : '') + '<div class="ef-ops">' + OPC[v.pos].map(function (o) {
-        var ja = sel && sel.id === o.id, caro = !ja && o.preco - (sel ? sel.preco : 0) > resta, ocupado = ocup.indexOf(o.id) > -1;
-        return '<button type="button" class="ef-op' + (ja ? ' ef-sel' : '') + '" data-vaga="' + v.k + '" data-id="' + esc(o.id) + '"' + (ocupado ? ' disabled' : '') + '>' +
-          '<b>' + esc(o.nome) + '</b><small>' + bandeira(o.pais) + esc(o.pais) + (ocupado ? ' · já contratado' : '') + '</small><span class="ef-nota">' + estrelas(o.nota) + '</span>' +
-          '<span class="ef-preco' + (caro ? ' ef-caro' : '') + '">€ ' + o.preco + ' mi</span></button>';
-      }).join('') + '</div></section>';
+    var v = vagaAberta(); if (!v) return '';
+    var sel = achar(v);
+    return '<section class="ef-vaga ef-aberta mn-painel" id="mn-painel"><div class="ef-cab"><span><b>Contratar: ' + esc(v.t) + '</b><small>' + (sel ? 'Contratado: ' + esc(sel.nome) + ' · ' + MOEDA + ' ' + sel.preco + ' mi' : 'Busque pelo nome') + '</small></span></div>' +
+      (v.d ? '<p class="ef-desc">' + esc(v.d) + '</p>' : '') +
+      '<div class="mn-busca-vaga"><input id="mn-q" type="search" autocomplete="off" placeholder="Buscar ' + (v.pos === 'TEC' ? 'técnico' : 'jogador') + ' pelo nome (ex.: ' + esc(OPC[v.pos][0].nome.split(' ').pop()) + ')"></div>' +
+      '<div class="ef-ops" id="mn-res">' + resultados(v, '', resta) + '</div></section>';
+  }
+  function slotBanco(v) {
+    var j = achar(v);
+    return '<button type="button" class="pt-jog mn-slot' + (j ? '' : ' mn-livre') + (est.aberta === v.k ? ' mn-sel' : '') + '" data-abrir="' + v.k + '" title="' + esc(v.t) + (j ? ' · ' + esc(j.nome) : '') + '">' +
+      '<i>' + (j ? esc(iniciais(j.nome)) : '+') + '</i><small>' + (j ? esc(sobrenome(j.nome)) : v.rot) + '</small>' +
+      (j ? '<span class="mn-x" data-tirar="' + v.k + '" aria-label="Dispensar ' + esc(j.nome) + '">×</span>' : '') + '</button>';
   }
   function pintar() {
     if (est.resultado) return pintarResultado();
@@ -152,9 +182,10 @@
       '<div class="ef-nome"><label>Nome do clube <input id="ef-nome" maxlength="28" value="' + esc(est.nome) + '"></label>' +
         '<label>Formação <select id="ef-form">' + Object.keys(FORMACOES).map(function (f) { return '<option' + (f === est.form ? ' selected' : '') + '>' + f + '</option>'; }).join('') + '</select></label></div>' +
       '<button type="button" class="mn-tec' + (achar(V[0]) ? ' ef-ok' : '') + (est.aberta === 'tec' ? ' mn-sel' : '') + '" data-abrir="tec"><small>Técnico</small><b>' + (achar(V[0]) ? esc(achar(V[0]).nome) : 'A contratar') + '</b><em>' + (achar(V[0]) ? '✓' : '+') + '</em></button>' +
-      '<div class="pt-rotulos"><span>' + esc(est.nome) + ' · ' + est.form + '</span><span>' + V.slice(1).filter(achar).length + '/11</span></div>' +
+      '<div class="pt-rotulos"><span>' + esc(est.nome) + ' · ' + est.form + '</span><span>' + V.slice(1, 12).filter(achar).length + '/11 · banco ' + V.slice(12).filter(achar).length + '/5</span></div>' +
       '<div class="pt-gramado mn-gramado">' + campo(V) + '</div>' +
-      '<p class="mn-dica">Toque numa posição do campo para contratar. O × dispensa o jogador.</p>' +
+      '<div class="bq-banco mn-gramado"><small>Banco</small>' + V.slice(12).map(slotBanco).join('') + '</div>' +
+      '<p class="mn-dica">Toque numa posição do campo ou do banco para contratar. O × dispensa o jogador.</p>' +
       painel(V, resta) +
       '<div class="ef-fim">' + (completo() && resta >= 0 ? '<button type="button" class="ft-btn" data-acao="simular">⚽ Simular o Brasileirão</button>'
         : '<p>' + (resta < 0 ? 'Passou do orçamento em € ' + (-resta) + ' mi. Troque alguém por uma opção mais barata.' : 'Faltam ' + V.filter(function (v) { return !achar(v); }).length + ' contratações para completar o time.') + '</p>') +
@@ -197,5 +228,12 @@
     var prox = vagas().filter(function (v) { return !achar(v); })[0]; est.aberta = prox ? prox.k : '';
     pintar();
   });
+  caixa.addEventListener('input', function (e) {
+    if (e.target.id !== 'mn-q') return;
+    var v = vagaAberta(), r = document.getElementById('mn-res');
+    if (v && r) r.innerHTML = resultados(v, e.target.value, est.orc - gasto());
+  });
+  var pintar0 = pintar;
+  pintar = function () { pintar0(); var q = document.getElementById('mn-q'); if (q && window.matchMedia && matchMedia('(hover: hover)').matches) q.focus({ preventScroll: true }); };
   pintar();
 })();

@@ -1058,3 +1058,7 @@ html.b1-travado, html.b1-travado body { overflow: hidden; }
 .bq-quadra .pt-jog i { background: #fff; color: #0b1220; }
 .ef-nome input { min-width: 0; width: 100%; }
 .ef-nome label { min-width: 0; } .ef-nome label input { flex: 1 1 auto; }
+.mn-busca-vaga { padding: 0 14px 12px; }
+.mn-busca-vaga input { width: 100%; height: 46px; padding: 0 16px; border-radius: 12px; border: 1px solid var(--linha); background: transparent; color: var(--cromo); font: inherit; font-size: 15px; }
+.mn-busca-vaga input:focus { outline: 2px solid var(--sangue-vivo); outline-offset: 1px; }
+.mn-res-dica { grid-column: 1 / -1; margin: 0 4px; font-size: 14px; color: var(--texto-3, var(--aco)); }

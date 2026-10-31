@@ -7,7 +7,7 @@
 (function () {
   var caixa = document.getElementById('mn'); if (!caixa) return;
   var esc = window.esc, B = window.BANDEIRAS || {};
-  var ORCAMENTOS = [150, 180, 210, 240], RECORDE = 'arena-time-nba';
+  var ORCAMENTOS = [150, 180, 210, 240], MOEDA = 'US$', RECORDE = 'arena-time-nba';
   var NOME_POS = { PG: 'Armador', SG: 'Ala-armador', SF: 'Ala', PF: 'Ala-pivô', C: 'Pivô' };
 
   /* [nome, país, nota] por posição */
@@ -38,7 +38,7 @@
   Object.keys(JOG).forEach(function (p) { OPC[p] = JOG[p].map(function (x) { return op(x, p); }); });
   OPC.G = OPC.PG.concat(OPC.SG).sort(function (a, b) { return b.nota - a.nota; });
   OPC.F = OPC.SF.concat(OPC.PF).sort(function (a, b) { return b.nota - a.nota; });
-  OPC.R = OPC.C;
+  OPC.R = OPC.C; OPC.TODOS = OPC.G.concat(OPC.F, OPC.C);
 
   /* x e y em % na quadra (cesta à esquerda) */
   var VAGAS = [
@@ -59,6 +59,7 @@
   function completo() { return VAGAS.every(function (v) { return achar(v); }); }
   function estrelas(n) { var e = Math.max(1, Math.min(5, Math.round((n - 68) / 6))); return '★★★★★'.slice(0, e) + '<i>' + '★★★★★'.slice(e) + '</i>'; }
   function bandeira(p) { return B[p] ? '<img class="av-bandeira" src="' + B[p] + '" alt="">' : ''; }
+  function vagaAberta() { return VAGAS.filter(function (x) { return x.k === est.aberta; })[0]; }
   function ocupados(v) { return VAGAS.filter(function (x) { return x.k !== v.k && x.pos !== 'TEC'; }).map(function (x) { return est.esc[x.k]; }); }
 
   /* ---------- simulação: temporada regular e playoffs ---------- */
@@ -124,16 +125,33 @@
       VAGAS.filter(function (v) { return v.x; }).map(function (v) { return slot(v, 'left:' + v.x + '%;top:' + v.y + '%'); }).join('') + '</div>' +
       '<div class="bq-banco mn-gramado"><small>Banco</small>' + VAGAS.filter(function (v) { return v.banco; }).map(function (v) { return slot(v); }).join('') + '</div>';
   }
+  function normal(t) { return String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+  function resultados(v, q, resta) {
+    var sel = achar(v), ocup = ocupados(v), k = normal(q).trim();
+    if (k.length < 2) return '<p class="mn-res-dica">Digite pelo menos 2 letras do nome. Há ' + OPC[v.pos].length + ' opções para essa vaga' + (v.pos === 'TEC' ? '' : '; se o jogador for de outra posição, ele vai direto para a vaga dele') + '.</p>';
+    var acha = function (o) { return normal(o.nome).indexOf(k) > -1; };
+    /* acha em qualquer posição: quem não serve para esta vaga vai para a primeira vaga livre da posição dele */
+    var lista = (v.pos === 'TEC' ? OPC.TEC : OPC.TODOS).filter(acha).map(function (o) {
+      var alvo = OPC[v.pos].indexOf(o) > -1 ? v : VAGAS.filter(function (x) { return x.pos !== 'TEC' && !achar(x) && OPC[x.pos].indexOf(o) > -1; })[0];
+      return { o: o, alvo: alvo };
+    }).sort(function (a, b) { return (b.alvo === v) - (a.alvo === v) || !!b.alvo - !!a.alvo; }).slice(0, 12);
+    if (!lista.length) return '<p class="mn-res-dica">Nenhum nome encontrado.</p>';
+    return lista.map(function (x) {
+      var o = x.o, ja = sel && sel.id === o.id, ocupado = ocup.indexOf(o.id) > -1 && x.alvo === v, sem = !x.alvo;
+      var caro = !ja && o.preco - (x.alvo === v && sel ? sel.preco : 0) > resta;
+      return '<button type="button" class="ef-op' + (ja ? ' ef-sel' : '') + '" data-vaga="' + (x.alvo ? x.alvo.k : '') + '" data-id="' + esc(o.id) + '"' + (ocupado || sem ? ' disabled' : '') + '>' +
+        '<b>' + esc(o.nome) + '</b><small>' + bandeira(o.pais) + esc(o.pais) + (o.pos !== 'TEC' && o.pos !== v.pos ? ' · ' + NOME_POS[o.pos] : '') +
+        (ocupado ? ' · já contratado' : sem ? ' · posição dele já está ocupada' : x.alvo !== v ? ' · vai para ' + esc(x.alvo.t.toLowerCase()) : '') + '</small><span class="ef-nota">' + estrelas(o.nota) + '</span>' +
+        '<span class="ef-preco' + (caro ? ' ef-caro' : '') + '">' + MOEDA + ' ' + o.preco + ' mi</span></button>';
+    }).join('');
+  }
   function painel(resta) {
-    var v = VAGAS.filter(function (x) { return x.k === est.aberta; })[0]; if (!v) return '';
-    var sel = achar(v), ocup = ocupados(v);
-    return '<section class="ef-vaga ef-aberta mn-painel" id="mn-painel"><div class="ef-cab"><span><b>Contratar: ' + esc(v.t) + '</b><small>' + (sel ? 'Contratado: ' + esc(sel.nome) + ' · US$ ' + sel.preco + ' mi' : 'Escolha um nome') + '</small></span></div>' +
-      (v.d ? '<p class="ef-desc">' + esc(v.d) + '</p>' : '') + '<div class="ef-ops">' + OPC[v.pos].map(function (o) {
-        var ja = sel && sel.id === o.id, caro = !ja && o.preco - (sel ? sel.preco : 0) > resta, ocupado = ocup.indexOf(o.id) > -1;
-        return '<button type="button" class="ef-op' + (ja ? ' ef-sel' : '') + '" data-vaga="' + v.k + '" data-id="' + esc(o.id) + '"' + (ocupado ? ' disabled' : '') + '>' +
-          '<b>' + esc(o.nome) + '</b><small>' + bandeira(o.pais) + esc(o.pais) + (o.pos !== 'TEC' && v.banco ? ' · ' + NOME_POS[o.pos] : '') + (ocupado ? ' · já contratado' : '') + '</small><span class="ef-nota">' + estrelas(o.nota) + '</span>' +
-          '<span class="ef-preco' + (caro ? ' ef-caro' : '') + '">US$ ' + o.preco + ' mi</span></button>';
-      }).join('') + '</div></section>';
+    var v = vagaAberta(); if (!v) return '';
+    var sel = achar(v);
+    return '<section class="ef-vaga ef-aberta mn-painel" id="mn-painel"><div class="ef-cab"><span><b>Contratar: ' + esc(v.t) + '</b><small>' + (sel ? 'Contratado: ' + esc(sel.nome) + ' · ' + MOEDA + ' ' + sel.preco + ' mi' : 'Busque pelo nome') + '</small></span></div>' +
+      (v.d ? '<p class="ef-desc">' + esc(v.d) + '</p>' : '') +
+      '<div class="mn-busca-vaga"><input id="mn-q" type="search" autocomplete="off" placeholder="Buscar ' + (v.pos === 'TEC' ? 'técnico' : 'jogador') + ' pelo nome (ex.: ' + esc(OPC[v.pos][0].nome.split(' ').pop()) + ')"></div>' +
+      '<div class="ef-ops" id="mn-res">' + resultados(v, '', resta) + '</div></section>';
   }
   function pintar() {
     if (est.resultado) return pintarResultado();
@@ -187,5 +205,12 @@
     if (a === 'nova') { est = novo(est.nome); pintar(); }
   });
   caixa.addEventListener('input', function (e) { if (e.target.id === 'ef-nome') est.nome = e.target.value.trim() || 'Fan Zone Ballers'; });
+  caixa.addEventListener('input', function (e) {
+    if (e.target.id !== 'mn-q') return;
+    var v = vagaAberta(), r = document.getElementById('mn-res');
+    if (v && r) r.innerHTML = resultados(v, e.target.value, est.orc - gasto());
+  });
+  var pintar0 = pintar;
+  pintar = function () { pintar0(); var q = document.getElementById('mn-q'); if (q && window.matchMedia && matchMedia('(hover: hover)').matches) q.focus({ preventScroll: true }); };
   pintar();
 })();
