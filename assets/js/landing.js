@@ -42,6 +42,51 @@
       return c === ' ' ? '<span class="ld-esp"></span>' : '<span class="ld-l" style="--i:' + i + '" data-l="' + c + '">' + c + '</span>';
     }).join('');
   }
+  /* frases da entrada, como manchetes de jornal: motivação e curiosidades de cada esporte. Trocam a cada 3,5 s */
+  var FRASES = {
+    futebol: [
+      ['Você sabia?', 'O Brasil é o único país que jogou todas as edições da Copa do Mundo.'],
+      ['Motivação', 'Quem treina no frio da manhã comemora no calor da arquibancada.'],
+      ['Você sabia?', 'Pentacampeão: 1958, 1962, 1970, 1994 e 2002.'],
+      ['Motivação', 'O gol mais bonito é sempre o próximo.'],
+      ['Você sabia?', 'Uma partida tem 90 minutos, mas a bola rola de verdade por menos de 60.'],
+      ['Motivação', 'Camisa pesa. Quem aguenta o peso, levanta a taça.'],
+      ['Você sabia?', 'A final de 1950 levou mais de 170 mil pessoas ao Maracanã.'],
+      ['Motivação', 'Time que joga junto não tem jogo perdido antes do apito final.']
+    ],
+    basquete: [
+      ['Você sabia?', 'O basquete nasceu em 1891, com cestos de pêssego pregados na parede.'],
+      ['Motivação', 'Cada arremesso errado é um treino para o que vai entrar.'],
+      ['Você sabia?', 'O aro fica a 3,05 metros do chão. Sempre foi assim.'],
+      ['Motivação', 'Quem não para de pular um dia alcança o aro.'],
+      ['Você sabia?', 'O relógio de 24 segundos de posse chegou à NBA em 1954.'],
+      ['Motivação', 'Jogo decidido no último segundo é de quem não desistiu no primeiro.'],
+      ['Você sabia?', 'A linha de três pontos estreou na NBA na temporada 1979/80.'],
+      ['Motivação', 'Defesa ganha jogo. Coração ganha campeonato.']
+    ],
+    automobilismo: [
+      ['Você sabia?', 'Um pit stop de Fórmula 1 pode durar menos de 2 segundos.'],
+      ['Motivação', 'Na reta todo mundo é rápido. Campeão se faz na curva.'],
+      ['Você sabia?', 'A primeira corrida do Mundial de Fórmula 1 foi em Silverstone, em 1950.'],
+      ['Motivação', 'Largar atrás não é desculpa: é ponto de partida.'],
+      ['Você sabia?', 'O Brasil tem três campeões mundiais: Emerson Fittipaldi, Nelson Piquet e Ayrton Senna.'],
+      ['Motivação', 'Cada décimo de segundo é conquistado, nunca dado.'],
+      ['Você sabia?', 'Numa freada forte, o piloto sente mais de cinco vezes o próprio peso.'],
+      ['Motivação', 'A bandeirada só chega para quem continua acelerando.']
+    ]
+  };
+  var frase = document.getElementById('ld-frase'), fraseI = {}, fraseT = null;
+  function mostrarFrase(esp) {
+    if (!frase) return;
+    var L = FRASES[esp]; fraseI[esp] = fraseI[esp] === undefined ? Math.floor(Math.random() * L.length) : (fraseI[esp] + 1) % L.length;
+    var f = L[fraseI[esp]];
+    frase.classList.add('sai');
+    setTimeout(function () {
+      frase.innerHTML = '<small>' + f[0] + '</small><span>' + f[1] + '</span>';
+      frase.classList.remove('sai');
+    }, calmo || !frase.textContent ? 0 : 350);
+    clearTimeout(fraseT); fraseT = setTimeout(function () { mostrarFrase(ESP[atual]); }, 3500);
+  }
   function pintar(primeira) {
     var esp = ESP[atual];
     raiz.style.setProperty('--cor', CORES[esp]);
@@ -52,6 +97,7 @@
     links.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('data-esp') === esp); });
     cta.href = LINKS[esp];
     cta.textContent = esp === 'automobilismo' ? 'Entrar na Fórmula 1' : 'Entrar no ' + NOMES[esp].toLowerCase();
+    mostrarFrase(esp);
     /* letras: as antigas saem, as novas entram */
     var velhas = titulo.querySelectorAll('.ld-l');
     if (primeira || calmo || !velhas.length) letras(NOMES[esp]);
