@@ -25,7 +25,8 @@
 
   /* vídeo de fundo (assets/video/entrada/<esporte>.mp4, curto, sem som, em repetição): só os que existem estão aqui.
      Com vídeo, o objeto do esporte (bola, capacete) sai da frente. Quem pediu menos movimento fica com a foto. */
-  var VIDEOS = { automobilismo: { d: 'assets/video/entrada/automobilismo.mp4?v=3', m: 'assets/video/entrada/automobilismo-m.mp4?v=3' } };
+  var VIDEOS = { futebol: { d: 'assets/video/entrada/futebol.mp4?v=1', m: 'assets/video/entrada/futebol-m.mp4?v=1' }, basquete: { d: 'assets/video/entrada/basquete.mp4?v=1', m: 'assets/video/entrada/basquete-m.mp4?v=1' },
+    automobilismo: { d: 'assets/video/entrada/automobilismo.mp4?v=3', m: 'assets/video/entrada/automobilismo-m.mp4?v=3' } };
   var celular = window.matchMedia && matchMedia('(max-width: 720px), (orientation: portrait)').matches;
   function video(esp) {
     var b = bgs.filter(function (x) { return x.getAttribute('data-esp') === esp; })[0];
