@@ -70,7 +70,7 @@
   }
   function chutar(nome) {
     if (!casa || acabou()) return;
-    var x = JB.acharJogador(esporte, nome);
+    var x = JB.acharJogador(esporte, nome, function (j) { return vale(j, grade.linhas[casa[0]]) && vale(j, grade.colunas[casa[1]]); });
     if (!x) { aviso = 'Não achei “' + esc(nome) + '” na nossa lista de jogadores. Escolha um nome das sugestões; esse chute não conta.'; pintar(); return; }
     var usados = Object.keys(estado.casas).map(function (k) { return estado.casas[k]; });
     if (usados.indexOf(x.nome) > -1) { aviso = esc(x.nome) + ' já está em outra casa. Cada jogador vale uma vez.'; pintar(); return; }

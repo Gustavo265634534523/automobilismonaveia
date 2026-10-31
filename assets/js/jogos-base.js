@@ -41,20 +41,24 @@
     var L = trajetorias(esp).map(function (x) { return { nome: x.nome, pais: x.pais, pos: x.pos, clubes: x.clubes.slice(), aceitos: x.aceitos }; });
     var porNome = {}; L.forEach(function (x) { x.aceitos.forEach(function (a) { porNome[a] = x; }); });
     (((window.GRADE_JOGADORES || {})[esp]) || []).forEach(function (g) {
-      var k = norm(g[0]), x = porNome[k];
-      if (x) { if (g[1] && x.clubes.indexOf(g[1]) < 0) x.clubes.push(g[1]); return; }
-      x = porNome[k] = { nome: g[0], pais: g[2] || '', pos: '', clubes: g[1] ? [g[1]] : [], aceitos: [k] };
-      L.push(x);
+      /* xará de um jogador das trajetórias (ex.: o João Pedro do Corinthians x o do Chelsea): fica de fora, para não misturar.
+         Xarás entre os jogadores do robô viram entradas separadas (cada um com o seu clube e o seu país). */
+      var k = norm(g[0]); if (porNome[k]) return;
+      L.push({ nome: g[0], pais: g[2] || '', pos: '', clubes: g[1] ? [g[1]] : [], aceitos: [k], robo: true });
     });
     return cacheGrade[esp] = L;
   }
-  /* acha o jogador pelo nome digitado; sem achar, aceita só o sobrenome quando um único jogador tem esse sobrenome ("Rice") */
-  function acharJogador(esp, texto) {
+  /* acha o jogador pelo nome digitado (sem achar, aceita só o sobrenome quando um único jogador tem esse sobrenome: "Rice").
+     Com xarás, fica com o que serve na casa (serve: função opcional) */
+  function acharJogador(esp, texto, serve) {
     var p = norm(texto), L = jogadoresGrade(esp);
-    var x = L.filter(function (j) { return j.aceitos.indexOf(p) > -1; })[0];
-    if (x || !p) return x || null;
-    var s = L.filter(function (j) { var n = norm(j.nome).split(' '); return n.length > 1 && n[n.length - 1] === p; });
-    return s.length === 1 ? s[0] : null;
+    var c = L.filter(function (j) { return j.aceitos.indexOf(p) > -1; });
+    if (!c.length && p) {
+      var sob = L.filter(function (j) { var n = norm(j.nome).split(' '); return n.length > 1 && n[n.length - 1] === p; });
+      var nomes = sob.map(function (j) { return norm(j.nome); }).filter(function (n, i, a) { return a.indexOf(n) === i; });
+      if (nomes.length === 1) c = sob;
+    }
+    return (serve && c.filter(serve)[0]) || c[0] || null;
   }
 
   /* sorteio com semente: mulberry32 */

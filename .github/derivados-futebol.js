@@ -20,8 +20,7 @@ const atuais = {};
 (AD.futebol || []).forEach(x => {
   const k = norm(x[0]);
   if (!ultimo[k] || x[5] === 'xará') return;
-  /* nome de uma palavra só (Gerson, Hulk, Pedro...): só quando existe um único jogador com esse nome nos dados */
-  if (!/\s/.test(x[0]) && ids[k].size > 1) return;
+  if (ids[k].size > 1) return; /* mais de um jogador com esse nome (ex.: João Pedro do Chelsea e o do Grêmio): não dá para saber qual é */
   if (!combina(grupoJogo(x[2]), grupoESPN(ultimo[k][2]))) return; /* ex.: Alisson goleiro x Alisson meia do Fluminense */
   atuais[k] = ultimo[k][0];
 });
