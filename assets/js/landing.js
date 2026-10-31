@@ -26,7 +26,7 @@
   /* vídeo de fundo (assets/video/entrada/<esporte>.mp4, curto, sem som, em repetição): só os que existem estão aqui.
      Com vídeo, o objeto do esporte (bola, capacete) sai da frente. Quem pediu menos movimento fica com a foto. */
   var VIDEOS = { futebol: { d: 'assets/video/entrada/futebol.mp4?v=1', m: 'assets/video/entrada/futebol-m.mp4?v=1' }, basquete: { d: 'assets/video/entrada/basquete.mp4?v=1', m: 'assets/video/entrada/basquete-m.mp4?v=1' },
-    automobilismo: { d: 'assets/video/entrada/automobilismo.mp4?v=3', m: 'assets/video/entrada/automobilismo-m.mp4?v=3' } };
+    automobilismo: { d: 'assets/video/entrada/automobilismo.mp4?v=4', m: 'assets/video/entrada/automobilismo-m.mp4?v=4' } };
   /* versão em pé (celular) só quando a tela está mesmo em pé; confere de novo se a janela mudar de tamanho
      (a página pode abrir numa moldura que ainda nem tem o tamanho final) */
   function emPe() { return innerWidth > 0 && innerHeight > 0 && innerWidth / innerHeight < 0.85; }
