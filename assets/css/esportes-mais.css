@@ -1003,3 +1003,9 @@ html.b1-travado, html.b1-travado body { overflow: hidden; }
 .es-dica { margin: 4px 0 12px; text-align: center; font-size: 15px; color: var(--texto-2, var(--cromo)); }
 .es-dica b { color: var(--sangue-vivo); }
 .es-truque { margin: 8px 0 0; text-align: center; font-size: 13px; color: var(--texto-3, var(--aco)); }
+/* Jogos da F1 (jogos.html) no mesmo formato dos jogos de futebol e basquete: sem a faixa de abas antiga e sem repetir o nome do jogo */
+.jb-pag .jg-abas { display: none; }
+.jb-pag .jg-cab-jogo h2 { display: none; }
+.jb-pag #jg-conteudo { margin-top: 18px; }
+.dq-abas a[role="tab"] { padding: 8px 18px; border-radius: 999px; color: var(--texto-2); font-size: 13.5px; font-weight: 700; text-decoration: none; }
+.dq-abas a[role="tab"][aria-selected="true"] { background: var(--ft-cor, var(--sangue-vivo)); color: #fff; }

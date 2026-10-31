@@ -69,7 +69,7 @@
   function abasEsporte(esporte, f1) {
     return '<div class="dq-abas jb-esportes" role="tablist"><button type="button" role="tab" data-e="futebol" aria-selected="' + (esporte === 'futebol') + '">Futebol</button>' +
       '<button type="button" role="tab" data-e="basquete" aria-selected="' + (esporte === 'basquete') + '">NBA</button>' +
-      (f1 === false ? '' : f1 === 'aqui' ? '<button type="button" role="tab" data-e="f1" aria-selected="' + (esporte === 'f1') + '">Fórmula 1</button>' : '<a role="tab" aria-selected="false" href="jogos.html' + (f1 ? '#' + f1 : '') + '">Fórmula 1</a>') + '</div>';
+      (f1 === false ? '' : f1 === 'aqui' ? '<button type="button" role="tab" data-e="f1" aria-selected="' + (esporte === 'f1') + '">Fórmula 1</button>' : '<a role="tab" aria-selected="false" href="jogos-esportes.html#f1">Fórmula 1</a>') + '</div>';
   }
   function topo(esporte, modo, comModo, f1) {
     return '<a class="pt-voltar" href="jogos-esportes.html#' + esporte + '">‹ Todos os jogos</a>' + abasEsporte(esporte, f1) +

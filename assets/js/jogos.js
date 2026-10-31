@@ -51,6 +51,8 @@
     function abrir(id) {
       [].forEach.call(abas, function (a) { var sim = a.id === 'aba-' + id; a.setAttribute('aria-selected', sim); document.getElementById(a.getAttribute('aria-controls')).hidden = !sim; });
       if (history.replaceState) history.replaceState(null, '', '#' + id);
+      /* título da página = nome do jogo aberto (igual aos jogos de futebol e basquete) */
+      var tit = document.getElementById('jg-titulo'), J = JOGOS.filter(function (x) { return x[0] === id; })[0]; if (tit && J) tit.textContent = J[1];
     }
     [].forEach.call(abas, function (a) { a.addEventListener('click', function () { abrir(a.id.slice(4)); }); });
     if (medio) {
@@ -65,7 +67,7 @@
     }
     if (window.JOGO_CORRIDA) window.JOGO_CORRIDA(document.getElementById('jogo-corrida'));
     var h = location.hash.slice(1) || (medio ? 'corrida' : '');
-    if (document.getElementById('jogo-' + h)) abrir(h);
+    abrir(document.getElementById('jogo-' + h) ? h : 'corrida');
   }
 
   /* ---------- 1. Largada ---------- */
