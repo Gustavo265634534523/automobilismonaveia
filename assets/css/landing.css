@@ -125,3 +125,6 @@ html:has(body.ld) { overflow: hidden; }
 /* nome Fan Zone: Inter preta e inclinada, como no topo do site */
 .ld-marca { font-weight: 900; font-style: italic; letter-spacing: -.01em; font-size: 19px; }
 .ld-marca b { font-weight: 900; }
+/* vídeo de fundo: cobre a foto; com vídeo, o objeto do esporte sai da frente */
+.ld-bg video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.ld-video .ld-objetos { opacity: 0; pointer-events: none; transition: opacity .4s; }

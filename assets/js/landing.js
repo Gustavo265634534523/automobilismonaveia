@@ -23,6 +23,17 @@
     t.onload = function () { img.src = alt; img.classList.add('recortado'); }; t.src = alt;
   });
 
+  /* vídeo de fundo (assets/video/entrada/<esporte>.mp4, curto, sem som, em repetição): só os que existem estão aqui.
+     Com vídeo, o objeto do esporte (bola, capacete) sai da frente. Quem pediu menos movimento fica com a foto. */
+  var VIDEOS = {};
+  function video(esp) {
+    var b = bgs.filter(function (x) { return x.getAttribute('data-esp') === esp; })[0];
+    if (!b || calmo || !VIDEOS[esp] || b.querySelector('video')) return;
+    var v = document.createElement('video');
+    v.muted = true; v.loop = true; v.playsInline = true; v.autoplay = true; v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+    v.addEventListener('loadeddata', function () { b.classList.add('tem-video'); body.classList.toggle('ld-video', b.classList.contains('ativo')); });
+    v.src = VIDEOS[esp]; b.appendChild(v);
+  }
   function letras(nome) {
     titulo.style.setProperty('--letras', nome.length);
     titulo.innerHTML = nome.split('').map(function (c, i) {
@@ -32,7 +43,8 @@
   function pintar(primeira) {
     var esp = ESP[atual];
     raiz.style.setProperty('--cor', CORES[esp]);
-    bgs.forEach(function (b) { b.classList.toggle('ativo', b.getAttribute('data-esp') === esp); });
+    bgs.forEach(function (b) { b.classList.toggle('ativo', b.getAttribute('data-esp') === esp); var v = b.querySelector('video'); if (v) { if (b.classList.contains('ativo')) { v.currentTime = 0; v.play().catch(function () {}); } else v.pause(); } });
+    video(esp); body.classList.toggle('ld-video', !!bgs.filter(function (b) { return b.classList.contains('ativo') && b.classList.contains('tem-video'); }).length);
     objs.forEach(function (o) { var a = o.getAttribute('data-esp') === esp; o.classList.toggle('ativo', a); o.setAttribute('tabindex', a ? '0' : '-1'); o.setAttribute('aria-hidden', a ? 'false' : 'true'); });
     abas.forEach(function (b, i) { b.setAttribute('aria-selected', i === atual ? 'true' : 'false'); });
     links.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('data-esp') === esp); });
