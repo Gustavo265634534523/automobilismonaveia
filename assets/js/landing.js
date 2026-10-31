@@ -112,19 +112,19 @@
   function curiosidades(esp) { return FRASES[esp].filter(function (f) { return f[0] !== 'Motivação'; }).map(function (f) { return f[1]; }); }
   var ROTULO = { futebol: 'Futebol', basquete: 'Basquete', automobilismo: 'Fórmula 1' };
   var noticias = null;
-  function limpa(t) { return String(t || '').split(' | ')[0].replace(/\s+-\s+[^-]+$/, '').trim(); }
+  function limpa(t) { var a = String(t || '').split(' | ')[0].trim(), b = a.replace(/\s+-\s+[^-]+$/, '').trim(); return b.length >= 25 ? b : a; }
   function escH(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function manchetes(esp) {
     var vistas = {};
     return ((noticias || {}).itens || []).filter(function (n) {
-      var k = limpa(n.t).toLowerCase(); if (n.esporte !== esp || !k || vistas[k]) return false; vistas[k] = 1; return true;
+      var k = limpa(n.t).toLowerCase(); if (n.esporte !== esp || k.length < 12 || vistas[k]) return false; vistas[k] = 1; return true;
     });
   }
   function quando(n) {
     var d = String(n.d || '').split('-'); return (d.length === 3 ? d[2] + '/' + d[1] : '') + (n.h ? ' · ' + n.h : '');
   }
   function noticiaHTML(n, grande) {
-    return '<article class="ld-nota' + (grande ? ' ld-nota-g' : '') + '"><a href="' + escH(n.link || LINKS[n.esporte]) + '" target="_blank" rel="noopener">' + escH(limpa(n.t)) + '</a>' +
+    return '<article class="ld-nota' + (grande ? ' ld-nota-g' : '') + '"><a href="' + escH(n.link || LINKS[n.esporte]) + '"' + (/^https?:/.test(n.link || '') ? ' target="_blank" rel="noopener"' : '') + '>' + escH(limpa(n.t)) + '</a>' +
       '<small>' + escH(n.fonte || '') + (quando(n) ? ' · ' + quando(n) : '') + '</small></article>';
   }
   function citaHTML(t) { return '<blockquote class="ld-cita"><p>' + escH(t) + '</p></blockquote>'; }
@@ -138,35 +138,39 @@
   }
   function colunas(esp) {
     var E = document.getElementById('ld-col-e'), D = document.getElementById('ld-col-d'); if (!E || !D) return;
-    var L = manchetes(esp), C = citacoes(esp), V = curiosidades(esp), r = Math.floor(Math.random() * C.length);
-    var c = function (i) { return C[(r + i) % C.length]; };
-    var semNoticia = '<p class="ld-vazio">As manchetes chegam em instantes.</p>';
-    var esq = '<h2 class="ld-col-cab">Manchetes · ' + ROTULO[esp] + '</h2>' +
-      (L.length ? noticiaHTML(L[0], true) : semNoticia) + citaHTML(c(0)) + (L[1] ? noticiaHTML(L[1]) : '') + (L[2] ? noticiaHTML(L[2]) : '') + citaHTML(c(1)) + (L[3] ? noticiaHTML(L[3]) : '');
-    var dir = '<h2 class="ld-col-cab">Bastidores</h2>' + (L[4] ? noticiaHTML(L[4], true) : '') + citaHTML(c(2)) +
-      '<div class="ld-sabia"><small>Você sabia?</small><p>' + escH(V[Math.floor(Math.random() * V.length)]) + '</p></div>' +
-      (L[5] ? noticiaHTML(L[5]) : '') + citaHTML(c(3)) + (L[6] ? noticiaHTML(L[6]) : '');
-    [E, D].forEach(function (x) { x.classList.add('sai'); });
-    setTimeout(function () { E.innerHTML = esq; D.innerHTML = dir; [E, D].forEach(function (x) { x.classList.remove('sai'); }); }, calmo ? 0 : 300);
-  }
-  function faixa() {
-    var el = document.getElementById('ld-ticker'); if (!el) return;
-    var itens = [], todas = { futebol: manchetes('futebol'), basquete: manchetes('basquete'), automobilismo: manchetes('automobilismo') };
-    for (var i = 0; i < 6; i++) ESP.forEach(function (e) {
-      var n = todas[e][i]; if (n) itens.push('<a href="' + escH(n.link) + '" target="_blank" rel="noopener"><em>' + ROTULO[e] + '</em>' + escH(limpa(n.t)) + '</a>');
-      if (i % 2 === 1) itens.push('<span class="ld-ticker-cita">“' + escH(citacoes(e)[i % citacoes(e).length]) + '”</span>');
+    var L = manchetes(esp), C = citacoes(esp), V = curiosidades(esp), r = Math.floor(Math.random() * C.length), ci = 0;
+    var cita = function () { return citaHTML(C[(r + ci++) % C.length]); };
+    /* manchetes alternando entre as duas colunas, com uma frase motivadora a cada três */
+    var esq = ['<h2 class="ld-col-cab">Manchetes · ' + ROTULO[esp] + '</h2>'], dir = ['<h2 class="ld-col-cab">Últimas · ' + ROTULO[esp] + '</h2>'];
+    if (!L.length) esq.push('<p class="ld-vazio">As manchetes chegam em instantes.</p>');
+    L.slice(0, 24).forEach(function (n, i) {
+      var col = i % 2 ? dir : esq, k = Math.floor(i / 2);
+      col.push(noticiaHTML(n, k === 0 || k === 5));
+      if (k % 3 === 1) col.push(cita());
+      if (i === 5) dir.push('<div class="ld-sabia"><small>Você sabia?</small><p>' + escH(V[Math.floor(Math.random() * V.length)]) + '</p></div>');
     });
-    if (!itens.length) return;
-    var html = itens.join('<i aria-hidden="true">●</i>') + '<i aria-hidden="true">●</i>';
-    el.innerHTML = html + html; /* duas vezes: a faixa corre sem emenda */
-    el.style.setProperty('--dur', Math.max(60, itens.length * 7) + 's');
+    [E, D].forEach(function (x) { x.classList.add('sai'); });
+    setTimeout(function () { E.innerHTML = esq.join(''); D.innerHTML = dir.join(''); [E, D].forEach(function (x) { x.classList.remove('sai'); }); }, calmo ? 0 : 300);
+  }
+  /* junta as notícias automáticas (com link da matéria) e o arquivo de notícias do site (com resumo) */
+  var COMP_ESP = { 'formula-1': 'automobilismo', nba: 'basquete', nbb: 'basquete', euroleague: 'basquete' };
+  function juntar() {
+    var L = ((window.NOTICIAS_AUTO || {}).itens || []).slice(), A = window.NOTICIAS_ARQUIVO || {};
+    Object.keys(A).forEach(function (comp) {
+      var esp = COMP_ESP[comp] || 'futebol';
+      (A[comp] || []).forEach(function (n) { L.push({ d: n.d, h: '', esporte: esp, t: n.t, fonte: 'Fan Zone', link: (comp === 'formula-1' ? 'formula-1' : comp) + '.html' }); });
+    });
+    L.sort(function (a, b) { return (b.d + (b.h || '')).localeCompare(a.d + (a.h || '')); });
+    noticias = { itens: L };
   }
   edicao();
   (function () {
     var tag = document.querySelector('script[src*="landing.js"]'), v = tag ? (tag.src.split('?v=')[1] || '') : '';
     var sc = document.createElement('script'); sc.src = 'assets/dados/noticias-auto.js' + (v ? '?v=' + v : '');
-    sc.onload = function () { noticias = window.NOTICIAS_AUTO || {}; colunas(ESP[atual]); faixa(); };
-    document.body.appendChild(sc);
+    var sc2 = document.createElement('script'); sc2.src = 'assets/dados/noticias-arquivo.js' + (v ? '?v=' + v : '');
+    var faltam = 2, pronto = function () { if (--faltam === 0) { juntar(); colunas(ESP[atual]); } };
+    sc.onload = sc.onerror = pronto; sc2.onload = sc2.onerror = pronto;
+    document.body.appendChild(sc); document.body.appendChild(sc2);
   })();
   function pintar(primeira) {
     var esp = ESP[atual];
