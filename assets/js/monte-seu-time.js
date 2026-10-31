@@ -36,6 +36,23 @@
   };
   var TECNICOS = [['Pep Guardiola', 'Espanha', 94], ['Carlo Ancelotti', 'Itália', 93], ['Luis Enrique', 'Espanha', 92], ['Xabi Alonso', 'Espanha', 90], ['Mikel Arteta', 'Espanha', 89], ['Abel Ferreira', 'Portugal', 88], ['Filipe Luís', 'Brasil', 86], ['Jorge Jesus', 'Portugal', 84], ['Leonardo Jardim', 'Portugal', 82], ['Fernando Diniz', 'Brasil', 79], ['Dorival Júnior', 'Brasil', 77]];
 
+  /* mais opções (mesma regra: [nome, país, nota]) */
+  var MAIS = {
+    GOL: [['David Raya', 'Espanha', 86], ['Emiliano Martínez', 'Argentina', 85], ['Gregor Kobel', 'Suíça', 85], ['Diogo Costa', 'Portugal', 84], ['Yann Sommer', 'Suíça', 83], ['André Onana', 'Camarões', 80], ['Bento', 'Brasil', 79], ['John', 'Brasil', 75], ['Everson', 'Brasil', 75], ['Cássio', 'Brasil', 74], ['Fábio', 'Brasil', 73]],
+    LD: [['Reece James', 'Inglaterra', 84], ['Pedro Porro', 'Espanha', 83], ['Giovanni Di Lorenzo', 'Itália', 83], ['Denzel Dumfries', 'Holanda', 83], ['Diogo Dalot', 'Portugal', 81], ['Kyle Walker', 'Inglaterra', 80], ['Yan Couto', 'Brasil', 78], ['William', 'Brasil', 76], ['Agustín Giay', 'Argentina', 75]],
+    ZAG: [['Alessandro Bastoni', 'Itália', 87], ['Joško Gvardiol', 'Croácia', 86], ['Antonio Rüdiger', 'Alemanha', 85], ['Cristian Romero', 'Argentina', 85], ['Dayot Upamecano', 'França', 84], ['Micky van de Ven', 'Holanda', 84], ['Bremer', 'Brasil', 84], ['Ronald Araújo', 'Uruguai', 83], ['Lisandro Martínez', 'Argentina', 83], ['Lucas Beraldo', 'Brasil', 80], ['Alexsandro Ribeiro', 'Brasil', 77], ['Thiago Silva', 'Brasil', 74]],
+    LE: [['Federico Dimarco', 'Itália', 85], ['Andrew Robertson', 'Escócia', 82], ['Álvaro Carreras', 'Espanha', 81], ['Ferland Mendy', 'França', 80], ['Miguel Gutiérrez', 'Espanha', 80], ['Guilherme Arana', 'Brasil', 79], ['Marcos Acuña', 'Argentina', 75], ['Alex Telles', 'Brasil', 74]],
+    VOL: [['Joshua Kimmich', 'Alemanha', 88], ['Martín Zubimendi', 'Espanha', 86], ['João Palhinha', 'Portugal', 82], ['Manuel Ugarte', 'Uruguai', 80], ['Rodrigo Bentancur', 'Uruguai', 80], ['Douglas Luiz', 'Brasil', 79], ['Christian Nørgaard', 'Dinamarca', 78], ['Fabinho', 'Brasil', 77]],
+    MC: [['Alexis Mac Allister', 'Argentina', 87], ['Kevin De Bruyne', 'Bélgica', 86], ['Enzo Fernández', 'Argentina', 85], ['Dominik Szoboszlai', 'Hungria', 85], ['Luka Modrić', 'Croácia', 82], ['Ilkay Gündogan', 'Alemanha', 80], ['João Gomes', 'Brasil', 80], ['Gabriel Sara', 'Brasil', 78]],
+    MEI: [['Bernardo Silva', 'Portugal', 85], ['Dani Olmo', 'Espanha', 85], ['Arda Güler', 'Turquia', 84], ['Thiago Almada', 'Argentina', 80], ['Nicolás de la Cruz', 'Uruguai', 78], ['James Rodríguez', 'Colômbia', 77], ['Alan Patrick', 'Brasil', 77], ['Gustavo Scarpa', 'Brasil', 77], ['Philippe Coutinho', 'Brasil', 76], ['Lucas Moura', 'Brasil', 75]],
+    PD: [['Rodrygo', 'Brasil', 85], ['Christian Pulisic', 'Estados Unidos', 85], ['Takefusa Kubo', 'Japão', 83], ['Jarrod Bowen', 'Inglaterra', 83], ['Leroy Sané', 'Alemanha', 83], ['Jhon Arias', 'Colômbia', 82], ['Antony', 'Brasil', 80], ['Federico Chiesa', 'Itália', 79]],
+    PE: [['Jérémy Doku', 'Bélgica', 83], ['Kaoru Mitoma', 'Japão', 82], ['Kingsley Coman', 'França', 82], ['Gonzalo Plata', 'Equador', 82], ['Marcus Rashford', 'Inglaterra', 81], ['Jack Grealish', 'Inglaterra', 80], ['Michael', 'Brasil', 74]],
+    CA: [['Alexander Isak', 'Suécia', 88], ['Robert Lewandowski', 'Polônia', 87], ['Hugo Ekitiké', 'França', 84], ['Benjamin Šeško', 'Eslovênia', 83], ['Ollie Watkins', 'Inglaterra', 83], ['Matheus Cunha', 'Brasil', 83], ['João Pedro', 'Brasil', 82], ['Dušan Vlahović', 'Sérvia', 82], ['Endrick', 'Brasil', 80], ['Igor Jesus', 'Brasil', 79], ['Richarlison', 'Brasil', 79], ['Yuri Alberto', 'Brasil', 78], ['Flaco López', 'Argentina', 78], ['Hulk', 'Brasil', 76], ['Gabigol', 'Brasil', 74]],
+    TEC: [['Hansi Flick', 'Alemanha', 91], ['Arne Slot', 'Holanda', 90], ['Simone Inzaghi', 'Itália', 89], ['Diego Simeone', 'Argentina', 88], ['Thomas Tuchel', 'Alemanha', 88], ['Vincent Kompany', 'Bélgica', 86], ['Tite', 'Brasil', 80], ['Renato Gaúcho', 'Brasil', 78], ['Rogério Ceni', 'Brasil', 77]]
+  };
+  TECNICOS = TECNICOS.concat(MAIS.TEC); delete MAIS.TEC;
+  Object.keys(MAIS).forEach(function (p) { JOG[p] = JOG[p].concat(MAIS[p]); });
+  var ordem = function (a, b) { return b[2] - a[2]; }; TECNICOS.sort(ordem); Object.keys(JOG).forEach(function (p) { JOG[p].sort(ordem); });
   function preco(n) { var f = Math.max(0, (n - 66) / 28); return Math.round(3 + 117 * f * f); }
   function op(x, pos) { return { id: x[0], nome: x[0], pais: x[1], nota: x[2], pos: pos, preco: pos === 'TEC' ? Math.max(2, Math.round(preco(x[2]) / 4)) : preco(x[2]) }; }
   var OPC = {}; Object.keys(JOG).forEach(function (p) { OPC[p] = JOG[p].map(function (x) { return op(x, p); }); });
