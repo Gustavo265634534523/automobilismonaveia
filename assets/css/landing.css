@@ -149,13 +149,14 @@ html:has(body.ld) { overflow: hidden; }
 .ld-frase, .ld-objetos { display: none !important; }
 .ld-fundo::before { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: rgba(5, 6, 8, .62); }
 .ld-mural { position: fixed; z-index: 3; inset: calc(max(20px, env(safe-area-inset-top)) + 70px) clamp(18px, 3vw, 48px) 12px; display: grid; gap: 0 28px;
-  grid-template-columns: repeat(4, 1fr); grid-template-rows: 1fr 1fr 1fr;
-  grid-template-areas: "a b c d" "e t t f" "g t t h"; transition: opacity .3s ease; }
+  grid-template-columns: repeat(4, 1fr); grid-template-rows: 30fr 24fr 20fr 26fr;
+  grid-template-areas: "a b c d" "e t t f" "g i j h" "k u u l"; transition: opacity .3s ease; }
 .ld-mural.sai { opacity: 0; }
 .ld-mural > div { overflow: hidden; padding: 10px 0; border-top: 1px solid rgba(255, 255, 255, .18);
   -webkit-mask-image: linear-gradient(#000 82%, transparent); mask-image: linear-gradient(#000 82%, transparent); }
 .ld-mural-a { grid-area: a; } .ld-mural-b { grid-area: b; } .ld-mural-c { grid-area: c; } .ld-mural-d { grid-area: d; }
 .ld-mural-e { grid-area: e; } .ld-mural-f { grid-area: f; } .ld-mural-g { grid-area: g; } .ld-mural-h { grid-area: h; }
+.ld-mural-i { grid-area: i; } .ld-mural-j { grid-area: j; } .ld-mural-k { grid-area: k; } .ld-mural-l { grid-area: l; }
 /* texto corrido de jornal antigo: colunas apertadas, justificado, manchetes de tamanhos variados */
 .ld-mural > div { column-count: 2; column-gap: 16px; column-rule: 1px solid rgba(255, 255, 255, .14); border-top: 3px double rgba(255, 255, 255, .3); }
 .ld-fato { margin: 0 0 10px; break-inside: avoid-column; }
@@ -172,14 +173,14 @@ html:has(body.ld) { overflow: hidden; }
 .ld-saindo .ld-mural, .ld-intro .ld-mural { opacity: 0; transition: opacity .4s ease; }
 @media (max-width: 1100px) {
   .ld-mural { grid-template-columns: repeat(2, 1fr); grid-template-rows: 1fr 1fr 1.25fr; grid-template-areas: "a b" "t t" "t t"; gap: 0 18px; }
-  .ld-mural-c, .ld-mural-d, .ld-mural-e, .ld-mural-f, .ld-mural-g, .ld-mural-h { display: none; }
+  .ld-mural-c, .ld-mural-d, .ld-mural-e, .ld-mural-f, .ld-mural-g, .ld-mural-h, .ld-mural-i, .ld-mural-j, .ld-mural-k, .ld-mural-l { display: none; }
   .ld-mural { grid-template-rows: 1fr 1fr 1fr; grid-template-areas: "a b" "c d" "t t"; }
   .ld-mural-c, .ld-mural-d { display: block; }
   .ld-cena { margin-top: 26vh; }
   .ld-titulo { --fs: min(18vw, calc(90vw / (var(--letras, 8) * .46))); }
 }
 @media (max-width: 720px) {
-  .ld-mural { top: calc(max(20px, env(safe-area-inset-top)) + 58px); bottom: auto; height: 50vh; gap: 0 14px; }
+  .ld-mural { top: calc(max(20px, env(safe-area-inset-top)) + 58px); bottom: auto; height: 52vh; gap: 0 14px; }
   .ld-mural { grid-template-rows: 1fr 1fr; grid-template-areas: "a b" "c d"; }
   .ld-mural > div { column-count: 1; }
   .ld-fato p { font-size: 10.5px; } .ld-m1 h3 { font-size: 15px; } .ld-m2 h3, .ld-m4 h3 { font-size: 13px; } .ld-cita { font-size: 12px; }

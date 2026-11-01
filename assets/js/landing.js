@@ -126,7 +126,22 @@
       ['Ninguém lembra do placar do intervalo.', ''],
       ['O gol mais bonito é sempre o próximo.', ''],
       ['Camisa pesa. Quem aguenta o peso, levanta a taça.', ''],
-      ['Time que joga junto não tem jogo perdido antes do apito final.', '']
+      ['Time que joga junto não tem jogo perdido antes do apito final.', ''],
+      ['Uruguai, bicampeão olímpico', 'Antes de existir Copa do Mundo, o Uruguai já tinha ganhado o futebol das Olimpíadas de 1924 e 1928. Foi por isso que recebeu a primeira Copa.'],
+      ['O torneio de seleções mais antigo', 'O Campeonato Sul-Americano, hoje Copa América, começou em 1916. O primeiro campeão foi o Uruguai.'],
+      ['A rede no gol', 'Nos primeiros anos, o gol era só duas traves e uma fita. As redes foram inventadas em 1890 por John Brodie, de Liverpool, para acabar com as discussões sobre se a bola tinha entrado.'],
+      ['A Copa chega à televisão', 'A Copa de 1954, na Suíça, foi a primeira transmitida pela TV.'],
+      ['Treze gols numa Copa só', 'O francês Just Fontaine marcou 13 gols na Copa de 1958. Até hoje ninguém fez tantos num único Mundial.'],
+      ['Garrincha segura o bi', 'Em 1962, no Chile, Pelé se machucou no começo da Copa. Garrincha assumiu o time e o Brasil foi bicampeão.'],
+      ['O milésimo gol', 'Em 19 de novembro de 1969, no Maracanã, Pelé fez de pênalti, contra o Vasco, o seu milésimo gol.'],
+      ['A taça que sumiu', 'A Taça Jules Rimet, que ficou com o Brasil depois do tri, foi roubada no Rio de Janeiro em 1983 e nunca mais foi encontrada.'],
+      ['Dez a um', 'A maior goleada da história das Copas foi Hungria 10 x 1 El Salvador, na Espanha, em 1982.'],
+      ['Tetra nos pênaltis', 'Em 1994, nos Estados Unidos, a final contra a Itália terminou 0 a 0. O Brasil venceu nos pênaltis e chegou ao tetra.'],
+      ['Penta com Ronaldo', 'Em 2002, na Coreia do Sul e no Japão, o Brasil venceu a Alemanha por 2 a 0, dois gols de Ronaldo, e virou pentacampeão.'],
+      ['Corinthians, campeão do mundo', 'O primeiro Mundial de Clubes da FIFA foi em 2000, no Brasil. O Corinthians venceu o Vasco nos pênaltis, no Maracanã.'],
+      ['Klose, dezesseis gols', 'O alemão Miroslav Klose é o maior artilheiro da história das Copas, com 16 gols em quatro Mundiais.'],
+      ['Craque é quem pede a bola quando o jogo pesa.', ''],
+      ['A torcida empurra, mas quem corre é você.', '']
     ],
     basquete: [
       ['Um professor e um inverno', 'Em dezembro de 1891, em Springfield, nos Estados Unidos, o professor canadense James Naismith inventou um jogo para os alunos não ficarem parados no frio.'],
@@ -148,7 +163,22 @@
       ['Hortência e Paula', 'Em 1994, na Austrália, a seleção feminina foi campeã mundial, com Hortência e Paula comandando o time.'],
       ['Cada arremesso errado é um treino para o que vai entrar.', ''],
       ['Quem não para de pular um dia alcança o aro.', ''],
-      ['Defesa ganha jogo. Coração ganha campeonato.', '']
+      ['Defesa ganha jogo. Coração ganha campeonato.', ''],
+      ['Uma bola de futebol', 'No primeiro jogo, Naismith usou uma bola de futebol. A bola própria do basquete só veio depois.'],
+      ['O primeiro Mundial', 'O primeiro Campeonato Mundial de basquete foi em 1950, na Argentina, e os donos da casa foram campeões.'],
+      ['Bronze em três Olimpíadas', 'O Brasil ganhou a medalha de bronze no basquete masculino nas Olimpíadas de 1948, 1960 e 1964.'],
+      ['Oito seguidos', 'O Boston Celtics ganhou oito títulos seguidos da NBA, de 1959 a 1966. Nenhum time chegou perto disso.'],
+      ['Earl Lloyd abre a porta', 'Em 1950, Earl Lloyd se tornou o primeiro jogador negro a entrar em quadra numa partida da NBA.'],
+      ['A enterrada proibida', 'O basquete universitário americano proibiu a enterrada de 1967 a 1976. Ela só voltou depois de muita reclamação.'],
+      ['Magic contra Bird', 'A final universitária de 1979 colocou Magic Johnson contra Larry Bird. A rivalidade foi para a NBA e salvou a liga nos anos 1980.'],
+      ['Seis finais, seis títulos', 'Michael Jordan jogou seis finais com o Chicago Bulls e ganhou todas: 1991, 1992, 1993, 1996, 1997 e 1998.'],
+      ['O Dream Team', 'Em Barcelona, em 1992, os jogadores da NBA foram às Olimpíadas pela primeira vez. Jordan, Magic e Bird no mesmo time ganharam o ouro com sobra.'],
+      ['O Mão Santa', 'Oscar Schmidt é o maior cestinha da história das Olimpíadas, com 1.093 pontos em cinco edições.'],
+      ['Prata em Atlanta', 'Em 1996, a seleção feminina ganhou a medalha de prata nas Olimpíadas de Atlanta.'],
+      ['O recorde de 38 anos', 'Kareem Abdul-Jabbar foi o maior pontuador da NBA de 1984 a 2023, quando foi superado por LeBron James.'],
+      ['Nasce o NBB', 'O Novo Basquete Brasil começou na temporada 2008/09, e o primeiro campeão foi o Flamengo.'],
+      ['O garrafão é de quem quer mais.', ''],
+      ['Quatro quartos: tempo de sobra para virar o jogo.', '']
     ],
     automobilismo: [
       ['Silverstone, 13 de maio de 1950', 'A primeira corrida do Mundial de Fórmula 1 foi o GP da Grã-Bretanha, com o rei George VI nas arquibancadas. Venceu Giuseppe Farina, da Alfa Romeo.'],
@@ -175,11 +205,26 @@
       ['Na reta todo mundo é rápido. Campeão se faz na curva.', ''],
       ['Largar atrás não é desculpa: é ponto de partida.', ''],
       ['A bandeirada só chega para quem continua acelerando.', ''],
-      ['Cada décimo de segundo é conquistado, nunca dado.', '']
+      ['Cada décimo de segundo é conquistado, nunca dado.', ''],
+      ['Asas nos carros', 'As asas apareceram na Fórmula 1 em 1968 e mudaram para sempre a forma de fazer curva.'],
+      ['As cores dos patrocinadores', 'Até 1968 os carros corriam com a cor do seu país. Naquele ano a Lotus estreou a pintura de um patrocinador, e a F1 nunca mais foi a mesma.'],
+      ['Elas também correram', 'A italiana Maria Teresa de Filippis foi a primeira mulher a largar na Fórmula 1, em 1958.'],
+      ['Meio ponto na história', 'Lella Lombardi é a única mulher a pontuar na F1: meio ponto no GP da Espanha de 1975, corrida encerrada antes do fim.'],
+      ['Uma equipe brasileira', 'A Copersucar-Fittipaldi, dos irmãos Wilson e Emerson Fittipaldi, correu na Fórmula 1 de 1975 a 1982.'],
+      ['A era do turbo', 'A Renault estreou o primeiro motor turbo da Fórmula 1 em 1977. Na década seguinte, os turbos passavam de mil cavalos.'],
+      ['O rei de Mônaco', 'Ayrton Senna venceu seis vezes nas ruas de Monte Carlo, mais do que qualquer outro piloto.'],
+      ['Suzuka, 1989', 'Senna e Alain Prost, companheiros de McLaren, bateram na chicane de Suzuka. O título ficou com Prost, e a rivalidade virou lenda.'],
+      ['Sete títulos de Schumacher', 'Michael Schumacher foi campeão em 1994 e 1995, com a Benetton, e de 2000 a 2004 com a Ferrari.'],
+      ['Hockenheim, 2000', 'Rubens Barrichello largou em 18º e venceu o GP da Alemanha, sua primeira vitória na Fórmula 1.'],
+      ['Campeão por alguns segundos', 'Em 2008, em Interlagos, Felipe Massa venceu e foi campeão por alguns instantes, até Lewis Hamilton ganhar a posição que faltava na última curva.'],
+      ['Hamilton iguala Schumacher', 'Lewis Hamilton chegou ao sétimo título em 2020 e igualou o recorde de Michael Schumacher.'],
+      ['Dezoito anos', 'Max Verstappen venceu o GP da Espanha de 2016 com 18 anos e se tornou o vencedor mais jovem da história.'],
+      ['Pole se conquista no sábado, título se constrói o ano todo.', ''],
+      ['Chuva não escolhe piloto: revela.', '']
     ]
   };
   function escH(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-  var ESPACOS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  var ESPACOS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
   var ESTILOS = ['ld-m1', 'ld-m2', 'ld-m3', 'ld-m4', 'ld-m2', 'ld-m3'];
   function colunas(esp) {
     var M = document.getElementById('ld-mural'); if (!M) return;
