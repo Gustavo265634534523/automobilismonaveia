@@ -7,7 +7,7 @@ const path = require('path');
 const RAIZ = path.join(__dirname, '..');
 const ARQ = path.join(RAIZ, 'assets/dados/noticias-auto.js');
 const RELATORIO = path.join(__dirname, 'noticias-auto-relatorio.txt');
-const DIAS = 4, POR_COMP = 12;
+const DIAS = 7, POR_COMP = 20;
 
 /* campeonato do site -> busca no Google Notícias e palavras que identificam a notícia nos feeds gerais */
 const COMPS = [
@@ -36,7 +36,8 @@ const FEEDS = [
   ['Grande Prêmio', 'https://www.grandepremio.com.br/feed/', 'automobilismo'],
   ['ESPN', 'https://www.espn.com.br/espn/rss/futebol/noticia', 'futebol'],
   ['ESPN', 'https://www.espn.com.br/espn/rss/nba/noticia', 'basquete'],
-  ['ESPN', 'https://www.espn.com.br/espn/rss/f1/noticia', 'automobilismo']
+  ['ESPN', 'https://www.espn.com.br/espn/rss/f1/noticia', 'automobilismo'],
+  ['Motorsport.com', 'https://br.motorsport.com/rss/f1/news/', 'automobilismo']
 ];
 /* fora do site: outras categorias do automobilismo e outros esportes que aparecem nos feeds */
 const FORA = /onde assistir|assistir ao vivo|^ao vivo|que horas (é|e) o jogo|transmiss[ãa]o|transmite|\bnfl\b|futebol americano|super bowl|s[ée]rie [bcd]\b|f[óo]rmula 2|\bf2\b|f[óo]rmula e\b|motogp|moto2|stock car|indy|nascar|wec|le mans|porsche|rally|dakar|v[ôo]lei|t[êe]nis|ufc|mma|boxe|futsal|feminin|sub-\d\d|apostas?|palpite|odds|bet\b/i;
@@ -94,6 +95,19 @@ function itens(xml) { return (xml.match(/<item[\s\S]*?<\/item>/gi) || []).map(it
       guardar(Object.assign(it, { esporte: c.esporte, comp: c.comp }));
     }
   }
+  /* notícia sem resumo: abre a matéria e usa a descrição dela (og:description). Links do Google Notícias não abrem
+     sem JavaScript, então só tenta nos links diretos dos sites. Até 80 matérias por rodada, para não demorar. */
+  let abertas = 0, preenchidas = 0;
+  for (const n of todas.sort((a, b) => b.q - a.q)) {
+    if (n.x || abertas >= 80 || /news\.google\./.test(n.link)) continue;
+    abertas++;
+    const html = await pedir(n.link);
+    if (!html) continue;
+    const m = html.match(/<meta[^>]+(?:property|name)=["'](?:og:description|description|twitter:description)["'][^>]*content=["']([^"']{60,})["']/i) ||
+      html.match(/<meta[^>]+content=["']([^"']{60,})["'][^>]*(?:property|name)=["'](?:og:description|description)["']/i);
+    if (m) { let x = limpar(m[1]); if (x.length > 260) x = x.slice(0, 257).replace(/\s+\S*$/, '') + '…'; if (chave(x) !== chave(n.t)) { n.x = x; preenchidas++; } }
+  }
+  rel.push('matérias abertas para pegar o resumo: ' + abertas + ', com resumo: ' + preenchidas);
   /* no máximo POR_COMP por campeonato, as mais novas */
   todas.sort((a, b) => b.q - a.q);
   const conta = {}, final = todas.filter(n => (conta[n.comp] = (conta[n.comp] || 0) + 1) <= POR_COMP).map(n => { delete n.q; return n; });

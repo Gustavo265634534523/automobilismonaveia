@@ -99,13 +99,13 @@
   [].forEach.call(abasT.children, function (b) { b.addEventListener('click', function () { abrir(+b.getAttribute('data-i')); }); });
   if (T.length) abrir(0);
 
-  /* 5. notícias: as gerais da F1 e as da página da categoria, sem repetir; 6 de cada vez */
+  /* 5. notícias: as gerais da F1, as da página da categoria e as do arquivo, sem repetir; 9 de cada vez */
   var vistos = {}, NOTS = [];
-  (window.NOTICIAS_GERAIS || []).concat(F1.noticias || []).forEach(function (n) {
+  (window.NOTICIAS_GERAIS || []).concat(F1.noticias || [], (window.NOTICIAS_ARQUIVO || {})['formula-1'] || []).forEach(function (n) {
     if ((n.cat && n.cat !== 'formula-1') || vistos[n.t]) return; vistos[n.t] = 1; NOTS.push(n);
   });
   NOTS.sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
-  var mostrar = 6, caixaN = document.getElementById('ft-noticias'), mais = document.getElementById('ft-not-mais');
+  var mostrar = 9, caixaN = document.getElementById('ft-noticias'), mais = document.getElementById('ft-not-mais');
   function pintarN() {
     caixaN.innerHTML = NOTS.slice(0, mostrar).map(function (n) {
       return '<a class="ft-not" href="' + (window.linkNoticia ? window.linkNoticia(n.t) : 'formula-1.html') + '"><span class="ft-not-tag">Fórmula 1</span>' +
@@ -113,7 +113,7 @@
     }).join('');
     mais.hidden = NOTS.length <= mostrar;
   }
-  mais.addEventListener('click', function () { mostrar += 6; pintarN(); });
+  mais.addEventListener('click', function () { mostrar += 9; pintarN(); });
   pintarN();
 
   /* 6. mercado: as 3 novidades mais recentes */
@@ -137,7 +137,7 @@
   };
   document.getElementById('f1-atalhos').innerHTML = [
     ['raiox.html', 'raiox', 'Raio-x e telemetria', 'Volta a volta, pneus, setores e telemetria do último GP', true],
-    ['formula-1.html', 'cal', 'Calendário, pilotos e equipes', 'A temporada 2026 completa'],
+    ['formula-1.html', 'cal', 'Calendário', 'A temporada 2026 completa'],
     ['simulador.html', 'sim', 'Simulador do título', 'Escolha o pódio e veja quem é campeão'],
     ['guia-formula-1.html', 'guia', 'Como funciona a F1', 'Regras e termos para iniciantes'],
     ['jogos-esportes.html#f1', 'jogo', 'Jogos da F1', 'Monte sua equipe, corrida 3D, largada e quiz'],
