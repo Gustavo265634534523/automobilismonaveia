@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '31 de outubro de 2026';
+window.ATUALIZADO = '1 de novembro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -554,7 +554,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/motogp.jpg',
   frase: 'Cotovelo no asfalto a 60 graus de inclinação.',
   intro: 'Na MotoGP, o piloto pendura o corpo para fora da moto e arrasta o cotovelo na zebra. São 300 cavalos em duas rodas e 360 km/h na reta. Jorge Martín lidera com 12 pontos sobre Marc Márquez, faltando sete etapas.',
-  lider: { nome: 'Marc Márquez', info: 'Ducati, 365 pontos' },
+  lider: { nome: 'Marc Márquez', info: 'Ducati, 399 pontos' },
   noticias: [
     { d: '2026-09-20', t: 'Acosta vence na Áustria', x: 'Pedro Acosta deu à KTM a primeira vitória do ano em casa, no Red Bull Ring. Cinco pilotos seguem separados por 24 pontos.' },
     { d: '2026-09-13', t: 'Márquez vence em Misano', x: 'Marc Márquez emendou Aragão e San Marino e chegou a 190 pontos, 18 atrás do líder.' },
@@ -579,7 +579,7 @@ window.CATEGORIAS = [
     { e: 16, n: 'GP do Japão', l: 'Motegi', d: '2026-10-04', s: [{ t: 'Treino livre 1', d: '2026-10-01', h: '22:45' }, { t: 'Treino', d: '2026-10-02', h: '03:00' }, { t: 'Treino livre 2', d: '2026-10-02', h: '22:10' }, { t: 'Classificação Q1', d: '2026-10-02', h: '22:50' }, { t: 'Classificação Q2', d: '2026-10-02', h: '23:15' }, { t: 'Sprint', d: '2026-10-03', h: '03:00' }, { t: 'Corrida', d: '2026-10-04', h: '02:00' }], venc: 'Marc Márquez (Ducati)' },
     { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-08', h: '23:45' }, { t: 'Treino', d: '2026-10-09', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-09', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-09', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-10', h: '00:15' }, { t: 'Sprint', d: '2026-10-10', h: '04:00' }, { t: 'Corrida', d: '2026-10-11', h: '04:00' }], venc: 'Marco Bezzecchi (Aprilia)' },
     { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-22', h: '20:45' }, { t: 'Treino', d: '2026-10-23', h: '01:00' }, { t: 'Treino livre 2', d: '2026-10-23', h: '20:10' }, { t: 'Classificação Q1', d: '2026-10-23', h: '20:50' }, { t: 'Classificação Q2', d: '2026-10-23', h: '21:15' }, { t: 'Sprint', d: '2026-10-24', h: '01:00' }, { t: 'Corrida', d: '2026-10-25', h: '00:00' }], parcial: 'Sprint: Marc Márquez (Ducati)', nota: 'A corrida principal de domingo foi cancelada por causa da chuva forte e da falta de visibilidade para o helicóptero médico decolar; só a Sprint valeu pontos. Jorge Martín caiu na Sprint, fraturou o pulso direito e ficou fora do fim de semana. Foi a despedida de Phillip Island do calendário, que passa a receber a MotoGP em Adelaide a partir de 2027.' },
-    { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01', s: [{ t: 'Treino livre 1', d: '2026-10-29', h: '23:45' }, { t: 'Treino', d: '2026-10-30', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-30', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-30', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-31', h: '00:15' }, { t: 'Sprint', d: '2026-10-31', h: '04:00' }, { t: 'Corrida', d: '2026-11-01', h: '04:00' }] },
+    { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01', s: [{ t: 'Treino livre 1', d: '2026-10-29', h: '23:45' }, { t: 'Treino', d: '2026-10-30', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-30', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-30', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-31', h: '00:15' }, { t: 'Sprint', d: '2026-10-31', h: '04:00' }, { t: 'Corrida', d: '2026-11-01', h: '04:00' }], nota: 'Pedro Acosta venceu a Sprint de sábado. Jorge Martín, com o pulso direito fraturado em Phillip Island, ficou fora do fim de semana.', venc: 'Marc Márquez (Ducati)' },
     { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08' },
     { e: 21, n: 'GP de Portugal', l: 'Portimão', d: '2026-11-22' },
     { e: 22, n: 'GP de Valência', l: 'Ricardo Tormo', d: '2026-11-29' }
@@ -587,8 +587,8 @@ window.CATEGORIAS = [
   classificacao: {
     titulo: 'Pilotos',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
-    linhas: [['1', 'Marc Márquez', 'Ducati Lenovo', '365'], ['2', 'Jorge Martín', 'Aprilia Racing', '355'], ['3', 'Marco Bezzecchi', 'Aprilia Racing', '315'], ['4', 'Pedro Acosta', 'Red Bull KTM', '263'], ['5', 'Ai Ogura', 'Trackhouse', '259'], ['6', 'Fabio Di Giannantonio', 'VR46', '252'], ['7', 'Raúl Fernández', 'Trackhouse', '236'], ['8', 'Álex Márquez', 'Gresini', '181'], ['9', 'Francesco Bagnaia', 'Ducati Lenovo', '166'], ['10', 'Fermín Aldeguer', 'Gresini', '125'], ['11', 'Enea Bastianini', 'KTM Tech3', '116'], ['12', 'Luca Marini', 'Honda HRC', '104'], ['13', 'Brad Binder', 'Red Bull KTM', '99'], ['14', 'Diogo Moreira', 'LCR Honda', '74'], ['15', 'Fabio Quartararo', 'Yamaha', '66'], ['16', 'Franco Morbidelli', 'VR46', '56'], ['17', 'Johann Zarco', 'LCR Honda', '45'], ['18', 'Joan Mir', 'Honda HRC', '33'], ['19', 'Jack Miller', 'Pramac Yamaha', '28'], ['20', 'Álex Rins', 'Yamaha', '24'], ['21', 'Toprak Razgatlıoğlu', 'Pramac Yamaha', '18'], ['22', 'Maverick Viñales', 'KTM Tech3', '10']],
-    nota: 'Classificação após a Sprint do GP da Austrália (etapa 18 de 22); a corrida principal foi cancelada por chuva e não valeu pontos. Márquez venceu a Sprint e assumiu a liderança por 10 pontos sobre Martín, que caiu e fraturou o pulso direito.'
+    linhas: [['1', 'Marc Márquez', 'Ducati Lenovo', '399'], ['2', 'Jorge Martín', 'Aprilia Racing', '355'], ['3', 'Marco Bezzecchi', 'Aprilia Racing', '332'], ['4', 'Pedro Acosta', 'Red Bull KTM', '295'], ['5', 'Ai Ogura', 'Trackhouse', '278'], ['6', 'Fabio Di Giannantonio', 'VR46', '265'], ['7', 'Raúl Fernández', 'Trackhouse', '236'], ['8', 'Álex Márquez', 'Gresini', '197'], ['9', 'Francesco Bagnaia', 'Ducati Lenovo', '173'], ['10', 'Fermín Aldeguer', 'Gresini', '125'], ['11', 'Enea Bastianini', 'KTM Tech3', '116'], ['12', 'Luca Marini', 'Honda HRC', '104'], ['13', 'Brad Binder', 'Red Bull KTM', '99'], ['14', 'Diogo Moreira', 'LCR Honda', '74'], ['15', 'Fabio Quartararo', 'Yamaha', '66'], ['16', 'Franco Morbidelli', 'VR46', '56'], ['17', 'Johann Zarco', 'LCR Honda', '45'], ['18', 'Joan Mir', 'Honda HRC', '33'], ['19', 'Jack Miller', 'Pramac Yamaha', '28'], ['20', 'Álex Rins', 'Yamaha', '24'], ['21', 'Toprak Razgatlıoğlu', 'Pramac Yamaha', '18'], ['22', 'Maverick Viñales', 'KTM Tech3', '10']],
+    nota: 'Classificação após o GP da Malásia (etapa 19 de 22). Márquez venceu a corrida de domingo, depois de ser segundo na Sprint de sábado (vencida por Pedro Acosta), e abriu 44 pontos sobre Martín, que ficou fora do fim de semana com o pulso direito fraturado em Phillip Island.'
   },
   equipes: [
     { n: 'Aprilia Racing', i: 'Aprilia', p: ['Jorge Martín', 'Marco Bezzecchi'] },
