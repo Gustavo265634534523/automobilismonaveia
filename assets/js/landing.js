@@ -102,6 +102,42 @@
     clearTimeout(fraseT); fraseT = setTimeout(function () { mostrarFrase(ESP[atual]); }, 3500);
   }
 
+  /* chuva por cima do vídeo do futebol: gotas inclinadas desenhadas num canvas, só enquanto o futebol está na tela */
+  var chuva = (function () {
+    var b = bgs.filter(function (x) { return x.getAttribute('data-esp') === 'futebol'; })[0];
+    if (!b || calmo || !window.requestAnimationFrame) return { ligar: function () {} };
+    var cv = document.createElement('canvas'); cv.className = 'ld-chuva'; cv.setAttribute('aria-hidden', 'true'); b.appendChild(cv);
+    var ctx = cv.getContext('2d'), gotas = [], W = 0, H = 0, rodando = false, ultimo = 0;
+    function medir() {
+      var r = Math.min(window.devicePixelRatio || 1, 2); W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = W * r; cv.height = H * r; ctx.setTransform(r, 0, 0, r, 0, 0);
+      var n = Math.round(W * H / 2400); gotas = [];
+      for (var i = 0; i < n; i++) gotas.push(nova(true));
+    }
+    function nova(qualquer) {
+      var z = Math.random(); /* z: perto (gota maior e mais rápida) ou longe */
+      return { x: Math.random() * (W + 200) - 100, y: qualquer ? Math.random() * H : -40, l: 14 + z * 26, v: 900 + z * 900, a: .18 + z * .38, w: .7 + z * 1.2 };
+    }
+    function quadro(t) {
+      if (!rodando) return;
+      var dt = Math.min(.05, (t - (ultimo || t)) / 1000); ultimo = t;
+      ctx.clearRect(0, 0, W, H); ctx.lineCap = 'round';
+      for (var i = 0; i < gotas.length; i++) {
+        var g = gotas[i], dx = g.l * .22;
+        ctx.strokeStyle = 'rgba(210, 225, 240, ' + g.a + ')'; ctx.lineWidth = g.w;
+        ctx.beginPath(); ctx.moveTo(g.x, g.y); ctx.lineTo(g.x - dx, g.y + g.l); ctx.stroke();
+        g.y += g.v * dt; g.x -= g.v * dt * .22;
+        if (g.y > H || g.x < -60) gotas[i] = nova(false);
+      }
+      requestAnimationFrame(quadro);
+    }
+    window.addEventListener('resize', function () { if (rodando) medir(); });
+    return { ligar: function (sim) {
+      if (sim && !rodando) { rodando = true; ultimo = 0; medir(); requestAnimationFrame(quadro); }
+      else if (!sim) { rodando = false; ctx.clearRect(0, 0, W, H); }
+    } };
+  })();
+  document.addEventListener('visibilitychange', function () { chuva.ligar(!document.hidden && ESP[atual] === 'futebol'); });
   function pintar(primeira) {
     var esp = ESP[atual];
     raiz.style.setProperty('--cor', CORES[esp]);
@@ -112,7 +148,7 @@
     links.forEach(function (a) { a.classList.toggle('ativo', a.getAttribute('data-esp') === esp); });
     cta.href = LINKS[esp];
     cta.textContent = esp === 'automobilismo' ? 'Entrar na Fórmula 1' : 'Entrar no ' + NOMES[esp].toLowerCase();
-    mostrarFrase(esp);
+    mostrarFrase(esp); chuva.ligar(esp === 'futebol');
     /* letras: as antigas saem, as novas entram */
     var velhas = titulo.querySelectorAll('.ld-l');
     if (primeira || calmo || !velhas.length) letras(NOMES[esp]);
