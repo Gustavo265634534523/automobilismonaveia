@@ -225,17 +225,22 @@
   };
   function escH(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   var ESPACOS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
+  var ALTURA = [30, 30, 30, 30, 24, 24, 20, 20, 20, 20, 26, 26]; /* altura de cada espaço na tela (linhas da grade) */
   var ESTILOS = ['ld-m1', 'ld-m2', 'ld-m3', 'ld-m4', 'ld-m2', 'ld-m3'];
   function colunas(esp) {
     var M = document.getElementById('ld-mural'); if (!M) return;
     /* embaralha: cada vez a capa sai diferente */
     var H = HISTORIA[esp].slice();
     for (var i = H.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = H[i]; H[i] = H[j]; H[j] = t; }
-    var caixas = ESPACOS.map(function () { return []; });
+    var caixas = ESPACOS.map(function () { return []; }), cheio = ESPACOS.map(function () { return 0; });
     H.forEach(function (h, i) {
       var html = !h[1] ? '<blockquote class="ld-cita">' + escH(h[0]) + '</blockquote>'
         : '<article class="ld-fato ' + ESTILOS[(i * 7 + h[0].length) % ESTILOS.length] + (i % 4 === 0 ? ' ld-capitular' : '') + '"><h3>' + escH(h[0]) + '</h3><p>' + escH(h[1]) + '</p></article>';
-      caixas[i % ESPACOS.length].push(html + (i % 3 === 2 ? '<hr class="ld-fio">' : ''));
+      /* vai para o espaço mais vazio (pelo tamanho do texto e pela altura de cada espaço), para encher a tela por igual */
+      var peso = (h[0].length + h[1].length) + 60, k = 0;
+      for (var x = 1; x < caixas.length; x++) if (cheio[x] / ALTURA[x] < cheio[k] / ALTURA[k]) k = x;
+      cheio[k] += peso;
+      caixas[k].push(html + (i % 3 === 2 ? '<hr class="ld-fio">' : ''));
     });
     M.classList.add('sai');
     setTimeout(function () {

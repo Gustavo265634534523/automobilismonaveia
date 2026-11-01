@@ -186,3 +186,16 @@ html:has(body.ld) { overflow: hidden; }
   .ld-fato p { font-size: 10.5px; } .ld-m1 h3 { font-size: 15px; } .ld-m2 h3, .ld-m4 h3 { font-size: 13px; } .ld-cita { font-size: 12px; }
   .ld-cena { margin-top: 30vh; }
 }
+/* mural todo em branco e com linhas compridas (uma coluna por bloco, frases na horizontal) */
+.ld-mural > div { column-count: 1; }
+.ld-m3 h3 { color: #fff; }
+.ld-capitular p::first-letter { color: #fff; }
+.ld-cita { color: #fff; border-color: rgba(255, 255, 255, .35); }
+.ld-fato p { font-size: 13px; color: rgba(255, 255, 255, .86); }
+/* letras um pouco maiores para o texto ocupar a tela toda */
+@media (min-width: 1101px) {
+  .ld-fato p { font-size: 14.5px; line-height: 1.5; }
+  .ld-m1 h3 { font-size: 26px; } .ld-m2 h3 { font-size: 19px; } .ld-m3 h3 { font-size: 13px; } .ld-m4 h3 { font-size: 23px; }
+  .ld-cita { font-size: 18px; }
+  .ld-capitular p::first-letter { font-size: 40px; }
+}
