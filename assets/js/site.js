@@ -428,12 +428,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=445'; document.head.appendChild(chatCss);
-    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=445'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
-    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=445'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=445'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=445'; alertaJs.defer = true; document.body.appendChild(alertaJs);
-    var agJs = document.createElement('script'); agJs.src = 'assets/js/avisos-gol.js?v=445'; agJs.defer = true; document.body.appendChild(agJs); /* avisos de gol do meu time (só se ligados) */
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=446'; document.head.appendChild(chatCss);
+    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=446'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=446'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=446'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=446'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var agJs = document.createElement('script'); agJs.src = 'assets/js/avisos-gol.js?v=446'; agJs.defer = true; document.body.appendChild(agJs); /* avisos de gol do meu time (só se ligados) */
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
@@ -611,6 +611,18 @@
         .observe(document.body, { childList: true, subtree: true });
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();
+  })();
+  /* topo das páginas de esporte: se a foto tiver data-video, toca o vídeo por cima dela (mudo, em repetição).
+     Quem pediu menos movimento fica com a foto; o vídeo só aparece depois de carregar, sem piscar. */
+  (function () {
+    var caixa = document.querySelector('.ft-hero-img[data-video]');
+    if (!caixa || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    var v = document.createElement('video');
+    v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true; v.setAttribute('playsinline', ''); v.setAttribute('aria-hidden', 'true');
+    v.className = 'ft-hero-video';
+    v.addEventListener('loadeddata', function () { caixa.classList.add('com-video'); });
+    v.src = caixa.getAttribute(window.innerWidth <= 640 && caixa.getAttribute('data-video-m') ? 'data-video-m' : 'data-video');
+    caixa.appendChild(v);
   })();
   /* os outros links para fora do site abrem em outra aba */
   document.addEventListener('click', function (ev) {
