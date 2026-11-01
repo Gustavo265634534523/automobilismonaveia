@@ -92,7 +92,7 @@
   [].forEach.call(abasT.children, function (b) { b.addEventListener('click', function () { abrirTabela(+b.getAttribute('data-i')); }); });
   if (comTabela.length) abrirTabela(0);
 
-  /* 5. notícias com filtro; mostra 6 e o botão traz mais 6 */
+  /* 5. notícias com filtro; mostra 9 e o botão traz mais 9 */
   var NOTS = (window.NOTICIAS_ESPORTES || []).filter(function (n) { return n.esporte === ESPORTE; }).sort(function (a, b) { return a.d < b.d ? 1 : a.d > b.d ? -1 : 0; });
   var FILTROS = BQ ? [
     ['Todas', function () { return true; }],
@@ -105,7 +105,7 @@
     ['Champions', function (n) { return n.comp === 'champions-league'; }],
     ['Ligas da Europa', function (n) { return /premier-league|la-liga|bundesliga|serie-a|ligue-1/.test(n.comp); }]
   ];
-  var filtro = 0, mostrar = 6;
+  var filtro = 0, mostrar = 9;
   var abasN = document.getElementById('ft-not-abas'), caixaN = document.getElementById('ft-noticias'), mais = document.getElementById('ft-not-mais');
   function pintarNoticias() {
     var lista = NOTS.filter(FILTROS[filtro][1]);
@@ -118,8 +118,8 @@
     mais.hidden = lista.length <= mostrar;
   }
   abasN.innerHTML = FILTROS.map(function (f, i) { return '<button type="button" role="tab" data-i="' + i + '">' + f[0] + '</button>'; }).join('');
-  [].forEach.call(abasN.children, function (b) { b.addEventListener('click', function () { filtro = +b.getAttribute('data-i'); mostrar = 6; pintarNoticias(); }); });
-  mais.addEventListener('click', function () { mostrar += 6; pintarNoticias(); });
+  [].forEach.call(abasN.children, function (b) { b.addEventListener('click', function () { filtro = +b.getAttribute('data-i'); mostrar = 9; pintarNoticias(); }); });
+  mais.addEventListener('click', function () { mostrar += 9; pintarNoticias(); });
   pintarNoticias();
 
   /* 6. campeonatos: cartões curtos com quem lidera */
