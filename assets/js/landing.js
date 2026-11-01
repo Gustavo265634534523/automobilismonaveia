@@ -102,68 +102,95 @@
     clearTimeout(fraseT); fraseT = setTimeout(function () { mostrarFrase(ESP[atual]); }, 3500);
   }
 
-  /* ---------- capa de jornal: a história de cada esporte, em blocos que cobrem a tela (só o nome do esporte fica livre) ----------
-     [rótulo, título, texto]. Fatos históricos conferidos; "F" = frase motivadora. */
+  /* ---------- capa de jornal de antigamente: a história de cada esporte, texto corrido e misturado cobrindo a tela
+     (só o nome do esporte fica livre). [manchete, texto]; com texto vazio é uma frase motivadora. A ordem muda a cada vez. */
   var HISTORIA = {
     futebol: [
-      ['Há mais de 2 mil anos', 'Antes da bola de couro', 'Jogos de chutar a bola existem há milênios. O cuju, da China antiga, é reconhecido pela FIFA como a forma mais antiga do esporte.'],
-      ['1863 · Londres', 'Nasce o futebol moderno', 'Em 26 de outubro de 1863 foi fundada a Football Association, que escreveu as primeiras regras e separou de vez o futebol do rúgbi.'],
-      ['1871', 'O torneio mais antigo do mundo', 'A Copa da Inglaterra começou na temporada 1871/72. O primeiro campeão foi o Wanderers, que venceu o Royal Engineers por 1 x 0 na final.'],
-      ['F', 'Ninguém lembra do placar do intervalo.'],
-      ['1872 · Glasgow', 'O primeiro jogo entre países', 'Em 30 de novembro de 1872, Escócia e Inglaterra fizeram o primeiro jogo internacional da história. Terminou 0 x 0.'],
-      ['1894 · São Paulo', 'O futebol chega ao Brasil', 'Charles Miller voltou de seus estudos na Inglaterra com duas bolas e um livro de regras. Ele é chamado de pai do futebol brasileiro.'],
-      ['1902', 'O primeiro campeonato brasileiro de clubes', 'O Campeonato Paulista de 1902 foi o primeiro torneio de futebol do país. O campeão foi o São Paulo Athletic Club, time de Charles Miller.'],
-      ['1904 · Paris', 'Nasce a FIFA', 'A FIFA foi fundada em 21 de maio de 1904 por sete países europeus, para organizar o futebol entre as nações.'],
-      ['F', 'O gol mais bonito é sempre o próximo.'],
-      ['1930 · Uruguai', 'A primeira Copa do Mundo', 'Treze seleções disputaram a primeira Copa. Na final, no Estádio Centenário, o Uruguai venceu a Argentina por 4 x 2 e foi o primeiro campeão mundial.'],
-      ['13 de julho de 1930', 'O primeiro gol de Copa', 'O francês Lucien Laurent marcou o primeiro gol da história das Copas, na vitória da França sobre o México por 4 x 1.'],
-      ['1958 · Suécia', 'A primeira estrela do Brasil', 'O Brasil venceu a Suécia por 5 x 2 na final e ganhou sua primeira Copa. Pelé tinha 17 anos e marcou dois gols na decisão.'],
-      ['1959', 'O primeiro campeão brasileiro', 'A Taça Brasil de 1959, reconhecida como o primeiro Campeonato Brasileiro, foi vencida pelo Bahia, que bateu o Santos de Pelé na final.'],
-      ['F', 'Camisa pesa. Quem aguenta o peso, levanta a taça.']
+      ['Mais de dois mil anos de bola nos pés', 'Muito antes das regras, os chineses já chutavam bola no cuju, jogo que a própria FIFA reconhece como a forma mais antiga do futebol.'],
+      ['Londres escreve as regras', 'Numa taverna de Londres, em outubro de 1863, nasceu a Football Association. Ali o futebol ganhou suas primeiras regras e se separou de vez do rúgbi: com a bola, só os pés.'],
+      ['O clube mais antigo do mundo', 'O Sheffield FC, fundado em 1857 na Inglaterra, é considerado o clube de futebol mais antigo ainda em atividade.'],
+      ['Wanderers, o primeiro campeão', 'A Copa da Inglaterra começou em 1871 e é o torneio mais antigo do planeta. O primeiro campeão foi o Wanderers, que bateu o Royal Engineers por 1 a 0.'],
+      ['Escócia e Inglaterra abrem a história', 'Em 30 de novembro de 1872, em Glasgow, escoceses e ingleses fizeram o primeiro jogo entre seleções. Ninguém marcou: 0 a 0.'],
+      ['Nasce o pênalti', 'O pênalti foi criado em 1891, ideia do irlandês William McCrum, para punir quem derrubasse o adversário perto do gol.'],
+      ['Duas bolas na mala', 'Charles Miller voltou dos estudos na Inglaterra em 1894 trazendo duas bolas e um livro de regras. Foi assim que o futebol chegou ao Brasil.'],
+      ['O primeiro jogo no Brasil', 'Em abril de 1895, na várzea do Carmo, em São Paulo, funcionários da São Paulo Railway venceram os da Companhia de Gás por 4 a 2, com Charles Miller em campo.'],
+      ['São Paulo Athletic, o pioneiro', 'O primeiro campeonato de futebol do país foi o Paulista de 1902. O campeão foi o São Paulo Athletic Club, o time de Charles Miller.'],
+      ['Sete países criam a FIFA', 'Em maio de 1904, em Paris, sete federações europeias fundaram a FIFA para organizar o futebol entre as nações.'],
+      ['Uruguai, o primeiro campeão do mundo', 'A primeira Copa foi em 1930, no Uruguai, com treze seleções. Na final, no Estádio Centenário, os donos da casa venceram a Argentina por 4 a 2.'],
+      ['O gol número um', 'O francês Lucien Laurent fez o primeiro gol da história das Copas, contra o México, em 13 de julho de 1930.'],
+      ['O silêncio do Maracanã', 'Em 1950, mais de 170 mil pessoas viram o Uruguai virar para 2 a 1 sobre o Brasil e ficar com a taça. O jogo ficou conhecido como Maracanazo.'],
+      ['Um menino de 17 anos', 'Na Suécia, em 1958, o Brasil venceu os donos da casa por 5 a 2 e ganhou sua primeira Copa. Pelé, com 17 anos, marcou dois gols na final.'],
+      ['Bahia, campeão do Brasil', 'A Taça Brasil de 1959, reconhecida como o primeiro Campeonato Brasileiro, terminou com o Bahia campeão em cima do Santos de Pelé.'],
+      ['Peñarol abre a Libertadores', 'A primeira Libertadores da América foi disputada em 1960, e o uruguaio Peñarol foi o primeiro campeão.'],
+      ['Amarelo e vermelho', 'Os cartões só apareceram na Copa de 1970, no México, a mesma em que o Brasil ganhou o tricampeonato e ficou com a Taça Jules Rimet para sempre.'],
+      ['Ninguém lembra do placar do intervalo.', ''],
+      ['O gol mais bonito é sempre o próximo.', ''],
+      ['Camisa pesa. Quem aguenta o peso, levanta a taça.', ''],
+      ['Time que joga junto não tem jogo perdido antes do apito final.', '']
     ],
     basquete: [
-      ['Dezembro de 1891', 'Um esporte inventado numa aula', 'O professor canadense James Naismith criou o basquete em Springfield, nos Estados Unidos, para manter os alunos ativos durante o inverno.'],
-      ['Cestos de pêssego', 'A primeira cesta tinha fundo', 'Os aros eram cestos de pêssego pregados na varanda do ginásio. A cada ponto, alguém subia para tirar a bola lá de dentro.'],
-      ['21 de dezembro de 1891', 'O primeiro jogo', 'Foram nove contra nove, e a partida terminou 1 x 0. A única cesta foi de William Chase.'],
-      ['13 regras', 'O regulamento original', 'Naismith escreveu 13 regras. Correr com a bola era proibido: ela só podia ser passada ou arremessada.'],
-      ['F', 'Cada arremesso errado é um treino para o que vai entrar.'],
-      ['1896', 'O basquete chega ao Brasil', 'O professor americano Augusto Shaw trouxe o basquete para o Mackenzie, em São Paulo. No começo, o jogo era praticado principalmente por mulheres.'],
-      ['1936 · Berlim', 'A estreia olímpica', 'O basquete entrou nas Olimpíadas em 1936. A final foi ao ar livre, numa quadra de terra encharcada pela chuva, e os Estados Unidos venceram o Canadá por 19 x 8.'],
-      ['1º de novembro de 1946', 'O primeiro jogo da NBA', 'A liga começou como BAA. O primeiro jogo foi em Toronto: New York Knickerbockers 68 x 66 Toronto Huskies. Em 1949 ela virou NBA.'],
-      ['1947', 'O primeiro campeão', 'O Philadelphia Warriors venceu a primeira temporada da liga, batendo o Chicago Stags na final.'],
-      ['F', 'Jogo decidido no último segundo é de quem não desistiu no primeiro.'],
-      ['1954', 'O relógio que mudou o jogo', 'Para acabar com os times que seguravam a bola, a NBA criou o limite de 24 segundos para o ataque. O jogo ficou muito mais rápido.'],
-      ['1959 e 1963', 'O Brasil bicampeão do mundo', 'A seleção brasileira ganhou o Mundial no Chile, em 1959, e repetiu o título em casa, no Rio de Janeiro, em 1963.'],
-      ['12 de outubro de 1979', 'A primeira cesta de três', 'Chris Ford, do Boston Celtics, fez a primeira cesta de três pontos da NBA, na temporada em que a linha foi criada.'],
-      ['F', 'Quem não para de pular um dia alcança o aro.']
+      ['Um professor e um inverno', 'Em dezembro de 1891, em Springfield, nos Estados Unidos, o professor canadense James Naismith inventou um jogo para os alunos não ficarem parados no frio.'],
+      ['Cestos de pêssego', 'As primeiras cestas eram cestos de pêssego pregados na varanda do ginásio. A cada ponto, alguém subia para tirar a bola lá de dentro.'],
+      ['Um a zero', 'O primeiro jogo teve nove de cada lado e terminou 1 a 0. A única cesta da partida foi de William Chase.'],
+      ['Treze regras', 'O regulamento original tinha 13 regras. Correr com a bola não era permitido: ela só podia ser passada ou arremessada.'],
+      ['Elas também jogam', 'Já em 1892 o basquete chegou às mulheres, no Smith College, pelas mãos da professora Senda Berenson, que adaptou as regras.'],
+      ['A tabela contra a torcida', 'A tabela atrás do aro surgiu para impedir que torcedores, das galerias, desviassem os arremessos com a mão.'],
+      ['Mackenzie, 1896', 'O professor americano Augusto Shaw trouxe o basquete para o Mackenzie, em São Paulo. Foi a chegada do esporte ao Brasil.'],
+      ['Final na lama', 'A estreia olímpica foi em Berlim, em 1936. A final foi ao ar livre, numa quadra de terra encharcada, e os Estados Unidos venceram o Canadá por 19 a 8. Naismith estava lá para ver.'],
+      ['Knicks 68, Huskies 66', 'O primeiro jogo da liga que viraria a NBA foi em Toronto, em 1º de novembro de 1946.'],
+      ['Warriors, os primeiros campeões', 'O Philadelphia Warriors venceu a primeira temporada da liga, em 1947. Dois anos depois, ela passou a se chamar NBA.'],
+      ['Vinte e quatro segundos', 'Em 1954 a NBA criou o relógio de posse. Acabou a era dos times que seguravam a bola e o jogo ficou muito mais rápido.'],
+      ['Brasil bicampeão do mundo', 'A seleção masculina ganhou o Mundial no Chile, em 1959, e de novo em casa, no Rio, em 1963.'],
+      ['Cem pontos numa noite', 'Em 2 de março de 1962, Wilt Chamberlain fez 100 pontos num único jogo, contra o New York Knicks. O recorde segue de pé.'],
+      ['Onze anéis', 'Bill Russell ganhou 11 títulos da NBA com o Boston Celtics, mais do que qualquer outro jogador.'],
+      ['A primeira de três', 'A linha de três pontos estreou na NBA em 1979. Chris Ford, do Celtics, fez a primeira cesta de três.'],
+      ['Indianápolis, 1987', 'Na final do Pan-Americano, o Brasil de Oscar Schmidt venceu os Estados Unidos por 120 a 115, dentro da casa deles.'],
+      ['Hortência e Paula', 'Em 1994, na Austrália, a seleção feminina foi campeã mundial, com Hortência e Paula comandando o time.'],
+      ['Cada arremesso errado é um treino para o que vai entrar.', ''],
+      ['Quem não para de pular um dia alcança o aro.', ''],
+      ['Defesa ganha jogo. Coração ganha campeonato.', '']
     ],
     automobilismo: [
-      ['1906 · Le Mans', 'O primeiro Grande Prêmio', 'O GP da França de 1906 é considerado o primeiro Grande Prêmio da história. O vencedor foi Ferenc Szisz, com um Renault.'],
-      ['13 de maio de 1950', 'Nasce a Fórmula 1', 'A primeira corrida do Campeonato Mundial foi o GP da Grã-Bretanha, em Silverstone, vencido por Giuseppe Farina, da Alfa Romeo.'],
-      ['1950', 'O primeiro campeão do mundo', 'O italiano Giuseppe "Nino" Farina foi o primeiro campeão mundial de Fórmula 1, pilotando para a Alfa Romeo.'],
-      ['F', 'Na reta todo mundo é rápido. Campeão se faz na curva.'],
-      ['1951 a 1957', 'O mestre Fangio', 'O argentino Juan Manuel Fangio ganhou cinco títulos mundiais nos anos 1950. O recorde só foi superado por Michael Schumacher, em 2003.'],
-      ['1951', 'O primeiro brasileiro na F1', 'Chico Landi foi o primeiro brasileiro a correr na Fórmula 1, no GP da Itália de 1951, em Monza.'],
-      ['1958', 'O Mundial de Construtores', 'O campeonato das equipes começou em 1958. A primeira campeã foi a britânica Vanwall.'],
-      ['Desde 1950', 'Presença em todas as temporadas', 'A Ferrari é a única equipe que disputou todas as temporadas do Mundial de Fórmula 1 desde a primeira, em 1950.'],
-      ['F', 'Largar atrás não é desculpa: é ponto de partida.'],
-      ['1970 · Watkins Glen', 'A primeira vitória brasileira', 'Emerson Fittipaldi venceu o GP dos Estados Unidos de 1970, na sua quarta corrida na Fórmula 1. Foi a primeira vitória de um brasileiro.'],
-      ['1972', 'O primeiro campeão brasileiro', 'Emerson Fittipaldi foi campeão mundial pela Lotus e se tornou, na época, o campeão mais jovem da história, com 25 anos.'],
-      ['1973 · Interlagos', 'O primeiro GP do Brasil', 'O GP do Brasil entrou no Mundial em 1973, em Interlagos. E quem venceu foi ele de novo: Emerson Fittipaldi.'],
-      ['1981, 1983 e 1987', 'Piquet tricampeão', 'Nelson Piquet ganhou três títulos mundiais, dois pela Brabham e um pela Williams.'],
-      ['1988, 1990 e 1991', 'Senna tricampeão', 'Ayrton Senna conquistou três títulos pela McLaren e é lembrado como um dos maiores pilotos de todos os tempos.'],
-      ['F', 'A bandeirada só chega para quem continua acelerando.']
+      ['Silverstone, 13 de maio de 1950', 'A primeira corrida do Mundial de Fórmula 1 foi o GP da Grã-Bretanha, com o rei George VI nas arquibancadas. Venceu Giuseppe Farina, da Alfa Romeo.'],
+      ['Farina, o primeiro campeão', 'O italiano Nino Farina foi o primeiro campeão mundial de Fórmula 1, em 1950, pilotando uma Alfa Romeo.'],
+      ['Mônaco desde o começo', 'As ruas de Monte Carlo já estavam no primeiro campeonato, em 1950. Quem venceu foi Juan Manuel Fangio.'],
+      ['Indianápolis valia pontos', 'Entre 1950 e 1960, as 500 Milhas de Indianápolis faziam parte do Mundial de Fórmula 1, mesmo quase sem pilotos europeus.'],
+      ['Oito pontos para o vencedor', 'No primeiro campeonato, a vitória valia 8 pontos. O segundo levava 6, o terceiro 4, e a volta mais rápida dava mais 1.'],
+      ['Ascari bicampeão', 'Alberto Ascari ganhou os títulos de 1952 e 1953 com a Ferrari, os primeiros da equipe italiana.'],
+      ['O mestre Fangio', 'O argentino Juan Manuel Fangio ganhou cinco títulos nos anos 1950. O recorde durou quase meio século, até Michael Schumacher.'],
+      ['Chico Landi abre o caminho', 'O primeiro brasileiro na Fórmula 1 foi Chico Landi, no GP da Itália de 1951, em Monza.'],
+      ['Vanwall, a primeira campeã', 'O Mundial de Construtores começou em 1958, e a primeira equipe campeã foi a britânica Vanwall.'],
+      ['O motor foi para trás', 'Em 1959, Jack Brabham foi campeão com a Cooper e seu motor atrás do piloto. Em pouco tempo, todos os carros copiaram a ideia.'],
+      ['Campeão com o próprio carro', 'Jack Brabham ganhou o título de 1966 num carro da sua própria equipe, feito que ninguém mais repetiu.'],
+      ['Jim Clark e a Lotus', 'O escocês Jim Clark foi campeão em 1963 e 1965 pela Lotus, ganhando corridas com vantagens enormes.'],
+      ['Sempre a Ferrari', 'A Ferrari é a única equipe que disputou todas as temporadas do Mundial desde a primeira, em 1950.'],
+      ['Watkins Glen, 1970', 'Na sua quarta corrida na Fórmula 1, Emerson Fittipaldi venceu o GP dos Estados Unidos. Foi a primeira vitória de um brasileiro.'],
+      ['Emerson, campeão do mundo', 'Em 1972, pela Lotus, Emerson Fittipaldi se tornou o primeiro brasileiro campeão e, na época, o mais jovem da história, com 25 anos. Em 1974, pela McLaren, foi bi.'],
+      ['Interlagos entra no mapa', 'O GP do Brasil passou a valer pelo Mundial em 1973. E quem venceu a primeira corrida foi Emerson Fittipaldi.'],
+      ['O carro de segurança', 'O safety car apareceu pela primeira vez no GP do Canadá de 1973.'],
+      ['A volta de Lauda', 'Em 1976, Niki Lauda sofreu um acidente gravíssimo em Nürburgring. Seis semanas depois, ainda com as queimaduras, estava de volta ao carro.'],
+      ['Piquet, três vezes', 'Nelson Piquet foi campeão em 1981 e 1983 pela Brabham e em 1987 pela Williams.'],
+      ['Estoril, debaixo de chuva', 'A primeira vitória de Ayrton Senna foi no GP de Portugal de 1985, com a Lotus, numa corrida de chuva forte.'],
+      ['Senna tricampeão', 'Pela McLaren, Ayrton Senna foi campeão em 1988, 1990 e 1991, e venceu 41 Grandes Prêmios.'],
+      ['Na reta todo mundo é rápido. Campeão se faz na curva.', ''],
+      ['Largar atrás não é desculpa: é ponto de partida.', ''],
+      ['A bandeirada só chega para quem continua acelerando.', ''],
+      ['Cada décimo de segundo é conquistado, nunca dado.', '']
     ]
   };
   function escH(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-  /* oito espaços em volta do nome do esporte; os blocos enchem um por um, na ordem da história */
   var ESPACOS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+  var ESTILOS = ['ld-m1', 'ld-m2', 'ld-m3', 'ld-m4', 'ld-m2', 'ld-m3'];
   function colunas(esp) {
     var M = document.getElementById('ld-mural'); if (!M) return;
-    var H = HISTORIA[esp], caixas = ESPACOS.map(function () { return []; });
+    /* embaralha: cada vez a capa sai diferente */
+    var H = HISTORIA[esp].slice();
+    for (var i = H.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = H[i]; H[i] = H[j]; H[j] = t; }
+    var caixas = ESPACOS.map(function () { return []; });
     H.forEach(function (h, i) {
-      caixas[Math.min(ESPACOS.length - 1, Math.floor(i * ESPACOS.length / H.length))].push(h[0] === 'F' ? '<blockquote class="ld-cita"><p>' + escH(h[1]) + '</p></blockquote>'
-        : '<article class="ld-fato"><small>' + escH(h[0]) + '</small><h3>' + escH(h[1]) + '</h3><p>' + escH(h[2]) + '</p></article>');
+      var html = !h[1] ? '<blockquote class="ld-cita">' + escH(h[0]) + '</blockquote>'
+        : '<article class="ld-fato ' + ESTILOS[(i * 7 + h[0].length) % ESTILOS.length] + (i % 4 === 0 ? ' ld-capitular' : '') + '"><h3>' + escH(h[0]) + '</h3><p>' + escH(h[1]) + '</p></article>';
+      caixas[i % ESPACOS.length].push(html + (i % 3 === 2 ? '<hr class="ld-fio">' : ''));
     });
     M.classList.add('sai');
     setTimeout(function () {
