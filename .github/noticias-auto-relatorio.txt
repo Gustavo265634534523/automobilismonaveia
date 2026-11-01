@@ -7,6 +7,7 @@ Grande Prêmio https://www.grandepremio.com.br/feed/: 0 itens
 ESPN https://www.espn.com.br/espn/rss/futebol/noticia: falhou
 ESPN https://www.espn.com.br/espn/rss/nba/noticia: falhou
 ESPN https://www.espn.com.br/espn/rss/f1/noticia: falhou
+Motorsport.com https://br.motorsport.com/rss/f1/news/: 48 itens
 Google Notícias brasileirao: 100 itens
 Google Notícias copa-do-brasil: 100 itens
 Google Notícias libertadores: 100 itens
@@ -15,10 +16,11 @@ Google Notícias champions-league: 100 itens
 Google Notícias premier-league: 100 itens
 Google Notícias la-liga: 58 itens
 Google Notícias bundesliga: 100 itens
-Google Notícias serie-a: 93 itens
+Google Notícias serie-a: 92 itens
 Google Notícias ligue-1: 47 itens
-Google Notícias nba: 52 itens
+Google Notícias nba: 100 itens
 Google Notícias euroleague: 4 itens
-Google Notícias nbb: 57 itens
+Google Notícias nbb: 47 itens
 Google Notícias formula-1: 100 itens
-notícias gravadas: 156
+matérias abertas para pegar o resumo: 0, com resumo: 0
+notícias gravadas: 245
