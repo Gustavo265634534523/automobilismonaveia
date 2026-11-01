@@ -1508,3 +1508,10 @@ html { background: var(--asfalto); }
 .marca-nome, .topo-pilula .marca-nome, .topo-in .marca-nome { font-family: 'Inter', Arial, sans-serif; font-weight: 900; font-style: italic; font-size: 18px; letter-spacing: -.01em; text-transform: uppercase; }
 .marca-nome small, .topo-in .marca-nome small { display: inline; margin: 0 0 0 4px; font: inherit; letter-spacing: inherit; }
 @media (max-width: 620px) { .marca-nome, .topo-pilula .marca-nome, .topo-in .marca-nome { font-size: 16px; } }
+
+/* cor de cada esporte nas suas páginas: futebol verde, basquete laranja, Fórmula 1 vermelho (o resto do site segue azul) */
+body[data-esporte="futebol"] { --sangue-vivo: #22a35a; --sangue: #178046; }
+body[data-esporte="basquete"] { --sangue-vivo: #f07a2a; --sangue: #c0601f; }
+body[data-esporte="automobilismo"], body[data-cat] { --sangue-vivo: #e3343c; --sangue: #b8262d; }
+.ft[data-esporte="futebol"] .ft-hero .ft-rot { color: #4fd18b; }
+.ft-f1 .ft-hero .ft-rot { color: #ff6b70; }
