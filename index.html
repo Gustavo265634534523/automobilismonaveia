@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Bebas+Neue&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/img/hero/futebol2.webp" media="(min-width: 721px)">
 <link rel="preload" as="image" href="assets/img/hero/futebol2-m.webp" media="(max-width: 720px)">
-<link rel="stylesheet" href="assets/css/landing.css?v=430">
+<link rel="stylesheet" href="assets/css/landing.css?v=431">
 </head>
 <body class="ld">
 <!-- Entrada do site: foto de arena em tela cheia (uma por esporte), o nome do esporte em letras 3D e o objeto do esporte
@@ -45,10 +45,8 @@
   </nav>
 </header>
 
-<!-- capa de jornal: linha da edição e colunas de manchetes com frases motivadoras (computador) -->
-<div class="ld-edicao" id="ld-edicao"></div>
-<aside class="ld-col ld-col-e" id="ld-col-e" aria-label="Manchetes"></aside>
-<aside class="ld-col ld-col-d" id="ld-col-d" aria-label="Mais manchetes"></aside>
+<!-- capa de jornal: a história do esporte cobrindo a tela inteira, só o nome do esporte fica livre -->
+<section class="ld-mural" id="ld-mural" aria-label="História do esporte"></section>
 <main class="ld-palco" id="ld-palco" aria-label="Escolha o seu esporte">
   <h1 class="sr">Fan Zone: escolha o seu esporte</h1>
   <div class="ld-cena" id="ld-cena">
@@ -75,7 +73,7 @@
   <button type="button" role="tab" data-i="2"><small>03</small>Fórmula 1<i></i></button>
 </nav>
 
-<script src="assets/js/landing.js?v=430"></script>
+<script src="assets/js/landing.js?v=431"></script>
 <script>
   /* contador de visitas (Cloudflare Web Analytics, sem cookies), igual ao resto do site */
   if (/automobilismonaveia.com.br$/.test(location.hostname)) {

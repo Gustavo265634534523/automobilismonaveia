@@ -102,76 +102,75 @@
     clearTimeout(fraseT); fraseT = setTimeout(function () { mostrarFrase(ESP[atual]); }, 3500);
   }
 
-  /* ---------- capa de jornal ---------- */
-  var MAIS_FRASES = {
-    futebol: ['Ninguém lembra do placar do intervalo.', 'Craque é quem pede a bola quando o jogo pesa.', 'A torcida empurra, mas quem corre é você.'],
-    basquete: ['Arremesso que não se tenta é cesta que não existe.', 'O garrafão é de quem quer mais.', 'Quatro quartos: tempo de sobra para virar o jogo.'],
-    automobilismo: ['Pole se conquista no sábado, título se constrói o ano todo.', 'Chuva não escolhe piloto: revela.', 'Quem freia por último nem sempre chega primeiro. Quem pensa, sim.']
+  /* ---------- capa de jornal: a história de cada esporte, em blocos que cobrem a tela (só o nome do esporte fica livre) ----------
+     [rótulo, título, texto]. Fatos históricos conferidos; "F" = frase motivadora. */
+  var HISTORIA = {
+    futebol: [
+      ['Há mais de 2 mil anos', 'Antes da bola de couro', 'Jogos de chutar a bola existem há milênios. O cuju, da China antiga, é reconhecido pela FIFA como a forma mais antiga do esporte.'],
+      ['1863 · Londres', 'Nasce o futebol moderno', 'Em 26 de outubro de 1863 foi fundada a Football Association, que escreveu as primeiras regras e separou de vez o futebol do rúgbi.'],
+      ['1871', 'O torneio mais antigo do mundo', 'A Copa da Inglaterra começou na temporada 1871/72. O primeiro campeão foi o Wanderers, que venceu o Royal Engineers por 1 x 0 na final.'],
+      ['F', 'Ninguém lembra do placar do intervalo.'],
+      ['1872 · Glasgow', 'O primeiro jogo entre países', 'Em 30 de novembro de 1872, Escócia e Inglaterra fizeram o primeiro jogo internacional da história. Terminou 0 x 0.'],
+      ['1894 · São Paulo', 'O futebol chega ao Brasil', 'Charles Miller voltou de seus estudos na Inglaterra com duas bolas e um livro de regras. Ele é chamado de pai do futebol brasileiro.'],
+      ['1902', 'O primeiro campeonato brasileiro de clubes', 'O Campeonato Paulista de 1902 foi o primeiro torneio de futebol do país. O campeão foi o São Paulo Athletic Club, time de Charles Miller.'],
+      ['1904 · Paris', 'Nasce a FIFA', 'A FIFA foi fundada em 21 de maio de 1904 por sete países europeus, para organizar o futebol entre as nações.'],
+      ['F', 'O gol mais bonito é sempre o próximo.'],
+      ['1930 · Uruguai', 'A primeira Copa do Mundo', 'Treze seleções disputaram a primeira Copa. Na final, no Estádio Centenário, o Uruguai venceu a Argentina por 4 x 2 e foi o primeiro campeão mundial.'],
+      ['13 de julho de 1930', 'O primeiro gol de Copa', 'O francês Lucien Laurent marcou o primeiro gol da história das Copas, na vitória da França sobre o México por 4 x 1.'],
+      ['1958 · Suécia', 'A primeira estrela do Brasil', 'O Brasil venceu a Suécia por 5 x 2 na final e ganhou sua primeira Copa. Pelé tinha 17 anos e marcou dois gols na decisão.'],
+      ['1959', 'O primeiro campeão brasileiro', 'A Taça Brasil de 1959, reconhecida como o primeiro Campeonato Brasileiro, foi vencida pelo Bahia, que bateu o Santos de Pelé na final.'],
+      ['F', 'Camisa pesa. Quem aguenta o peso, levanta a taça.']
+    ],
+    basquete: [
+      ['Dezembro de 1891', 'Um esporte inventado numa aula', 'O professor canadense James Naismith criou o basquete em Springfield, nos Estados Unidos, para manter os alunos ativos durante o inverno.'],
+      ['Cestos de pêssego', 'A primeira cesta tinha fundo', 'Os aros eram cestos de pêssego pregados na varanda do ginásio. A cada ponto, alguém subia para tirar a bola lá de dentro.'],
+      ['21 de dezembro de 1891', 'O primeiro jogo', 'Foram nove contra nove, e a partida terminou 1 x 0. A única cesta foi de William Chase.'],
+      ['13 regras', 'O regulamento original', 'Naismith escreveu 13 regras. Correr com a bola era proibido: ela só podia ser passada ou arremessada.'],
+      ['F', 'Cada arremesso errado é um treino para o que vai entrar.'],
+      ['1896', 'O basquete chega ao Brasil', 'O professor americano Augusto Shaw trouxe o basquete para o Mackenzie, em São Paulo. No começo, o jogo era praticado principalmente por mulheres.'],
+      ['1936 · Berlim', 'A estreia olímpica', 'O basquete entrou nas Olimpíadas em 1936. A final foi ao ar livre, numa quadra de terra encharcada pela chuva, e os Estados Unidos venceram o Canadá por 19 x 8.'],
+      ['1º de novembro de 1946', 'O primeiro jogo da NBA', 'A liga começou como BAA. O primeiro jogo foi em Toronto: New York Knickerbockers 68 x 66 Toronto Huskies. Em 1949 ela virou NBA.'],
+      ['1947', 'O primeiro campeão', 'O Philadelphia Warriors venceu a primeira temporada da liga, batendo o Chicago Stags na final.'],
+      ['F', 'Jogo decidido no último segundo é de quem não desistiu no primeiro.'],
+      ['1954', 'O relógio que mudou o jogo', 'Para acabar com os times que seguravam a bola, a NBA criou o limite de 24 segundos para o ataque. O jogo ficou muito mais rápido.'],
+      ['1959 e 1963', 'O Brasil bicampeão do mundo', 'A seleção brasileira ganhou o Mundial no Chile, em 1959, e repetiu o título em casa, no Rio de Janeiro, em 1963.'],
+      ['12 de outubro de 1979', 'A primeira cesta de três', 'Chris Ford, do Boston Celtics, fez a primeira cesta de três pontos da NBA, na temporada em que a linha foi criada.'],
+      ['F', 'Quem não para de pular um dia alcança o aro.']
+    ],
+    automobilismo: [
+      ['1906 · Le Mans', 'O primeiro Grande Prêmio', 'O GP da França de 1906 é considerado o primeiro Grande Prêmio da história. O vencedor foi Ferenc Szisz, com um Renault.'],
+      ['13 de maio de 1950', 'Nasce a Fórmula 1', 'A primeira corrida do Campeonato Mundial foi o GP da Grã-Bretanha, em Silverstone, vencido por Giuseppe Farina, da Alfa Romeo.'],
+      ['1950', 'O primeiro campeão do mundo', 'O italiano Giuseppe "Nino" Farina foi o primeiro campeão mundial de Fórmula 1, pilotando para a Alfa Romeo.'],
+      ['F', 'Na reta todo mundo é rápido. Campeão se faz na curva.'],
+      ['1951 a 1957', 'O mestre Fangio', 'O argentino Juan Manuel Fangio ganhou cinco títulos mundiais nos anos 1950. O recorde só foi superado por Michael Schumacher, em 2003.'],
+      ['1951', 'O primeiro brasileiro na F1', 'Chico Landi foi o primeiro brasileiro a correr na Fórmula 1, no GP da Itália de 1951, em Monza.'],
+      ['1958', 'O Mundial de Construtores', 'O campeonato das equipes começou em 1958. A primeira campeã foi a britânica Vanwall.'],
+      ['Desde 1950', 'Presença em todas as temporadas', 'A Ferrari é a única equipe que disputou todas as temporadas do Mundial de Fórmula 1 desde a primeira, em 1950.'],
+      ['F', 'Largar atrás não é desculpa: é ponto de partida.'],
+      ['1970 · Watkins Glen', 'A primeira vitória brasileira', 'Emerson Fittipaldi venceu o GP dos Estados Unidos de 1970, na sua quarta corrida na Fórmula 1. Foi a primeira vitória de um brasileiro.'],
+      ['1972', 'O primeiro campeão brasileiro', 'Emerson Fittipaldi foi campeão mundial pela Lotus e se tornou, na época, o campeão mais jovem da história, com 25 anos.'],
+      ['1973 · Interlagos', 'O primeiro GP do Brasil', 'O GP do Brasil entrou no Mundial em 1973, em Interlagos. E quem venceu foi ele de novo: Emerson Fittipaldi.'],
+      ['1981, 1983 e 1987', 'Piquet tricampeão', 'Nelson Piquet ganhou três títulos mundiais, dois pela Brabham e um pela Williams.'],
+      ['1988, 1990 e 1991', 'Senna tricampeão', 'Ayrton Senna conquistou três títulos pela McLaren e é lembrado como um dos maiores pilotos de todos os tempos.'],
+      ['F', 'A bandeirada só chega para quem continua acelerando.']
+    ]
   };
-  function citacoes(esp) { return FRASES[esp].filter(function (f) { return f[0] === 'Motivação'; }).map(function (f) { return f[1]; }).concat(MAIS_FRASES[esp]); }
-  function curiosidades(esp) { return FRASES[esp].filter(function (f) { return f[0] !== 'Motivação'; }).map(function (f) { return f[1]; }); }
-  var ROTULO = { futebol: 'Futebol', basquete: 'Basquete', automobilismo: 'Fórmula 1' };
-  var noticias = null;
-  function limpa(t) { var a = String(t || '').split(' | ')[0].trim(), b = a.replace(/\s+-\s+[^-]+$/, '').trim(); return b.length >= 25 ? b : a; }
   function escH(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-  function manchetes(esp) {
-    var vistas = {};
-    return ((noticias || {}).itens || []).filter(function (n) {
-      var k = limpa(n.t).toLowerCase(); if (n.esporte !== esp || k.length < 12 || vistas[k]) return false; vistas[k] = 1; return true;
-    });
-  }
-  function quando(n) {
-    var d = String(n.d || '').split('-'); return (d.length === 3 ? d[2] + '/' + d[1] : '') + (n.h ? ' · ' + n.h : '');
-  }
-  function noticiaHTML(n, grande) {
-    return '<article class="ld-nota' + (grande ? ' ld-nota-g' : '') + '"><a href="' + escH(n.link || LINKS[n.esporte]) + '"' + (/^https?:/.test(n.link || '') ? ' target="_blank" rel="noopener"' : '') + '>' + escH(limpa(n.t)) + '</a>' +
-      '<small>' + escH(n.fonte || '') + (quando(n) ? ' · ' + quando(n) : '') + '</small></article>';
-  }
-  function citaHTML(t) { return '<blockquote class="ld-cita"><p>' + escH(t) + '</p></blockquote>'; }
-  function edicao() {
-    var el = document.getElementById('ld-edicao'); if (!el) return;
-    var hoje = new Date(), dias = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'],
-      meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
-    var n = Math.floor((hoje - new Date(2026, 0, 1)) / 864e5) + 1;
-    el.innerHTML = '<span>' + dias[hoje.getDay()] + ', ' + hoje.getDate() + ' de ' + meses[hoje.getMonth()] + ' de ' + hoje.getFullYear() + '</span>' +
-      '<b>O jornal de quem vive o esporte</b><span>Edição nº ' + n + ' · Futebol · Basquete · Fórmula 1</span>';
-  }
+  /* oito espaços em volta do nome do esporte; os blocos enchem um por um, na ordem da história */
+  var ESPACOS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
   function colunas(esp) {
-    var E = document.getElementById('ld-col-e'), D = document.getElementById('ld-col-d'); if (!E || !D) return;
-    var L = manchetes(esp), C = citacoes(esp), V = curiosidades(esp), r = Math.floor(Math.random() * C.length), ci = 0;
-    var cita = function () { return citaHTML(C[(r + ci++) % C.length]); };
-    /* manchetes alternando entre as duas colunas, com uma frase motivadora a cada três */
-    var esq = ['<h2 class="ld-col-cab">Manchetes · ' + ROTULO[esp] + '</h2>'], dir = ['<h2 class="ld-col-cab">Últimas · ' + ROTULO[esp] + '</h2>'];
-    if (!L.length) esq.push('<p class="ld-vazio">As manchetes chegam em instantes.</p>');
-    L.slice(0, 24).forEach(function (n, i) {
-      var col = i % 2 ? dir : esq, k = Math.floor(i / 2);
-      col.push(noticiaHTML(n, k === 0 || k === 5));
-      if (k % 3 === 1) col.push(cita());
-      if (i === 5) dir.push('<div class="ld-sabia"><small>Você sabia?</small><p>' + escH(V[Math.floor(Math.random() * V.length)]) + '</p></div>');
+    var M = document.getElementById('ld-mural'); if (!M) return;
+    var H = HISTORIA[esp], caixas = ESPACOS.map(function () { return []; });
+    H.forEach(function (h, i) {
+      caixas[Math.min(ESPACOS.length - 1, Math.floor(i * ESPACOS.length / H.length))].push(h[0] === 'F' ? '<blockquote class="ld-cita"><p>' + escH(h[1]) + '</p></blockquote>'
+        : '<article class="ld-fato"><small>' + escH(h[0]) + '</small><h3>' + escH(h[1]) + '</h3><p>' + escH(h[2]) + '</p></article>');
     });
-    [E, D].forEach(function (x) { x.classList.add('sai'); });
-    setTimeout(function () { E.innerHTML = esq.join(''); D.innerHTML = dir.join(''); [E, D].forEach(function (x) { x.classList.remove('sai'); }); }, calmo ? 0 : 300);
+    M.classList.add('sai');
+    setTimeout(function () {
+      M.innerHTML = caixas.map(function (c, i) { return '<div class="ld-mural-' + ESPACOS[i] + '">' + c.join('') + '</div>'; }).join('');
+      M.classList.remove('sai');
+    }, calmo ? 0 : 300);
   }
-  /* junta as notícias automáticas (com link da matéria) e o arquivo de notícias do site (com resumo) */
-  var COMP_ESP = { 'formula-1': 'automobilismo', nba: 'basquete', nbb: 'basquete', euroleague: 'basquete' };
-  function juntar() {
-    var L = ((window.NOTICIAS_AUTO || {}).itens || []).slice(), A = window.NOTICIAS_ARQUIVO || {};
-    Object.keys(A).forEach(function (comp) {
-      var esp = COMP_ESP[comp] || 'futebol';
-      (A[comp] || []).forEach(function (n) { L.push({ d: n.d, h: '', esporte: esp, t: n.t, fonte: 'Fan Zone', link: (comp === 'formula-1' ? 'formula-1' : comp) + '.html' }); });
-    });
-    L.sort(function (a, b) { return (b.d + (b.h || '')).localeCompare(a.d + (a.h || '')); });
-    noticias = { itens: L };
-  }
-  edicao();
-  (function () {
-    var tag = document.querySelector('script[src*="landing.js"]'), v = tag ? (tag.src.split('?v=')[1] || '') : '';
-    var sc = document.createElement('script'); sc.src = 'assets/dados/noticias-auto.js' + (v ? '?v=' + v : '');
-    var sc2 = document.createElement('script'); sc2.src = 'assets/dados/noticias-arquivo.js' + (v ? '?v=' + v : '');
-    var faltam = 2, pronto = function () { if (--faltam === 0) { juntar(); colunas(ESP[atual]); } };
-    sc.onload = sc.onerror = pronto; sc2.onload = sc2.onerror = pronto;
-    document.body.appendChild(sc); document.body.appendChild(sc2);
-  })();
   function pintar(primeira) {
     var esp = ESP[atual];
     raiz.style.setProperty('--cor', CORES[esp]);
