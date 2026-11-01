@@ -21,6 +21,8 @@
     var novos = (v.jogos || []).map(function (j) {
       var m = antigos.filter(function (a) { return a.casa === j.casa && a.fora === j.fora && perto(a.d, j.d); })[0];
       var n = {}; for (var k in j) n[k] = j[k];
+      /* placar parcial salvo pelo robô (reserva quando a ESPN não responde no navegador): vale até 4 h depois do início */
+      if (n.vivo) { var ini = n.d && n.h ? Date.parse(n.d + 'T' + n.h + ':00-03:00') : 0; if (!ini || Date.now() > ini + 4 * 3600e3) delete n.vivo; else n.vivo.robo = AV.atualizado || ''; }
       if (m) { if (m.fase) n.fase = m.fase; if (m.l) n.l = m.l; }
       return n;
     });
@@ -148,7 +150,9 @@
 
   /* status curto de um jogo (ao vivo, encerrado, horário) */
   window.statusJogo = function (j) {
-    if (j.vivo || rolando(j)) return '<span class="em-vivo"><i aria-hidden="true"></i>Ao vivo' + (j.vivo && j.vivo.min ? ' · ' + esc(j.vivo.min) : '') + '</span>';
+    if (j.vivo) return '<span class="em-vivo"><i aria-hidden="true"></i>Ao vivo' + (j.vivo.min ? ' · ' + esc(j.vivo.min) : '') + '</span>';
+    /* começou pelo horário, mas o placar ainda não chegou */
+    if (rolando(j)) return j.h && Date.now() >= inicio(j) ? 'Começou às ' + esc(j.h) : 'Começa às ' + esc(j.h || '');
     if (j.p) return 'Encerrado' + (j.pen ? ' (pên. ' + esc(j.pen) + ')' : '');
     if (j.adiado) return 'Adiado';
     return j.h ? esc(j.h) : 'Horário a confirmar';
@@ -182,7 +186,7 @@
       var deHoje = todos.filter(function (x) { return x.j.d === hoje; });
       var peso = function (x) { return x.j.vivo || rolando(x.j) ? 0 : !x.j.p ? 1 : 2; };
       deHoje.sort(function (a, b) { return peso(a) - peso(b) || ordem(a.j, b.j); });
-      var vivos = deHoje.filter(function (x) { return x.j.vivo || rolando(x.j); }).length;
+      var vivos = deHoje.filter(function (x) { return x.j.vivo; }).length;
       var prox = todos.filter(function (x) { return !x.j.p && x.j.d > hoje; }).sort(function (a, b) { return ordem(a.j, b.j); });
       var dia = prox[0] && prox[0].j.d, doDia = prox.filter(function (x) { return x.j.d === dia; });
       el.innerHTML = '<div class="em-vivo-cab"><h2>' + (vivos ? '<span class="em-vivo"><i aria-hidden="true"></i>' + vivos + (vivos > 1 ? ' jogos' : ' jogo') + ' ao vivo</span>' : deHoje.length ? 'Jogos de hoje' : 'Próximos jogos') + '</h2>' +
