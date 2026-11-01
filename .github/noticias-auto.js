@@ -106,9 +106,13 @@ function itens(xml) { return (xml.match(/<item[\s\S]*?<\/item>/gi) || []).map(it
     '  var A = window.NOTICIAS_AUTO.itens, E = window.NOTICIAS_ESPORTES, G = window.NOTICIAS_GERAIS, L = window.LINK_EXTERNO = window.LINK_EXTERNO || {};\n' +
     '  function k(t) { return String(t).toLowerCase().replace(/[^a-z0-9à-ú]+/g, " ").trim().slice(0, 60); }\n' +
     '  var tem = {}; (E || []).concat(G || []).forEach(function (n) { tem[k(n.t)] = 1; });\n' +
+    '  /* só entra no site a notícia que traz informação: resumo de verdade e sem chamada de serviço (horários, onde assistir...) */\n' +
+    '  var SERVICO = /(confira|veja|onde assistir|como assistir|hor[aá]rio|ao vivo|melhores momentos|escala[cç][aã]o|palpite|v[ií]deo|assista|tempo real)/i;\n' +
+    '  function resumo(x) { x = String(x || "").trim(); if (x.indexOf("|") > -1) x = x.replace(/^.*\\|\\s*[^|]*?\\b(19|20)\\d{2}\\s+/, ""); return x.indexOf("|") > -1 ? "" : x; }\n' +
     '  A.forEach(function (n) {\n' +
     '    if (tem[k(n.t)]) return; tem[k(n.t)] = 1; L[n.t] = n.link;\n' +
-    '    var x = n.x ? n.x + (n.fonte ? " Fonte: " + n.fonte : "") : (n.fonte ? "Fonte: " + n.fonte : "");\n' +
+    '    var r = resumo(n.x); if (r.length < 140 || SERVICO.test(n.t)) return;\n' +
+    '    var x = r + (n.fonte ? " Fonte: " + n.fonte : "");\n' +
     '    if (n.esporte === "automobilismo") { if (G) G.push({ d: n.d, cat: n.comp, t: n.t, x: x, link: n.link, fonte: n.fonte }); }\n' +
     '    else if (E) E.push({ d: n.d, esporte: n.esporte, comp: n.comp, t: n.t, x: x, link: n.link, fonte: n.fonte });\n' +
     '  });\n' +

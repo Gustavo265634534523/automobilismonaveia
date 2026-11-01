@@ -5,9 +5,13 @@ window.NOTICIAS_AUTO = {"atualizado":"2026-10-26T20:22:16.198Z","itens":[{"d":"2
   var A = window.NOTICIAS_AUTO.itens, E = window.NOTICIAS_ESPORTES, G = window.NOTICIAS_GERAIS, L = window.LINK_EXTERNO = window.LINK_EXTERNO || {};
   function k(t) { return String(t).toLowerCase().replace(/[^a-z0-9à-ú]+/g, " ").trim().slice(0, 60); }
   var tem = {}; (E || []).concat(G || []).forEach(function (n) { tem[k(n.t)] = 1; });
+  /* só entra no site a notícia que traz informação: resumo de verdade e sem chamada de serviço (horários, onde assistir...) */
+  var SERVICO = /(confira|veja|onde assistir|como assistir|hor[aá]rio|ao vivo|melhores momentos|escala[cç][aã]o|palpite|v[ií]deo|assista|tempo real)/i;
+  function resumo(x) { x = String(x || "").trim(); if (x.indexOf("|") > -1) x = x.replace(/^.*\|\s*[^|]*?\b(19|20)\d{2}\s+/, ""); return x.indexOf("|") > -1 ? "" : x; }
   A.forEach(function (n) {
     if (tem[k(n.t)]) return; tem[k(n.t)] = 1; L[n.t] = n.link;
-    var x = n.x ? n.x + (n.fonte ? " Fonte: " + n.fonte : "") : (n.fonte ? "Fonte: " + n.fonte : "");
+    var r = resumo(n.x); if (r.length < 140 || SERVICO.test(n.t)) return;
+    var x = r + (n.fonte ? " Fonte: " + n.fonte : "");
     if (n.esporte === "automobilismo") { if (G) G.push({ d: n.d, cat: n.comp, t: n.t, x: x, link: n.link, fonte: n.fonte }); }
     else if (E) E.push({ d: n.d, esporte: n.esporte, comp: n.comp, t: n.t, x: x, link: n.link, fonte: n.fonte });
   });
