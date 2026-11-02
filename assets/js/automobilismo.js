@@ -133,11 +133,14 @@
     cal: '<rect x="3.5" y="5" width="17" height="15" rx="1.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/>',
     sim: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>',
     guia: '<path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 20.5A2.5 2.5 0 0 1 6.5 18H20v3H6.5"/>',
+    not: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/>',
     jogo: '<path d="M7 8h10a4 4 0 0 1 4 4v1.5a3.5 3.5 0 0 1-6.3 2.1L13.5 14h-3l-1.2 1.6A3.5 3.5 0 0 1 3 13.5V12a4 4 0 0 1 4-4z"/>'
   };
   document.getElementById('f1-atalhos').innerHTML = [
     ['raiox.html', 'raiox', 'Raio-x e telemetria', 'Volta a volta, pneus, setores e telemetria do último GP', true],
     ['formula-1.html', 'cal', 'Calendário', 'A temporada 2026 completa'],
+    ['#sec-noticias', 'not', 'Notícias', ''],
+    ['horarios.html', 'cal', 'Agenda', ''],
     ['simulador.html', 'sim', 'Simulador do título', 'Escolha o pódio e veja quem é campeão'],
     ['guia-formula-1.html', 'guia', 'Como funciona a F1', 'Regras e termos para iniciantes'],
     ['jogos-esportes.html#f1', 'jogo', 'Jogos da F1', 'Monte sua equipe, corrida 3D, largada e quiz'],

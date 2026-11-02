@@ -115,17 +115,16 @@
     };
     function ic(n) { return '<svg viewBox="0 0 24 24" aria-hidden="true">' + IC[n] + '</svg>'; }
     var inicio = /(^|\/)inicio\.html$/.test(location.pathname); /* o portal; a raiz (index.html) é a entrada com o carrossel */
-    /* menu em pílula flutuante: os três esportes (com ícone), Notícias, Agenda e Menu (abre o painel com o resto);
+    /* menu em pílula flutuante: Início, os três esportes (com ícone) e Menu (abre o painel com o resto; Notícias e Agenda ficam nos atalhos de cada esporte);
        à direita, tema claro/escuro, idioma e o botão Entrar */
     IC.futebol = '<circle cx="12" cy="12" r="9"/><path d="M12 7.5l4 2.9-1.5 4.7h-5L8 10.4z"/>';
     IC.basquete = '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3v18M5.6 5.6a9 9 0 0 1 0 12.8M18.4 5.6a9 9 0 0 0 0 12.8"/>';
     IC.f1 = '<path d="M3 15.5l1.8-4.8A2 2 0 0 1 6.7 9.4h9.1a2 2 0 0 1 1.6.8l2.6 3.3H21v2H3z"/><circle cx="7.5" cy="16.5" r="1.8"/><circle cx="16.5" cy="16.5" r="1.8"/>';
     var itensMenu = [
+      ['inicio', 'inicio.html', 'Início', inicio],
       ['futebol', 'futebol.html', 'Futebol', esporteAtual === 'futebol'],
       ['basquete', 'basquete.html', 'Basquete', esporteAtual === 'basquete'],
       ['f1', 'automobilismo.html', 'Fórmula 1', esporteAtual === 'automobilismo' && !inicio && paginaAtual !== 'noticias' && !/fim-de-semana|onde-assistir|guia|raiox|telemetria|simulador|horarios/.test(location.pathname)],
-      ['noticias', 'noticias.html', 'Notícias', paginaAtual === 'noticias'],
-      ['agenda', 'fim-de-semana.html', 'Agenda', /fim-de-semana/.test(location.pathname)],
       ['categorias', '#categorias-menu', 'Menu', false] /* abre o painel com tudo (no celular é o botão de grade) */
     ];
     var menu = itensMenu.map(function (m) {
@@ -428,12 +427,12 @@
 
   /* Bate-papo da torcida (botão flutuante): carrega o estilo e o script só depois do resto da página */
   if (/^https?:/.test(location.protocol) && !document.documentElement.classList.contains('rx-embutido')) { /* no Raio-x embutido na página inicial não carrega chat, Box nem app */
-    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=447'; document.head.appendChild(chatCss);
-    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=447'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
-    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=447'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
-    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=447'; chatJs.defer = true; document.body.appendChild(chatJs);
-    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=447'; alertaJs.defer = true; document.body.appendChild(alertaJs);
-    var agJs = document.createElement('script'); agJs.src = 'assets/js/avisos-gol.js?v=447'; agJs.defer = true; document.body.appendChild(agJs); /* avisos de gol do meu time (só se ligados) */
+    var chatCss = document.createElement('link'); chatCss.rel = 'stylesheet'; chatCss.href = 'assets/css/chat.css?v=448'; document.head.appendChild(chatCss);
+    var pfJs = document.createElement('script'); pfJs.src = 'assets/js/placar-faixa.js?v=448'; pfJs.defer = true; if (!/(^|\/)(index\.html)?$/.test(location.pathname)) document.body.appendChild(pfJs); /* faixa de placar ao vivo (menos na entrada) */
+    var favJs = document.createElement('script'); favJs.src = 'assets/js/favorito.js?v=448'; favJs.defer = true; document.body.appendChild(favJs); /* aviso de login e esporte/equipe favoritos */
+    var chatJs = document.createElement('script'); chatJs.src = 'assets/js/chat.js?v=448'; chatJs.defer = true; document.body.appendChild(chatJs);
+    var alertaJs = document.createElement('script'); alertaJs.src = 'assets/js/alerta.js?v=448'; alertaJs.defer = true; document.body.appendChild(alertaJs);
+    var agJs = document.createElement('script'); agJs.src = 'assets/js/avisos-gol.js?v=448'; agJs.defer = true; document.body.appendChild(agJs); /* avisos de gol do meu time (só se ligados) */
     var rolJs = document.createElement('script'); rolJs.src = 'assets/js/rolador.js'; rolJs.defer = true; document.body.appendChild(rolJs);
   }
 
