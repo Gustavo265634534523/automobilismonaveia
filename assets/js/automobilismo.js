@@ -143,8 +143,7 @@
     ['horarios.html', 'cal', 'Agenda', ''],
     ['simulador.html', 'sim', 'Simulador do título', 'Escolha o pódio e veja quem é campeão'],
     ['guia-formula-1.html', 'guia', 'Como funciona a F1', 'Regras e termos para iniciantes'],
-    ['jogos-esportes.html#f1', 'jogo', 'Jogos da F1', 'Monte sua equipe, corrida 3D, largada e quiz'],
-    ['bolao.html#f1', 'sim', 'Bolão da F1', 'Palpite a pole e o pódio do próximo GP']
+    ['jogos-esportes.html#f1', 'jogo', 'Jogos da F1', 'Monte sua equipe, corrida 3D, largada e quiz']
   ].map(function (a) {
     return '<a class="f1-atalho' + (a[4] ? ' f1-atalho-dest' : '') + '" href="' + a[0] + '"><svg viewBox="0 0 24 24" aria-hidden="true">' + IC[a[1]] + '</svg><b>' + a[2] + '</b></a>';
   }).join('');
