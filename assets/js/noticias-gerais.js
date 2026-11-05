@@ -4,7 +4,7 @@
    "manchete: true" coloca a notícia no destaque do topo. As notícias de cada categoria em dados.js também entram sozinhas na página. */
 
 /* Data e hora da última atualização (horário de Brasília). */
-window.NOTICIAS_ATUALIZADO = '2026-11-04T08:03:00-03:00';
+window.NOTICIAS_ATUALIZADO = '2026-11-05T08:06:00-03:00';
 
 window.NOTICIAS_GERAIS = [
   { d: '2026-11-01', cat: 'formula-1', manchete: true, t: 'Antonelli é campeão mundial de 2026, o mais jovem da história da F1', x: 'Kimi Antonelli fechou o título de 2026 com o terceiro lugar no GP da Cidade do México. Aos 20 anos, torna-se o campeão mais jovem da história da Fórmula 1, superando o recorde de Sebastian Vettel, e o primeiro italiano campeão desde Alberto Ascari, em 1953. Lewis Hamilton cravou a pole pela Ferrari, mas Max Verstappen venceu a corrida, marcada por bandeira vermelha após forte acidente de Valtteri Bottas, e subiu para a vice-liderança do campeonato.', t_en: 'Antonelli is 2026 world champion, F1’s youngest ever', x_en: 'Kimi Antonelli sealed the 2026 title with third place at the Mexico City Grand Prix. At 20, he becomes the youngest champion in Formula 1 history, breaking Sebastian Vettel’s record, and the first Italian champion since Alberto Ascari in 1953. Lewis Hamilton took pole for Ferrari, but Max Verstappen won the race, which was stopped by a red flag after a heavy crash for Valtteri Bottas, and moved up to second in the championship.' },
