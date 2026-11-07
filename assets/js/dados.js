@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '6 de novembro de 2026';
+window.ATUALIZADO = '7 de novembro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -465,7 +465,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/nascar.jpg',
   frase: 'Quarenta carros, um vácuo, nenhum espaço.',
   intro: 'Nos ovais americanos, os carros andam colados a 300 km/h e o vácuo empurra o pelotão inteiro. Um toque e dez carros saem de cena. O Chase começou: Kyle Larson lidera por um ponto.',
-  lider: { nome: 'Kyle Larson', info: 'Hendrick, lidera o Round of 8' },
+  lider: { nome: 'Kyle Larson', info: 'Hendrick, lidera por 67 pontos antes da final em Homestead' },
   noticias: [
     { d: '2026-09-19', t: 'Logano vence a corrida noturna de Bristol', x: 'Joey Logano ganhou sob as luzes da meia milha mais rápida do mundo. Larson segue um ponto à frente de Denny Hamlin.' },
     { d: '2026-09-13', t: 'Larson vence em St. Louis', x: 'O piloto da Hendrick levou a segunda corrida do Chase e assumiu a ponta.' },
@@ -483,13 +483,13 @@ window.CATEGORIAS = [
     { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18', s: [{ t: 'Treino e classificação', d: '2026-10-17', h: '17:30' }, { t: 'Corrida', d: '2026-10-18', h: '16:00' }], venc: 'Tyler Reddick' },
     { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25', s: [{ t: 'Classificação', d: '2026-10-24', h: '14:00' }, { t: 'Corrida', d: '2026-10-25', h: '15:00' }], venc: 'Kyle Larson' },
     { e: 35, n: 'Xfinity 500', l: 'Martinsville', d: '2026-11-01', s: [{ t: 'Classificação', d: '2026-10-31', h: '15:05' }, { t: 'Corrida', d: '2026-11-01', h: '16:00' }], venc: 'William Byron' },
-    { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08', s: [{ t: 'Corrida', d: '2026-11-08', h: '17:00' }] }
+    { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08', s: [{ t: 'Treino', d: '2026-11-06', h: '19:30' }, { t: 'Classificação', d: '2026-11-07', h: '16:30' }, { t: 'Corrida', d: '2026-11-08', h: '17:00' }] }
   ],
   classificacao: {
-    titulo: 'Round of 8, após Phoenix',
-    colunas: ['Pos', 'Piloto', 'Equipe'],
-    linhas: [['1', 'Kyle Larson', 'Hendrick (Chevrolet)'], ['2', 'Christopher Bell', 'Joe Gibbs (Toyota)'], ['3', 'Chase Briscoe', 'Joe Gibbs (Toyota)'], ['4', 'Denny Hamlin', 'Joe Gibbs (Toyota)'], ['5', 'Ryan Blaney', 'Penske (Ford)'], ['6', 'Joey Logano', 'Penske (Ford)'], ['7', 'Tyler Reddick', '23XI (Toyota)'], ['8', 'Austin Cindric', 'Penske (Ford)']],
-    nota: 'Tyler Reddick venceu o Freeway Insurance 500 em Phoenix. Kyle Larson sofreu um problema no final e caiu para 34º, mas seguiu na liderança do Round of 8. Em Talladega, Larson venceu a corrida e ampliou a vantagem na ponta. O corte para o Championship 4 só ocorre depois de Martinsville; Phoenix e Talladega não eliminam ninguém.'
+    titulo: 'Briga pelo título, após Martinsville',
+    colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
+    linhas: [['1', 'Kyle Larson', 'Hendrick (Chevrolet)', '2469'], ['2', 'Christopher Bell', 'Joe Gibbs (Toyota)', '2402'], ['3', 'Denny Hamlin', 'Joe Gibbs (Toyota)', '2399']],
+    nota: 'William Byron venceu a Xfinity 500 em Martinsville. No novo formato de 2026, não há mais corrida à parte entre quatro finalistas: o título vai para quem somar mais pontos ao final da corrida de Homestead-Miami, entre os únicos três pilotos matematicamente ainda na briga. Larson lidera por 67 pontos sobre Bell e 70 sobre Hamlin, e precisa de só 9 pontos na etapa final para ser campeão; Briscoe, Logano, Blaney e Reddick foram eliminados da disputa em Martinsville.'
   },
   equipes: [
     { n: 'Hendrick Motorsports', i: 'Chevrolet', p: ['Kyle Larson', 'Chase Elliott', 'William Byron', 'Alex Bowman'] },
@@ -580,7 +580,7 @@ window.CATEGORIAS = [
     { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-08', h: '23:45' }, { t: 'Treino', d: '2026-10-09', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-09', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-09', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-10', h: '00:15' }, { t: 'Sprint', d: '2026-10-10', h: '04:00' }, { t: 'Corrida', d: '2026-10-11', h: '04:00' }], venc: 'Marco Bezzecchi (Aprilia)' },
     { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-22', h: '20:45' }, { t: 'Treino', d: '2026-10-23', h: '01:00' }, { t: 'Treino livre 2', d: '2026-10-23', h: '20:10' }, { t: 'Classificação Q1', d: '2026-10-23', h: '20:50' }, { t: 'Classificação Q2', d: '2026-10-23', h: '21:15' }, { t: 'Sprint', d: '2026-10-24', h: '01:00' }, { t: 'Corrida', d: '2026-10-25', h: '00:00' }], parcial: 'Sprint: Marc Márquez (Ducati)', nota: 'A corrida principal de domingo foi cancelada por causa da chuva forte e da falta de visibilidade para o helicóptero médico decolar; só a Sprint valeu pontos. Jorge Martín caiu na Sprint, fraturou o pulso direito e ficou fora do fim de semana. Foi a despedida de Phillip Island do calendário, que passa a receber a MotoGP em Adelaide a partir de 2027.' },
     { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01', s: [{ t: 'Treino livre 1', d: '2026-10-29', h: '23:45' }, { t: 'Treino', d: '2026-10-30', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-30', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-30', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-31', h: '00:15' }, { t: 'Sprint', d: '2026-10-31', h: '04:00' }, { t: 'Corrida', d: '2026-11-01', h: '04:00' }], nota: 'Pedro Acosta venceu a Sprint de sábado. Jorge Martín, com o pulso direito fraturado em Phillip Island, ficou fora do fim de semana.', venc: 'Marc Márquez (Ducati)' },
-    { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08' },
+    { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08', nota: 'etapa remarcada de abril para novembro por causa da situação no Oriente Médio', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '08:45' }, { t: 'Treino', d: '2026-11-06', h: '13:00' }, { t: 'Treino livre 2', d: '2026-11-07', h: '08:00' }, { t: 'Classificação Q1', d: '2026-11-07', h: '08:40' }, { t: 'Classificação Q2', d: '2026-11-07', h: '09:05' }, { t: 'Sprint', d: '2026-11-07', h: '13:00' }, { t: 'Corrida', d: '2026-11-08', h: '13:00' }] },
     { e: 21, n: 'GP de Portugal', l: 'Portimão', d: '2026-11-22' },
     { e: 22, n: 'GP de Valência', l: 'Ricardo Tormo', d: '2026-11-29' }
   ],
