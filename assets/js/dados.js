@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '8 de novembro de 2026';
+window.ATUALIZADO = '9 de novembro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -50,7 +50,7 @@ window.CATEGORIAS = [
     { e: 17, n: 'GP de Singapura', l: 'Marina Bay', d: '2026-10-11', nota: 'primeiro fim de semana de sprint em Singapura', s: [{ t: 'Treino livre 1', d: '2026-10-09', h: '05:30' }, { t: 'Classificação sprint', d: '2026-10-09', h: '09:30' }, { t: 'Sprint', d: '2026-10-10', h: '06:00' }, { t: 'Classificação', d: '2026-10-10', h: '10:00' }, { t: 'Corrida', d: '2026-10-11', h: '09:00' }], venc: 'Max Verstappen (Red Bull)' },
     { e: 18, n: 'GP dos Estados Unidos', l: 'Austin', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-23', h: '14:30' }, { t: 'Treino livre 2', d: '2026-10-23', h: '18:00' }, { t: 'Treino livre 3', d: '2026-10-24', h: '14:30' }, { t: 'Classificação', d: '2026-10-24', h: '18:00' }, { t: 'Corrida', d: '2026-10-25', h: '17:00' }], venc: 'Kimi Antonelli (Mercedes)' },
     { e: 19, n: 'GP da Cidade do México', l: 'Hermanos Rodríguez', d: '2026-11-01', s: [{ t: 'Treino livre 1', d: '2026-10-30', h: '15:30' }, { t: 'Treino livre 2', d: '2026-10-30', h: '19:00' }, { t: 'Treino livre 3', d: '2026-10-31', h: '14:30' }, { t: 'Classificação', d: '2026-10-31', h: '18:00' }, { t: 'Corrida', d: '2026-11-01', h: '17:00' }], nota: 'Leclerc levou 5s de punição após se tocar com Hamilton na primeira volta. Piastri e Colapinto também foram punidos, e Gasly recebeu stop-and-go, após a corrida ter sido fechada por bandeira vermelha no meio do GP. Antonelli fechou o título de pilotos de 2026 com o terceiro lugar, aos 20 anos, o campeão mais jovem da história da F1.', venc: 'Max Verstappen (Red Bull)' },
-    { e: 20, n: 'GP de São Paulo', l: 'Interlagos', d: '2026-11-08', nota: 'pela primeira vez desde 2021, o GP de São Paulo não faz parte do calendário de sprints da F1 em 2026; o fim de semana volta ao formato tradicional', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '12:30' }, { t: 'Treino livre 2', d: '2026-11-06', h: '16:00' }, { t: 'Treino livre 3', d: '2026-11-07', h: '11:30' }, { t: 'Classificação', d: '2026-11-07', h: '15:00' }, { t: 'Corrida', d: '2026-11-08', h: '14:00' }] },
+    { e: 20, n: 'GP de São Paulo', l: 'Interlagos', d: '2026-11-08', nota: 'pela primeira vez desde 2021, o GP de São Paulo não faz parte do calendário de sprints da F1 em 2026; o fim de semana volta ao formato tradicional. Norris venceu em prova de pista molhada, com Verstappen subindo do 21º ao 2º lugar e dando à Red Bull o pódio duplo ao lado de Hadjar; Antonelli e Leclerc receberam punições de 5s mas mantiveram suas posições.', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '12:30' }, { t: 'Treino livre 2', d: '2026-11-06', h: '16:00' }, { t: 'Treino livre 3', d: '2026-11-07', h: '11:30' }, { t: 'Classificação', d: '2026-11-07', h: '15:00' }, { t: 'Corrida', d: '2026-11-08', h: '14:00' }], venc: 'Lando Norris (McLaren)' },
     { e: 21, n: 'GP de Las Vegas', l: 'Las Vegas', d: '2026-11-21' },
     { e: 22, n: 'GP do Catar', l: 'Lusail', d: '2026-11-29' },
     { e: 23, n: 'GP de Abu Dhabi', l: 'Yas Marina', d: '2026-12-06' }
@@ -77,7 +77,7 @@ window.CATEGORIAS = [
       colunas: ['Pos', 'Equipe', 'Pts'],
       linhas: [['1', 'Mercedes', '630'], ['2', 'Ferrari', '504'], ['3', 'Red Bull', '382'], ['4', 'McLaren', '365'], ['5', 'Racing Bulls', '92'], ['6', 'Alpine', '68'], ['7', 'Haas', '27'], ['8', 'Audi', '17'], ['9', 'Williams', '12'], ['10', 'Aston Martin', '7'], ['11', 'Cadillac', '0']]
     },
-    nota: 'Kimi Antonelli é campeão mundial de 2026, com o terceiro lugar no GP da Cidade do México, a quatro etapas do fim: aos 20 anos, é o campeão mais jovem da história da F1, superando o recorde de Sebastian Vettel, e o primeiro campeão italiano desde Alberto Ascari, em 1953. Max Verstappen venceu a corrida no México e subiu para a vice-liderança, na frente de Hamilton.'
+    nota: 'Kimi Antonelli é campeão mundial de 2026, com o terceiro lugar no GP da Cidade do México, a quatro etapas do fim: aos 20 anos, é o campeão mais jovem da história da F1, superando o recorde de Sebastian Vettel, e o primeiro campeão italiano desde Alberto Ascari, em 1953. Max Verstappen venceu a corrida no México e subiu para a vice-liderança, na frente de Hamilton. A Mercedes fechou o título de construtores de 2026 no GP de São Paulo, com 652 pontos, o nono título de construtores da marca.'
   },
   equipes: [
     { n: 'Mercedes', i: 'Motor Mercedes', p: ['Kimi Antonelli', 'George Russell'] },
@@ -265,7 +265,7 @@ window.CATEGORIAS = [
     { e: 8, n: 'Etapa 8', l: 'Curvelo (MG)', d: '2026-09-06', venc: 'Léo Reis e César Ramos' },
     { e: 9, n: 'Etapa 9, endurance', l: 'Brasília (DF)', d: '2026-09-27', s: [{ t: 'Classificação', d: '2026-09-26', h: '14:15' }, { t: 'Warm-up', d: '2026-09-27', h: '09:15' }, { t: 'Corrida de 2 horas', d: '2026-09-27', h: '12:15' }], venc: 'Sérgio Sette Câmara e Lucas di Grassi' },
     { e: 10, n: 'Etapa 10', l: 'Cascavel (PR)', d: '2026-10-18', nota: 'transferida de Goiânia para Cascavel, por obras no asfalto do Autódromo Internacional de Goiânia; disputada no formato tradicional, sem duplas', venc: 'Felipe Fraga e Gabriel Casagrande' },
-    { e: 11, n: 'Etapa 11', l: 'Velopark (RS)', d: '2026-11-15' },
+    { e: 11, n: 'Etapa 11', l: 'Velopark (RS)', d: '2026-11-15', nota: 'Corrida do Milhão, com prêmio de R$ 1 milhão ao vencedor; classificação única vale para as duas corridas do fim de semana', s: [{ t: 'Classificação', d: '2026-11-14', h: '08:30' }, { t: 'Corrida Sprint', d: '2026-11-14', h: '14:18' }, { t: 'Warm-up', d: '2026-11-15', h: '09:15' }, { t: 'Corrida do Milhão', d: '2026-11-15', h: '12:13' }] },
     { e: 12, n: 'Final', l: 'Interlagos (SP)', d: '2026-12-13' }
   ],
   classificacao: {
@@ -336,7 +336,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/endurance.jpg',
   frase: 'Seis horas, vinte e quatro horas. O relógio também corre.',
   intro: 'Três pilotos dividem o mesmo carro e trocam de lugar no escuro. Farol cortando a neblina de Le Mans, disco de freio em brasa às quatro da manhã. No Mundial de Endurance, terminar já é metade da vitória.',
-  lider: { nome: 'Buemi, Hartley e Hirakawa', info: 'Toyota #8, 114 pontos' },
+  lider: { nome: 'Buemi, Hartley e Hirakawa', info: 'Campeões mundiais 2026, Toyota #8, 114 pontos' },
   noticias: [
     { d: '2026-09-27', t: 'Toyota #8 vence em casa e assume a liderança', x: 'Ryo Hirakawa, Sébastien Buemi e Brendon Hartley saíram de oitavo e venceram as 6 Horas de Fuji. O Alpine #36, que largou na pole, ficou em segundo e o BMW #15 completou o pódio.' },
     { d: '2026-09-06', t: 'Ferrari vence a Lone Star Le Mans', x: 'A Ferrari 499P #50 ganhou em Austin, no Circuito das Américas, e voltou ao topo do pódio depois de uma primeira metade de ano dominada por Toyota e BMW.' },
@@ -351,13 +351,13 @@ window.CATEGORIAS = [
     { e: 5, n: 'Lone Star Le Mans', l: 'Austin', d: '2026-09-06', venc: 'Ferrari #50' },
     { e: 6, n: '6 Horas de Fuji', l: 'Fuji', d: '2026-09-27', venc: 'Toyota #8' },
     { e: 7, n: '6 Horas de Barcelona', l: 'Montmeló', d: '2026-10-18', s: [{ t: 'Treino livre 1', d: '2026-10-16', h: '06:30' }, { t: 'Treino livre 2', d: '2026-10-16', h: '11:30' }, { t: 'Treino livre 3', d: '2026-10-17', h: '03:50' }, { t: 'Classificação LMGT3', d: '2026-10-17', h: '06:50' }, { t: 'Hyperpole LMGT3', d: '2026-10-17', h: '07:10' }, { t: 'Classificação Hypercar', d: '2026-10-17', h: '10:40' }, { t: 'Hyperpole Hypercar', d: '2026-10-17', h: '11:00' }, { t: 'Corrida', d: '2026-10-18', h: '07:00' }], nota: 'Toyota venceu com um 1-2 (#8 e #7) e fechou o título de construtores antes da última etapa, em Monza.', venc: 'Toyota #8' },
-    { e: 8, n: '6 Horas de Monza', l: 'Monza', d: '2026-11-08', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '06:30' }, { t: 'Treino livre 2', d: '2026-11-06', h: '10:30' }, { t: 'Treino livre 3', d: '2026-11-07', h: '06:30' }, { t: 'Classificação LMGT3', d: '2026-11-07', h: '10:20' }, { t: 'Hyperpole LMGT3', d: '2026-11-07', h: '10:40' }, { t: 'Classificação Hypercar', d: '2026-11-07', h: '11:00' }, { t: 'Hyperpole Hypercar', d: '2026-11-07', h: '11:20' }, { t: 'Corrida', d: '2026-11-08', h: '07:00' }] }
+    { e: 8, n: '6 Horas de Monza', l: 'Monza', d: '2026-11-08', nota: 'última etapa da temporada; corrida marcada por vários Virtual Safety Cars e bandeiras amarelas, com os dois Toyota do título envolvidos em incidentes', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '06:30' }, { t: 'Treino livre 2', d: '2026-11-06', h: '10:30' }, { t: 'Treino livre 3', d: '2026-11-07', h: '06:30' }, { t: 'Classificação LMGT3', d: '2026-11-07', h: '10:20' }, { t: 'Hyperpole LMGT3', d: '2026-11-07', h: '10:40' }, { t: 'Classificação Hypercar', d: '2026-11-07', h: '11:00' }, { t: 'Hyperpole Hypercar', d: '2026-11-07', h: '11:20' }, { t: 'Corrida', d: '2026-11-08', h: '07:00' }], venc: 'Cadillac #38 (Aitken, Bourdais e Bamber)' }
   ],
   classificacao: {
-    titulo: 'Hypercar, pilotos',
+    titulo: 'Hypercar, pilotos (final)',
     colunas: ['Pos', 'Pilotos', 'Carro', 'Pts'],
     linhas: [['1', 'Buemi, Hartley e Hirakawa', 'Toyota #8', '114'], ['2', 'Conway, Kobayashi e De Vries', 'Toyota #7', '97'], ['3', 'Rast e Frijns', 'BMW #20', '75'], ['4', 'Magnussen e Marciello', 'BMW #15', '75'], ['5', 'Fuoco, Molina e Nielsen', 'Ferrari #50', '69'], ['6', 'Pier Guidi, Calado e Giovinazzi', 'Ferrari #51', '59'], ['7', 'Milesi e Habsburg', 'Alpine #35', '56'], ['8', 'Nato e Stevens', 'Cadillac #12', '50']],
-    nota: 'Após Barcelona (etapa 7 de 8). Toyota #8 lidera por 17 pontos sobre o #7, faltando Monza. Sheldon van der Linde (BMW #20) tem 65 pontos e Dries Vanthoor (BMW #15) tem 69, porque não fizeram todas as etapas.'
+    nota: 'Classificação final da temporada. Nas 6 Horas de Monza, o Cadillac #38 (Aitken, Bourdais e Bamber) venceu a corrida, mas nenhum dos dois Toyota do título pontuou, o que manteve a vantagem de 17 pontos do #8 (Buemi, Hartley e Hirakawa) sobre o #7 e garantiu o título de pilotos da Hypercar para a dupla do #8 — quinto título mundial para Hartley e Buemi, terceiro para Hirakawa. Sheldon van der Linde (BMW #20) tem 65 pontos e Dries Vanthoor (BMW #15) tem 69, porque não fizeram todas as etapas.'
   },
   equipes: [
     { n: 'BMW M Team WRT', i: 'BMW M Hybrid V8', p: ['Robin Frijns', 'René Rast', 'Kevin Magnussen', 'Raffaele Marciello'] },
@@ -430,7 +430,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/porsche.jpg',
   frase: 'Trinta 911 iguais. Só o pé direito muda.',
   intro: 'Mesmo carro, mesmo acerto, mesmo pneu. Na Porsche Cup, o seis cilindros berra atrás do banco e a diferença entre o primeiro e o décimo cabe num piscar de olhos. Marçal Müller lidera a Carrera Cup.',
-  lider: { nome: 'Marçal Müller', info: 'Carrera Cup, 159 pontos' },
+  lider: { nome: 'Marçal Müller', info: 'Carrera Cup, campeão 2026 (sprint e geral), antecipadamente' },
   noticias: [
     { d: '2026-07-12', t: 'Müller e Di Mauro vencem o endurance em Portimão', x: 'A dupla levou a prova longa no Algarve e Marçal Müller abriu 24 pontos na Carrera Cup.' },
     { d: '2026-07-05', t: 'Salles vence em Portugal', x: 'Lucas Salles ganhou a segunda corrida em Portimão, um dia depois de mais uma vitória de Müller, e subiu para vice-líder.' },
@@ -445,14 +445,14 @@ window.CATEGORIAS = [
     { e: 6, n: 'Etapa 6', l: 'Interlagos (SP)', d: '2026-09-06', venc: 'Marçal Müller', nota: 'Carrera Cup, na chuva, de ponta a ponta' },
     { e: 7, n: 'Endurance', l: 'Brasília (DF)', d: '2026-10-03', nota: 'transferido de Goiânia para o Autódromo Nelson Piquet, por causa das obras no circuito goiano; 300 km em duplas, na chuva', s: [{ t: 'Corrida', d: '2026-10-03', h: '13:00' }], venc: 'Matheus Comparatto e Felipe Baptista' },
     { e: 8, n: 'Etapa 8, Challenge e Trophy', l: 'Interlagos (SP)', d: '2026-11-22', nota: 'não acontece mais em Goiânia, porque o reparo do asfalto do autódromo não ficou pronto a tempo; remarcada para Interlagos, nos dias 21 e 22 de novembro' },
-    { e: 9, n: 'Etapa 9', l: 'Interlagos (SP)', d: '2026-11-08' },
+    { e: 9, n: 'Etapa 9', l: 'Interlagos (SP)', d: '2026-11-08', nota: 'Carrera Cup, no fim de semana do GP de São Paulo de F1; Müller venceu as duas corridas e fechou antecipadamente os títulos de sprint e geral da temporada 2026', venc: 'Marçal Müller' },
     { e: 10, n: 'Endurance final', l: 'Interlagos (SP)', d: '2026-11-28' }
   ],
   classificacao: {
     titulo: 'Carrera Cup, pilotos',
     colunas: ['Pos', 'Piloto', 'Pts'],
     linhas: [['1', 'Marçal Müller', '159'], ['2', 'Lucas Salles', '135'], ['3', 'Antonella Bassani', '133'], ['4', 'Jeff Giassi', '130'], ['5', 'Miguel Paludo', '124'], ['6', 'Marcos Regadas', '108'], ['7', 'Matheus Comparatto', '103'], ['8', 'Thiago Vivacqua', '100'], ['9', 'Sebá Malucelli', '87'], ['10', 'Pietro Fantin', '83']],
-    nota: 'Classificação após a etapa 6, em Interlagos (pontuação da Carrera Cup; a etapa de Brasília foi disputada pelo campeonato de Endurance).'
+    nota: 'Classificação após a etapa 6, em Interlagos (pontuação da Carrera Cup; a etapa de Brasília foi disputada pelo campeonato de Endurance). Na etapa 9, também em Interlagos, Müller venceu as duas corridas e fechou antecipadamente os títulos de sprint e geral de 2026; tabela de pontos ainda sem confirmação oficial completa após essa etapa.'
   },
   equipes: [
     { n: 'Carrera Cup', i: 'Porsche 911 GT3 Cup (992)', p: ['Marçal Müller', 'Lucas Salles', 'Antonella Bassani', 'Jeff Giassi', 'Miguel Paludo', 'Marcos Regadas', 'Matheus Comparatto', 'Thiago Vivacqua', 'Sebá Malucelli', 'Pietro Fantin'] },
@@ -465,7 +465,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/nascar.jpg',
   frase: 'Quarenta carros, um vácuo, nenhum espaço.',
   intro: 'Nos ovais americanos, os carros andam colados a 300 km/h e o vácuo empurra o pelotão inteiro. Um toque e dez carros saem de cena. O Chase começou: Kyle Larson lidera por um ponto.',
-  lider: { nome: 'Kyle Larson', info: 'Hendrick, lidera por 67 pontos antes da final em Homestead' },
+  lider: { nome: 'Kyle Larson', info: 'Campeão 2026 (3º título, 2º seguido), Hendrick' },
   noticias: [
     { d: '2026-09-19', t: 'Logano vence a corrida noturna de Bristol', x: 'Joey Logano ganhou sob as luzes da meia milha mais rápida do mundo. Larson segue um ponto à frente de Denny Hamlin.' },
     { d: '2026-09-13', t: 'Larson vence em St. Louis', x: 'O piloto da Hendrick levou a segunda corrida do Chase e assumiu a ponta.' },
@@ -483,13 +483,13 @@ window.CATEGORIAS = [
     { e: 33, n: 'Freeway Insurance 500', l: 'Phoenix', d: '2026-10-18', s: [{ t: 'Treino e classificação', d: '2026-10-17', h: '17:30' }, { t: 'Corrida', d: '2026-10-18', h: '16:00' }], venc: 'Tyler Reddick' },
     { e: 34, n: 'YellaWood 500', l: 'Talladega', d: '2026-10-25', s: [{ t: 'Classificação', d: '2026-10-24', h: '14:00' }, { t: 'Corrida', d: '2026-10-25', h: '15:00' }], venc: 'Kyle Larson' },
     { e: 35, n: 'Xfinity 500', l: 'Martinsville', d: '2026-11-01', s: [{ t: 'Classificação', d: '2026-10-31', h: '15:05' }, { t: 'Corrida', d: '2026-11-01', h: '16:00' }], venc: 'William Byron' },
-    { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08', s: [{ t: 'Treino', d: '2026-11-06', h: '19:30' }, { t: 'Classificação', d: '2026-11-07', h: '16:30' }, { t: 'Corrida', d: '2026-11-08', h: '17:00' }] }
+    { e: 36, n: 'Final', l: 'Homestead-Miami', d: '2026-11-08', s: [{ t: 'Treino', d: '2026-11-06', h: '19:30' }, { t: 'Classificação', d: '2026-11-07', h: '16:30' }, { t: 'Corrida', d: '2026-11-08', h: '17:00' }], venc: 'Ryan Blaney' }
   ],
   classificacao: {
-    titulo: 'Briga pelo título, após Martinsville',
+    titulo: 'Briga pelo título, resultado final',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
     linhas: [['1', 'Kyle Larson', 'Hendrick (Chevrolet)', '2469'], ['2', 'Christopher Bell', 'Joe Gibbs (Toyota)', '2402'], ['3', 'Denny Hamlin', 'Joe Gibbs (Toyota)', '2399']],
-    nota: 'William Byron venceu a Xfinity 500 em Martinsville. No novo formato de 2026, não há mais corrida à parte entre quatro finalistas: o título vai para quem somar mais pontos ao final da corrida de Homestead-Miami, entre os únicos três pilotos matematicamente ainda na briga. Larson lidera por 67 pontos sobre Bell e 70 sobre Hamlin, e precisa de só 9 pontos na etapa final para ser campeão; Briscoe, Logano, Blaney e Reddick foram eliminados da disputa em Martinsville.'
+    nota: 'William Byron venceu a Xfinity 500 em Martinsville. No novo formato de 2026, não há mais corrida à parte entre quatro finalistas: o título foi para quem somasse mais pontos ao final da corrida de Homestead-Miami, entre os únicos três pilotos matematicamente ainda na briga. Ryan Blaney venceu a corrida final; Kyle Larson garantiu o título de 2026 já no primeiro estágio da prova, terminando em 12º — o terceiro título de Larson na Cup Series (2021, 2025 e 2026) e o segundo seguido, algo que não acontecia desde Jimmie Johnson. Bell e Hamlin, os outros dois ainda na disputa matemática, não ameaçaram a liderança de pontos de Larson.'
   },
   equipes: [
     { n: 'Hendrick Motorsports', i: 'Chevrolet', p: ['Kyle Larson', 'Chase Elliott', 'William Byron', 'Alex Bowman'] },
@@ -554,7 +554,7 @@ window.CATEGORIAS = [
   foto: 'assets/img/cat/motogp.jpg',
   frase: 'Cotovelo no asfalto a 60 graus de inclinação.',
   intro: 'Na MotoGP, o piloto pendura o corpo para fora da moto e arrasta o cotovelo na zebra. São 300 cavalos em duas rodas e 360 km/h na reta. Jorge Martín lidera com 12 pontos sobre Marc Márquez, faltando sete etapas.',
-  lider: { nome: 'Marc Márquez', info: 'Ducati, 399 pontos' },
+  lider: { nome: 'Marc Márquez', info: 'Ducati, 431 pontos, 60 de vantagem sobre Martín' },
   noticias: [
     { d: '2026-09-20', t: 'Acosta vence na Áustria', x: 'Pedro Acosta deu à KTM a primeira vitória do ano em casa, no Red Bull Ring. Cinco pilotos seguem separados por 24 pontos.' },
     { d: '2026-09-13', t: 'Márquez vence em Misano', x: 'Marc Márquez emendou Aragão e San Marino e chegou a 190 pontos, 18 atrás do líder.' },
@@ -580,15 +580,15 @@ window.CATEGORIAS = [
     { e: 17, n: 'GP da Indonésia', l: 'Mandalika', d: '2026-10-11', s: [{ t: 'Treino livre 1', d: '2026-10-08', h: '23:45' }, { t: 'Treino', d: '2026-10-09', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-09', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-09', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-10', h: '00:15' }, { t: 'Sprint', d: '2026-10-10', h: '04:00' }, { t: 'Corrida', d: '2026-10-11', h: '04:00' }], venc: 'Marco Bezzecchi (Aprilia)' },
     { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-22', h: '20:45' }, { t: 'Treino', d: '2026-10-23', h: '01:00' }, { t: 'Treino livre 2', d: '2026-10-23', h: '20:10' }, { t: 'Classificação Q1', d: '2026-10-23', h: '20:50' }, { t: 'Classificação Q2', d: '2026-10-23', h: '21:15' }, { t: 'Sprint', d: '2026-10-24', h: '01:00' }, { t: 'Corrida', d: '2026-10-25', h: '00:00' }], parcial: 'Sprint: Marc Márquez (Ducati)', nota: 'A corrida principal de domingo foi cancelada por causa da chuva forte e da falta de visibilidade para o helicóptero médico decolar; só a Sprint valeu pontos. Jorge Martín caiu na Sprint, fraturou o pulso direito e ficou fora do fim de semana. Foi a despedida de Phillip Island do calendário, que passa a receber a MotoGP em Adelaide a partir de 2027.' },
     { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01', s: [{ t: 'Treino livre 1', d: '2026-10-29', h: '23:45' }, { t: 'Treino', d: '2026-10-30', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-30', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-30', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-31', h: '00:15' }, { t: 'Sprint', d: '2026-10-31', h: '04:00' }, { t: 'Corrida', d: '2026-11-01', h: '04:00' }], nota: 'Pedro Acosta venceu a Sprint de sábado. Jorge Martín, com o pulso direito fraturado em Phillip Island, ficou fora do fim de semana.', venc: 'Marc Márquez (Ducati)' },
-    { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08', nota: 'etapa remarcada de abril para novembro por causa da situação no Oriente Médio', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '08:45' }, { t: 'Treino', d: '2026-11-06', h: '13:00' }, { t: 'Treino livre 2', d: '2026-11-07', h: '08:00' }, { t: 'Classificação Q1', d: '2026-11-07', h: '08:40' }, { t: 'Classificação Q2', d: '2026-11-07', h: '09:05' }, { t: 'Sprint', d: '2026-11-07', h: '13:00' }, { t: 'Corrida', d: '2026-11-08', h: '13:00' }] },
+    { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08', nota: 'etapa remarcada de abril para novembro por causa da situação no Oriente Médio. Márquez venceu a Sprint; Martín, de volta após fraturar o pulso direito em Phillip Island, foi terceiro na Sprint e sétimo na corrida principal, vencida por Bezzecchi.', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '08:45' }, { t: 'Treino', d: '2026-11-06', h: '13:00' }, { t: 'Treino livre 2', d: '2026-11-07', h: '08:00' }, { t: 'Classificação Q1', d: '2026-11-07', h: '08:40' }, { t: 'Classificação Q2', d: '2026-11-07', h: '09:05' }, { t: 'Sprint', d: '2026-11-07', h: '13:00' }, { t: 'Corrida', d: '2026-11-08', h: '13:00' }], venc: 'Marco Bezzecchi (Aprilia)' },
     { e: 21, n: 'GP de Portugal', l: 'Portimão', d: '2026-11-22' },
     { e: 22, n: 'GP de Valência', l: 'Ricardo Tormo', d: '2026-11-29' }
   ],
   classificacao: {
     titulo: 'Pilotos',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
-    linhas: [['1', 'Marc Márquez', 'Ducati Lenovo', '399'], ['2', 'Jorge Martín', 'Aprilia Racing', '355'], ['3', 'Marco Bezzecchi', 'Aprilia Racing', '332'], ['4', 'Pedro Acosta', 'Red Bull KTM', '295'], ['5', 'Ai Ogura', 'Trackhouse', '278'], ['6', 'Fabio Di Giannantonio', 'VR46', '265'], ['7', 'Raúl Fernández', 'Trackhouse', '236'], ['8', 'Álex Márquez', 'Gresini', '197'], ['9', 'Francesco Bagnaia', 'Ducati Lenovo', '173'], ['10', 'Fermín Aldeguer', 'Gresini', '125'], ['11', 'Enea Bastianini', 'KTM Tech3', '116'], ['12', 'Luca Marini', 'Honda HRC', '104'], ['13', 'Brad Binder', 'Red Bull KTM', '99'], ['14', 'Diogo Moreira', 'LCR Honda', '74'], ['15', 'Fabio Quartararo', 'Yamaha', '66'], ['16', 'Franco Morbidelli', 'VR46', '56'], ['17', 'Johann Zarco', 'LCR Honda', '45'], ['18', 'Joan Mir', 'Honda HRC', '33'], ['19', 'Jack Miller', 'Pramac Yamaha', '28'], ['20', 'Álex Rins', 'Yamaha', '24'], ['21', 'Toprak Razgatlıoğlu', 'Pramac Yamaha', '18'], ['22', 'Maverick Viñales', 'KTM Tech3', '10']],
-    nota: 'Classificação após o GP da Malásia (etapa 19 de 22). Márquez venceu a corrida de domingo, depois de ser segundo na Sprint de sábado (vencida por Pedro Acosta), e abriu 44 pontos sobre Martín, que ficou fora do fim de semana com o pulso direito fraturado em Phillip Island.'
+    linhas: [['1', 'Marc Márquez', 'Ducati Lenovo', '431'], ['2', 'Jorge Martín', 'Aprilia Racing', '371'], ['3', 'Marco Bezzecchi', 'Aprilia Racing', '357'], ['4', 'Pedro Acosta', 'Red Bull KTM', '295'], ['5', 'Ai Ogura', 'Trackhouse', '278'], ['6', 'Fabio Di Giannantonio', 'VR46', '265'], ['7', 'Raúl Fernández', 'Trackhouse', '236'], ['8', 'Álex Márquez', 'Gresini', '197'], ['9', 'Francesco Bagnaia', 'Ducati Lenovo', '173'], ['10', 'Fermín Aldeguer', 'Gresini', '125'], ['11', 'Enea Bastianini', 'KTM Tech3', '116'], ['12', 'Luca Marini', 'Honda HRC', '104'], ['13', 'Brad Binder', 'Red Bull KTM', '99'], ['14', 'Diogo Moreira', 'LCR Honda', '74'], ['15', 'Fabio Quartararo', 'Yamaha', '66'], ['16', 'Franco Morbidelli', 'VR46', '56'], ['17', 'Johann Zarco', 'LCR Honda', '45'], ['18', 'Joan Mir', 'Honda HRC', '33'], ['19', 'Jack Miller', 'Pramac Yamaha', '28'], ['20', 'Álex Rins', 'Yamaha', '24'], ['21', 'Toprak Razgatlıoğlu', 'Pramac Yamaha', '18'], ['22', 'Maverick Viñales', 'KTM Tech3', '10']],
+    nota: 'Classificação após o GP do Catar (etapa 20 de 22). Márquez venceu a Sprint de sábado e foi segundo na corrida de domingo, vencida por Marco Bezzecchi; abriu 60 pontos sobre Jorge Martín, de volta às pistas após fraturar o pulso direito em Phillip Island, que terminou em sétimo. Bezzecchi está a 74 pontos do líder, matematicamente vivo na disputa, que pode ser decidida em Portimão.'
   },
   equipes: [
     { n: 'Aprilia Racing', i: 'Aprilia', p: ['Jorge Martín', 'Marco Bezzecchi'] },
