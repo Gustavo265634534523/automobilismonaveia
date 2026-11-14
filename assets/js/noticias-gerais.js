@@ -4,7 +4,7 @@
    "manchete: true" coloca a notícia no destaque do topo. As notícias de cada categoria em dados.js também entram sozinhas na página. */
 
 /* Data e hora da última atualização (horário de Brasília). */
-window.NOTICIAS_ATUALIZADO = '2026-11-12T08:04:00-03:00';
+window.NOTICIAS_ATUALIZADO = '2026-11-14T08:03:00-03:00';
 
 window.NOTICIAS_GERAIS = [
   { d: '2026-11-08', cat: 'formula-1', t: 'Mercedes é campeã de construtores em Interlagos, nono título da história', x: 'A Mercedes garantiu o título de construtores da Fórmula 1 de 2026 no GP de São Paulo, com três etapas de antecedência. A equipe chegou a 652 pontos, contra 512 da Ferrari, em segundo lugar. É o nono título de construtores da Mercedes, que empata com a Williams na terceira colocação histórica, atrás de Ferrari e McLaren, e encerra um jejum desde 2021.', t_en: 'Mercedes clinches constructors’ title in Interlagos, ninth in team history', x_en: 'Mercedes secured the 2026 Formula 1 constructors’ championship at the São Paulo Grand Prix, with three races still to run. The team reached 652 points, against Ferrari’s 512 in second place. It is Mercedes’ ninth constructors’ title, tying Williams for third on the all-time list behind Ferrari and McLaren, and ends a drought dating back to 2021.' },
