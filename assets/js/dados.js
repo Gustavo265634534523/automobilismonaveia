@@ -1,8 +1,8 @@
-/* Dados das categorias. Atualizado em 14/11/2026.
+/* Dados das categorias. Atualizado em 15/11/2026.
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '14 de novembro de 2026';
+window.ATUALIZADO = '15 de novembro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -265,7 +265,7 @@ window.CATEGORIAS = [
     { e: 8, n: 'Etapa 8', l: 'Curvelo (MG)', d: '2026-09-06', venc: 'Léo Reis e César Ramos' },
     { e: 9, n: 'Etapa 9, endurance', l: 'Brasília (DF)', d: '2026-09-27', s: [{ t: 'Classificação', d: '2026-09-26', h: '14:15' }, { t: 'Warm-up', d: '2026-09-27', h: '09:15' }, { t: 'Corrida de 2 horas', d: '2026-09-27', h: '12:15' }], venc: 'Sérgio Sette Câmara e Lucas di Grassi' },
     { e: 10, n: 'Etapa 10', l: 'Cascavel (PR)', d: '2026-10-18', nota: 'transferida de Goiânia para Cascavel, por obras no asfalto do Autódromo Internacional de Goiânia; disputada no formato tradicional, sem duplas', venc: 'Felipe Fraga e Gabriel Casagrande' },
-    { e: 11, n: 'Etapa 11', l: 'Velopark (RS)', d: '2026-11-15', nota: 'Corrida do Milhão, com prêmio de R$ 1 milhão ao vencedor; classificação única vale para as duas corridas do fim de semana', s: [{ t: 'Classificação', d: '2026-11-14', h: '08:30' }, { t: 'Corrida Sprint', d: '2026-11-14', h: '14:18' }, { t: 'Warm-up', d: '2026-11-15', h: '09:15' }, { t: 'Corrida do Milhão', d: '2026-11-15', h: '12:13' }] },
+    { e: 11, n: 'Etapa 11', l: 'Velopark (RS)', d: '2026-11-15', nota: 'Corrida do Milhão, com prêmio de R$ 1 milhão ao vencedor; classificação única vale para as duas corridas do fim de semana', s: [{ t: 'Classificação', d: '2026-11-14', h: '08:30' }, { t: 'Corrida Sprint', d: '2026-11-14', h: '14:18' }, { t: 'Warm-up', d: '2026-11-15', h: '09:15' }, { t: 'Corrida do Milhão', d: '2026-11-15', h: '12:13' }], parcial: 'Corrida Sprint: Gaetano di Mauro (Eurofarma RC)' },
     { e: 12, n: 'Final', l: 'Interlagos (SP)', d: '2026-12-13' }
   ],
   classificacao: {
@@ -581,7 +581,7 @@ window.CATEGORIAS = [
     { e: 18, n: 'GP da Austrália', l: 'Phillip Island', d: '2026-10-25', s: [{ t: 'Treino livre 1', d: '2026-10-22', h: '20:45' }, { t: 'Treino', d: '2026-10-23', h: '01:00' }, { t: 'Treino livre 2', d: '2026-10-23', h: '20:10' }, { t: 'Classificação Q1', d: '2026-10-23', h: '20:50' }, { t: 'Classificação Q2', d: '2026-10-23', h: '21:15' }, { t: 'Sprint', d: '2026-10-24', h: '01:00' }, { t: 'Corrida', d: '2026-10-25', h: '00:00' }], parcial: 'Sprint: Marc Márquez (Ducati)', nota: 'A corrida principal de domingo foi cancelada por causa da chuva forte e da falta de visibilidade para o helicóptero médico decolar; só a Sprint valeu pontos. Jorge Martín caiu na Sprint, fraturou o pulso direito e ficou fora do fim de semana. Foi a despedida de Phillip Island do calendário, que passa a receber a MotoGP em Adelaide a partir de 2027.' },
     { e: 19, n: 'GP da Malásia', l: 'Sepang', d: '2026-11-01', s: [{ t: 'Treino livre 1', d: '2026-10-29', h: '23:45' }, { t: 'Treino', d: '2026-10-30', h: '04:00' }, { t: 'Treino livre 2', d: '2026-10-30', h: '23:10' }, { t: 'Classificação Q1', d: '2026-10-30', h: '23:50' }, { t: 'Classificação Q2', d: '2026-10-31', h: '00:15' }, { t: 'Sprint', d: '2026-10-31', h: '04:00' }, { t: 'Corrida', d: '2026-11-01', h: '04:00' }], nota: 'Pedro Acosta venceu a Sprint de sábado. Jorge Martín, com o pulso direito fraturado em Phillip Island, ficou fora do fim de semana.', venc: 'Marc Márquez (Ducati)' },
     { e: 20, n: 'GP do Catar', l: 'Lusail', d: '2026-11-08', nota: 'etapa remarcada de abril para novembro por causa da situação no Oriente Médio. Márquez venceu a Sprint; Martín, de volta após fraturar o pulso direito em Phillip Island, foi terceiro na Sprint e sétimo na corrida principal, vencida por Bezzecchi.', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '08:45' }, { t: 'Treino', d: '2026-11-06', h: '13:00' }, { t: 'Treino livre 2', d: '2026-11-07', h: '08:00' }, { t: 'Classificação Q1', d: '2026-11-07', h: '08:40' }, { t: 'Classificação Q2', d: '2026-11-07', h: '09:05' }, { t: 'Sprint', d: '2026-11-07', h: '13:00' }, { t: 'Corrida', d: '2026-11-08', h: '13:00' }], venc: 'Marco Bezzecchi (Aprilia)' },
-    { e: 21, n: 'GP de Portugal', l: 'Portimão', d: '2026-11-22' },
+    { e: 21, n: 'GP de Portugal', l: 'Portimão', d: '2026-11-22', s: [{ t: 'Treino livre 1', d: '2026-11-20', h: '07:45' }, { t: 'Treino', d: '2026-11-20', h: '12:00' }, { t: 'Treino livre 2', d: '2026-11-21', h: '07:10' }, { t: 'Classificação Q1', d: '2026-11-21', h: '07:50' }, { t: 'Classificação Q2', d: '2026-11-21', h: '08:15' }, { t: 'Sprint', d: '2026-11-21', h: '12:00' }, { t: 'Corrida', d: '2026-11-22', h: '10:00' }] },
     { e: 22, n: 'GP de Valência', l: 'Ricardo Tormo', d: '2026-11-29' }
   ],
   classificacao: {
