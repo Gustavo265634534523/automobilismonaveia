@@ -1,8 +1,8 @@
-/* Dados das categorias. Atualizado em 15/11/2026.
+/* Dados das categorias. Atualizado em 16/11/2026.
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '15 de novembro de 2026';
+window.ATUALIZADO = '16 de novembro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -265,7 +265,7 @@ window.CATEGORIAS = [
     { e: 8, n: 'Etapa 8', l: 'Curvelo (MG)', d: '2026-09-06', venc: 'Léo Reis e César Ramos' },
     { e: 9, n: 'Etapa 9, endurance', l: 'Brasília (DF)', d: '2026-09-27', s: [{ t: 'Classificação', d: '2026-09-26', h: '14:15' }, { t: 'Warm-up', d: '2026-09-27', h: '09:15' }, { t: 'Corrida de 2 horas', d: '2026-09-27', h: '12:15' }], venc: 'Sérgio Sette Câmara e Lucas di Grassi' },
     { e: 10, n: 'Etapa 10', l: 'Cascavel (PR)', d: '2026-10-18', nota: 'transferida de Goiânia para Cascavel, por obras no asfalto do Autódromo Internacional de Goiânia; disputada no formato tradicional, sem duplas', venc: 'Felipe Fraga e Gabriel Casagrande' },
-    { e: 11, n: 'Etapa 11', l: 'Velopark (RS)', d: '2026-11-15', nota: 'Corrida do Milhão, com prêmio de R$ 1 milhão ao vencedor; classificação única vale para as duas corridas do fim de semana', s: [{ t: 'Classificação', d: '2026-11-14', h: '08:30' }, { t: 'Corrida Sprint', d: '2026-11-14', h: '14:18' }, { t: 'Warm-up', d: '2026-11-15', h: '09:15' }, { t: 'Corrida do Milhão', d: '2026-11-15', h: '12:13' }], parcial: 'Corrida Sprint: Gaetano di Mauro (Eurofarma RC)' },
+    { e: 11, n: 'Etapa 11', l: 'Velopark (RS)', d: '2026-11-15', nota: 'Corrida do Milhão, com prêmio de R$ 1 milhão ao vencedor; classificação única vale para as duas corridas do fim de semana. Baptista assumiu a ponta com a pista secando após uma largada atrasada pela chuva; Fraga, líder do campeonato, terminou em 7º.', s: [{ t: 'Classificação', d: '2026-11-14', h: '08:30' }, { t: 'Corrida Sprint', d: '2026-11-14', h: '14:18' }, { t: 'Warm-up', d: '2026-11-15', h: '09:15' }, { t: 'Corrida do Milhão', d: '2026-11-15', h: '12:13' }], venc: 'Corrida Sprint: Gaetano di Mauro (Eurofarma RC) · Corrida do Milhão: Felipe Baptista (Sterling Racing)' },
     { e: 12, n: 'Final', l: 'Interlagos (SP)', d: '2026-12-13' }
   ],
   classificacao: {
