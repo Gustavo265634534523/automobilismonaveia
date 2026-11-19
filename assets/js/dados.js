@@ -1,8 +1,8 @@
-/* Dados das categorias. Atualizado em 18/11/2026.
+/* Dados das categorias. Atualizado em 19/11/2026.
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '18 de novembro de 2026';
+window.ATUALIZADO = '19 de novembro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -52,7 +52,7 @@ window.CATEGORIAS = [
     { e: 19, n: 'GP da Cidade do México', l: 'Hermanos Rodríguez', d: '2026-11-01', s: [{ t: 'Treino livre 1', d: '2026-10-30', h: '15:30' }, { t: 'Treino livre 2', d: '2026-10-30', h: '19:00' }, { t: 'Treino livre 3', d: '2026-10-31', h: '14:30' }, { t: 'Classificação', d: '2026-10-31', h: '18:00' }, { t: 'Corrida', d: '2026-11-01', h: '17:00' }], nota: 'Leclerc levou 5s de punição após se tocar com Hamilton na primeira volta. Piastri e Colapinto também foram punidos, e Gasly recebeu stop-and-go, após a corrida ter sido fechada por bandeira vermelha no meio do GP. Antonelli fechou o título de pilotos de 2026 com o terceiro lugar, aos 20 anos, o campeão mais jovem da história da F1.', venc: 'Max Verstappen (Red Bull)' },
     { e: 20, n: 'GP de São Paulo', l: 'Interlagos', d: '2026-11-08', nota: 'pela primeira vez desde 2021, o GP de São Paulo não faz parte do calendário de sprints da F1 em 2026; o fim de semana volta ao formato tradicional. Norris venceu em prova de pista molhada, com Verstappen subindo do 21º ao 2º lugar e dando à Red Bull o pódio duplo ao lado de Hadjar; Antonelli e Leclerc receberam punições de 5s mas mantiveram suas posições.', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '12:30' }, { t: 'Treino livre 2', d: '2026-11-06', h: '16:00' }, { t: 'Treino livre 3', d: '2026-11-07', h: '11:30' }, { t: 'Classificação', d: '2026-11-07', h: '15:00' }, { t: 'Corrida', d: '2026-11-08', h: '14:00' }], venc: 'Lando Norris (McLaren)' },
     { e: 21, n: 'GP de Las Vegas', l: 'Las Vegas', d: '2026-11-22', s: [{ t: 'Treino livre 1', d: '2026-11-19', h: '21:30' }, { t: 'Treino livre 2', d: '2026-11-20', h: '01:00' }, { t: 'Treino livre 3', d: '2026-11-20', h: '21:30' }, { t: 'Classificação', d: '2026-11-21', h: '01:00' }, { t: 'Corrida', d: '2026-11-22', h: '01:00' }] },
-    { e: 22, n: 'GP do Catar', l: 'Lusail', d: '2026-11-29' },
+    { e: 22, n: 'GP do Catar', l: 'Lusail', d: '2026-11-29', s: [{ t: 'Treino livre 1', d: '2026-11-27', h: '10:30' }, { t: 'Treino livre 2', d: '2026-11-27', h: '14:00' }, { t: 'Treino livre 3', d: '2026-11-28', h: '11:30' }, { t: 'Classificação', d: '2026-11-28', h: '15:00' }, { t: 'Corrida', d: '2026-11-29', h: '13:00' }] },
     { e: 23, n: 'GP de Abu Dhabi', l: 'Yas Marina', d: '2026-12-06' }
   ],
   classificacao: {
