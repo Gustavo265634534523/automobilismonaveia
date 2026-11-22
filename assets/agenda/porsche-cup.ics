@@ -8,7 +8,7 @@ X-WR-TIMEZONE:America/Sao_Paulo
 REFRESH-INTERVAL;VALUE=DURATION:PT6H
 X-PUBLISHED-TTL:PT6H
 BEGIN:VEVENT
-DTSTAMP:20261119T110700Z
+DTSTAMP:20261122T103800Z
 UID:porsche-cup-7-2026-10-03-Corrida@naveia
 DTSTART:20261003T160000Z
 DTEND:20261003T180000Z
@@ -24,18 +24,19 @@ TRIGGER:-PT30M
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20261119T110700Z
+DTSTAMP:20261122T103800Z
 UID:porsche-cup-8-dia@naveia
 DTSTART;VALUE=DATE:20261122
 DTEND;VALUE=DATE:20261123
 SUMMARY:Porsche Cup: Etapa 8\, Challenge e Trophy
 LOCATION:Interlagos (SP)\, não acontece mais em Goiânia\, porque o repar
  o do asfalto do autódromo não ficou pronto a tempo\; remarcada para Int
- erlagos\, nos dias 21 e 22 de novembro
+ erlagos\, nos dias 21 e 22 de novembro. No sábado\, Daniel Neumann vence
+ u a corrida 1 do Challenge e Marcelo Kairis a corrida 1 do Trophy.
 DESCRIPTION:Horários ainda não divulgados. Automobilismo Na Veia.
 END:VEVENT
 BEGIN:VEVENT
-DTSTAMP:20261119T110700Z
+DTSTAMP:20261122T103800Z
 UID:porsche-cup-10-dia@naveia
 DTSTART;VALUE=DATE:20261128
 DTEND;VALUE=DATE:20261129
