@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '24 de novembro de 2026';
+window.ATUALIZADO = '25 de novembro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -587,8 +587,8 @@ window.CATEGORIAS = [
   classificacao: {
     titulo: 'Pilotos (após o GP de Portugal, etapa 21 de 22)',
     colunas: ['Pos', 'Piloto', 'Equipe', 'Pts'],
-    linhas: [['1', 'Marc Márquez', 'Ducati Lenovo', '439'], ['2', 'Jorge Martín', 'Aprilia Racing', '396'], ['3', 'Marco Bezzecchi', 'Aprilia Racing', '394'], ['4', 'Pedro Acosta', 'Red Bull KTM', '315'], ['5', 'Ai Ogura', 'Trackhouse', '309'], ['6', 'Fabio Di Giannantonio', 'VR46', '298'], ['7', 'Raúl Fernández', 'Trackhouse', '283'], ['8', 'Álex Márquez', 'Gresini', '204'], ['9', 'Francesco Bagnaia', 'Ducati Lenovo', '173'], ['10', 'Fermín Aldeguer', 'Gresini', '125'], ['11', 'Enea Bastianini', 'KTM Tech3', '116'], ['12', 'Luca Marini', 'Honda HRC', '104'], ['13', 'Brad Binder', 'Red Bull KTM', '99'], ['14', 'Diogo Moreira', 'LCR Honda', '74'], ['15', 'Fabio Quartararo', 'Yamaha', '66'], ['16', 'Franco Morbidelli', 'VR46', '56'], ['17', 'Johann Zarco', 'LCR Honda', '45'], ['18', 'Joan Mir', 'Honda HRC', '33'], ['19', 'Jack Miller', 'Pramac Yamaha', '28'], ['20', 'Álex Rins', 'Yamaha', '24'], ['21', 'Toprak Razgatlıoğlu', 'Pramac Yamaha', '18'], ['22', 'Maverick Viñales', 'KTM Tech3', '10']],
-    nota: 'Classificação dos oito primeiros confirmada após o GP de Portugal (etapa 21 de 22); as posições a partir da 9ª ainda refletem a pontuação anterior ao GP do Catar, sem confirmação oficial completa para esta etapa. Marc Márquez garantiu o título mundial de pilotos ao terminar em oitavo em Portimão, precisando apenas ficar entre os nove primeiros: é campeão da categoria principal pela oitava vez, empatando com Giacomo Agostini, e conquistou o décimo título da carreira. Marco Bezzecchi venceu a Sprint e a corrida principal, completando um 1-2-3 da Aprilia com Jorge Martín e Raúl Fernández; o vice-campeonato segue em aberto entre Martín e Bezzecchi para a última etapa, em Valência.'
+    linhas: [['1', 'Marc Márquez', 'Ducati Lenovo', '439'], ['2', 'Jorge Martín', 'Aprilia Racing', '396'], ['3', 'Marco Bezzecchi', 'Aprilia Racing', '394'], ['4', 'Pedro Acosta', 'Red Bull KTM', '315'], ['5', 'Ai Ogura', 'Trackhouse', '309'], ['6', 'Fabio Di Giannantonio', 'VR46', '298'], ['7', 'Raúl Fernández', 'Trackhouse', '283'], ['8', 'Álex Márquez', 'Gresini', '204'], ['9', 'Francesco Bagnaia', 'Ducati Lenovo', '173'], ['10', 'Enea Bastianini', 'KTM Tech3', '152'], ['11', 'Fermín Aldeguer', 'Gresini', '139'], ['12', 'Brad Binder', 'Red Bull KTM', '127'], ['13', 'Luca Marini', 'Honda HRC', '124'], ['14', 'Fabio Quartararo', 'Yamaha', '85'], ['15', 'Diogo Moreira', 'LCR Honda', '78'], ['16', 'Franco Morbidelli', 'VR46', '71'], ['17', 'Johann Zarco', 'LCR Honda', '63'], ['18', 'Jack Miller', 'Pramac Yamaha', '34'], ['19', 'Joan Mir', 'Honda HRC', '33'], ['20', 'Álex Rins', 'Yamaha', '31'], ['21', 'Toprak Razgatlıoğlu', 'Pramac Yamaha', '18'], ['22', 'Maverick Viñales', 'KTM Tech3', '17']],
+    nota: 'Classificação completa confirmada após o GP de Portugal (etapa 21 de 22, Portimão). Marc Márquez garantiu o título mundial de pilotos ao terminar em oitavo em Portimão, precisando apenas ficar entre os nove primeiros: é campeão da categoria principal pela oitava vez, empatando com Giacomo Agostini, e conquistou o décimo título da carreira. Marco Bezzecchi venceu a Sprint e a corrida principal, completando um 1-2-3 da Aprilia com Jorge Martín e Raúl Fernández; o vice-campeonato segue em aberto entre Martín e Bezzecchi para a última etapa, em Valência.'
   },
   equipes: [
     { n: 'Aprilia Racing', i: 'Aprilia', p: ['Jorge Martín', 'Marco Bezzecchi'] },
