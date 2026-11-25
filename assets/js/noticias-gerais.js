@@ -4,7 +4,7 @@
    "manchete: true" coloca a notícia no destaque do topo. As notícias de cada categoria em dados.js também entram sozinhas na página. */
 
 /* Data e hora da última atualização (horário de Brasília). */
-window.NOTICIAS_ATUALIZADO = '2026-11-24T08:03:00-03:00';
+window.NOTICIAS_ATUALIZADO = '2026-11-25T08:03:00-03:00';
 
 window.NOTICIAS_GERAIS = [
   { d: '2026-11-17', cat: 'dakar', t: 'Aston Martin estreia no Dakar em 2027 com Alonso, Loeb e Lucas Moraes', x: 'A Aston Martin confirmou que vai disputar o Dakar pela primeira vez em 2027, com uma equipe de três carros Dreadnought construídos pela Prodrive. A escalação reúne Fernando Alonso, o francês Sébastien Loeb e o brasileiro Lucas Moraes, campeão de rali-raid e já pódio no Dakar. Alonso disse que a Fórmula 1 continua sendo sua prioridade. A prova de 2027 sai da Arábia Saudita e passa a ser disputada em Portugal e Marrocos, de 9 a 23 de janeiro.', t_en: 'Aston Martin to make Dakar debut in 2027 with Alonso, Loeb and Lucas Moraes', x_en: 'Aston Martin confirmed it will contest the Dakar Rally for the first time in 2027, fielding a three-car effort with Prodrive-built Dreadnought buggies. The line-up brings together Fernando Alonso, Frenchman Sébastien Loeb and Brazilian Lucas Moraes, a rally-raid champion and Dakar podium finisher. Alonso said Formula 1 remains his priority. The 2027 race moves out of Saudi Arabia and will run through Portugal and Morocco from January 9 to 23.' },
