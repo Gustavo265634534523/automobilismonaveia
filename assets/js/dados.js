@@ -2,7 +2,7 @@
    Para atualizar: troque os valores abaixo. Datas no formato AAAA-MM-DD.
    Uma etapa com "venc" (vencedor) aparece como encerrada. Sem "d", a data fica "a confirmar". */
 
-window.ATUALIZADO = '25 de novembro de 2026';
+window.ATUALIZADO = '26 de novembro de 2026';
 /* Horários das sessões (s) sempre no horário de Brasília. */
 window.YOUTUBE = 'https://www.youtube.com/@EsporteNaVeia';
 
@@ -53,7 +53,7 @@ window.CATEGORIAS = [
     { e: 20, n: 'GP de São Paulo', l: 'Interlagos', d: '2026-11-08', nota: 'pela primeira vez desde 2021, o GP de São Paulo não faz parte do calendário de sprints da F1 em 2026; o fim de semana volta ao formato tradicional. Norris venceu em prova de pista molhada, com Verstappen subindo do 21º ao 2º lugar e dando à Red Bull o pódio duplo ao lado de Hadjar; Antonelli e Leclerc receberam punições de 5s mas mantiveram suas posições.', s: [{ t: 'Treino livre 1', d: '2026-11-06', h: '12:30' }, { t: 'Treino livre 2', d: '2026-11-06', h: '16:00' }, { t: 'Treino livre 3', d: '2026-11-07', h: '11:30' }, { t: 'Classificação', d: '2026-11-07', h: '15:00' }, { t: 'Corrida', d: '2026-11-08', h: '14:00' }], venc: 'Lando Norris (McLaren)' },
     { e: 21, n: 'GP de Las Vegas', l: 'Las Vegas', d: '2026-11-22', s: [{ t: 'Treino livre 1', d: '2026-11-19', h: '21:30' }, { t: 'Treino livre 2', d: '2026-11-20', h: '01:00' }, { t: 'Treino livre 3', d: '2026-11-20', h: '21:30' }, { t: 'Classificação', d: '2026-11-21', h: '01:00' }, { t: 'Corrida', d: '2026-11-22', h: '01:00' }], nota: 'Russell bateu ao tentar passar o companheiro de equipe Antonelli, que perdeu desempenho de repente na última volta e caiu para 4º; Pérez abandonou após acidente.', venc: 'Max Verstappen (Red Bull)' },
     { e: 22, n: 'GP do Catar', l: 'Lusail', d: '2026-11-29', s: [{ t: 'Treino livre 1', d: '2026-11-27', h: '10:30' }, { t: 'Treino livre 2', d: '2026-11-27', h: '14:00' }, { t: 'Treino livre 3', d: '2026-11-28', h: '11:30' }, { t: 'Classificação', d: '2026-11-28', h: '15:00' }, { t: 'Corrida', d: '2026-11-29', h: '13:00' }] },
-    { e: 23, n: 'GP de Abu Dhabi', l: 'Yas Marina', d: '2026-12-06' }
+    { e: 23, n: 'GP de Abu Dhabi', l: 'Yas Marina', d: '2026-12-06', s: [{ t: 'Treino livre 1', d: '2026-12-04', h: '06:30' }, { t: 'Treino livre 2', d: '2026-12-04', h: '10:00' }, { t: 'Treino livre 3', d: '2026-12-05', h: '07:30' }, { t: 'Classificação', d: '2026-12-05', h: '11:00' }, { t: 'Corrida', d: '2026-12-06', h: '10:00' }] }
   ],
   classificacao: {
     titulo: 'Pilotos (após o GP da Cidade do México)',
